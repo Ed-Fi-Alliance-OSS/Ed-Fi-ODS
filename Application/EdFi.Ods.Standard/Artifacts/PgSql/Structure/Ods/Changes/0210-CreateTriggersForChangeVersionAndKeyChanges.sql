@@ -265,12 +265,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.gradebookentry(
-        olddateassigned, oldgradebookentrytitle, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, 
-        newdateassigned, newgradebookentrytitle, newlocalcoursecode, newschoolid, newschoolyear, newsectionidentifier, newsessionname, 
+        oldgradebookentryidentifier, oldsourcesystemnamespace, 
+        newgradebookentryidentifier, newsourcesystemnamespace, 
         id, changeversion)
     VALUES (
-        old.dateassigned, old.gradebookentrytitle, old.localcoursecode, old.schoolid, old.schoolyear, old.sectionidentifier, old.sessionname, 
-        new.dateassigned, new.gradebookentrytitle, new.localcoursecode, new.schoolid, new.schoolyear, new.sectionidentifier, new.sessionname, 
+        old.gradebookentryidentifier, old.sourcesystemnamespace, 
+        new.gradebookentryidentifier, new.sourcesystemnamespace, 
         old.id, (nextval('changes.changeversionsequence')));
 
     RETURN null;
@@ -278,7 +278,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'gradebookentry') THEN
-    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF dateassigned, gradebookentrytitle, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname ON edfi.gradebookentry
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF gradebookentryidentifier, sourcesystemnamespace ON edfi.gradebookentry
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.gradebookentry_keychg();
 END IF;
 
@@ -718,12 +718,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.studentgradebookentry(
-        oldbegindate, olddateassigned, oldgradebookentrytitle, oldlocalcoursecode, oldschoolid, oldschoolyear, oldsectionidentifier, oldsessionname, oldstudentusi, oldstudentuniqueid, 
-        newbegindate, newdateassigned, newgradebookentrytitle, newlocalcoursecode, newschoolid, newschoolyear, newsectionidentifier, newsessionname, newstudentusi, newstudentuniqueid, 
+        oldgradebookentryidentifier, oldsourcesystemnamespace, oldstudentusi, oldstudentuniqueid, 
+        newgradebookentryidentifier, newsourcesystemnamespace, newstudentusi, newstudentuniqueid, 
         id, changeversion)
     VALUES (
-        old.begindate, old.dateassigned, old.gradebookentrytitle, old.localcoursecode, old.schoolid, old.schoolyear, old.sectionidentifier, old.sessionname, old.studentusi, dj0.studentuniqueid, 
-        new.begindate, new.dateassigned, new.gradebookentrytitle, new.localcoursecode, new.schoolid, new.schoolyear, new.sectionidentifier, new.sessionname, new.studentusi, ij0.studentuniqueid, 
+        old.gradebookentryidentifier, old.sourcesystemnamespace, old.studentusi, dj0.studentuniqueid, 
+        new.gradebookentryidentifier, new.sourcesystemnamespace, new.studentusi, ij0.studentuniqueid, 
         old.id, (nextval('changes.changeversionsequence')));
 
     RETURN null;
@@ -731,7 +731,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'studentgradebookentry') THEN
-    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF begindate, dateassigned, gradebookentrytitle, localcoursecode, schoolid, schoolyear, sectionidentifier, sessionname, studentusi ON edfi.studentgradebookentry
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF gradebookentryidentifier, sourcesystemnamespace, studentusi ON edfi.studentgradebookentry
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.studentgradebookentry_keychg();
 END IF;
 

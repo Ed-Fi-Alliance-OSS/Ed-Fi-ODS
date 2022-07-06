@@ -389,14 +389,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 // Linked collection definition names are constructed by compounding each collection level name.
                 var expectedLinkedCollectionDefinitionName =
-                    "assessment_objectiveAssessment_objectiveAssessmentLearningObjective_learningObjectiveLearningStandard_learningStandardIdentificationCode";
+                    "assessment_objectiveAssessment";
 
                 var actualCollectionsDefinition = _actualDefinitions[expectedLinkedCollectionDefinitionName];
 
                 var expectedCollectionProperties = new[]
                 {
-                    "contentStandardName",
-                    "identificationCode"
+                    "id",
+                    "identificationCode",
+                    "description",
+                    "maxRawScore",
+                    "nomenclature",
+                    "percentOfAssessment",
+                    "objectiveAssessmentPerformanceLevels"
                 };
 
                 AssertHelper.All(
@@ -410,30 +415,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             [Assert]
             public void Should_return_a_correctly_constructed_resource_reference_definition_specified_in_composite_definition()
             {
-                var expectedReferenceDefinitionName =
-                    "assessment_objectiveAssessment_objectiveAssessmentLearningObjective_learningObjectiveLearningStandard";
+                // Linked collection definition names are constructed by compounding each collection level name.
+                var expectedLinkedCollectionDefinitionName =
+                    "assessment_objectiveAssessment_objectiveAssessmentPerformanceLevel";
 
-                var expectedReferenceProperties = new[]
+                var actualCollectionsDefinition = _actualDefinitions[expectedLinkedCollectionDefinitionName];
+
+                var expectedCollectionProperties = new[]
                 {
-                    "id",
-                    "description",
-                    "learningStandardId",
-                    "namespace",
-                    "courseTitle",
-                    "learningStandardItemCode",
-                    "successCriteria",
-                    "uri",
-                    "learningStandardIdentificationCodes"
+                    "performanceLevelDescriptor",
+                    "assessmentReportingMethodDescriptor",
+                    "minimumScore",
+                    "maximumScore",
+                    "resultDatatypeTypeDescriptor"
                 };
-
-                Schema actualReferenceDefinition;
-                _actualDefinitions.TryGetValue(expectedReferenceDefinitionName, out actualReferenceDefinition);
 
                 AssertHelper.All(
                     () => Assert.That(
-                        actualReferenceDefinition, Is.Not.Null,
-                        $"No definition found for expected reference definition {expectedReferenceDefinitionName}"),
-                    () => Assert.That(actualReferenceDefinition.properties.Keys, Is.EquivalentTo(expectedReferenceProperties)));
+                        actualCollectionsDefinition, Is.Not.Null,
+                        $"No definition found for expected linked collection definition {expectedLinkedCollectionDefinitionName}"),
+                    () => Assert.That(
+                        actualCollectionsDefinition.properties.Keys, Is.EquivalentTo(expectedCollectionProperties)));
             }
         }
     }

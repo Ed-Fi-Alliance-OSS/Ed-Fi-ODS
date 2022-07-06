@@ -486,17 +486,17 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.GradebookEntry(
-        OldDateAssigned, OldGradebookEntryTitle, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, 
-        NewDateAssigned, NewGradebookEntryTitle, NewLocalCourseCode, NewSchoolId, NewSchoolYear, NewSectionIdentifier, NewSessionName, 
+        OldGradebookEntryIdentifier, OldSourceSystemNamespace, 
+        NewGradebookEntryIdentifier, NewSourceSystemNamespace, 
         Id, ChangeVersion)
     SELECT
-        d.DateAssigned, d.GradebookEntryTitle, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, 
-        i.DateAssigned, i.GradebookEntryTitle, i.LocalCourseCode, i.SchoolId, i.SchoolYear, i.SectionIdentifier, i.SessionName, 
+        d.GradebookEntryIdentifier, d.SourceSystemNamespace, 
+        i.GradebookEntryIdentifier, i.SourceSystemNamespace, 
         d.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
 
     WHERE
-        d.DateAssigned <> i.DateAssigned OR d.GradebookEntryTitle <> i.GradebookEntryTitle OR d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName;
+        d.GradebookEntryIdentifier <> i.GradebookEntryIdentifier OR d.SourceSystemNamespace <> i.SourceSystemNamespace;
 END	
 GO
 
@@ -1182,12 +1182,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StudentGradebookEntry(
-        OldBeginDate, OldDateAssigned, OldGradebookEntryTitle, OldLocalCourseCode, OldSchoolId, OldSchoolYear, OldSectionIdentifier, OldSessionName, OldStudentUSI, OldStudentUniqueId, 
-        NewBeginDate, NewDateAssigned, NewGradebookEntryTitle, NewLocalCourseCode, NewSchoolId, NewSchoolYear, NewSectionIdentifier, NewSessionName, NewStudentUSI, NewStudentUniqueId, 
+        OldGradebookEntryIdentifier, OldSourceSystemNamespace, OldStudentUSI, OldStudentUniqueId, 
+        NewGradebookEntryIdentifier, NewSourceSystemNamespace, NewStudentUSI, NewStudentUniqueId, 
         Id, ChangeVersion)
     SELECT
-        d.BeginDate, d.DateAssigned, d.GradebookEntryTitle, d.LocalCourseCode, d.SchoolId, d.SchoolYear, d.SectionIdentifier, d.SessionName, d.StudentUSI, dj0.StudentUniqueId, 
-        i.BeginDate, i.DateAssigned, i.GradebookEntryTitle, i.LocalCourseCode, i.SchoolId, i.SchoolYear, i.SectionIdentifier, i.SessionName, i.StudentUSI, ij0.StudentUniqueId, 
+        d.GradebookEntryIdentifier, d.SourceSystemNamespace, d.StudentUSI, dj0.StudentUniqueId, 
+        i.GradebookEntryIdentifier, i.SourceSystemNamespace, i.StudentUSI, ij0.StudentUniqueId, 
         d.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
         INNER JOIN edfi.Student dj0
@@ -1196,7 +1196,7 @@ BEGIN
             ON i.StudentUSI = ij0.StudentUSI
 
     WHERE
-        d.BeginDate <> i.BeginDate OR d.DateAssigned <> i.DateAssigned OR d.GradebookEntryTitle <> i.GradebookEntryTitle OR d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName OR d.StudentUSI <> i.StudentUSI;
+        d.GradebookEntryIdentifier <> i.GradebookEntryIdentifier OR d.SourceSystemNamespace <> i.SourceSystemNamespace OR d.StudentUSI <> i.StudentUSI;
 END	
 GO
 

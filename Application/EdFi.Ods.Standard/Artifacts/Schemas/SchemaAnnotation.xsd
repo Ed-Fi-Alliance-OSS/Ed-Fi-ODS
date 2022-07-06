@@ -32,6 +32,7 @@
       <xs:enumeration value="AssessmentItemResultDescriptor" />
       <xs:enumeration value="AssessmentPeriodDescriptor" />
       <xs:enumeration value="AssessmentReportingMethodDescriptor" />
+      <xs:enumeration value="AssignmentLateStatusDescriptor" />
       <xs:enumeration value="AttemptStatusDescriptor" />
       <xs:enumeration value="AttendanceEventCategoryDescriptor" />
       <xs:enumeration value="BarrierToInternetAccessInResidenceDescriptor" />
@@ -185,6 +186,7 @@
       <xs:enumeration value="StudentCharacteristicDescriptor" />
       <xs:enumeration value="StudentIdentificationSystemDescriptor" />
       <xs:enumeration value="StudentParticipationCodeDescriptor" />
+      <xs:enumeration value="SubmissionStatusDescriptor" />
       <xs:enumeration value="SurveyCategoryDescriptor" />
       <xs:enumeration value="SurveyLevelDescriptor" />
       <xs:enumeration value="TeachingCredentialBasisDescriptor" />

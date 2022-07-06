@@ -1765,7 +1765,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
 
         /// <summary>
-        /// The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.
+        /// The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.Sample.IBusRouteProgram.ProgramName
@@ -4673,21 +4673,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
@@ -4889,7 +4889,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
 
         /// <summary>
-        /// A unique identifier for the EducationContent.
+        /// A unique identifier for the education content.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.Sample.IParentEducationContent.ContentIdentifier
@@ -6076,7 +6076,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
 
         /// <summary>
-        /// The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.
+        /// The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.Sample.IParentStudentProgramAssociation.ProgramName
@@ -6717,21 +6717,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
@@ -10123,7 +10123,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
 
         /// <summary>
-        /// The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.
+        /// The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.EdFi.IGeneralStudentProgramAssociation.ProgramName
@@ -10286,21 +10286,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The month, day, and year on which the Student exited the Program or stopped receiving services.
+        /// The month, day, and year on which the student exited the program or stopped receiving services.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
-        /// The reason the child left the Program within a school or district.
+        /// The reason the student left the program within a school or district.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="reasonExitedDescriptor")]
         public string ReasonExitedDescriptor { get; set; }
 
         /// <summary>
-        /// Indicates whether the Student received services during the summer session or between sessions.
+        /// Indicates whether the student received services during the summer session or between sessions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="servedOutsideOfRegularSession")]
@@ -11324,7 +11324,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
 
         /// <summary>
-        /// Indicates the Service being provided to the student by the Program.
+        /// Indicates the service being provided to the student by the program.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="serviceDescriptor"), NaturalKeyMember]
@@ -11401,14 +11401,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         public bool? PrimaryIndicator { get; set; }
 
         /// <summary>
-        /// First date the Student was in this option for the current school year.
+        /// First date the student was in this option for the current school year.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? ServiceBeginDate { get; set; }
 
         /// <summary>
-        /// Last date the Student was in this option for the current school year.
+        /// Last date the student was in this option for the current school year.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="serviceEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -13572,7 +13572,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
 
         /// <summary>
-        /// The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.
+        /// The type of academic plan the student is following for graduation.
         /// </summary>
 
         // IS in a reference (StudentGraduationPlanAssociation.GraduationPlanTypeDescriptorId), IS a lookup column 
@@ -14910,21 +14910,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
@@ -18104,7 +18104,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
 
         /// <summary>
-        /// Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...
+        /// Reflects the type of employment or contract.
         /// </summary>
 
         // IS in a reference (StudentParentAssociationStaffEducationOrganizationEmploymentAssociation.EmploymentStatusDescriptorId), IS a lookup column 
@@ -19434,7 +19434,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         }
 
         /// <summary>
-        /// The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.
+        /// The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedProgramName
