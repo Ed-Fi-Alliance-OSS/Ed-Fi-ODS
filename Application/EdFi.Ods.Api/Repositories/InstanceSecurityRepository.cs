@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Security.DataAccess.Models;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
@@ -55,8 +56,14 @@ namespace EdFi.Security.DataAccess.Repositories
             var instanceSecurityRepoCacheObject = InstanceSecurityRepositoryCache.GetCache()
                 .GetSecurityRepository(instanceId);
 
-            return instanceSecurityRepoCacheObject.Actions
-                .First(a => a.ActionName.EqualsIgnoreCase(actionName));
+            var action = instanceSecurityRepoCacheObject.Actions.FirstOrDefault(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (action == null)
+            {
+                throw new ApiSecurityConfigurationException($"Action '{actionName}' not found in the security metadata.");
+            }
+            
+            return action;
         }
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
@@ -207,16 +214,6 @@ namespace EdFi.Security.DataAccess.Repositories
 
             return instanceSecurityRepoCacheObject.ResourceClaims
                 .FirstOrDefault(rc => rc.ResourceName.EqualsIgnoreCase(resourceName));
-        }
-
-        public void LoadRecordOwnershipData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void LoadMultipleAuthorizationStrategyData()
-        {
-            throw new NotImplementedException();
         }
     }
 }

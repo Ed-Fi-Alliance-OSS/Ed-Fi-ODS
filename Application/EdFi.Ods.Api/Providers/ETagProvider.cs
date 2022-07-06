@@ -10,7 +10,6 @@ using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Api.Providers
 {
-    // TODO: Revisit
     public class ETagProvider : IETagProvider
     {
         public string GetETag(object entity)
@@ -20,10 +19,8 @@ namespace EdFi.Ods.Api.Providers
                 return null;
             }
 
-            var versionEntity = entity as IDateVersionedEntity;
-
             // Handle entities
-            if (versionEntity != null)
+            if (entity is IDateVersionedEntity versionEntity)
             {
                 var dateToGenerateEtagFrom = versionEntity.LastModifiedDate;
 
@@ -43,34 +40,28 @@ namespace EdFi.Ods.Api.Providers
             }
 
             // Handle resources
-            var resourceEntity = entity as IHasETag;
-
-            if (resourceEntity != null)
+            if (entity is IHasETag resourceEntity)
             {
                 return resourceEntity.ETag;
             }
 
             // Handle date values
-            var dateValue = entity as DateTime?;
-
-            if (dateValue.HasValue)
+            if (entity is DateTime dateValue)
             {
                 // Utc - No conversion is performed.
                 // Local - The current DateTime object is converted to UTC.
                 // Unspecified - The current DateTime object is assumed to be a local time, and the conversion is performed as if Kind were Local.
                 // See https://docs.microsoft.com/en-us/dotnet/api/system.datetime.touniversaltime?view=netframework-4.5#System_DateTime_ToUniversalTime
-                var standardizedEtagDateTime = dateValue.Value.ToUniversalTime();
+                var standardizedEtagDateTime = dateValue.ToUniversalTime();
 
                 return standardizedEtagDateTime.ToBinary()
                                                .ToString(CultureInfo.InvariantCulture);
             }
 
             // Handle guids
-            var guidValue = entity as Guid?;
-
-            if (guidValue.HasValue)
+            if (entity is Guid guidValue)
             {
-                return guidValue.Value.ToString("N");
+                return guidValue.ToString("N");
             }
 
             // Handle strings
@@ -86,9 +77,7 @@ namespace EdFi.Ods.Api.Providers
 
         public DateTime GetDateTime(string etag)
         {
-            long result;
-
-            if (!string.IsNullOrWhiteSpace(etag) && long.TryParse(etag, out result))
+            if (!string.IsNullOrWhiteSpace(etag) && long.TryParse(etag, out long result))
             {
                 try
                 {

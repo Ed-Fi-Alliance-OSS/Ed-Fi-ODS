@@ -8,6 +8,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Common.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +20,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
     [SetUpFixture]
     public class YearSpecificHostGlobalFixture
     {
-        private MsSqlDatabaseHelper _databaseHelper;
+        private IDatabaseHelper _databaseHelper;
 
         public static IHost Host { get; set; }
 
@@ -31,13 +32,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
         public async Task OneTimeStartup()
         {
             var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(GlobalWebApiIntegrationTestFixture).Assembly.Location);
+            var databaseEngine = DbHelper.GetDatabaseEngine();
 
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
                 .ConfigureAppConfiguration(
                     (hostBuilderContext, configBuilder) =>
                     {
                         configBuilder.SetBasePath(executableAbsoluteDirectory)
-                            .AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.json"))
+                            .AddJsonFile(Path.Combine(executableAbsoluteDirectory, $"appsettings.{(databaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json"), true)
                             .AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.yearspecific.json"));
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -67,7 +69,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
                         "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
                 }
 
-                _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot) Configuration);
+                if (databaseEngine == DatabaseEngine.SqlServer)
+                {
+                    _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot)Configuration);
+                }
+                else
+                {
+                    _databaseHelper = new PgSqlDatabaseHelper((IConfigurationRoot)Configuration);
+                }
 
                 // year specific databases
                 _databaseHelper.CopyDatabase(
@@ -86,8 +95,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
             await Host?.StopAsync();
             Host?.Dispose();
 
-            _databaseHelper.DropDatabase($"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2014");
-            _databaseHelper.DropDatabase($"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2015");
+            _databaseHelper.DropMatchingDatabases($"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2014");
+            _databaseHelper.DropMatchingDatabases($"{GlobalWebApiIntegrationTestFixture.DatabaseName}_2015");
         }
     }
 }

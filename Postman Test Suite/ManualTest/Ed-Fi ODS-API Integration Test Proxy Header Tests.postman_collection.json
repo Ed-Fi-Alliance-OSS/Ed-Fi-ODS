@@ -1,0 +1,389 @@
+{
+	"info": {
+		"_postman_id": "a9ff6762-df35-4191-a9ce-98934a86be0d",
+		"name": "Ed-Fi ODS/API Integration Test Suite Proxy Header Tests",
+		"description": "This set of tests validates aspects of reverse proxy forwarding. Before running them, ensure that the following value is set in the appsettings file:\n\n```\n\"ApiSettings\": {\n        \"UseReverseProxyHeaders\": true\n }\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "X-Forwarded-Proto",
+			"item": [
+				{
+					"name": "Accepts \"https, http\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Proto",
+								"value": "https, http",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Port",
+								"value": "443",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-For",
+								"value": "localhost",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Falls back to actual protocol",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accepts \"https\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Proto",
+								"value": "https",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Port",
+								"value": "443",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-For",
+								"value": "localhost",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "X-Forwarded-Host",
+			"item": [
+				{
+					"name": "Uses Forward Host in URLs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.urls.dependencies).to.eql(\"https://whatever/metadata/data/v3/dependencies\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Proto",
+								"value": "https, http",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Port",
+								"value": "443",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-For",
+								"value": "localhost",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Falls back to configured host in URLs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+									"    let jsonData = pm.response.json();\r",
+									"\r",
+									"    const baseUrl = pm.environment.get(\"ApiSettingsHost\");\r",
+									"    pm.expect(jsonData.urls.dependencies).to.eql(`https://${baseUrl}/metadata/data/v3/dependencies`);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Proto",
+								"value": "https",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Port",
+								"value": "{{ApiPort}}",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-For",
+								"value": "{{ApiServer}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "X-Forwarded-Port",
+			"item": [
+				{
+					"name": "Uses Forward Port in URLs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.urls.dependencies).to.eql(\"http://whatever:589/metadata/data/v3/dependencies\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Port",
+								"value": "589",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Falls Back to configured port in URls",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    const apiPort = pm.environment.get(\"ApiPort\");\r",
+									"    pm.expect(jsonData.urls.dependencies).to.eql(`http://whatever:${apiPort}/metadata/data/v3/dependencies`);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-For",
+								"value": "localhost",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Uses X-Forwarded-XYZ headers to build URLs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const baseUrl = \"bogus://myserver:9876\";\r",
+							"\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.urls.dependencies).to.eql(`${baseUrl}/metadata/data/v3/dependencies`);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Forwarded-Proto",
+						"value": "bogus",
+						"type": "text"
+					},
+					{
+						"key": "X-Forwarded-Host",
+						"value": "myserver",
+						"type": "text"
+					},
+					{
+						"key": "X-Forwarded-Port",
+						"value": "9876",
+						"type": "text"
+					},
+					{
+						"key": "X-Forwarded-For",
+						"value": "localhost",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -28,5 +28,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public FullName AggregateRootEntityName { get; set; }
 
         public FullName[] AggregateEntityNames { get; set; }
+
+        public override string ToString() => AggregateRootEntityName.ToString();
     }
 }

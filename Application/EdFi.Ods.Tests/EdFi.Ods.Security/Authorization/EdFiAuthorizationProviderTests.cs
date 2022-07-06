@@ -416,6 +416,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                             ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
                         });
 
+                A.CallTo(() => securityRepository.GetActionByName("ReadChanges"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1, ActionName = "ReadChanges", ActionUri = "http://ACTIONS/readChanges"
+                        });
+
                 // NOTE: These mocks create results for a implied resource claim lineage where Resource 1 is the lowest level claim,
                 // and Resource Claim 4 is the highest level claim.
                 //
@@ -2205,6 +2212,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     new Action
                     {
                         ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
+                    });
+            
+            A.CallTo(() => securityRepository.GetActionByName("ReadChanges"))
+                .Returns(
+                    new Action
+                    {
+                        ActionId = 1, ActionName = "ReadChanges", ActionUri = "http://ACTIONS/readChanges"
                     });
 
             return securityRepository;

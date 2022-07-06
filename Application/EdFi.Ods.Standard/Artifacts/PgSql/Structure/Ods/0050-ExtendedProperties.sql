@@ -37,12 +37,12 @@ COMMENT ON COLUMN edfi.Account.AccountName IS 'A descriptive name for the accoun
 -- Extended Properties [edfi].[AccountabilityRating] --
 COMMENT ON TABLE edfi.AccountabilityRating IS 'An accountability rating for a school or district.';
 COMMENT ON COLUMN edfi.AccountabilityRating.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.AccountabilityRating.RatingTitle IS 'The title of the rating (e.g., School Rating, Safety Score).';
-COMMENT ON COLUMN edfi.AccountabilityRating.SchoolYear IS 'The school year for which the AccountabilityRating is assessed.';
+COMMENT ON COLUMN edfi.AccountabilityRating.RatingTitle IS 'The title of the rating.';
+COMMENT ON COLUMN edfi.AccountabilityRating.SchoolYear IS 'The school year for which the accountability rating is assessed.';
 COMMENT ON COLUMN edfi.AccountabilityRating.Rating IS 'An accountability rating level, designation, or assessment.';
 COMMENT ON COLUMN edfi.AccountabilityRating.RatingDate IS 'The date the rating was awarded.';
 COMMENT ON COLUMN edfi.AccountabilityRating.RatingOrganization IS 'The organization that assessed the rating.';
-COMMENT ON COLUMN edfi.AccountabilityRating.RatingProgram IS 'The program associated with the AccountabilityRating (e.g., NCLB, AEIS).';
+COMMENT ON COLUMN edfi.AccountabilityRating.RatingProgram IS 'The program associated with the accountability rating (e.g., NCLB, AEIS).';
 
 -- Extended Properties [edfi].[AccountAccountCode] --
 COMMENT ON TABLE edfi.AccountAccountCode IS 'The set of account codes defined for the education accounting system organized by account code type (e.g., fund, function, object) that map to the account.';
@@ -99,21 +99,15 @@ COMMENT ON COLUMN edfi.AncestryEthnicOriginDescriptor.AncestryEthnicOriginDescri
 -- Extended Properties [edfi].[Assessment] --
 COMMENT ON TABLE edfi.Assessment IS 'This entity represents a tool, instrument, process, or exhibition composed of a systematic sampling of behavior for measuring a student''s competence, knowledge, skills, or behavior. An assessment can be used to measure differences in individuals or groups and changes in performance from one occasion to the next.';
 COMMENT ON COLUMN edfi.Assessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.Assessment.Namespace IS 'Namespace for the Assessment.';
-COMMENT ON COLUMN edfi.Assessment.AssessmentTitle IS 'The title or name of the Assessment.';
-COMMENT ON COLUMN edfi.Assessment.AssessmentCategoryDescriptorId IS 'The category of an assessment based on format and content. For example:
-        Achievement test
-        Advanced placement test
-        Alternate assessment/grade-level standards
-        Attitudinal test
-        Cognitive and perceptual skills test
-        ...';
+COMMENT ON COLUMN edfi.Assessment.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.Assessment.AssessmentTitle IS 'The title or name of the assessment.';
+COMMENT ON COLUMN edfi.Assessment.AssessmentCategoryDescriptorId IS 'The category of an assessment based on format and content.';
 COMMENT ON COLUMN edfi.Assessment.AssessmentForm IS 'Identifies the form of the assessment, for example a regular versus makeup form, multiple choice versus constructed response, etc.';
 COMMENT ON COLUMN edfi.Assessment.AssessmentVersion IS 'The version identifier for the assessment.';
 COMMENT ON COLUMN edfi.Assessment.RevisionDate IS 'The month, day, and year that the conceptual design for the assessment was most recently revised substantially.';
 COMMENT ON COLUMN edfi.Assessment.MaxRawScore IS 'The maximum raw score achievable across all assessment items that are correct and scored at the maximum.';
-COMMENT ON COLUMN edfi.Assessment.Nomenclature IS 'Reflects the specific nomenclature used for Assessment.';
-COMMENT ON COLUMN edfi.Assessment.AssessmentFamily IS 'The AssessmentFamily this Assessment is a member of.';
+COMMENT ON COLUMN edfi.Assessment.Nomenclature IS 'Reflects the specific nomenclature used for assessment.';
+COMMENT ON COLUMN edfi.Assessment.AssessmentFamily IS 'The assessment family this assessment is a member of.';
 COMMENT ON COLUMN edfi.Assessment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.Assessment.AdaptiveAssessment IS 'Indicates that the assessment is adaptive.';
 
@@ -121,13 +115,13 @@ COMMENT ON COLUMN edfi.Assessment.AdaptiveAssessment IS 'Indicates that the asse
 COMMENT ON TABLE edfi.AssessmentAcademicSubject IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.';
 COMMENT ON COLUMN edfi.AssessmentAcademicSubject.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.';
 COMMENT ON COLUMN edfi.AssessmentAcademicSubject.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentAcademicSubject.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentAcademicSubject.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[AssessmentAssessedGradeLevel] --
 COMMENT ON TABLE edfi.AssessmentAssessedGradeLevel IS 'The grade level(s) for which an assessment is designed. The semantics of null is assumed to mean that the assessment is not associated with any grade level.';
 COMMENT ON COLUMN edfi.AssessmentAssessedGradeLevel.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentAssessedGradeLevel.GradeLevelDescriptorId IS 'The grade level(s) for which an assessment is designed. The semantics of null is assumed to mean that the assessment is not associated with any grade level.';
-COMMENT ON COLUMN edfi.AssessmentAssessedGradeLevel.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentAssessedGradeLevel.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[AssessmentCategoryDescriptor] --
 COMMENT ON TABLE edfi.AssessmentCategoryDescriptor IS 'This descriptor holds the category of an assessment based on format and content.';
@@ -136,7 +130,7 @@ COMMENT ON COLUMN edfi.AssessmentCategoryDescriptor.AssessmentCategoryDescriptor
 -- Extended Properties [edfi].[AssessmentContentStandard] --
 COMMENT ON TABLE edfi.AssessmentContentStandard IS 'An indication as to whether an assessment conforms to a standard (e.g., local standard, statewide standard, regional standard, association standard).';
 COMMENT ON COLUMN edfi.AssessmentContentStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentContentStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentContentStandard.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentContentStandard.Title IS 'The name of the content standard, for example Common Core.';
 COMMENT ON COLUMN edfi.AssessmentContentStandard.Version IS 'The version identifier for the content.';
 COMMENT ON COLUMN edfi.AssessmentContentStandard.URI IS 'An unambiguous reference to the standards using a network-resolvable URI.';
@@ -151,13 +145,13 @@ COMMENT ON COLUMN edfi.AssessmentContentStandard.EndDate IS 'The end of the peri
 COMMENT ON TABLE edfi.AssessmentContentStandardAuthor IS 'The person or organization chiefly responsible for the intellectual content of the standard.';
 COMMENT ON COLUMN edfi.AssessmentContentStandardAuthor.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentContentStandardAuthor.Author IS 'The person or organization chiefly responsible for the intellectual content of the standard.';
-COMMENT ON COLUMN edfi.AssessmentContentStandardAuthor.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentContentStandardAuthor.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[AssessmentIdentificationCode] --
 COMMENT ON TABLE edfi.AssessmentIdentificationCode IS 'A unique number or alphanumeric code assigned to an assessment by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN edfi.AssessmentIdentificationCode.AssessmentIdentificationSystemDescriptorId IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentIdentificationCode.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentIdentificationCode.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentIdentificationCode.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to an assessment by a school, school system, state, or other agency or entity.';
 COMMENT ON COLUMN edfi.AssessmentIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the assessment identification code.';
 
@@ -169,35 +163,30 @@ COMMENT ON COLUMN edfi.AssessmentIdentificationSystemDescriptor.AssessmentIdenti
 COMMENT ON TABLE edfi.AssessmentItem IS 'This entity represents one of many single measures that make up an assessment.';
 COMMENT ON COLUMN edfi.AssessmentItem.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentItem.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, state, or other agency or entity.';
-COMMENT ON COLUMN edfi.AssessmentItem.Namespace IS 'Namespace for the Assessment.';
-COMMENT ON COLUMN edfi.AssessmentItem.AssessmentItemCategoryDescriptorId IS 'Category or type of the AssessmentItem. For example:
-        Multiple choice
-        Analytic
-        Prose
-        ...';
+COMMENT ON COLUMN edfi.AssessmentItem.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.AssessmentItem.AssessmentItemCategoryDescriptorId IS 'Category or type of the assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItem.MaxRawScore IS 'The maximum raw score achievable across all assessment items that are correct and scored at the maximum.';
 COMMENT ON COLUMN edfi.AssessmentItem.ItemText IS 'The text of the item.';
-COMMENT ON COLUMN edfi.AssessmentItem.CorrectResponse IS 'The correct response for the AssessmentItem.';
-COMMENT ON COLUMN edfi.AssessmentItem.ExpectedTimeAssessed IS 'The duration of time allotted for the AssessmentItem.';
-COMMENT ON COLUMN edfi.AssessmentItem.Nomenclature IS 'Reflects the specific nomenclature used for AssessmentItem.';
+COMMENT ON COLUMN edfi.AssessmentItem.ExpectedTimeAssessed IS 'The duration of time allotted for the assessment item.';
+COMMENT ON COLUMN edfi.AssessmentItem.Nomenclature IS 'Reflects the specific nomenclature used for assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItem.AssessmentItemURI IS 'The URI (typical a URL) pointing to the entry in an assessment item bank, which describes this content item.';
 
 -- Extended Properties [edfi].[AssessmentItemCategoryDescriptor] --
-COMMENT ON TABLE edfi.AssessmentItemCategoryDescriptor IS 'Category or type of the assessment item (e.g., Multiple Choice, Analytic, Prose).';
+COMMENT ON TABLE edfi.AssessmentItemCategoryDescriptor IS 'Category or type of the assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItemCategoryDescriptor.AssessmentItemCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[AssessmentItemLearningStandard] --
-COMMENT ON TABLE edfi.AssessmentItemLearningStandard IS 'LearningStandard tested by this item.';
+COMMENT ON TABLE edfi.AssessmentItemLearningStandard IS 'Learning standard tested by this item.';
 COMMENT ON COLUMN edfi.AssessmentItemLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentItemLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, state, or other agency or entity.';
 COMMENT ON COLUMN edfi.AssessmentItemLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.AssessmentItemLearningStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentItemLearningStandard.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[AssessmentItemPossibleResponse] --
 COMMENT ON TABLE edfi.AssessmentItemPossibleResponse IS 'A possible response to an assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, state, or other agency or entity.';
-COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.ResponseValue IS 'The response value, often an option number or code value (e.g., 1, 2, A, B, true, false).';
 COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.ResponseDescription IS 'Additional text provided to define the response value.';
 COMMENT ON COLUMN edfi.AssessmentItemPossibleResponse.CorrectResponse IS 'Indicates the response is correct.';
@@ -214,45 +203,43 @@ COMMENT ON COLUMN edfi.AssessmentItemResultDescriptor.AssessmentItemResultDescri
 COMMENT ON TABLE edfi.AssessmentLanguage IS 'An indication of the languages in which the assessment is designed.';
 COMMENT ON COLUMN edfi.AssessmentLanguage.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentLanguage.LanguageDescriptorId IS 'An indication of the languages in which the assessment is designed.';
-COMMENT ON COLUMN edfi.AssessmentLanguage.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentLanguage.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[AssessmentPerformanceLevel] --
-COMMENT ON TABLE edfi.AssessmentPerformanceLevel IS 'Definition of the performance levels and the associated cut scores. Three styles are supported:
-        1. Specification of performance level by minimum and maximum score
-        2. Specification of performance level by cut score, using only minimum score
-        3. Specification of performance level without any mapping to scores.';
+COMMENT ON TABLE edfi.AssessmentPerformanceLevel IS 'Definition of the performance levels and the associated cut scores. Three styles are supported: 1. Specification of performance level by minimum and maximum score, 2. Specification of performance level by cut score, using only minimum score, 3. Specification of performance level without any mapping to scores.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.AssessmentReportingMethodDescriptorId IS 'The method that the instructor of the class uses to report the performance and achievement of all students. It may be a qualitative method such as individualized teacher comments or a quantitative method such as a letter or numerical grade. In some cases, more than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'The performance level(s) defined for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.MinimumScore IS 'The minimum score required to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.MaximumScore IS 'The maximum score to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[AssessmentPeriod] --
 COMMENT ON TABLE edfi.AssessmentPeriod IS 'The period or window in which an assessment is supposed to be administered.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentPeriod.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentPeriod.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.AssessmentPeriodDescriptorId IS 'The period of time in which an assessment is supposed to be administered (e.g., Beginning of Year, Middle of Year, End of Year).';
 COMMENT ON COLUMN edfi.AssessmentPeriod.BeginDate IS 'The first date the assessment is to be administered.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.EndDate IS 'The last date the assessment is to be administered.';
 
 -- Extended Properties [edfi].[AssessmentPeriodDescriptor] --
-COMMENT ON TABLE edfi.AssessmentPeriodDescriptor IS 'This descriptor holds the period of time window in which an assessment is supposed to be administered (e.g., Beginning of Year, Middle of Year, End of Year).';
+COMMENT ON TABLE edfi.AssessmentPeriodDescriptor IS 'This descriptor holds the period of time window in which an assessment is supposed to be administered.';
 COMMENT ON COLUMN edfi.AssessmentPeriodDescriptor.AssessmentPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[AssessmentPlatformType] --
 COMMENT ON TABLE edfi.AssessmentPlatformType IS 'The platforms with which the assessment may be delivered.';
 COMMENT ON COLUMN edfi.AssessmentPlatformType.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentPlatformType.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentPlatformType.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentPlatformType.PlatformTypeDescriptorId IS 'The platforms with which the assessment may be delivered.';
 
 -- Extended Properties [edfi].[AssessmentProgram] --
-COMMENT ON TABLE edfi.AssessmentProgram IS 'The programs associated with the Assessment.';
+COMMENT ON TABLE edfi.AssessmentProgram IS 'The programs associated with the assessment.';
 COMMENT ON COLUMN edfi.AssessmentProgram.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.AssessmentProgram.Namespace IS 'Namespace for the Assessment.';
-COMMENT ON COLUMN edfi.AssessmentProgram.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.AssessmentProgram.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.AssessmentProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.AssessmentProgram.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [edfi].[AssessmentReportingMethodDescriptor] --
@@ -263,7 +250,7 @@ COMMENT ON COLUMN edfi.AssessmentReportingMethodDescriptor.AssessmentReportingMe
 COMMENT ON TABLE edfi.AssessmentScore IS 'Definition of the scores to be expected from this assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.AssessmentScore.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentScore.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.MinimumScore IS 'The minimum score possible on the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.MaximumScore IS 'The maximum score possible on the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
@@ -271,29 +258,33 @@ COMMENT ON COLUMN edfi.AssessmentScore.ResultDatatypeTypeDescriptorId IS 'The da
 -- Extended Properties [edfi].[AssessmentScoreRangeLearningStandard] --
 COMMENT ON TABLE edfi.AssessmentScoreRangeLearningStandard IS 'Score ranges of an assessment associated with one or more learning standards.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.ScoreRangeId IS 'A unique number or alphanumeric code assigned to the score range associated with one or more learning standards.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.AssessmentReportingMethodDescriptorId IS 'The assessment reporting method defined (e.g., scale score, RIT scale score) associated with the referenced learning standard(s).';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.MinimumScore IS 'The minimum score in the score range.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.MaximumScore IS 'The maximum score in the score range.';
-COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 
 -- Extended Properties [edfi].[AssessmentScoreRangeLearningStandardLearningStandard] --
-COMMENT ON TABLE edfi.AssessmentScoreRangeLearningStandardLearningStandard IS 'LearningStandard associated with the score range.';
+COMMENT ON TABLE edfi.AssessmentScoreRangeLearningStandardLearningStandard IS 'Learning standard associated with the score range.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.ScoreRangeId IS 'A unique number or alphanumeric code assigned to the score range associated with one or more learning standards.';
 
 -- Extended Properties [edfi].[AssessmentSection] --
-COMMENT ON TABLE edfi.AssessmentSection IS 'The Section(s) to which the Assessment is associated.';
+COMMENT ON TABLE edfi.AssessmentSection IS 'The Section(s) to which the assessment is associated.';
 COMMENT ON COLUMN edfi.AssessmentSection.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.AssessmentSection.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.AssessmentSection.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentSection.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentSection.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.AssessmentSection.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.AssessmentSection.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.AssessmentSection.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.AssessmentSection.SessionName IS 'The identifier for the calendar for the academic session.';
+
+-- Extended Properties [edfi].[AssignmentLateStatusDescriptor] --
+COMMENT ON TABLE edfi.AssignmentLateStatusDescriptor IS 'Status of whether the assignment was submitted after the due date and/or marked as.';
+COMMENT ON COLUMN edfi.AssignmentLateStatusDescriptor.AssignmentLateStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[AttemptStatusDescriptor] --
 COMMENT ON TABLE edfi.AttemptStatusDescriptor IS 'This descriptor describes a student''s completion status for a section.';
@@ -313,7 +304,7 @@ COMMENT ON COLUMN edfi.BehaviorDescriptor.BehaviorDescriptorId IS 'A unique iden
 
 -- Extended Properties [edfi].[BellSchedule] --
 COMMENT ON TABLE edfi.BellSchedule IS 'This entity represents the schedule of class period meeting times.';
-COMMENT ON COLUMN edfi.BellSchedule.BellScheduleName IS 'Name or title of the BellSchedule.';
+COMMENT ON COLUMN edfi.BellSchedule.BellScheduleName IS 'Name or title of the bell schedule.';
 COMMENT ON COLUMN edfi.BellSchedule.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.BellSchedule.AlternateDayName IS 'An alternate name for the day (e.g., Red, Blue).';
 COMMENT ON COLUMN edfi.BellSchedule.StartTime IS 'An indication of the time of day the bell schedule begins.';
@@ -321,21 +312,21 @@ COMMENT ON COLUMN edfi.BellSchedule.EndTime IS 'An indication of the time of day
 COMMENT ON COLUMN edfi.BellSchedule.TotalInstructionalTime IS 'The total instructional time in minutes per day for the bell schedule.';
 
 -- Extended Properties [edfi].[BellScheduleClassPeriod] --
-COMMENT ON TABLE edfi.BellScheduleClassPeriod IS 'The class periods that compose this BellSchedule.';
-COMMENT ON COLUMN edfi.BellScheduleClassPeriod.BellScheduleName IS 'Name or title of the BellSchedule.';
+COMMENT ON TABLE edfi.BellScheduleClassPeriod IS 'The class periods that compose this bell schedule.';
+COMMENT ON COLUMN edfi.BellScheduleClassPeriod.BellScheduleName IS 'Name or title of the bell schedule.';
 COMMENT ON COLUMN edfi.BellScheduleClassPeriod.ClassPeriodName IS 'An indication of the portion of a typical daily session in which students receive instruction in a specified subject (e.g., morning, sixth period, block period, or AB schedules).';
 COMMENT ON COLUMN edfi.BellScheduleClassPeriod.SchoolId IS 'The identifier assigned to a school.';
 
 -- Extended Properties [edfi].[BellScheduleDate] --
-COMMENT ON TABLE edfi.BellScheduleDate IS 'The dates for which the BellSchedule applies.';
-COMMENT ON COLUMN edfi.BellScheduleDate.BellScheduleName IS 'Name or title of the BellSchedule.';
-COMMENT ON COLUMN edfi.BellScheduleDate.Date IS 'The dates for which the BellSchedule applies.';
+COMMENT ON TABLE edfi.BellScheduleDate IS 'The dates for which the bell schedule applies.';
+COMMENT ON COLUMN edfi.BellScheduleDate.BellScheduleName IS 'Name or title of the bell schedule.';
+COMMENT ON COLUMN edfi.BellScheduleDate.Date IS 'The dates for which the bell schedule applies.';
 COMMENT ON COLUMN edfi.BellScheduleDate.SchoolId IS 'The identifier assigned to a school.';
 
 -- Extended Properties [edfi].[BellScheduleGradeLevel] --
-COMMENT ON TABLE edfi.BellScheduleGradeLevel IS 'The grade levels the particular BellSchedule applies to.';
-COMMENT ON COLUMN edfi.BellScheduleGradeLevel.BellScheduleName IS 'Name or title of the BellSchedule.';
-COMMENT ON COLUMN edfi.BellScheduleGradeLevel.GradeLevelDescriptorId IS 'The grade levels the particular BellSchedule applies to.';
+COMMENT ON TABLE edfi.BellScheduleGradeLevel IS 'The grade levels the particular bell schedule applies to.';
+COMMENT ON COLUMN edfi.BellScheduleGradeLevel.BellScheduleName IS 'Name or title of the bell schedule.';
+COMMENT ON COLUMN edfi.BellScheduleGradeLevel.GradeLevelDescriptorId IS 'The grade levels the particular bell schedule applies to.';
 COMMENT ON COLUMN edfi.BellScheduleGradeLevel.SchoolId IS 'The identifier assigned to a school.';
 
 -- Extended Properties [edfi].[Budget] --
@@ -348,36 +339,36 @@ COMMENT ON COLUMN edfi.Budget.Amount IS 'Amount budgeted for the account for thi
 
 -- Extended Properties [edfi].[Calendar] --
 COMMENT ON TABLE edfi.Calendar IS 'A set of dates associated with an organization.';
-COMMENT ON COLUMN edfi.Calendar.CalendarCode IS 'The identifier for the Calendar.';
+COMMENT ON COLUMN edfi.Calendar.CalendarCode IS 'The identifier for the calendar.';
 COMMENT ON COLUMN edfi.Calendar.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.Calendar.SchoolYear IS 'The identifier for the school year associated with the Calendar.';
-COMMENT ON COLUMN edfi.Calendar.CalendarTypeDescriptorId IS 'Indicates the type of Calendar.';
+COMMENT ON COLUMN edfi.Calendar.SchoolYear IS 'The identifier for the school year associated with the calendar.';
+COMMENT ON COLUMN edfi.Calendar.CalendarTypeDescriptorId IS 'Indicates the type of calendar.';
 
 -- Extended Properties [edfi].[CalendarDate] --
 COMMENT ON TABLE edfi.CalendarDate IS 'The type of scheduled or unscheduled event for the day.';
-COMMENT ON COLUMN edfi.CalendarDate.CalendarCode IS 'The identifier for the Calendar.';
-COMMENT ON COLUMN edfi.CalendarDate.Date IS 'The month, day, and year of the CalendarEvent.';
+COMMENT ON COLUMN edfi.CalendarDate.CalendarCode IS 'The identifier for the calendar.';
+COMMENT ON COLUMN edfi.CalendarDate.Date IS 'The month, day, and year of the calendar event.';
 COMMENT ON COLUMN edfi.CalendarDate.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.CalendarDate.SchoolYear IS 'The identifier for the school year associated with the Calendar.';
+COMMENT ON COLUMN edfi.CalendarDate.SchoolYear IS 'The identifier for the school year associated with the calendar.';
 
 -- Extended Properties [edfi].[CalendarDateCalendarEvent] --
 COMMENT ON TABLE edfi.CalendarDateCalendarEvent IS 'The type of scheduled or unscheduled event for the day.';
-COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.CalendarCode IS 'The identifier for the Calendar.';
+COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.CalendarCode IS 'The identifier for the calendar.';
 COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.CalendarEventDescriptorId IS 'The type of scheduled or unscheduled event for the day.';
-COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.Date IS 'The month, day, and year of the CalendarEvent.';
+COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.Date IS 'The month, day, and year of the calendar event.';
 COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.SchoolYear IS 'The identifier for the school year associated with the Calendar.';
+COMMENT ON COLUMN edfi.CalendarDateCalendarEvent.SchoolYear IS 'The identifier for the school year associated with the calendar.';
 
 -- Extended Properties [edfi].[CalendarEventDescriptor] --
 COMMENT ON TABLE edfi.CalendarEventDescriptor IS 'This descriptor holds the types of scheduled or unscheduled event for the day (e.g., Instructional day, Teacher only day, Holiday, Make-up day, Weather day, Student late arrival/early dismissal day).';
 COMMENT ON COLUMN edfi.CalendarEventDescriptor.CalendarEventDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[CalendarGradeLevel] --
-COMMENT ON TABLE edfi.CalendarGradeLevel IS 'Indicates the GradeLevel associated with the Calendar.';
-COMMENT ON COLUMN edfi.CalendarGradeLevel.CalendarCode IS 'The identifier for the Calendar.';
-COMMENT ON COLUMN edfi.CalendarGradeLevel.GradeLevelDescriptorId IS 'Indicates the GradeLevel associated with the Calendar.';
+COMMENT ON TABLE edfi.CalendarGradeLevel IS 'Indicates the grade level associated with the calendar.';
+COMMENT ON COLUMN edfi.CalendarGradeLevel.CalendarCode IS 'The identifier for the calendar.';
+COMMENT ON COLUMN edfi.CalendarGradeLevel.GradeLevelDescriptorId IS 'Indicates the grade level associated with the calendar.';
 COMMENT ON COLUMN edfi.CalendarGradeLevel.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.CalendarGradeLevel.SchoolYear IS 'The identifier for the school year associated with the Calendar.';
+COMMENT ON COLUMN edfi.CalendarGradeLevel.SchoolYear IS 'The identifier for the school year associated with the calendar.';
 
 -- Extended Properties [edfi].[CalendarTypeDescriptor] --
 COMMENT ON TABLE edfi.CalendarTypeDescriptor IS 'This descriptor defines the calendar types.';
@@ -403,7 +394,7 @@ COMMENT ON COLUMN edfi.CitizenshipStatusDescriptor.CitizenshipStatusDescriptorId
 COMMENT ON TABLE edfi.ClassPeriod IS 'This entity represents the designation of a regularly scheduled series of class meetings at designated times and days of the week.';
 COMMENT ON COLUMN edfi.ClassPeriod.ClassPeriodName IS 'An indication of the portion of a typical daily session in which students receive instruction in a specified subject (e.g., morning, sixth period, block period, or AB schedules).';
 COMMENT ON COLUMN edfi.ClassPeriod.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.ClassPeriod.OfficialAttendancePeriod IS 'Indicator of whether this class period is used for official daily attendance. Alternatively, official daily attendance may be tied to a Section.';
+COMMENT ON COLUMN edfi.ClassPeriod.OfficialAttendancePeriod IS 'Indicator of whether this class period is used for official daily attendance. Alternatively, official daily attendance may be tied to a section.';
 
 -- Extended Properties [edfi].[ClassPeriodMeetingTime] --
 COMMENT ON TABLE edfi.ClassPeriodMeetingTime IS 'The meeting time(s) for a class period.';
@@ -418,19 +409,19 @@ COMMENT ON COLUMN edfi.ClassroomPositionDescriptor.ClassroomPositionDescriptorId
 
 -- Extended Properties [edfi].[Cohort] --
 COMMENT ON TABLE edfi.Cohort IS 'This entity represents any type of list of designated students for tracking, analysis, or intervention.';
-COMMENT ON COLUMN edfi.Cohort.CohortIdentifier IS 'The name or ID for the Cohort.';
+COMMENT ON COLUMN edfi.Cohort.CohortIdentifier IS 'The name or ID for the cohort.';
 COMMENT ON COLUMN edfi.Cohort.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.Cohort.CohortDescription IS 'The description of the Cohort and its purpose.';
+COMMENT ON COLUMN edfi.Cohort.CohortDescription IS 'The description of the cohort and its purpose.';
 COMMENT ON COLUMN edfi.Cohort.CohortTypeDescriptorId IS 'The type of cohort (e.g., academic intervention, classroom breakout).';
 COMMENT ON COLUMN edfi.Cohort.CohortScopeDescriptorId IS 'The scope of cohort (e.g., school, district, classroom).';
 COMMENT ON COLUMN edfi.Cohort.AcademicSubjectDescriptorId IS 'The academic subject associated with an academic intervention.';
 
 -- Extended Properties [edfi].[CohortProgram] --
-COMMENT ON TABLE edfi.CohortProgram IS 'The (optional) program associated with this Cohort (e.g., special education).';
-COMMENT ON COLUMN edfi.CohortProgram.CohortIdentifier IS 'The name or ID for the Cohort.';
+COMMENT ON TABLE edfi.CohortProgram IS 'The (optional) program associated with this cohort (e.g., special education).';
+COMMENT ON COLUMN edfi.CohortProgram.CohortIdentifier IS 'The name or ID for the cohort.';
 COMMENT ON COLUMN edfi.CohortProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CohortProgram.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.CohortProgram.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.CohortProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.CohortProgram.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [edfi].[CohortScopeDescriptor] --
@@ -447,12 +438,12 @@ COMMENT ON COLUMN edfi.CohortYearTypeDescriptor.CohortYearTypeDescriptorId IS 'A
 
 -- Extended Properties [edfi].[CommunityOrganization] --
 COMMENT ON TABLE edfi.CommunityOrganization IS 'This entity represents an administrative unit at the state level which exists primarily to operate local community providers.';
-COMMENT ON COLUMN edfi.CommunityOrganization.CommunityOrganizationId IS 'The identifier assigned to a CommunityOrganization.';
+COMMENT ON COLUMN edfi.CommunityOrganization.CommunityOrganizationId IS 'The identifier assigned to a community organization.';
 
 -- Extended Properties [edfi].[CommunityProvider] --
 COMMENT ON TABLE edfi.CommunityProvider IS 'This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.';
-COMMENT ON COLUMN edfi.CommunityProvider.CommunityProviderId IS 'The identifier assigned to a CommunityProvider.';
-COMMENT ON COLUMN edfi.CommunityProvider.CommunityOrganizationId IS 'The identifier assigned to a CommunityOrganization.';
+COMMENT ON COLUMN edfi.CommunityProvider.CommunityProviderId IS 'The identifier assigned to a community provider.';
+COMMENT ON COLUMN edfi.CommunityProvider.CommunityOrganizationId IS 'The identifier assigned to a community organization.';
 COMMENT ON COLUMN edfi.CommunityProvider.ProviderProfitabilityDescriptorId IS 'Indicates the profitability status of the provider.';
 COMMENT ON COLUMN edfi.CommunityProvider.ProviderStatusDescriptorId IS 'Indicates the status of the provider.';
 COMMENT ON COLUMN edfi.CommunityProvider.ProviderCategoryDescriptorId IS 'Indicates the category of the provider.';
@@ -460,8 +451,8 @@ COMMENT ON COLUMN edfi.CommunityProvider.SchoolIndicator IS 'An indication of wh
 COMMENT ON COLUMN edfi.CommunityProvider.LicenseExemptIndicator IS 'An indication of whether the provider is exempt from having a license.';
 
 -- Extended Properties [edfi].[CommunityProviderLicense] --
-COMMENT ON TABLE edfi.CommunityProviderLicense IS 'The legal document held by the CommunityProvider that authorizes the holder to perform certain functions and or services.';
-COMMENT ON COLUMN edfi.CommunityProviderLicense.CommunityProviderId IS 'The identifier assigned to a CommunityProvider.';
+COMMENT ON TABLE edfi.CommunityProviderLicense IS 'The legal document held by the community provider that authorizes the holder to perform certain functions and or services.';
+COMMENT ON COLUMN edfi.CommunityProviderLicense.CommunityProviderId IS 'The identifier assigned to a community provider.';
 COMMENT ON COLUMN edfi.CommunityProviderLicense.LicenseIdentifier IS 'The unique identifier issued by the licensing organization.';
 COMMENT ON COLUMN edfi.CommunityProviderLicense.LicensingOrganization IS 'The organization issuing the license.';
 COMMENT ON COLUMN edfi.CommunityProviderLicense.LicenseEffectiveDate IS 'The month, day, and year on which a license is active or becomes effective.';
@@ -480,11 +471,11 @@ COMMENT ON COLUMN edfi.CompetencyLevelDescriptor.CompetencyLevelDescriptorId IS 
 -- Extended Properties [edfi].[CompetencyObjective] --
 COMMENT ON TABLE edfi.CompetencyObjective IS 'This entity holds additional competencies for student achievement that are not associated with specific learning objectives (e.g., paying attention in class).';
 COMMENT ON COLUMN edfi.CompetencyObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.CompetencyObjective.Objective IS 'The designated title of the CompetencyObjective.';
-COMMENT ON COLUMN edfi.CompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the CompetencyObjective is targeted.';
-COMMENT ON COLUMN edfi.CompetencyObjective.CompetencyObjectiveId IS 'The Identifier for the CompetencyObjective.';
+COMMENT ON COLUMN edfi.CompetencyObjective.Objective IS 'The designated title of the competency objective.';
+COMMENT ON COLUMN edfi.CompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
+COMMENT ON COLUMN edfi.CompetencyObjective.CompetencyObjectiveId IS 'The Identifier for the competency objective.';
 COMMENT ON COLUMN edfi.CompetencyObjective.Description IS 'The description of the student competency objective.';
-COMMENT ON COLUMN edfi.CompetencyObjective.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a competency objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the CompetencyObjective.';
+COMMENT ON COLUMN edfi.CompetencyObjective.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a competency objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the competency objective.';
 
 -- Extended Properties [edfi].[ContactTypeDescriptor] --
 COMMENT ON TABLE edfi.ContactTypeDescriptor IS 'This descriptor defines the set of contact types.';
@@ -499,7 +490,7 @@ COMMENT ON TABLE edfi.ContinuationOfServicesReasonDescriptor IS 'In the Migrant 
 COMMENT ON COLUMN edfi.ContinuationOfServicesReasonDescriptor.ContinuationOfServicesReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ContractedStaff] --
-COMMENT ON TABLE edfi.ContractedStaff IS 'This financial entity represents the sum of the financial transactions to date for contracted staff. ContractedStaff includes "contractors" or "consultants" who perform services for an agreed upon fee, or an employee of a management service contracted to work on site.';
+COMMENT ON TABLE edfi.ContractedStaff IS 'This financial entity represents the sum of the financial transactions to date for contracted staff. Contracted staff includes "contractors" or "consultants" who perform services for an agreed upon fee, or an employee of a management service contracted to work on site.';
 COMMENT ON COLUMN edfi.ContractedStaff.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
 COMMENT ON COLUMN edfi.ContractedStaff.AsOfDate IS 'The date of the reported contracted staff element.';
 COMMENT ON COLUMN edfi.ContractedStaff.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -523,10 +514,10 @@ COMMENT ON COLUMN edfi.Course.CourseTitle IS 'The descriptive name given to a co
 COMMENT ON COLUMN edfi.Course.NumberOfParts IS 'The number of parts identified for a course.';
 COMMENT ON COLUMN edfi.Course.AcademicSubjectDescriptorId IS 'The intended major subject area of the course.';
 COMMENT ON COLUMN edfi.Course.CourseDescription IS 'A description of the content standards and goals covered in the course. Reference may be made to state or national content standards.';
-COMMENT ON COLUMN edfi.Course.TimeRequiredForCompletion IS 'The actual or estimated number of clock minutes required for class completion.  This number is especially important for career and technical education classes and may represent (in minutes) the clock hour requirement of the class.';
+COMMENT ON COLUMN edfi.Course.TimeRequiredForCompletion IS 'The actual or estimated number of clock minutes required for class completion. This number is especially important for career and technical education classes and may represent (in minutes) the clock hour requirement of the class.';
 COMMENT ON COLUMN edfi.Course.DateCourseAdopted IS 'Date the course was adopted by the education agency.';
 COMMENT ON COLUMN edfi.Course.HighSchoolCourseRequirement IS 'An indication that this course may satisfy high school graduation requirements in the course''s subject area.';
-COMMENT ON COLUMN edfi.Course.CourseGPAApplicabilityDescriptorId IS 'An indicator of whether or not the course being described is included in the computation of the student''s Grade Point Average, and if so, if it is weighted differently from regular courses.';
+COMMENT ON COLUMN edfi.Course.CourseGPAApplicabilityDescriptorId IS 'An indicator of whether or not the course being described is included in the computation of the student''s grade point average, and if so, if it is weighted differently from regular courses.';
 COMMENT ON COLUMN edfi.Course.CourseDefinedByDescriptorId IS 'Specifies whether the course was defined by the SEA, LEA, School, or national organization.';
 COMMENT ON COLUMN edfi.Course.MinimumAvailableCredits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.Course.MinimumAvailableCreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
@@ -538,11 +529,7 @@ COMMENT ON COLUMN edfi.Course.CareerPathwayDescriptorId IS 'Indicates the career
 COMMENT ON COLUMN edfi.Course.MaxCompletionsForCredit IS 'Designates how many times the course may be taken with credit received by the student.';
 
 -- Extended Properties [edfi].[CourseAttemptResultDescriptor] --
-COMMENT ON TABLE edfi.CourseAttemptResultDescriptor IS 'The result from the student''s attempt to take the course, for example:
-    Pass
-    Fail
-    Incomplete
-    Withdrawn';
+COMMENT ON TABLE edfi.CourseAttemptResultDescriptor IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseAttemptResultDescriptor.CourseAttemptResultDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[CourseCompetencyLevel] --
@@ -573,14 +560,14 @@ COMMENT ON TABLE edfi.CourseIdentificationSystemDescriptor IS 'This descriptor d
 COMMENT ON COLUMN edfi.CourseIdentificationSystemDescriptor.CourseIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[CourseLearningObjective] --
-COMMENT ON TABLE edfi.CourseLearningObjective IS 'Learning Objectives to be mastered in the course.';
+COMMENT ON TABLE edfi.CourseLearningObjective IS 'Learning objectives to be mastered in the course.';
 COMMENT ON COLUMN edfi.CourseLearningObjective.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseLearningObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.CourseLearningObjective.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.CourseLearningObjective.Namespace IS 'Namespace for the learning objective.';
 
 -- Extended Properties [edfi].[CourseLearningStandard] --
-COMMENT ON TABLE edfi.CourseLearningStandard IS 'Learning Standard(s) to be taught by the course.';
+COMMENT ON TABLE edfi.CourseLearningStandard IS 'Learning standard(s) to be taught by the course.';
 COMMENT ON COLUMN edfi.CourseLearningStandard.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseLearningStandard.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
@@ -606,19 +593,19 @@ COMMENT ON TABLE edfi.CourseOffering IS 'This entity represents an entry in the 
 COMMENT ON COLUMN edfi.CourseOffering.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.CourseOffering.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.CourseOffering.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.CourseOffering.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN edfi.CourseOffering.LocalCourseTitle IS 'The descriptive name given to a course of study offered in the school, if different from the CourseTitle.';
+COMMENT ON COLUMN edfi.CourseOffering.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.CourseOffering.LocalCourseTitle IS 'The descriptive name given to a course of study offered in the school, if different from the course title.';
 COMMENT ON COLUMN edfi.CourseOffering.InstructionalTimePlanned IS 'The planned total number of clock minutes of instruction for this course offering. Generally, this should be at least as many minutes as is required for completion by the related state- or district-defined course.';
 COMMENT ON COLUMN edfi.CourseOffering.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseOffering.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 
 -- Extended Properties [edfi].[CourseOfferingCourseLevelCharacteristic] --
-COMMENT ON TABLE edfi.CourseOfferingCourseLevelCharacteristic IS 'The type of specific program or designation with which the course offering is associated (e.g., AP, IB, Dual Credit, CTE). This collection should only be populated if it differs from the Course Level Characteristics identified at the Course level.';
-COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.CourseLevelCharacteristicDescriptorId IS 'The type of specific program or designation with which the course offering is associated (e.g., AP, IB, Dual Credit, CTE). This collection should only be populated if it differs from the Course Level Characteristics identified at the Course level.';
+COMMENT ON TABLE edfi.CourseOfferingCourseLevelCharacteristic IS 'The type of specific program or designation with which the course offering is associated (e.g., AP, IB, Dual Credit, CTE). This collection should only be populated if it differs from the course level characteristics identified at the course level.';
+COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.CourseLevelCharacteristicDescriptorId IS 'The type of specific program or designation with which the course offering is associated (e.g., AP, IB, Dual Credit, CTE). This collection should only be populated if it differs from the course level characteristics identified at the course level.';
 COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.CourseOfferingCourseLevelCharacteristic.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[CourseOfferingCurriculumUsed] --
 COMMENT ON TABLE edfi.CourseOfferingCurriculumUsed IS 'The type of curriculum used in an early learning classroom or group.';
@@ -626,15 +613,15 @@ COMMENT ON COLUMN edfi.CourseOfferingCurriculumUsed.CurriculumUsedDescriptorId I
 COMMENT ON COLUMN edfi.CourseOfferingCurriculumUsed.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.CourseOfferingCurriculumUsed.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.CourseOfferingCurriculumUsed.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.CourseOfferingCurriculumUsed.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.CourseOfferingCurriculumUsed.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[CourseOfferingOfferedGradeLevel] --
-COMMENT ON TABLE edfi.CourseOfferingOfferedGradeLevel IS 'The grade levels in which the course is offered. This collection should only be populated if it differs from the Offered Grade Levels identified at the Course level.';
-COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.GradeLevelDescriptorId IS 'The grade levels in which the course is offered. This collection should only be populated if it differs from the Offered Grade Levels identified at the Course level.';
+COMMENT ON TABLE edfi.CourseOfferingOfferedGradeLevel IS 'The grade levels in which the course is offered. This collection should only be populated if it differs from the offered grade levels identified at the course level.';
+COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.GradeLevelDescriptorId IS 'The grade levels in which the course is offered. This collection should only be populated if it differs from the offered grade levels identified at the course level.';
 COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.CourseOfferingOfferedGradeLevel.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[CourseRepeatCodeDescriptor] --
 COMMENT ON TABLE edfi.CourseRepeatCodeDescriptor IS 'Indicates that an academic course has been repeated by a student and how that repeat is to be computed in the student''s academic grade average.';
@@ -642,11 +629,7 @@ COMMENT ON COLUMN edfi.CourseRepeatCodeDescriptor.CourseRepeatCodeDescriptorId I
 
 -- Extended Properties [edfi].[CourseTranscript] --
 COMMENT ON TABLE edfi.CourseTranscript IS 'This entity is the final record of a student''s performance in their courses at the end of a semester or school year.';
-COMMENT ON COLUMN edfi.CourseTranscript.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
-        Pass
-        Fail
-        Incomplete
-        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscript.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseTranscript.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseTranscript.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseTranscript.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -660,7 +643,7 @@ COMMENT ON COLUMN edfi.CourseTranscript.EarnedCredits IS 'The value of credits o
 COMMENT ON COLUMN edfi.CourseTranscript.EarnedCreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.CourseTranscript.EarnedCreditConversion IS 'Conversion factor that when multiplied by the number of credits is equivalent to Carnegie units.';
 COMMENT ON COLUMN edfi.CourseTranscript.WhenTakenGradeLevelDescriptorId IS 'Student''s grade level at time of course.';
-COMMENT ON COLUMN edfi.CourseTranscript.MethodCreditEarnedDescriptorId IS 'The method the credits were earned (e.g., Classroom, Examination, Transfer).';
+COMMENT ON COLUMN edfi.CourseTranscript.MethodCreditEarnedDescriptorId IS 'The method the credits were earned.';
 COMMENT ON COLUMN edfi.CourseTranscript.FinalLetterGradeEarned IS 'The final indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.CourseTranscript.FinalNumericGradeEarned IS 'The final indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.CourseTranscript.CourseRepeatCodeDescriptorId IS 'Indicates that an academic course has been repeated by a student and how that repeat is to be computed in the student''s academic grade average.';
@@ -668,18 +651,14 @@ COMMENT ON COLUMN edfi.CourseTranscript.CourseTitle IS 'The descriptive name giv
 COMMENT ON COLUMN edfi.CourseTranscript.AlternativeCourseTitle IS 'The descriptive name given to a course of study offered in the school, if different from the CourseTitle.';
 COMMENT ON COLUMN edfi.CourseTranscript.AlternativeCourseCode IS 'The local code assigned by the school that identifies the course offering, the code from an external educational organization, or other alternate course code.';
 COMMENT ON COLUMN edfi.CourseTranscript.ExternalEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.CourseTranscript.ExternalEducationOrganizationNameOfInstitution IS 'Name of the external institution where the student completed the course; to be used only when the reference ExternalEducationOrganization is not available.';
+COMMENT ON COLUMN edfi.CourseTranscript.ExternalEducationOrganizationNameOfInstitution IS 'Name of the external institution where the student completed the course; to be used only when the reference external education organization is not available.';
 COMMENT ON COLUMN edfi.CourseTranscript.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the course identification code.';
 COMMENT ON COLUMN edfi.CourseTranscript.CourseCatalogURL IS 'The URL for the course catalog that defines the course identification code.';
 
 -- Extended Properties [edfi].[CourseTranscriptAcademicSubject] --
 COMMENT ON TABLE edfi.CourseTranscriptAcademicSubject IS 'The subject area for the course transcript credits awarded in the course transcript.';
 COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.AcademicSubjectDescriptorId IS 'The subject area for the course transcript credits awarded in the course transcript.';
-COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
-        Pass
-        Fail
-        Incomplete
-        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -689,11 +668,7 @@ COMMENT ON COLUMN edfi.CourseTranscriptAcademicSubject.TermDescriptorId IS 'The 
 
 -- Extended Properties [edfi].[CourseTranscriptAlternativeCourseIdentificationCode] --
 COMMENT ON TABLE edfi.CourseTranscriptAlternativeCourseIdentificationCode IS 'The code that identifies the course, course offering, the code from an external educational organization, or other alternate course code.';
-COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
-        Pass
-        Fail
-        Incomplete
-        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.CourseIdentificationSystemDescriptorId IS 'A system that is used to identify the organization of subject matter and related learning experiences provided for the instruction of students.';
@@ -707,11 +682,7 @@ COMMENT ON COLUMN edfi.CourseTranscriptAlternativeCourseIdentificationCode.Cours
 
 -- Extended Properties [edfi].[CourseTranscriptCreditCategory] --
 COMMENT ON TABLE edfi.CourseTranscriptCreditCategory IS 'A categorization for the course transcript credits awarded in the course transcript.';
-COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
-        Pass
-        Fail
-        Incomplete
-        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.CreditCategoryDescriptorId IS 'A categorization for the course transcript credits awarded in the course transcript.';
@@ -721,13 +692,9 @@ COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.StudentUSI IS 'A unique al
 COMMENT ON COLUMN edfi.CourseTranscriptCreditCategory.TermDescriptorId IS 'The term for the session during the school year.';
 
 -- Extended Properties [edfi].[CourseTranscriptEarnedAdditionalCredits] --
-COMMENT ON TABLE edfi.CourseTranscriptEarnedAdditionalCredits IS 'The number of additional credits a student attempted and could earn for successfully completing a given course (e.g., dual credit, AP, IB).';
+COMMENT ON TABLE edfi.CourseTranscriptEarnedAdditionalCredits IS 'The number of additional credits a student attempted and could earn for successfully completing a given course.';
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.AdditionalCreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
-COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
-        Pass
-        Fail
-        Incomplete
-        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -739,11 +706,7 @@ COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.Credits IS 'The v
 -- Extended Properties [edfi].[CourseTranscriptPartialCourseTranscriptAwards] --
 COMMENT ON TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards IS 'A collection of partial credits and/or grades a student earned against the course over the session, used when awards of credit are incremental.';
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.AwardDate IS 'The date the partial credits and/or grades were awarded or earned.';
-COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
-        Pass
-        Fail
-        Incomplete
-        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course.';
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -766,7 +729,7 @@ COMMENT ON COLUMN edfi.Credential.IssuanceDate IS 'The month, day, and year on w
 COMMENT ON COLUMN edfi.Credential.CredentialTypeDescriptorId IS 'An indication of the category of credential an individual holds.';
 COMMENT ON COLUMN edfi.Credential.TeachingCredentialDescriptorId IS 'An indication of the category of a legal document giving authorization to perform teaching assignment services.';
 COMMENT ON COLUMN edfi.Credential.TeachingCredentialBasisDescriptorId IS 'An indication of the pre-determined criteria for granting the teaching credential that an individual holds.';
-COMMENT ON COLUMN edfi.Credential.Namespace IS 'Namespace for the Credential.';
+COMMENT ON COLUMN edfi.Credential.Namespace IS 'Namespace for the credential.';
 
 -- Extended Properties [edfi].[CredentialAcademicSubject] --
 COMMENT ON TABLE edfi.CredentialAcademicSubject IS 'The academic subjects to which the credential pertains.';
@@ -851,10 +814,10 @@ COMMENT ON COLUMN edfi.DisabilityDeterminationSourceTypeDescriptor.DisabilityDet
 
 -- Extended Properties [edfi].[DisciplineAction] --
 COMMENT ON TABLE edfi.DisciplineAction IS 'This event entity represents actions taken by an education organization after a disruptive event that is recorded as a discipline incident.';
-COMMENT ON COLUMN edfi.DisciplineAction.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineAction.DisciplineDate IS 'The date of the DisciplineAction.';
+COMMENT ON COLUMN edfi.DisciplineAction.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineAction.DisciplineDate IS 'The date of the discipline action.';
 COMMENT ON COLUMN edfi.DisciplineAction.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.DisciplineAction.DisciplineActionLength IS 'The length of time in school days for the DisciplineAction (e.g. removal, detention), if applicable.';
+COMMENT ON COLUMN edfi.DisciplineAction.DisciplineActionLength IS 'The length of time in school days for the discipline action (e.g. removal, detention), if applicable.';
 COMMENT ON COLUMN edfi.DisciplineAction.ActualDisciplineActionLength IS 'Indicates the actual length in school days of a student''s disciplinary assignment.';
 COMMENT ON COLUMN edfi.DisciplineAction.DisciplineActionLengthDifferenceReasonDescriptorId IS 'Indicates the reason for the difference, if any, between the official and actual lengths of a student''s disciplinary assignment.';
 COMMENT ON COLUMN edfi.DisciplineAction.RelatedToZeroTolerancePolicy IS 'An indication of whether or not this disciplinary action taken against a student was imposed as a consequence of state or local zero tolerance policies.';
@@ -865,8 +828,8 @@ COMMENT ON COLUMN edfi.DisciplineAction.IEPPlacementMeetingIndicator IS 'An indi
 
 -- Extended Properties [edfi].[DisciplineActionDiscipline] --
 COMMENT ON TABLE edfi.DisciplineActionDiscipline IS 'Type of action, such as removal from the classroom, used to discipline the student involved as a perpetrator in a discipline incident.';
-COMMENT ON COLUMN edfi.DisciplineActionDiscipline.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionDiscipline.DisciplineDate IS 'The date of the DisciplineAction.';
+COMMENT ON COLUMN edfi.DisciplineActionDiscipline.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionDiscipline.DisciplineDate IS 'The date of the discipline action.';
 COMMENT ON COLUMN edfi.DisciplineActionDiscipline.DisciplineDescriptorId IS 'Type of action, such as removal from the classroom, used to discipline the student involved as a perpetrator in a discipline incident.';
 COMMENT ON COLUMN edfi.DisciplineActionDiscipline.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -875,26 +838,26 @@ COMMENT ON TABLE edfi.DisciplineActionLengthDifferenceReasonDescriptor IS 'Indic
 COMMENT ON COLUMN edfi.DisciplineActionLengthDifferenceReasonDescriptor.DisciplineActionLengthDifferenceReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[DisciplineActionStaff] --
-COMMENT ON TABLE edfi.DisciplineActionStaff IS 'The staff responsible for enforcing the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStaff.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStaff.DisciplineDate IS 'The date of the DisciplineAction.';
+COMMENT ON TABLE edfi.DisciplineActionStaff IS 'The staff responsible for enforcing the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStaff.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStaff.DisciplineDate IS 'The date of the discipline action.';
 COMMENT ON COLUMN edfi.DisciplineActionStaff.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.DisciplineActionStaff.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[DisciplineActionStudentDisciplineIncidentAssociation] --
-COMMENT ON TABLE edfi.DisciplineActionStudentDisciplineIncidentAssociation IS 'Reference to the DisciplineIncident associated with the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.DisciplineDate IS 'The date of the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON TABLE edfi.DisciplineActionStudentDisciplineIncidentAssociation IS 'Reference to the discipline incident associated with the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.DisciplineDate IS 'The date of the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] --
 COMMENT ON TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation IS 'A reference to the behavior(s) by the student that led or contributed to this specific action.';
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.BehaviorDescriptorId IS 'Describes behavior by category.';
-COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.DisciplineDate IS 'The date of the DisciplineAction.';
-COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.DisciplineDate IS 'The date of the discipline action.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -904,43 +867,31 @@ COMMENT ON COLUMN edfi.DisciplineDescriptor.DisciplineDescriptorId IS 'A unique 
 
 -- Extended Properties [edfi].[DisciplineIncident] --
 COMMENT ON TABLE edfi.DisciplineIncident IS 'This event entity represents an occurrence of an infraction ranging from a minor behavioral problem that disrupts the orderly functioning of a school or classroom (such as tardiness) to a criminal act that results in the involvement of a law enforcement official (such as robbery). A single event (e.g., a fight) is one incident regardless of how many perpetrators or victims are involved. Discipline incidents are events classified as warranting discipline action.';
-COMMENT ON COLUMN edfi.DisciplineIncident.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.DisciplineIncident.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineIncident.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.DisciplineIncident.IncidentDate IS 'The month, day, and year on which the DisciplineIncident occurred.';
+COMMENT ON COLUMN edfi.DisciplineIncident.IncidentDate IS 'The month, day, and year on which the discipline incident occurred.';
 COMMENT ON COLUMN edfi.DisciplineIncident.IncidentTime IS 'An indication of the time of day the incident took place.';
-COMMENT ON COLUMN edfi.DisciplineIncident.IncidentLocationDescriptorId IS 'Identifies where the DisciplineIncident occurred and whether or not it occurred on school, for example:
-        On school
-        Administrative offices area
-        Cafeteria area
-        Classroom
-        Hallway or stairs
-        ...';
+COMMENT ON COLUMN edfi.DisciplineIncident.IncidentLocationDescriptorId IS 'Identifies where the discipline incident occurred and whether or not it occurred on school.';
 COMMENT ON COLUMN edfi.DisciplineIncident.IncidentDescription IS 'The description for an incident.';
-COMMENT ON COLUMN edfi.DisciplineIncident.ReporterDescriptionDescriptorId IS 'Information on the type of individual who reported the DisciplineIncident. When known and/or if useful, use a more specific option code (e.g., "Counselor" rather than "Professional Staff"); for example:
-        Student
-        Parent/guardian
-        Law enforcement officer
-        Nonschool personnel
-        Representative of visiting school
-        ...';
-COMMENT ON COLUMN edfi.DisciplineIncident.ReporterName IS 'Identifies the reporter of the DisciplineIncident by name.';
+COMMENT ON COLUMN edfi.DisciplineIncident.ReporterDescriptionDescriptorId IS 'Information on the type of individual who reported the discipline incident. When known and/or if useful, use a more specific option code (e.g., "Counselor" rather than "Professional Staff").';
+COMMENT ON COLUMN edfi.DisciplineIncident.ReporterName IS 'Identifies the reporter of the discipline incident by name.';
 COMMENT ON COLUMN edfi.DisciplineIncident.ReportedToLawEnforcement IS 'Indicator of whether the incident was reported to law enforcement.';
 COMMENT ON COLUMN edfi.DisciplineIncident.CaseNumber IS 'The case number assigned to the DisciplineIncident by law enforcement or other organization.';
-COMMENT ON COLUMN edfi.DisciplineIncident.IncidentCost IS 'The value of any quantifiable monetary loss directly resulting from the DisciplineIncident. Examples include the value of repairs necessitated by vandalism of a school facility, or the value of personnel resources used for repairs or consumed by the incident.';
+COMMENT ON COLUMN edfi.DisciplineIncident.IncidentCost IS 'The value of any quantifiable monetary loss directly resulting from the discipline incident. Examples include the value of repairs necessitated by vandalism of a school facility, or the value of personnel resources used for repairs or consumed by the incident.';
 COMMENT ON COLUMN edfi.DisciplineIncident.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[DisciplineIncidentBehavior] --
 COMMENT ON TABLE edfi.DisciplineIncidentBehavior IS 'Describes behavior by category and provides a detailed description.';
 COMMENT ON COLUMN edfi.DisciplineIncidentBehavior.BehaviorDescriptorId IS 'Describes behavior by category and provides a detailed description.';
-COMMENT ON COLUMN edfi.DisciplineIncidentBehavior.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.DisciplineIncidentBehavior.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineIncidentBehavior.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.DisciplineIncidentBehavior.BehaviorDetailedDescription IS 'Specifies a more granular level of detail of a behavior involved in the incident.';
 
 -- Extended Properties [edfi].[DisciplineIncidentExternalParticipant] --
-COMMENT ON TABLE edfi.DisciplineIncidentExternalParticipant IS 'Information on an individual involved in the Discipline Incident.';
-COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident; for example: Victim, Perpetrator, Witness, Reporter.';
+COMMENT ON TABLE edfi.DisciplineIncidentExternalParticipant IS 'Information on an individual involved in the discipline incident.';
+COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of an individual in the discipline incident.';
 COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN edfi.DisciplineIncidentExternalParticipant.SchoolId IS 'The identifier assigned to a school.';
 
@@ -950,7 +901,7 @@ COMMENT ON COLUMN edfi.DisciplineIncidentParticipationCodeDescriptor.DisciplineI
 
 -- Extended Properties [edfi].[DisciplineIncidentWeapon] --
 COMMENT ON TABLE edfi.DisciplineIncidentWeapon IS 'Identifies the type of weapon used during an incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.';
-COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.DisciplineIncidentWeapon.WeaponDescriptorId IS 'Identifies the type of weapon used during an incident. The Federal Gun-Free Schools Act requires states to report the number of students expelled for bringing firearms to school by type of firearm.';
 
@@ -960,7 +911,7 @@ COMMENT ON COLUMN edfi.EducationalEnvironmentDescriptor.EducationalEnvironmentDe
 
 -- Extended Properties [edfi].[EducationContent] --
 COMMENT ON TABLE edfi.EducationContent IS 'This entity represents materials for students or teachers that can be used for teaching, learning, research, and more. Education content includes full courses, course materials, modules, intervention descriptions, textbooks, streaming videos, tests, software, and any other tools, materials, or techniques used to support access to knowledge.';
-COMMENT ON COLUMN edfi.EducationContent.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.EducationContent.LearningResourceMetadataURI IS 'The URI (typical a URL) pointing to the metadata entry in a LRMI metadata repository, which describes this content item.';
 COMMENT ON COLUMN edfi.EducationContent.ShortDescription IS 'A short description or name of the entity.';
 COMMENT ON COLUMN edfi.EducationContent.Description IS 'An extended written representation of the education content.';
@@ -974,43 +925,43 @@ COMMENT ON COLUMN edfi.EducationContent.PublicationDate IS 'The date on which th
 COMMENT ON COLUMN edfi.EducationContent.PublicationYear IS 'The year at which this content was first published.';
 COMMENT ON COLUMN edfi.EducationContent.Version IS 'The version identifier for the content.';
 COMMENT ON COLUMN edfi.EducationContent.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.EducationContent.Cost IS 'An amount that has to be paid or spent to buy or obtain the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContent.Cost IS 'An amount that has to be paid or spent to buy or obtain the education content.';
 COMMENT ON COLUMN edfi.EducationContent.CostRateDescriptorId IS 'The rate by which the cost applies.';
-COMMENT ON COLUMN edfi.EducationContent.Namespace IS 'Namespace for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContent.Namespace IS 'Namespace for the education content.';
 
 -- Extended Properties [edfi].[EducationContentAppropriateGradeLevel] --
-COMMENT ON TABLE edfi.EducationContentAppropriateGradeLevel IS 'Grade levels for which this education content is applicable-if omitted, considered generally applicable.';
-COMMENT ON COLUMN edfi.EducationContentAppropriateGradeLevel.ContentIdentifier IS 'A unique identifier for the EducationContent.';
-COMMENT ON COLUMN edfi.EducationContentAppropriateGradeLevel.GradeLevelDescriptorId IS 'Grade levels for which this education content is applicable-if omitted, considered generally applicable.';
+COMMENT ON TABLE edfi.EducationContentAppropriateGradeLevel IS 'Grade levels for which this education content is applicable. If omitted, considered generally applicable.';
+COMMENT ON COLUMN edfi.EducationContentAppropriateGradeLevel.ContentIdentifier IS 'A unique identifier for the education content.';
+COMMENT ON COLUMN edfi.EducationContentAppropriateGradeLevel.GradeLevelDescriptorId IS 'Grade levels for which this education content is applicable. If omitted, considered generally applicable.';
 
 -- Extended Properties [edfi].[EducationContentAppropriateSex] --
 COMMENT ON TABLE edfi.EducationContentAppropriateSex IS 'Sexes for which this education content is applicable. If omitted, considered generally applicable.';
-COMMENT ON COLUMN edfi.EducationContentAppropriateSex.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContentAppropriateSex.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.EducationContentAppropriateSex.SexDescriptorId IS 'Sexes for which this education content is applicable. If omitted, considered generally applicable.';
 
 -- Extended Properties [edfi].[EducationContentAuthor] --
 COMMENT ON TABLE edfi.EducationContentAuthor IS 'The individual credited with the creation of the resource.';
 COMMENT ON COLUMN edfi.EducationContentAuthor.Author IS 'The individual credited with the creation of the resource.';
-COMMENT ON COLUMN edfi.EducationContentAuthor.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContentAuthor.ContentIdentifier IS 'A unique identifier for the education content.';
 
 -- Extended Properties [edfi].[EducationContentDerivativeSourceEducationContent] --
 COMMENT ON TABLE edfi.EducationContentDerivativeSourceEducationContent IS 'Relates the education content source to the education content.';
-COMMENT ON COLUMN edfi.EducationContentDerivativeSourceEducationContent.ContentIdentifier IS 'A unique identifier for the EducationContent.';
-COMMENT ON COLUMN edfi.EducationContentDerivativeSourceEducationContent.DerivativeSourceContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContentDerivativeSourceEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
+COMMENT ON COLUMN edfi.EducationContentDerivativeSourceEducationContent.DerivativeSourceContentIdentifier IS 'A unique identifier for the education content.';
 
 -- Extended Properties [edfi].[EducationContentDerivativeSourceLearningResourceMetadataURI] --
 COMMENT ON TABLE edfi.EducationContentDerivativeSourceLearningResourceMetadataURI IS 'The URI (typical a URL) pointing to the metadata entry in a LRMI metadata repository, which describes this content item.';
-COMMENT ON COLUMN edfi.EducationContentDerivativeSourceLearningResourceMetadataURI.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContentDerivativeSourceLearningResourceMetadataURI.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.EducationContentDerivativeSourceLearningResourceMetadataURI.DerivativeSourceLearningResourceMetadataURI IS 'The URI (typical a URL) pointing to the metadata entry in a LRMI metadata repository, which describes this content item.';
 
 -- Extended Properties [edfi].[EducationContentDerivativeSourceURI] --
 COMMENT ON TABLE edfi.EducationContentDerivativeSourceURI IS 'The URI (typical a URL) pointing to an education content item.';
-COMMENT ON COLUMN edfi.EducationContentDerivativeSourceURI.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContentDerivativeSourceURI.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.EducationContentDerivativeSourceURI.DerivativeSourceURI IS 'The URI (typical a URL) pointing to an education content item.';
 
 -- Extended Properties [edfi].[EducationContentLanguage] --
 COMMENT ON TABLE edfi.EducationContentLanguage IS 'An indication of the languages in which the Education Content is designed.';
-COMMENT ON COLUMN edfi.EducationContentLanguage.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.EducationContentLanguage.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.EducationContentLanguage.LanguageDescriptorId IS 'An indication of the languages in which the Education Content is designed.';
 
 -- Extended Properties [edfi].[EducationOrganization] --
@@ -1018,8 +969,8 @@ COMMENT ON TABLE edfi.EducationOrganization IS 'This entity represents any publi
 COMMENT ON COLUMN edfi.EducationOrganization.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.EducationOrganization.NameOfInstitution IS 'The full, legally accepted name of the institution.';
 COMMENT ON COLUMN edfi.EducationOrganization.ShortNameOfInstitution IS 'A short name for the institution.';
-COMMENT ON COLUMN edfi.EducationOrganization.WebSite IS 'The public web site address (URL) for the EducationOrganization.';
-COMMENT ON COLUMN edfi.EducationOrganization.OperationalStatusDescriptorId IS 'The current operational status of the EducationOrganization (e.g., active, inactive).';
+COMMENT ON COLUMN edfi.EducationOrganization.WebSite IS 'The public web site address (URL) for the education organization.';
+COMMENT ON COLUMN edfi.EducationOrganization.OperationalStatusDescriptorId IS 'The current operational status of the education organization (e.g., active, inactive).';
 
 -- Extended Properties [edfi].[EducationOrganizationAddress] --
 COMMENT ON TABLE edfi.EducationOrganizationAddress IS 'The set of elements that describes an address for the education entity, including the street address, city, state, ZIP code, and ZIP code + 4.';
@@ -1071,7 +1022,7 @@ COMMENT ON TABLE edfi.EducationOrganizationIdentificationSystemDescriptor IS 'Th
 COMMENT ON COLUMN edfi.EducationOrganizationIdentificationSystemDescriptor.EducationOrganizationIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[EducationOrganizationIndicator] --
-COMMENT ON TABLE edfi.EducationOrganizationIndicator IS 'An indicator or metric of an Education Organization.';
+COMMENT ON TABLE edfi.EducationOrganizationIndicator IS 'An indicator or metric of an education organization.';
 COMMENT ON COLUMN edfi.EducationOrganizationIndicator.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.EducationOrganizationIndicator.IndicatorDescriptorId IS 'The name or code for the indicator or metric.';
 COMMENT ON COLUMN edfi.EducationOrganizationIndicator.DesignatedBy IS 'The person, organization, or department that defined the metric.';
@@ -1103,16 +1054,16 @@ COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.AddressLine4 IS
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
 COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the person moved to that address.';
-COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, this would be the date the person moved from that address.';
+COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.';
+COMMENT ON COLUMN edfi.EducationOrganizationInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.';
 
 -- Extended Properties [edfi].[EducationOrganizationInterventionPrescriptionAssociation] --
 COMMENT ON TABLE edfi.EducationOrganizationInterventionPrescriptionAssociation IS 'This association indicates interventions made available by an education organization. Often, a district-level education organization purchases a set of intervention prescriptions and makes them available to its schools for use on demand.';
 COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.InterventionPrescriptionEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.InterventionPrescriptionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention prescription.';
-COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.BeginDate IS 'The begin date of the period during which the InterventionPrescription is available.';
-COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.EndDate IS 'The end date of the period during which the InterventionPrescription is available.';
+COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.BeginDate IS 'The begin date of the period during which the intervention prescription is available.';
+COMMENT ON COLUMN edfi.EducationOrganizationInterventionPrescriptionAssociation.EndDate IS 'The end date of the period during which the intervention prescription is available.';
 
 -- Extended Properties [edfi].[EducationOrganizationNetwork] --
 COMMENT ON TABLE edfi.EducationOrganizationNetwork IS 'This entity is a self-organized membership network of peer-level education organizations intended to provide shared services or collective procurement.';
@@ -1120,11 +1071,11 @@ COMMENT ON COLUMN edfi.EducationOrganizationNetwork.EducationOrganizationNetwork
 COMMENT ON COLUMN edfi.EducationOrganizationNetwork.NetworkPurposeDescriptorId IS 'The purpose(s) of the network (e.g., shared services, collective procurement).';
 
 -- Extended Properties [edfi].[EducationOrganizationNetworkAssociation] --
-COMMENT ON TABLE edfi.EducationOrganizationNetworkAssociation IS 'Properties of the association between the EducationOrganization and its network(s).';
+COMMENT ON TABLE edfi.EducationOrganizationNetworkAssociation IS 'Properties of the association between the education organization and its network(s).';
 COMMENT ON COLUMN edfi.EducationOrganizationNetworkAssociation.EducationOrganizationNetworkId IS 'The identifier assigned to a network of education organizations.';
 COMMENT ON COLUMN edfi.EducationOrganizationNetworkAssociation.MemberEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.EducationOrganizationNetworkAssociation.BeginDate IS 'The date on which the EducationOrganization joined this network.';
-COMMENT ON COLUMN edfi.EducationOrganizationNetworkAssociation.EndDate IS 'The date on which the EducationOrganization left this network.';
+COMMENT ON COLUMN edfi.EducationOrganizationNetworkAssociation.BeginDate IS 'The date on which the education organization joined this network.';
+COMMENT ON COLUMN edfi.EducationOrganizationNetworkAssociation.EndDate IS 'The date on which the education organization left this network.';
 
 -- Extended Properties [edfi].[EducationOrganizationPeerAssociation] --
 COMMENT ON TABLE edfi.EducationOrganizationPeerAssociation IS 'The association from an education organization to its peers.';
@@ -1177,19 +1128,19 @@ COMMENT ON TABLE edfi.GeneralStudentProgramAssociation IS 'This association base
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.EndDate IS 'The month, day, and year on which the Student exited the Program or stopped receiving services.';
-COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ReasonExitedDescriptorId IS 'The reason the child left the Program within a school or district.';
-COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ServedOutsideOfRegularSession IS 'Indicates whether the Student received services during the summer session or between sessions.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.EndDate IS 'The month, day, and year on which the student exited the program or stopped receiving services.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ReasonExitedDescriptorId IS 'The reason the student left the program within a school or district.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.ServedOutsideOfRegularSession IS 'Indicates whether the student received services during the summer session or between sessions.';
 
 -- Extended Properties [edfi].[GeneralStudentProgramAssociationParticipationStatus] --
 COMMENT ON TABLE edfi.GeneralStudentProgramAssociationParticipationStatus IS 'The status of the student''s program participation.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.ParticipationStatusDescriptorId IS 'The student''s program participation status.';
@@ -1203,7 +1154,7 @@ COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatu
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ParticipationStatusDescriptorId IS 'The student''s program participation status.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.StatusBeginDate IS 'The date the student''s program participation status began.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -1212,8 +1163,8 @@ COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatu
 
 -- Extended Properties [edfi].[Grade] --
 COMMENT ON TABLE edfi.Grade IS 'This educational entity represents an overall score or assessment tied to a course over a period of time (i.e., the grading period). Student grades are usually a compilation of marks and other scores.';
-COMMENT ON COLUMN edfi.Grade.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
-COMMENT ON COLUMN edfi.Grade.GradeTypeDescriptorId IS 'The type of grade reported (e.g., Exam, Final, Grading Period).';
+COMMENT ON COLUMN edfi.Grade.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
+COMMENT ON COLUMN edfi.Grade.GradeTypeDescriptorId IS 'The type of grade reported (e.g., exam, final, grading period).';
 COMMENT ON COLUMN edfi.Grade.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.Grade.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.Grade.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
@@ -1221,50 +1172,39 @@ COMMENT ON COLUMN edfi.Grade.LocalCourseCode IS 'The local code assigned by the 
 COMMENT ON COLUMN edfi.Grade.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.Grade.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.Grade.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.Grade.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.Grade.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.Grade.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.Grade.LetterGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.Grade.NumericGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.Grade.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
 COMMENT ON COLUMN edfi.Grade.PerformanceBaseConversionDescriptorId IS 'A conversion of the level to a standard set of performance levels.';
+COMMENT ON COLUMN edfi.Grade.CurrentGradeIndicator IS 'An indicator that the posted grade is an interim grade for the grading period and not the final grade.';
+COMMENT ON COLUMN edfi.Grade.CurrentGradeAsOfDate IS 'As-Of date for a grade posted as the current grade.';
 
 -- Extended Properties [edfi].[GradebookEntry] --
 COMMENT ON TABLE edfi.GradebookEntry IS 'This entity represents an assignment, homework, or classroom assessment to be recorded in a gradebook.';
-COMMENT ON COLUMN edfi.GradebookEntry.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the GradebookEntry.';
-COMMENT ON COLUMN edfi.GradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.GradebookEntry.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.GradebookEntry.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
+COMMENT ON COLUMN edfi.GradebookEntry.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
 COMMENT ON COLUMN edfi.GradebookEntry.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.GradebookEntry.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryTypeDescriptorId IS 'The type of the GradebookEntry; for example, homework, assignment, quiz, unit test, oral presentation, etc.';
+COMMENT ON COLUMN edfi.GradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN edfi.GradebookEntry.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.GradebookEntry.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.GradebookEntry.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
+COMMENT ON COLUMN edfi.GradebookEntry.Title IS 'The name or title of the activity to be recorded in the gradebook entry.';
 COMMENT ON COLUMN edfi.GradebookEntry.Description IS 'A description of the assignment, homework, or classroom assessment.';
+COMMENT ON COLUMN edfi.GradebookEntry.DueDate IS 'The date the assignment, homework, or assessment is due.';
+COMMENT ON COLUMN edfi.GradebookEntry.DueTime IS 'The time the assignment, homework, or assessment is due.';
+COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryTypeDescriptorId IS 'The type of the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntry.MaxPoints IS 'The maximum number of points  that can be earned for the submission.';
 COMMENT ON COLUMN edfi.GradebookEntry.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.GradebookEntry.PeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.GradebookEntry.DueDate IS 'The date the assignment, homework, or assessment is due.';
-
--- Extended Properties [edfi].[GradebookEntryLearningObjective] --
-COMMENT ON TABLE edfi.GradebookEntryLearningObjective IS 'LearningObjectives associated with the GradebookEntry.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the GradebookEntry.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.Namespace IS 'Namespace for the LearningObjective.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.GradebookEntry.SchoolYear IS 'The identifier for the school year.';
 
 -- Extended Properties [edfi].[GradebookEntryLearningStandard] --
-COMMENT ON TABLE edfi.GradebookEntryLearningStandard IS 'LearningStandard(s) associated with the GradebookEntry.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the GradebookEntry.';
+COMMENT ON TABLE edfi.GradebookEntryLearningStandard IS 'LearningStandard(s) associated with the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
 COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
 
 -- Extended Properties [edfi].[GradebookEntryTypeDescriptor] --
 COMMENT ON TABLE edfi.GradebookEntryTypeDescriptor IS 'The type of the gradebook entry; for example, homework, assignment, quiz, unit test, oral presentation, etc.';
@@ -1272,8 +1212,8 @@ COMMENT ON COLUMN edfi.GradebookEntryTypeDescriptor.GradebookEntryTypeDescriptor
 
 -- Extended Properties [edfi].[GradeLearningStandardGrade] --
 COMMENT ON TABLE edfi.GradeLearningStandardGrade IS 'A collection of learning standards associated with the grade.';
-COMMENT ON COLUMN edfi.GradeLearningStandardGrade.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
-COMMENT ON COLUMN edfi.GradeLearningStandardGrade.GradeTypeDescriptorId IS 'The type of grade reported (e.g., Exam, Final, Grading Period).';
+COMMENT ON COLUMN edfi.GradeLearningStandardGrade.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
+COMMENT ON COLUMN edfi.GradeLearningStandardGrade.GradeTypeDescriptorId IS 'The type of grade reported (e.g., exam, final, grading period).';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
@@ -1282,7 +1222,7 @@ COMMENT ON COLUMN edfi.GradeLearningStandardGrade.LocalCourseCode IS 'The local 
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.GradeLearningStandardGrade.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.GradeLearningStandardGrade.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.LetterGradeEarned IS 'A final or interim (grading period) indicator of student performance for a learning standard as submitted by the instructor.';
 COMMENT ON COLUMN edfi.GradeLearningStandardGrade.NumericGradeEarned IS 'A final or interim (grading period) indicator of student performance for a learning standard as submitted by the instructor.';
@@ -1307,9 +1247,9 @@ COMMENT ON COLUMN edfi.GradingPeriod.GradingPeriodDescriptorId IS 'The name of t
 COMMENT ON COLUMN edfi.GradingPeriod.PeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.GradingPeriod.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.GradingPeriod.SchoolYear IS 'The identifier for the grading period school year.';
-COMMENT ON COLUMN edfi.GradingPeriod.BeginDate IS 'Month, day, and year of the first day of the GradingPeriod.';
-COMMENT ON COLUMN edfi.GradingPeriod.EndDate IS 'Month, day, and year of the last day of the GradingPeriod.';
-COMMENT ON COLUMN edfi.GradingPeriod.TotalInstructionalDays IS 'Total days available for educational instruction during the GradingPeriod.';
+COMMENT ON COLUMN edfi.GradingPeriod.BeginDate IS 'Month, day, and year of the first day of the grading period.';
+COMMENT ON COLUMN edfi.GradingPeriod.EndDate IS 'Month, day, and year of the last day of the grading period.';
+COMMENT ON COLUMN edfi.GradingPeriod.TotalInstructionalDays IS 'Total days available for educational instruction during the grading period.';
 
 -- Extended Properties [edfi].[GradingPeriodDescriptor] --
 COMMENT ON TABLE edfi.GradingPeriodDescriptor IS 'This descriptor defines the name of the period for which grades are reported. The mapping of descriptor values to known Ed-Fi enumeration values is required.';
@@ -1318,9 +1258,9 @@ COMMENT ON COLUMN edfi.GradingPeriodDescriptor.GradingPeriodDescriptorId IS 'A u
 -- Extended Properties [edfi].[GraduationPlan] --
 COMMENT ON TABLE edfi.GraduationPlan IS 'This entity is a plan outlining the required credits, credits by subject, credits by course, and other criteria required for graduation. A graduation plan may be one or more standard plans defined by an education organization and/or individual plans for some or all students.';
 COMMENT ON COLUMN edfi.GraduationPlan.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlan.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlan.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlan.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
-COMMENT ON COLUMN edfi.GraduationPlan.IndividualPlan IS 'An indicator of whether the GraduationPlan is tailored for an individual.';
+COMMENT ON COLUMN edfi.GraduationPlan.IndividualPlan IS 'An indicator of whether the graduation plan is tailored for an individual.';
 COMMENT ON COLUMN edfi.GraduationPlan.TotalRequiredCredits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.GraduationPlan.TotalRequiredCreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.GraduationPlan.TotalRequiredCreditConversion IS 'Conversion factor that when multiplied by the number of credits is equivalent to Carnegie units.';
@@ -1329,7 +1269,7 @@ COMMENT ON COLUMN edfi.GraduationPlan.TotalRequiredCreditConversion IS 'Conversi
 COMMENT ON TABLE edfi.GraduationPlanCreditsByCourse IS 'The total credits required for graduation by taking a specific course, or by taking one or more from a set of courses.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.CourseSetName IS 'Identifying name given to a collection of courses.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.Credits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourse.CreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
@@ -1342,14 +1282,14 @@ COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.CourseCode IS 'A uniq
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.CourseSetName IS 'Identifying name given to a collection of courses.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCourseCourse.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 
 -- Extended Properties [edfi].[GraduationPlanCreditsByCreditCategory] --
 COMMENT ON TABLE edfi.GraduationPlanCreditsByCreditCategory IS 'The total credits required for graduation based on the credit category.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.CreditCategoryDescriptorId IS 'A categorization for the course transcript credits awarded in the course transcript.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.Credits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.CreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
@@ -1359,7 +1299,7 @@ COMMENT ON COLUMN edfi.GraduationPlanCreditsByCreditCategory.CreditConversion IS
 COMMENT ON TABLE edfi.GraduationPlanCreditsBySubject IS 'The total credits required in subject to graduate. Only those courses identified as a high school course requirement are eligible to meet subject credit requirements.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.AcademicSubjectDescriptorId IS 'The intended major subject area of the graduation requirement.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.Credits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.CreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
@@ -1369,31 +1309,32 @@ COMMENT ON COLUMN edfi.GraduationPlanCreditsBySubject.CreditConversion IS 'Conve
 COMMENT ON TABLE edfi.GraduationPlanRequiredAssessment IS 'The assessments and associated required score and performance level needed to satisfy graduation requirements.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
-COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessment.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[GraduationPlanRequiredAssessmentPerformanceLevel] --
 COMMENT ON TABLE edfi.GraduationPlanRequiredAssessmentPerformanceLevel IS 'Performance level required to be met or exceeded.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
-COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'The performance level(s) defined for the assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.AssessmentReportingMethodDescriptorId IS 'The method that the instructor of the class uses to report the performance and achievement of all students. It may be a qualitative method such as individualized teacher comments or a quantitative method such as a letter or numerical grade. In some cases, more than one type of reporting method may be used.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.MinimumScore IS 'The minimum score required to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.MaximumScore IS 'The maximum score to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[GraduationPlanRequiredAssessmentScore] --
 COMMENT ON TABLE edfi.GraduationPlanRequiredAssessmentScore IS 'Score required to be met or exceeded.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
-COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.MinimumScore IS 'The minimum score possible on the assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.MaximumScore IS 'The maximum score possible on the assessment.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentScore.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
@@ -1459,37 +1400,38 @@ COMMENT ON TABLE edfi.Intervention IS 'An implementation of an instructional app
 COMMENT ON COLUMN edfi.Intervention.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.Intervention.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
 COMMENT ON COLUMN edfi.Intervention.InterventionClassDescriptorId IS 'The way in which an intervention is used: curriculum, supplement, or practice.';
-COMMENT ON COLUMN edfi.Intervention.DeliveryMethodDescriptorId IS 'The way in which an intervention was implemented: individual, small group, whole class, or whole school.';
+COMMENT ON COLUMN edfi.Intervention.DeliveryMethodDescriptorId IS 'The way in which an intervention was implemented.';
 COMMENT ON COLUMN edfi.Intervention.BeginDate IS 'The start date for the intervention implementation.';
 COMMENT ON COLUMN edfi.Intervention.EndDate IS 'The end date for the intervention implementation.';
 COMMENT ON COLUMN edfi.Intervention.MinDosage IS 'The minimum duration of time in minutes that may be assigned for the intervention.';
 COMMENT ON COLUMN edfi.Intervention.MaxDosage IS 'The maximum duration of time in minutes that may be assigned for the intervention.';
+COMMENT ON COLUMN edfi.Intervention.Namespace IS 'Namespace for the intervention.';
 
 -- Extended Properties [edfi].[InterventionAppropriateGradeLevel] --
-COMMENT ON TABLE edfi.InterventionAppropriateGradeLevel IS 'Grade levels for the Intervention-if omitted, considered generally applicable.';
+COMMENT ON TABLE edfi.InterventionAppropriateGradeLevel IS 'Grade levels for the intervention. If omitted, considered generally applicable.';
 COMMENT ON COLUMN edfi.InterventionAppropriateGradeLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.InterventionAppropriateGradeLevel.GradeLevelDescriptorId IS 'Grade levels for the Intervention-if omitted, considered generally applicable.';
+COMMENT ON COLUMN edfi.InterventionAppropriateGradeLevel.GradeLevelDescriptorId IS 'Grade levels for the intervention. If omitted, considered generally applicable.';
 COMMENT ON COLUMN edfi.InterventionAppropriateGradeLevel.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
 
 -- Extended Properties [edfi].[InterventionAppropriateSex] --
-COMMENT ON TABLE edfi.InterventionAppropriateSex IS 'Sexes for the Intervention. If omitted, considered generally applicable.';
+COMMENT ON TABLE edfi.InterventionAppropriateSex IS 'Sexes for the intervention. If omitted, considered generally applicable.';
 COMMENT ON COLUMN edfi.InterventionAppropriateSex.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionAppropriateSex.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
-COMMENT ON COLUMN edfi.InterventionAppropriateSex.SexDescriptorId IS 'Sexes for the Intervention. If omitted, considered generally applicable.';
+COMMENT ON COLUMN edfi.InterventionAppropriateSex.SexDescriptorId IS 'Sexes for the intervention. If omitted, considered generally applicable.';
 
 -- Extended Properties [edfi].[InterventionClassDescriptor] --
 COMMENT ON TABLE edfi.InterventionClassDescriptor IS 'The way in which an intervention is used: curriculum, supplement, or practice.';
 COMMENT ON COLUMN edfi.InterventionClassDescriptor.InterventionClassDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[InterventionDiagnosis] --
-COMMENT ON TABLE edfi.InterventionDiagnosis IS 'Targeted purpose of the Intervention (e.g., attendance issue, dropout risk).';
-COMMENT ON COLUMN edfi.InterventionDiagnosis.DiagnosisDescriptorId IS 'Targeted purpose of the Intervention (e.g., attendance issue, dropout risk).';
+COMMENT ON TABLE edfi.InterventionDiagnosis IS 'Targeted purpose of the intervention.';
+COMMENT ON COLUMN edfi.InterventionDiagnosis.DiagnosisDescriptorId IS 'Targeted purpose of the intervention.';
 COMMENT ON COLUMN edfi.InterventionDiagnosis.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionDiagnosis.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
 
 -- Extended Properties [edfi].[InterventionEducationContent] --
 COMMENT ON TABLE edfi.InterventionEducationContent IS 'Relates the education content source to the education content.';
-COMMENT ON COLUMN edfi.InterventionEducationContent.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.InterventionEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.InterventionEducationContent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionEducationContent.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
 
@@ -1518,10 +1460,10 @@ COMMENT ON COLUMN edfi.InterventionMeetingTime.InterventionIdentificationCode IS
 COMMENT ON COLUMN edfi.InterventionMeetingTime.StartTime IS 'An indication of the time of day the meeting time begins.';
 
 -- Extended Properties [edfi].[InterventionPopulationServed] --
-COMMENT ON TABLE edfi.InterventionPopulationServed IS 'A subset of students that are the focus of the Intervention.';
+COMMENT ON TABLE edfi.InterventionPopulationServed IS 'A subset of students that are the focus of the intervention.';
 COMMENT ON COLUMN edfi.InterventionPopulationServed.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionPopulationServed.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
-COMMENT ON COLUMN edfi.InterventionPopulationServed.PopulationServedDescriptorId IS 'A subset of students that are the focus of the Intervention.';
+COMMENT ON COLUMN edfi.InterventionPopulationServed.PopulationServedDescriptorId IS 'A subset of students that are the focus of the intervention.';
 
 -- Extended Properties [edfi].[InterventionPrescription] --
 COMMENT ON TABLE edfi.InterventionPrescription IS 'This entity represents a formal prescription of an instructional approach focusing on the specific techniques and materials used to teach a given subject. This can be prescribed by academic research, an interventions vendor, or another entity.';
@@ -1531,6 +1473,7 @@ COMMENT ON COLUMN edfi.InterventionPrescription.InterventionClassDescriptorId IS
 COMMENT ON COLUMN edfi.InterventionPrescription.DeliveryMethodDescriptorId IS 'The way in which an intervention was implemented: individual, small group, whole class, or whole school.';
 COMMENT ON COLUMN edfi.InterventionPrescription.MinDosage IS 'The minimum duration of time in minutes that is recommended for the intervention.';
 COMMENT ON COLUMN edfi.InterventionPrescription.MaxDosage IS 'The maximum duration of time in minutes that is recommended for the intervention.';
+COMMENT ON COLUMN edfi.InterventionPrescription.Namespace IS 'Namespace for the intervention.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionAppropriateGradeLevel] --
 COMMENT ON TABLE edfi.InterventionPrescriptionAppropriateGradeLevel IS 'Grade levels for the prescribed intervention. If omitted, considered generally applicable.';
@@ -1539,20 +1482,20 @@ COMMENT ON COLUMN edfi.InterventionPrescriptionAppropriateGradeLevel.GradeLevelD
 COMMENT ON COLUMN edfi.InterventionPrescriptionAppropriateGradeLevel.InterventionPrescriptionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention prescription.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionAppropriateSex] --
-COMMENT ON TABLE edfi.InterventionPrescriptionAppropriateSex IS 'Sexes for the InterventionPrescription. If omitted, considered generally applicable.';
+COMMENT ON TABLE edfi.InterventionPrescriptionAppropriateSex IS 'Sexes for the intervention prescription. If omitted, considered generally applicable.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionAppropriateSex.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionAppropriateSex.InterventionPrescriptionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention prescription.';
-COMMENT ON COLUMN edfi.InterventionPrescriptionAppropriateSex.SexDescriptorId IS 'Sexes for the InterventionPrescription. If omitted, considered generally applicable.';
+COMMENT ON COLUMN edfi.InterventionPrescriptionAppropriateSex.SexDescriptorId IS 'Sexes for the intervention prescription. If omitted, considered generally applicable.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionDiagnosis] --
-COMMENT ON TABLE edfi.InterventionPrescriptionDiagnosis IS 'Targeted purpose of the InterventionPrescription (e.g., attendance issue, dropout risk).';
-COMMENT ON COLUMN edfi.InterventionPrescriptionDiagnosis.DiagnosisDescriptorId IS 'Targeted purpose of the InterventionPrescription (e.g., attendance issue, dropout risk).';
+COMMENT ON TABLE edfi.InterventionPrescriptionDiagnosis IS 'Targeted purpose of the intervention prescription.';
+COMMENT ON COLUMN edfi.InterventionPrescriptionDiagnosis.DiagnosisDescriptorId IS 'Targeted purpose of the intervention prescription.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionDiagnosis.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionDiagnosis.InterventionPrescriptionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention prescription.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionEducationContent] --
 COMMENT ON TABLE edfi.InterventionPrescriptionEducationContent IS 'Relates the education content source to the education content.';
-COMMENT ON COLUMN edfi.InterventionPrescriptionEducationContent.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.InterventionPrescriptionEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionEducationContent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionEducationContent.InterventionPrescriptionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention prescription.';
 
@@ -1563,10 +1506,10 @@ COMMENT ON COLUMN edfi.InterventionPrescriptionLearningResourceMetadataURI.Inter
 COMMENT ON COLUMN edfi.InterventionPrescriptionLearningResourceMetadataURI.LearningResourceMetadataURI IS 'The URI (typical a URL) pointing to the metadata entry in a LRMI metadata repository, which describes this content item.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionPopulationServed] --
-COMMENT ON TABLE edfi.InterventionPrescriptionPopulationServed IS 'A subset of students that are the focus of the InterventionPrescription.';
+COMMENT ON TABLE edfi.InterventionPrescriptionPopulationServed IS 'A subset of students that are the focus of the intervention prescription.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionPopulationServed.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionPrescriptionPopulationServed.InterventionPrescriptionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention prescription.';
-COMMENT ON COLUMN edfi.InterventionPrescriptionPopulationServed.PopulationServedDescriptorId IS 'A subset of students that are the focus of the InterventionPrescription.';
+COMMENT ON COLUMN edfi.InterventionPrescriptionPopulationServed.PopulationServedDescriptorId IS 'A subset of students that are the focus of the intervention prescription.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionURI] --
 COMMENT ON TABLE edfi.InterventionPrescriptionURI IS 'The URI (typical a URL) pointing to an education content item.';
@@ -1604,12 +1547,12 @@ COMMENT ON COLUMN edfi.InterventionStudyAppropriateSex.SexDescriptorId IS 'Sexes
 
 -- Extended Properties [edfi].[InterventionStudyEducationContent] --
 COMMENT ON TABLE edfi.InterventionStudyEducationContent IS 'Relates the education content source to the education content.';
-COMMENT ON COLUMN edfi.InterventionStudyEducationContent.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN edfi.InterventionStudyEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN edfi.InterventionStudyEducationContent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionStudyEducationContent.InterventionStudyIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention study.';
 
 -- Extended Properties [edfi].[InterventionStudyInterventionEffectiveness] --
-COMMENT ON TABLE edfi.InterventionStudyInterventionEffectiveness IS 'Measurement of the effectiveness of the InterventionStudy per diagnosis.';
+COMMENT ON TABLE edfi.InterventionStudyInterventionEffectiveness IS 'Measurement of the effectiveness of the intervention study per diagnosis.';
 COMMENT ON COLUMN edfi.InterventionStudyInterventionEffectiveness.DiagnosisDescriptorId IS 'Targeted purpose of the intervention (e.g., attendance issue, dropout risk) for which the effectiveness is measured.';
 COMMENT ON COLUMN edfi.InterventionStudyInterventionEffectiveness.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionStudyInterventionEffectiveness.GradeLevelDescriptorId IS 'Grade level for which effectiveness is measured.';
@@ -1625,10 +1568,10 @@ COMMENT ON COLUMN edfi.InterventionStudyLearningResourceMetadataURI.Intervention
 COMMENT ON COLUMN edfi.InterventionStudyLearningResourceMetadataURI.LearningResourceMetadataURI IS 'The URI (typical a URL) pointing to the metadata entry in a LRMI metadata repository, which describes this content item.';
 
 -- Extended Properties [edfi].[InterventionStudyPopulationServed] --
-COMMENT ON TABLE edfi.InterventionStudyPopulationServed IS 'A subset of students that are the focus of the InterventionStudy.';
+COMMENT ON TABLE edfi.InterventionStudyPopulationServed IS 'A subset of students that are the focus of the intervention study.';
 COMMENT ON COLUMN edfi.InterventionStudyPopulationServed.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.InterventionStudyPopulationServed.InterventionStudyIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention study.';
-COMMENT ON COLUMN edfi.InterventionStudyPopulationServed.PopulationServedDescriptorId IS 'A subset of students that are the focus of the InterventionStudy.';
+COMMENT ON COLUMN edfi.InterventionStudyPopulationServed.PopulationServedDescriptorId IS 'A subset of students that are the focus of the intervention study.';
 
 -- Extended Properties [edfi].[InterventionStudyStateAbbreviation] --
 COMMENT ON TABLE edfi.InterventionStudyStateAbbreviation IS 'The abbreviation for the state (within the United States) or outlying area, the school system of which the participants of the study are considered to be a part.';
@@ -1661,26 +1604,26 @@ COMMENT ON TABLE edfi.LanguageUseDescriptor IS 'The category denoting how a lang
 COMMENT ON COLUMN edfi.LanguageUseDescriptor.LanguageUseDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[LearningObjective] --
-COMMENT ON TABLE edfi.LearningObjective IS 'This entity represents identified learning objectives for courses in specific grades.';
+COMMENT ON TABLE edfi.LearningObjective IS 'This entity represents identified LearningObjectives for courses in specific grades.';
 COMMENT ON COLUMN edfi.LearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjective.Namespace IS 'Namespace for the LearningObjective.';
-COMMENT ON COLUMN edfi.LearningObjective.Objective IS 'The designated title of the LearningObjective.';
-COMMENT ON COLUMN edfi.LearningObjective.Description IS 'The description of the LearningObjective.';
-COMMENT ON COLUMN edfi.LearningObjective.Nomenclature IS 'Reflects the specific nomenclature used for the LearningObjective.';
-COMMENT ON COLUMN edfi.LearningObjective.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a learning objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjective.Namespace IS 'Namespace for the learning objective.';
+COMMENT ON COLUMN edfi.LearningObjective.Objective IS 'The designated title of the learning objective.';
+COMMENT ON COLUMN edfi.LearningObjective.Description IS 'The description of the learning objective.';
+COMMENT ON COLUMN edfi.LearningObjective.Nomenclature IS 'Reflects the specific nomenclature used for the learning objective.';
+COMMENT ON COLUMN edfi.LearningObjective.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a learning objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the learning objective.';
 COMMENT ON COLUMN edfi.LearningObjective.ParentLearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjective.ParentNamespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjective.ParentNamespace IS 'Namespace for the learning objective.';
 
 -- Extended Properties [edfi].[LearningObjectiveAcademicSubject] --
-COMMENT ON TABLE edfi.LearningObjectiveAcademicSubject IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.';
-COMMENT ON COLUMN edfi.LearningObjectiveAcademicSubject.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of an assessment.';
+COMMENT ON TABLE edfi.LearningObjectiveAcademicSubject IS 'The description of the content or subject area of an assessment.';
+COMMENT ON COLUMN edfi.LearningObjectiveAcademicSubject.AcademicSubjectDescriptorId IS 'The description of the content or subject area of an assessment.';
 COMMENT ON COLUMN edfi.LearningObjectiveAcademicSubject.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjectiveAcademicSubject.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjectiveAcademicSubject.Namespace IS 'Namespace for the learning objective.';
 
 -- Extended Properties [edfi].[LearningObjectiveContentStandard] --
 COMMENT ON TABLE edfi.LearningObjectiveContentStandard IS 'A reference to the type of content standard (e.g., state, national)';
 COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.Namespace IS 'Namespace for the learning objective.';
 COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.Title IS 'The name of the content standard, for example Common Core.';
 COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.Version IS 'The version identifier for the content.';
 COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.URI IS 'An unambiguous reference to the standards using a network-resolvable URI.';
@@ -1695,19 +1638,19 @@ COMMENT ON COLUMN edfi.LearningObjectiveContentStandard.EndDate IS 'The end of t
 COMMENT ON TABLE edfi.LearningObjectiveContentStandardAuthor IS 'The person or organization chiefly responsible for the intellectual content of the standard.';
 COMMENT ON COLUMN edfi.LearningObjectiveContentStandardAuthor.Author IS 'The person or organization chiefly responsible for the intellectual content of the standard.';
 COMMENT ON COLUMN edfi.LearningObjectiveContentStandardAuthor.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjectiveContentStandardAuthor.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjectiveContentStandardAuthor.Namespace IS 'Namespace for the learning objective.';
 
 -- Extended Properties [edfi].[LearningObjectiveGradeLevel] --
-COMMENT ON TABLE edfi.LearningObjectiveGradeLevel IS 'The grade level for which the LearningObjective is targeted. The semantics of null is assumed to mean that the learning objective is not associated with any grade level.';
-COMMENT ON COLUMN edfi.LearningObjectiveGradeLevel.GradeLevelDescriptorId IS 'The grade level for which the LearningObjective is targeted. The semantics of null is assumed to mean that the learning objective is not associated with any grade level.';
+COMMENT ON TABLE edfi.LearningObjectiveGradeLevel IS 'The grade level for which the learning objective is targeted. The semantics of null is assumed to mean that the learning objective is not associated with any grade level.';
+COMMENT ON COLUMN edfi.LearningObjectiveGradeLevel.GradeLevelDescriptorId IS 'The grade level for which the learning objective is targeted. The semantics of null is assumed to mean that the learning objective is not associated with any grade level.';
 COMMENT ON COLUMN edfi.LearningObjectiveGradeLevel.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjectiveGradeLevel.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjectiveGradeLevel.Namespace IS 'Namespace for the learning objective.';
 
 -- Extended Properties [edfi].[LearningObjectiveLearningStandard] --
-COMMENT ON TABLE edfi.LearningObjectiveLearningStandard IS 'LearningStandard(s) included in this objective.';
+COMMENT ON TABLE edfi.LearningObjectiveLearningStandard IS 'Learning standard(s) included in this objective.';
 COMMENT ON COLUMN edfi.LearningObjectiveLearningStandard.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
 COMMENT ON COLUMN edfi.LearningObjectiveLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.LearningObjectiveLearningStandard.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.LearningObjectiveLearningStandard.Namespace IS 'Namespace for the learning objective.';
 
 -- Extended Properties [edfi].[LearningStandard] --
 COMMENT ON TABLE edfi.LearningStandard IS 'A statement that describes a specific competency or academic standard.';
@@ -1715,16 +1658,16 @@ COMMENT ON COLUMN edfi.LearningStandard.LearningStandardId IS 'The identifier fo
 COMMENT ON COLUMN edfi.LearningStandard.Description IS 'The text of the statement. The textual content that either describes a specific competency such as "Apply the Pythagorean Theorem to determine unknown side lengths in right triangles in real-world and mathematical problems in two and three dimensions." or describes a less granular group of competencies within the taxonomy of the standards document, e.g. "Understand and apply the Pythagorean Theorem," or "Geometry".';
 COMMENT ON COLUMN edfi.LearningStandard.LearningStandardItemCode IS 'A code designated by the promulgating body to identify the statement, e.g. 1.N.3 (usually not globally unique).';
 COMMENT ON COLUMN edfi.LearningStandard.URI IS 'An unambiguous reference to the statement using a network-resolvable URI.';
-COMMENT ON COLUMN edfi.LearningStandard.CourseTitle IS 'The official Course Title with which this learning standard is associated.';
-COMMENT ON COLUMN edfi.LearningStandard.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a learning standard. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the LearningStandard.';
+COMMENT ON COLUMN edfi.LearningStandard.CourseTitle IS 'The official course title with which this learning standard is associated.';
+COMMENT ON COLUMN edfi.LearningStandard.SuccessCriteria IS 'One or more statements that describes the criteria used by teachers and students to check for attainment of a learning standard. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the learning standard.';
 COMMENT ON COLUMN edfi.LearningStandard.ParentLearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
 COMMENT ON COLUMN edfi.LearningStandard.Namespace IS 'The namespace of the organization or entity who governs the standard. It is recommended the namespaces observe a URI format and begin with a domain name under the governing organization or entity control.';
 COMMENT ON COLUMN edfi.LearningStandard.LearningStandardCategoryDescriptorId IS 'An additional classification of the type of a specific learning standard.';
 COMMENT ON COLUMN edfi.LearningStandard.LearningStandardScopeDescriptorId IS 'Signals the scope of usage the standard. Does not necessarily relate the standard to the governing body.';
 
 -- Extended Properties [edfi].[LearningStandardAcademicSubject] --
-COMMENT ON TABLE edfi.LearningStandardAcademicSubject IS 'Subject area for the LearningStandard.';
-COMMENT ON COLUMN edfi.LearningStandardAcademicSubject.AcademicSubjectDescriptorId IS 'Subject area for the LearningStandard.';
+COMMENT ON TABLE edfi.LearningStandardAcademicSubject IS 'Subject area for the learning standard.';
+COMMENT ON COLUMN edfi.LearningStandardAcademicSubject.AcademicSubjectDescriptorId IS 'Subject area for the learning standard.';
 COMMENT ON COLUMN edfi.LearningStandardAcademicSubject.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
 
 -- Extended Properties [edfi].[LearningStandardCategoryDescriptor] --
@@ -1732,7 +1675,7 @@ COMMENT ON TABLE edfi.LearningStandardCategoryDescriptor IS 'An additional class
 COMMENT ON COLUMN edfi.LearningStandardCategoryDescriptor.LearningStandardCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[LearningStandardContentStandard] --
-COMMENT ON TABLE edfi.LearningStandardContentStandard IS 'The content standard from which the LearningStandard was derived.';
+COMMENT ON TABLE edfi.LearningStandardContentStandard IS 'The content standard from which the learning standard was derived.';
 COMMENT ON COLUMN edfi.LearningStandardContentStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
 COMMENT ON COLUMN edfi.LearningStandardContentStandard.Title IS 'The name of the content standard, for example Common Core.';
 COMMENT ON COLUMN edfi.LearningStandardContentStandard.Version IS 'The version identifier for the content.';
@@ -1756,7 +1699,7 @@ COMMENT ON COLUMN edfi.LearningStandardEquivalenceAssociation.SourceLearningStan
 COMMENT ON COLUMN edfi.LearningStandardEquivalenceAssociation.TargetLearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
 COMMENT ON COLUMN edfi.LearningStandardEquivalenceAssociation.EffectiveDate IS 'The date that the association is considered to be applicable or effective.';
 COMMENT ON COLUMN edfi.LearningStandardEquivalenceAssociation.LearningStandardEquivalenceStrengthDescriptorId IS 'A measure that indicates the strength or quality of the equivalence relationship.';
-COMMENT ON COLUMN edfi.LearningStandardEquivalenceAssociation.LearningStandardEquivalenceStrengthDescription IS 'Captures supplemental information on the relationship. Recommended for use only when the match is  partial.';
+COMMENT ON COLUMN edfi.LearningStandardEquivalenceAssociation.LearningStandardEquivalenceStrengthDescription IS 'Captures supplemental information on the relationship. Recommended for use only when the match is partial.';
 
 -- Extended Properties [edfi].[LearningStandardEquivalenceStrengthDescriptor] --
 COMMENT ON TABLE edfi.LearningStandardEquivalenceStrengthDescriptor IS 'A measure that indicates the strength or quality of the equivalence relationship.';
@@ -1805,7 +1748,7 @@ COMMENT ON COLUMN edfi.LocaleDescriptor.LocaleDescriptorId IS 'A unique identifi
 -- Extended Properties [edfi].[LocalEducationAgency] --
 COMMENT ON TABLE edfi.LocalEducationAgency IS 'This entity represents an administrative unit at the local level which exists primarily to operate schools or to contract for educational services. It includes school districts, charter schools, charter management organizations, or other local administrative organizations.';
 COMMENT ON COLUMN edfi.LocalEducationAgency.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
-COMMENT ON COLUMN edfi.LocalEducationAgency.LocalEducationAgencyCategoryDescriptorId IS 'The category of local education agency/district. For example: Independent or Charter.';
+COMMENT ON COLUMN edfi.LocalEducationAgency.LocalEducationAgencyCategoryDescriptorId IS 'The category of local education agency/district.';
 COMMENT ON COLUMN edfi.LocalEducationAgency.CharterStatusDescriptorId IS 'A school or agency providing free public elementary or secondary education to eligible students under a specific charter granted by the state legislature or other appropriate authority and designated by such authority to be a charter school.';
 COMMENT ON COLUMN edfi.LocalEducationAgency.ParentLocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
 COMMENT ON COLUMN edfi.LocalEducationAgency.EducationServiceCenterId IS 'The identifier assigned to an education service center.';
@@ -1836,7 +1779,7 @@ COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.SupplementalEducationalS
 COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.StateAssessmentAdministrationFunding IS 'The percentage of funds used to administer assessments required by Section 1111(b) or to carry out other activities described in Section 6111 and other activities related to ensuring that the state''s schools and LEAs are held accountable for results.';
 
 -- Extended Properties [edfi].[Location] --
-COMMENT ON TABLE edfi.Location IS 'This entity represents the physical space where students gather for a particular class/section. The Location may be an indoor or outdoor area designated for the purpose of meeting the educational needs of students.';
+COMMENT ON TABLE edfi.Location IS 'This entity represents the physical space where students gather for a particular class/section. The location may be an indoor or outdoor area designated for the purpose of meeting the educational needs of students.';
 COMMENT ON COLUMN edfi.Location.ClassroomIdentificationCode IS 'A unique number or alphanumeric code assigned to a room by a school, school system, state, or other agency or entity.';
 COMMENT ON COLUMN edfi.Location.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.Location.MaximumNumberOfSeats IS 'The most number of seats the class can maintain.';
@@ -1877,57 +1820,47 @@ COMMENT ON COLUMN edfi.NetworkPurposeDescriptor.NetworkPurposeDescriptorId IS 'A
 -- Extended Properties [edfi].[ObjectiveAssessment] --
 COMMENT ON TABLE edfi.ObjectiveAssessment IS 'This entity represents subtests that assess specific learning objectives.';
 COMMENT ON COLUMN edfi.ObjectiveAssessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessment.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessment.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessment.MaxRawScore IS 'The maximum raw score achievable across all assessment items that are correct and scored at the maximum.';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.PercentOfAssessment IS 'The percentage of the Assessment that tests this objective.';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.Nomenclature IS 'Reflects the specific nomenclature used for this level of ObjectiveAssessment.';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.Description IS 'The description of the ObjectiveAssessment (e.g., vocabulary, measurement, or geometry).';
-COMMENT ON COLUMN edfi.ObjectiveAssessment.ParentIdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessment.PercentOfAssessment IS 'The percentage of the assessment that tests this objective.';
+COMMENT ON COLUMN edfi.ObjectiveAssessment.Nomenclature IS 'Reflects the specific nomenclature used for this level of objective assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessment.Description IS 'The description of the objective assessment (e.g., vocabulary, measurement, or geometry).';
+COMMENT ON COLUMN edfi.ObjectiveAssessment.ParentIdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN edfi.ObjectiveAssessment.AcademicSubjectDescriptorId IS 'The subject area of the objective assessment.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentAssessmentItem] --
 COMMENT ON TABLE edfi.ObjectiveAssessmentAssessmentItem IS 'References individual test items, if appropriate.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.AssessmentItemIdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.Namespace IS 'Namespace for the Assessment.';
-
--- Extended Properties [edfi].[ObjectiveAssessmentLearningObjective] --
-COMMENT ON TABLE edfi.ObjectiveAssessmentLearningObjective IS 'References the LearningObjective(s) the ObjectiveAssessment tests.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.LearningObjectiveNamespace IS 'Namespace for the LearningObjective.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentLearningStandard] --
-COMMENT ON TABLE edfi.ObjectiveAssessmentLearningStandard IS 'LearningStandard tested by this ObjectiveAssessment.';
+COMMENT ON TABLE edfi.ObjectiveAssessmentLearningStandard IS 'Learning standard tested by this objective assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.Namespace IS 'Namespace for the assessment.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentPerformanceLevel] --
-COMMENT ON TABLE edfi.ObjectiveAssessmentPerformanceLevel IS 'Definition of the performance levels and the associated cut scores. Three styles are supported:
-        1. Specification of performance level by minimum and maximum score
-        2. Specification of performance level by cut score, using only minimum score
-        3. Specification of performance level without any mapping to scores';
+COMMENT ON TABLE edfi.ObjectiveAssessmentPerformanceLevel IS 'Definition of the performance levels and the associated cut scores. Three styles are supported: 1. Specification of performance level by minimum and maximum score, 2. Specification of performance level by cut score, using only minimum score, 3. Specification of performance level without any mapping to scores';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.AssessmentReportingMethodDescriptorId IS 'The method that the instructor of the class uses to report the performance and achievement of all students. It may be a qualitative method such as individualized teacher comments or a quantitative method such as a letter or numerical grade. In some cases, more than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'The performance level(s) defined for the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.MinimumScore IS 'The minimum score required to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.MaximumScore IS 'The maximum score to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentScore] --
 COMMENT ON TABLE edfi.ObjectiveAssessmentScore IS 'Definition of the scores to be expected from this objective assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.MinimumScore IS 'The minimum score possible on the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.MaximumScore IS 'The maximum score possible on the assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentScore.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
@@ -1940,28 +1873,17 @@ COMMENT ON COLUMN edfi.OldEthnicityDescriptor.OldEthnicityDescriptorId IS 'A uni
 COMMENT ON TABLE edfi.OpenStaffPosition IS 'This entity represents an open staff position that the education organization is seeking to fill.';
 COMMENT ON COLUMN edfi.OpenStaffPosition.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.OpenStaffPosition.RequisitionNumber IS 'The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.';
-COMMENT ON COLUMN edfi.OpenStaffPosition.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract desired for the position; for example:
-        Probationary
-        Contractual
-        Substitute/temporary
-        Tenured or permanent
-        Volunteer/no contract
-        ...';
+COMMENT ON COLUMN edfi.OpenStaffPosition.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract desired for the position.';
 COMMENT ON COLUMN edfi.OpenStaffPosition.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
 COMMENT ON COLUMN edfi.OpenStaffPosition.PositionTitle IS 'The descriptive name of an individual''s position.';
-COMMENT ON COLUMN edfi.OpenStaffPosition.ProgramAssignmentDescriptorId IS 'The name of the program for which the OpenStaffPosition will be assigned; for example:
-        Regular education
-        Title I-Academic
-        Title I-Non-Academic
-        Special Education''
-        Bilingual/English as a Second Language.';
-COMMENT ON COLUMN edfi.OpenStaffPosition.DatePosted IS 'Date the OpenStaffPosition was posted.';
+COMMENT ON COLUMN edfi.OpenStaffPosition.ProgramAssignmentDescriptorId IS 'The name of the program for which the open staff position will be assigned.';
+COMMENT ON COLUMN edfi.OpenStaffPosition.DatePosted IS 'Date the open staff position was posted.';
 COMMENT ON COLUMN edfi.OpenStaffPosition.DatePostingRemoved IS 'The date the posting was removed or filled.';
 COMMENT ON COLUMN edfi.OpenStaffPosition.PostingResultDescriptorId IS 'Indication of whether the OpenStaffPosition was filled or retired without filling.';
 
 -- Extended Properties [edfi].[OpenStaffPositionAcademicSubject] --
-COMMENT ON TABLE edfi.OpenStaffPositionAcademicSubject IS 'The teaching field required for the OpenStaffPosition, for example English/Language Arts, Reading, Mathematics, Science, Social Sciences, etc.';
-COMMENT ON COLUMN edfi.OpenStaffPositionAcademicSubject.AcademicSubjectDescriptorId IS 'The teaching field required for the OpenStaffPosition, for example English/Language Arts, Reading, Mathematics, Science, Social Sciences, etc.';
+COMMENT ON TABLE edfi.OpenStaffPositionAcademicSubject IS 'The teaching field required for the open staff position.';
+COMMENT ON COLUMN edfi.OpenStaffPositionAcademicSubject.AcademicSubjectDescriptorId IS 'The teaching field required for the open staff position.';
 COMMENT ON COLUMN edfi.OpenStaffPositionAcademicSubject.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.OpenStaffPositionAcademicSubject.RequisitionNumber IS 'The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.';
 
@@ -1977,7 +1899,7 @@ COMMENT ON COLUMN edfi.OperationalStatusDescriptor.OperationalStatusDescriptorId
 
 -- Extended Properties [edfi].[OrganizationDepartment] --
 COMMENT ON TABLE edfi.OrganizationDepartment IS 'An organizational unit of another education organization, often devoted to a particular academic discipline, area of study, or organization function.';
-COMMENT ON COLUMN edfi.OrganizationDepartment.OrganizationDepartmentId IS 'The unique identification code for the OrganizationDepartment.';
+COMMENT ON COLUMN edfi.OrganizationDepartment.OrganizationDepartmentId IS 'The unique identification code for the organization department.';
 COMMENT ON COLUMN edfi.OrganizationDepartment.AcademicSubjectDescriptorId IS 'The intended major subject area of the department.';
 COMMENT ON COLUMN edfi.OrganizationDepartment.ParentEducationOrganizationId IS 'The identifier assigned to an education organization.';
 
@@ -1988,12 +1910,12 @@ COMMENT ON COLUMN edfi.OtherNameTypeDescriptor.OtherNameTypeDescriptorId IS 'A u
 -- Extended Properties [edfi].[Parent] --
 COMMENT ON TABLE edfi.Parent IS 'This entity represents a parent or guardian of a student, such as mother, father, or caretaker.';
 COMMENT ON COLUMN edfi.Parent.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.Parent.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the person.';
+COMMENT ON COLUMN edfi.Parent.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
 COMMENT ON COLUMN edfi.Parent.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.Parent.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
 COMMENT ON COLUMN edfi.Parent.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN edfi.Parent.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
-COMMENT ON COLUMN edfi.Parent.MaidenName IS 'The person''s maiden name.';
+COMMENT ON COLUMN edfi.Parent.MaidenName IS 'The individual''s maiden name.';
 COMMENT ON COLUMN edfi.Parent.SexDescriptorId IS 'A person''s gender.';
 COMMENT ON COLUMN edfi.Parent.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.Parent.PersonId IS 'A unique alphanumeric code assigned to a person.';
@@ -2050,8 +1972,8 @@ COMMENT ON COLUMN edfi.ParentInternationalAddress.AddressLine4 IS 'The fourth li
 COMMENT ON COLUMN edfi.ParentInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 COMMENT ON COLUMN edfi.ParentInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
 COMMENT ON COLUMN edfi.ParentInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the person moved to that address.';
-COMMENT ON COLUMN edfi.ParentInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, this would be the date the person moved from that address.';
+COMMENT ON COLUMN edfi.ParentInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.';
+COMMENT ON COLUMN edfi.ParentInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.';
 
 -- Extended Properties [edfi].[ParentLanguage] --
 COMMENT ON TABLE edfi.ParentLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.';
@@ -2066,9 +1988,9 @@ COMMENT ON COLUMN edfi.ParentLanguageUse.ParentUSI IS 'A unique alphanumeric cod
 
 -- Extended Properties [edfi].[ParentOtherName] --
 COMMENT ON TABLE edfi.ParentOtherName IS 'Other names (e.g., alias, nickname, previous legal name) associated with a person.';
-COMMENT ON COLUMN edfi.ParentOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for a person.';
+COMMENT ON COLUMN edfi.ParentOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for an individual.';
 COMMENT ON COLUMN edfi.ParentOtherName.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
-COMMENT ON COLUMN edfi.ParentOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the person.';
+COMMENT ON COLUMN edfi.ParentOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
 COMMENT ON COLUMN edfi.ParentOtherName.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.ParentOtherName.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
 COMMENT ON COLUMN edfi.ParentOtherName.LastSurname IS 'The name borne in common by members of a family.';
@@ -2143,7 +2065,7 @@ COMMENT ON COLUMN edfi.PostingResultDescriptor.PostingResultDescriptorId IS 'A u
 -- Extended Properties [edfi].[PostSecondaryEvent] --
 COMMENT ON TABLE edfi.PostSecondaryEvent IS 'This entity captures significant postsecondary events during a student''s high school tenure (e.g., FAFSA application or college application, acceptance, and enrollment) or during a student''s enrollment at a post-secondary institution.';
 COMMENT ON COLUMN edfi.PostSecondaryEvent.EventDate IS 'The date the event occurred or was recorded.';
-COMMENT ON COLUMN edfi.PostSecondaryEvent.PostSecondaryEventCategoryDescriptorId IS 'The PostSecondaryEvent that is logged (e.g., FAFSA application, college application, college acceptance).';
+COMMENT ON COLUMN edfi.PostSecondaryEvent.PostSecondaryEventCategoryDescriptorId IS 'The post secondary event that is logged.';
 COMMENT ON COLUMN edfi.PostSecondaryEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.PostSecondaryEvent.PostSecondaryInstitutionId IS 'The ID of the post secondary institution.';
 
@@ -2158,7 +2080,7 @@ COMMENT ON COLUMN edfi.PostSecondaryInstitution.PostSecondaryInstitutionLevelDes
 COMMENT ON COLUMN edfi.PostSecondaryInstitution.AdministrativeFundingControlDescriptorId IS 'A classification of whether a postsecondary institution is operated by publicly elected or appointed officials (public control) or by privately elected or appointed officials and derives its major source of funds from private sources (private control).';
 
 -- Extended Properties [edfi].[PostSecondaryInstitutionLevelDescriptor] --
-COMMENT ON TABLE edfi.PostSecondaryInstitutionLevelDescriptor IS 'A classification of whether a post-secondary institution''s highest level of offering is a program of 4 years or higher (4 year), 2 but less than 4 years (2 year) or less than 2 years.';
+COMMENT ON TABLE edfi.PostSecondaryInstitutionLevelDescriptor IS 'A classification of a postsecondary institution''s highest level of offering. Default values are based on the Carnegie Classifications.';
 COMMENT ON COLUMN edfi.PostSecondaryInstitutionLevelDescriptor.PostSecondaryInstitutionLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[PostSecondaryInstitutionMediumOfInstruction] --
@@ -2185,7 +2107,7 @@ COMMENT ON COLUMN edfi.ProficiencyDescriptor.ProficiencyDescriptorId IS 'A uniqu
 -- Extended Properties [edfi].[Program] --
 COMMENT ON TABLE edfi.Program IS 'This entity represents any program designed to work in conjunction with, or as a supplement to, the main academic program. Programs may provide instruction, training, services, or benefits through federal, state, or local agencies. Programs may also include organized extracurricular activities for students.';
 COMMENT ON COLUMN edfi.Program.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.Program.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.Program.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.Program.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.Program.ProgramId IS 'A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.';
 
@@ -2194,10 +2116,10 @@ COMMENT ON TABLE edfi.ProgramAssignmentDescriptor IS 'This descriptor defines th
 COMMENT ON COLUMN edfi.ProgramAssignmentDescriptor.ProgramAssignmentDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ProgramCharacteristic] --
-COMMENT ON TABLE edfi.ProgramCharacteristic IS 'Reflects important characteristics of the Program, such as categories or particular indications.';
+COMMENT ON TABLE edfi.ProgramCharacteristic IS 'Reflects important characteristics of the program, such as categories or particular indications.';
 COMMENT ON COLUMN edfi.ProgramCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ProgramCharacteristic.ProgramCharacteristicDescriptorId IS 'Reflects important characteristics of the Program, such as categories or particular indications.';
-COMMENT ON COLUMN edfi.ProgramCharacteristic.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.ProgramCharacteristic.ProgramCharacteristicDescriptorId IS 'Reflects important characteristics of the program, such as categories or particular indications.';
+COMMENT ON COLUMN edfi.ProgramCharacteristic.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.ProgramCharacteristic.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [edfi].[ProgramCharacteristicDescriptor] --
@@ -2205,31 +2127,31 @@ COMMENT ON TABLE edfi.ProgramCharacteristicDescriptor IS 'This descriptor define
 COMMENT ON COLUMN edfi.ProgramCharacteristicDescriptor.ProgramCharacteristicDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ProgramLearningObjective] --
-COMMENT ON TABLE edfi.ProgramLearningObjective IS 'References the LearningObjective(s) with which the Program is associated.';
+COMMENT ON TABLE edfi.ProgramLearningObjective IS 'References the learning objective(s) with which the program is associated.';
 COMMENT ON COLUMN edfi.ProgramLearningObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.ProgramLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.ProgramLearningObjective.Namespace IS 'Namespace for the LearningObjective.';
-COMMENT ON COLUMN edfi.ProgramLearningObjective.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.ProgramLearningObjective.Namespace IS 'Namespace for the learning objective.';
+COMMENT ON COLUMN edfi.ProgramLearningObjective.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.ProgramLearningObjective.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [edfi].[ProgramLearningStandard] --
-COMMENT ON TABLE edfi.ProgramLearningStandard IS 'LearningStandard followed by this program.';
+COMMENT ON TABLE edfi.ProgramLearningStandard IS 'Learning standard followed by this program.';
 COMMENT ON COLUMN edfi.ProgramLearningStandard.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.ProgramLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.ProgramLearningStandard.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.ProgramLearningStandard.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.ProgramLearningStandard.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [edfi].[ProgramService] --
 COMMENT ON TABLE edfi.ProgramService IS 'Defines the services this program provides to students.';
 COMMENT ON COLUMN edfi.ProgramService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ProgramService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.ProgramService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.ProgramService.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.ProgramService.ServiceDescriptorId IS 'Defines the services this program provides to students.';
 
 -- Extended Properties [edfi].[ProgramSponsor] --
 COMMENT ON TABLE edfi.ProgramSponsor IS 'Ultimate and intermediate providers of funds for a particular educational or service program or activity, or for an individual''s participation in the program or activity (e.g., Federal, State, ESC, District, School, Private Organization).';
 COMMENT ON COLUMN edfi.ProgramSponsor.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ProgramSponsor.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.ProgramSponsor.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.ProgramSponsor.ProgramSponsorDescriptorId IS 'Ultimate and intermediate providers of funds for a particular educational or service program or activity, or for an individual''s participation in the program or activity (e.g., Federal, State, ESC, District, School, Private Organization).';
 COMMENT ON COLUMN edfi.ProgramSponsor.ProgramTypeDescriptorId IS 'The type of program.';
 
@@ -2278,15 +2200,7 @@ COMMENT ON TABLE edfi.ReasonExitedDescriptor IS 'This descriptor defines the rea
 COMMENT ON COLUMN edfi.ReasonExitedDescriptor.ReasonExitedDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ReasonNotTestedDescriptor] --
-COMMENT ON TABLE edfi.ReasonNotTestedDescriptor IS 'The primary reason student is not tested. For example:
-    Absent
-    Refusal by parent
-    Refusal by student
-    Medical waiver
-    Illness
-    Disruptive behavior
-    LEP Exempt
-    ''...';
+COMMENT ON TABLE edfi.ReasonNotTestedDescriptor IS 'The primary reason student is not tested.';
 COMMENT ON COLUMN edfi.ReasonNotTestedDescriptor.ReasonNotTestedDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[RecognitionTypeDescriptor] --
@@ -2316,10 +2230,10 @@ COMMENT ON COLUMN edfi.ReportCard.NumberOfDaysInAttendance IS 'The number of day
 COMMENT ON COLUMN edfi.ReportCard.NumberOfDaysTardy IS 'The number of days an individual is tardy during a given reporting period.';
 
 -- Extended Properties [edfi].[ReportCardGrade] --
-COMMENT ON TABLE edfi.ReportCardGrade IS 'Grades for the classes attended by the Student for this grading period.';
-COMMENT ON COLUMN edfi.ReportCardGrade.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON TABLE edfi.ReportCardGrade IS 'Grades for the classes attended by the student for this grading period.';
+COMMENT ON COLUMN edfi.ReportCardGrade.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
 COMMENT ON COLUMN edfi.ReportCardGrade.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ReportCardGrade.GradeTypeDescriptorId IS 'The type of grade reported (e.g., Exam, Final, Grading Period).';
+COMMENT ON COLUMN edfi.ReportCardGrade.GradeTypeDescriptorId IS 'The type of grade reported (e.g., exam, final, grading period).';
 COMMENT ON COLUMN edfi.ReportCardGrade.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.ReportCardGrade.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.ReportCardGrade.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
@@ -2328,7 +2242,7 @@ COMMENT ON COLUMN edfi.ReportCardGrade.LocalCourseCode IS 'The local code assign
 COMMENT ON COLUMN edfi.ReportCardGrade.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.ReportCardGrade.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.ReportCardGrade.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.ReportCardGrade.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.ReportCardGrade.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.ReportCardGrade.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[ReportCardGradePointAverage] --
@@ -2345,26 +2259,26 @@ COMMENT ON COLUMN edfi.ReportCardGradePointAverage.GradePointAverageValue IS 'Th
 COMMENT ON COLUMN edfi.ReportCardGradePointAverage.MaxGradePointAverageValue IS 'The maximum value for the grade point average.';
 
 -- Extended Properties [edfi].[ReportCardStudentCompetencyObjective] --
-COMMENT ON TABLE edfi.ReportCardStudentCompetencyObjective IS 'The Student competency evaluations associated for this grading period.';
+COMMENT ON TABLE edfi.ReportCardStudentCompetencyObjective IS 'The student competency evaluations associated for this grading period.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.Objective IS 'The designated title of the CompetencyObjective.';
+COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.Objective IS 'The designated title of the competency objective.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the CompetencyObjective is targeted.';
+COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[ReportCardStudentLearningObjective] --
-COMMENT ON TABLE edfi.ReportCardStudentLearningObjective IS 'The StudentLearningObjective evaluations associated for this grading period.';
+COMMENT ON TABLE edfi.ReportCardStudentLearningObjective IS 'The student learning objective evaluations associated for this grading period.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.Namespace IS 'Namespace for the learning objective.';
 COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[ReporterDescriptionDescriptor] --
@@ -2376,12 +2290,7 @@ COMMENT ON TABLE edfi.ResidencyStatusDescriptor IS 'This descriptor defines indi
 COMMENT ON COLUMN edfi.ResidencyStatusDescriptor.ResidencyStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ResponseIndicatorDescriptor] --
-COMMENT ON TABLE edfi.ResponseIndicatorDescriptor IS 'Indicator of the response.  For example:
-    Nonscorable response
-    Ineffective response
-    Effective response
-    Partial response
-    ...';
+COMMENT ON TABLE edfi.ResponseIndicatorDescriptor IS 'Indicator of the response.';
 COMMENT ON COLUMN edfi.ResponseIndicatorDescriptor.ResponseIndicatorDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ResponsibilityDescriptor] --
@@ -2393,13 +2302,13 @@ COMMENT ON TABLE edfi.RestraintEvent IS 'This event entity represents the instan
 COMMENT ON COLUMN edfi.RestraintEvent.RestraintEventIdentifier IS 'A unique number or alphanumeric code assigned to a restraint event by a school, school system, state, or other agency or entity.';
 COMMENT ON COLUMN edfi.RestraintEvent.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.RestraintEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.RestraintEvent.EventDate IS 'Month, day, and year of the RestraintEvent.';
+COMMENT ON COLUMN edfi.RestraintEvent.EventDate IS 'Month, day, and year of the restraint event.';
 COMMENT ON COLUMN edfi.RestraintEvent.EducationalEnvironmentDescriptorId IS 'The setting where the RestraintEvent was exercised.';
 
 -- Extended Properties [edfi].[RestraintEventProgram] --
-COMMENT ON TABLE edfi.RestraintEventProgram IS 'The special education program associated with the RestraintEvent.';
+COMMENT ON TABLE edfi.RestraintEventProgram IS 'The special education program associated with the restraint event.';
 COMMENT ON COLUMN edfi.RestraintEventProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.RestraintEventProgram.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.RestraintEventProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.RestraintEventProgram.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.RestraintEventProgram.RestraintEventIdentifier IS 'A unique number or alphanumeric code assigned to a restraint event by a school, school system, state, or other agency or entity.';
 COMMENT ON COLUMN edfi.RestraintEventProgram.SchoolId IS 'The identifier assigned to a school.';
@@ -2421,11 +2330,7 @@ COMMENT ON TABLE edfi.ResultDatatypeTypeDescriptor IS 'The results can be expres
 COMMENT ON COLUMN edfi.ResultDatatypeTypeDescriptor.ResultDatatypeTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[RetestIndicatorDescriptor] --
-COMMENT ON TABLE edfi.RetestIndicatorDescriptor IS 'Indicator if the test was retaken.  For example:
-    Primary administration
-    First retest
-    Second retest
-    ...';
+COMMENT ON TABLE edfi.RetestIndicatorDescriptor IS 'Indicator if the test was retaken.';
 COMMENT ON COLUMN edfi.RetestIndicatorDescriptor.RetestIndicatorDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[School] --
@@ -2442,8 +2347,8 @@ COMMENT ON COLUMN edfi.School.CharterApprovalAgencyTypeDescriptorId IS 'The type
 COMMENT ON COLUMN edfi.School.CharterApprovalSchoolYear IS 'The school year in which a charter school was initially approved.';
 
 -- Extended Properties [edfi].[SchoolCategory] --
-COMMENT ON TABLE edfi.SchoolCategory IS 'The one or more categories of school. For example: High School, Middle School, and/or Elementary School.';
-COMMENT ON COLUMN edfi.SchoolCategory.SchoolCategoryDescriptorId IS 'The one or more categories of school. For example: High School, Middle School, and/or Elementary School.';
+COMMENT ON TABLE edfi.SchoolCategory IS 'The one or more categories of school.';
+COMMENT ON COLUMN edfi.SchoolCategory.SchoolCategoryDescriptorId IS 'The one or more categories of school.';
 COMMENT ON COLUMN edfi.SchoolCategory.SchoolId IS 'The identifier assigned to a school.';
 
 -- Extended Properties [edfi].[SchoolCategoryDescriptor] --
@@ -2479,100 +2384,82 @@ COMMENT ON COLUMN edfi.Section.LocalCourseCode IS 'The local code assigned by th
 COMMENT ON COLUMN edfi.Section.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.Section.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.Section.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.Section.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.Section.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.Section.SequenceOfCourse IS 'When a section is part of a sequence of parts for a course, the number of the sequence. If the course has only one part, the value of this section attribute should be 1.';
-COMMENT ON COLUMN edfi.Section.EducationalEnvironmentDescriptorId IS 'The setting in which a child receives education and related services; for example:
-        Center-based instruction
-        Home-based instruction
-        Hospital class
-        Mainstream
-        Residential care and treatment facility
-        ...';
-COMMENT ON COLUMN edfi.Section.MediumOfInstructionDescriptorId IS 'The media through which teachers provide instruction to students and students and teachers communicate about instructional matters; for example:
-        Technology-based instruction in classroom
-        Correspondence instruction
-        Face-to-face instruction
-        Virtual/On-line Distance learning
-        Center-based instruction
-        ...';
-COMMENT ON COLUMN edfi.Section.PopulationServedDescriptorId IS 'The type of students the Section is offered and tailored to; for example:
-        Bilingual students
-        Remedial education students
-        Gifted and talented students
-        Career and Technical Education students
-        Special education students
-        ...';
+COMMENT ON COLUMN edfi.Section.EducationalEnvironmentDescriptorId IS 'The setting in which a student receives education and related services.';
+COMMENT ON COLUMN edfi.Section.MediumOfInstructionDescriptorId IS 'The media through which teachers provide instruction to students and students and teachers communicate about instructional matters.';
+COMMENT ON COLUMN edfi.Section.PopulationServedDescriptorId IS 'The type of students the section is offered and tailored to.';
 COMMENT ON COLUMN edfi.Section.AvailableCredits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.Section.AvailableCreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.Section.AvailableCreditConversion IS 'Conversion factor that when multiplied by the number of credits is equivalent to Carnegie units.';
-COMMENT ON COLUMN edfi.Section.InstructionLanguageDescriptorId IS 'The primary language of instruction, if omitted English is assumed.';
+COMMENT ON COLUMN edfi.Section.InstructionLanguageDescriptorId IS 'The primary language of instruction. If omitted, English is assumed.';
 COMMENT ON COLUMN edfi.Section.LocationSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.Section.LocationClassroomIdentificationCode IS 'A unique number or alphanumeric code assigned to a room by a school, school system, state, or other agency or entity.';
-COMMENT ON COLUMN edfi.Section.OfficialAttendancePeriod IS 'Indicator of whether this section is used for official daily attendance. Alternatively, official daily attendance may be tied to a Class Period.';
-COMMENT ON COLUMN edfi.Section.SectionName IS 'A locally-defined name for the section, generally created to make the section more recognizable in informal contexts and generally distinct from the SectionIdentifier.';
+COMMENT ON COLUMN edfi.Section.OfficialAttendancePeriod IS 'Indicator of whether this section is used for official daily attendance. Alternatively, official daily attendance may be tied to a class period.';
+COMMENT ON COLUMN edfi.Section.SectionName IS 'A locally-defined name for the section, generally created to make the section more recognizable in informal contexts and generally distinct from the section identifier.';
 
 -- Extended Properties [edfi].[SectionAttendanceTakenEvent] --
 COMMENT ON TABLE edfi.SectionAttendanceTakenEvent IS 'Captures attendance taken event for given section.';
-COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.CalendarCode IS 'The identifier for the Calendar.';
-COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.Date IS 'The month, day, and year of the CalendarEvent.';
+COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.CalendarCode IS 'The identifier for the calendar.';
+COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.Date IS 'The month, day, and year of the calendar event.';
 COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.EventDate IS 'The date the SectionAttendanceTakenEvent was submitted, which could be a different date than the instructional day.';
+COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.EventDate IS 'The date the section attendance taken event was submitted, which could be a different date than the instructional day.';
 COMMENT ON COLUMN edfi.SectionAttendanceTakenEvent.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[SectionCharacteristic] --
-COMMENT ON TABLE edfi.SectionCharacteristic IS 'Reflects important characteristics of the Section, such as whether or not attendance is taken and the Section is graded.';
+COMMENT ON TABLE edfi.SectionCharacteristic IS 'Reflects important characteristics of the section, such as whether or not attendance is taken and the section is graded.';
 COMMENT ON COLUMN edfi.SectionCharacteristic.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.SectionCharacteristic.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SectionCharacteristic.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.SectionCharacteristic.SectionCharacteristicDescriptorId IS 'Reflects important characteristics of the Section, such as whether or not attendance is taken and the Section is graded.';
+COMMENT ON COLUMN edfi.SectionCharacteristic.SectionCharacteristicDescriptorId IS 'Reflects important characteristics of the section, such as whether or not attendance is taken and the section is graded.';
 COMMENT ON COLUMN edfi.SectionCharacteristic.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SectionCharacteristic.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SectionCharacteristic.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[SectionCharacteristicDescriptor] --
 COMMENT ON TABLE edfi.SectionCharacteristicDescriptor IS 'This descriptor defines characteristics of a Section, such as whether attendance is taken and the Section is graded.';
 COMMENT ON COLUMN edfi.SectionCharacteristicDescriptor.SectionCharacteristicDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[SectionClassPeriod] --
-COMMENT ON TABLE edfi.SectionClassPeriod IS 'The class period during which the Section meets.';
+COMMENT ON TABLE edfi.SectionClassPeriod IS 'The class period during which the section meets.';
 COMMENT ON COLUMN edfi.SectionClassPeriod.ClassPeriodName IS 'An indication of the portion of a typical daily session in which students receive instruction in a specified subject (e.g., morning, sixth period, block period, or AB schedules).';
 COMMENT ON COLUMN edfi.SectionClassPeriod.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.SectionClassPeriod.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SectionClassPeriod.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.SectionClassPeriod.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SectionClassPeriod.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SectionClassPeriod.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[SectionCourseLevelCharacteristic] --
-COMMENT ON TABLE edfi.SectionCourseLevelCharacteristic IS 'The type of specific program or designation with which the section is associated (e.g., AP, IB, Dual Credit, CTE). This collection should only be populated if it differs from the Course Level Characteristics identified at the Course Offering level.';
-COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.CourseLevelCharacteristicDescriptorId IS 'The type of specific program or designation with which the section is associated (e.g., AP, IB, Dual Credit, CTE). This collection should only be populated if it differs from the Course Level Characteristics identified at the Course Offering level.';
+COMMENT ON TABLE edfi.SectionCourseLevelCharacteristic IS 'The type of specific program or designation with which the section is associated. This collection should only be populated if it differs from the course level characteristics identified at the course offering level.';
+COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.CourseLevelCharacteristicDescriptorId IS 'The type of specific program or designation with which the section is associated. This collection should only be populated if it differs from the course level characteristics identified at the course offering level.';
 COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SectionCourseLevelCharacteristic.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[SectionOfferedGradeLevel] --
-COMMENT ON TABLE edfi.SectionOfferedGradeLevel IS 'The grade levels in which the section is offered. This collection should only be populated if it differs from the Offered Grade Levels identified at the Course Offering level.';
-COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.GradeLevelDescriptorId IS 'The grade levels in which the section is offered. This collection should only be populated if it differs from the Offered Grade Levels identified at the Course Offering level.';
+COMMENT ON TABLE edfi.SectionOfferedGradeLevel IS 'The grade levels in which the section is offered. This collection should only be populated if it differs from the Offered Grade Levels identified at the course offering level.';
+COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.GradeLevelDescriptorId IS 'The grade levels in which the section is offered. This collection should only be populated if it differs from the Offered Grade Levels identified at the course offering level.';
 COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SectionOfferedGradeLevel.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[SectionProgram] --
-COMMENT ON TABLE edfi.SectionProgram IS 'Optional reference to program (e.g., CTE) to which the Section is associated.';
+COMMENT ON TABLE edfi.SectionProgram IS 'Optional reference to program to which the section is associated.';
 COMMENT ON COLUMN edfi.SectionProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.SectionProgram.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.SectionProgram.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.SectionProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.SectionProgram.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.SectionProgram.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SectionProgram.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.SectionProgram.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SectionProgram.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SectionProgram.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[SeparationDescriptor] --
 COMMENT ON TABLE edfi.SeparationDescriptor IS 'Type of employment separation; for example:  Voluntary separation, Involuntary separation, Mutual agreement. Other, etc.';
@@ -2590,17 +2477,17 @@ COMMENT ON COLUMN edfi.ServiceDescriptor.ServiceDescriptorId IS 'A unique identi
 COMMENT ON TABLE edfi.Session IS 'A term in the school year, generally a unit of time into which courses are scheduled, instruction occurs and by which credits are awarded. Sessions may be interrupted by vacations or other events.';
 COMMENT ON COLUMN edfi.Session.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.Session.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.Session.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN edfi.Session.BeginDate IS 'Month, day, and year of the first day of the Session.';
-COMMENT ON COLUMN edfi.Session.EndDate IS 'Month, day and year of the last day of the Session.';
-COMMENT ON COLUMN edfi.Session.TermDescriptorId IS 'An descriptor value indicating the term (e.g. ''Semester'', ''Quarter'', etc.).';
+COMMENT ON COLUMN edfi.Session.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.Session.BeginDate IS 'Month, day, and year of the first day of the session.';
+COMMENT ON COLUMN edfi.Session.EndDate IS 'Month, day and year of the last day of the session.';
+COMMENT ON COLUMN edfi.Session.TermDescriptorId IS 'An descriptor value indicating the term.';
 COMMENT ON COLUMN edfi.Session.TotalInstructionalDays IS 'The total number of instructional days in the school calendar.';
 
 -- Extended Properties [edfi].[SessionAcademicWeek] --
 COMMENT ON TABLE edfi.SessionAcademicWeek IS 'The academic weeks associated with the school year.';
 COMMENT ON COLUMN edfi.SessionAcademicWeek.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SessionAcademicWeek.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.SessionAcademicWeek.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SessionAcademicWeek.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.SessionAcademicWeek.WeekIdentifier IS 'The school label for the week.';
 
 -- Extended Properties [edfi].[SessionGradingPeriod] --
@@ -2609,7 +2496,7 @@ COMMENT ON COLUMN edfi.SessionGradingPeriod.GradingPeriodDescriptorId IS 'The na
 COMMENT ON COLUMN edfi.SessionGradingPeriod.PeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.SessionGradingPeriod.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SessionGradingPeriod.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.SessionGradingPeriod.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SessionGradingPeriod.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[SexDescriptor] --
 COMMENT ON TABLE edfi.SexDescriptor IS 'A person''s gender.';
@@ -2628,23 +2515,18 @@ COMMENT ON TABLE edfi.SpecialEducationSettingDescriptor IS 'This descriptor defi
 COMMENT ON COLUMN edfi.SpecialEducationSettingDescriptor.SpecialEducationSettingDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[Staff] --
-COMMENT ON TABLE edfi.Staff IS 'This entity represents an individual who performs specified activities for any public or private education institution or agency that provides instructional and/or support services to students or staff at the early childhood level through high school completion. For example, this includes:
-    1. An "employee" who performs services under the direction of the employing institution or agency is compensated for such services by the employer and is eligible for employee benefits and wage or salary tax withholdings
-    2. A "contractor" or "consultant" who performs services for an agreed upon fee or an employee of a management service contracted to work on site
-    3. A "volunteer" who performs services on a voluntary and uncompensated basis
-    4. An in-kind service provider
-    5. An independent contractor or businessperson working at a school site.';
+COMMENT ON TABLE edfi.Staff IS 'This entity represents an individual who performs specified activities for any public or private education institution or agency that provides instructional and/or support services to students or staff at the early childhood level through high school completion.';
 COMMENT ON COLUMN edfi.Staff.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.Staff.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the person.';
+COMMENT ON COLUMN edfi.Staff.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
 COMMENT ON COLUMN edfi.Staff.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.Staff.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
 COMMENT ON COLUMN edfi.Staff.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN edfi.Staff.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
-COMMENT ON COLUMN edfi.Staff.MaidenName IS 'The person''s maiden name.';
+COMMENT ON COLUMN edfi.Staff.MaidenName IS 'The individual''s maiden name.';
 COMMENT ON COLUMN edfi.Staff.SexDescriptorId IS 'A person''s gender.';
 COMMENT ON COLUMN edfi.Staff.BirthDate IS 'The month, day, and year on which an individual was born.';
 COMMENT ON COLUMN edfi.Staff.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
-COMMENT ON COLUMN edfi.Staff.OldEthnicityDescriptorId IS 'Previous definition of Ethnicity combining Hispanic/Latino and race:
+COMMENT ON COLUMN edfi.Staff.OldEthnicityDescriptorId IS 'Previous definition of ethnicity combining Hispanic/Latino and race:
         1 - American Indian or Alaskan Native
         2 - Asian or Pacific Islander
         3 - Black, not of Hispanic origin
@@ -2652,8 +2534,8 @@ COMMENT ON COLUMN edfi.Staff.OldEthnicityDescriptorId IS 'Previous definition of
         5 - White, not of Hispanic origin.';
 COMMENT ON COLUMN edfi.Staff.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
 COMMENT ON COLUMN edfi.Staff.HighestCompletedLevelOfEducationDescriptorId IS 'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).';
-COMMENT ON COLUMN edfi.Staff.YearsOfPriorProfessionalExperience IS 'The total number of years that an individual has previously held a similar professional position in one or more education institutions.';
-COMMENT ON COLUMN edfi.Staff.YearsOfPriorTeachingExperience IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions.';
+COMMENT ON COLUMN edfi.Staff.YearsOfPriorProfessionalExperience IS 'The total number of years that an individual has previously held a similar professional position in one or more education institutions prior to the current school year.';
+COMMENT ON COLUMN edfi.Staff.YearsOfPriorTeachingExperience IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions prior to the current school year.';
 COMMENT ON COLUMN edfi.Staff.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.Staff.HighlyQualifiedTeacher IS 'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.';
 COMMENT ON COLUMN edfi.Staff.PersonId IS 'A unique alphanumeric code assigned to a person.';
@@ -2708,9 +2590,9 @@ COMMENT ON TABLE edfi.StaffClassificationDescriptor IS 'This descriptor defines 
 COMMENT ON COLUMN edfi.StaffClassificationDescriptor.StaffClassificationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[StaffCohortAssociation] --
-COMMENT ON TABLE edfi.StaffCohortAssociation IS 'This association indicates the Staff associated with a cohort of students.';
+COMMENT ON TABLE edfi.StaffCohortAssociation IS 'This association indicates the staff associated with a cohort of students.';
 COMMENT ON COLUMN edfi.StaffCohortAssociation.BeginDate IS 'Start date for the association of staff to this cohort.';
-COMMENT ON COLUMN edfi.StaffCohortAssociation.CohortIdentifier IS 'The name or ID for the Cohort.';
+COMMENT ON COLUMN edfi.StaffCohortAssociation.CohortIdentifier IS 'The name or ID for the cohort.';
 COMMENT ON COLUMN edfi.StaffCohortAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffCohortAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffCohortAssociation.EndDate IS 'End date for the association of staff to this cohort.';
@@ -2724,14 +2606,14 @@ COMMENT ON COLUMN edfi.StaffCredential.StateOfIssueStateAbbreviationDescriptorId
 
 -- Extended Properties [edfi].[StaffDisciplineIncidentAssociation] --
 COMMENT ON TABLE edfi.StaffDisciplineIncidentAssociation IS 'This association indicates those staff who were victims, perpetrators, witnesses, and reporters for a discipline incident.';
-COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be] --
-COMMENT ON TABLE edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be IS 'The role or type of participation of a student in a discipline incident (e.g., Victim, Perpetrator, Witness, Reporter).';
-COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident (e.g., Victim, Perpetrator, Witness, Reporter).';
-COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON TABLE edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be IS 'The role or type of participation of a student in a discipline incident.';
+COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
+COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
@@ -2745,13 +2627,7 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.PositionT
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EndDate IS 'Month, day, and year of the end or termination date of a staff member''s employment, contract, or relationship with the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.OrderOfAssignment IS 'Describes whether the assignment is this the staff member''s primary assignment, secondary assignment, etc.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract; for example:
-        Probationary
-        Contractual
-        Substitute/temporary
-        Tenured or permanent
-        Volunteer/no contract
-        ...';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentHireDate IS 'The month, day, and year on which an individual was hired for a position.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
@@ -2759,15 +2635,15 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.FullTimeE
 
 -- Extended Properties [edfi].[StaffEducationOrganizationContactAssociation] --
 COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociation IS 'This association provides the contact information of the staff associated with the education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ContactTitle IS 'The title of the contact in the context of the EducationOrganization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ContactTitle IS 'The title of the contact in the context of the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ContactTypeDescriptorId IS 'Indicates the type for the contact information.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ElectronicMailAddress IS 'The email for the contact associated with the EducationOrganization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociation.ElectronicMailAddress IS 'The email for the contact associated with the education organization.';
 
 -- Extended Properties [edfi].[StaffEducationOrganizationContactAssociationAddress] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationAddress IS 'The optional address for the contact associated with the EducationOrganization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.ContactTitle IS 'The title of the contact in the context of the EducationOrganization.';
+COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationAddress IS 'The optional address for the contact associated with the education organization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.ContactTitle IS 'The title of the contact in the context of the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.StreetNumberName IS 'The street number and street name or post office box number of an address.';
@@ -2789,14 +2665,14 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddress.Local
 -- Extended Properties [edfi].[StaffEducationOrganizationContactAssociationAddressPeriod] --
 COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationAddressPeriod IS 'The time periods for which the address is valid. For physical addresses, the periods in which the person lived at that address.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.BeginDate IS 'The month, day, and year for the start of the period.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.ContactTitle IS 'The title of the contact in the context of the EducationOrganization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.ContactTitle IS 'The title of the contact in the context of the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
 
 -- Extended Properties [edfi].[StaffEducationOrganizationContactAssociationTelephone] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationTelephone IS 'The optional telephone for the contact associated with the EducationOrganization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.ContactTitle IS 'The title of the contact in the context of the EducationOrganization.';
+COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociationTelephone IS 'The optional telephone for the contact associated with the education organization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.ContactTitle IS 'The title of the contact in the context of the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.TelephoneNumber IS 'The telephone number including the area code, and extension, if applicable.';
@@ -2806,28 +2682,15 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.Tex
 COMMENT ON COLUMN edfi.StaffEducationOrganizationContactAssociationTelephone.DoNotPublishIndicator IS 'An indication that the telephone number should not be published.';
 
 -- Extended Properties [edfi].[StaffEducationOrganizationEmploymentAssociation] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationEmploymentAssociation IS 'This association indicates the EducationOrganization an employee, contractor, volunteer, or other service provider is formally associated with typically indicated by which organization the staff member has a services contract with or receives compensation from.';
+COMMENT ON TABLE edfi.StaffEducationOrganizationEmploymentAssociation IS 'This association indicates the education organization an employee, contractor, volunteer, or other service provider is formally associated with typically indicated by which organization the staff member has a services contract with or receives compensation from.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract; for example:
-        Probationary
-        Contractual
-        Substitute/temporary
-        Tenured or permanent
-        Volunteer/no contract
-        ...';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.HireDate IS 'The month, day, and year on which an individual was hired for a position.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.EndDate IS 'The month, day, and year on which a contract between an individual and a governing authority ends or is terminated under the provisions of the contract (or the date on which the agreement is made invalid).';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.SeparationDescriptorId IS 'Type of employment separation; for example: Voluntary separation, Involuntary separation,
-        Mutual agreement
-        Other, etc.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.SeparationReasonDescriptorId IS 'Reason for terminating the employment; for example:
-        Employment in education
-        Employment outside of education
-        Retirement
-        Family/personal relocation
-        Change of assignment.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.Department IS 'The department or suborganization the employee/contractor is associated with in the EducationOrganization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.SeparationDescriptorId IS 'Type of employment separation.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.SeparationReasonDescriptorId IS 'Reason for terminating the employment.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.Department IS 'The department or suborganization the employee/contractor is associated with in the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.FullTimeEquivalency IS 'The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.OfferDate IS 'Date at which the staff member was made an official offer for this employment.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationEmploymentAssociation.HourlyWage IS 'Hourly wage associated with the employment position being reported.';
@@ -2875,8 +2738,8 @@ COMMENT ON COLUMN edfi.StaffInternationalAddress.AddressLine4 IS 'The fourth lin
 COMMENT ON COLUMN edfi.StaffInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 COMMENT ON COLUMN edfi.StaffInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
 COMMENT ON COLUMN edfi.StaffInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the person moved to that address.';
-COMMENT ON COLUMN edfi.StaffInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, this would be the date the person moved from that address.';
+COMMENT ON COLUMN edfi.StaffInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.';
+COMMENT ON COLUMN edfi.StaffInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.';
 
 -- Extended Properties [edfi].[StaffLanguage] --
 COMMENT ON TABLE edfi.StaffLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.';
@@ -2892,7 +2755,7 @@ COMMENT ON COLUMN edfi.StaffLanguageUse.StaffUSI IS 'A unique alphanumeric code 
 -- Extended Properties [edfi].[StaffLeave] --
 COMMENT ON TABLE edfi.StaffLeave IS 'This entity represents the recording of the dates of staff leave (e.g., sick leave, personal time, vacation).';
 COMMENT ON COLUMN edfi.StaffLeave.BeginDate IS 'The begin date of the staff leave.';
-COMMENT ON COLUMN edfi.StaffLeave.StaffLeaveEventCategoryDescriptorId IS 'The code describing the type of leave taken, for example: Sick, Personal, Vacation.';
+COMMENT ON COLUMN edfi.StaffLeave.StaffLeaveEventCategoryDescriptorId IS 'The code describing the type of leave taken.';
 COMMENT ON COLUMN edfi.StaffLeave.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffLeave.EndDate IS 'The end date of the staff leave.';
 COMMENT ON COLUMN edfi.StaffLeave.Reason IS 'Expanded reason for the staff leave.';
@@ -2904,9 +2767,9 @@ COMMENT ON COLUMN edfi.StaffLeaveEventCategoryDescriptor.StaffLeaveEventCategory
 
 -- Extended Properties [edfi].[StaffOtherName] --
 COMMENT ON TABLE edfi.StaffOtherName IS 'Other names (e.g., alias, nickname, previous legal name) associated with a person.';
-COMMENT ON COLUMN edfi.StaffOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for a person.';
+COMMENT ON COLUMN edfi.StaffOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for an individual.';
 COMMENT ON COLUMN edfi.StaffOtherName.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the person.';
+COMMENT ON COLUMN edfi.StaffOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
 COMMENT ON COLUMN edfi.StaffOtherName.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.StaffOtherName.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
 COMMENT ON COLUMN edfi.StaffOtherName.LastSurname IS 'The name borne in common by members of a family.';
@@ -2924,10 +2787,10 @@ COMMENT ON COLUMN edfi.StaffPersonalIdentificationDocument.IssuerName IS 'Name o
 COMMENT ON COLUMN edfi.StaffPersonalIdentificationDocument.IssuerCountryDescriptorId IS 'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 
 -- Extended Properties [edfi].[StaffProgramAssociation] --
-COMMENT ON TABLE edfi.StaffProgramAssociation IS 'This association indicates the Staff associated with a program.';
+COMMENT ON TABLE edfi.StaffProgramAssociation IS 'This association indicates the staff associated with a program.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.BeginDate IS 'Start date for the association of staff to this program.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StaffProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffProgramAssociation.EndDate IS 'End date for the association of staff to this program.';
@@ -2940,55 +2803,40 @@ COMMENT ON COLUMN edfi.StaffRace.StaffUSI IS 'A unique alphanumeric code assigne
 
 -- Extended Properties [edfi].[StaffRecognition] --
 COMMENT ON TABLE edfi.StaffRecognition IS 'Recognitions given to the staff for accomplishments in a co-curricular or extracurricular activity.';
-COMMENT ON COLUMN edfi.StaffRecognition.RecognitionTypeDescriptorId IS 'The nature of recognition given to the learner for accomplishments in a co-curricular, or extra-curricular activity.';
+COMMENT ON COLUMN edfi.StaffRecognition.RecognitionTypeDescriptorId IS 'The nature of recognition given to the individual for accomplishments in a co-curricular, or extra-curricular activity.';
 COMMENT ON COLUMN edfi.StaffRecognition.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffRecognition.AchievementTitle IS 'The title assigned to the achievement.';
-COMMENT ON COLUMN edfi.StaffRecognition.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the learner.';
-COMMENT ON COLUMN edfi.StaffRecognition.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the learner.';
+COMMENT ON COLUMN edfi.StaffRecognition.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the individual.';
+COMMENT ON COLUMN edfi.StaffRecognition.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the individual.';
 COMMENT ON COLUMN edfi.StaffRecognition.IssuerName IS 'The name of the agent, entity, or institution issuing the element.';
 COMMENT ON COLUMN edfi.StaffRecognition.IssuerOriginURL IS 'The Uniform Resource Locator (URL) from which the award was issued.';
 COMMENT ON COLUMN edfi.StaffRecognition.Criteria IS 'The criteria for competency-based completion of the achievement/award.';
 COMMENT ON COLUMN edfi.StaffRecognition.CriteriaURL IS 'The Uniform Resource Locator (URL) for the unique address of a web page describing the competency-based completion criteria for the achievement/award.';
-COMMENT ON COLUMN edfi.StaffRecognition.EvidenceStatement IS 'A statement or reference describing the evidence that the learner met the criteria for attainment of the Achievement.';
-COMMENT ON COLUMN edfi.StaffRecognition.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the Achievement.';
-COMMENT ON COLUMN edfi.StaffRecognition.RecognitionDescription IS 'A description of the type of academic distinctions earned by or awarded to the individual.';
+COMMENT ON COLUMN edfi.StaffRecognition.EvidenceStatement IS 'A statement or reference describing the evidence that the individual met the criteria for attainment of the achievement/award.';
+COMMENT ON COLUMN edfi.StaffRecognition.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the achievement/award.';
+COMMENT ON COLUMN edfi.StaffRecognition.RecognitionDescription IS 'A description of the type of recognition earned by or awarded to the individual.';
 COMMENT ON COLUMN edfi.StaffRecognition.RecognitionAwardDate IS 'The date the recognition was awarded or earned.';
-COMMENT ON COLUMN edfi.StaffRecognition.RecognitionAwardExpiresDate IS 'Date on which the award expires.';
+COMMENT ON COLUMN edfi.StaffRecognition.RecognitionAwardExpiresDate IS 'Date on which the recognition expires.';
 
 -- Extended Properties [edfi].[StaffSchoolAssociation] --
-COMMENT ON TABLE edfi.StaffSchoolAssociation IS 'This association indicates the School(s) to which a staff member provides instructional services.';
-COMMENT ON COLUMN edfi.StaffSchoolAssociation.ProgramAssignmentDescriptorId IS 'The name of the program for which the individual is assigned; for example:
-        Regular education
-        Title I-Academic
-        Title I-Non-Academic
-        Special Education
-        Bilingual/English as a Second Language.';
+COMMENT ON TABLE edfi.StaffSchoolAssociation IS 'This association indicates the school(s) to which a staff member provides instructional services.';
+COMMENT ON COLUMN edfi.StaffSchoolAssociation.ProgramAssignmentDescriptorId IS 'The name of the program for which the individual is assigned.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffSchoolAssociation.CalendarCode IS 'The identifier for the Calendar.';
+COMMENT ON COLUMN edfi.StaffSchoolAssociation.CalendarCode IS 'The identifier for the calendar.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociation.SchoolYear IS 'Identifier for a school year.';
 
 -- Extended Properties [edfi].[StaffSchoolAssociationAcademicSubject] --
 COMMENT ON TABLE edfi.StaffSchoolAssociationAcademicSubject IS 'The academic subjects the individual is eligible to teach.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociationAcademicSubject.AcademicSubjectDescriptorId IS 'The academic subjects the individual is eligible to teach.';
-COMMENT ON COLUMN edfi.StaffSchoolAssociationAcademicSubject.ProgramAssignmentDescriptorId IS 'The name of the program for which the individual is assigned; for example:
-        Regular education
-        Title I-Academic
-        Title I-Non-Academic
-        Special Education
-        Bilingual/English as a Second Language.';
+COMMENT ON COLUMN edfi.StaffSchoolAssociationAcademicSubject.ProgramAssignmentDescriptorId IS 'The name of the program for which the individual is assigned.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociationAcademicSubject.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociationAcademicSubject.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[StaffSchoolAssociationGradeLevel] --
 COMMENT ON TABLE edfi.StaffSchoolAssociationGradeLevel IS 'The grade levels the individual is eligible to teach.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociationGradeLevel.GradeLevelDescriptorId IS 'The grade levels the individual is eligible to teach.';
-COMMENT ON COLUMN edfi.StaffSchoolAssociationGradeLevel.ProgramAssignmentDescriptorId IS 'The name of the program for which the individual is assigned; for example:
-        Regular education
-        Title I-Academic
-        Title I-Non-Academic
-        Special Education
-        Bilingual/English as a Second Language.';
+COMMENT ON COLUMN edfi.StaffSchoolAssociationGradeLevel.ProgramAssignmentDescriptorId IS 'The name of the program for which the individual is assigned.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociationGradeLevel.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffSchoolAssociationGradeLevel.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
@@ -2998,12 +2846,11 @@ COMMENT ON COLUMN edfi.StaffSectionAssociation.LocalCourseCode IS 'The local cod
 COMMENT ON COLUMN edfi.StaffSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StaffSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StaffSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.StaffSectionAssociation.ClassroomPositionDescriptorId IS 'The type of position the Staff member holds in the specific class/section; for example:
-        Teacher of Record, Assistant Teacher, Support Teacher, Substitute Teacher...';
-COMMENT ON COLUMN edfi.StaffSectionAssociation.BeginDate IS 'Month, day, and year of a teacher''s assignment to the Section. If blank, defaults to the first day of the first grading period for the Section.';
-COMMENT ON COLUMN edfi.StaffSectionAssociation.EndDate IS 'Month, day, and year of the last day of a staff member''s assignment to the Section.';
+COMMENT ON COLUMN edfi.StaffSectionAssociation.ClassroomPositionDescriptorId IS 'The type of position the staff member holds in the specific class/section.';
+COMMENT ON COLUMN edfi.StaffSectionAssociation.BeginDate IS 'Month, day, and year of a teacher''s assignment to the section. If blank, defaults to the first day of the first grading period for the section.';
+COMMENT ON COLUMN edfi.StaffSectionAssociation.EndDate IS 'Month, day, and year of the last day of a staff member''s assignment to the section.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.HighlyQualifiedTeacher IS 'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for this section being taught.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.TeacherStudentDataLinkExclusion IS 'Indicates that the entire section is excluded from calculation of value-added or growth attribution calculations used for a particular teacher evaluation.';
 COMMENT ON COLUMN edfi.StaffSectionAssociation.PercentageContribution IS 'Indicates the percentage of the total scheduled course time, academic standards, and/or learning activities delivered in this section by this staff member. A teacher of record designation may be based solely or partially on this contribution percentage.';
@@ -3050,12 +2897,12 @@ COMMENT ON COLUMN edfi.StateEducationAgencyFederalFunds.FederalProgramsFundingAl
 -- Extended Properties [edfi].[Student] --
 COMMENT ON TABLE edfi.Student IS 'This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.';
 COMMENT ON COLUMN edfi.Student.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.Student.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the person.';
+COMMENT ON COLUMN edfi.Student.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
 COMMENT ON COLUMN edfi.Student.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.Student.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
 COMMENT ON COLUMN edfi.Student.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN edfi.Student.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
-COMMENT ON COLUMN edfi.Student.MaidenName IS 'The person''s maiden name.';
+COMMENT ON COLUMN edfi.Student.MaidenName IS 'The individual''s maiden name.';
 COMMENT ON COLUMN edfi.Student.BirthDate IS 'The month, day, and year on which an individual was born.';
 COMMENT ON COLUMN edfi.Student.BirthCity IS 'The city the student was born in.';
 COMMENT ON COLUMN edfi.Student.BirthStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which an individual was born.';
@@ -3083,7 +2930,7 @@ COMMENT ON COLUMN edfi.StudentAcademicRecord.CumulativeAttemptedCreditTypeDescri
 COMMENT ON COLUMN edfi.StudentAcademicRecord.CumulativeAttemptedCreditConversion IS 'Conversion factor that when multiplied by the number of credits is equivalent to Carnegie units.';
 COMMENT ON COLUMN edfi.StudentAcademicRecord.CumulativeGradePointsEarned IS 'The cumulative number of grade points an individual earns by successfully completing courses or examinations during his or her enrollment in the current school as well as those transferred from schools in which the individual had been previously enrolled.';
 COMMENT ON COLUMN edfi.StudentAcademicRecord.CumulativeGradePointAverage IS 'A measure of average performance in all courses taken by an individual during his or her school career as determined for record-keeping purposes. This is obtained by dividing the total grade points received by the total number of credits attempted. This usually includes grade points received and credits attempted in his or her current school as well as those transferred from schools in which the individual was previously enrolled.';
-COMMENT ON COLUMN edfi.StudentAcademicRecord.GradeValueQualifier IS 'The scale of equivalents, if applicable, for grades awarded as indicators of performance in schoolwork. For example, numerical equivalents for letter grades used in determining a student''s Grade Point Average (A=4, B=3, C=2, D=1 in a four-point system) or letter equivalents for percentage grades (90-100%=A, 80-90%=B, etc.)';
+COMMENT ON COLUMN edfi.StudentAcademicRecord.GradeValueQualifier IS 'The scale of equivalents, if applicable, for grades awarded as indicators of performance in schoolwork. For example, numerical equivalents for letter grades used in determining a student''s grade point average (A=4, B=3, C=2, D=1 in a four-point system) or letter equivalents for percentage grades (90-100%=A, 80-90%=B, etc.).';
 COMMENT ON COLUMN edfi.StudentAcademicRecord.ProjectedGraduationDate IS 'The month and year the student is projected to graduate.';
 COMMENT ON COLUMN edfi.StudentAcademicRecord.SessionEarnedCredits IS 'The value of credits or units of value awarded for the completion of a course.';
 COMMENT ON COLUMN edfi.StudentAcademicRecord.SessionEarnedCreditTypeDescriptorId IS 'The type of credits or units of value awarded for the completion of a course.';
@@ -3096,23 +2943,23 @@ COMMENT ON COLUMN edfi.StudentAcademicRecord.SessionGradePointAverage IS 'The gr
 
 -- Extended Properties [edfi].[StudentAcademicRecordAcademicHonor] --
 COMMENT ON TABLE edfi.StudentAcademicRecordAcademicHonor IS 'Academic distinctions earned by or awarded to the student.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AcademicHonorCategoryDescriptorId IS 'A designation of the type of academic distinctions earned by or awarded to the student.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AcademicHonorCategoryDescriptorId IS 'A designation of the type of academic distinctions earned by or awarded to the individual.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.HonorDescription IS 'A description of the type of academic distinctions earned by or awarded to the individual.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.TermDescriptorId IS 'The term for the session during the school year.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AchievementTitle IS 'The title assigned to the achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the learner.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the learner.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the individual.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the individual.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.IssuerName IS 'The name of the agent, entity, or institution issuing the element.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.IssuerOriginURL IS 'The Uniform Resource Locator (URL) from which the award was issued.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.Criteria IS 'The criteria for competency-based completion of the achievement/award.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.CriteriaURL IS 'The Uniform Resource Locator (URL) for the unique address of a web page describing the competency-based completion criteria for the achievement/award.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.EvidenceStatement IS 'A statement or reference describing the evidence that the learner met the criteria for attainment of the Achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the Achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.HonorAwardDate IS 'The date the honor was awarded or earned.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.HonorAwardExpiresDate IS 'Date on which the award expires.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.EvidenceStatement IS 'A statement or reference describing the evidence that the individual met the criteria for attainment of the achievement/award.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the achievement/award.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.HonorAwardDate IS 'The date the honor was awarded.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordAcademicHonor.HonorAwardExpiresDate IS 'Date on which the honor expires.';
 
 -- Extended Properties [edfi].[StudentAcademicRecordClassRanking] --
 COMMENT ON TABLE edfi.StudentAcademicRecordClassRanking IS 'The academic rank information of a student in relation to his or her graduating class.';
@@ -3134,21 +2981,18 @@ COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.SchoolYear IS 'The identifie
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.TermDescriptorId IS 'The term for the session during the school year.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.AchievementTitle IS 'The title assigned to the achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the learner.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the learner.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the individual.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the individual.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.IssuerName IS 'The name of the agent, entity, or institution issuing the element.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.IssuerOriginURL IS 'The Uniform Resource Locator (URL) from which the award was issued.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.Criteria IS 'The criteria for competency-based completion of the achievement/award.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.CriteriaURL IS 'The Uniform Resource Locator (URL) for the unique address of a web page describing the competency-based completion criteria for the achievement/award.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.EvidenceStatement IS 'A statement or reference describing the evidence that the learner met the criteria for attainment of the Achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the Achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.DiplomaLevelDescriptorId IS 'The level of diploma/credential that is awarded to a student in recognition of his/her completion of the curricular requirements.
-        Minimum high school program
-        Recommended high school program
-        Distinguished Achievement Program.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.EvidenceStatement IS 'A statement or reference describing the evidence that the individual met the criteria for attainment of the achievement/award.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the achievement/award.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.DiplomaLevelDescriptorId IS 'The level of diploma/credential that is awarded to a student in recognition of completion of the curricular requirements.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.CTECompleter IS 'Indicated a student who reached a state-defined threshold of vocational education and who attained a high school diploma or its recognized state equivalent or GED.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.DiplomaDescription IS 'The description of diploma given to the student for accomplishments.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.DiplomaAwardExpiresDate IS 'Date on which the award expires.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.DiplomaDescription IS 'The description of the diploma given to the student for accomplishments.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordDiploma.DiplomaAwardExpiresDate IS 'Date on which the diploma expires.';
 
 -- Extended Properties [edfi].[StudentAcademicRecordGradePointAverage] --
 COMMENT ON TABLE edfi.StudentAcademicRecordGradePointAverage IS 'The grade point average for an individual computed as the grade points earned divided by the number of credits attempted.';
@@ -3164,22 +3008,22 @@ COMMENT ON COLUMN edfi.StudentAcademicRecordGradePointAverage.MaxGradePointAvera
 -- Extended Properties [edfi].[StudentAcademicRecordRecognition] --
 COMMENT ON TABLE edfi.StudentAcademicRecordRecognition IS 'Recognitions given to the student for accomplishments in a co-curricular or extracurricular activity.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionTypeDescriptorId IS 'The nature of recognition given to the learner for accomplishments in a co-curricular, or extra-curricular activity.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionTypeDescriptorId IS 'The nature of recognition given to the individual for accomplishments in a co-curricular, or extra-curricular activity.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.TermDescriptorId IS 'The term for the session during the school year.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.AchievementTitle IS 'The title assigned to the achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the learner.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the learner.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.AchievementCategoryDescriptorId IS 'The category of achievement attributed to the individual.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.AchievementCategorySystem IS 'The system that defines the categories by which an achievement is attributed to the individual.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.IssuerName IS 'The name of the agent, entity, or institution issuing the element.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.IssuerOriginURL IS 'The Uniform Resource Locator (URL) from which the award was issued.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.Criteria IS 'The criteria for competency-based completion of the achievement/award.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.CriteriaURL IS 'The Uniform Resource Locator (URL) for the unique address of a web page describing the competency-based completion criteria for the achievement/award.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.EvidenceStatement IS 'A statement or reference describing the evidence that the learner met the criteria for attainment of the Achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the Achievement.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionDescription IS 'A description of the type of academic distinctions earned by or awarded to the individual.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.EvidenceStatement IS 'A statement or reference describing the evidence that the individual met the criteria for attainment of the achievement/award.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.ImageURL IS 'The Uniform Resource Locator (URL) for the unique address of an image representing an award or badge associated with the achievement/award.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionDescription IS 'A description of the type of recognition earned by or awarded to the individual.';
 COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionAwardDate IS 'The date the recognition was awarded or earned.';
-COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionAwardExpiresDate IS 'Date on which the award expires.';
+COMMENT ON COLUMN edfi.StudentAcademicRecordRecognition.RecognitionAwardExpiresDate IS 'Date on which the recognition expires.';
 
 -- Extended Properties [edfi].[StudentAcademicRecordReportCard] --
 COMMENT ON TABLE edfi.StudentAcademicRecordReportCard IS 'Report cards for the student.';
@@ -3195,7 +3039,7 @@ COMMENT ON COLUMN edfi.StudentAcademicRecordReportCard.TermDescriptorId IS 'The 
 -- Extended Properties [edfi].[StudentAssessment] --
 COMMENT ON TABLE edfi.StudentAssessment IS 'This entity represents the analysis or scoring of a student''s response on an assessment. The analysis results in a value that represents a student''s performance on a set of items on a test.';
 COMMENT ON COLUMN edfi.StudentAssessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.StudentAssessment.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessment.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessment.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessment.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessment.AdministrationDate IS 'The date and time an assessment was completed by the student. The use of ISO-8601 formats with a timezone designator (UTC or time offset) is recommended in order to prevent ambiguity due to time zones.';
@@ -3203,20 +3047,8 @@ COMMENT ON COLUMN edfi.StudentAssessment.AdministrationEndDate IS 'The date and 
 COMMENT ON COLUMN edfi.StudentAssessment.SerialNumber IS 'The unique number for the assessment form or answer document.';
 COMMENT ON COLUMN edfi.StudentAssessment.AdministrationLanguageDescriptorId IS 'The language in which an assessment is written and/or administered.';
 COMMENT ON COLUMN edfi.StudentAssessment.AdministrationEnvironmentDescriptorId IS 'The environment in which the test was administered.';
-COMMENT ON COLUMN edfi.StudentAssessment.RetestIndicatorDescriptorId IS 'Indicator if the test was retaken. For example:
-        Primary administration
-        First retest
-        Second retest
-        ...';
-COMMENT ON COLUMN edfi.StudentAssessment.ReasonNotTestedDescriptorId IS 'The primary reason student is not tested. For example:
-        Absent
-        Refusal by parent
-        Refusal by student
-        Medical waiver
-        Illness
-        Disruptive behavior
-        LEP Exempt
-        ...';
+COMMENT ON COLUMN edfi.StudentAssessment.RetestIndicatorDescriptorId IS 'Indicator if the test was a retake.';
+COMMENT ON COLUMN edfi.StudentAssessment.ReasonNotTestedDescriptorId IS 'The primary reason student is not tested.';
 COMMENT ON COLUMN edfi.StudentAssessment.WhenAssessedGradeLevelDescriptorId IS 'The grade level of a student when assessed.';
 COMMENT ON COLUMN edfi.StudentAssessment.EventCircumstanceDescriptorId IS 'An unusual event occurred during the administration of the assessment. This could include fire alarm, student became ill, etc.';
 COMMENT ON COLUMN edfi.StudentAssessment.EventDescription IS 'Describes special events that occur before during or after the assessment session that may impact use of results.';
@@ -3224,24 +3056,10 @@ COMMENT ON COLUMN edfi.StudentAssessment.SchoolYear IS 'The school year for whic
 COMMENT ON COLUMN edfi.StudentAssessment.PlatformTypeDescriptorId IS 'The platform with which the assessment was delivered to the student during the assessment session.';
 
 -- Extended Properties [edfi].[StudentAssessmentAccommodation] --
-COMMENT ON TABLE edfi.StudentAssessmentAccommodation IS 'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria. For example:
-        Braille
-        Enlarged monitor view
-        Extra time
-        Large Print
-        Setting
-        Oral Administration
-        ...';
-COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.AccommodationDescriptorId IS 'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria. For example:
-        Braille
-        Enlarged monitor view
-        Extra time
-        Large Print
-        Setting
-        Oral Administration
-        ...';
+COMMENT ON TABLE edfi.StudentAssessmentAccommodation IS 'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
+COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.AccommodationDescriptorId IS 'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
 COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -3249,70 +3067,64 @@ COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.StudentUSI IS 'A unique al
 COMMENT ON TABLE edfi.StudentAssessmentItem IS 'The student''s response to an assessment item and the item-level scores such as correct, incorrect, or met standard.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, state, or other agency or entity.';
-COMMENT ON COLUMN edfi.StudentAssessmentItem.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.AssessmentResponse IS 'A student''s response to a stimulus on a test.';
-COMMENT ON COLUMN edfi.StudentAssessmentItem.DescriptiveFeedback IS 'The formative descriptive feedback that was given to a learner in response to the results from a scored/evaluated assessment item.';
-COMMENT ON COLUMN edfi.StudentAssessmentItem.ResponseIndicatorDescriptorId IS 'Indicator of the response. For example:
-        Nonscorable response
-        Ineffective response
-        Effective response
-        Partial response
-        ...';
-COMMENT ON COLUMN edfi.StudentAssessmentItem.AssessmentItemResultDescriptorId IS 'The analyzed result of a student''s response to an assessment item. For example:
-        Correct
-        Incorrect
-         Met standard
-        ...';
-COMMENT ON COLUMN edfi.StudentAssessmentItem.RawScoreResult IS 'A meaningful raw score of the performance of an individual on an assessment item.';
-COMMENT ON COLUMN edfi.StudentAssessmentItem.TimeAssessed IS 'The overall time a student actually spent during the AssessmentItem.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.DescriptiveFeedback IS 'The formative descriptive feedback that was given to a student in response to the results from a scored/evaluated assessment item.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.ResponseIndicatorDescriptorId IS 'Indicator of the response.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.AssessmentItemResultDescriptorId IS 'The analyzed result of a student''s response to an assessment item.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.RawScoreResult IS 'A meaningful raw score of the performance of a student on an assessment item.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.TimeAssessed IS 'The overall time a student actually spent during the assessment item.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.ItemNumber IS 'The test question number for this student''s test item.';
 
 -- Extended Properties [edfi].[StudentAssessmentPerformanceLevel] --
-COMMENT ON TABLE edfi.StudentAssessmentPerformanceLevel IS 'The performance level(s) achieved for the StudentAssessment.';
+COMMENT ON TABLE edfi.StudentAssessmentPerformanceLevel IS 'The performance level(s) achieved for the student assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.AssessmentReportingMethodDescriptorId IS 'The method that the instructor of the class uses to report the performance and achievement. It may be a qualitative method such as individualized teacher comments or a quantitative method such as a letter or numerical grade. In some cases, more than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the student proficiency.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelMet IS 'Indicator of whether the performance level was met.';
+COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[StudentAssessmentScoreResult] --
 COMMENT ON TABLE edfi.StudentAssessmentScoreResult IS 'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
 COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.Result IS 'The value of a meaningful raw score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
 COMMENT ON COLUMN edfi.StudentAssessmentScoreResult.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessment] --
-COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessment IS 'The student''s score and/or performance levels earned for an ObjectiveAssessment.';
+COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessment IS 'The student''s score and/or performance levels earned for an objective assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessmentPerformanceLevel] --
-COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel IS 'The PerformanceLevel(s) achieved for the ObjectiveAssessment.';
+COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel IS 'The performance level(s) achieved for the objective assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.AssessmentReportingMethodDescriptorId IS 'The method that the instructor of the class uses to report the performance and achievement. It may be a qualitative method such as individualized teacher comments or a quantitative method such as a letter or numerical grade. In some cases, more than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the student proficiency.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelMet IS 'Indicator of whether the performance level was met.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessmentScoreResult] --
 COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult IS 'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult.Result IS 'The value of a meaningful raw score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
@@ -3323,23 +3135,23 @@ COMMENT ON TABLE edfi.StudentCharacteristicDescriptor IS 'This descriptor captur
 COMMENT ON COLUMN edfi.StudentCharacteristicDescriptor.StudentCharacteristicDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[StudentCohortAssociation] --
-COMMENT ON TABLE edfi.StudentCohortAssociation IS 'This association represents the Cohort(s) for which a student is designated.';
-COMMENT ON COLUMN edfi.StudentCohortAssociation.BeginDate IS 'The month, day, and year on which the Student was first identified as part of the Cohort.';
-COMMENT ON COLUMN edfi.StudentCohortAssociation.CohortIdentifier IS 'The name or ID for the Cohort.';
+COMMENT ON TABLE edfi.StudentCohortAssociation IS 'This association represents the cohort(s) for which a student is designated.';
+COMMENT ON COLUMN edfi.StudentCohortAssociation.BeginDate IS 'The month, day, and year on which the student was first identified as part of the cohort.';
+COMMENT ON COLUMN edfi.StudentCohortAssociation.CohortIdentifier IS 'The name or ID for the cohort.';
 COMMENT ON COLUMN edfi.StudentCohortAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCohortAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentCohortAssociation.EndDate IS 'The month, day, and year on which the Student was removed as part of the Cohort.';
+COMMENT ON COLUMN edfi.StudentCohortAssociation.EndDate IS 'The month, day, and year on which the student was removed as part of the cohort.';
 
 -- Extended Properties [edfi].[StudentCohortAssociationSection] --
-COMMENT ON TABLE edfi.StudentCohortAssociationSection IS 'The Cohort representing the subdivision of students within one or more sections. For example, a group of students may be given additional instruction and tracked as a cohort.';
-COMMENT ON COLUMN edfi.StudentCohortAssociationSection.BeginDate IS 'The month, day, and year on which the Student was first identified as part of the Cohort.';
-COMMENT ON COLUMN edfi.StudentCohortAssociationSection.CohortIdentifier IS 'The name or ID for the Cohort.';
+COMMENT ON TABLE edfi.StudentCohortAssociationSection IS 'The cohort representing the subdivision of students within one or more sections. For example, a group of students may be given additional instruction and tracked as a cohort.';
+COMMENT ON COLUMN edfi.StudentCohortAssociationSection.BeginDate IS 'The month, day, and year on which the student was first identified as part of the cohort.';
+COMMENT ON COLUMN edfi.StudentCohortAssociationSection.CohortIdentifier IS 'The name or ID for the cohort.';
 COMMENT ON COLUMN edfi.StudentCohortAssociationSection.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCohortAssociationSection.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.StudentCohortAssociationSection.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCohortAssociationSection.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentCohortAssociationSection.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentCohortAssociationSection.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentCohortAssociationSection.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentCohortAssociationSection.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentCompetencyObjective] --
@@ -3348,44 +3160,44 @@ COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodDescriptorId IS '
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjective.Objective IS 'The designated title of the CompetencyObjective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjective.Objective IS 'The designated title of the competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the CompetencyObjective is targeted.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
 
 -- Extended Properties [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] --
-COMMENT ON TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation IS 'Relates the Student and Program associated with the CompetencyObjective.';
+COMMENT ON TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation IS 'Relates the student and program associated with the competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.Objective IS 'The designated title of the CompetencyObjective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.Objective IS 'The designated title of the competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the CompetencyObjective is targeted.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] --
-COMMENT ON TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation IS 'Relates the Student and Section associated with the CompetencyObjective.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation IS 'Relates the student and section associated with the competency objective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.Objective IS 'The designated title of the CompetencyObjective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.Objective IS 'The designated title of the competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the CompetencyObjective is targeted.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentCTEProgramAssociation] --
@@ -3393,12 +3205,11 @@ COMMENT ON TABLE edfi.StudentCTEProgramAssociation IS 'This association represen
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.NonTraditionalGenderStatus IS 'Indicator that student is from a gender group that comprises less than 25% of the individuals employed in an occupation or field of work.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.PrivateCTEProgram IS 'Indicator that student participated in career and technical education at private agencies or institutions that are reported by the state for purposes of the Elementary and Secondary Education Act (ESEA).
-Students in private institutions which do not receive Perkins funding are reported only in the state file.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.PrivateCTEProgram IS 'Indicator that student participated in career and technical education at private agencies or institutions that are reported by the state for purposes of the Elementary and Secondary Education Act (ESEA). Students in private institutions which do not receive Perkins funding are reported only in the state file.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociation.TechnicalSkillsAssessmentDescriptorId IS 'Results of technical skills assessment aligned with industry recognized standards.';
 
 -- Extended Properties [edfi].[StudentCTEProgramAssociationCTEProgram] --
@@ -3407,56 +3218,51 @@ COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.BeginDate IS 'The 
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.CIPCode IS 'Number and description of the CIP Code associated with the student''s CTEProgram.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTEProgram, is the student''s primary CTEProgram.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the Student has completed the CTEProgram.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
 
 -- Extended Properties [edfi].[StudentCTEProgramAssociationCTEProgramService] --
-COMMENT ON TABLE edfi.StudentCTEProgramAssociationCTEProgramService IS 'Indicates the Service(s) being provided to the Student by the CTE Program.';
+COMMENT ON TABLE edfi.StudentCTEProgramAssociationCTEProgramService IS 'Indicates the service(s) being provided to the student by the CTE program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE Program.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.CTEProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the CTE program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.CIPCode IS 'Number and description of the CIP Code associated with the student''s CTE Program.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationCTEProgramService.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
 
 -- Extended Properties [edfi].[StudentCTEProgramAssociationService] --
-COMMENT ON TABLE edfi.StudentCTEProgramAssociationService IS 'Indicates the Service(s) being provided to the Student by the Program.';
+COMMENT ON TABLE edfi.StudentCTEProgramAssociationService IS 'Indicates the service(s) being provided to the student by the program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ServiceDescriptorId IS 'Indicates the service being provided to the student by the program.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentCTEProgramAssociationService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentDisciplineIncidentAssociation] --
 COMMENT ON TABLE edfi.StudentDisciplineIncidentAssociation IS 'This association indicates those students who were victims, perpetrators, witnesses, and reporters for a discipline incident.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.StudentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident;
-        for example:
-        Victim
-        Perpetrator
-        Witness
-        Reporter.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.StudentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
 
 -- Extended Properties [edfi].[StudentDisciplineIncidentAssociationBehavior] --
 COMMENT ON TABLE edfi.StudentDisciplineIncidentAssociationBehavior IS 'Describes behavior by category and provides a detailed description.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.BehaviorDescriptorId IS 'Describes behavior by category and provides a detailed description.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.BehaviorDetailedDescription IS 'Specifies a more granular level of detail of a behavior involved in the incident.';
@@ -3464,7 +3270,7 @@ COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.BehaviorDeta
 -- Extended Properties [edfi].[StudentDisciplineIncidentBehaviorAssociation] --
 COMMENT ON TABLE edfi.StudentDisciplineIncidentBehaviorAssociation IS 'This association describes the behavior of students involved in a discipline incident.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.BehaviorDescriptorId IS 'Describes behavior by category.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.BehaviorDetailedDescription IS 'Specifies a more granular level of detail of a behavior involved in the incident.';
@@ -3473,31 +3279,31 @@ COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.BehaviorDeta
 COMMENT ON TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 IS 'The role or type of participation of a student in a discipline incident.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.BehaviorDescriptorId IS 'Describes behavior by category.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentDisciplineIncidentNonOffenderAssociation] --
 COMMENT ON TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation IS 'This association indicates those students who were involved and not perpetrators for a discipline incident.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a] --
 COMMENT ON TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a IS 'The role or type of participation of a student in a discipline incident.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire discipline incident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociation] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociation IS 'This association represents student information as reported in the context of the student''s relationship to the Education Organization. Enrollment relationship semantics are covered by StudentSchoolAssociation.';
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssociation IS 'This association represents student information as reported in the context of the student''s relationship to the education organization. Enrollment relationship semantics are covered by StudentSchoolAssociation.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.SexDescriptorId IS 'The student''s gender as last reported to the education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.ProfileThumbnail IS 'Locator reference for the student photo. The specification for that reference is left to local definition.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race, as last reported to the education organization. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.OldEthnicityDescriptorId IS 'Previous definition of Ethnicity combining Hispanic/Latino and race:
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.OldEthnicityDescriptorId IS 'Previous definition of ethnicity combining Hispanic/Latino and race:
         1 - American Indian or Alaskan Native
         2 - Asian or Pacific Islander
         3 - Black, not of Hispanic origin
@@ -3561,16 +3367,16 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.TermDes
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisability] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisability IS 'The disability condition(s) that best describes an individual''s impairment, as determined by evaluation(s) conducted by the education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDescriptorId IS 'A disability category that describes a child''s impairment.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDiagnosis IS 'A description of the disability diagnosis.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.OrderOfDisability IS 'The order by severity of student''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.OrderOfDisability IS 'The order by severity of individual''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisability.DisabilityDeterminationSourceTypeDescriptorId IS 'The source that provided the disability determination.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisabilityDesignation] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisabilityDesignation IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a child''s impairment.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.DisabilityDesignationDescriptorId IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationDisabilityDesignation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -3596,8 +3402,8 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddre
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.CountryDescriptorId IS 'The name of the country. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.Latitude IS 'The geographic latitude of the physical address.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.Longitude IS 'The geographic longitude of the physical address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the person moved to that address.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, this would be the date the person moved from that address.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.BeginDate IS 'The first date the address is valid. For physical addresses, the date the individual moved to that address.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationInternationalAddress.EndDate IS 'The last date the address is valid. For physical addresses, the date the individual moved from that address.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationLanguage] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationLanguage IS 'The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-3 language codes.';
@@ -3613,9 +3419,9 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguageUse.Langua
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationLanguageUse.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationProgramParticipat_810575] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationProgramParticipat_810575 IS 'Reflects important characteristics of the Program, such as categories or particular indications.';
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationProgramParticipat_810575 IS 'Reflects important characteristics of the program, such as categories or particular indications.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipat_810575.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipat_810575.ProgramCharacteristicDescriptorId IS 'Reflects important characteristics of the Program, such as categories or particular indications.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipat_810575.ProgramCharacteristicDescriptorId IS 'Reflects important characteristics of the program, such as categories or particular indications.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipat_810575.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipat_810575.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -3624,8 +3430,8 @@ COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationProgramParticipatio
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.BeginDate IS 'The date the Student was associated with the Program or service.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.EndDate IS 'The date the Program participation ended.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.BeginDate IS 'The date the student was associated with the program or service.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.EndDate IS 'The date the program participation ended.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationProgramParticipation.DesignatedBy IS 'The person, organization, or department that designated the program association.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationRace] --
@@ -3638,14 +3444,14 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationRace.StudentUSI IS
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf IS 'The time periods for which characteristic was effective.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.BeginDate IS 'The month, day, and year for the start of the period.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.StudentCharacteristicDescriptorId IS 'The characteristic designated for the Student.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.EndDate IS 'The month, day, and year for the end of the period.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteristic IS 'Reflects important characteristics of a student. If a student has a characteristic present, that characteristic is considered true or active for that student. If a characteristic is not present, no assumption is made as to the applicability of the characteristic, but local policy may dictate otherwise.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentCharacteristicDescriptorId IS 'The characteristic designated for the Student.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.DesignatedBy IS 'The person, organization, or department that designated the characteristic.';
 
@@ -3700,27 +3506,25 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.End
 
 -- Extended Properties [edfi].[StudentGradebookEntry] --
 COMMENT ON TABLE edfi.StudentGradebookEntry IS 'This entity holds a student''s grade or competency level for a gradebook entry.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the GradebookEntry.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced learning objective.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.DateFulfilled IS 'The date an assignment was turned in or the date of an assessment.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.TimeFulfilled IS 'The time an assignment was turned in on the date fulfilled.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.PointsEarned IS 'The points earned for the submission. With extra credit, the points earned may exceed the max points.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.LetterGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.NumericGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.CompetencyLevelDescriptorId IS 'The CompetencyLevel assessed for the student for the referenced LearningObjective.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.SubmissionStatusDescriptorId IS 'The status of the student''s submission.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.AssignmentLateStatusDescriptorId IS 'Status of whether the assignment was submitted after the due date and/or marked as.';
 
 -- Extended Properties [edfi].[StudentHomelessProgramAssociation] --
-COMMENT ON TABLE edfi.StudentHomelessProgramAssociation IS 'This association represents the McKinney-Vento Homeless Program program(s) that a student participates in or from which the Student receives services.';
+COMMENT ON TABLE edfi.StudentHomelessProgramAssociation IS 'This association represents the McKinney-Vento Homeless Program program(s) that a student participates in or from which the student receives services.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.HomelessPrimaryNighttimeResidenceDescriptorId IS 'The primary nighttime residence of the student at the time the student is identified as homeless.';
@@ -3728,17 +3532,17 @@ COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.AwaitingFosterCare IS '
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociation.HomelessUnaccompaniedYouth IS 'A homeless unaccompanied youth is a youth who is not in the physical custody of a parent or guardian and who fits the McKinney-Vento definition of homeless. Students must be both unaccompanied and homeless to be included as an unaccompanied homeless youth.';
 
 -- Extended Properties [edfi].[StudentHomelessProgramAssociationHomelessProgramService] --
-COMMENT ON TABLE edfi.StudentHomelessProgramAssociationHomelessProgramService IS 'Indicates the service(s) being provided to the Student by the Homeless Program.';
+COMMENT ON TABLE edfi.StudentHomelessProgramAssociationHomelessProgramService IS 'Indicates the service(s) being provided to the student by the homeless program.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.HomelessProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Homeless Program.';
+COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.HomelessProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the homeless program.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentHomelessProgramAssociationHomelessProgramService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentIdentificationDocument] --
 COMMENT ON TABLE edfi.StudentIdentificationDocument IS 'Describe the documentation of citizenship.';
@@ -3760,7 +3564,7 @@ COMMENT ON TABLE edfi.StudentInterventionAssociation IS 'This association indica
 COMMENT ON COLUMN edfi.StudentInterventionAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentInterventionAssociation.InterventionIdentificationCode IS 'A unique number or alphanumeric code assigned to an intervention.';
 COMMENT ON COLUMN edfi.StudentInterventionAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentInterventionAssociation.CohortIdentifier IS 'The name or ID for the Cohort.';
+COMMENT ON COLUMN edfi.StudentInterventionAssociation.CohortIdentifier IS 'The name or ID for the cohort.';
 COMMENT ON COLUMN edfi.StudentInterventionAssociation.CohortEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentInterventionAssociation.DiagnosticStatement IS 'A statement provided by the assigner that provides information regarding why the student was assigned to this intervention.';
 COMMENT ON COLUMN edfi.StudentInterventionAssociation.Dosage IS 'The duration of time in minutes for which the student was assigned to participate in the intervention.';
@@ -3793,14 +3597,14 @@ COMMENT ON COLUMN edfi.StudentInterventionAttendanceEvent.EventDuration IS 'The 
 COMMENT ON COLUMN edfi.StudentInterventionAttendanceEvent.InterventionDuration IS 'The duration in minutes in which the student participated in the intervention during this instance.';
 
 -- Extended Properties [edfi].[StudentLanguageInstructionProgramAssociation] --
-COMMENT ON TABLE edfi.StudentLanguageInstructionProgramAssociation IS 'This association represents the Title III Language Instruction for Limited English Proficient and Immigrant Students program(s) that a student participates in or from which the Student receives services.';
+COMMENT ON TABLE edfi.StudentLanguageInstructionProgramAssociation IS 'This association represents the Title III Language Instruction for Limited English Proficient and Immigrant Students program(s) that a student participates in or from which the student receives services.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.EnglishLearnerParticipation IS 'An indication that an English Learner student is served by an English language instruction educational program supported with Title III of ESEA funds.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.EnglishLearnerParticipation IS 'An indication that an English learner student is served by an English language instruction educational program supported with Title III of ESEA funds.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociation.Dosage IS 'The duration of time in minutes for which the student was assigned to participate in the program.';
 
 -- Extended Properties [edfi].[StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620] --
@@ -3808,9 +3612,9 @@ COMMENT ON TABLE edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.SchoolYear IS 'The School Year for which the Assessment was administered.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.SchoolYear IS 'The school year for which the assessment was administered.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.ParticipationDescriptorId IS 'Field indicating the participation in the yearly English language assessment.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.ProficiencyDescriptorId IS 'The proficiency level for the yearly English language assessment.';
@@ -3818,28 +3622,28 @@ COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationEnglishLangu_1ac620.MonitoredDescriptorId IS 'Student is monitored on content achievement who are no longer receiving services.';
 
 -- Extended Properties [edfi].[StudentLanguageInstructionProgramAssociationLanguageInst_268e07] --
-COMMENT ON TABLE edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07 IS 'Indicates the service(s) being provided to the Student by the Language Instruction Program.';
+COMMENT ON TABLE edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07 IS 'Indicates the service(s) being provided to the student by the language instruction program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.LanguageInstructionProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Language Instruction Program.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.LanguageInstructionProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the language instruction program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentLearningObjective] --
-COMMENT ON TABLE edfi.StudentLearningObjective IS 'This entity represents the competency assessed or evaluated for the student against a specific LearningObjective.';
+COMMENT ON TABLE edfi.StudentLearningObjective IS 'This entity represents the competency assessed or evaluated for the student against a specific learning objective.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.StudentLearningObjective.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.StudentLearningObjective.Namespace IS 'Namespace for the learning objective.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentLearningObjective.CompetencyLevelDescriptorId IS 'The CompetencyLevel assessed for the student for the referenced LearningObjective.';
+COMMENT ON COLUMN edfi.StudentLearningObjective.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced learning objective.';
 COMMENT ON COLUMN edfi.StudentLearningObjective.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
 
 -- Extended Properties [edfi].[StudentLearningObjectiveGeneralStudentProgramAssociation] --
@@ -3851,26 +3655,26 @@ COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.
 COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.Namespace IS 'Namespace for the learning objective.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveGeneralStudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentLearningObjectiveStudentSectionAssociation] --
 COMMENT ON TABLE edfi.StudentLearningObjectiveStudentSectionAssociation IS 'Relates the Student and Section associated with the LearningObjective.';
-COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.Namespace IS 'Namespace for the LearningObjective.';
+COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.Namespace IS 'Namespace for the learning objective.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentLearningObjectiveStudentSectionAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentMigrantEducationProgramAssociation] --
@@ -3878,38 +3682,38 @@ COMMENT ON TABLE edfi.StudentMigrantEducationProgramAssociation IS 'This associa
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.PriorityForServices IS 'Report migratory children who are classified as having "priority for services" because they are failing, or most at risk of failing to meet the State''s challenging State academic content standards and challenging State student academic achievement standards, and their education has been interrupted during the regular school year.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.PriorityForServices IS 'Report migratory children who are classified as having "priority for services" because they are failing, or most at risk of failing to meet the state''s challenging state academic content standards and challenging state student academic achievement standards, and their education has been interrupted during the regular school year.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.LastQualifyingMove IS 'Date the last qualifying move occurred; used to compute MEP status.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.ContinuationOfServicesReasonDescriptorId IS 'The "continuation of services" provision found in Section 1304(e) of the statute provides that (1) a child who ceases to be a migratory child during a school term shall be eligible for services until the end of such term; (2) a child who is no longer a migratory child may continue to receive services for one additional school year, but only if comparable services are not available through other programs; and (3) secondary school students who were eligible for services in secondary school may continue to be served through credit accrual programs until graduation. Only students who received services at any time during their 36 month eligibility period may continue to receive services (not necessarily the same service).';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.USInitialEntry IS 'The month, day, and year on which the Student first entered the U.S.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.USMostRecentEntry IS 'The month, day, and year of the Student''s most recent entry into the U.S.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.USInitialSchoolEntry IS 'The month, day, and year on which the Student first entered a U.S. school.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.QualifyingArrivalDate IS 'The Qualifying Arrival Date (QAD) is the date the child joins the worker who has already moved, or the date when the worker joins the child who has already moved. The QAD is the date that the child''s eligibility for the MEP begins. The QAD is not affected by subsequent non-qualifying moves.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.StateResidencyDate IS 'The verified State residency for the student.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.EligibilityExpirationDate IS 'The Eligibility Expiration Date is used to determine end of eligibility and to account for a child''s eligibility expiring earlier than 36 months from the child''s QAD. A child''s eligibility would end earlier than 36 months from the child''s QAD, if the child is no longer entitled to a free public education (e.g., graduated with a high school diploma, obtained a high school equivalency diploma (HSED), or for other reasons as determined by States'' requirements), or if the child passes away.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.USInitialEntry IS 'The month, day, and year on which the student first entered the U.S.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.USMostRecentEntry IS 'The month, day, and year of the student''s most recent entry into the U.S.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.USInitialSchoolEntry IS 'The month, day, and year on which the student first entered a U.S. school.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.QualifyingArrivalDate IS 'The qualifying arrival date (QAD) is the date the child joins the worker who has already moved, or the date when the worker joins the child who has already moved. The QAD is the date that the child''s eligibility for the MEP begins. The QAD is not affected by subsequent non-qualifying moves.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.StateResidencyDate IS 'The verified state residency for the student.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociation.EligibilityExpirationDate IS 'The eligibility expiration date is used to determine end of eligibility and to account for a child''s eligibility expiring earlier than 36 months from the child''s QAD. A child''s eligibility would end earlier than 36 months from the child''s QAD, if the child is no longer entitled to a free public education (e.g., graduated with a high school diploma, obtained a high school equivalency diploma (HSED), or for other reasons as determined by states'' requirements), or if the child passes away.';
 
 -- Extended Properties [edfi].[StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7] --
-COMMENT ON TABLE edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7 IS 'Indicates the Service(s) being provided to the Student by the Migrant Education Program.';
+COMMENT ON TABLE edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7 IS 'Indicates the service(s) being provided to the student by the migrant education program.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.MigrantEducationProgramServiceDescriptorId IS 'Indicates the Service being provided to the student by the Migrant Education Program.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.MigrantEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the migrant education program.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentMigrantEducationProgramAssociationMigrantEducatio_d9dcd7.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentNeglectedOrDelinquentProgramAssociation] --
-COMMENT ON TABLE edfi.StudentNeglectedOrDelinquentProgramAssociation IS 'This association represents the Title I Part D Neglected or Delinquent program(s) that a student participates in or from which the Student receives services.';
+COMMENT ON TABLE edfi.StudentNeglectedOrDelinquentProgramAssociation IS 'This association represents the Title I Part D Neglected or Delinquent program(s) that a student participates in or from which the student receives services.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.NeglectedOrDelinquentProgramDescriptorId IS 'The type of program under ESEA Title I, Part D, Subpart 1 (state programs) or Subpart 2 (LEA).';
@@ -3917,23 +3721,23 @@ COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.ELAProgres
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociation.MathematicsProgressLevelDescriptorId IS 'The progress measured from pre- to post-test for Mathematics.';
 
 -- Extended Properties [edfi].[StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251] --
-COMMENT ON TABLE edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251 IS 'Indicates the service(s) being provided to the Student by the Neglected or Delinquent Program.';
+COMMENT ON TABLE edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251 IS 'Indicates the service(s) being provided to the student by the neglected or delinquent program.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.NeglectedOrDelinquentProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Neglected or Delinquent Program.';
+COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.NeglectedOrDelinquentProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the neglected or delinquent program.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedO_520251.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentOtherName] --
 COMMENT ON TABLE edfi.StudentOtherName IS 'Other names (e.g., alias, nickname, previous legal name) associated with a person.';
-COMMENT ON COLUMN edfi.StudentOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for a person.';
+COMMENT ON COLUMN edfi.StudentOtherName.OtherNameTypeDescriptorId IS 'The types of alternate names for an individual.';
 COMMENT ON COLUMN edfi.StudentOtherName.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the person.';
+COMMENT ON COLUMN edfi.StudentOtherName.PersonalTitlePrefix IS 'A prefix used to denote the title, degree, position, or seniority of the individual.';
 COMMENT ON COLUMN edfi.StudentOtherName.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
 COMMENT ON COLUMN edfi.StudentOtherName.MiddleName IS 'A secondary name given to an individual at birth, baptism, or during another naming ceremony.';
 COMMENT ON COLUMN edfi.StudentOtherName.LastSurname IS 'The name borne in common by members of a family.';
@@ -3944,12 +3748,12 @@ COMMENT ON TABLE edfi.StudentParentAssociation IS 'This association relates stud
 COMMENT ON COLUMN edfi.StudentParentAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.RelationDescriptorId IS 'The nature of an individual''s relationship to a student, primarily used to capture family relationships.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.PrimaryContactStatus IS 'Indicator of whether the person is a primary parental contact for the Student.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.LivesWith IS 'Indicator of whether the Student lives with the associated parent.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.EmergencyContactStatus IS 'Indicator of whether the person is a designated emergency contact for the Student.';
+COMMENT ON COLUMN edfi.StudentParentAssociation.PrimaryContactStatus IS 'Indicator of whether the person is a primary parental contact for the student.';
+COMMENT ON COLUMN edfi.StudentParentAssociation.LivesWith IS 'Indicator of whether the student lives with the associated parent.';
+COMMENT ON COLUMN edfi.StudentParentAssociation.EmergencyContactStatus IS 'Indicator of whether the person is a designated emergency contact for the student.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.ContactPriority IS 'The numeric order of the preferred sequence or priority of contact.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.ContactRestrictions IS 'Restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).';
-COMMENT ON COLUMN edfi.StudentParentAssociation.LegalGuardian IS 'Indicator of whether the person is a legal guardian for the Student.';
+COMMENT ON COLUMN edfi.StudentParentAssociation.LegalGuardian IS 'Indicator of whether the person is a legal guardian for the student.';
 
 -- Extended Properties [edfi].[StudentParticipationCodeDescriptor] --
 COMMENT ON TABLE edfi.StudentParticipationCodeDescriptor IS 'The role or type of participation of a student in a discipline incident; for example: Victim, Perpetrator, Witness, Reporter.';
@@ -3967,26 +3771,26 @@ COMMENT ON COLUMN edfi.StudentPersonalIdentificationDocument.IssuerName IS 'Name
 COMMENT ON COLUMN edfi.StudentPersonalIdentificationDocument.IssuerCountryDescriptorId IS 'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.';
 
 -- Extended Properties [edfi].[StudentProgramAssociation] --
-COMMENT ON TABLE edfi.StudentProgramAssociation IS 'This association represents the Program(s) that a student participates in or is served by.';
+COMMENT ON TABLE edfi.StudentProgramAssociation IS 'This association represents the program(s) that a student participates in or is served by.';
 COMMENT ON COLUMN edfi.StudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentProgramAssociationService] --
-COMMENT ON TABLE edfi.StudentProgramAssociationService IS 'Indicates the Service(s) being provided to the Student by the Program.';
+COMMENT ON TABLE edfi.StudentProgramAssociationService IS 'Indicates the service(s) being provided to the student by the program.';
 COMMENT ON COLUMN edfi.StudentProgramAssociationService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentProgramAssociationService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentProgramAssociationService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentProgramAssociationService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentProgramAssociationService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentProgramAssociationService.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentProgramAssociationService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN edfi.StudentProgramAssociationService.ServiceDescriptorId IS 'Indicates the service being provided to the student by the program.';
 COMMENT ON COLUMN edfi.StudentProgramAssociationService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentProgramAssociationService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentProgramAssociationService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentProgramAssociationService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentProgramAssociationService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentProgramAssociationService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentProgramAttendanceEvent] --
 COMMENT ON TABLE edfi.StudentProgramAttendanceEvent IS 'This event entity represents the recording of whether a student is in attendance to receive or participate in program services.';
@@ -3998,7 +3802,7 @@ COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.AttendanceEventCategoryDesc
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.EventDate IS 'Date for this attendance event.';
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.AttendanceEventReason IS 'The reported reason for a student''s absence.';
@@ -4007,7 +3811,7 @@ COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.EventDuration IS 'The amoun
 COMMENT ON COLUMN edfi.StudentProgramAttendanceEvent.ProgramAttendanceDuration IS 'The duration in minutes of the program attendance event.';
 
 -- Extended Properties [edfi].[StudentSchoolAssociation] --
-COMMENT ON TABLE edfi.StudentSchoolAssociation IS 'This association represents the School in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.';
+COMMENT ON TABLE edfi.StudentSchoolAssociation IS 'This association represents the school in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -4016,16 +3820,16 @@ COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryGradeLevelDescriptorId IS '
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryGradeLevelReasonDescriptorId IS 'The primary reason as to why a staff member determined that a student should be promoted or not (or be demoted) at the end of a given school term.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EntryTypeDescriptorId IS 'The process by which a student enters a school during a given academic session.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.RepeatGradeIndicator IS 'An indicator of whether the student is enrolling to repeat a grade level, either by failure or an agreement to hold the student back.';
-COMMENT ON COLUMN edfi.StudentSchoolAssociation.ClassOfSchoolYear IS 'Projected High School graduation year.';
+COMMENT ON COLUMN edfi.StudentSchoolAssociation.ClassOfSchoolYear IS 'Projected high school graduation year.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolChoiceTransfer IS 'An indication of whether students transferred in or out of the school did so during the school year under the provisions for public school choice in accordance with Title I, Part A, Section 1116.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.ExitWithdrawDate IS 'The recorded exit or withdraw date for the student.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.ExitWithdrawTypeDescriptorId IS 'The circumstances under which the student exited from membership in an educational institution.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.ResidencyStatusDescriptorId IS 'An indication of the location of a persons legal residence relative to (within or outside of) the boundaries of the public school attended and its administrative unit.';
-COMMENT ON COLUMN edfi.StudentSchoolAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.StudentSchoolAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.EmployedWhileEnrolled IS 'An individual who is a paid employee or works in his or her own business, profession, or farm and at the same time is enrolled in secondary, postsecondary, or adult education.';
-COMMENT ON COLUMN edfi.StudentSchoolAssociation.CalendarCode IS 'The identifier for the Calendar.';
+COMMENT ON COLUMN edfi.StudentSchoolAssociation.CalendarCode IS 'The identifier for the calendar.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.SchoolYear IS 'The school year associated with the student''s enrollment.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.FullTimeEquivalency IS 'The full-time equivalent ratio for the student’s assignment to a school for services or instruction. For example, a full-time student would have an FTE value of 1 while a half-time student would have an FTE value of 0.5.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociation.TermCompletionIndicator IS 'Idicates whether or not a student completed the most recent school term.';
@@ -4033,7 +3837,7 @@ COMMENT ON COLUMN edfi.StudentSchoolAssociation.TermCompletionIndicator IS 'Idic
 -- Extended Properties [edfi].[StudentSchoolAssociationAlternativeGraduationPlan] --
 COMMENT ON TABLE edfi.StudentSchoolAssociationAlternativeGraduationPlan IS 'The secondary graduation plan or plans associated with the student enrolled in the school.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociationAlternativeGraduationPlan.AlternativeEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSchoolAssociationAlternativeGraduationPlan.AlternativeGraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN edfi.StudentSchoolAssociationAlternativeGraduationPlan.AlternativeGraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociationAlternativeGraduationPlan.AlternativeGraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociationAlternativeGraduationPlan.EntryDate IS 'The month, day, and year on which an individual enters and begins to receive instructional services in a school.';
 COMMENT ON COLUMN edfi.StudentSchoolAssociationAlternativeGraduationPlan.SchoolId IS 'The identifier assigned to a school.';
@@ -4056,7 +3860,7 @@ COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.AttendanceEventCategoryDescr
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.EventDate IS 'Date for this attendance event.';
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.AttendanceEventReason IS 'The reported reason for a student''s absence.';
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.EducationalEnvironmentDescriptorId IS 'The setting in which a child receives education and related services. This attribute is only used if it differs from the EducationalEnvironment of the Section. This is only used in the AttendanceEvent if different from the associated Section.';
@@ -4066,44 +3870,40 @@ COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.ArrivalTime IS 'The time of 
 COMMENT ON COLUMN edfi.StudentSchoolAttendanceEvent.DepartureTime IS 'The time of day the student departed for the attendance event in ISO 8601 format.';
 
 -- Extended Properties [edfi].[StudentSchoolFoodServiceProgramAssociation] --
-COMMENT ON TABLE edfi.StudentSchoolFoodServiceProgramAssociation IS 'This association represents the school food services program(s), such as the Free or Reduced Lunch Program, that a student participates in or from which the Student receives services.';
+COMMENT ON TABLE edfi.StudentSchoolFoodServiceProgramAssociation IS 'This association represents the school food services program(s), such as the Free or Reduced Lunch program, that a student participates in or from which the student receives services.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociation.DirectCertification IS 'Indicates that the student''s National School Lunch Program (NSLP) eligibility has been determined through direct certification.';
 
 -- Extended Properties [edfi].[StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb] --
-COMMENT ON TABLE edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb IS 'Indicates the service(s) being provided to the Student by the School Food Service Program.';
+COMMENT ON TABLE edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb IS 'Indicates the service(s) being provided to the student by the school food service program.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.SchoolFoodServiceProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the School Food Service Program.';
+COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.SchoolFoodServiceProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the school food service program.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServ_85a0eb.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentSectionAssociation] --
 COMMENT ON TABLE edfi.StudentSectionAssociation IS 'This association indicates the course sections to which a student is assigned.';
-COMMENT ON COLUMN edfi.StudentSectionAssociation.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON COLUMN edfi.StudentSectionAssociation.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentSectionAssociation.EndDate IS 'Month, day, and year of the withdrawal or exit of the Student from the Section.';
-COMMENT ON COLUMN edfi.StudentSectionAssociation.HomeroomIndicator IS 'Indicates the Section is the student''s homeroom. Homeroom period may the convention for taking daily attendance.';
-COMMENT ON COLUMN edfi.StudentSectionAssociation.RepeatIdentifierDescriptorId IS 'An indication as to whether a student has previously taken a given course.
-        Repeated, counted in grade point average
-        Repeated, not counted in grade point average
-        Not repeated
-        Other.';
+COMMENT ON COLUMN edfi.StudentSectionAssociation.EndDate IS 'Month, day, and year of the withdrawal or exit of the student from the section.';
+COMMENT ON COLUMN edfi.StudentSectionAssociation.HomeroomIndicator IS 'Indicates the section is the student''s homeroom. Homeroom period may the convention for taking daily attendance.';
+COMMENT ON COLUMN edfi.StudentSectionAssociation.RepeatIdentifierDescriptorId IS 'An indication as to whether a student has previously taken a given course.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.TeacherStudentDataLinkExclusion IS 'Indicates that the student-section combination is excluded from calculation of value-added or growth attribution calculations used for a particular teacher evaluation.';
 COMMENT ON COLUMN edfi.StudentSectionAssociation.AttemptStatusDescriptorId IS 'An indication of the student''s completion status for the section.';
 
@@ -4119,7 +3919,7 @@ COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.LocalCourseCode IS 'The loc
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.AttendanceEventReason IS 'The reported reason for a student''s absence.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.EducationalEnvironmentDescriptorId IS 'The setting in which a child receives education and related services. This attribute is only used if it differs from the EducationalEnvironment of the Section. This is only used in the AttendanceEvent if different from the associated Section.';
@@ -4129,7 +3929,7 @@ COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.ArrivalTime IS 'The time of
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.DepartureTime IS 'The time of day the student departed for the attendance event in ISO 8601 format.';
 
 -- Extended Properties [edfi].[StudentSectionAttendanceEventClassPeriod] --
-COMMENT ON TABLE edfi.StudentSectionAttendanceEventClassPeriod IS 'The Class Period(s) to which the Section Attendance Event applies.';
+COMMENT ON TABLE edfi.StudentSectionAttendanceEventClassPeriod IS 'The class period(s) to which the section attendance event applies.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.AttendanceEventCategoryDescriptorId IS 'A code describing the attendance event, for example:
         Present
         Unexcused absence
@@ -4141,7 +3941,7 @@ COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.LocalCourseCode 
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociation] --
@@ -4149,20 +3949,15 @@ COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociation IS 'This associa
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.IdeaEligibility IS 'Indicator of the eligibility of the student to receive special education services according to the Individuals with Disabilities Education Act (IDEA).';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.SpecialEducationSettingDescriptorId IS 'The major instructional setting (more than 50 percent of a student''s special education program).';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.SpecialEducationHoursPerWeek IS 'The number of hours per week for special education instruction and therapy.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.SchoolHoursPerWeek IS 'Indicate the total number of hours of instructional time per week for the school that the student attends.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.MultiplyDisabled IS 'Indicates whether the Student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.MedicallyFragile IS 'Indicates whether the Student receiving special education and related services is:
-        1) in the age range of birth to 22 years, and
-        2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and
-        3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and
-        4) lives with ongoing threat to his or her continued well-being.
-        Aligns with federal requirements.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.MultiplyDisabled IS 'Indicates whether the student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.MedicallyFragile IS 'Indicates whether the student receiving special education and related services is: 1) in the age range of birth to 22 years, and 2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and 3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and 4) lives with ongoing threat to his or her continued well-being. Aligns with federal requirements.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.LastEvaluationDate IS 'The date of the last special education evaluation.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.IEPReviewDate IS 'The date of the last IEP review.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.IEPBeginDate IS 'The effective date of the most recent IEP.';
@@ -4171,96 +3966,92 @@ COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociation.IEPEndDate IS '
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationDisability] --
 COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationDisability IS 'The disability condition(s) that best describes an individual''s impairment, as related to special education services received.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.DisabilityDescriptorId IS 'A disability category that describes a child''s impairment.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.DisabilityDiagnosis IS 'A description of the disability diagnosis.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.OrderOfDisability IS 'The order by severity of student''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.OrderOfDisability IS 'The order by severity of individual''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisability.DisabilityDeterminationSourceTypeDescriptorId IS 'The source that provided the disability determination.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationDisabilityDesignation] --
 COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a child''s impairment.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.DisabilityDescriptorId IS 'A disability category that describes a individual''s impairment.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.DisabilityDesignationDescriptorId IS 'Whether the disability is IDEA, Section 504, or other disability designation.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationServiceProvider] --
-COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationServiceProvider IS 'The Staff providing special education services to the Student.';
+COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationServiceProvider IS 'The staff providing special education services to the student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationServiceProvider.PrimaryProvider IS 'Primary ServiceProvider.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9] --
-COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9 IS 'Indicates the Service(s) being provided to the Student by the Special Education Program.';
+COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9 IS 'Indicates the service(s) being provided to the student by the special education program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.SpecialEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Special Education Program.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.SpecialEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the special education program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c] --
-COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c IS 'The Staff providing the service to the Student.';
+COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c IS 'The staff providing the service to the student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.SpecialEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Special Education Program.';
+COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.SpecialEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the special education program.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c.PrimaryProvider IS 'Primary ServiceProvider.';
 
 -- Extended Properties [edfi].[StudentTitleIPartAProgramAssociation] --
-COMMENT ON TABLE edfi.StudentTitleIPartAProgramAssociation IS 'This association represents the Title I Part A program(s) that a student participates in or from which the Student receives services. The association is an extension of the StudentProgramAssociation particular for Title I Part A programs.';
+COMMENT ON TABLE edfi.StudentTitleIPartAProgramAssociation IS 'This association represents the Title I Part A program(s) that a student participates in or from which the student receives services. The association is an extension of the StudentProgramAssociation particular for Title I Part A programs.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.TitleIPartAParticipantDescriptorId IS 'An indication of the type of Title I program, if any, in which the student is participating and by which the student is served:
-        Public Targeted Assistance Program
-        Public Schoolwide Program
-        Private School Students Participating
-        Local Neglected Program.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociation.TitleIPartAParticipantDescriptorId IS 'An indication of the type of Title I program, if any, in which the student is participating and by which the student is served.';
 
 -- Extended Properties [edfi].[StudentTitleIPartAProgramAssociationService] --
-COMMENT ON TABLE edfi.StudentTitleIPartAProgramAssociationService IS 'Indicates the Service(s) being provided to the Student by the Program.';
+COMMENT ON TABLE edfi.StudentTitleIPartAProgramAssociationService IS 'Indicates the service(s) being provided to the student by the program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ServiceDescriptorId IS 'Indicates the service being provided to the student by the program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [edfi].[StudentTitleIPartAProgramAssociationTitleIPartAProgramService] --
-COMMENT ON TABLE edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService IS 'Indicates the service(s) being provided to the Student by the Title I Part A Program.';
+COMMENT ON TABLE edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService IS 'Indicates the service(s) being provided to the student by the Title I Part A program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService.TitleIPartAProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Title I Part A Program.';
@@ -4273,13 +4064,17 @@ COMMENT ON TABLE edfi.StudentVisa IS 'An indicator of a non-US citizen''s Visa t
 COMMENT ON COLUMN edfi.StudentVisa.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentVisa.VisaDescriptorId IS 'An indicator of a non-US citizen''s Visa type.';
 
+-- Extended Properties [edfi].[SubmissionStatusDescriptor] --
+COMMENT ON TABLE edfi.SubmissionStatusDescriptor IS 'The status of the student''s submission.';
+COMMENT ON COLUMN edfi.SubmissionStatusDescriptor.SubmissionStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[Survey] --
 COMMENT ON TABLE edfi.Survey IS 'A survey to identified or anonymous respondents.';
-COMMENT ON COLUMN edfi.Survey.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.Survey.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.Survey.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.Survey.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.Survey.SurveyTitle IS 'The title of the survey.';
-COMMENT ON COLUMN edfi.Survey.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.Survey.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.Survey.SchoolYear IS 'The school year associated with the survey.';
 COMMENT ON COLUMN edfi.Survey.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.Survey.SurveyCategoryDescriptorId IS 'The category or type of survey.';
@@ -4293,7 +4088,7 @@ COMMENT ON COLUMN edfi.SurveyCategoryDescriptor.SurveyCategoryDescriptorId IS 'A
 COMMENT ON TABLE edfi.SurveyCourseAssociation IS 'The course associated with the survey.';
 COMMENT ON COLUMN edfi.SurveyCourseAssociation.CourseCode IS 'A unique alphanumeric code assigned to a course.';
 COMMENT ON COLUMN edfi.SurveyCourseAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.SurveyCourseAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyCourseAssociation.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyCourseAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 
 -- Extended Properties [edfi].[SurveyLevelDescriptor] --
@@ -4303,14 +4098,14 @@ COMMENT ON COLUMN edfi.SurveyLevelDescriptor.SurveyLevelDescriptorId IS 'A uniqu
 -- Extended Properties [edfi].[SurveyProgramAssociation] --
 COMMENT ON TABLE edfi.SurveyProgramAssociation IS 'The program associated with the survey.';
 COMMENT ON COLUMN edfi.SurveyProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.SurveyProgramAssociation.Namespace IS 'Namespace for the Survey.';
-COMMENT ON COLUMN edfi.SurveyProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.SurveyProgramAssociation.Namespace IS 'Namespace for the survey.';
+COMMENT ON COLUMN edfi.SurveyProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.SurveyProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN edfi.SurveyProgramAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 
 -- Extended Properties [edfi].[SurveyQuestion] --
 COMMENT ON TABLE edfi.SurveyQuestion IS 'The questions for the survey.';
-COMMENT ON COLUMN edfi.SurveyQuestion.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyQuestion.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestion.QuestionCode IS 'The identifying code for the question, unique for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestion.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyQuestion.QuestionFormDescriptorId IS 'The form or type of question.';
@@ -4320,7 +4115,7 @@ COMMENT ON COLUMN edfi.SurveyQuestion.SurveySectionTitle IS 'The title or label 
 -- Extended Properties [edfi].[SurveyQuestionMatrix] --
 COMMENT ON TABLE edfi.SurveyQuestionMatrix IS 'Information about the matrix element in the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionMatrix.MatrixElement IS 'For matrix questions, the text identifying each row of the matrix.';
-COMMENT ON COLUMN edfi.SurveyQuestionMatrix.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyQuestionMatrix.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionMatrix.QuestionCode IS 'The identifying code for the question, unique for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionMatrix.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyQuestionMatrix.MinRawScore IS 'The minimum score possible on a survey.';
@@ -4328,7 +4123,7 @@ COMMENT ON COLUMN edfi.SurveyQuestionMatrix.MaxRawScore IS 'The maximum score po
 
 -- Extended Properties [edfi].[SurveyQuestionResponse] --
 COMMENT ON TABLE edfi.SurveyQuestionResponse IS 'The response to a survey question.';
-COMMENT ON COLUMN edfi.SurveyQuestionResponse.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyQuestionResponse.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponse.QuestionCode IS 'The identifying code for the question, unique for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponse.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponse.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
@@ -4337,7 +4132,7 @@ COMMENT ON COLUMN edfi.SurveyQuestionResponse.Comment IS 'Additional information
 
 -- Extended Properties [edfi].[SurveyQuestionResponseChoice] --
 COMMENT ON TABLE edfi.SurveyQuestionResponseChoice IS 'The optional list of possible responses to a survey question.';
-COMMENT ON COLUMN edfi.SurveyQuestionResponseChoice.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyQuestionResponseChoice.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseChoice.QuestionCode IS 'The identifying code for the question, unique for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseChoice.SortOrder IS 'Sort order of this ResponseChoice within the complete list of choices attached to a SurveyQuestion. If sort order doesn''t apply, the value of NumericValue or a unique, possibly sequential numeric value.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseChoice.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
@@ -4347,7 +4142,7 @@ COMMENT ON COLUMN edfi.SurveyQuestionResponseChoice.TextValue IS 'A valid text r
 -- Extended Properties [edfi].[SurveyQuestionResponseSurveyQuestionMatrixElementResponse] --
 COMMENT ON TABLE edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse IS 'For matrix questions, the response for each row of the matrix.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse.MatrixElement IS 'For matrix questions, the text identifying each row of the matrix.';
-COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse.QuestionCode IS 'The identifying code for the question, unique for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
@@ -4359,7 +4154,7 @@ COMMENT ON COLUMN edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse
 
 -- Extended Properties [edfi].[SurveyQuestionResponseValue] --
 COMMENT ON TABLE edfi.SurveyQuestionResponseValue IS 'For free-form, single- or multiple-selection questions, one or more responses.';
-COMMENT ON COLUMN edfi.SurveyQuestionResponseValue.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyQuestionResponseValue.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseValue.QuestionCode IS 'The identifying code for the question, unique for the survey.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseValue.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyQuestionResponseValue.SurveyQuestionResponseValueIdentifier IS 'Primary key for the response value; a unique, usually sequential numeric value for a collection of responses, or potentially the value of NumericResponse for a single response.';
@@ -4369,7 +4164,7 @@ COMMENT ON COLUMN edfi.SurveyQuestionResponseValue.TextResponse IS 'A text respo
 
 -- Extended Properties [edfi].[SurveyResponse] --
 COMMENT ON TABLE edfi.SurveyResponse IS 'Responses to a Survey for named or anonymous persons.';
-COMMENT ON COLUMN edfi.SurveyResponse.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyResponse.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyResponse.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyResponse.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
 COMMENT ON COLUMN edfi.SurveyResponse.ResponseDate IS 'Date of the survey response.';
@@ -4384,59 +4179,59 @@ COMMENT ON COLUMN edfi.SurveyResponse.StaffUSI IS 'A unique alphanumeric code as
 -- Extended Properties [edfi].[SurveyResponseEducationOrganizationTargetAssociation] --
 COMMENT ON TABLE edfi.SurveyResponseEducationOrganizationTargetAssociation IS 'This association provides information about the survey being taken and the education organization the survey is about.';
 COMMENT ON COLUMN edfi.SurveyResponseEducationOrganizationTargetAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.SurveyResponseEducationOrganizationTargetAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyResponseEducationOrganizationTargetAssociation.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyResponseEducationOrganizationTargetAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyResponseEducationOrganizationTargetAssociation.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
 
 -- Extended Properties [edfi].[SurveyResponseStaffTargetAssociation] --
 COMMENT ON TABLE edfi.SurveyResponseStaffTargetAssociation IS 'The association provides information about the survey being taken and who the survey is about.';
-COMMENT ON COLUMN edfi.SurveyResponseStaffTargetAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyResponseStaffTargetAssociation.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyResponseStaffTargetAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.SurveyResponseStaffTargetAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyResponseStaffTargetAssociation.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
 
 -- Extended Properties [edfi].[SurveyResponseSurveyLevel] --
 COMMENT ON TABLE edfi.SurveyResponseSurveyLevel IS 'Provides information about the respondents of a survey and how they can be grouped together.';
-COMMENT ON COLUMN edfi.SurveyResponseSurveyLevel.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveyResponseSurveyLevel.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveyResponseSurveyLevel.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveyResponseSurveyLevel.SurveyLevelDescriptorId IS 'Provides information about the respondents of a survey and how they can be grouped together.';
 COMMENT ON COLUMN edfi.SurveyResponseSurveyLevel.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
 
 -- Extended Properties [edfi].[SurveySection] --
 COMMENT ON TABLE edfi.SurveySection IS 'The section of questions for the survey.';
-COMMENT ON COLUMN edfi.SurveySection.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveySection.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveySection.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveySection.SurveySectionTitle IS 'The title or label for the survey section.';
 
 -- Extended Properties [edfi].[SurveySectionAssociation] --
 COMMENT ON TABLE edfi.SurveySectionAssociation IS 'The section associated with the survey.';
 COMMENT ON COLUMN edfi.SurveySectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.SurveySectionAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveySectionAssociation.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveySectionAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.SurveySectionAssociation.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.SurveySectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.SurveySectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.SurveySectionAssociation.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN edfi.SurveySectionAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 
 -- Extended Properties [edfi].[SurveySectionResponse] --
 COMMENT ON TABLE edfi.SurveySectionResponse IS 'Optional information about the responses provided for a section of a survey.';
-COMMENT ON COLUMN edfi.SurveySectionResponse.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveySectionResponse.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveySectionResponse.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveySectionResponse.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
 COMMENT ON COLUMN edfi.SurveySectionResponse.SurveySectionTitle IS 'The title or label for the survey section.';
 COMMENT ON COLUMN edfi.SurveySectionResponse.SectionRating IS 'Numeric rating computed from the survey responses for the section.';
 
 -- Extended Properties [edfi].[SurveySectionResponseEducationOrganizationTargetAssociation] --
-COMMENT ON TABLE edfi.SurveySectionResponseEducationOrganizationTargetAssociation IS 'This association provides information about the survey section and the Education Organization the survey section is about.';
+COMMENT ON TABLE edfi.SurveySectionResponseEducationOrganizationTargetAssociation IS 'This association provides information about the survey section and the education organization the survey section is about.';
 COMMENT ON COLUMN edfi.SurveySectionResponseEducationOrganizationTargetAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.SurveySectionResponseEducationOrganizationTargetAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveySectionResponseEducationOrganizationTargetAssociation.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveySectionResponseEducationOrganizationTargetAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveySectionResponseEducationOrganizationTargetAssociation.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
 COMMENT ON COLUMN edfi.SurveySectionResponseEducationOrganizationTargetAssociation.SurveySectionTitle IS 'The title or label for the survey section.';
 
 -- Extended Properties [edfi].[SurveySectionResponseStaffTargetAssociation] --
 COMMENT ON TABLE edfi.SurveySectionResponseStaffTargetAssociation IS 'This association provides information about the survey section and the staff the survey section is about.';
-COMMENT ON COLUMN edfi.SurveySectionResponseStaffTargetAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN edfi.SurveySectionResponseStaffTargetAssociation.Namespace IS 'Namespace for the survey.';
 COMMENT ON COLUMN edfi.SurveySectionResponseStaffTargetAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.SurveySectionResponseStaffTargetAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN edfi.SurveySectionResponseStaffTargetAssociation.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';

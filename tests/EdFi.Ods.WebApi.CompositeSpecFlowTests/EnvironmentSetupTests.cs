@@ -3,15 +3,15 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data.SqlClient;
+using Dapper;
+using EdFi.Common.Configuration;
+using EdFi.Ods.Common.Database;
+using NUnit.Framework;
+using Shouldly;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
-using EdFi.Ods.Common.Database;
-using NUnit.Framework;
-using Shouldly;
 
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
@@ -21,6 +21,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Test]
         public async Task ShouldBuildDbAndSetupWebServer()
         {
+            var databaseEngine = DbHelper.GetDatabaseEngine();
+
             var connectionStringProvider = (IOdsDatabaseConnectionStringProvider)
                 CompositesSpecFlowTestFixture.ServiceProvider.GetService(typeof(IOdsDatabaseConnectionStringProvider));
 
@@ -28,11 +30,19 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             connectionStringProvider.GetConnectionString().ShouldContain(CompositesSpecFlowTestFixture.SpecFlowDatabaseName);
 
             var cancellationToken = new CancellationToken();
-            await using var conn = new SqlConnection(connectionStringProvider.GetConnectionString());
+            using var conn = DbHelper.GetConnection(databaseEngine, connectionStringProvider.GetConnectionString());
+            conn.Open();
 
-            await conn.OpenAsync(cancellationToken);
+            int count = 0;
+            if (databaseEngine == DatabaseEngine.SqlServer)
+            {
+                count = await conn.QuerySingleAsync<int>("select count(*) from dbo.DeployJournal;", cancellationToken);
+            }
+            else
+            {
+                count = await conn.QuerySingleAsync<int>("select count(*) from public.\"DeployJournal\";", cancellationToken);
+            }
 
-            int count = await conn.QuerySingleAsync<int>("select count(*) from dbo.DeployJournal;", cancellationToken);
 
             count.ShouldNotBe(0);
 
@@ -44,5 +54,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
             json.ShouldNotBeNullOrWhiteSpace();
         }
+
+        
     }
 }

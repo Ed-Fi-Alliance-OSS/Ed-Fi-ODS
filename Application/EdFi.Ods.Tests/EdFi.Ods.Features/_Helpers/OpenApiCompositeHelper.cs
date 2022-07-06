@@ -72,38 +72,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                                       <Property name='MaximumScore' />
                                       <Property name='ResultDatatypeTypeDescriptor' />
                                     </Collection>
-                                    <Collection name='ObjectiveAssessmentLearningObjectives' displayName='learningObjectives'>
-                                      <ReferencedResource name='LearningObjectiveReference' flatten='true'>
-                                        <Property name='Id' />
-                                        <Property name='Objective' />
-                                        <Collection name='LearningObjectiveGradeLevels' displayName='gradeLevels'>
-                                          <Property name='GradeLevelDescriptor' />
-                                        </Collection>
-                                        <Collection name='LearningObjectiveAcademicSubjects' displayName='academicSubjects'>
-                                          <Property name='AcademicSubjectDescriptor' />
-                                        </Collection>
-                                        <Property name='Description' />
-                                        <Property name='LearningObjectiveId' />
-                                        <Property name='Nomenclature' />
-                                        <Property name='SuccessCriteria' />
-                                        <Collection name='LearningObjectiveLearningStandards' displayName='learningStandards'>
-                                          <ReferencedResource name='LearningStandardReference' flatten='true'>
-                                            <Property name='Id' />
-                                            <Property name='Description' />
-                                            <Property name='LearningStandardId' />
-                                            <Property name='Namespace' />
-                                            <Property name='CourseTitle' />
-                                            <Collection name='LearningStandardIdentificationCodes' displayName='learningStandardIdentificationCodes'>
-                                              <Property name='IdentificationCode' />
-                                              <Property name='ContentStandardName' />
-                                            </Collection>
-                                            <Property name='LearningStandardItemCode' />
-                                            <Property name='SuccessCriteria' />
-                                            <Property name='URI' />
-                                          </ReferencedResource>
-                                        </Collection>
-                                      </ReferencedResource>
-                                    </Collection>
                                   </LinkedCollection>
                                 </BaseResource>
                               </Composite>

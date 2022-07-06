@@ -573,7 +573,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         string AssessmentItemCategoryDescriptor { get; set; }
         string AssessmentItemURI { get; set; }
-        string CorrectResponse { get; set; }
         string ExpectedTimeAssessed { get; set; }
         string ItemText { get; set; }
         decimal? MaxRawScore { get; set; }
@@ -706,6 +705,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         string MaximumScore { get; set; }
         string MinimumScore { get; set; }
+        string PerformanceLevelIndicatorName { get; set; }
         string ResultDatatypeTypeDescriptor { get; set; }
 
         // One-to-one relationships
@@ -922,6 +922,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Resource reference data
         Guid? SectionResourceId { get; set; }
         string SectionDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssignmentLateStatusDescriptor model.
+    /// </summary>
+    public interface IAssignmentLateStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int AssignmentLateStatusDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
     }
 
     /// <summary>
@@ -3751,6 +3769,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
+        DateTime? CurrentGradeAsOfDate { get; set; }
+        bool? CurrentGradeIndicator { get; set; }
         string DiagnosticStatement { get; set; }
         string LetterGradeEarned { get; set; }
         decimal? NumericGradeEarned { get; set; }
@@ -3775,31 +3795,29 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        DateTime DateAssigned { get; set; }
+        string GradebookEntryIdentifier { get; set; }
         [NaturalKeyMember]
-        string GradebookEntryTitle { get; set; }
-        [NaturalKeyMember]
-        string LocalCourseCode { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string SectionIdentifier { get; set; }
-        [NaturalKeyMember]
-        string SessionName { get; set; }
+        string SourceSystemNamespace { get; set; }
 
         // Non-PK properties
+        DateTime DateAssigned { get; set; }
         string Description { get; set; }
         DateTime? DueDate { get; set; }
+        TimeSpan? DueTime { get; set; }
         string GradebookEntryTypeDescriptor { get; set; }
         string GradingPeriodDescriptor { get; set; }
+        string LocalCourseCode { get; set; }
+        decimal? MaxPoints { get; set; }
         int? PeriodSequence { get; set; }
+        int? SchoolId { get; set; }
+        short? SchoolYear { get; set; }
+        string SectionIdentifier { get; set; }
+        string SessionName { get; set; }
+        string Title { get; set; }
 
         // One-to-one relationships
 
         // Lists
-        ICollection<IGradebookEntryLearningObjective> GradebookEntryLearningObjectives { get; set; }
         ICollection<IGradebookEntryLearningStandard> GradebookEntryLearningStandards { get; set; }
 
         // Resource reference data
@@ -3807,30 +3825,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string GradingPeriodDiscriminator { get; set; }
         Guid? SectionResourceId { get; set; }
         string SectionDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the GradebookEntryLearningObjective model.
-    /// </summary>
-    public interface IGradebookEntryLearningObjective : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IGradebookEntry GradebookEntry { get; set; }
-        [NaturalKeyMember]
-        string LearningObjectiveId { get; set; }
-        [NaturalKeyMember]
-        string Namespace { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? LearningObjectiveResourceId { get; set; }
-        string LearningObjectiveDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -4169,6 +4163,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string MaximumScore { get; set; }
         string MinimumScore { get; set; }
         string PerformanceLevelDescriptor { get; set; }
+        string PerformanceLevelIndicatorName { get; set; }
         string ResultDatatypeTypeDescriptor { get; set; }
 
         // One-to-one relationships
@@ -4471,6 +4466,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string InterventionClassDescriptor { get; set; }
         int? MaxDosage { get; set; }
         int? MinDosage { get; set; }
+        string Namespace { get; set; }
 
         // One-to-one relationships
 
@@ -4711,6 +4707,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string InterventionClassDescriptor { get; set; }
         int? MaxDosage { get; set; }
         int? MinDosage { get; set; }
+        string Namespace { get; set; }
 
         // One-to-one relationships
 
@@ -5947,7 +5944,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Lists
         ICollection<IObjectiveAssessmentAssessmentItem> ObjectiveAssessmentAssessmentItems { get; set; }
-        ICollection<IObjectiveAssessmentLearningObjective> ObjectiveAssessmentLearningObjectives { get; set; }
         ICollection<IObjectiveAssessmentLearningStandard> ObjectiveAssessmentLearningStandards { get; set; }
         ICollection<IObjectiveAssessmentPerformanceLevel> ObjectiveAssessmentPerformanceLevels { get; set; }
         ICollection<IObjectiveAssessmentScore> ObjectiveAssessmentScores { get; set; }
@@ -5979,30 +5975,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Resource reference data
         Guid? AssessmentItemResourceId { get; set; }
         string AssessmentItemDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ObjectiveAssessmentLearningObjective model.
-    /// </summary>
-    public interface IObjectiveAssessmentLearningObjective : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IObjectiveAssessment ObjectiveAssessment { get; set; }
-        [NaturalKeyMember]
-        string LearningObjectiveId { get; set; }
-        [NaturalKeyMember]
-        string LearningObjectiveNamespace { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? LearningObjectiveResourceId { get; set; }
-        string LearningObjectiveDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -6043,6 +6015,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         string MaximumScore { get; set; }
         string MinimumScore { get; set; }
+        string PerformanceLevelIndicatorName { get; set; }
         string ResultDatatypeTypeDescriptor { get; set; }
 
         // One-to-one relationships
@@ -9644,6 +9617,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string AssessmentItemResultDescriptor { get; set; }
         string AssessmentResponse { get; set; }
         string DescriptiveFeedback { get; set; }
+        int? ItemNumber { get; set; }
         decimal? RawScoreResult { get; set; }
         string ResponseIndicatorDescriptor { get; set; }
         string TimeAssessed { get; set; }
@@ -9671,6 +9645,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string PerformanceLevelDescriptor { get; set; }
 
         // Non-PK properties
+        string PerformanceLevelIndicatorName { get; set; }
         bool PerformanceLevelMet { get; set; }
 
         // One-to-one relationships
@@ -9740,6 +9715,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string PerformanceLevelDescriptor { get; set; }
 
         // Non-PK properties
+        string PerformanceLevelIndicatorName { get; set; }
         bool PerformanceLevelMet { get; set; }
 
         // One-to-one relationships
@@ -10739,30 +10715,22 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         // Primary Key properties
         [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
+        string GradebookEntryIdentifier { get; set; }
         [NaturalKeyMember]
-        DateTime DateAssigned { get; set; }
-        [NaturalKeyMember]
-        string GradebookEntryTitle { get; set; }
-        [NaturalKeyMember]
-        string LocalCourseCode { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string SectionIdentifier { get; set; }
-        [NaturalKeyMember]
-        string SessionName { get; set; }
+        string SourceSystemNamespace { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
+        string AssignmentLateStatusDescriptor { get; set; }
         string CompetencyLevelDescriptor { get; set; }
         DateTime? DateFulfilled { get; set; }
         string DiagnosticStatement { get; set; }
         string LetterGradeEarned { get; set; }
         decimal? NumericGradeEarned { get; set; }
+        decimal? PointsEarned { get; set; }
+        string SubmissionStatusDescriptor { get; set; }
+        TimeSpan? TimeFulfilled { get; set; }
 
         // One-to-one relationships
 
@@ -10771,8 +10739,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Resource reference data
         Guid? GradebookEntryResourceId { get; set; }
         string GradebookEntryDiscriminator { get; set; }
-        Guid? StudentSectionAssociationResourceId { get; set; }
-        string StudentSectionAssociationDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -11898,6 +11866,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
         IStudent Student { get; set; }
         [NaturalKeyMember]
         string VisaDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the SubmissionStatusDescriptor model.
+    /// </summary>
+    public interface ISubmissionStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int SubmissionStatusDescriptorId { get; set; }
 
         // Non-PK properties
 

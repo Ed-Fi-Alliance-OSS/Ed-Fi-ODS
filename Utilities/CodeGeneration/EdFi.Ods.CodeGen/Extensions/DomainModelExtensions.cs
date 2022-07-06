@@ -300,7 +300,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         /// <returns>The property name appropriate for use on the model abstraction.</returns>
         public static string GetModelsInterfacePropertyName(this EntityProperty entityProperty)
         {
-            if (entityProperty.IsLookup)
+            if (entityProperty.IsDescriptorUsage)
             {
                 return entityProperty.PropertyName.TrimSuffix("Id");
             }
@@ -315,7 +315,7 @@ namespace EdFi.Ods.CodeGen.Extensions
 
         public static string GetLookupValuePropertyName(this EntityProperty property)
         {
-            if (!property.IsLookup)
+            if (!property.IsDescriptorUsage)
             {
                 throw new ArgumentException(
                     $"Property '{property.PropertyName}' of entity '{property.Entity.Name}' is not a Type or Descriptor lookup property.");
@@ -326,7 +326,7 @@ namespace EdFi.Ods.CodeGen.Extensions
 
         public static string GetLookupValueEntityName(this EntityProperty property)
         {
-            if (!property.IsLookup)
+            if (!property.IsDescriptorUsage)
             {
                 throw new ArgumentException(
                     string.Format(
@@ -335,7 +335,7 @@ namespace EdFi.Ods.CodeGen.Extensions
                         property.Entity.Name));
             }
 
-            return property.LookupEntity.Name;
+            return property.DescriptorEntity.Name;
         }
 
         /// <summary>

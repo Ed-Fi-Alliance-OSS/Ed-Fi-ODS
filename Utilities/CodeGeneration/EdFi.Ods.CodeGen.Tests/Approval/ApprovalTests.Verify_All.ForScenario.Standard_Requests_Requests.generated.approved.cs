@@ -926,7 +926,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentItems.EdFi
         public string AssessmentIdentifier { get; set; }
         public string AssessmentItemCategoryDescriptor { get; set; }
         public string AssessmentItemURI { get; set; }
-        public string CorrectResponse { get; set; }
         public string ExpectedTimeAssessed { get; set; }
         public Guid Id { get; set; }
         public string IdentificationCode { get; set; }
@@ -1202,6 +1201,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentScoreRangeLearningStanda
         public AssessmentScoreRangeLearningStandardDelete() { }
 
         public AssessmentScoreRangeLearningStandardDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class AssignmentLateStatusDescriptorGetByExample
+    {
+        public int AssignmentLateStatusDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssignmentLateStatusDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public AssignmentLateStatusDescriptorGetByIds() { }
+
+        public AssignmentLateStatusDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssignmentLateStatusDescriptorPost : Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssignmentLateStatusDescriptorPut : Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssignmentLateStatusDescriptorDelete : IHasIdentifier
+    {
+        public AssignmentLateStatusDescriptorDelete() { }
+
+        public AssignmentLateStatusDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -4890,6 +4935,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Grades.EdFi
     public class GradeGetByExample
     {
         public DateTime BeginDate { get; set; }
+        public DateTime CurrentGradeAsOfDate { get; set; }
+        public bool CurrentGradeIndicator { get; set; }
         public string DiagnosticStatement { get; set; }
         public string GradeTypeDescriptor { get; set; }
         public string GradingPeriodDescriptor { get; set; }
@@ -4953,16 +5000,20 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradebookEntries.EdFi
         public DateTime DateAssigned { get; set; }
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
-        public string GradebookEntryTitle { get; set; }
+        public TimeSpan DueTime { get; set; }
+        public string GradebookEntryIdentifier { get; set; }
         public string GradebookEntryTypeDescriptor { get; set; }
         public string GradingPeriodDescriptor { get; set; }
         public Guid Id { get; set; }
         public string LocalCourseCode { get; set; }
+        public decimal MaxPoints { get; set; }
         public int PeriodSequence { get; set; }
         public int SchoolId { get; set; }
         public short SchoolYear { get; set; }
         public string SectionIdentifier { get; set; }
         public string SessionName { get; set; }
+        public string SourceSystemNamespace { get; set; }
+        public string Title { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -5997,6 +6048,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Interventions.EdFi
         public string InterventionIdentificationCode { get; set; }
         public int MaxDosage { get; set; }
         public int MinDosage { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -6141,6 +6193,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InterventionPrescriptions.EdFi
         public string InterventionPrescriptionIdentificationCode { get; set; }
         public int MaxDosage { get; set; }
         public int MinDosage { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -12200,21 +12253,19 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentGradebookEntries.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentGradebookEntryGetByExample
     {
-        public DateTime BeginDate { get; set; }
+        public string AssignmentLateStatusDescriptor { get; set; }
         public string CompetencyLevelDescriptor { get; set; }
-        public DateTime DateAssigned { get; set; }
         public DateTime DateFulfilled { get; set; }
         public string DiagnosticStatement { get; set; }
-        public string GradebookEntryTitle { get; set; }
+        public string GradebookEntryIdentifier { get; set; }
         public Guid Id { get; set; }
         public string LetterGradeEarned { get; set; }
-        public string LocalCourseCode { get; set; }
         public decimal NumericGradeEarned { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
+        public decimal PointsEarned { get; set; }
+        public string SourceSystemNamespace { get; set; }
         public string StudentUniqueId { get; set; }
+        public string SubmissionStatusDescriptor { get; set; }
+        public TimeSpan TimeFulfilled { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -13293,6 +13344,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentTitleIPartAProgramAssociati
         public StudentTitleIPartAProgramAssociationDelete() { }
 
         public StudentTitleIPartAProgramAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class SubmissionStatusDescriptorGetByExample
+    {
+        public int SubmissionStatusDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SubmissionStatusDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public SubmissionStatusDescriptorGetByIds() { }
+
+        public SubmissionStatusDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SubmissionStatusDescriptorPost : Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SubmissionStatusDescriptorPut : Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SubmissionStatusDescriptorDelete : IHasIdentifier
+    {
+        public SubmissionStatusDescriptorDelete() { }
+
+        public SubmissionStatusDescriptorDelete(Guid id)
         {
             Id = id;
         }

@@ -5,6 +5,7 @@
 
 using System;
 using System.Reflection;
+using EdFi.Common.Configuration;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Test.Common;
@@ -25,10 +26,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [OneTimeSetUp]
         public void Setup()
         {
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile("appsettings.json", optional: true)
-                .Build();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            var databaseEngine = DbHelper.GetDatabaseEngine();
+
+            Configuration = DbHelper.GetDatabaseEngineSpecificConfiguration(databaseEngine);
 
             PopulatedDatabaseName = Configuration.GetSection("TestDatabaseTemplateName").Value ??
                                     "EdFi_Ods_Populated_Template_Test";
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     "Invalid configuration for integration tests.  Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
             }
 
-            var databaseHelper = new MsSqlDatabaseHelper(Configuration);
+            IDatabaseHelper databaseHelper = databaseEngine == DatabaseEngine.SqlServer? new MsSqlDatabaseHelper(Configuration): new PgSqlDatabaseHelper(Configuration);
             databaseHelper.CopyDatabase(PopulatedDatabaseName, TestPopulatedDatabaseName);
 
             Assembly.Load("EdFi.Ods.Common");
@@ -51,7 +52,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [OneTimeTearDown]
         public void TearDown()
         {
-            var databaseHelper = new MsSqlDatabaseHelper(Configuration);
+            var databaseEngine = DbHelper.GetDatabaseEngine();
+            IDatabaseHelper databaseHelper = databaseEngine == DatabaseEngine.SqlServer ? new MsSqlDatabaseHelper(Configuration) : new PgSqlDatabaseHelper(Configuration);
             databaseHelper.DropMatchingDatabases(DatabasePrefix + "%");
         }
     }

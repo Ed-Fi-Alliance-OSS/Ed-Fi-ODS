@@ -136,6 +136,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/assignmentLateStatusDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/attemptStatusDescriptors",
     "order": 1,
     "operations": [
@@ -1360,6 +1368,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/submissionStatusDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/surveyCategoryDescriptors",
     "order": 1,
     "operations": [
@@ -2139,6 +2155,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/studentGradebookEntries",
+    "order": 15,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/studentHomelessProgramAssociations",
     "order": 15,
     "operations": [
@@ -2283,14 +2307,6 @@
   },
   {
     "resource": "/ed-fi/studentCompetencyObjectives",
-    "order": 16,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentGradebookEntries",
     "order": 16,
     "operations": [
       "Create",

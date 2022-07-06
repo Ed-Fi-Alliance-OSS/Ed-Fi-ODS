@@ -42,8 +42,8 @@ namespace EdFi.Ods.CodeGen.Generators
                     .Select(
                         r => new
                         {
-                            r.FullName.Schema,
-                            r.Name,
+                            Schema = r.FullName.Schema,
+                            Name = r.Name,
                             AggregateName = r.Name,
                             ImplementedInterfaces = GetImplementedInterfaceString(r),
                             ParentInterfaceName = GetParentInterfaceName(r),
@@ -65,36 +65,17 @@ namespace EdFi.Ods.CodeGen.Generators
                                     p => p
                                         .PropertyName)
                                 .Select(
-                                    p =>
-                                        new
-                                        {
-                                            p.IsServerAssigned,
-                                            IsUniqueId
-                                                = UniqueIdSpecification
-                                                      .IsUniqueId(
-                                                          p.PropertyName)
-                                                  &&
-                                                  PersonEntitySpecification
-                                                      .IsPersonEntity(
-                                                          r.Name),
-                                            p.IsLookup,
-                                            CSharpType
-                                                = p
-                                                    .PropertyType
-                                                    .ToCSharp(
-                                                        false),
-                                            Name
-                                                = p
-                                                    .PropertyName,
-                                            CSharpSafePropertyName
-                                                = p
-                                                    .PropertyName
-                                                    .MakeSafeForCSharpClass(
-                                                        r.Name),
-                                            LookupName
-                                                = p
-                                                    .PropertyName
-                                        })
+                                    p => new
+                                    {
+                                        IsServerAssigned = p.IsServerAssigned,
+                                        IsUniqueId = UniqueIdSpecification.IsUniqueId(p.PropertyName)
+                                            && PersonEntitySpecification.IsPersonEntity(r.Name),
+                                        IsLookup = p.IsDescriptorUsage,
+                                        CSharpType = p.PropertyType.ToCSharp(false),
+                                        Name = p.PropertyName,
+                                        CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(r.Name),
+                                        LookupName = p.PropertyName
+                                    })
                                 .ToList(),
                             r.IsDerived,
                             InheritedNonIdentifyingProperties = r.IsDerived
@@ -106,7 +87,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                         p =>
                                             new
                                             {
-                                                p.IsLookup,
+                                                IsLookup = p.IsDescriptorUsage,
                                                 CSharpType = p.PropertyType.ToCSharp(true),
                                                 Name = p.PropertyName,
                                                 LookupName = p.PropertyName.TrimSuffix("Id")
@@ -121,15 +102,14 @@ namespace EdFi.Ods.CodeGen.Generators
                                     p =>
                                         new
                                         {
-                                            p.IsLookup,
+                                            IsLookup = p.IsDescriptorUsage,
                                             CSharpType =
                                                 p.PropertyType.ToCSharp(true),
                                             Name = p.PropertyName,
                                             CSharpSafePropertyName =
                                                 p.PropertyName
                                                     .MakeSafeForCSharpClass(r.Name),
-                                            LookupName =
-                                                p.PropertyName.TrimSuffix("Id")
+                                            LookupName = p.PropertyName.TrimSuffix("Id")
                                         })
                                 .ToList(),
                             HasNavigableOneToOnes = r.EmbeddedObjects.Any(),

@@ -6,17 +6,19 @@
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Providers;
+using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Configuration;
 using EdFi.TestFixture;
-using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
-using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Common.Configuration;
 
 // ReSharper disable InconsistentNaming
 
@@ -32,30 +34,36 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         // so that both are enrolled in the same transaction.
 
         private TransactionScope _transaction;
-
-        protected IUsersContextFactory Factory;
-        protected SqlServerUsersContext TestFixtureContext;
+        private DatabaseEngine _databaseEngine;
+        protected IUsersContext TestFixtureContext;
         protected AccessTokenClientRepo SystemUnderTest;
 
         protected override void Arrange()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             _transaction = new TransactionScope();
-             Factory = Stub<IUsersContextFactory>();
 
-            var config = new ConfigurationBuilder()
+            var engineConfig = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionStringProvider = new ConfigConnectionStringsProvider(config);
+            var engine = engineConfig.GetValue<string>("Engine");
 
-            A.CallTo(() => Factory.CreateContext())
-                .Returns(new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")));
 
-            SystemUnderTest = new AccessTokenClientRepo(Factory, config);
+            _databaseEngine = DatabaseEngine.TryParseEngine(engine);
+            var config = new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile($"appsettings.{(_databaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
+                .AddEnvironmentVariables()
+                .Build();
 
-            TestFixtureContext = new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin"));
+            var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
+            var userContextFactory = new UsersContextFactory(connectionStringProvider, _databaseEngine);
+            TestFixtureContext = userContextFactory.CreateContext();
+            SystemUnderTest = new AccessTokenClientRepo(userContextFactory, config);
         }
 
         [OneTimeTearDown]
@@ -139,7 +147,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 new ApplicationEducationOrganization
                 {
                     Application = application,
-                    Clients = new[] {client},
+                    Clients = new[] { client },
                     EducationOrganizationId = edOrgId
                 });
 
@@ -152,7 +160,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             TestFixtureContext.Profiles.Add(
                 new Profile
                 {
-                    Applications = new[] {application},
+                    Applications = new[] { application },
                     ProfileName = profileName
                 });
 

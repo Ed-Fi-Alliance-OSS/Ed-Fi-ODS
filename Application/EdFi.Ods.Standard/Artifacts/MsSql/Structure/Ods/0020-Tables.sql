@@ -259,7 +259,7 @@ CREATE TABLE [edfi].[Assessment] (
     [AssessmentVersion] [INT] NULL,
     [RevisionDate] [DATE] NULL,
     [MaxRawScore] [DECIMAL](15, 5) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [AssessmentFamily] [NVARCHAR](60) NULL,
     [EducationOrganizationId] [INT] NULL,
     [AdaptiveAssessment] [BIT] NULL,
@@ -395,9 +395,8 @@ CREATE TABLE [edfi].[AssessmentItem] (
     [AssessmentItemCategoryDescriptorId] [INT] NULL,
     [MaxRawScore] [DECIMAL](15, 5) NULL,
     [ItemText] [NVARCHAR](1024) NULL,
-    [CorrectResponse] [NVARCHAR](20) NULL,
     [ExpectedTimeAssessed] [NVARCHAR](30) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [AssessmentItemURI] [NVARCHAR](255) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -498,6 +497,7 @@ CREATE TABLE [edfi].[AssessmentPerformanceLevel] (
     [MinimumScore] [NVARCHAR](35) NULL,
     [MaximumScore] [NVARCHAR](35) NULL,
     [ResultDatatypeTypeDescriptorId] [INT] NULL,
+    [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [AssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -667,6 +667,15 @@ CREATE TABLE [edfi].[AssessmentSection] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[AssessmentSection] ADD CONSTRAINT [AssessmentSection_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[AssignmentLateStatusDescriptor] --
+CREATE TABLE [edfi].[AssignmentLateStatusDescriptor] (
+    [AssignmentLateStatusDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [AssignmentLateStatusDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [AssignmentLateStatusDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [edfi].[AttemptStatusDescriptor] --
@@ -1923,7 +1932,7 @@ GO
 
 -- Table [edfi].[DisciplineAction] --
 CREATE TABLE [edfi].[DisciplineAction] (
-    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineActionIdentifier] [NVARCHAR](32) NOT NULL,
     [DisciplineDate] [DATE] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [DisciplineActionLength] [DECIMAL](5, 2) NULL,
@@ -1954,7 +1963,7 @@ GO
 
 -- Table [edfi].[DisciplineActionDiscipline] --
 CREATE TABLE [edfi].[DisciplineActionDiscipline] (
-    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineActionIdentifier] [NVARCHAR](32) NOT NULL,
     [DisciplineDate] [DATE] NOT NULL,
     [DisciplineDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -1981,7 +1990,7 @@ GO
 
 -- Table [edfi].[DisciplineActionStaff] --
 CREATE TABLE [edfi].[DisciplineActionStaff] (
-    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineActionIdentifier] [NVARCHAR](32) NOT NULL,
     [DisciplineDate] [DATE] NOT NULL,
     [StaffUSI] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
@@ -1999,7 +2008,7 @@ GO
 
 -- Table [edfi].[DisciplineActionStudentDisciplineIncidentAssociation] --
 CREATE TABLE [edfi].[DisciplineActionStudentDisciplineIncidentAssociation] (
-    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineActionIdentifier] [NVARCHAR](32) NOT NULL,
     [DisciplineDate] [DATE] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
     [SchoolId] [INT] NOT NULL,
@@ -2020,7 +2029,7 @@ GO
 -- Table [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] --
 CREATE TABLE [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] (
     [BehaviorDescriptorId] [INT] NOT NULL,
-    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineActionIdentifier] [NVARCHAR](32) NOT NULL,
     [DisciplineDate] [DATE] NOT NULL,
     [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
     [SchoolId] [INT] NOT NULL,
@@ -2762,6 +2771,8 @@ CREATE TABLE [edfi].[Grade] (
     [NumericGradeEarned] [DECIMAL](9, 2) NULL,
     [DiagnosticStatement] [NVARCHAR](1024) NULL,
     [PerformanceBaseConversionDescriptorId] [INT] NULL,
+    [CurrentGradeIndicator] [BIT] NULL,
+    [CurrentGradeAsOfDate] [DATE] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -2790,30 +2801,29 @@ GO
 
 -- Table [edfi].[GradebookEntry] --
 CREATE TABLE [edfi].[GradebookEntry] (
-    [DateAssigned] [DATE] NOT NULL,
-    [GradebookEntryTitle] [NVARCHAR](60) NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
+    [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
+    [SourceSystemNamespace] [NVARCHAR](255) NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [GradebookEntryTypeDescriptorId] [INT] NULL,
+    [LocalCourseCode] [NVARCHAR](60) NULL,
+    [SessionName] [NVARCHAR](60) NULL,
+    [SchoolId] [INT] NULL,
+    [DateAssigned] [DATE] NOT NULL,
+    [Title] [NVARCHAR](100) NOT NULL,
     [Description] [NVARCHAR](1024) NULL,
+    [DueDate] [DATE] NULL,
+    [DueTime] [TIME](7) NULL,
+    [GradebookEntryTypeDescriptorId] [INT] NULL,
+    [MaxPoints] [DECIMAL](9, 2) NULL,
     [GradingPeriodDescriptorId] [INT] NULL,
     [PeriodSequence] [INT] NULL,
-    [DueDate] [DATE] NULL,
+    [SchoolYear] [SMALLINT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [GradebookEntry_PK] PRIMARY KEY CLUSTERED (
-        [DateAssigned] ASC,
-        [GradebookEntryTitle] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
+        [GradebookEntryIdentifier] ASC,
+        [SourceSystemNamespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -2824,54 +2834,16 @@ GO
 ALTER TABLE [edfi].[GradebookEntry] ADD CONSTRAINT [GradebookEntry_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [edfi].[GradebookEntryLearningObjective] --
-CREATE TABLE [edfi].[GradebookEntryLearningObjective] (
-    [DateAssigned] [DATE] NOT NULL,
-    [GradebookEntryTitle] [NVARCHAR](60) NOT NULL,
-    [LearningObjectiveId] [NVARCHAR](60) NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [Namespace] [NVARCHAR](255) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [GradebookEntryLearningObjective_PK] PRIMARY KEY CLUSTERED (
-        [DateAssigned] ASC,
-        [GradebookEntryTitle] ASC,
-        [LearningObjectiveId] ASC,
-        [LocalCourseCode] ASC,
-        [Namespace] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[GradebookEntryLearningObjective] ADD CONSTRAINT [GradebookEntryLearningObjective_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
 -- Table [edfi].[GradebookEntryLearningStandard] --
 CREATE TABLE [edfi].[GradebookEntryLearningStandard] (
-    [DateAssigned] [DATE] NOT NULL,
-    [GradebookEntryTitle] [NVARCHAR](60) NOT NULL,
+    [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
     [LearningStandardId] [NVARCHAR](60) NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
+    [SourceSystemNamespace] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [GradebookEntryLearningStandard_PK] PRIMARY KEY CLUSTERED (
-        [DateAssigned] ASC,
-        [GradebookEntryTitle] ASC,
+        [GradebookEntryIdentifier] ASC,
         [LearningStandardId] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
+        [SourceSystemNamespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -3134,6 +3106,7 @@ CREATE TABLE [edfi].[GraduationPlanRequiredAssessmentPerformanceLevel] (
     [MinimumScore] [NVARCHAR](35) NULL,
     [MaximumScore] [NVARCHAR](35) NULL,
     [ResultDatatypeTypeDescriptorId] [INT] NULL,
+    [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [GraduationPlanRequiredAssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -3308,6 +3281,7 @@ CREATE TABLE [edfi].[Intervention] (
     [EndDate] [DATE] NULL,
     [MinDosage] [INT] NULL,
     [MaxDosage] [INT] NULL,
+    [Namespace] [NVARCHAR](255) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -3483,6 +3457,7 @@ CREATE TABLE [edfi].[InterventionPrescription] (
     [DeliveryMethodDescriptorId] [INT] NOT NULL,
     [MinDosage] [INT] NULL,
     [MaxDosage] [INT] NULL,
+    [Namespace] [NVARCHAR](255) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -3837,7 +3812,7 @@ CREATE TABLE [edfi].[LearningObjective] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
     [Description] [NVARCHAR](1024) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [SuccessCriteria] [NVARCHAR](150) NULL,
     [ParentLearningObjectiveId] [NVARCHAR](60) NULL,
     [ParentNamespace] [NVARCHAR](255) NULL,
@@ -4327,7 +4302,7 @@ CREATE TABLE [edfi].[ObjectiveAssessment] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [MaxRawScore] [DECIMAL](15, 5) NULL,
     [PercentOfAssessment] [DECIMAL](5, 4) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [Description] [NVARCHAR](1024) NULL,
     [ParentIdentificationCode] [NVARCHAR](60) NULL,
     [AcademicSubjectDescriptorId] [INT] NULL,
@@ -4367,26 +4342,6 @@ GO
 ALTER TABLE [edfi].[ObjectiveAssessmentAssessmentItem] ADD CONSTRAINT [ObjectiveAssessmentAssessmentItem_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [edfi].[ObjectiveAssessmentLearningObjective] --
-CREATE TABLE [edfi].[ObjectiveAssessmentLearningObjective] (
-    [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
-    [IdentificationCode] [NVARCHAR](60) NOT NULL,
-    [LearningObjectiveId] [NVARCHAR](60) NOT NULL,
-    [LearningObjectiveNamespace] [NVARCHAR](255) NOT NULL,
-    [Namespace] [NVARCHAR](255) NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [ObjectiveAssessmentLearningObjective_PK] PRIMARY KEY CLUSTERED (
-        [AssessmentIdentifier] ASC,
-        [IdentificationCode] ASC,
-        [LearningObjectiveId] ASC,
-        [LearningObjectiveNamespace] ASC,
-        [Namespace] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ObjectiveAssessmentLearningObjective] ADD CONSTRAINT [ObjectiveAssessmentLearningObjective_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
 -- Table [edfi].[ObjectiveAssessmentLearningStandard] --
 CREATE TABLE [edfi].[ObjectiveAssessmentLearningStandard] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
@@ -4415,6 +4370,7 @@ CREATE TABLE [edfi].[ObjectiveAssessmentPerformanceLevel] (
     [MinimumScore] [NVARCHAR](35) NULL,
     [MaximumScore] [NVARCHAR](35) NULL,
     [ResultDatatypeTypeDescriptorId] [INT] NULL,
+    [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ObjectiveAssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -7137,6 +7093,7 @@ CREATE TABLE [edfi].[StudentAssessmentItem] (
     [AssessmentItemResultDescriptorId] [INT] NOT NULL,
     [RawScoreResult] [DECIMAL](15, 5) NULL,
     [TimeAssessed] [NVARCHAR](30) NULL,
+    [ItemNumber] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAssessmentItem_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -7159,6 +7116,7 @@ CREATE TABLE [edfi].[StudentAssessmentPerformanceLevel] (
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [PerformanceLevelMet] [BIT] NOT NULL,
+    [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -7225,6 +7183,7 @@ CREATE TABLE [edfi].[StudentAssessmentStudentObjectiveAssessmentPerformanceLevel
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [PerformanceLevelMet] [BIT] NOT NULL,
+    [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAssessmentStudentObjectiveAssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -8126,33 +8085,25 @@ GO
 
 -- Table [edfi].[StudentGradebookEntry] --
 CREATE TABLE [edfi].[StudentGradebookEntry] (
-    [BeginDate] [DATE] NOT NULL,
-    [DateAssigned] [DATE] NOT NULL,
-    [GradebookEntryTitle] [NVARCHAR](60) NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
+    [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
+    [SourceSystemNamespace] [NVARCHAR](255) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [CompetencyLevelDescriptorId] [INT] NULL,
     [DateFulfilled] [DATE] NULL,
+    [TimeFulfilled] [TIME](7) NULL,
+    [DiagnosticStatement] [NVARCHAR](1024) NULL,
+    [PointsEarned] [DECIMAL](9, 2) NULL,
     [LetterGradeEarned] [NVARCHAR](20) NULL,
     [NumericGradeEarned] [DECIMAL](9, 2) NULL,
-    [CompetencyLevelDescriptorId] [INT] NULL,
-    [DiagnosticStatement] [NVARCHAR](1024) NULL,
+    [SubmissionStatusDescriptorId] [INT] NULL,
+    [AssignmentLateStatusDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [StudentGradebookEntry_PK] PRIMARY KEY CLUSTERED (
-        [BeginDate] ASC,
-        [DateAssigned] ASC,
-        [GradebookEntryTitle] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
+        [GradebookEntryIdentifier] ASC,
+        [SourceSystemNamespace] ASC,
         [StudentUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -9279,6 +9230,15 @@ CREATE TABLE [edfi].[StudentVisa] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[StudentVisa] ADD CONSTRAINT [StudentVisa_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[SubmissionStatusDescriptor] --
+CREATE TABLE [edfi].[SubmissionStatusDescriptor] (
+    [SubmissionStatusDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [SubmissionStatusDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [SubmissionStatusDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [edfi].[Survey] --

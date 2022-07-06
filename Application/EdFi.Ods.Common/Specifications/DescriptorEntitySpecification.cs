@@ -11,11 +11,23 @@ namespace EdFi.Ods.Common.Specifications
 {
     public class DescriptorEntitySpecification
     {
+        /// <summary>
+        /// Indicates whether the specific <see cref="Type" /> matches the convention for an entity derived from the abstract Descriptor
+        /// entity, but does not represent the abstract Descriptor entity itself.
+        /// </summary>
+        /// <param name="type">The <see cref="Type" /> to be evaluated.</param>
+        /// <returns><b>true</b> if the type name matches the convention for a Descriptor-derived entity; otherwise <b>false</b>.</returns>
         public static bool IsEdFiDescriptorEntity(Type type)
         {
             return IsEdFiDescriptorEntity(type.Name);
         }
 
+        /// <summary>
+        /// Indicates whether the specific type name matches the convention for an entity derived from the abstract Descriptor
+        /// entity, but does not represent the abstract Descriptor entity itself.
+        /// </summary>
+        /// <param name="typeName">The name of the type to be evaluated.</param>
+        /// <returns><b>true</b> if the type name matches the convention for a Descriptor-derived entity; otherwise <b>false</b>.</returns>
         public static bool IsEdFiDescriptorEntity(string typeName)
         {
             return typeName.EndsWithIgnoreCase("Descriptor")

@@ -15,7 +15,6 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Filters;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
@@ -59,13 +58,11 @@ namespace EdFi.Ods.Api.Controllers
 
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly int _defaultPageLimitSize;
-        private readonly bool _useProxyHeaders;
-
+        private readonly ReverseProxySettings _reverseProxySettings;
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> GetByIdPipeline;
 
-        protected Lazy<GetDeletedResourcePipeline<TAggregateRoot>> GetDeletedResourcePipeline;
         protected Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>> GetManyPipeline;
 
         protected Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>> PutPipeline;
@@ -107,17 +104,13 @@ namespace EdFi.Ods.Api.Controllers
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
-            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
+            _reverseProxySettings = apiSettings.GetReverseProxySettings();
 
             GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
 
             GetManyPipeline = new Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetManyPipeline<TResourceReadModel, TAggregateRoot>);
-
-            // Change queries resource pipeline for deleted objects.
-            GetDeletedResourcePipeline = new Lazy<GetDeletedResourcePipeline<TAggregateRoot>>
-                (pipelineFactory.CreateGetDeletedResourcePipeline<TResourceReadModel, TAggregateRoot>);
 
             PutPipeline = new Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>>
                 (pipelineFactory.CreatePutPipeline<TResourceWriteModel, TAggregateRoot>);
@@ -369,9 +362,9 @@ namespace EdFi.Ods.Api.Controllers
             try
             {
                 var uriBuilder = new UriBuilder(
-                    Request.Scheme(_useProxyHeaders),
-                    Request.Host(_useProxyHeaders),
-                    Request.Port(_useProxyHeaders),
+                    Request.Scheme(this._reverseProxySettings),
+                    Request.Host(this._reverseProxySettings),
+                    Request.Port(this._reverseProxySettings),
                     Request.Path);
 
                 return uriBuilder.Uri.ToString().TrimEnd('/');

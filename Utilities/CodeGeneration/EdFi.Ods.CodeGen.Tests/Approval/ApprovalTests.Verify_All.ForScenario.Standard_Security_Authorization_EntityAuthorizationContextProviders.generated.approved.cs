@@ -1530,7 +1530,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as GradebookEntry;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            // SchoolId = entity.SchoolId, // Not part of primary key
             return contextData;
         }
 
@@ -1541,7 +1541,7 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         {
            var properties = new string[]
                 {
-                    "SchoolId",
+                    // "SchoolId",
                 };
 
            return properties;
@@ -3532,7 +3532,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
             var entity = resource as StudentGradebookEntry;
 
             var contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
@@ -3544,7 +3543,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         {
            var properties = new string[]
                 {
-                    "SchoolId",
                     "StudentUSI",
                 };
 

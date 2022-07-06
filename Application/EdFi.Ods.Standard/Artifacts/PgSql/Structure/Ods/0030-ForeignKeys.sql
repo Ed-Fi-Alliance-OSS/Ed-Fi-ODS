@@ -435,6 +435,11 @@ ON UPDATE CASCADE
 CREATE INDEX FK_22ceba_Section
 ON edfi.AssessmentSection (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
 
+ALTER TABLE edfi.AssignmentLateStatusDescriptor ADD CONSTRAINT FK_518b3c_Descriptor FOREIGN KEY (AssignmentLateStatusDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.AttemptStatusDescriptor ADD CONSTRAINT FK_5d730c_Descriptor FOREIGN KEY (AttemptStatusDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -1979,30 +1984,14 @@ ON UPDATE CASCADE
 CREATE INDEX FK_466cfa_Section
 ON edfi.GradebookEntry (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
 
-ALTER TABLE edfi.GradebookEntryLearningObjective ADD CONSTRAINT FK_68857c_GradebookEntry FOREIGN KEY (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-REFERENCES edfi.GradebookEntry (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-ON DELETE CASCADE
-ON UPDATE CASCADE
-;
-
-CREATE INDEX FK_68857c_GradebookEntry
-ON edfi.GradebookEntryLearningObjective (DateAssigned ASC, GradebookEntryTitle ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
-
-ALTER TABLE edfi.GradebookEntryLearningObjective ADD CONSTRAINT FK_68857c_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-;
-
-CREATE INDEX FK_68857c_LearningObjective
-ON edfi.GradebookEntryLearningObjective (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.GradebookEntryLearningStandard ADD CONSTRAINT FK_c7b5a8_GradebookEntry FOREIGN KEY (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-REFERENCES edfi.GradebookEntry (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
+ALTER TABLE edfi.GradebookEntryLearningStandard ADD CONSTRAINT FK_c7b5a8_GradebookEntry FOREIGN KEY (GradebookEntryIdentifier, SourceSystemNamespace)
+REFERENCES edfi.GradebookEntry (GradebookEntryIdentifier, SourceSystemNamespace)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 ;
 
 CREATE INDEX FK_c7b5a8_GradebookEntry
-ON edfi.GradebookEntryLearningStandard (DateAssigned ASC, GradebookEntryTitle ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
+ON edfi.GradebookEntryLearningStandard (GradebookEntryIdentifier ASC, SourceSystemNamespace ASC);
 
 ALTER TABLE edfi.GradebookEntryLearningStandard ADD CONSTRAINT FK_c7b5a8_LearningStandard FOREIGN KEY (LearningStandardId)
 REFERENCES edfi.LearningStandard (LearningStandardId)
@@ -3169,21 +3158,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_d98560_ObjectiveAssessment
 ON edfi.ObjectiveAssessmentAssessmentItem (AssessmentIdentifier ASC, IdentificationCode ASC, Namespace ASC);
-
-ALTER TABLE edfi.ObjectiveAssessmentLearningObjective ADD CONSTRAINT FK_3e8699_LearningObjective FOREIGN KEY (LearningObjectiveId, LearningObjectiveNamespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-;
-
-CREATE INDEX FK_3e8699_LearningObjective
-ON edfi.ObjectiveAssessmentLearningObjective (LearningObjectiveId ASC, LearningObjectiveNamespace ASC);
-
-ALTER TABLE edfi.ObjectiveAssessmentLearningObjective ADD CONSTRAINT FK_3e8699_ObjectiveAssessment FOREIGN KEY (AssessmentIdentifier, IdentificationCode, Namespace)
-REFERENCES edfi.ObjectiveAssessment (AssessmentIdentifier, IdentificationCode, Namespace)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_3e8699_ObjectiveAssessment
-ON edfi.ObjectiveAssessmentLearningObjective (AssessmentIdentifier ASC, IdentificationCode ASC, Namespace ASC);
 
 ALTER TABLE edfi.ObjectiveAssessmentLearningStandard ADD CONSTRAINT FK_1ee70e_LearningStandard FOREIGN KEY (LearningStandardId)
 REFERENCES edfi.LearningStandard (LearningStandardId)
@@ -6180,6 +6154,13 @@ REFERENCES edfi.Student (StudentUSI)
 CREATE INDEX FK_42aa64_Student
 ON edfi.StudentEducationOrganizationResponsibilityAssociation (StudentUSI ASC);
 
+ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_AssignmentLateStatusDescriptor FOREIGN KEY (AssignmentLateStatusDescriptorId)
+REFERENCES edfi.AssignmentLateStatusDescriptor (AssignmentLateStatusDescriptorId)
+;
+
+CREATE INDEX FK_c2efaa_AssignmentLateStatusDescriptor
+ON edfi.StudentGradebookEntry (AssignmentLateStatusDescriptorId ASC);
+
 ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_CompetencyLevelDescriptor FOREIGN KEY (CompetencyLevelDescriptorId)
 REFERENCES edfi.CompetencyLevelDescriptor (CompetencyLevelDescriptorId)
 ;
@@ -6187,20 +6168,27 @@ REFERENCES edfi.CompetencyLevelDescriptor (CompetencyLevelDescriptorId)
 CREATE INDEX FK_c2efaa_CompetencyLevelDescriptor
 ON edfi.StudentGradebookEntry (CompetencyLevelDescriptorId ASC);
 
-ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_GradebookEntry FOREIGN KEY (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-REFERENCES edfi.GradebookEntry (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
+ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_GradebookEntry FOREIGN KEY (GradebookEntryIdentifier, SourceSystemNamespace)
+REFERENCES edfi.GradebookEntry (GradebookEntryIdentifier, SourceSystemNamespace)
 ON UPDATE CASCADE
 ;
 
 CREATE INDEX FK_c2efaa_GradebookEntry
-ON edfi.StudentGradebookEntry (DateAssigned ASC, GradebookEntryTitle ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
+ON edfi.StudentGradebookEntry (GradebookEntryIdentifier ASC, SourceSystemNamespace ASC);
 
-ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_StudentSectionAssociation FOREIGN KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
-REFERENCES edfi.StudentSectionAssociation (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
 ;
 
-CREATE INDEX FK_c2efaa_StudentSectionAssociation
-ON edfi.StudentGradebookEntry (BeginDate ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC, StudentUSI ASC);
+CREATE INDEX FK_c2efaa_Student
+ON edfi.StudentGradebookEntry (StudentUSI ASC);
+
+ALTER TABLE edfi.StudentGradebookEntry ADD CONSTRAINT FK_c2efaa_SubmissionStatusDescriptor FOREIGN KEY (SubmissionStatusDescriptorId)
+REFERENCES edfi.SubmissionStatusDescriptor (SubmissionStatusDescriptorId)
+;
+
+CREATE INDEX FK_c2efaa_SubmissionStatusDescriptor
+ON edfi.StudentGradebookEntry (SubmissionStatusDescriptorId ASC);
 
 ALTER TABLE edfi.StudentHomelessProgramAssociation ADD CONSTRAINT FK_a50f80_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
@@ -7053,6 +7041,11 @@ REFERENCES edfi.VisaDescriptor (VisaDescriptorId)
 
 CREATE INDEX FK_aa5751_VisaDescriptor
 ON edfi.StudentVisa (VisaDescriptorId ASC);
+
+ALTER TABLE edfi.SubmissionStatusDescriptor ADD CONSTRAINT FK_8e9244_Descriptor FOREIGN KEY (SubmissionStatusDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.Survey ADD CONSTRAINT FK_211bb3_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)

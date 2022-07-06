@@ -27,6 +27,18 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 return true;
             }
 
+            if (ex is EdFiSecurityConflictException)
+            {
+                webServiceError = new RESTError
+                {
+                    Code = (int) HttpStatusCode.Conflict,
+                    Type = "Conflict",
+                    Message = ex.GetAllMessages()
+                };
+
+                return true;
+            }
+
             return false;
         }
     }

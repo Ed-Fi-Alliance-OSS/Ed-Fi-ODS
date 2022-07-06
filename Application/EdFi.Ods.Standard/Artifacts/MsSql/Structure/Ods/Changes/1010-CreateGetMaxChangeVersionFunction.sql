@@ -3,12 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE FUNCTION [changes].GetMaxChangeVersion()
+CREATE OR ALTER FUNCTION [changes].GetMaxChangeVersion()
 RETURNS bigint
 AS
 BEGIN
