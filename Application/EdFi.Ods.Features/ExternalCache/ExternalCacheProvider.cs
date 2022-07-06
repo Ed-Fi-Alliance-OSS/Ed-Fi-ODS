@@ -19,7 +19,6 @@ namespace EdFi.Ods.Features.ExternalCache
         private const string GuidPrefix = "(Guid)";
         private const string IntPrefix = "(int)";
 
-        //private readonly IConnectionMultiplexer _redis;
         private readonly IDistributedCache _distributedCache;
         private readonly TimeSpan _defaultExpiration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
