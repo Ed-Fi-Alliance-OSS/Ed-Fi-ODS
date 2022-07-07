@@ -8,9 +8,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
@@ -24,8 +28,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         private readonly Lazy<string> _authorizationStrategyName;
 
-        protected RelationshipsAuthorizationStrategyBase()
+        private readonly DomainModel _domainModel;
+
+        protected RelationshipsAuthorizationStrategyBase(IDomainModelProvider domainModelProvider)
         {
+            _domainModel = domainModelProvider.GetDomainModel();
+
             _authorizationStrategyName = new Lazy<string>(
                 () =>
                 {
@@ -72,8 +80,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             else
             {
                 var authorizationContextData = authorizationContextDataProvider.GetContextData(authorizationContext.Data);
-                
-                authorizationContextTuples = authorizationContextData.GetAuthorizationContextTuples(authorizationContextPropertyNames);
+
+                authorizationContextTuples = authorizationContextData.GetAuthorizationContextTuples(
+                    authorizationContextPropertyNames.Select(p => (p, GetNonRoleNamedProperty(p))).ToArray());
             }
             // ---------------------------------------------------------------------
             
@@ -102,18 +111,43 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 Filters = filters,
                 Operator = FilterOperator.Or
             };
-            
+
+            string GetNonRoleNamedProperty(string propertyName)
+            {
+                //Look for the corresponding non - role named property on the model using its DefiningConcreteProperty
+
+                return _nonRoleNamedByRawPropertyName.GetOrAdd(propertyName, x =>
+                {
+                    var schema = authorizationContext.Type.GetCustomAttribute<SchemaAttribute>(false)?.Schema ??
+                                 throw new Exception(
+                                     $"The {nameof(SchemaAttribute)} is required for the entity '{authorizationContext.Type.FullName}'.");
+
+                    var expectedEntityFullName = new FullName(schema, authorizationContext.Type.Name);
+
+                    if (!_domainModel.EntityByFullName.TryGetValue(expectedEntityFullName, out var entity))
+                    {
+                        throw new Exception($"Unable to locate entity '{expectedEntityFullName}' in the model.");
+                    }
+
+                    if (!entity.PropertyByName.TryGetValue(x, out var property))
+                    {
+                        throw new Exception($"Property '{x}' not found in entity '{expectedEntityFullName}'.");
+                    }
+
+                    return property.DefiningConcreteProperty.PropertyName;
+                });
+            }
+
             string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
             {
-                // NOTE: If a role-named subject endpoint happens to be used here, logic will be needed to build the filter name without the role name
-                // This logic was originally implemented in the private CreateSegment method of the AuthorizationBuilder class, last available in v5.3 
                 return _filterNameBySubjectAndPathModifier.GetOrAdd(
-                    (subjectEndpointName, authorizationPathModifier),
+                    (GetNonRoleNamedProperty(subjectEndpointName), authorizationPathModifier),
                     (x) => $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{x.Item1}{x.Item2}");
             }
         }
 
         private readonly ConcurrentDictionary<(string, string), string> _filterNameBySubjectAndPathModifier = new();
+        private readonly ConcurrentDictionary<string, string> _nonRoleNamedByRawPropertyName = new();
 
         protected abstract SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
             IEnumerable<(string name, object value)> authorizationContextTuples);

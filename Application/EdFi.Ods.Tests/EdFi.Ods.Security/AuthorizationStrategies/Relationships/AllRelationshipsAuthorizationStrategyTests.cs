@@ -5,19 +5,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Security.Claims;
-using System.Threading;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
-using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
 using FakeItEasy.Configuration;
 using NUnit.Framework;
-using QuickGraph;
 using Shouldly;
 using Test.Common;
 
@@ -61,6 +62,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             object entity)
         {
             return A.CallTo(() => dependency.GetContextData(entity));
+        }
+
+        public static IDomainModelProvider that_always_returns(
+            this IDomainModelProvider dependency,
+            DomainModel domainModel)
+        {
+            A.CallTo(() => dependency.GetDomainModel())
+                .Returns(domainModel);
+
+            return dependency;
         }
     }
 
@@ -170,6 +181,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         public class When_authorizing_a_single_item_request_with_correct_claims_for_request
             : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>>
         {
+            [Schema("TestSchema")]
             private class TestEntity
             {
                 public TestEntity(int localEducationAgencyId, int staffUSI)
@@ -220,6 +232,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied(
                     Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
                         Supplied<int>("LocalEducationAgencyId")));
+
+                var domainModel = CreateValidDomainModel().Build();
+                Given<IDomainModelProvider>().that_always_returns(domainModel);
             }
 
             protected override void Act()
@@ -233,6 +248,50 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_not_throw_an_exception()
             {
                 ActualException.ShouldBeNull();
+            }
+
+            private static DomainModelBuilder CreateValidDomainModel()
+            {
+                var entityDefinitions = new[]
+                {
+                    new EntityDefinition(
+                        "TestSchema",
+                        "TestEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("LocalEducationAgencyId", new PropertyType(DbType.Int32)),
+                            new EntityPropertyDefinition("StaffUSI", new PropertyType(DbType.Int32))
+                        },
+                        Array.Empty<EntityIdentifierDefinition>())
+                };
+
+                var associationDefinitions = Array.Empty<AssociationDefinition>();
+
+                var aggregateDefinitions = new[]
+                {
+                    new AggregateDefinition(
+                        new FullName("TestSchema", "TestEntity"),
+                        Array.Empty<FullName>()
+                    )
+                };
+
+                var schemaDefinition = new SchemaDefinition("logicalName", "TestSchema");
+
+                var modelDefinitions = new DomainModelDefinitions(
+                    schemaDefinition,
+                    aggregateDefinitions,
+                    entityDefinitions,
+                    associationDefinitions);
+
+                var builder = new DomainModelBuilder();
+
+                builder.AddDomainModelDefinitionsList(
+                    new List<DomainModelDefinitions>
+                    {
+                        modelDefinitions
+                    });
+
+                return builder;
             }
         }
 

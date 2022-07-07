@@ -48,7 +48,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public int? CommunityProviderId { get; set; }
 
         public int? OrganizationDepartmentId { get; set; }
-        
+
         public int? PostSecondaryInstitutionId { get; set; }
 
         // People
@@ -59,20 +59,23 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public int? ParentUSI { get; set; }
 
         public IEnumerable<(string propertyName, object value)> GetAuthorizationContextTuples(
-            string[] authorizationContextPropertyNames)
+            (string roleNamed, string nonRoleNamed)[] authorizationContextPropertyNames)
         {
-            foreach (string authorizationContextPropertyName in authorizationContextPropertyNames)
+            foreach (var authorizationContextPropertyName in authorizationContextPropertyNames)
             {
-                foreach ((string propertyName, object value) valueTuple in GetAuthorizationContextValueTuple(authorizationContextPropertyName))
+                foreach ((string propertyName, object value) valueTuple in GetAuthorizationContextValueTuple(
+                             authorizationContextPropertyName.roleNamed,
+                             authorizationContextPropertyName.nonRoleNamed))
                 {
                     yield return valueTuple;
                 }
             }
         }
 
-        protected virtual IEnumerable<(string propertyName, object value)> GetAuthorizationContextValueTuple(string authorizationContextPropertyName)
+        protected virtual IEnumerable<(string propertyName, object value)> GetAuthorizationContextValueTuple(string authorizationContextPropertyName, 
+            string authorizationContextNonRoleNamedProperty)
         {
-            switch (authorizationContextPropertyName)
+            switch (authorizationContextNonRoleNamedProperty)
             {
                 case PropertyNames.EducationOrganizationId:
                     yield return (authorizationContextPropertyName, EducationOrganizationId);
@@ -140,7 +143,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     break;
 
                 default:
-                    throw new NotSupportedException($"Authorization context property '{authorizationContextPropertyName}' is not supported.");
+                    throw new NotSupportedException(
+                        $"Authorization context property '{authorizationContextPropertyName}' is not supported.");
             }
         }
     }

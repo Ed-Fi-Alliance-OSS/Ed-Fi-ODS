@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -15,7 +16,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     {
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
 
-        public RelationshipsWithEdOrgsOnlyAuthorizationStrategy(IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
+        public RelationshipsWithEdOrgsOnlyAuthorizationStrategy(
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
+            IDomainModelProvider domainModelProvider)
+            : base(domainModelProvider)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
         }
