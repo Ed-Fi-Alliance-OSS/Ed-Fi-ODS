@@ -95,6 +95,8 @@ Application/EdFi.Ods.CodeGen/App_Packages
 # Keep generated SDK out of source control
 Utilities/SdkGen/EdFi.SdkGen.Console/csharp
 
-*.log
-
 NugetPackages/
+
+# Log files
+*.sarif
+*.log
