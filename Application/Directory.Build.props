@@ -3,5 +3,7 @@
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
     <InformationalVersion>1.0.0</InformationalVersion>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <ErrorLog>results.sarif,version=2.1</ErrorLog>
   </PropertyGroup>
 </Project>
