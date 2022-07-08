@@ -40,7 +40,7 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
         with:
-          languages: [ 'csharp' ]
+          languages: 'csharp'
       - name: Support longpaths
         run: git config --system core.longpaths true
       - name: Checkout Ed-Fi-ODS-Implementation
