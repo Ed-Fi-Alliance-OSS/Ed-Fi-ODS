@@ -15,7 +15,7 @@ namespace EdFi.Admin.DataAccess.Models
 
         public string StudentIdentificationSystemDescriptor { get; set; }
 
-        public int? EducationOrganizationId { get; set; }
+        public long? EducationOrganizationId { get; set; }
 
         public string ClaimSetName { get; set; }
 
