@@ -31,25 +31,25 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         }
 
         // Education Organizations
-        public int? EducationOrganizationId { get; set; }
+        public long? EducationOrganizationId { get; set; }
 
-        public int? StateEducationAgencyId { get; set; }
+        public long? StateEducationAgencyId { get; set; }
 
-        public int? EducationServiceCenterId { get; set; }
+        public long? EducationServiceCenterId { get; set; }
 
-        public int? LocalEducationAgencyId { get; set; }
+        public long? LocalEducationAgencyId { get; set; }
 
-        public int? SchoolId { get; set; }
+        public long? SchoolId { get; set; }
 
-        public int? EducationOrganizationNetworkId { get; set; }
+        public long? EducationOrganizationNetworkId { get; set; }
 
-        public int? CommunityOrganizationId { get; set; }
+        public long? CommunityOrganizationId { get; set; }
 
-        public int? CommunityProviderId { get; set; }
+        public long? CommunityProviderId { get; set; }
 
-        public int? OrganizationDepartmentId { get; set; }
+        public long? OrganizationDepartmentId { get; set; }
 
-        public int? PostSecondaryInstitutionId { get; set; }
+        public long? PostSecondaryInstitutionId { get; set; }
 
         // People
         public int? StaffUSI { get; set; }
