@@ -24,7 +24,7 @@ namespace EdFi.Ods.Common.Security
         public ApiKeyContext(
             string apiKey,
             string claimSetName,
-            int[] educationOrganizationIds,
+            long[] educationOrganizationIds,
             IEnumerable<string> namespacePrefixes,
             IEnumerable<string> profiles,
             string studentIdentificationSystemDescriptor,
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Common.Security
         {
             ApiKey = apiKey;
             ClaimSetName = claimSetName;
-            EducationOrganizationIds = educationOrganizationIds ?? Array.Empty<int>();
+            EducationOrganizationIds = educationOrganizationIds ?? Array.Empty<long>();
             NamespacePrefixes = namespacePrefixes;
             StudentIdentificationSystemDescriptor = studentIdentificationSystemDescriptor;
             Profiles = profiles ?? new List<string>();
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Common.Security
 
         public string ClaimSetName { get; }
 
-        public int[] EducationOrganizationIds { get; }
+        public long[] EducationOrganizationIds { get; }
 
         public IEnumerable<string> NamespacePrefixes { get; }
 

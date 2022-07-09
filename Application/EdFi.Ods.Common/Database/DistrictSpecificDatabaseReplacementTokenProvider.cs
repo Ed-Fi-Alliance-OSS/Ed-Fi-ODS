@@ -21,15 +21,16 @@ namespace EdFi.Ods.Common.Database
 
         public string GetDatabaseNameReplacementToken()
         {
-            List<int> availableEducationOrganizations = _apiKeyContextProvider.GetApiKeyContext()?.EducationOrganizationIds?.ToList() ??
-                                                        new List<int>();
+            var availableEducationOrganizations = _apiKeyContextProvider.GetApiKeyContext()?.EducationOrganizationIds?.ToArray()
+                ?? Array.Empty<long>();
 
             if (!availableEducationOrganizations.Any())
             {
                 throw new InvalidOperationException(
                     "The district-specific ODS database name replacement token cannot be derived because no available education organizations were found in the current context. Ensure the api client is correctly configured for exactly one local education agency to use this token provider.");
             }
-            else if (availableEducationOrganizations.Count > 1)
+            
+            if (availableEducationOrganizations.Length > 1)
             {
                 throw new InvalidOperationException(
                     "The district-specific ODS database name replacement token cannot be derived because more than one available education organization was found in the current context. Ensure the api client is correctly configured for exactly one local education agency to use this token provider.");

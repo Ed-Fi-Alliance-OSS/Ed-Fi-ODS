@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Authentication
         /// </summary>
         public ApiClientDetails()
         {
-            EducationOrganizationIds = Array.Empty<int>();
+            EducationOrganizationIds = Array.Empty<long>();
             NamespacePrefixes = new List<string>();
             Profiles = new List<string>();
             OwnershipTokenIds = new List<short?>();
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Api.Authentication
         /// <summary>
         /// Gets or sets the list of Education Organization Ids associated with the API key.
         /// </summary>
-        public int[] EducationOrganizationIds { get; set; }
+        public long[] EducationOrganizationIds { get; set; }
 
         /// <summary>
         /// Gets or sets the ApplicationId for the client.

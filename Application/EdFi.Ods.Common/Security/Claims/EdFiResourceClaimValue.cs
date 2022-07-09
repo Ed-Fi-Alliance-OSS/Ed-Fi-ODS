@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Security.Claims
         public EdFiResourceClaimValue()
         {
             // JSON.NET uses this for deserialization.  In that situation we want the list to be initialized.
-            EducationOrganizationIds = new List<int>();
+            EducationOrganizationIds = new();
         }
 
         /// <summary>
@@ -42,10 +42,10 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
         /// <param name="educationOrganizationIds">The education organization ids to which the claim applies.</param>
-        public EdFiResourceClaimValue(string action, List<int> educationOrganizationIds)
+        public EdFiResourceClaimValue(string action, List<long> educationOrganizationIds)
             : this(
                 action,
-                educationOrganizationIds ?? new List<int>(),
+                educationOrganizationIds ?? new List<long>(),
                 null) // List initialized here to preserve original constructor behavior after introducing authorization strategy overrides.
         { }
 
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
         /// <param name="educationOrganizationIds">The education organization ids to which the claim applies.</param>
         /// <param name="authorizationStrategyNameOverrides">The names of the authorization strategies that should be used for authorization (in lieu of the default for the resource).</param>
-        public EdFiResourceClaimValue(string action, List<int> educationOrganizationIds, IReadOnlyList<string> authorizationStrategyNameOverrides)
+        public EdFiResourceClaimValue(string action, List<long> educationOrganizationIds, IReadOnlyList<string> authorizationStrategyNameOverrides)
         {
             Actions = new[]
                       {
@@ -74,7 +74,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <param name="validationRuleSetNameOverride">The name of the validation rule set to be executed during authorization (in lieu of any default defined for the resource).</param>
         public EdFiResourceClaimValue(
             string action,
-            List<int> educationOrganizationIds,
+            List<long> educationOrganizationIds,
             IReadOnlyList<string> authorizationStrategyNameOverrides,
             string validationRuleSetNameOverride)
         {
@@ -94,7 +94,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <summary>
         /// Gets or sets the Education Organization Ids to which the claim applies.
         /// </summary>
-        public List<int> EducationOrganizationIds { get; set; }
+        public List<long> EducationOrganizationIds { get; set; }
 
         /// <summary>
         /// Attempts to obtain the names of the authorization strategy overrides for the specified action.

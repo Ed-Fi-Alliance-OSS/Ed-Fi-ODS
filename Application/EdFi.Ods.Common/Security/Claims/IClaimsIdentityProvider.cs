@@ -28,7 +28,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <param name="assignedProfileNames">The list of API Profiles assigned to the caller.</param>
         /// <returns>The <see cref="ClaimsIdentity"/>.</returns>
         ClaimsIdentity GetClaimsIdentity(
-            IEnumerable<int> localEducationAgencyIds,
+            IEnumerable<long> localEducationAgencyIds,
             string claimSetName,
             IEnumerable<string> vendorNamespacePrefixes,
             IReadOnlyList<string> assignedProfileNames,

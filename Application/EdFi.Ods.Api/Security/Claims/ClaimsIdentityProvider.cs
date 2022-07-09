@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Security.Claims
         }
 
         public ClaimsIdentity GetClaimsIdentity(
-            IEnumerable<int> educationOrganizationIds,
+            IEnumerable<long> educationOrganizationIds,
             string claimSetName,
             IEnumerable<string> namespacePrefixes,
             IReadOnlyList<string> assignedProfileNames,
