@@ -155,7 +155,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     ApplicationId = 999,
                     ClaimSetName = "SomeClaimSet",
                     NamespacePrefixes = new List<string> {"Namespace"},
-                    EducationOrganizationIds = new[] { 123, 234 },
+                    EducationOrganizationIds = new[] { 123L, 234L },
                     OwnershipTokenIds = new List<short?> { 1 }
                 };
 

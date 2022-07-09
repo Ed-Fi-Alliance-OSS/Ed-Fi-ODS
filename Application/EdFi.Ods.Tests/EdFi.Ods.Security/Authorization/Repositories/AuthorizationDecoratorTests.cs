@@ -107,8 +107,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     NamespacePrefixes = new [] {"Namespace"},
                     EducationOrganizationIds = new []
                     {
-                        123,
-                        234
+                        123L,
+                        234L
                     },
                     OwnershipTokenIds = new short?[] { 1 }
                 };

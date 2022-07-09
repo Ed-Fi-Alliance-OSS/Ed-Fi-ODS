@@ -53,7 +53,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
         public class When_creating_a_ClaimsIdentity_for_a_caller_with_associated_education_organizations : TestFixtureBase
         {
             // Supplied values
-            private readonly int[] _suppliedEducationOrganizationIds = { 1, 2 };
+            private readonly long[] _suppliedEducationOrganizationIds = { 1, 2 };
             private readonly List<string> _suppliedNamespacePrefixes = new() { "namespacePrefix1" };
             private readonly List<string> _suppliedProfiles = new()
             {
@@ -301,7 +301,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
         public class When_creating_a_ClaimsIdentity_for_a_caller_with_empty_namespace_prefix : TestFixtureBase
         {
             // Supplied values
-            private readonly int[] _suppliedEducationOrganizationIds = { 1, 2 };
+            private readonly long[] _suppliedEducationOrganizationIds = { 1, 2 };
             private readonly List<string> _suppliedNamespacePrefixes = new List<string>();
             private readonly List<string> _suppliedProfiles = new List<string>
             {

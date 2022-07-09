@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
 
                 var suppliedEdFiClaimValue = new EdFiResourceClaimValue(
                     "action",
-                    new List<int>
+                    new List<long>
                     {
                         1, 2
                     });
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
             {
                 var suppliedEdFiClaimValue = new EdFiResourceClaimValue(
                     "action",
-                    new List<int>
+                    new List<long>
                     {
                         1, 2
                     });
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
         {
             private const string ExpectedClaimType = "claimType";
             private const string ExpectedAction = "action";
-            private readonly List<int> expectedLocalEducationAgencyIds = new List<int>
+            private readonly List<long> expectedLocalEducationAgencyIds = new()
             {
                 1, 2
             };

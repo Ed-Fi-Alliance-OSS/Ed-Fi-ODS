@@ -81,9 +81,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
     [TestFixture]
     public class Feature_Authorizing_a_request
     {
-        private static Claim Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(params int[] educationOrganizationIds)
+        private static Claim Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(params long[] educationOrganizationIds)
         {
-            return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<int>(educationOrganizationIds)));
+            return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<long>(educationOrganizationIds)));
         }
 
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiKeyContext apiKeyContext, object entity)

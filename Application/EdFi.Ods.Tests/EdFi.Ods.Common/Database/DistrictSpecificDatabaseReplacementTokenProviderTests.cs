@@ -19,7 +19,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     public class When_using_district_specific_database_replacement_token_provider_with_one_valid_education_organization
         : TestFixtureBase
     {
-        private const int EducationOrganizationId = 777777;
+        private const long EducationOrganizationId = 777777;
         private string _actualDatabaseNameReplacementToken;
         private string _actualServerNameReplacementToken;
 
@@ -102,7 +102,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
-                    Array.Empty<int>(),
+                    Array.Empty<long>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     public class When_getting_database_name_replacement_token_with_more_than_one_education_organization
         : TestFixtureBase
     {
-        private const int EducationOrganizationId = 777777;
+        private const long EducationOrganizationId = 777777;
 
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -203,7 +203,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
-                    Array.Empty<int>(),
+                    Array.Empty<long>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
@@ -229,7 +229,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     public class When_getting_server_name_replacement_token_with_more_than_one_education_organization
         : TestFixtureBase
     {
-        private const int EducationOrganizationId = 777777;
+        private const long EducationOrganizationId = 777777;
 
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
