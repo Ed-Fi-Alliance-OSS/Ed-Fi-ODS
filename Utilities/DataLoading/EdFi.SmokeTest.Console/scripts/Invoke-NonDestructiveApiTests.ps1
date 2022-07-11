@@ -23,11 +23,12 @@ Param(
 )
 $ErrorActionPreference = 'Stop'
 
-$exe = "./bin/debug/EdFi.SmokeTest.Console.exe"
+# find the .dll and call it with dotnet instead of using .exe
+$exe = (Get-Item "./bin/Debug/*/EdFi.SmokeTest.Console.dll" | select-object -ExpandProperty FullName)
 
 if (-not(Test-Path($exe)))
 {
     Throw "Build the solution in debug mode first"
 }
 
-& $exe -k $key -s $secret -a $apiUrl -o $tokenUrl -m $metadataUrl -t NonDestructiveApi | Write-Host
+dotnet $exe -k $key -s $secret -a $apiUrl -o $tokenUrl -m $metadataUrl -t NonDestructiveApi | Write-Host
