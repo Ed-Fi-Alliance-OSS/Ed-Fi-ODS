@@ -20,11 +20,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Api.Security.Authorization.Repositories;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
-using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
-using EdFi.Ods.Common.Models;
 using log4net;
 
 namespace EdFi.Ods.Features.Composites
@@ -130,10 +126,7 @@ namespace EdFi.Ods.Features.Composites
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryFilterByName = authorizationFiltering
-                // Flattens the filters as per legacy code (effectively combining them using "AND" logic), but we still need to implement support for combining multiple authorization strategies correctly
-                .SelectMany(x => x.Filters)
-                .ToDictionary(x => x.FilterName, x => x);
+            builderContext.CurrentQueryAuthorizationFiltering = authorizationFiltering;
 
             return true;
         }
@@ -312,63 +305,187 @@ namespace EdFi.Ods.Features.Composites
             CompositeDefinitionProcessorContext processorContext,
             HqlBuilderContext builderContext)
         {
-            var entityType = GetEntityType(processorContext.CurrentResourceClass);
-            var filters = builderContext.CurrentQueryFilterByName;
-
-            // --------------------------
-            //   Add security filtering
-            // --------------------------
-            if (filters != null && filters.Any())
+            // Authorization filters are only applied to the resource roots
+            if (!(processorContext.CurrentResourceClass is Resource))
             {
-                foreach (var filterInfo in filters)
-                {
-                    // Get the filter text
-                    string filterName = filterInfo.Key;
+                return;
+            }
+            
+            var authorizationFiltering = builderContext.CurrentQueryAuthorizationFiltering;
 
-                    if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(filterName, out var filterApplicationDetails))
+            // Create the "AND" junction
+            var mainConjunction = new StringBuilder();
+
+            // Create the "OR" junction
+            var mainDisjunction = new StringBuilder();
+            
+            // NOTE: This follows the implementation structure of the repository authorization for the standard data management resources.
+            // In a future implementation that is based on SQL and uses joins to the authorization views instead of HQL and sub-selects in
+            // WHERE criteria (due to limitations of HQL needing all joins to auth views to be mapped as relationships), we'll want to use
+            // the result of this method in forming those joins. Basically, if there are multiple authorization strategies using view-based
+            // authorization, we must use left *outer* joins in conjunction with null/not null checks to ensure we are able to correctly
+            // implement the OR behavior applied to multiple authorization strategies. 
+            // var joinType = DetermineJoinType();
+            var unsupportedAuthorizationFilters = GetUnsupportedAuthorizationFilters();
+
+            bool conjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithAndLogic();
+            bool disjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithOrLogic();
+
+            ApplyJunctionsToHqlQuery();
+
+            return;
+
+            HashSet<string> GetUnsupportedAuthorizationFilters()
+            {
+                var unsupportedFilters = new HashSet<string>(
+                    authorizationFiltering.SelectMany(
+                        af => af.Filters
+                            .Where(
+                                afd => !_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
+                                    afd.FilterName,
+                                    out var ignored))
+                            .Select(afd => afd.FilterName)));
+
+                return unsupportedFilters;
+            }
+
+            bool ApplyAuthorizationStrategiesCombinedWithAndLogic()
+            {
+                var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
+
+                // Combine 'AND' strategies
+                bool conjunctionFiltersApplied = false;
+
+                foreach (var andStrategy in andStrategies)
+                {
+                    if (!TryApplyFilters(mainConjunction, andStrategy.Filters))
                     {
-                        throw new Exception(
-                            $"Unable to apply authorization to query because filter '{filterName}' could not be found.");
+                        // All filters for AND strategies must be applied, and if not, this is an error condition
+                        throw new Exception($"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                     }
+
+                    conjunctionFiltersApplied = true;
+                }
+
+                return conjunctionFiltersApplied;
+            }
+
+            bool ApplyAuthorizationStrategiesCombinedWithOrLogic()
+            {
+                var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
+
+                // Combine 'OR' strategies
+                bool disjunctionFiltersApplied = false;
+
+                foreach (var orStrategy in orStrategies)
+                {
+                    var filtersConjunction = new StringBuilder(); // Combine filters with 'AND' within each Or strategy
+
+                    if (TryApplyFilters(filtersConjunction, orStrategy.Filters))
+                    {
+                        // mainDisjunction.Add(filtersConjunction);
+                        mainDisjunction.Append($"{OrIfNeeded(mainDisjunction)} {filtersConjunction}");
+
+                        disjunctionFiltersApplied = true;
+                    }
+                }
+
+                // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
+                if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
+                {
+                    throw new Exception($"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
+                }
+                
+                return disjunctionFiltersApplied;
+            }
+
+            bool TryApplyFilters(StringBuilder conjunction, IReadOnlyList<AuthorizationFilterContext> filterContexts)
+            {
+                bool allFiltersCanBeApplied = true;
+                
+                foreach (var filterContext in filterContexts)
+                {
+                    if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
+                            filterContext.FilterName,
+                            out var ignored))
+                    {
+                        unsupportedAuthorizationFilters.Add(filterContext.FilterName);
+
+                        allFiltersCanBeApplied = false;
+                    }
+                }
+
+                if (!allFiltersCanBeApplied)
+                {
+                    return false;
+                }
+
+                bool filtersApplied = false;
+                
+                foreach (var filterContext in filterContexts)
+                {
+                    _authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
+                        filterContext.FilterName,
+                        out var filterApplicationDetails);
 
                     string filterHqlFormat = filterApplicationDetails.HqlConditionFormatString;
-                    
-                    if (string.IsNullOrWhiteSpace(filterHqlFormat))
-                    {
-                        throw new Exception(
-                            $"Unable to apply authorization to query because filter '{filterName}' on entity '{entityType.Name}' was found, but was null or empty.");
-                    }
 
-                    // Set the current alias for the contextual fields
-                    string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias);
-
-                    if (!string.IsNullOrWhiteSpace(filterHql))
+                    if (!string.IsNullOrWhiteSpace(filterHqlFormat))
                     {
+                        // Set the current alias for the contextual fields
+                        string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias);
+
                         // Add HQL to the current resource query's WHERE clause
-                        builderContext.Where.AppendFormat(
-                            "{0}({1})",
-                            AndIfNeeded(builderContext.Where),
-                            filterHql);
+                        conjunction.Append($"{AndIfNeeded(conjunction)}({filterHql})");
+
+                        string parameterName = filterContext.ClaimParameterName;
 
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
-                        var authorizationFilterDetails = filterInfo.Value;
-
-                        string parameterName = authorizationFilterDetails.ClaimParameterName;
-
                         if (filterHql.Contains($":{parameterName}"))
                         {
-                            if (authorizationFilterDetails.ClaimParameterValues.Length == 1)
+                            if (filterContext.ClaimParameterValues.Length == 1)
                             {
                                 builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    authorizationFilterDetails.ClaimParameterValues.Single();
+                                    filterContext.ClaimParameterValues.Single();
                             }
                             else
                             {
                                 builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    authorizationFilterDetails.ClaimParameterValues;
+                                    filterContext.ClaimParameterValues;
                             }
                         }
                     }
+
+                    filtersApplied = true;
+                }
+                
+                return filtersApplied;
+            }
+
+            void ApplyJunctionsToHqlQuery()
+            {
+                if (disjunctionFiltersWereApplied)
+                {
+                    if (conjunctionFiltersWereApplied)
+                    {
+                        // mainConjunction.Add(mainDisjunction);
+
+                        // Apply grouped disjunction (OR criteria) to the conjunction (AND criteria) containing other strategies combined using AND
+                        mainConjunction.Append($"{AndIfNeeded(mainConjunction)}({mainDisjunction})");
+
+                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{mainConjunction}");
+                    }
+                    else
+                    {
+                        // Apply grouped disjunction (OR criteria) to the top-level WHERE clause (using AND if needed)
+                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}({mainDisjunction})");
+                    }
+                }
+                // When only conjunction filters were applied (AND)
+                else if (conjunctionFiltersWereApplied)
+                {
+                    // Add all the filters to the top level
+                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{mainConjunction}");
                 }
             }
         }
@@ -377,6 +494,13 @@ namespace EdFi.Ods.Features.Composites
         {
             return where.Length > 0
                 ? " AND "
+                : string.Empty;
+        }
+
+        private static string OrIfNeeded(StringBuilder where)
+        {
+            return where.Length > 0
+                ? " OR "
                 : string.Empty;
         }
     }

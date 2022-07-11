@@ -3,7 +3,8 @@
 		"_postman_id": "5d73b7a7-81fd-4a05-b6f3-cdee50de85cd",
 		"name": "Ed-Fi ODS/API Multiple Authorization Strategy Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
@@ -71,14 +72,47 @@
 											"const responseItems = pm.response.json();",
 											"",
 											"const sectionRecord = responseItems[0];",
-											"const courseOffering = sectionRecord.courseOfferingReference;",
 											"",
-											"pm.environment.set('known:section:sectionIdentifier', sectionRecord.sectionIdentifier);",
+											"// Prepare to copy the section",
+											"delete sectionRecord.id;",
+											"delete sectionRecord._etag;",
+											"delete sectionRecord._lastModifiedDate;",
 											"",
-											"pm.environment.set('known:section:localCourseCode', courseOffering.localCourseCode);",
-											"pm.environment.set('known:section:schoolId', courseOffering.schoolId);",
-											"pm.environment.set('known:section:schoolYear', courseOffering.schoolYear);",
-											"pm.environment.set('known:section:sessionName', courseOffering.sessionName);",
+											"// Create a new SectionIdentifier for uniqueness",
+											"sectionRecord.sectionIdentifier = pm.variables.replaceIn('{{$guid}}');",
+											"",
+											"const url = pm.variables.replaceIn('{{ApiBaseUrl}}/data/v3/ed-fi/sections');",
+											"const authHeader = pm.variables.replaceIn('Authorization: Bearer {{AccessToken_255901}}');",
+											"",
+											"let postRequest = {",
+											"  method: 'POST',",
+											"  url: url,",
+											"  header: [authHeader, \"Content-Type: application/json\"],",
+											"  body: {",
+											"    mode: 'raw',",
+											"    raw: JSON.stringify(sectionRecord)",
+											"  }",
+											"};",
+											"",
+											"pm.sendRequest(postRequest, (err, response) => {",
+											"  if (err) {",
+											"    console.log({ err: err, response: response });",
+											"    return;",
+											"  }",
+											"",
+											"  pm.test('Test section was created.', () => {",
+											"    pm.expect(response.code).to.equal(201);",
+											"  });",
+											"",
+											"  pm.environment.set('known:section:id', response.headers.one('Location').value.split(\"/\").pop());",
+											"  pm.environment.set('known:section:sectionIdentifier', sectionRecord.sectionIdentifier);",
+											"",
+											"  const courseOffering = sectionRecord.courseOfferingReference;",
+											"  pm.environment.set('known:section:localCourseCode', courseOffering.localCourseCode);",
+											"  pm.environment.set('known:section:schoolId', courseOffering.schoolId);",
+											"  pm.environment.set('known:section:schoolYear', courseOffering.schoolYear);",
+											"  pm.environment.set('known:section:sessionName', courseOffering.sessionName);",
+											"});",
 											""
 										],
 										"type": "text/javascript"
@@ -279,7 +313,7 @@
 							"response": []
 						},
 						{
-							"name": "Create StudentSectionAssociation Ownership",
+							"name": "Create StudentSectionAssociation owned by School client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -345,7 +379,7 @@
 							"response": []
 						},
 						{
-							"name": "Create StudentSectionAssociation without Ownership",
+							"name": "Create StudentSectionAssociation owned by LEA client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -490,7 +524,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Student School Association for B",
+							"name": "Create Student School Association for B (for initialization)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -556,7 +590,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Student EdOrg ResponsibilityAssociation",
+							"name": "Create Student responsibility association",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -622,7 +656,7 @@
 							"response": []
 						},
 						{
-							"name": "Create  StudentSectionAssociation Ownership",
+							"name": "Create  StudentSectionAssociation owned by School client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -688,7 +722,7 @@
 							"response": []
 						},
 						{
-							"name": "Create  StudentSectionAssociation without Ownership",
+							"name": "Create  StudentSectionAssociation owned by LEA client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2005,6 +2039,204 @@
 							]
 						},
 						{
+							"name": "Composites",
+							"item": [
+								{
+									"name": "Get Section enrollments using School client",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"function formatGuid(compactGuid) {\r",
+													"  return `${compactGuid.substring(0, 8)}-${compactGuid.substring(8, 12)}-${compactGuid.substring(12, 16)}-${compactGuid.substring(16, 20)}-${compactGuid.substring(20, 32)}`;\r",
+													"}\r",
+													"\r",
+													"const students = pm.response.json().students;\r",
+													"\r",
+													"// -----------------------------\r",
+													"// Registered Student Checks\r",
+													"// -----------------------------\r",
+													"// Due to bug (ODS-5484), ids must be formatted with hyphens to locate the student\r",
+													"const studentThroughUnownedStudentSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:registered:unowned:id'));\r",
+													"\r",
+													"const studentThroughUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughUnownedStudentSectionAssociationId });\r",
+													"\r",
+													"const studentThroughOwnedSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:registered:owned:id'));\r",
+													"\r",
+													"const studentThroughOwnedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughOwnedSectionAssociationId });\r",
+													"\r",
+													"pm.test(`Should include the registered student (through owned section association).`, () => {\r",
+													"  pm.expect(studentThroughOwnedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"});\r",
+													"\r",
+													"pm.test(`Should include the registered student (through unowned section association, but only until ownership-based security is supported).`, () => {\r",
+													"  // Ownership-based authorization --> pm.expect(unownedStudentSectionAssociation).to.be.undefined;\r",
+													"  pm.expect(studentThroughUnownedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"});\r",
+													"\r",
+													"// -----------------------------\r",
+													"// Responsibility Student Checks\r",
+													"// -----------------------------\r",
+													"\r",
+													"// Due to bug (ODS-5484), ids must be formatted with hyphens to locate the student\r",
+													"const responsibilityStudentThroughUnownedStudentSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:responsibility:unowned:id'));\r",
+													"\r",
+													"const responsibilityStudentThroughUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': responsibilityStudentThroughUnownedStudentSectionAssociationId });\r",
+													"\r",
+													"const responsibilityStudentThroughOwnedSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:responsibility:owned:id'));\r",
+													"\r",
+													"const responsibilityStudentThroughOwnedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': responsibilityStudentThroughOwnedSectionAssociationId });\r",
+													"\r",
+													"pm.test(`Should NOT include the responsibility student (even through owned section association because client is not affiliated with the schoold of responsibility).`, () => {\r",
+													"  pm.expect(responsibilityStudentThroughOwnedStudentSectionAssociation).to.be.undefined;\r",
+													"});\r",
+													"\r",
+													"pm.test(`Should NOT include the responsibility student (through the unowned section association, and because client is not affiliated with the schoold of responsibility).`, () => {\r",
+													"  pm.expect(responsibilityStudentThroughUnownedStudentSectionAssociation).to.be.undefined;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/sectionEnrollments/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"sectionEnrollments",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Section enrollments using LEA client",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"function formatGuid(compactGuid) {\r",
+													"  return `${compactGuid.substring(0, 8)}-${compactGuid.substring(8, 12)}-${compactGuid.substring(12, 16)}-${compactGuid.substring(16, 20)}-${compactGuid.substring(20, 32)}`;\r",
+													"}\r",
+													"\r",
+													"const students = pm.response.json().students;\r",
+													"\r",
+													"// NOTE: The semantics used in the environment variables for \"owned\" and \"unowned\" are centered around the School client.\r",
+													"// For the LEA client, which is the caller on this request, the semantics don't match (they're actually opposite), however,\r",
+													"// this is corrected in the variable names.\r",
+													"\r",
+													"// -----------------------------\r",
+													"// Registered Student Checks\r",
+													"// -----------------------------\r",
+													"// Due to bug (ODS-5484), ids must be formatted with hyphens to locate the student\r",
+													"const studentThroughLeaOwnedStudentSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:registered:unowned:id'));\r",
+													"\r",
+													"const studentThroughLeaOwnedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughLeaOwnedStudentSectionAssociationId });\r",
+													"\r",
+													"const studentThroughLeaUnownedSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:registered:owned:id'));\r",
+													"\r",
+													"const studentThroughLeaUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': studentThroughLeaUnownedSectionAssociationId });\r",
+													"\r",
+													"pm.test(`Should include the registered student (through LEA-unowned section association, but only until ownership-based security is supported).`, () => {\r",
+													"  pm.expect(studentThroughLeaUnownedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"});\r",
+													"\r",
+													"pm.test(`Should include the registered student (through LEA-owned section association, ).`, () => {\r",
+													"  // Ownership-based authorization --> pm.expect(unownedStudentSectionAssociation).to.be.undefined;\r",
+													"  pm.expect(studentThroughLeaOwnedStudentSectionAssociation.studentUniqueId).to.equal('AAAAAA');\r",
+													"});\r",
+													"\r",
+													"// -----------------------------\r",
+													"// Responsibility Student Checks\r",
+													"// -----------------------------\r",
+													"\r",
+													"// Due to bug (ODS-5484), ids must be formatted with hyphens to locate the student\r",
+													"const responsibilityStudentThroughLeaOwnedStudentSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:responsibility:unowned:id'));\r",
+													"\r",
+													"const responsibilityStudentThroughLeaOwnedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': responsibilityStudentThroughLeaOwnedStudentSectionAssociationId });\r",
+													"\r",
+													"const responsibilityStudentThroughLeaUnownedSectionAssociationId = formatGuid(pm.environment.get('known:studentSectionAssociation:responsibility:owned:id'));\r",
+													"\r",
+													"const responsibilityStudentThroughLeaUnownedStudentSectionAssociation = _.find(students, { 'studentSectionAssociation_id': responsibilityStudentThroughLeaUnownedSectionAssociationId });\r",
+													"\r",
+													"pm.test(`Should include the responsibility student (through LEA-unowned section association, but only until ownership-based security is implemented).`, () => {\r",
+													"  // After ownership-based security support --> pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation).to.be.undefined;\r",
+													"  pm.expect(responsibilityStudentThroughLeaUnownedStudentSectionAssociation.studentUniqueId).to.equal('BBBBBB');\r",
+													"});\r",
+													"\r",
+													"pm.test(`Should include the responsibility student (through the LEA-owned section association, because the student is associated through responsibility association).`, () => {\r",
+													"  pm.expect(responsibilityStudentThroughLeaOwnedStudentSectionAssociation.studentUniqueId).to.equal('BBBBBB');\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/sectionEnrollments/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"sectionEnrollments",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Non-owner with relationship",
 							"item": [
 								{
@@ -2065,7 +2297,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -2074,7 +2306,7 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+												"{{known:studentSectionAssociation:registered:unowned:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -2206,7 +2438,7 @@
 											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -2215,7 +2447,7 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+												"{{known:studentSectionAssociation:registered:unowned:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -2277,7 +2509,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -2286,7 +2518,7 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+												"{{known:studentSectionAssociation:registered:unowned:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"

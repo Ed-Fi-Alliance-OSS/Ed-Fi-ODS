@@ -923,8 +923,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         "The query filter expression was invalid. Currently, only numeric and date range expressions are supported.");
                 }
 
-                string targetPropertyName = rangeQueryMatch.Groups["PropertyName"]
-                                                           .Value;
+                string targetPropertyName = rangeQueryMatch.Groups["PropertyName"].Value;
 
                 ResourceProperty targetProperty;
 
@@ -941,15 +940,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     rangeBeginParameterName,
                     ConvertParameterValueForProperty(
                         targetProperty,
-                        rangeQueryMatch.Groups["BeginValue"]
-                                       .Value));
+                        rangeQueryMatch.Groups["BeginValue"].Value));
 
                 builderContext.CurrentQueryFilterParameterValueByName.Add(
                     rangeEndParameterName,
                     ConvertParameterValueForProperty(
                         targetProperty,
-                        rangeQueryMatch.Groups["EndValue"]
-                                       .Value));
+                        rangeQueryMatch.Groups["EndValue"].Value));
 
                 // Add the query criteria to the HQL query
                 builderContext.SpecificationWhere.AppendFormat(
@@ -957,11 +954,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     AndIfNeeded(builderContext.SpecificationWhere),
                     builderContext.CurrentAlias,
                     targetProperty.PropertyName,
-                    RangeOperatorBySymbol[rangeQueryMatch.Groups["BeginRangeSymbol"]
-                                                         .Value],
+                    RangeOperatorBySymbol[rangeQueryMatch.Groups["BeginRangeSymbol"].Value],
                     rangeBeginParameterName,
-                    RangeOperatorBySymbol[rangeQueryMatch.Groups["EndRangeSymbol"]
-                                                         .Value],
+                    RangeOperatorBySymbol[rangeQueryMatch.Groups["EndRangeSymbol"].Value],
                     rangeEndParameterName);
 
                 n++;
@@ -975,6 +970,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 string parameterName = kvp.Key;
                 object value = kvp.Value;
 
+                // NOTE: Initially the following guard condition was added to prevent the presence of the
+                // CreatedByOwnershipTokenId parameter from breaking composite requests.
+                
+                // Don't process parameter values that aren't present in the query
+                if (!query.NamedParameters.Contains(parameterName))
+                {
+                    continue;
+                }
+                
                 if (parameterName.EndsWith("_Id"))
                 {
                     // Parameter is a GUID resource Id
