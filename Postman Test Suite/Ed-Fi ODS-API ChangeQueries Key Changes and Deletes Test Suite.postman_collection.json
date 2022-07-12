@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a688ff85-5f5d-47ff-bebb-960c705acccc",
+		"_postman_id": "d4479013-78bc-4947-92fd-212ef1578302",
 		"name": "Ed-Fi ODS/API ChangeQueries Key Changes and Deletes Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1713280"
@@ -6215,9 +6215,7 @@
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
 											"\r",
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':gradebookEntryTitle', newGuid());\r",
-											"pm.environment.set('supplied:'+scenarioId+':GradebookEntryIdentifier', newGuid());\r",
+											"pm.environment.set('supplied:gradebookEntryIdentifier', newGuid());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -6245,7 +6243,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:{{scenarioId}}:GradebookEntryIdentifier}}\",\r\n    \"title\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\"\r\n}",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"Test GradeBookEntry Title1\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:gradebookEntryIdentifier}}\",\r\n    \"title\": \"Test GradeBookEntry Title1\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6277,9 +6275,7 @@
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
 											"\r",
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':gradebookEntryTitle2', newGuid());\r",
-											"pm.environment.set('supplied:'+scenarioId+':GradebookEntryIdentifier2', newGuid());\r",
+											"pm.environment.set('supplied:gradebookEntryIdentifier2', newGuid());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -6305,7 +6301,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ART-01\",\r\n        \"schoolId\": 255901107,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590110705Trad504ART0112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-08-04\",\r\n    \"gradebookEntryTitle\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle2}}\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:{{scenarioId}}:GradebookEntryIdentifier2}}\",\r\n    \"title\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle2}}\"\r\n}",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ART-01\",\r\n        \"schoolId\": 255901107,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590110705Trad504ART0112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-08-04\",\r\n    \"gradebookEntryTitle\": \"Test GradeBookEntry Title2\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:gradebookEntryIdentifier2}}\",\r\n    \"title\": \"Test GradeBookEntry Title2\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6364,12 +6360,12 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Old key values are correctly reported\", () => {\r",
-											"    pm.expect(item.oldKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:'+scenarioId+':GradebookEntryIdentifier'));\r",
+											"    pm.expect(item.oldKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier'));\r",
 											"    pm.expect(item.oldKeyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
 											"});\r",
 											"\r",
 											"pm.test(\"New key values are correctly reported\", () => {\r",
-											"    pm.expect(item.newKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:'+scenarioId+':GradebookEntryIdentifier2'));\r",
+											"    pm.expect(item.newKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier2'));\r",
 											"    pm.expect(item.oldKeyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
 											"});\r",
 											""
@@ -11499,6 +11495,46 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Clean Up Test Data",
+			"item": [
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const __ = require('lodash');\r",
+									"\r",
+									"const keys = __.keys(pm.environment.toObject());\r",
+									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+									"\r",
+									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+									"\r",
+									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+									"\r",
+									"const remainingKeys = __.keys(pm.environment.toObject());\r",
+									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
