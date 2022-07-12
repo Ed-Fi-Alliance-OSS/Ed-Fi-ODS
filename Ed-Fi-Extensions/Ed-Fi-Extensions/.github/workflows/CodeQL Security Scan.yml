@@ -1,0 +1,129 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: CodeQL Security Scan Pull request 
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+env:
+  CONFIGURATION: "Release"
+  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  is_pull_request_branch: False
+
+jobs:
+  analyze:
+    name: Analyze Code
+    runs-on: windows-latest
+    
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
+        with:
+          dotnet-version: 6.0.x
+      - name: Checkout code
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
+        with:
+          languages: 'csharp'
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+            path: Ed-Fi-ODS-Implementation/
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            if ($is_pull_request_branch -eq $true) {
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+            path: Ed-Fi-ODS/
+      - name: Is pull request branch exists in Ed-Fi-ODS
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            if ($is_pull_request_branch -eq $true) {
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+            path: Ed-Fi-Extensions/
+      - name: Is pull request branch exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            if ($is_pull_request_branch -eq $true) {
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
+      - name: restore
+        shell: pwsh
+        working-directory: ./Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Homograph/
+        run: |
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.Sample/
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.SampleStudentTranscript/
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.SampleStudentTransportation/
+             dotnet restore
+             cd ../EdFi.Ods.Extensions.TPDM/
+             dotnet restore
+             cd ../EdFi.Ods.Profiles.Sample/
+             dotnet restore
+        
+      - name: CodeGen    
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+            $ErrorActionPreference = 'Stop'
+            $PSVersionTable
+            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+            Invoke-CodeGen -Engine SQLServer  -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/
+      - name: build
+        shell: pwsh
+        working-directory: ./Ed-Fi-Extensions/
+        run: |
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Homograph/EdFi.Ods.Extensions.Homograph.csproj"
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.Sample/EdFi.Ods.Extensions.Sample.csproj"             
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleStudentTranscript/EdFi.Ods.Extensions.SampleStudentTranscript.csproj"
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.SampleStudentTransportation/EdFi.Ods.Extensions.SampleStudentTransportation.csproj"
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj"                                       
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2

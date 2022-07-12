@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Dependency Review Pull request
+
+on:
+  pull_request:
+    branches: [main]
+env:
+  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+
+jobs:
+  scan-actions:
+    name: Scan Actions
+    uses: ed-fi-alliance-oss/ed-fi-actions/.github/workflows/repository-scanner.yml@latest
+
+  analyze-code:
+    name: Analyze Code Dependencies
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+            path: Ed-Fi-Extensions/
+      - name: Is pull request branch exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-Extensions/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            if ($is_pull_request_branch -eq $true) {
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
+      - name: Dependency Review ("Dependabot on PR")
+        uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
