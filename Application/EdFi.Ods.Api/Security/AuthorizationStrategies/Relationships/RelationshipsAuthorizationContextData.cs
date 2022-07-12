@@ -28,6 +28,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             public const string StaffUSI = "StaffUSI";
             public const string StudentUSI = "StudentUSI";
             public const string ParentUSI = "ParentUSI";
+            public const string ResponsibilitySchoolId = "ResponsibilitySchoolId";
         }
 
         // Education Organizations
@@ -40,6 +41,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public int? LocalEducationAgencyId { get; set; }
 
         public int? SchoolId { get; set; }
+
+        public int? ResponsibilitySchoolId { get; set; }
 
         public int? EducationOrganizationNetworkId { get; set; }
 
@@ -101,7 +104,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     yield return (authorizationContextPropertyName, SchoolId);
 
                     break;
+                case PropertyNames.ResponsibilitySchoolId:
+                    yield return (authorizationContextPropertyName, ResponsibilitySchoolId);
 
+                    break;
                 case PropertyNames.EducationOrganizationNetworkId:
                     yield return (authorizationContextPropertyName, EducationOrganizationNetworkId);
 
