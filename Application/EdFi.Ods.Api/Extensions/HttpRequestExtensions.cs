@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
@@ -15,22 +15,22 @@ namespace EdFi.Ods.Api.Extensions
 {
     public static class HttpRequestExtensions
     {
-        public static string RootUrl(this HttpRequest request, bool useProxyHeaders = false)
+        public static string RootUrl(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             var uriBuilder = new UriBuilder(
-                request.Scheme(useProxyHeaders),
-                request.Host(useProxyHeaders),
-                request.Port(useProxyHeaders),
+                request.Scheme(reverseProxySettings),
+                request.Host(reverseProxySettings),
+                request.Port(reverseProxySettings),
                 request.PathBase);
 
             return uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
         }
 
-        public static string Scheme(this HttpRequest request, bool useProxyHeaders = false)
+        public static string Scheme(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             string scheme = request.Scheme;
 
-            if (!useProxyHeaders)
+            if (!reverseProxySettings.UseReverseProxyHeaders)
             {
                 return scheme;
             }
@@ -43,45 +43,73 @@ namespace EdFi.Ods.Api.Extensions
                 scheme = proxyHeaderValue;
             }
 
-            return scheme;
+            // The x-forwarded-proto header can contain a single originating protocol or, in some 
+            // cases, multiple protocols. See ODS-5481 for more information. We care about the
+            // _first_ protocol listed.
+            if (scheme == null) { return "http"; }
+
+            return scheme.Split(',')[0];
         }
 
-        public static string Host(this HttpRequest request, bool useProxyHeaders = false)
+        public static string Host(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
-            string host = request.Host.Host;
-
-            if (!useProxyHeaders)
+            // Use actual request host when not configured for use behind a reverse proxy
+            if (!reverseProxySettings.UseReverseProxyHeaders)
             {
-                return host;
+                return request.Host.Host;
             }
 
-            request.TryGetRequestHeader(HeaderConstants.XForwardedHost, out string proxyHeaderValue);
-
-            // Pass through for any value provided, null means header wasn't found so default to request
-            if (proxyHeaderValue != null)
+            // Use override value if available
+            if (!string.IsNullOrWhiteSpace(reverseProxySettings.OverrideForForwardingHostServer))
             {
-                host = proxyHeaderValue;
+                return reverseProxySettings.OverrideForForwardingHostServer;
             }
 
-            return host;
+            // Try to extract a X-Forwarded-Host value
+            if (request.TryGetRequestHeader(HeaderConstants.XForwardedHost, out string proxyHeaderValue) &&
+             !string.IsNullOrWhiteSpace(proxyHeaderValue))
+            {
+                // Return the forwarding host
+                return proxyHeaderValue;
+            }
+
+            return request.Host.Host;
         }
 
-        public static int Port(this HttpRequest request, bool useProxyHeaders = false)
+        public static int Port(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
-            var defaultPortForScheme = Scheme(request, useProxyHeaders) == "https"
-                ? 443
-                : 80;
-
-            if (!useProxyHeaders)
+            // User actual request host when not configured for use behind a reverse proxy
+            if (!reverseProxySettings.UseReverseProxyHeaders)
             {
-                return request.Host.Port ?? defaultPortForScheme;
+                return request.Host.Port ?? getDefaultPort();
             }
 
-            request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue);
+            // Use override value if available
+            if (reverseProxySettings.OverrideForForwardingHostPort.HasValue)
+            {
+                return reverseProxySettings.OverrideForForwardingHostPort.Value;
+            }
 
-            return !int.TryParse(proxyHeaderValue, out int port)
-                ? request.Host.Port ?? defaultPortForScheme
-                : port;
+            // Try to extract a X-Forwarded-Port value
+            if (request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue) &&
+                int.TryParse(proxyHeaderValue, out int port))
+            {
+                // Return the forwarding port
+                return port;
+            }
+
+            // Try to send the requested port
+            if (request.Host.Port.HasValue)
+            {
+                return request.Host.Port.Value;
+            }
+
+            return getDefaultPort();             
+
+            int getDefaultPort()
+            {
+                return Scheme(request, reverseProxySettings) == "https" ? 443 : 80;
+            }
         }
 
         public static string VirtualPath(this HttpRequest request)

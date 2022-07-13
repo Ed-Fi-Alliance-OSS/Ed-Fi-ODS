@@ -113,9 +113,8 @@ namespace EdFi.Ods.Features.XsdMetadata
             bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
                                   || isInstanceYearSpecific;
 
-            bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
-
-            string basicPath = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+            string basicPath = Request.RootUrl(_apiSettings.GetReverseProxySettings()) 
+                                + "/metadata/" +
                                (isInstanceYearSpecific
                                    ? $"{_instanceIdContextProvider.GetInstanceId()}/"
                                    : string.Empty) +
