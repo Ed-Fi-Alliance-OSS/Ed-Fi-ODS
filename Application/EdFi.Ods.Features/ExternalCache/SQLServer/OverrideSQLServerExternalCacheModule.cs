@@ -12,23 +12,23 @@ namespace EdFi.Ods.Features.ExternalCache.SQLServer
 {
     public class OverrideSQLServerExternalCacheModule : ExternalCacheModule
     {
-        public override ExternalCacheProviders ExternalCacheProvider => ExternalCacheProviders.SqlServer;
+        public override string ExternalCacheProvider => "SqlServer";
 
         public OverrideSQLServerExternalCacheModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(OverrideSQLServerExternalCacheModule)) { }
 
         public override void RegisterDistributedCache(ContainerBuilder builder)
         {
-            if (!IsProviderSelected(ApiSettings.ExternalCache.CacheProvider))
+            if (!IsProviderSelected(ApiSettings.Caching.ExternalCaching.ExternalCacheProvider))
             {
                 return;
             }
 
             builder.Register<IDistributedCache>((c, d) => new SqlServerCache(new SqlServerCacheOptions()
             {
-                ConnectionString = ApiSettings.ExternalCache.Configuration,
-                SchemaName = ApiSettings.ExternalCache.SchemaName,
-                TableName = ApiSettings.ExternalCache.TableName
+                ConnectionString = ApiSettings.Caching.ExternalCaching.SQLServer.ConnectionString,
+                SchemaName = ApiSettings.Caching.ExternalCaching.SQLServer.SchemaName,
+                TableName = ApiSettings.Caching.ExternalCaching.SQLServer.TableName
             }
             ))
             .SingleInstance();

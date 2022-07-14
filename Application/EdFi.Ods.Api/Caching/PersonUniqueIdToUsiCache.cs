@@ -232,7 +232,7 @@ namespace EdFi.Ods.Api.Caching
                         newValueMaps.InitializationTask = InitializePersonTypeValueMaps(newValueMaps, personType, context);
 
                         //Initial Insert is for while async initialization is running.
-                        _cacheProvider.Insert(cacheKey, newValueMaps, DateTime.MaxValue, TimeSpan.FromMinutes(5));
+                        _cacheProvider.Insert(cacheKey, newValueMaps, GetAbsoluteExpiration(), _slidingExpiration);
 
                         _cacheProvider.TryGetCachedObject(cacheKey, out personCacheAsObject);
                     }

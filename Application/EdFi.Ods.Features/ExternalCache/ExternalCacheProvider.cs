@@ -20,7 +20,8 @@ namespace EdFi.Ods.Features.ExternalCache
         private const string IntPrefix = "(int)";
 
         private readonly IDistributedCache _distributedCache;
-        private readonly TimeSpan _defaultExpiration;
+        private readonly TimeSpan _absoluteExpiration;
+        private readonly TimeSpan _slidingExpiration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
 
         private static readonly JsonSerializerSettings _defaultSerializerSettings =
@@ -32,10 +33,11 @@ namespace EdFi.Ods.Features.ExternalCache
         private static readonly JsonSerializerSettings _customContractSerializerSettings =
             new JsonSerializerSettings { ContractResolver = new CustomContractResolver(), ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
-        public ExternalCacheProvider(IDistributedCache distributedCache, TimeSpan defaultExpiration)
+        public ExternalCacheProvider(IDistributedCache distributedCache, TimeSpan slidingExpiration, TimeSpan absoluteExpiration)
         {
             _distributedCache = distributedCache;
-            _defaultExpiration = defaultExpiration;
+            _slidingExpiration = slidingExpiration;
+            _absoluteExpiration = absoluteExpiration;
         }
         bool ICacheProvider.TryGetCachedObject(string key, out object value)
         {
@@ -55,7 +57,8 @@ namespace EdFi.Ods.Features.ExternalCache
         {
             _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
             {
-                SlidingExpiration = _defaultExpiration
+                AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
+                SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
             });
         }
 
@@ -65,7 +68,8 @@ namespace EdFi.Ods.Features.ExternalCache
 
             _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
             {
-                SlidingExpiration = expiry
+                AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
+                SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null
             });
         }
 

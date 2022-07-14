@@ -66,8 +66,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 builder.RegisterType<AvailableChangeVersionProvider>()
                    .As<IAvailableChangeVersionProvider>()
                    .SingleInstance();
-
-                builder.RegisterDecorator<CachingAvailableChangeVersionProviderDecorator, IAvailableChangeVersionProvider>();
             }
 
             void AddSupportForSnapshots()

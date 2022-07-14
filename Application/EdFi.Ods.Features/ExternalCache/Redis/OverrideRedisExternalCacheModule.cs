@@ -13,26 +13,26 @@ namespace EdFi.Ods.Features.Redis
 {
     public class OverrideRedisExternalCacheModule : ExternalCacheModule
     {
-        public override ExternalCacheProviders ExternalCacheProvider => ExternalCacheProviders.Redis;
+        public override string ExternalCacheProvider => "Redis";
 
         public OverrideRedisExternalCacheModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(OverrideRedisExternalCacheModule)) { }
 
         public override void RegisterDistributedCache(ContainerBuilder builder)
         {
-            if (!IsProviderSelected(ApiSettings.ExternalCache.CacheProvider))
+            if (!IsProviderSelected(ApiSettings.Caching.ExternalCaching.ExternalCacheProvider))
             {
                 return;
             }
 
             var configurationOptions = new StackExchange.Redis.ConfigurationOptions();
             
-            foreach(var hostAndPort in ApiSettings.ExternalCache.Configuration.Split(","))
+            foreach(var hostAndPort in ApiSettings.Caching.ExternalCaching.Redis.Configuration.Split(","))
             {
                 configurationOptions.EndPoints.Add(hostAndPort.Trim());
             }
             
-            configurationOptions.Password = ApiSettings.ExternalCache.Password;
+            configurationOptions.Password = ApiSettings.Caching.ExternalCaching.Redis.Password;
 
             builder.Register<IDistributedCache>((c, d) => new RedisCache(new RedisCacheOptions()
             {

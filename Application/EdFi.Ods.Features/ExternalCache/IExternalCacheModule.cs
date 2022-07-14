@@ -12,10 +12,9 @@ namespace EdFi.Ods.Features.ExternalCache
     {
         void RegisterProvider(ContainerBuilder builder);
         void RegisterDistributedCache(ContainerBuilder builder);
-        ExternalCacheProviders ExternalCacheProvider { get; }
-        bool IsProviderSelected(ExternalCacheProviders externalCacheProvider);
+        string ExternalCacheProvider { get; }
+        bool IsProviderSelected(string externalCacheProvider);
         void OverrideApiClientDetailsCache(ContainerBuilder builder);
-        void OverrideAvailableChangeVersionCache(ContainerBuilder builder);
         void OverrideDescriptorsCache(ContainerBuilder builder);
         void OverridePersonUniqueIdtoUsiCache(ContainerBuilder builder);
     }
