@@ -78,6 +78,10 @@ namespace EdFi.SmokeTest.Console
                                 .OrderBy(d => d.Order)
                         },
                         {
+                            typeof(GetAllTest), dependencies => dependencies
+                                .Where(d => d.Operations.Contains(EdFiConstants.CreateOperation))
+                        },
+                        {
                             typeof(DeleteTest), dependencies => dependencies
                                 .Where(d => d.Operations.Contains(EdFiConstants.CreateOperation))
                                 .OrderByDescending(d => d.Order)
