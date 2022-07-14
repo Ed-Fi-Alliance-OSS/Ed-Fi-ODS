@@ -14,17 +14,17 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
     public class DestructiveMethodsGenerator : ITestGenerator
     {
-        private readonly IModelDependencySort _modelDependencySort;
+        private readonly ISdkCategorizer _categorizer;
         private readonly ITestFactory<IResourceApi, ITest> _testFactories;
         private readonly IDependenciesRetriever _dependenciesRetriever;
         private readonly IDependenciesSorter _dependenciesSorter;
 
-        public DestructiveMethodsGenerator(IModelDependencySort modelDependencySort,
+        public DestructiveMethodsGenerator(ISdkCategorizer categorizer,
                                            ITestFactory<IResourceApi, ITest> testFactories,
                                            IDependenciesRetriever dependenciesRetriever,
                                            IDependenciesSorter dependenciesSorter)
         {
-            _modelDependencySort = modelDependencySort;
+            _categorizer = categorizer;
             _testFactories = testFactories;
             _dependenciesRetriever = dependenciesRetriever;
             _dependenciesSorter = dependenciesSorter;
@@ -37,7 +37,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var dependencies = _dependenciesRetriever.GetDependencyOrderAsync().GetResultSafely()
                 .ToList();
 
-            var sdkResourcesByName = _modelDependencySort.OrderedApis()
+            var sdkResourcesByName = _categorizer.ResourceApis
                 .ToDictionary(a => a.ModelType.Name, StringComparer.OrdinalIgnoreCase);
 
             return _testFactories
@@ -57,7 +57,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                                     }
 
                                     Log.Info(
-                                        $"Couldn't find an SDK with name '{DependencyResourceNameToSdkResourceName(dependencyAndSdkResource.dependency)}'. The endpoint's tests will be skipped.");
+                                        $"Skipped - Couldn't find an SDK with name '{DependencyResourceNameToSdkResourceName(dependencyAndSdkResource.dependency)}'.");
                                     return null;
                                 }))
                 .Where(test => test is not null);
