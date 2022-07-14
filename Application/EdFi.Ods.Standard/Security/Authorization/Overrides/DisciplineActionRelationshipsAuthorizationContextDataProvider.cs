@@ -30,7 +30,7 @@ namespace EdFi.Ods.Standard.Security.Authorization.Overrides
 
             var contextData = new TContextData();
             // AssignmentSchoolId = entity.AssignmentSchoolId, // Role name applied and not part of primary key
-            contextData.ResponsibilitySchoolId = entity.ResponsibilitySchoolId; // Role name applied and not part of primary key
+            contextData.SchoolId = entity.ResponsibilitySchoolId; // Role name applied and not part of primary key
             contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
             return contextData;
         }
