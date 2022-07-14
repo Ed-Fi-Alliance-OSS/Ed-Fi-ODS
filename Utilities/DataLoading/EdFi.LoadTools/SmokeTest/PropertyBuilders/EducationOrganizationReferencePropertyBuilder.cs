@@ -29,12 +29,12 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         {
             var propertyType = propertyInfo.PropertyType;
 
-            if (propertyType.Name != "EducationOrganizationReference")
+            if (!propertyType.Name.EndsWith("EducationOrganizationReference"))
             {
                 return false;
             }
 
-            var source = _resultsDictionary["School"]
+            var source = _resultsDictionary["EdFiSchool"]
                 .FirstOrDefault();
 
             if (source == null)

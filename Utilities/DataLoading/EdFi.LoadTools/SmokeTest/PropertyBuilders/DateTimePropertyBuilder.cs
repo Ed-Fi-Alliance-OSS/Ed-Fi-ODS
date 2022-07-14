@@ -31,7 +31,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             if (IsRequired(propertyInfo))
             {
                 var randomDate = IsPastDate(propertyInfo)
-                    ? DateTime.Today.AddYears(-Random.Next(5, 99))
+                    ? DateTime.Today.AddDays(-Random.Next(5 * 365, 99 * 365))
                     : DateTime.Today.AddDays(Random.Next(100));
 
                 propertyInfo.SetValue(obj, randomDate);
