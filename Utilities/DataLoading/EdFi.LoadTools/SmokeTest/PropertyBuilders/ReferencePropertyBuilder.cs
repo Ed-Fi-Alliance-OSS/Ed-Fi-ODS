@@ -46,7 +46,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 return true;
             }
 
-            Log.Warn($"No {referencedTypeName} resources available to create a {propertyType.Name}. The reference might be recursive.");
+            Log.Warn($"No {referencedTypeName} resources available to create a {propertyType.Name}. This warning can be ignored if the reference points to itself.");
             return true;
         }
     }
