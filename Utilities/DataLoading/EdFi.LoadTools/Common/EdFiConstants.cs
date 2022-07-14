@@ -21,5 +21,6 @@ namespace EdFi.LoadTools.Common
         public static readonly Uri DefaultNamespaceUri = new Uri("uri://ed-fi.org/");
         public const string EdFiNamespace = "ed-fi";
         public const string CreateOperation = "Create";
+        public const string UpdateOperation = "Update";
     }
 }

@@ -28,6 +28,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             _createdDictionary = createdDictionary;
         }
 
+        // POST tests don't rely on existing data
+        protected override bool NoDataAvailableForTheResource => false;
+
         protected override object[] GetParams(MethodInfo methodInfo)
         {
             var model = BuildNewModel(ResourceApi.ModelType);
@@ -98,42 +101,22 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             return ResourceApi.PostMethod;
         }
 
-        protected override bool CheckResult(dynamic result)
+        protected override bool CheckResult(dynamic result, object[] requestParameters)
         {
-            var location = result.Headers["Location"];
-            var code = result.StatusCode;
-            var resource = GetResourceFromLocation(location, code);
-
-            if (ResultsDictionary.ContainsKey(ResourceApi.ModelType.Name))
+            if (result.StatusCode != HttpStatusCode.Created)
             {
-                ResultsDictionary[ResourceApi.ModelType.Name].Add(resource);
+                Log.Error("Unable to create the resource since a resource with the same key already exists. If the underlying ODS already has data, this might be a randomly-generated key collision.");
+                return false;
             }
 
-            return true;
-        }
-
-        private object GetResourceFromLocation(List<string> location, HttpStatusCode statusCode)
-        {
+            var location = result.Headers["Location"];
             var resourceUri = new Uri(location[0]);
 
-            // NOTE - Depending on the state of the test DB, the payload of the POST request may represent a resource that already exists even though a create is expected.
-            // This existing resource could have dependencies that a newly created resource would not have
-            // In order to prevent attempting to delete resources that have dependencies, we are only adding the results from a POST
-            // that actually result in a new resource being created and no longer adding existing resources to the _createdDictionary
-            // This results in skipping DELETE requests that would fail but it also has the side effect of skipping PUT and DELETE requests
-            // that would succeed.  At this time the following PUT and DELETE requests are skipped:
-            //  Put & Delete[EdFiStudentParentAssociation]
-            //  Put & Delete[EdFiStudentEducationOrganizationAssociation]
-            //  Put & Delete[EdFiEducationOrganizationInterventionPrescriptionAssociation]
-            //  Put & Delete[EdFiStudentGradebookEntry]
-            //  Put & Delete[EdFiSurveyQuestionResponse]
-            //  Put[EdFiSurveySectionResponse]
-            if (statusCode == HttpStatusCode.Created)
-            {
-                _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
-            }
+            // Add the POSTed resource to the ResultsDictionary so that it can be referenced by subsequent POSTs
+            ResultsDictionary.Add(ResourceApi.ModelType.Name, new List<object> { requestParameters.Single() });
+            _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
 
-            return GetResourceFromUri(resourceUri);
+            return true;
         }
     }
 }
