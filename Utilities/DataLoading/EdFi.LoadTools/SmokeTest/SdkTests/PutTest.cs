@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using EdFi.LoadTools.Engine;
 
@@ -44,5 +45,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         {
             return ResourceApi.PutMethod;
         }
+
+        protected override bool CheckResult(dynamic result, object[] requestParameters)
+            => result.StatusCode == HttpStatusCode.NoContent;
     }
 }
