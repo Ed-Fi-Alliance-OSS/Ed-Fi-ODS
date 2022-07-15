@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.LoadTools.ApiClient;
-using log4net;
+using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
@@ -29,9 +29,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             _dependenciesRetriever = dependenciesRetriever;
             _dependenciesSorter = dependenciesSorter;
         }
-
-        protected ILog Log => LogManager.GetLogger(GetType().Name);
-
+        
         public IEnumerable<ITest> GenerateTests()
         {
             var dependencies = _dependenciesRetriever.GetDependencyOrderAsync().GetResultSafely()
@@ -45,22 +43,22 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                     testFactory =>
                         _dependenciesSorter.GetValueOrDefault(testFactory(default).GetType(), d => d)(dependencies)
                             .Select(
-                                d => (dependency: d,
-                                    sdkResource: sdkResourcesByName.GetValueOrDefault(
-                                        DependencyResourceNameToSdkResourceName(d), null)))
-                            .Select(
-                                dependencyAndSdkResource =>
+                                dependency =>
                                 {
-                                    if (dependencyAndSdkResource.sdkResource is not null)
+                                    var expectedSdkResourceName = DependencyResourceNameToSdkResourceName(dependency);
+                                    var sdkResource = sdkResourcesByName.GetValueOrDefault(expectedSdkResourceName);
+
+                                    if (sdkResource is null)
                                     {
-                                        return testFactory(dependencyAndSdkResource.sdkResource);
+                                        // There is no exact name match, fallback to an approximate match
+                                        sdkResource = sdkResourcesByName
+                                            .MaxBy(kv => kv.Key.ToUpper().PercentMatchTo(expectedSdkResourceName.ToUpper()))
+                                            .Value;
                                     }
 
-                                    Log.Info(
-                                        $"Skipped - Couldn't find an SDK with name '{DependencyResourceNameToSdkResourceName(dependencyAndSdkResource.dependency)}'.");
-                                    return null;
-                                }))
-                .Where(test => test is not null);
+                                    return sdkResource;
+                                })
+                            .Select(testFactory));
         }
 
         private static string DependencyResourceNameToSdkResourceName(Dependency dependency) =>
