@@ -21,9 +21,7 @@ namespace EdFi.Ods.Api.Security.Conventions
         /// <returns>The proper-case representation of the resource's schema.</returns>
         public static string ParseResourceSchemaProperCaseName(this Type resourceType)
         {
-            string @namespace = resourceType.Namespace;
-
-            return ParseResourceSchemaProperCaseName(@namespace);
+            return ParseResourceSchemaProperCaseName(resourceType.Namespace);
         }
 
         /// <summary>

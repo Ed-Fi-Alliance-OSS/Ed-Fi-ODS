@@ -177,10 +177,6 @@ namespace EdFi.Ods.Api.Controllers
                 MapAll(request, internalRequest);
             }
 
-            //TODO: Add support for If-None-Match; current implementation cannot verify value without going to the db
-            // Read the incoming ETag header, if present
-            Request.TryGetRequestHeader(HeaderConstants.IfNoneMatch, out string etagValue);
-
             var queryParameters = new QueryParameters(urlQueryParametersRequest);
 
             // Execute the pipeline (synchronously)
