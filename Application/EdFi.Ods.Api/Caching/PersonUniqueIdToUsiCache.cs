@@ -3,19 +3,19 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Common.Extensions;
+using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Providers;
+using EdFi.Ods.Common.Specifications;
+using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Api.IdentityValueMappers;
-using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Specifications;
-using log4net;
 
 namespace EdFi.Ods.Api.Caching
 {
@@ -129,7 +129,7 @@ namespace EdFi.Ods.Api.Caching
 
                 return valueMapForParent.UniqueId;
             }
-            
+
             string context = GetUsiKeyTokenContext();
 
             string uniqueId;
@@ -232,7 +232,7 @@ namespace EdFi.Ods.Api.Caching
                         newValueMaps.InitializationTask = InitializePersonTypeValueMaps(newValueMaps, personType, context);
 
                         //Initial Insert is for while async initialization is running.
-                        _cacheProvider.Insert(cacheKey, newValueMaps, DateTime.MaxValue, TimeSpan.FromMinutes(5));
+                        _cacheProvider.Insert(cacheKey, newValueMaps, GetAbsoluteExpiration(), _slidingExpiration);
 
                         _cacheProvider.TryGetCachedObject(cacheKey, out personCacheAsObject);
                     }
@@ -380,7 +380,7 @@ namespace EdFi.Ods.Api.Caching
 
                 return valueMapForParent.Usi;
             }
-            
+
             string context = GetUsiKeyTokenContext();
 
             int usi;
@@ -430,15 +430,17 @@ namespace EdFi.Ods.Api.Caching
 
         private string GetUsiKeyTokenContext()
         {
-            return string.Format((string) "from_{0}", (object) _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
+            return string.Format((string)"from_{0}", (object)_edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
         }
 
         private class IdentityValueMaps
         {
             private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
 
+            [JsonProperty]
             private ConcurrentDictionary<int, string> _uniqueIdByUsi;
 
+            [JsonProperty]
             private ConcurrentDictionary<string, int> _usiByUniqueId;
 
             public ConcurrentDictionary<int, string> UniqueIdByUsi
@@ -481,6 +483,7 @@ namespace EdFi.Ods.Api.Caching
                 }
             }
 
+            [JsonIgnore]
             public Task InitializationTask { get; set; }
 
             public void SetMaps(

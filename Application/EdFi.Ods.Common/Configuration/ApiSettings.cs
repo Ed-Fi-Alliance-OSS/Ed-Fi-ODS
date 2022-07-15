@@ -61,6 +61,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public string PathBase { get; set; }
 
+        public CacheSettings Caching { get; set; } = new CacheSettings();
+
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 
         public ApiMode GetApiMode() => _apiMode.Value;
