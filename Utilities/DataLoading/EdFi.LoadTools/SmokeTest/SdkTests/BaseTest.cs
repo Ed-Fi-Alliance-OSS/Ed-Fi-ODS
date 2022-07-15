@@ -61,7 +61,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                     Log.Info("Skipped - No data available for the resource.");
                     return Task.FromResult(true);
                 }
-                
+
                 var @params = GetParams(methodInfo);
 
                 if (@params == null)

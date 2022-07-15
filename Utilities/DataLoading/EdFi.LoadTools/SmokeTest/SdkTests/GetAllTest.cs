@@ -16,7 +16,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                           ISdkConfigurationFactory sdkConfigurationFactory)
             : base(resourceApi, resultsDictionary, sdkConfigurationFactory) { }
 
-protected override bool NoDataAvailableForTheResource => false;
+        protected override bool NoDataAvailableForTheResource => false;
 
         protected override MethodInfo GetMethodInfo()
         {
