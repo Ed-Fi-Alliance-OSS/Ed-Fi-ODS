@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Autofac;
 using EdFi.LoadTools.ApiClient;
+using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.ApiTests;
@@ -40,6 +42,9 @@ namespace EdFi.SmokeTest.Console
             builder.RegisterType<ModelDependencySort>()
                 .As<IModelDependencySort>();
 
+            builder.RegisterType<DependenciesRetriever>()
+                .As<IDependenciesRetriever>();
+
             builder.Register(
                     c =>
                     {
@@ -51,19 +56,47 @@ namespace EdFi.SmokeTest.Console
 
                         return new TestFactory<IResourceApi, ITest>
                         {
-                            t => new GetAllTest(t, results, factory),
                             t => new PostTest(t, results, propertyBuilder, created, factory),
                             t => new PutTest(t, results, created, factory),
+                            t => new GetAllTest(t, results, factory),
                             t => new DeleteTest(t, results, created, factory)
                         };
                     })
                 .As<ITestFactory<IResourceApi, ITest>>();
+
+            builder.RegisterInstance(
+                    new DependenciesSorter()
+                    {
+                        {
+                            typeof(PostTest), dependencies => dependencies
+                                .Where(d => d.Operations.Contains(EdFiConstants.CreateOperation))
+                                .OrderBy(d => d.Order)
+                        },
+                        {
+                            typeof(PutTest), dependencies => dependencies
+                                .Where(d => d.Operations.Contains(EdFiConstants.UpdateOperation))
+                                .OrderBy(d => d.Order)
+                        },
+                        {
+                            typeof(GetAllTest), dependencies => dependencies
+                                .Where(d => d.Operations.Contains(EdFiConstants.CreateOperation))
+                        },
+                        {
+                            typeof(DeleteTest), dependencies => dependencies
+                                .Where(d => d.Operations.Contains(EdFiConstants.CreateOperation))
+                                .OrderByDescending(d => d.Order)
+                        }
+                    })
+                .As<IDependenciesSorter>()
+                .SingleInstance();
 
             var propertyBuilders =
                 new[]
                 {
                     // note these are in order of precedence
                     typeof(IgnorePropertyBuilder),
+                    typeof(ParentLocalEducationAgencyReferenceBuilder),
+                    typeof(UnifiedKeyPropertyBuilder),
                     typeof(SimplePropertyBuilder),
                     typeof(NamespacePropertyBuilder),
                     typeof(ListPropertyBuilder),

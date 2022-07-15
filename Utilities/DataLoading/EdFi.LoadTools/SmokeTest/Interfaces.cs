@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using EdFi.LoadTools.ApiClient;
 using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.SmokeTest
@@ -60,6 +61,9 @@ namespace EdFi.LoadTools.SmokeTest
 
     public interface ITestFactory<TKey, TValue> : IList<Func<TKey, TValue>>
         where TValue : ITest { }
+
+    public interface IDependenciesSorter : IReadOnlyDictionary<Type, Func<IEnumerable<Dependency>, IEnumerable<Dependency>>>
+    { }
 
     public interface IPropertyBuilder
     {

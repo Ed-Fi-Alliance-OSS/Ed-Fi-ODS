@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
@@ -16,7 +15,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     /// </summary>
     public class IgnorePropertyBuilder : BaseBuilder
     {
-        private static readonly List<string> IgnoredPropertyNames = new List<string>
+        private static readonly List<string> _ignoredPropertyNames = new List<string>
         {
             "id",
             "_etag",
@@ -28,9 +27,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            return IgnoredPropertyNames.Contains(propertyInfo.Name, StringComparer.OrdinalIgnoreCase)
-                   // Ignore properties that are marked as optional in the model
-                   || (!propertyInfo.GetCustomAttribute<DataMemberAttribute>()?.IsRequired ?? false);
+            return _ignoredPropertyNames.Contains(propertyInfo.Name, StringComparer.OrdinalIgnoreCase);
         }
     }
 }

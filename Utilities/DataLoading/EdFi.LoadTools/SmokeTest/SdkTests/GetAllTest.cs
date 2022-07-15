@@ -28,7 +28,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             return Enumerable.Repeat<object>(null, methodInfo.GetParameters().Length).ToArray();
         }
 
-        protected override bool CheckResult(dynamic result)
+        protected override bool CheckResult(dynamic result, object[] requestParameters)
         {
             ResultsDictionary[ResourceApi.ModelType.Name] = new List<object>(result.Data);
             return true;
