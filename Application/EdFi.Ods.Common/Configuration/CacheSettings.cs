@@ -7,44 +7,33 @@ namespace EdFi.Ods.Common.Configuration
 {
     public class CacheSettings
     {
-        public CacheConfiguration Configuration { get; set; } = new CacheConfiguration();
-        public ExternalCacheSettings ExternalCaching { get; set; } = new ExternalCacheSettings();
+        public string ExternalCacheProvider { get; set; }
+        public RedisCacheSettings Redis { get; set; }
+        public SqlServerCacheSettings SQLServer { get; set; }
+        public DescriptorsCacheConfiguration Descriptors { get; set; } = new DescriptorsCacheConfiguration();
+        public PersonUniqueIdToUsiCacheConfiguration PersonUniqueIdToUsi { get; set; } = new PersonUniqueIdToUsiCacheConfiguration();
+        public SecurityCacheConfiguration Security { get; set; } = new SecurityCacheConfiguration();
 
-        public class CacheConfiguration
+        public class DescriptorsCacheConfiguration
         {
-            public DescriptorsCacheConfiguration Descriptors { get; set; } = new DescriptorsCacheConfiguration();
-            public PersonUniqueIdToUsiCacheConfiguration PersonUniqueIdToUsi { get; set; } = new PersonUniqueIdToUsiCacheConfiguration();
-            public SecurityCacheConfiguration Security { get; set; } = new SecurityCacheConfiguration();
-
-            public class DescriptorsCacheConfiguration
-            {
-                public int AbsoluteExpirationSeconds { get; set; }
-            }
-
-            public class PersonUniqueIdToUsiCacheConfiguration
-            {
-                public int AbsoluteExpirationSeconds { get; set; }
-                public int SlidingExpirationSeconds { get; set; }
-                public bool SuppressStudentCache { get; set; }
-                public bool SuppressStaffCache { get; set; }
-                public bool SuppressParentCache { get; set; }
-            }
-
-            public class SecurityCacheConfiguration
-            {
-                public int AbsoluteExpirationMinutes { get; set; }
-            }
+            public bool UseExternalCache { get; set; }
+            public int AbsoluteExpirationSeconds { get; set; }
         }
 
-        public class ExternalCacheSettings
+        public class PersonUniqueIdToUsiCacheConfiguration
         {
-            public bool EnableExternalCache { get; set; }
-            public string ExternalCacheProvider { get; set; }
-            public bool UseExternalCacheForApiClientDetailsCache { get; set; }
-            public bool UseExternalCacheForDescriptorsCache { get; set; }
-            public bool UseExternalCachePersonUniqueIdToUsiCache { get; set; }
-            public RedisCacheSettings Redis { get; set; }
-            public SqlServerCacheSettings SQLServer { get; set; }
+            public bool UseExternalCache { get; set; }
+            public int AbsoluteExpirationSeconds { get; set; }
+            public int SlidingExpirationSeconds { get; set; }
+            public bool SuppressStudentCache { get; set; }
+            public bool SuppressStaffCache { get; set; }
+            public bool SuppressParentCache { get; set; }
+        }
+
+        public class SecurityCacheConfiguration
+        {
+            public bool UseExternalCache { get; set; }
+            public int AbsoluteExpirationMinutes { get; set; }
         }
 
         public class RedisCacheSettings
@@ -59,5 +48,5 @@ namespace EdFi.Ods.Common.Configuration
             public string SchemaName { get; set; }
             public string TableName { get; set; }
         }
-    }    
+    }
 }
