@@ -12,6 +12,8 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     /// </summary>
     public class SimplePropertyBuilder : BaseBuilder
     {
+        private int _counter = 50; // Start from 50 to not collide with existing EdOrgIds if running over the populated template
+
         public SimplePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup)
             : base(metadataLookup) { }
 
@@ -23,21 +25,11 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
                 return true;
             }
 
-            if (IsTypeMatch<int>(propertyInfo) || IsTypeMatch<long>(propertyInfo))
+            if (IsTypeMatch<int>(propertyInfo) || IsTypeMatch<long>(propertyInfo) || IsTypeMatch<double>(propertyInfo))
             {
                 if (IsRequired(propertyInfo))
                 {
-                    propertyInfo.SetValue(obj, Random.Next(1, 100));
-                }
-
-                return true;
-            }
-
-            if (IsTypeMatch<double>(propertyInfo))
-            {
-                if (IsRequired(propertyInfo))
-                {
-                    propertyInfo.SetValue(obj, Random.NextDouble() * 10.0);
+                    propertyInfo.SetValue(obj, _counter++);
                 }
 
                 return true;

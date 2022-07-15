@@ -3,28 +3,65 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
+using EdFi.LoadTools.ApiClient;
+using EdFi.LoadTools.Engine;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
     public class DestructiveMethodsGenerator : ITestGenerator
     {
-        private readonly IModelDependencySort _modelDependencySort;
-        private readonly ITestFactory<IResourceApi, ITest> _testFactory;
+        private readonly ISdkCategorizer _categorizer;
+        private readonly ITestFactory<IResourceApi, ITest> _testFactories;
+        private readonly IDependenciesRetriever _dependenciesRetriever;
+        private readonly IDependenciesSorter _dependenciesSorter;
 
-        public DestructiveMethodsGenerator(IModelDependencySort modelDependencySort,
-                                           ITestFactory<IResourceApi, ITest> testFactory)
+        public DestructiveMethodsGenerator(ISdkCategorizer categorizer,
+                                           ITestFactory<IResourceApi, ITest> testFactories,
+                                           IDependenciesRetriever dependenciesRetriever,
+                                           IDependenciesSorter dependenciesSorter)
         {
-            _modelDependencySort = modelDependencySort;
-            _testFactory = testFactory;
+            _categorizer = categorizer;
+            _testFactories = testFactories;
+            _dependenciesRetriever = dependenciesRetriever;
+            _dependenciesSorter = dependenciesSorter;
         }
-
+        
         public IEnumerable<ITest> GenerateTests()
         {
-            return from resourceApi in _modelDependencySort.OrderedApis()
-                   from testFactoryFunc in _testFactory
-                   select testFactoryFunc(resourceApi);
+            var dependencies = _dependenciesRetriever.GetDependencyOrderAsync().GetResultSafely()
+                .ToList();
+
+            var sdkResourcesByName = _categorizer.ResourceApis
+                .ToDictionary(a => a.ModelType.Name, StringComparer.OrdinalIgnoreCase);
+
+            return _testFactories
+                .SelectMany(
+                    testFactory =>
+                        _dependenciesSorter.GetValueOrDefault(testFactory(default).GetType(), d => d)(dependencies)
+                            .Select(
+                                dependency =>
+                                {
+                                    var expectedSdkResourceName = DependencyResourceNameToSdkResourceName(dependency);
+                                    var sdkResource = sdkResourcesByName.GetValueOrDefault(expectedSdkResourceName);
+
+                                    if (sdkResource is null)
+                                    {
+                                        // There is no exact name match, fallback to an approximate match
+                                        sdkResource = sdkResourcesByName
+                                            .MaxBy(kv => kv.Key.ToUpper().PercentMatchTo(expectedSdkResourceName.ToUpper()))
+                                            .Value;
+                                    }
+
+                                    return sdkResource;
+                                })
+                            .Select(testFactory));
         }
+
+        private static string DependencyResourceNameToSdkResourceName(Dependency dependency) =>
+            dependency.Namespace.Replace("-", string.Empty) + dependency.Resource;
     }
 }

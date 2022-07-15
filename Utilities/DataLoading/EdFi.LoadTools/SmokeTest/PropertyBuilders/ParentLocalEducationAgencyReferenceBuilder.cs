@@ -3,44 +3,39 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
+using EdFi.LoadTools.Common;
+using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Mapping;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
-    /// <summary>
-    ///     Special case for Education Organizations.
-    /// </summary>
-    public class EducationOrganizationReferencePropertyBuilder : BaseBuilder
+    public class ParentLocalEducationAgencyReferenceBuilder : BaseBuilder
     {
-        private readonly Dictionary<string, List<object>> _resultsDictionary;
+        private readonly IDestructiveTestConfiguration _configuration;
 
-        public EducationOrganizationReferencePropertyBuilder(
-            Dictionary<string, List<object>> resultsDictionary,
-            IPropertyInfoMetadataLookup metadataLookup)
+        public ParentLocalEducationAgencyReferenceBuilder(
+            IPropertyInfoMetadataLookup metadataLookup,
+            IDestructiveTestConfiguration configuration)
             : base(metadataLookup)
         {
-            _resultsDictionary = resultsDictionary;
+            _configuration = configuration;
         }
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            var propertyType = propertyInfo.PropertyType;
-
-            if (!propertyType.Name.EndsWith("EducationOrganizationReference"))
+            if (propertyInfo.Name != "ParentLocalEducationAgencyReference")
             {
                 return false;
             }
 
-            var source = _resultsDictionary["EdFiSchool"]
-                .FirstOrDefault();
+            // While creating an LEA, link it to an existing LEA to inherit its authorization privileges
+            var propertyType = propertyInfo.PropertyType;
 
-            if (source == null)
+            var source = new
             {
-                return true;
-            }
+                LocalEducationAgencyId = _configuration.ParentEdOrgId ?? EdFiConstants.TestEdOrgId
+            };
 
             var config = new MapperConfiguration(cfg => cfg.CreateMap(source.GetType(), propertyType));
             config.AssertConfigurationIsValid();
