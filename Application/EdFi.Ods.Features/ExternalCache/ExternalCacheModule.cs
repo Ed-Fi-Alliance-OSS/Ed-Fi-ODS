@@ -23,7 +23,7 @@ namespace EdFi.Ods.Features.ExternalCache
         public ExternalCacheModule(ApiSettings apiSettings, string moduleName)
            : base(apiSettings, moduleName) { }
 
-        public override bool IsSelected() => ApiSettings.Caching.Security.UseExternalCache ||
+        public override bool IsSelected() => ApiSettings.Caching.ApiClientDetails.UseExternalCache ||
             ApiSettings.Caching.Descriptors.UseExternalCache ||
             ApiSettings.Caching.PersonUniqueIdToUsi.UseExternalCache;
 
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Features.ExternalCache
             
             RegisterProvider(builder);
 
-            if (ApiSettings.Caching.Security.UseExternalCache)
+            if (ApiSettings.Caching.ApiClientDetails.UseExternalCache)
             {
                 OverrideApiClientDetailsCache(builder);
             }

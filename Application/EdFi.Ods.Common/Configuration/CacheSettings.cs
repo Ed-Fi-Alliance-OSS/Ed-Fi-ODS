@@ -12,6 +12,7 @@ namespace EdFi.Ods.Common.Configuration
         public SqlServerCacheSettings SQLServer { get; set; }
         public DescriptorsCacheConfiguration Descriptors { get; set; } = new DescriptorsCacheConfiguration();
         public PersonUniqueIdToUsiCacheConfiguration PersonUniqueIdToUsi { get; set; } = new PersonUniqueIdToUsiCacheConfiguration();
+        public ApiClientDetailsConfiguration ApiClientDetails { get; set; } = new ApiClientDetailsConfiguration();
         public SecurityCacheConfiguration Security { get; set; } = new SecurityCacheConfiguration();
 
         public class DescriptorsCacheConfiguration
@@ -30,9 +31,13 @@ namespace EdFi.Ods.Common.Configuration
             public bool SuppressParentCache { get; set; }
         }
 
-        public class SecurityCacheConfiguration
+        public class ApiClientDetailsConfiguration
         {
             public bool UseExternalCache { get; set; }
+        }
+
+        public class SecurityCacheConfiguration
+        {
             public int AbsoluteExpirationMinutes { get; set; }
         }
 
