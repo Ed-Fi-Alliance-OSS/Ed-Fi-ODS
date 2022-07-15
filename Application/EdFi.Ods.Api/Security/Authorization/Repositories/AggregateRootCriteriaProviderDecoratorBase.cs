@@ -165,21 +165,21 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 bool filtersApplied = false;
                 
-                foreach (var filterDetails in filters)
+                foreach (var filterContext in filters)
                 {
                     _authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
-                        filterDetails.FilterName,
+                        filterContext.FilterName,
                         out var filterApplicationDetails);
 
                     var applicator = filterApplicationDetails.CriteriaApplicator;
                     
                     var parameterValues = new Dictionary<string, object>
                     {
-                        { filterDetails.ClaimParameterName, filterDetails.ClaimParameterValues }
+                        { filterContext.ClaimParameterName, filterContext.ClaimParameterValues }
                     };
 
                     // Apply the authorization strategy filter
-                    applicator(criteria, conjunction, parameterValues, joinType);
+                    applicator(criteria, conjunction, filterContext.SubjectEndpointName, parameterValues, joinType);
 
                     filtersApplied = true;
                 }

@@ -43,17 +43,15 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         public AuthorizationFilterDefinition(
             string filterName,
             string friendlyHqlConditionFormat,
-            Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
+            Action<ICriteria, Junction, string, IDictionary<string, object>, JoinType> criteriaApplicator,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator, 
-            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
-            Func<Type, PropertyInfo[], bool> shouldApply)
+            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance)
         {
             FilterName = filterName;
             HqlConditionFormatString = ProcessFormatStringForAliases(friendlyHqlConditionFormat);
             CriteriaApplicator = criteriaApplicator;
             TrackedChangesCriteriaApplicator = trackedChangesCriteriaApplicator;
             AuthorizeInstance = authorizeInstance;
-            ShouldApply = shouldApply;
         }
 
         public string FilterName { get; set; }
@@ -66,7 +64,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <summary>
         /// Gets the function for applying the filter using NHibernate's <see cref="NHibernate.ICriteria"/> API.
         /// </summary>
-        public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; protected set; }
+        public Action<ICriteria, Junction, string, IDictionary<string, object>, JoinType> CriteriaApplicator { get; protected set; }
 
         /// <summary>
         /// Gets the function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.
@@ -79,14 +77,9 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
 
         public Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> AuthorizeInstance { get; }
 
-        /// <summary>
-        /// Gets the predicate function for determining whether the filter should be applied to a particular entity.
-        /// </summary>
-        public Func<Type, PropertyInfo[], bool> ShouldApply { get; protected set; }
-
-        // NOTE: The ShouldApply property is a legacy artifact related to the NHibernate filter configuration, but with it
-        // now disengaged, we may need to review behavior of authorization system if there's a misconfiguration (i.e. a relationship
-        // based authorization without the necessary properties available on the subject resource/entity).
+        // NOTE: The ShouldApply property was a legacy artifact related to the NHibernate filter configuration, but with it
+        // now removed, we may want to review the behavior of the authorization system when there's a misconfiguration 
+        // (e.g. a relationship based authorization is applied but the resource does not have any relevant properties).
         
         protected static string ProcessFormatStringForAliases(string format)
         {
