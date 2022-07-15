@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -16,7 +15,6 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
@@ -25,6 +23,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 
 public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizationFilterDefinitionsFactory
 {
+    private readonly IDatabaseNamingConvention _databaseNamingConvention;
     private readonly AuthorizationContextDataFactory _authorizationContextDataFactory = new();
 
     private const string FilterPropertyName = "Namespace";
@@ -34,9 +33,11 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
     public NamespaceBasedAuthorizationFilterDefinitionsFactory(IDatabaseNamingConvention databaseNamingConvention)
     {
+        _databaseNamingConvention = databaseNamingConvention;
+
         _oldNamespaceQueryColumnExpression = $"{TrackedChangesAlias}.{databaseNamingConvention.ColumnName($"OldNamespace")}";
     }
-        
+
     /// <summary>
     /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them.
     /// </summary>
@@ -45,9 +46,9 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     {
         var filters = new List<AuthorizationFilterDefinition>
         {
-            new (
+            new(
                 "Namespace",
-                @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
+                @"({currentAlias}.{subjectEndpointName} IS NOT NULL AND {currentAlias}.{subjectEndpointName} LIKE :Namespace)",
                 ApplyAuthorizationCriteria,
                 ApplyTrackedChangesAuthorizationCriteria,
                 AuthorizeInstance)
@@ -78,44 +79,64 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
         foreach (var namespacePrefix in namespacePrefixes)
         {
-            namespacesDisjunction.Add(Restrictions.Like("Namespace", namespacePrefix));
+            namespacesDisjunction.Add(Restrictions.Like(subjectEndpointName, namespacePrefix));
         }
 
         // Add the final namespaces criteria to the supplied WHERE clause (junction)
-        @where.Add(new AndExpression(Restrictions.IsNotNull("Namespace"), namespacesDisjunction));
+        @where.Add(new AndExpression(Restrictions.IsNotNull(subjectEndpointName), namespacesDisjunction));
     }
-        
+
+    private string GetMappedContextDataPropertyName(string candidatePropertyName)
+    {
+        // Convention matches any column that ends with a Namespace (current implementation does not support this on an entity with multiple "Namespace" columns!)
+        if (candidatePropertyName.EndsWith("Namespace"))
+        {
+            // This is mapped to the Namespace authorization context data property
+            return "Namespace";
+        }
+
+        // This property was ignored for Namespace-based authorization
+        return null;
+    }
+    
     private InstanceAuthorizationResult AuthorizeInstance(
         EdFiAuthorizationContext authorizationContext,
         AuthorizationFilterContext authorizationFilterContext)
     {
-        var contextData =
-            _authorizationContextDataFactory.CreateContextData<NamespaceBasedAuthorizationContextData>(
-                authorizationContext.Data);
-
-        if (contextData == null)
+        try
         {
-            return InstanceAuthorizationResult.Failed(
-                new NotSupportedException(
-                    "No 'Namespace' property could be found on the resource in order to perform authorization. Should a different authorization strategy be used?"));
+            var contextData =
+                _authorizationContextDataFactory.CreateContextData<NamespaceBasedAuthorizationContextData>(
+                    authorizationContext.Data, getContextDataPropertyName: GetMappedContextDataPropertyName);
+
+            if (contextData == null)
+            {
+                return InstanceAuthorizationResult.Failed(
+                    new NotSupportedException(
+                        "No 'Namespace' (or Namespace-suffixed) property could be found on the resource in order to perform authorization. Should a different authorization strategy be used?"));
+            }
+
+            if (string.IsNullOrWhiteSpace(contextData.Namespace))
+            {
+                return InstanceAuthorizationResult.Failed(
+                    new EdFiSecurityException(
+                        "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
+            }
+
+            var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);
+
+            if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
+            {
+                string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
+
+                return InstanceAuthorizationResult.Failed(
+                    new EdFiSecurityException(
+                        $"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
+            }
         }
-
-        if (string.IsNullOrWhiteSpace(contextData.Namespace))
+        catch (EdFiSecurityException ex)
         {
-            return InstanceAuthorizationResult.Failed(
-                new EdFiSecurityException(
-                    "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
-        }
-
-        var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);
-
-        if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
-        {
-            string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
-
-            return InstanceAuthorizationResult.Failed(
-                new EdFiSecurityException(
-                    $"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
+            return InstanceAuthorizationResult.Failed(ex);
         }
 
         return InstanceAuthorizationResult.Success();
@@ -131,14 +152,33 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     {
         if (filterContext.ClaimParameterValues.Length == 1)
         {
-            queryBuilder.WhereLike(_oldNamespaceQueryColumnExpression, filterContext.ClaimParameterValues.Single());
+            if (filterContext.SubjectEndpointName == "Namespace")
+            {
+                queryBuilder.WhereLike($"{_oldNamespaceQueryColumnExpression}", filterContext.ClaimParameterValues.Single());
+            }
+            else
+            {
+                queryBuilder.WhereLike(
+                    $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName(filterContext.SubjectEndpointName)}",
+                    filterContext.ClaimParameterValues.Single());
+            }
         }
         else if (filterContext.ClaimParameterValues.Length > 1)
         {
             queryBuilder.Where(
                 q =>
                 {
-                    filterContext.ClaimParameterValues.ForEach(ns => q.OrWhereLike(_oldNamespaceQueryColumnExpression, ns));
+                    if (filterContext.SubjectEndpointName == "Namespace")
+                    {
+                        filterContext.ClaimParameterValues.ForEach(ns => q.OrWhereLike(_oldNamespaceQueryColumnExpression, ns));
+                    }
+                    else
+                    {
+                        filterContext.ClaimParameterValues.ForEach(
+                            ns => q.OrWhereLike(
+                                $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName(filterContext.SubjectEndpointName)}",
+                                ns));
+                    }
 
                     return q;
                 });

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 {
@@ -19,10 +20,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
     /// <remarks>This class is threadsafe and uses shared static state to persist the dynamically created factory methods.</remarks>
     public class AuthorizationContextDataFactory
     {
-        private static readonly ConcurrentDictionary<string, ExtractDelegate> FactoryMethodByMethodName =
-            new ConcurrentDictionary<string, ExtractDelegate>();
+        private static readonly ConcurrentDictionary<string, ExtractDelegate> _factoryMethodByMethodName = new();
 
-        public TContextData CreateContextData<TContextData>(object entity, PropertyMapping[] propertyNameMap = null)
+        public TContextData CreateContextData<TContextData>(
+            object entity,
+            PropertyMapping[] propertyNameMap = null,
+            Func<string, string> getContextDataPropertyName = null)
             where TContextData : class, new()
         {
             // Can't map anything if source is null
@@ -36,9 +39,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 
             string methodName = sourceType.FullName.Replace('.', '_') + "_to_" + contextDataType.FullName.Replace('.', '_');
 
-            var factoryDelegate = FactoryMethodByMethodName.GetOrAdd(
+            var factoryDelegate = _factoryMethodByMethodName.GetOrAdd(
                 methodName,
-                mn => CreateDynamicExtractorMethod(mn, sourceType, contextDataType, propertyNameMap));
+                mn => CreateDynamicExtractorMethod(mn, sourceType, contextDataType, propertyNameMap, getContextDataPropertyName));
 
             // If no properties were present to be mapped, return a null context
             if (factoryDelegate == null)
@@ -52,27 +55,68 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
             return contextData;
         }
 
+        /// <summary>
+        /// Creates a method dynamically for extracting the authorization context data for the supplied <see cref="sourceType" /> and <see cref="targetType" />. 
+        /// </summary>
+        /// <param name="methodName">The name of the method to be created dynamically.</param>
+        /// <param name="sourceType">The <see cref="Type" /> of the source object.</param>
+        /// <param name="targetType">The <see cref="Type" /> of the target (authorization context data) object.</param>
+        /// <param name="propertyNameMappings">Explicit property name mappings.</param>
+        /// <param name="getContextDataPropertyName">A function that given a source property, returns the target property name to which is should be assigned.</param>
+        /// <returns>The dynamically created method/delegate.</returns>
+        /// <exception cref="EdFiSecurityException">Occurs when the supplied mapping function creates multiple mappings to the same target property.</exception>
         private static ExtractDelegate CreateDynamicExtractorMethod(
             string methodName,
             Type sourceType,
             Type targetType,
-            PropertyMapping[] propertyNameMappings = null)
+            PropertyMapping[] propertyNameMappings = null,
+            Func<string, string> getContextDataPropertyName = null)
         {
-            var sourceProperties = sourceType.GetProperties()
-                                             .ToDictionary(x => x.Name, x => x);
+            var sourceProperties = sourceType.GetProperties().ToDictionary(x => x.Name, x => x);
 
-            var targetProperties = targetType.GetProperties()
-                                             .ToDictionary(x => x.Name, x => x);
+            var targetProperties = targetType.GetProperties().ToDictionary(x => x.Name, x => x);
 
-            // If not supplied, autogenerate the mappings based on matching property names
+            // If explicit propertyNameMappings are not supplied...
             if (propertyNameMappings == null)
             {
-                propertyNameMappings =
-                    (from s in sourceProperties
-                     from t in targetProperties
-                     where s.Key == t.Key
-                     select new PropertyMapping(s.Key, t.Key))
-                   .ToArray();
+                // If property name mapping delegate is not supplied...
+                if (getContextDataPropertyName == null)
+                {
+                    // ... autogenerate the mappings based on matching property names
+                    propertyNameMappings =
+                        (from s in sourceProperties
+                            from t in targetProperties
+                            where s.Key == t.Key
+                            select new PropertyMapping(s.Key, t.Key))
+                        .ToArray();
+                }
+                else
+                {
+                    // Build the property mappings using the supplied lambda, eliminating any properties that aren't given a mapping
+                    var groupedPropertyMappings = sourceProperties
+                        .Select(kvp => new PropertyMapping(kvp.Key, getContextDataPropertyName(kvp.Key)))
+                        .Where(pm => pm.TargetPropertyName != null)
+                        .GroupBy(pm => pm.TargetPropertyName)
+                        .ToArray();
+
+                    // Look for any attempts to map multiple source properties to the same target property and throw an exception
+                    var multipleMappingsToTargetProperty = groupedPropertyMappings.Where(g => g.Count() > 1).ToArray();
+                    
+                    if (multipleMappingsToTargetProperty.Any())
+                    {
+                        throw new EdFiSecurityException(
+                            $"More than one source property was mapped to the same target property '{multipleMappingsToTargetProperty.First().Key}'.");
+                    }
+
+                    propertyNameMappings = groupedPropertyMappings.SelectMany(x => x).ToArray();
+                    
+                    ValidatePropertyMappings(
+                        propertyNameMappings,
+                        sourceType,
+                        sourceProperties,
+                        targetType,
+                        targetProperties);
+                }
             }
             else
             {
