@@ -117,6 +117,13 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
                 friendlyAliasKey = getFriendlyAliasKey(++newAliasNumber);
             }
 
+            // Add support for subject endpoint names parameter
+            if (format.Contains("{subjectEndpointName}"))
+            {
+                format = format.Replace("{subjectEndpointName}", $"{{{parameterValues.Count}}}");
+                parameterValues.Add("{1}");
+            }
+            
             string defaultCondition = string.Format(format, parameterValues.ToArray());
 
             return defaultCondition;
