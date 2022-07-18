@@ -114,6 +114,27 @@
         </BaseResource>
       </Composite>
 
+      <Composite name="DisciplinedStudent">
+        <BaseResource name="Student">
+          <Property name="StudentUniqueId" />
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <LinkedCollection name="DisciplineActions">
+            <Property name="DisciplineActionIdentifier" />
+            <Property name="DisciplineDate" />
+            <Property name="DisciplineActionLength" />
+            <ReferencedResource name="ResponsibilitySchoolReference">
+              <Property name="SchoolId" />
+              <Property name="NameOfInstitution" />
+            </ReferencedResource>
+            <ReferencedResource name="AssignmentSchoolReference">
+              <Property name="SchoolId" />
+              <Property name="NameOfInstitution" />
+            </ReferencedResource>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+      
       <Composite name="StudentProperty">
         <BaseResource name="Student">
           <Property name="StudentUniqueId" />

@@ -433,7 +433,7 @@ namespace EdFi.Ods.Features.Composites
                     if (!string.IsNullOrWhiteSpace(filterHqlFormat))
                     {
                         // Set the current alias for the contextual fields
-                        string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias);
+                        string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias, filterContext.SubjectEndpointName);
 
                         // Add HQL to the current resource query's WHERE clause
                         conjunction.Append($"{AndIfNeeded(conjunction)}({filterHql})");

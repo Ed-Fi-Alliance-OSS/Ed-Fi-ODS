@@ -25,7 +25,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName, 
-                $@"{{currentAlias}}.{{TODO:subjectEndpointName}} IN (
+                $@"{{currentAlias}}.{{subjectEndpointName}} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM " + GetFullNameForView($"auth_{viewName}") + $@" {{newAlias1}} 
                     WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
