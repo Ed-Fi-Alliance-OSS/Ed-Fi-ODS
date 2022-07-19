@@ -11,17 +11,17 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='account' AND column_name='changeversion') THEN
-ALTER TABLE edfi.Account
+ALTER TABLE edfi.account
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='accountcode' AND column_name='changeversion') THEN
-ALTER TABLE edfi.Accountcode
+ALTER TABLE edfi.accountcode
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='accountabilityrating' AND column_name='changeversion') THEN
-ALTER TABLE edfi.Accountabilityrating
+ALTER TABLE edfi.accountabilityrating
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 END IF;
 
