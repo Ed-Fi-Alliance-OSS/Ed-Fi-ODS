@@ -26,7 +26,7 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='actual' AND column_name='changeversion') THEN
-ALTER TABLE edfi.Actual
+ALTER TABLE edfi.actual
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 END IF;
 
