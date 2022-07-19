@@ -70,8 +70,8 @@ ALTER TABLE edfi.classperiod
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='classperiod' AND column_name='changeversion') THEN
-ALTER TABLE edfi.classperiod
+IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='cohort' AND column_name='changeversion') THEN
+ALTER TABLE edfi.cohort
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 END IF;
 
