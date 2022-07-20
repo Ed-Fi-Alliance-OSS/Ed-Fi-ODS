@@ -4119,11 +4119,10 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"const __ = require('lodash');\r",
-											"\r",
-											"const keys = __.keys(pm.environment.toObject());\r",
-											"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
-											"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();\r",
 											""
 										],
 										"type": "text/javascript"
@@ -5044,11 +5043,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentSchoolAssociations"
 											],
@@ -5099,11 +5100,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentSchoolAssociations?schoolId=255901044&limit=1",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901044&limit=1",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentSchoolAssociations"
 											],
@@ -5161,11 +5164,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentSchoolAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentSchoolAssociations"
 											]
@@ -5213,11 +5218,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentSchoolAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentSchoolAssociations"
 											]
@@ -5265,11 +5272,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineIncidents",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineIncidents",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineIncidents"
 											]
@@ -5317,11 +5326,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentDisciplineIncidentAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentAssociations",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentDisciplineIncidentAssociations"
 											]
@@ -5369,11 +5380,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineIncidents",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineIncidents",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineIncidents"
 											]
@@ -5421,11 +5434,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentDisciplineIncidentAssociations",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentAssociations",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentDisciplineIncidentAssociations"
 											]
@@ -5473,11 +5488,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineActions"
 											]
@@ -5525,11 +5542,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineActions"
 											]
@@ -5589,11 +5608,13 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions?disciplineActionLength=987.65",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
 															"host": [
-																"{{ApiDataUrl}}"
+																"{{ApiBaseUrl}}"
 															],
 															"path": [
+																"data",
+																"v3",
 																"ed-fi",
 																"disciplineActions"
 															],
@@ -5789,11 +5810,13 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions?disciplineActionLength=987.65",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
 															"host": [
-																"{{ApiDataUrl}}"
+																"{{ApiBaseUrl}}"
 															],
 															"path": [
+																"data",
+																"v3",
 																"ed-fi",
 																"disciplineActions"
 															],
@@ -5995,11 +6018,13 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions?disciplineActionLength=987.65",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
 															"host": [
-																"{{ApiDataUrl}}"
+																"{{ApiBaseUrl}}"
 															],
 															"path": [
+																"data",
+																"v3",
 																"ed-fi",
 																"disciplineActions"
 															],
@@ -6206,11 +6231,13 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
 													"host": [
-														"{{ApiDataUrl}}"
+														"{{ApiBaseUrl}}"
 													],
 													"path": [
+														"data",
+														"v3",
 														"ed-fi",
 														"disciplineActions"
 													],
@@ -6270,11 +6297,13 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
 													"host": [
-														"{{ApiDataUrl}}"
+														"{{ApiBaseUrl}}"
 													],
 													"path": [
+														"data",
+														"v3",
 														"ed-fi",
 														"disciplineActions"
 													],
@@ -6333,11 +6362,13 @@
 													}
 												},
 												"url": {
-													"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
 													"host": [
-														"{{ApiDataUrl}}"
+														"{{ApiBaseUrl}}"
 													],
 													"path": [
+														"data",
+														"v3",
 														"ed-fi",
 														"disciplineActions"
 													],
@@ -6389,11 +6420,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions/{{known:disciplineAction:044:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/{{known:disciplineAction:044:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineActions",
 												"{{known:disciplineAction:044:id}}"
@@ -6432,11 +6465,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineActions/{{known:disciplineAction:001:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/{{known:disciplineAction:001:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineActions",
 												"{{known:disciplineAction:001:id}}"
@@ -6475,11 +6510,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentDisciplineIncidentAssociations/{{known:sdia:044:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentAssociations/{{known:sdia:044:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentDisciplineIncidentAssociations",
 												"{{known:sdia:044:id}}"
@@ -6518,11 +6555,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineIncidents/{{known:disciplineIncidents:044:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineIncidents/{{known:disciplineIncidents:044:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineIncidents",
 												"{{known:disciplineIncidents:044:id}}"
@@ -6561,11 +6600,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentDisciplineIncidentAssociations/{{known:sdia:001:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentDisciplineIncidentAssociations/{{known:sdia:001:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentDisciplineIncidentAssociations",
 												"{{known:sdia:001:id}}"
@@ -6604,11 +6645,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/disciplineIncidents/{{known:disciplineIncidents:001:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineIncidents/{{known:disciplineIncidents:001:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"disciplineIncidents",
 												"{{known:disciplineIncidents:001:id}}"
@@ -6656,11 +6699,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:044:001:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:044:001:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentSchoolAssociations",
 												"{{known:studentSchoolAssociation:044:001:id}}"
@@ -6699,11 +6744,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiDataUrl}}/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:001:044:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:001:044:id}}",
 											"host": [
-												"{{ApiDataUrl}}"
+												"{{ApiBaseUrl}}"
 											],
 											"path": [
+												"data",
+												"v3",
 												"ed-fi",
 												"studentSchoolAssociations",
 												"{{known:studentSchoolAssociation:001:044:id}}"
@@ -6719,11 +6766,10 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"const __ = require('lodash');\r",
-													"\r",
-													"const keys = __.keys(pm.environment.toObject());\r",
-													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
-													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
 													""
 												],
 												"type": "text/javascript"
