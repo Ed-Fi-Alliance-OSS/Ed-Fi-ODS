@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.0.3" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.0.5" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.14" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="Autofac.Extras.FakeItEasy" Version="7.0.0" />
@@ -27,7 +27,7 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFrameworkTesting.FakeItEasy" Version="1.3.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference  Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
