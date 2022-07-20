@@ -6397,8 +6397,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
 													"});\r",
 													""
 												],
@@ -6577,8 +6577,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
 													"});\r",
 													""
 												],
@@ -6622,8 +6622,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(200); \r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
 													"});\r",
 													""
 												],
@@ -6667,8 +6667,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(200); \r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
 													"});\r",
 													""
 												],
@@ -6721,8 +6721,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(200); \r",
+													"pm.test(\"Response is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
 													"});\r",
 													""
 												],
