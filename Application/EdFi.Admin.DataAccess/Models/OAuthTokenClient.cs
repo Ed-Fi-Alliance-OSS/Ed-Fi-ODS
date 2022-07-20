@@ -28,5 +28,7 @@ namespace EdFi.Admin.DataAccess.Models
         public short? OwnershipTokenId { get; set; }
         
         public DateTime Expiration { get; set; }
+
+        public int ApiClientId { get; set; }
     }
 }
