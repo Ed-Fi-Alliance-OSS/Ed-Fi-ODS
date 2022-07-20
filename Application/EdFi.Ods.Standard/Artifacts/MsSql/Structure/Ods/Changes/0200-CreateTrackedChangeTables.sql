@@ -382,6 +382,7 @@ CREATE TABLE [tracked_changes_edfi].[DisciplineAction]
        NewStudentUSI [INT] NULL,
        NewStudentUniqueId [NVARCHAR](32) NULL,
        Id uniqueidentifier NOT NULL,
+       OldResponsibilitySchoolId INT NOT NULL,
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
