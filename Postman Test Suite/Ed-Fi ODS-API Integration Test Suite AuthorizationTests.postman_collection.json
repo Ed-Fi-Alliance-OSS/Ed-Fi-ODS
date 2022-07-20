@@ -5075,7 +5075,7 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Response is 200\", () => {\r",
-													"   pm.expect(pm.response.code).to.equal(200); \r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
 													"});\r",
 													"\r",
 													"const responseItems = pm.response.json();\r",
@@ -5560,771 +5560,13 @@
 							"description": "The school-level clients (255901001 and 255901044) both have access to the selected students since they are cross-registered in both schools in the setup.\n\nThe discipline incidents are each setup so that the responsibility school id is associated with one of the clients."
 						},
 						{
-							"name": "Tests",
+							"name": "When getting discipline actions",
 							"item": [
 								{
-									"name": "When getting discipline actions",
+									"name": "School 001 client",
 									"item": [
 										{
-											"name": "School 001 client",
-											"item": [
-												{
-													"name": "Get DisciplineActions",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"pm.test(\"Should only return one of the discipline actions (even though both students are accessible through the cross registrations)\", () => {\r",
-																	"    pm.expect(responseItems.length).equal(1);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should return the discipline action for the associated responsibility school (001)\", () => {\r",
-																	"    pm.expect(responseItems[0].id).equal(pm.environment.get('known:disciplineAction:001:id'));\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken_255901001}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"data",
-																"v3",
-																"ed-fi",
-																"disciplineActions"
-															],
-															"query": [
-																{
-																	"key": "limit",
-																	"value": "1",
-																	"disabled": true
-																},
-																{
-																	"key": "disciplineActionLength",
-																	"value": "987.65"
-																}
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "Get Discipline Composite for 001 student",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
-																	"// pm.test(\"Should return the 001 student\", () => {\r",
-																	"//   pm.expect(responseItems.length).to.equal(1);\r",
-																	"// });\r",
-																	"\r",
-																	"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
-																	"\r",
-																	"pm.test(\"Should only return one of the discipline actions\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901001);\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken_255901001}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:001}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"composites",
-																"v1",
-																"ed-fi",
-																"test",
-																"DisciplinedStudents"
-															],
-															"query": [
-																{
-																	"key": "studentUniqueId",
-																	"value": "{{known:student:uniqueId:001}}"
-																}
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "Get Discipline Composite for 044 student",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
-																	"// pm.test(\"Should return the 001 student\", () => {\r",
-																	"//   pm.expect(responseItems.length).to.equal(1);\r",
-																	"// });\r",
-																	"\r",
-																	"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
-																	"\r",
-																	"pm.test(\"Should not return any discipline actions (because the school of responsibility is not accessible)\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions.length).to.equal(0);\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken_255901001}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:044}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"composites",
-																"v1",
-																"ed-fi",
-																"test",
-																"DisciplinedStudents"
-															],
-															"query": [
-																{
-																	"key": "studentUniqueId",
-																	"value": "{{known:student:uniqueId:044}}"
-																}
-															]
-														}
-													},
-													"response": []
-												}
-											]
-										},
-										{
-											"name": "School 044 client",
-											"item": [
-												{
-													"name": "Get DisciplineActions",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"pm.test(\"Should only return one of the discipline actions (even though both students are accessible through the cross registrations)\", () => {\r",
-																	"    pm.expect(responseItems.length).equal(1);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should return the discipline action for the associated responsibility school (044)\", () => {\r",
-																	"    pm.expect(responseItems[0].id).equal(pm.environment.get('known:disciplineAction:044:id'));\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken_255901044}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"data",
-																"v3",
-																"ed-fi",
-																"disciplineActions"
-															],
-															"query": [
-																{
-																	"key": "limit",
-																	"value": "1",
-																	"disabled": true
-																},
-																{
-																	"key": "disciplineActionLength",
-																	"value": "987.65"
-																}
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "Get Discipline Composite for 001 student",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
-																	"// pm.test(\"Should return the 001 student\", () => {\r",
-																	"//   pm.expect(responseItems.length).to.equal(1);\r",
-																	"// });\r",
-																	"\r",
-																	"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
-																	"\r",
-																	"pm.test(\"Should not return any discipline actions (because the school of responsibility is not accessible)\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions.length).to.equal(0);\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken_255901044}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:001}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"composites",
-																"v1",
-																"ed-fi",
-																"test",
-																"DisciplinedStudents"
-															],
-															"query": [
-																{
-																	"key": "studentUniqueId",
-																	"value": "{{known:student:uniqueId:001}}"
-																}
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "Get Discipline Composite for 044 student",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
-																	"// pm.test(\"Should return the 001 student\", () => {\r",
-																	"//   pm.expect(responseItems.length).to.equal(1);\r",
-																	"// });\r",
-																	"\r",
-																	"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
-																	"\r",
-																	"pm.test(\"Should only return one of the discipline actions\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901044);\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken_255901044}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:044}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"composites",
-																"v1",
-																"ed-fi",
-																"test",
-																"DisciplinedStudents"
-															],
-															"query": [
-																{
-																	"key": "studentUniqueId",
-																	"value": "{{known:student:uniqueId:044}}"
-																}
-															]
-														}
-													},
-													"response": []
-												}
-											]
-										},
-										{
-											"name": "LEA client",
-											"item": [
-												{
-													"name": "Get DisciplineActions",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"pm.test(\"Should only return both of the discipline actions\", () => {\r",
-																	"    pm.expect(responseItems.length).equal(2);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should return the discipline action for responsibility school 001\", () => {\r",
-																	"    const item = _.find(responseItems, i => { return i.id == pm.environment.get('known:disciplineAction:001:id') });\r",
-																	"    pm.expect(item).to.not.be.undefined;\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should return the discipline action for responsibility school 044\", () => {\r",
-																	"    const item = _.find(responseItems, i => { return i.id == pm.environment.get('known:disciplineAction:044:id') });\r",
-																	"    pm.expect(item).to.not.be.undefined;\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"data",
-																"v3",
-																"ed-fi",
-																"disciplineActions"
-															],
-															"query": [
-																{
-																	"key": "limit",
-																	"value": "1",
-																	"disabled": true
-																},
-																{
-																	"key": "disciplineActionLength",
-																	"value": "987.65"
-																}
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "Get Discipline Composite for 001 student",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
-																	"// pm.test(\"Should return the 001 student\", () => {\r",
-																	"//   pm.expect(responseItems.length).to.equal(1);\r",
-																	"// });\r",
-																	"\r",
-																	"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
-																	"\r",
-																	"pm.test(\"Should only return one of the discipline actions\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901001);\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:001}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"composites",
-																"v1",
-																"ed-fi",
-																"test",
-																"DisciplinedStudents"
-															],
-															"query": [
-																{
-																	"key": "studentUniqueId",
-																	"value": "{{known:student:uniqueId:001}}"
-																}
-															]
-														}
-													},
-													"response": []
-												},
-												{
-													"name": "Get Discipline Composite for 044 student",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Response is 200\", () => {\r",
-																	"   pm.expect(pm.response.code).to.equal(200); \r",
-																	"});\r",
-																	"\r",
-																	"const responseItems = pm.response.json();\r",
-																	"\r",
-																	"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
-																	"// pm.test(\"Should return the 001 student\", () => {\r",
-																	"//   pm.expect(responseItems.length).to.equal(1);\r",
-																	"// });\r",
-																	"\r",
-																	"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
-																	"\r",
-																	"pm.test(\"Should only return one of the discipline actions\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
-																	"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901044);\r",
-																	"});\r",
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"auth": {
-															"type": "bearer",
-															"bearer": [
-																{
-																	"key": "token",
-																	"value": "{{AccessToken}}",
-																	"type": "string"
-																}
-															]
-														},
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:044}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"composites",
-																"v1",
-																"ed-fi",
-																"test",
-																"DisciplinedStudents"
-															],
-															"query": [
-																{
-																	"key": "studentUniqueId",
-																	"value": "{{known:student:uniqueId:044}}"
-																}
-															]
-														}
-													},
-													"response": []
-												}
-											]
-										}
-									]
-								},
-								{
-									"name": "When attempting updates without access to responsibility school id",
-									"item": [
-										{
-											"name": "Update DisciplineAction responsibility to 107 (using 001 client)",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Response is 403\", () => {\r",
-															"   pm.expect(pm.response.code).to.equal(403); \r",
-															"});\r",
-															"\r",
-															"const responseItem = pm.response.json();\r",
-															"\r",
-															"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
-															"    pm.expect(responseItem.message).equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'.\");\r",
-															"});\r",
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken_255901001}}",
-															"type": "string"
-														}
-													]
-												},
-												"method": "POST",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"disciplineActions"
-													],
-													"query": [
-														{
-															"key": "limit",
-															"value": "1",
-															"disabled": true
-														}
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Update DisciplineAction length (using 001 client) Copy",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Response is 403\", () => {\r",
-															"   pm.expect(pm.response.code).to.equal(403); \r",
-															"});\r",
-															"\r",
-															"const responseItem = pm.response.json();\r",
-															"\r",
-															"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
-															"    pm.expect(responseItem.message).equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'.\");\r",
-															"});\r",
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken_255901001}}",
-															"type": "string"
-														}
-													]
-												},
-												"method": "POST",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-044\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"disciplineActions"
-													],
-													"query": [
-														{
-															"key": "limit",
-															"value": "1",
-															"disabled": true
-														}
-													]
-												}
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "When attempting updates WITH access to responsibility school id Copy",
-									"item": [
-										{
-											"name": "Update DisciplineAction assignment without restriction (using 001 client)",
+											"name": "Get DisciplineActions",
 											"event": [
 												{
 													"listen": "test",
@@ -6333,6 +5575,16 @@
 															"pm.test(\"Response is 200\", () => {\r",
 															"   pm.expect(pm.response.code).to.equal(200); \r",
 															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should only return one of the discipline actions (even though both students are accessible through the cross registrations)\", () => {\r",
+															"    pm.expect(responseItems.length).equal(1);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return the discipline action for the associated responsibility school (001)\", () => {\r",
+															"    pm.expect(responseItems[0].id).equal(pm.environment.get('known:disciplineAction:001:id'));\r",
+															"});\r",
 															""
 														],
 														"type": "text/javascript"
@@ -6350,19 +5602,10 @@
 														}
 													]
 												},
-												"method": "POST",
+												"method": "GET",
 												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -6377,6 +5620,556 @@
 															"key": "limit",
 															"value": "1",
 															"disabled": true
+														},
+														{
+															"key": "disciplineActionLength",
+															"value": "987.65"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Discipline Composite for 001 student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
+															"// pm.test(\"Should return the 001 student\", () => {\r",
+															"//   pm.expect(responseItems.length).to.equal(1);\r",
+															"// });\r",
+															"\r",
+															"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should only return one of the discipline actions\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901001);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:001}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"composites",
+														"v1",
+														"ed-fi",
+														"test",
+														"DisciplinedStudents"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "{{known:student:uniqueId:001}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Discipline Composite for 044 student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
+															"// pm.test(\"Should return the 001 student\", () => {\r",
+															"//   pm.expect(responseItems.length).to.equal(1);\r",
+															"// });\r",
+															"\r",
+															"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should not return any discipline actions (because the school of responsibility is not accessible)\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions.length).to.equal(0);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:044}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"composites",
+														"v1",
+														"ed-fi",
+														"test",
+														"DisciplinedStudents"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "{{known:student:uniqueId:044}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "School 044 client",
+									"item": [
+										{
+											"name": "Get DisciplineActions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should only return one of the discipline actions (even though both students are accessible through the cross registrations)\", () => {\r",
+															"    pm.expect(responseItems.length).equal(1);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return the discipline action for the associated responsibility school (044)\", () => {\r",
+															"    pm.expect(responseItems[0].id).equal(pm.environment.get('known:disciplineAction:044:id'));\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901044}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"disciplineActions"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "1",
+															"disabled": true
+														},
+														{
+															"key": "disciplineActionLength",
+															"value": "987.65"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Discipline Composite for 001 student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
+															"// pm.test(\"Should return the 001 student\", () => {\r",
+															"//   pm.expect(responseItems.length).to.equal(1);\r",
+															"// });\r",
+															"\r",
+															"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should not return any discipline actions (because the school of responsibility is not accessible)\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions.length).to.equal(0);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901044}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:001}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"composites",
+														"v1",
+														"ed-fi",
+														"test",
+														"DisciplinedStudents"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "{{known:student:uniqueId:001}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Discipline Composite for 044 student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
+															"// pm.test(\"Should return the 001 student\", () => {\r",
+															"//   pm.expect(responseItems.length).to.equal(1);\r",
+															"// });\r",
+															"\r",
+															"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should only return one of the discipline actions\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901044);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901044}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:044}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"composites",
+														"v1",
+														"ed-fi",
+														"test",
+														"DisciplinedStudents"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "{{known:student:uniqueId:044}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "LEA client",
+									"item": [
+										{
+											"name": "Get DisciplineActions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should only return both of the discipline actions\", () => {\r",
+															"    pm.expect(responseItems.length).equal(2);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return the discipline action for responsibility school 001\", () => {\r",
+															"    const item = _.find(responseItems, i => { return i.id == pm.environment.get('known:disciplineAction:001:id') });\r",
+															"    pm.expect(item).to.not.be.undefined;\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should return the discipline action for responsibility school 044\", () => {\r",
+															"    const item = _.find(responseItems, i => { return i.id == pm.environment.get('known:disciplineAction:044:id') });\r",
+															"    pm.expect(item).to.not.be.undefined;\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions?disciplineActionLength=987.65",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"disciplineActions"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "1",
+															"disabled": true
+														},
+														{
+															"key": "disciplineActionLength",
+															"value": "987.65"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Discipline Composite for 001 student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
+															"// pm.test(\"Should return the 001 student\", () => {\r",
+															"//   pm.expect(responseItems.length).to.equal(1);\r",
+															"// });\r",
+															"\r",
+															"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should only return one of the discipline actions\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901001);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:001}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"composites",
+														"v1",
+														"ed-fi",
+														"test",
+														"DisciplinedStudents"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "{{known:student:uniqueId:001}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Discipline Composite for 044 student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"   pm.expect(pm.response.code).to.equal(200); \r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"// NOTE: Include this test if array vs. single object response behavior is changed for consistency with main API\r",
+															"// pm.test(\"Should return the 001 student\", () => {\r",
+															"//   pm.expect(responseItems.length).to.equal(1);\r",
+															"// });\r",
+															"\r",
+															"const responseItem = responseItems; // NOTE: If behavior is changed for consistency with main API, change to --> responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should only return one of the discipline actions\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions.length).to.equal(1);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should only return the discipline action with the client's associated school as the responsibility school\", () => {\r",
+															"    pm.expect(responseItem.disciplineActions[0].responsibilitySchoolReference.schoolId).to.equal(255901044);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/DisciplinedStudents?studentUniqueId={{known:student:uniqueId:044}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"composites",
+														"v1",
+														"ed-fi",
+														"test",
+														"DisciplinedStudents"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "{{known:student:uniqueId:044}}"
 														}
 													]
 												}
@@ -6388,8 +6181,276 @@
 							]
 						},
 						{
-							"name": "Teardown",
+							"name": "When attempting updates without access to responsibility school id",
 							"item": [
+								{
+									"name": "Update DisciplineAction responsibility to 107 (using 001 client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 403\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(403); \r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
+													"    pm.expect(responseItem.message).equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 1.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update DisciplineAction length (using 001 client) Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 403\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(403); \r",
+													"});\r",
+													"\r",
+													"const responseItem = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should indicate that the API client does not have the relationships to perform the operation\", () => {\r",
+													"    pm.expect(responseItem.message).equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'ResponsibilitySchoolId', 'StudentUniqueId'.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901044\r\n    },\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:044}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-044\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"{{known:student:uniqueId:044}}\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901044\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When attempting updates WITH access to responsibility school id Copy",
+							"item": [
+								{
+									"name": "Update DisciplineAction assignment without restriction (using 001 client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"   pm.expect(pm.response.code).to.equal(200); \r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"assignmentSchoolReference\": {\r\n        \"schoolId\": 255901107\r\n    },\r\n    \"responsibilitySchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{known:student:uniqueId:001}}\"\r\n    },\r\n    \"disciplineActionIdentifier\": \"TEST-001\",\r\n    \"disciplineDate\": \"2022-02-09\",\r\n    \"actualDisciplineActionLength\": 2.00,\r\n    \"disciplineActionLength\": 987.65,\r\n    \"disciplines\": [\r\n        {\r\n            \"disciplineDescriptor\": \"uri://ed-fi.org/DisciplineDescriptor#In School Suspension\"\r\n        }\r\n    ],\r\n    \"staffs\": [],\r\n    \"studentDisciplineIncidentAssociations\": [\r\n        {\r\n            \"studentDisciplineIncidentAssociationReference\": {\r\n                \"studentUniqueId\": \"604822\",\r\n                \"incidentIdentifier\": \"1\",\r\n                \"schoolId\": 255901001\r\n            }\r\n        }\r\n    ],\r\n    \"studentDisciplineIncidentBehaviorAssociations\": []\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When reading deleted discipline actions",
+							"item": [
+								{
+									"name": "Get AvailableChangeVersions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"pm.environment.set('known:newestChangeVersion', responseItem.newestChangeVersion + 1);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');\r",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+													"function createScenarioId() { return newGuid().substring(0,5); }\r",
+													"pm.environment.set('scenarioId', createScenarioId());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
 								{
 									"name": "Delete DisciplineAction for 044",
 									"event": [
@@ -6480,6 +6541,191 @@
 									},
 									"response": []
 								},
+								{
+									"name": "Get deleted discipline actions (001 client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the discipline incident associated with the API client's school\", () => {\r",
+													"  pm.expect(responseItems.find(i => { return i.keyValues.disciplineActionIdentifier == \"TEST-001\" })).to.not.be.undefined;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should not return the discipline incident associated with the other school\", () => {\r",
+													"  pm.expect(responseItems.find(i => { return i.keyValues.disciplineActionIdentifier == \"TEST-044\" })).to.be.undefined;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/deletes?minChangeVersion={{known:newestChangeVersion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:newestChangeVersion}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get deleted discipline actions (044 client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the discipline incident associated with the API client's school\", () => {\r",
+													"  pm.expect(responseItems.find(i => { return i.keyValues.disciplineActionIdentifier == \"TEST-044\" })).to.not.be.undefined;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should not return the discipline incident associated with the other school\", () => {\r",
+													"  pm.expect(responseItems.find(i => { return i.keyValues.disciplineActionIdentifier == \"TEST-001\" })).to.be.undefined;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/deletes?minChangeVersion={{known:newestChangeVersion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:newestChangeVersion}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get deleted discipline actions (LEA client)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const responseItems = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the discipline incident associated with the first school\", () => {\r",
+													"  pm.expect(responseItems.find(i => { return i.keyValues.disciplineActionIdentifier == \"TEST-001\" })).to.not.be.undefined;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should return the discipline incident associated with the second school\", () => {\r",
+													"  pm.expect(responseItems.find(i => { return i.keyValues.disciplineActionIdentifier == \"TEST-044\" })).to.not.be.undefined;\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/disciplineActions/deletes?minChangeVersion={{known:newestChangeVersion}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"disciplineActions",
+												"deletes"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:newestChangeVersion}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
 								{
 									"name": "Delete studentDisciplineIncidentAssociation for 044",
 									"event": [
