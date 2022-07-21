@@ -372,7 +372,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
         }
 
-        public void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId)
+        public void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<int> edOrgIds, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -392,7 +392,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 client.Application = application;
 
                 foreach (var applicationEducationOrganization in application.ApplicationEducationOrganizations.Where(
-                    s => leaIds.Contains(s.EducationOrganizationId)))
+                    s => edOrgIds.Contains(s.EducationOrganizationId)))
                 {
                     client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                 }
@@ -592,27 +592,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                         ClaimSetName = _defaultClaimSetName.Value,
                         OperationalContextUri = _defaultOperationalContextUri.Value
                     });
-            }
-        }
-
-        public void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var application = context.Applications.SingleOrDefault(a => a.ApplicationId == applicationId);
-
-                if (application != null)
-                {
-                    foreach (var leaId in localEducationAgencyIds)
-                    {
-                        if (!application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
-                        {
-                            application.CreateApplicationEducationOrganization(leaId);
-                        }
-                    }
-
-                    context.SaveChanges();
-                }
             }
         }
 
