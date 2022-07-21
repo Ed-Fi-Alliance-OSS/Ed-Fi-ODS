@@ -73,7 +73,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             _transaction?.Dispose();
         }
 
-        protected ApiClient LoadAnApiClient(Application application)
+        protected ApiClient LoadAnApiClient(Application application, int apiClientId)
         {
             var a = TestFixtureContext.Clients.Add(
                 new ApiClient
@@ -85,7 +85,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     UseSandbox = true,
                     SandboxType = SandboxType.Minimal,
                     SecretIsHashed = false,
-                    Application = application
+                    Application = application,
+                    ApiClientId = apiClientId
                 });
 
             TestFixtureContext.SaveChanges();
@@ -186,7 +187,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
-                    var apiClient = LoadAnApiClient(application);
+                    var apiClient = LoadAnApiClient(application,1);
                     _accessToken = LoadAnAccessToken(apiClient, DateTime.UtcNow.AddSeconds(-10));
                 }
 
@@ -213,7 +214,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 {
                     base.Arrange();
 
-                    Client = LoadAnApiClient(null);
+                    Client = LoadAnApiClient(null,0);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
@@ -243,6 +244,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 protected const int edOrgId2 = 34;
                 protected const string profileName1 = "three";
                 protected const string profileName2 = "four";
+                protected const int apiClientId = 5;
 
                 protected override void Arrange()
                 {
@@ -254,7 +256,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                     var application = LoadAnApplication(vendor, claimSetName);
 
-                    Client = LoadAnApiClient(application);
+                    Client = LoadAnApiClient(application, apiClientId);
                     LoadAnApplicationEducationOrganization(application, Client, edOrgId1);
                     LoadAnApplicationEducationOrganization(application, Client, edOrgId2);
 
@@ -339,6 +341,12 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     {
                         Result.Count(x => x.ProfileName == profileName2).ShouldBe(4);
                     }
+
+                    [Test]
+                    public void Should_include_apiClientId_on_each_record()
+                    {
+                        Result.ShouldAllBe(x => x.ApiClientId == Client.ApiClientId);
+                    }
                 }
             }
 
@@ -352,7 +360,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     base.Arrange();
 
                     var application = LoadAnApplication(null, "Sandbox");
-                    Client = LoadAnApiClient(application);
+                    Client = LoadAnApiClient(application,5);
                     AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 

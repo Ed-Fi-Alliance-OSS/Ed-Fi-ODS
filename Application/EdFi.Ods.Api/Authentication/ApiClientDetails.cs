@@ -91,6 +91,8 @@ namespace EdFi.Ods.Api.Authentication
         /// </summary>
         public IList<short?> OwnershipTokenIds { get; set; }
 
+        public int ApiClientId { get; set; }
+
         /// <summary>
         /// Factory method to create a <see cref="ApiClientDetails"/> from a collection of <see cref="OAuthTokenClient"/>.
         /// </summary>
@@ -111,6 +113,7 @@ namespace EdFi.Ods.Api.Authentication
             response = LoadAllVendorNamespacePrefixes(response);
             response = LoadAllProfileNames(response);
             response = LoadAllOwnershipTokenIds(response);
+            response = LoadApiClientId(response);
 
             return response;
 
@@ -169,6 +172,16 @@ namespace EdFi.Ods.Api.Authentication
                     .Select(x => x.OwnershipTokenId.Value)
                     .Distinct()
                     .ForEach(x => dto.OwnershipTokenIds.Add(x));
+
+                return dto;
+            }
+
+            ApiClientDetails LoadApiClientId(ApiClientDetails dto)
+            {
+                dto.ApiClientId = tokenClientRecords
+                    .Select(x => x.ApiClientId)
+                    .Distinct()
+                    .First();
 
                 return dto;
             }

@@ -43,7 +43,8 @@ public class ApiClientDetailsProviderTests
             () => actual.IsSandboxClient.ShouldBe(default),
             () => actual.StudentIdentificationSystemDescriptor.ShouldBe(default),
             () => actual.CreatorOwnershipTokenId.ShouldBe(default),
-            () => actual.OwnershipTokenIds.ShouldBeEmpty());
+            () => actual.OwnershipTokenIds.ShouldBeEmpty(),
+            () => actual.ApiClientId.ShouldBe(default));
     }
     
     [Test]
@@ -70,7 +71,8 @@ public class ApiClientDetailsProviderTests
             () => actual.IsSandboxClient.ShouldBe(default),
             () => actual.StudentIdentificationSystemDescriptor.ShouldBe(default),
             () => actual.CreatorOwnershipTokenId.ShouldBe(default),
-            () => actual.OwnershipTokenIds.ShouldBeEmpty());
+            () => actual.OwnershipTokenIds.ShouldBeEmpty(),
+            () => actual.ApiClientId.ShouldBe(default));
     }
 
     [Test]
@@ -110,6 +112,7 @@ public class ApiClientDetailsProviderTests
             () => actual.IsSandboxClient.ShouldBe(true),
             () => actual.StudentIdentificationSystemDescriptor.ShouldBe("uri://test.org/system"),
             () => actual.CreatorOwnershipTokenId.ShouldBe(short.MaxValue),
+            () => actual.ApiClientId.ShouldBe(7),
 
             // Collection assertions
             () => actual.EducationOrganizationIds.ToArray().ShouldBeEquivalentTo(
@@ -157,7 +160,8 @@ public class ApiClientDetailsProviderTests
                 EducationOrganizationId = educationOrganizationId,
                 NamespacePrefix = namespacePrefix,
                 ProfileName = profileName,
-                OwnershipTokenId = ownershipTokenId
+                OwnershipTokenId = ownershipTokenId,
+                ApiClientId = 7
             };
         }
     }
