@@ -1644,8 +1644,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_edfi].[DisciplineAction](OldDisciplineActionIdentifier, OldDisciplineDate, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.DisciplineActionIdentifier, d.DisciplineDate, d.StudentUSI, j0.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_changes_edfi].[DisciplineAction](OldDisciplineActionIdentifier, OldDisciplineDate, OldStudentUSI, OldStudentUniqueId, Id, OldResponsibilitySchoolId, Discriminator, ChangeVersion)
+    SELECT d.DisciplineActionIdentifier, d.DisciplineDate, d.StudentUSI, j0.StudentUniqueId, d.Id, d.ResponsibilitySchoolId, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
         INNER JOIN edfi.Student j0
             ON d.StudentUSI = j0.StudentUSI

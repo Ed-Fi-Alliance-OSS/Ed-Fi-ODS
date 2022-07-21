@@ -40,8 +40,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 null, // NOTE: For future use --> @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
                 ApplyAuthorizationCriteria,
                 ApplyTrackedChangesAuthorizationCriteria,
-                AuthorizeInstance,
-                (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("CreatedByOwnershipTokenId")),
+                AuthorizeInstance)
         };
 
         return filters;
@@ -50,6 +49,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         ICriteria criteria,
         Junction @where,
+        string subjectEndpointName,
         IDictionary<string, object> parameters,
         JoinType joinType)
     {
@@ -59,6 +59,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             throw new Exception($"Unable to find parameter '{FilterPropertyName}' for applying ownership-based authorization. Available parameters: '{string.Join("', '", parameters.Keys)}'");
         }
 
+        // NOTE: subjectEndpointName is ignored here -- we don't expect or want any variation due to role names applied here.
         @where.ApplyPropertyFilters(parameters, FilterPropertyName);
     }
 
