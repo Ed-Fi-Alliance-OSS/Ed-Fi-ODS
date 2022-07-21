@@ -46,7 +46,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                const string Sql = "SELECT \"Key\", UseSandbox, StudentIdentificationSystemDescriptor, EducationOrganizationId, ClaimSetName, NamespacePrefix, ProfileName, CreatorOwnershipTokenId, OwnershipTokenId, Expiration FROM dbo.GetClientForToken(@p0);";
+                const string Sql = "SELECT \"Key\", UseSandbox, StudentIdentificationSystemDescriptor, EducationOrganizationId, ClaimSetName, NamespacePrefix, ProfileName, CreatorOwnershipTokenId, OwnershipTokenId, Expiration, ApiClientId FROM dbo.GetClientForToken(@p0);";
                 return await context.ExecuteQueryAsync<OAuthTokenClient>(Sql, accessToken);
             }
         }
