@@ -1,10 +1,10 @@
 {
   "odsApiVersion": "6.0",
   "schemaDefinition": {
-    "logicalName": "TPDM",
+    "logicalName": "tpdm",
     "physicalName": "tpdm",
-    "description": "TPDM-Core",
-    "version": "1.1.0"
+    "description": "The Tpdm extension data model",
+    "version": "1.0.0"
   },
   "aggregateDefinitions": [
     {

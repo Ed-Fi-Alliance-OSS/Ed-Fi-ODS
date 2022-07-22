@@ -1,9 +1,9 @@
 {
   "odsApiVersion": "6.0",
   "schemaDefinition": {
-    "logicalName": "SampleStudentTranscript",
+    "logicalName": "sample-student-transcript",
     "physicalName": "samplestudenttranscript",
-    "description": "",
+    "description": "The SampleStudentTranscript extension data model",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [
