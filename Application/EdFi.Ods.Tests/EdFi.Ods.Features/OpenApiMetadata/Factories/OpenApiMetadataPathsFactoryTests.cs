@@ -104,6 +104,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             }
 
             [Assert]
+            public void Should_contain_deletes_entries_for_academicWeeks()
+            {
+                var endpoint = string.Format(EndPoint, "academicWeeks/deletes");
+
+                AssertHelper.All(
+                    () => Assert.That(_actualPaths.Keys, Has.Member(endpoint)),
+                    () => Assert.That(
+                        _actualPaths[endpoint].get?.responses?.GetValueOrDefault("200")?.schema?.items?.@ref,
+                        Is.EqualTo("#/definitions/trackedChanges_edFi_academicWeekDelete")));
+            }
+
+            [Assert]
+            public void Should_contain_keyChanges_entries_for_academicWeeks()
+            {
+                var endpoint = string.Format(EndPoint, "academicWeeks/keyChanges");
+
+                AssertHelper.All(
+                    () => Assert.That(_actualPaths.Keys, Has.Member(endpoint)),
+                    () => Assert.That(
+                        _actualPaths[endpoint].get?.responses?.GetValueOrDefault("200")?.schema?.items?.@ref,
+                        Is.EqualTo("#/definitions/trackedChanges_edFi_academicWeekKeyChange")));
+            }
+
+            [Assert]
             public void Should_contain_entries_for_studentCharacteristicDescriptors()
             {
                 AssertHasPathEntry("studentCharacteristicDescriptors");
@@ -177,6 +201,46 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     () => Assert.That(pathItem.post, Is.Null),
                     () => Assert.That(pathItem.delete, Is.Not.Null)
                 );
+            }
+        }
+
+        public class When_creating_paths_for_a_list_of_resources_using_a_single_instance_or_a_year_specific_ods_with_change_queries_disabled : TestFixtureBase
+        {
+            private IDictionary<string, PathItem> _actualPaths;
+
+            protected override void Act()
+            {
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
+                    .GetAllResources()
+                    .Select(r => new OpenApiMetadataResource(r))
+                    .ToList();
+
+                var appSettings = CreateApiSettings();
+                appSettings.Features.Single(f => f.Name == "ChangeQueries").IsEnabled = false;
+
+                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, appSettings)
+                    .Create(openApiMetadataResources, false);
+            }
+
+            [Assert]
+            public void Should_not_be_empty()
+            {
+                Assert.That(_actualPaths, Is.Not.Empty);
+            }
+
+            [Assert]
+            public void Should_not_contain_deletes_entries_for_academicWeeks()
+            {
+                var endpoint = string.Format(EndPoint, "academicWeeks/deletes");
+                Assert.That(_actualPaths.Keys, Has.No.Member(endpoint));
+            }
+
+            [Assert]
+            public void Should_not_contain_keyChanges_entries_for_academicWeeks()
+            {
+                var endpoint = string.Format(EndPoint, "academicWeeks/keyChanges");
+                Assert.That(_actualPaths.Keys, Has.No.Member(endpoint));
             }
         }
 

@@ -170,6 +170,119 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                                 _actualPropertyNamesByDefinitionName[x.Key], Is.EquivalentTo(x.Value), $"Resource = {x.Key}")))
                         .ToArray());
             }
+
+            [Assert]
+            public void Should_contain_a_definition_for_academicWeek_delete()
+            {
+                const string DefinitionName = "trackedChanges_edFi_academicWeekDelete";
+                Assert.That(_actualDefinitions.Keys, Has.Member(DefinitionName));
+                var properties = _actualDefinitions[DefinitionName].properties;
+
+                const string IdPropertyName = "id";
+                Assert.That(properties.Keys, Has.Member(IdPropertyName));
+                Assert.That(properties[IdPropertyName].type, Is.EqualTo("string"));
+
+                const string ChangeVersionPropertyName = "changeVersion";
+                Assert.That(properties.Keys, Has.Member(ChangeVersionPropertyName));
+                Assert.That(properties[ChangeVersionPropertyName].type, Is.EqualTo("number"));
+
+                const string KeyValuesPropertyName = "keyValues";
+                Assert.That(properties.Keys, Has.Member(KeyValuesPropertyName));
+                Assert.That(
+                    properties[KeyValuesPropertyName].@ref, Is.EqualTo("#/definitions/trackedChanges_edFi_academicWeekKey"));
+            }
+
+            [Assert]
+            public void Should_contain_a_definition_for_academicWeek_keyChange()
+            {
+                const string DefinitionName = "trackedChanges_edFi_academicWeekKeyChange";
+                Assert.That(_actualDefinitions.Keys, Has.Member(DefinitionName));
+                var properties = _actualDefinitions[DefinitionName].properties;
+
+                const string IdPropertyName = "id";
+                Assert.That(properties.Keys, Has.Member(IdPropertyName));
+                Assert.That(properties[IdPropertyName].type, Is.EqualTo("string"));
+
+                const string ChangeVersionPropertyName = "changeVersion";
+                Assert.That(properties.Keys, Has.Member(ChangeVersionPropertyName));
+                Assert.That(properties[ChangeVersionPropertyName].type, Is.EqualTo("number"));
+
+                const string OldKeyValuesPropertyName = "oldKeyValues";
+                Assert.That(properties.Keys, Has.Member(OldKeyValuesPropertyName));
+                Assert.That(
+                    properties[OldKeyValuesPropertyName].@ref, Is.EqualTo("#/definitions/trackedChanges_edFi_academicWeekKey"));
+
+                const string NewKeyValuesPropertyName = "newKeyValues";
+                Assert.That(properties.Keys, Has.Member(NewKeyValuesPropertyName));
+                Assert.That(
+                    properties[NewKeyValuesPropertyName].@ref, Is.EqualTo("#/definitions/trackedChanges_edFi_academicWeekKey"));
+            }
+
+            [Assert]
+            public void Should_contain_a_definition_for_academicWeek_key()
+            {
+                const string DefinitionName = "trackedChanges_edFi_academicWeekKey";
+                Assert.That(_actualDefinitions.Keys, Has.Member(DefinitionName));
+                var properties = _actualDefinitions[DefinitionName].properties;
+
+                const string WeekIdentifierPropertyName = "weekIdentifier";
+                Assert.That(properties.Keys, Has.Member(WeekIdentifierPropertyName));
+                Assert.That(properties[WeekIdentifierPropertyName].type, Is.EqualTo("string"));
+
+                const string SchoolIdPropertyName = "schoolId";
+                Assert.That(properties.Keys, Has.Member(SchoolIdPropertyName));
+                Assert.That(properties[SchoolIdPropertyName].type, Is.EqualTo("integer"));
+            }
+        }
+
+        public class
+    When_creating_definitions_for_list_of_resources_using_a_single_instance_or_year_specific_ods_with_change_queries_disabled : TestFixtureBase
+        {
+            private IDictionary<string, Schema> _actualDefinitions;
+            private IList<Resource> _resources;
+
+            protected override void Arrange()
+            {
+                _resources = ResourceModelProvider.GetResourceModel().GetAllResources().ToList();
+            }
+
+            protected override void Act()
+            {
+                var appSettings = CreateApiSettings();
+                appSettings.Features.Single(f => f.Name == "ChangeQueries").IsEnabled = false;
+
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper
+                    .CreateOpenApiMetadataDefinitionsFactory(
+                        new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
+                        {
+                            RenderType = RenderType.GeneralizedExtensions
+                        }, new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        appSettings).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
+            }
+
+            [Assert]
+            public void Should_not_be_empty()
+            {
+                Assert.That(_actualDefinitions, Is.Not.Empty);
+            }
+
+            [Assert]
+            public void Should_not_contain_a_definition_for_academicWeek_delete()
+            {
+                Assert.That(_actualDefinitions.Keys, Has.No.Member("trackedChanges_edFi_academicWeekDelete"));
+            }
+
+            [Assert]
+            public void Should_not_contain_a_definition_for_academicWeek_keyChange()
+            {
+                Assert.That(_actualDefinitions.Keys, Has.No.Member("trackedChanges_edFi_academicWeekKeyChange"));
+            }
+
+            [Assert]
+            public void Should_not_contain_a_definition_for_academicWeek_key()
+            {
+                Assert.That(_actualDefinitions.Keys, Has.No.Member("trackedChanges_edFi_academicWeekKey"));
+            }
         }
 
         private static IDictionary<string, List<string>> ExpectedPropertyNamesByDefinitionName(IEnumerable<Resource> resources)
