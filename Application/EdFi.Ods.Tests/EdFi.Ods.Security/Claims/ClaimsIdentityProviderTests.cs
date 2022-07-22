@@ -80,7 +80,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     _suppliedEducationOrganizationIds,
                     _suppliedNamespacePrefixes,
                     _suppliedProfiles,
-                    null, null, null);
+                    null, null, null,0);
 
                 _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
                 A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
@@ -328,7 +328,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     _suppliedEducationOrganizationIds,
                     _suppliedNamespacePrefixes,
                     _suppliedProfiles,
-                    null, null, null);
+                    null, null, null,0);
 
                 _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
                 A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);

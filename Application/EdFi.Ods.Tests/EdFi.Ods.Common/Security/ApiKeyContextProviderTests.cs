@@ -43,6 +43,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 2
             };
 
+            private readonly int _suppliedApiClientId = 7;
+
             private readonly ApiKeyContext _suppliedApiKeyContext = ApiKeyContext.Empty;
 
             private string _actualApiKey;
@@ -55,6 +57,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             private HashtableContextStorage _contextStorage;
             private short? _actualCreatorOwnershipTokenId;
             private IEnumerable<short?> _actualOwnershipTokenIds;
+            private int _actualApiClientId;
 
             protected override void Act()
             {
@@ -71,7 +74,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         _suppliedProfiles,
                         SuppliedStudentIdentificationSystemDescriptor,
                         _suppliedCreatorOwnershipTokenId,
-                        _suppliedOwnershipTokenIds));
+                        _suppliedOwnershipTokenIds,
+                        _suppliedApiClientId));
 
                 var gettingProvider = new ApiKeyContextProvider(_contextStorage);
 
@@ -96,6 +100,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 _actualCreatorOwnershipTokenId = gettingProvider.GetApiKeyContext().CreatorOwnershipTokenId;
 
                 _actualOwnershipTokenIds = gettingProvider.GetApiKeyContext().OwnershipTokenIds;
+
+                _actualApiClientId = gettingProvider.GetApiKeyContext().ApiClientId;
 
                 settingProvider.SetApiKeyContext(_suppliedApiKeyContext);
 
@@ -160,6 +166,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             public virtual void Should_return_the_supplied_Ownership_TokenIds()
             {
                 _actualOwnershipTokenIds.ShouldBe(_suppliedOwnershipTokenIds);
+            }
+
+            [Assert]
+            public virtual void Should_return_the_supplied_ApiClientId()
+            {
+                _actualApiClientId.ShouldBe(_suppliedApiClientId);
             }
         }
     }
