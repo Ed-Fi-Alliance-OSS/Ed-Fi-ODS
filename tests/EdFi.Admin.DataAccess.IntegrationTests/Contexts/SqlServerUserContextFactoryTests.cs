@@ -13,6 +13,7 @@ using NUnit.Framework;
 using Shouldly;
 using System.Data.Entity;
 using System.Linq;
+using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {

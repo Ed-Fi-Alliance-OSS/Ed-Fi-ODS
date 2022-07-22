@@ -606,22 +606,6 @@ SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[Resource
 /* Bootstrap Descriptors and EdOrgs Claims */
 
 SELECT @AuthorizationStrategyId = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
-SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Ed-Fi Sandbox');
-
-INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
-    ([ClaimSetResourceClaimActionId]
-    ,[AuthorizationStrategyId])
-
-
-SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
-    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
-    INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
-    INNER JOIN [dbo].[ClaimSets] CS on CS.ClaimSetId = CSRCAA.ClaimSetId
-    WHERE  CS.ClaimSetId =@ClaimSetId
-    AND A.ActionName IN ('Create','Read','Update','Delete')
-    AND RC.ResourceName IN ('communityProviderLicense')
-
-
 SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Bootstrap Descriptors and EdOrgs');
 
 INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]

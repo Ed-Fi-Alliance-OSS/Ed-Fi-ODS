@@ -13,6 +13,7 @@ using NUnit.Framework;
 using System;
 using System.Data.Entity;
 using System.Transactions;
+using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 {

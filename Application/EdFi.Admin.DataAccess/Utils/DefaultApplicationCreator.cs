@@ -52,7 +52,7 @@ namespace EdFi.Admin.DataAccess.Utils
             }
         }
 
-        public void AddLeaIdsToApplication(IList<int> localEducationAgencyIds, int applicationId)
+        public void AddEdOrgIdsToApplication(IList<int> edOrgIds, int applicationId)
         {
             using (var context = _usersContextFactory.CreateContext())
             {
@@ -60,11 +60,11 @@ namespace EdFi.Admin.DataAccess.Utils
 
                 if (application != null)
                 {
-                    foreach (var leaId in localEducationAgencyIds)
+                    foreach (var edOrgId in edOrgIds)
                     {
-                        if (application.ApplicationEducationOrganizations.All(x => x.EducationOrganizationId != leaId))
+                        if (application.ApplicationEducationOrganizations.All(x => x.EducationOrganizationId != edOrgId))
                         {
-                            var applicationEducationOrganization = application.CreateApplicationEducationOrganization(leaId);
+                            var applicationEducationOrganization = application.CreateApplicationEducationOrganization(edOrgId);
                             application.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                             context.ApplicationEducationOrganizations.AddOrUpdate(applicationEducationOrganization);
                         }
