@@ -33,6 +33,7 @@ BEGIN
         ,ac.CreatorOwnershipTokenId_OwnershipTokenId as CreatorOwnershipTokenId
         ,acot.OwnershipToken_OwnershipTokenId as OwnershipTokenId
         ,cat.Expiration
+		,cat.ApiClient_ApiClientId as ApiClientId
     FROM dbo.ClientAccessTokens cat
          INNER JOIN dbo.ApiClients ac ON
         cat.ApiClient_ApiClientId = ac.ApiClientId
