@@ -29,7 +29,8 @@ namespace EdFi.Ods.Common.Security
             IEnumerable<string> profiles,
             string studentIdentificationSystemDescriptor,
             short? creatorOwnershipTokenId,
-            IEnumerable<short?> ownershipTokenIds)
+            IEnumerable<short?> ownershipTokenIds,
+            int apiClientId)
         {
             ApiKey = apiKey;
             ClaimSetName = claimSetName;
@@ -39,6 +40,7 @@ namespace EdFi.Ods.Common.Security
             Profiles = profiles ?? new List<string>();
             CreatorOwnershipTokenId = creatorOwnershipTokenId;
             OwnershipTokenIds = ownershipTokenIds ?? new List<short?>();
+            ApiClientId = apiClientId;
         }
 
         public IEnumerable<short?> OwnershipTokenIds { get; }
@@ -56,6 +58,8 @@ namespace EdFi.Ods.Common.Security
         public IEnumerable<string> Profiles { get; }
 
         public string StudentIdentificationSystemDescriptor { get; }
+
+        public int ApiClientId { get; }
 
         /// <summary>
         /// Returns an empty, uninitialized <see cref="ApiKeyContext"/> instance.

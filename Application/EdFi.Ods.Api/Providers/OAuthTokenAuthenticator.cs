@@ -80,9 +80,6 @@ namespace EdFi.Ods.Api.Providers
                 apiClientDetails.Profiles.ToList(),
                 apiClientDetails.OwnershipTokenIds.ToList());
 
-            ThreadContext.Properties["ApiClientId"] = apiClientDetails.ApiClientId;
-            _logger.Warn("Testing log");
-
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authorizationScheme);
             return AuthenticateResult.Success(ticket);
@@ -101,7 +98,8 @@ namespace EdFi.Ods.Api.Providers
                             apiClientDetails.Profiles,
                             apiClientDetails.StudentIdentificationSystemDescriptor,
                             apiClientDetails.CreatorOwnershipTokenId,
-                            apiClientDetails.OwnershipTokenIds)
+                            apiClientDetails.OwnershipTokenIds,
+                            apiClientDetails.ApiClientId)
                     }
                 };
 
