@@ -17,16 +17,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {
     public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy
     {
-        private readonly IDataManagementRequestContextProvider _dataManagementRequestContextProvider;
         private const string AuthorizationStrategyName = "NamespaceBased";
 
         private readonly ConcurrentDictionary<FullName, string> _namespacePropertyByResourceFullName = new();
 
-        public NamespaceBasedAuthorizationStrategy(IDataManagementRequestContextProvider dataManagementRequestContextProvider)
-        {
-            _dataManagementRequestContextProvider = dataManagementRequestContextProvider;
-        }
-        
         /// <summary>
         /// Applies filtering to a multiple-item request.
         /// </summary>
@@ -39,7 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
         {
             var claimNamespacePrefixes = NamespaceBasedAuthorizationHelpers.GetClaimNamespacePrefixes(authorizationContext);
 
-            var resource = _dataManagementRequestContextProvider.GetResource();
+            var resource = authorizationContext.Resource;
 
             string subjectEndpointName = _namespacePropertyByResourceFullName.GetOrAdd(
                 resource.FullName,

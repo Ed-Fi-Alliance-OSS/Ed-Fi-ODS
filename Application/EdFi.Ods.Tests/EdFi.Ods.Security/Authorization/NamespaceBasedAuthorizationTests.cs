@@ -105,10 +105,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 //Arrange
                 var resource = new Resource("Ignored");
-                var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
-                A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
                 
-                var strategy = new NamespaceBasedAuthorizationStrategy(requestContextProvider);
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
                 var claims = new List<Claim>
                 {
@@ -153,10 +151,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     .Build();
 
                 var resource = domainModel.ResourceModel.GetAllResources().Single();
-                var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
-                A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
 
-                var strategy = new NamespaceBasedAuthorizationStrategy(requestContextProvider);
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
                 var claims = new List<Claim>
                 {
@@ -197,10 +193,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 //Arrange
                 var resource = domainModel.ResourceModel.GetAllResources().Single();
-                var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
-                A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
 
-                var strategy = new NamespaceBasedAuthorizationStrategy(requestContextProvider);
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
                 var claims = new List<Claim>
                 {
@@ -244,7 +238,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
                 A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
 
-                var strategy = new NamespaceBasedAuthorizationStrategy(requestContextProvider);
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
                 var claims = new List<Claim>
                 {
@@ -277,10 +271,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 //Arrange
                 var resource = new Resource("Ignored");
-                var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
-                A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
 
-                var strategy = new NamespaceBasedAuthorizationStrategy(requestContextProvider);
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
                 var claims = new List<Claim>();
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
