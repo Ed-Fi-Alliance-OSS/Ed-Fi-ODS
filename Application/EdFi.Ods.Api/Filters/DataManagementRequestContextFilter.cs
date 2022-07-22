@@ -56,22 +56,44 @@ public class DataManagementRequestContextFilter : IActionFilter
             {
                 var parts = template.Substring(RouteConstants.DataManagementRoutePrefix.Length + 1).Split('/');
 
-                // If this is a known schema...
-                if (_knownSchemas.Contains(parts[0]))
+                string schema = null, resourceCollection = null;
+                
+                // If the schema segment is a templatized route value...
+                if (parts[0] == "{schema}")
                 {
-                    // Find and capture the associated resource to context
-                    try
+                    if (!context.RouteData.Values.TryGetValue("schema", out object schemaAsObject)
+                        || !context.RouteData.Values.TryGetValue("resource", out object resourceAsObject))
                     {
-                        var resource = _resourceModelProvider.GetResourceModel()
-                            .GetResourceByApiCollectionName(parts[0], parts[1]);
+                        return;
+                    }
 
-                        _contextProvider.SetResource(resource);
-                    }
-                    catch (Exception)
+                    schema = (string) schemaAsObject;
+                    resourceCollection = (string) resourceAsObject;
+                }
+                else
+                {
+                    // If this is NOT a known schema...
+                    if (!_knownSchemas.Contains(parts[0]))
                     {
-                        _logger.Debug(
-                            $"Unable to find resource based on route template value '{template.Substring(RouteConstants.DataManagementRoutePrefix.Length + 1)}'...");
+                        return;
                     }
+
+                    schema = parts[0];
+                    resourceCollection = parts[1];
+                }
+
+                // Find and capture the associated resource to context
+                try
+                {
+                    var resource = _resourceModelProvider.GetResourceModel()
+                        .GetResourceByApiCollectionName(schema, resourceCollection);
+
+                    _contextProvider.SetResource(resource);
+                }
+                catch (Exception)
+                {
+                    _logger.Debug(
+                        $"Unable to find resource based on route template value '{template.Substring(RouteConstants.DataManagementRoutePrefix.Length + 1)}'...");
                 }
             }
         }
