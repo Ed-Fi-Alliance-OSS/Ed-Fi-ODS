@@ -17,6 +17,7 @@ RETURNS TABLE (
     ,CreatorOwnershipTokenId SMALLINT
     ,OwnershipTokenId SMALLINT
     ,Expiration TIMESTAMP
+	,ApiClientId INT
 )
 AS
 $$
