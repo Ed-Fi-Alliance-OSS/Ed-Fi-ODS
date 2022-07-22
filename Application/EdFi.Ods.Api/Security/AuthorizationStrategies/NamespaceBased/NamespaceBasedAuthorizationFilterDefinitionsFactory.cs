@@ -50,8 +50,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                 @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
                 ApplyAuthorizationCriteria,
                 ApplyTrackedChangesAuthorizationCriteria,
-                AuthorizeInstance, 
-                (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("Namespace")),
+                AuthorizeInstance)
         }.AsReadOnly();
 
         return filters;
@@ -60,6 +59,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
     private static void ApplyAuthorizationCriteria(
         ICriteria criteria,
         Junction @where,
+        string subjectEndpointName,
         IDictionary<string, object> parameters,
         JoinType joinType)
     {

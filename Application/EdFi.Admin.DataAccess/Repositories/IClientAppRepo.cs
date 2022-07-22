@@ -50,13 +50,11 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         ApiClient CreateApiClient(int userId, string name, string key, string secret);
 
-        void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId);
+        void AddEdOrgIdsToApiClient(int userId, int apiClientId, IList<int> edOrgIds, int applicationId);
 
         void Reset();
 
         void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
-
-        void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId);
 
         void AddOwnershipTokensToApiClient(string ownershipToken, int apiClientId);
 

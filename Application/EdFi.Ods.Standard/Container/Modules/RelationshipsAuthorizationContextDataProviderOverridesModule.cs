@@ -19,6 +19,12 @@ namespace EdFi.Ods.Standard.Container.Modules
             builder.RegisterType<OrganizationDepartmentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
                 .As<IRelationshipsAuthorizationContextDataProvider<IOrganizationDepartment, RelationshipsAuthorizationContextData>>()
                 .SingleInstance();
+
+            // Establish authorization context for DisciplineActions using the ResponsibilitySchoolId and StudentUSI 
+            // rather than default behavior (StudentUSI)
+            builder.RegisterType<DisciplineActionRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
+                .As<IRelationshipsAuthorizationContextDataProvider<IDisciplineAction, RelationshipsAuthorizationContextData>>()
+                .SingleInstance();
         }
     }
 }

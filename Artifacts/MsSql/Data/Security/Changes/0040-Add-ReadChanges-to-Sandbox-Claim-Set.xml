@@ -212,35 +212,6 @@
       <Claims>
         <Claim claimId="59" name="http://ed-fi.org/ods/identity/claims/communityProviderLicense">
           <ClaimSets>
-            <ClaimSet name="Ed-Fi Sandbox">
-              <Actions>
-                <Action name="Create">
-                  <AuthorizationStrategyOverrides>
-                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-                  </AuthorizationStrategyOverrides>
-                </Action>
-                <Action name="Read">
-                  <AuthorizationStrategyOverrides>
-                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-                  </AuthorizationStrategyOverrides>
-                </Action>
-                <Action name="Update">
-                  <AuthorizationStrategyOverrides>
-                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-                  </AuthorizationStrategyOverrides>
-                </Action>
-                <Action name="Delete">
-                  <AuthorizationStrategyOverrides>
-                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-                  </AuthorizationStrategyOverrides>
-                </Action>
-                <Action name="ReadChanges">
-                  <AuthorizationStrategyOverrides>
-                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
-                  </AuthorizationStrategyOverrides>
-                </Action>
-              </Actions>
-            </ClaimSet>
             <ClaimSet name="Ed-Fi API Publisher - Reader">
               <Actions>
                 <Action name="Read">

@@ -61,14 +61,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}{authorizationPathModifier}",
                     $"EducationOrganizationIdTo{usiName}{authorizationPathModifier}",
                     usiName,
-                    usiName,
                     ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance,
                     _viewBasedSingleItemAuthorizationQuerySupport
                 ));
         }
 
-        // TODO: Is this even necessary anymore with the EdOrg generalization in authorization?
         protected IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToEducationOrganizationFilters()
         {
             string[] concreteEdOrgIdNames = _educationOrganizationIdNamesProvider.GetAllNames(); 
@@ -81,7 +79,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{concreteEdOrgId}",
                         "EducationOrganizationIdToEducationOrganizationId",
                         "TargetEducationOrganizationId",
-                        concreteEdOrgId,
                         ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
                         _viewBasedSingleItemAuthorizationQuerySupport));
