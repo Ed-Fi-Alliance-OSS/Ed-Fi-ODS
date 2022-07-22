@@ -7483,7 +7483,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
+													"value": "{{AccessToken}}",
 													"type": "string"
 												}
 											]
@@ -7579,6 +7579,35 @@
 												"ed-fi",
 												"gradebookEntries",
 												"{{known:gradebookEntry:id:otherNamespace}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
 											]
 										}
 									},
