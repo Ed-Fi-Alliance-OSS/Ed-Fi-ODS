@@ -45,7 +45,7 @@ namespace EdFi.Ods.Common.Security.Claims
 
             resourceClaimUris.ForEach(
                 resourceClaimUri =>
-                    Resource.Add(new Claim(ClaimsName, resourceClaimUri)));
+                    ResourceClaims.Add(new Claim(ClaimsName, resourceClaimUri)));
 
             Action.Add(new Claim(ClaimsName, action));
 
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Common.Security.Claims
 
             resourceClaimUris.ForEach(
                 resourceClaimUri =>
-                    Resource.Add(new Claim(ClaimsName, resourceClaimUri)));
+                    ResourceClaims.Add(new Claim(ClaimsName, resourceClaimUri)));
 
             Action.Add(new Claim(ClaimsName, action));
         }
@@ -105,6 +105,6 @@ namespace EdFi.Ods.Common.Security.Claims
 
         /// <summary>Gets the resource on which the principal is to be authorized.</summary>
         /// <returns>A collection of URI claims that represent the resource.</returns>
-        public Collection<Claim> Resource { get; } = new Collection<Claim>();
+        public Collection<Claim> ResourceClaims { get; } = new Collection<Claim>();
     }
 }
