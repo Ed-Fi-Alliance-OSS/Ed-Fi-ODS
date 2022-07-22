@@ -63,30 +63,6 @@ CREATE TABLE [edfi].[AccommodationDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [edfi].[Account] --
-CREATE TABLE [edfi].[Account] (
-    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [AccountName] [NVARCHAR](100) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [Account_PK] PRIMARY KEY CLUSTERED (
-        [AccountIdentifier] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[Account] ADD CONSTRAINT [Account_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[Account] ADD CONSTRAINT [Account_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[Account] ADD CONSTRAINT [Account_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
 -- Table [edfi].[AccountabilityRating] --
 CREATE TABLE [edfi].[AccountabilityRating] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -114,59 +90,13 @@ GO
 ALTER TABLE [edfi].[AccountabilityRating] ADD CONSTRAINT [AccountabilityRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [edfi].[AccountAccountCode] --
-CREATE TABLE [edfi].[AccountAccountCode] (
-    [AccountClassificationDescriptorId] [INT] NOT NULL,
-    [AccountCodeNumber] [NVARCHAR](50) NOT NULL,
-    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [AccountAccountCode_PK] PRIMARY KEY CLUSTERED (
-        [AccountClassificationDescriptorId] ASC,
-        [AccountCodeNumber] ASC,
-        [AccountIdentifier] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC
+-- Table [edfi].[AccountTypeDescriptor] --
+CREATE TABLE [edfi].[AccountTypeDescriptor] (
+    [AccountTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [AccountTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [AccountTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[AccountAccountCode] ADD CONSTRAINT [AccountAccountCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[AccountClassificationDescriptor] --
-CREATE TABLE [edfi].[AccountClassificationDescriptor] (
-    [AccountClassificationDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [AccountClassificationDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [AccountClassificationDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [edfi].[AccountCode] --
-CREATE TABLE [edfi].[AccountCode] (
-    [AccountClassificationDescriptorId] [INT] NOT NULL,
-    [AccountCodeNumber] [NVARCHAR](50) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [AccountCodeDescription] [NVARCHAR](1024) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [AccountCode_PK] PRIMARY KEY CLUSTERED (
-        [AccountClassificationDescriptorId] ASC,
-        [AccountCodeNumber] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[AccountCode] ADD CONSTRAINT [AccountCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[AccountCode] ADD CONSTRAINT [AccountCode_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[AccountCode] ADD CONSTRAINT [AccountCode_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [edfi].[AchievementCategoryDescriptor] --
@@ -176,32 +106,6 @@ CREATE TABLE [edfi].[AchievementCategoryDescriptor] (
         [AchievementCategoryDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
--- Table [edfi].[Actual] --
-CREATE TABLE [edfi].[Actual] (
-    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [AmountToDate] [MONEY] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [Actual_PK] PRIMARY KEY CLUSTERED (
-        [AccountIdentifier] ASC,
-        [AsOfDate] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[Actual] ADD CONSTRAINT [Actual_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[Actual] ADD CONSTRAINT [Actual_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[Actual] ADD CONSTRAINT [Actual_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [edfi].[AdditionalCreditTypeDescriptor] --
@@ -253,7 +157,7 @@ GO
 CREATE TABLE [edfi].[Assessment] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
-    [AssessmentTitle] [NVARCHAR](100) NOT NULL,
+    [AssessmentTitle] [NVARCHAR](255) NOT NULL,
     [AssessmentCategoryDescriptorId] [INT] NULL,
     [AssessmentForm] [NVARCHAR](60) NULL,
     [AssessmentVersion] [INT] NULL,
@@ -513,13 +417,14 @@ GO
 -- Table [edfi].[AssessmentPeriod] --
 CREATE TABLE [edfi].[AssessmentPeriod] (
     [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
-    [Namespace] [NVARCHAR](255) NOT NULL,
     [AssessmentPeriodDescriptorId] [INT] NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
     [BeginDate] [DATE] NULL,
     [EndDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [AssessmentPeriod_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
+        [AssessmentPeriodDescriptorId] ASC,
         [Namespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -696,6 +601,44 @@ CREATE TABLE [edfi].[AttendanceEventCategoryDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[BalanceSheetDimension] --
+CREATE TABLE [edfi].[BalanceSheetDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [BalanceSheetDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[BalanceSheetDimension] ADD CONSTRAINT [BalanceSheetDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[BalanceSheetDimension] ADD CONSTRAINT [BalanceSheetDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[BalanceSheetDimension] ADD CONSTRAINT [BalanceSheetDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[BalanceSheetDimensionReportingTag] --
+CREATE TABLE [edfi].[BalanceSheetDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [BalanceSheetDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[BalanceSheetDimensionReportingTag] ADD CONSTRAINT [BalanceSheetDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[BarrierToInternetAccessInResidenceDescriptor] --
 CREATE TABLE [edfi].[BarrierToInternetAccessInResidenceDescriptor] (
     [BarrierToInternetAccessInResidenceDescriptorId] [INT] NOT NULL,
@@ -785,32 +728,6 @@ CREATE TABLE [edfi].[BellScheduleGradeLevel] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[BellScheduleGradeLevel] ADD CONSTRAINT [BellScheduleGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [edfi].[Budget] --
-CREATE TABLE [edfi].[Budget] (
-    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [Amount] [MONEY] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [Budget_PK] PRIMARY KEY CLUSTERED (
-        [AccountIdentifier] ASC,
-        [AsOfDate] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[Budget] ADD CONSTRAINT [Budget_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[Budget] ADD CONSTRAINT [Budget_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[Budget] ADD CONSTRAINT [Budget_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [edfi].[Calendar] --
@@ -943,6 +860,58 @@ CREATE TABLE [edfi].[CharterStatusDescriptor] (
         [CharterStatusDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [edfi].[ChartOfAccount] --
+CREATE TABLE [edfi].[ChartOfAccount] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [AccountTypeDescriptorId] [INT] NOT NULL,
+    [AccountName] [NVARCHAR](100) NULL,
+    [BalanceSheetCode] [NVARCHAR](16) NULL,
+    [FunctionCode] [NVARCHAR](16) NULL,
+    [FundCode] [NVARCHAR](16) NULL,
+    [ObjectCode] [NVARCHAR](16) NULL,
+    [OperationalUnitCode] [NVARCHAR](16) NULL,
+    [ProgramCode] [NVARCHAR](16) NULL,
+    [ProjectCode] [NVARCHAR](16) NULL,
+    [SourceCode] [NVARCHAR](16) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [ChartOfAccount_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ChartOfAccount] ADD CONSTRAINT [ChartOfAccount_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[ChartOfAccount] ADD CONSTRAINT [ChartOfAccount_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[ChartOfAccount] ADD CONSTRAINT [ChartOfAccount_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[ChartOfAccountReportingTag] --
+CREATE TABLE [edfi].[ChartOfAccountReportingTag] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [TagValue] [NVARCHAR](100) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ChartOfAccountReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ChartOfAccountReportingTag] ADD CONSTRAINT [ChartOfAccountReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[CitizenshipStatusDescriptor] --
@@ -1190,34 +1159,6 @@ CREATE TABLE [edfi].[ContinuationOfServicesReasonDescriptor] (
         [ContinuationOfServicesReasonDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
--- Table [edfi].[ContractedStaff] --
-CREATE TABLE [edfi].[ContractedStaff] (
-    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [AmountToDate] [MONEY] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [ContractedStaff_PK] PRIMARY KEY CLUSTERED (
-        [AccountIdentifier] ASC,
-        [AsOfDate] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC,
-        [StaffUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[ContractedStaff] ADD CONSTRAINT [ContractedStaff_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[ContractedStaff] ADD CONSTRAINT [ContractedStaff_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[ContractedStaff] ADD CONSTRAINT [ContractedStaff_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [edfi].[CostRateDescriptor] --
@@ -1874,6 +1815,51 @@ GO
 ALTER TABLE [edfi].[Descriptor] ADD CONSTRAINT [Descriptor_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [edfi].[Descriptor] ADD CONSTRAINT [Descriptor_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[DescriptorMapping] --
+CREATE TABLE [edfi].[DescriptorMapping] (
+    [MappedNamespace] [NVARCHAR](255) NOT NULL,
+    [MappedValue] [NVARCHAR](50) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [Value] [NVARCHAR](50) NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [DescriptorMapping_PK] PRIMARY KEY CLUSTERED (
+        [MappedNamespace] ASC,
+        [MappedValue] ASC,
+        [Namespace] ASC,
+        [Value] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[DescriptorMapping] ADD CONSTRAINT [DescriptorMapping_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[DescriptorMapping] ADD CONSTRAINT [DescriptorMapping_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[DescriptorMapping] ADD CONSTRAINT [DescriptorMapping_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[DescriptorMappingModelEntity] --
+CREATE TABLE [edfi].[DescriptorMappingModelEntity] (
+    [MappedNamespace] [NVARCHAR](255) NOT NULL,
+    [MappedValue] [NVARCHAR](50) NOT NULL,
+    [ModelEntityDescriptorId] [INT] NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [Value] [NVARCHAR](50) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [DescriptorMappingModelEntity_PK] PRIMARY KEY CLUSTERED (
+        [MappedNamespace] ASC,
+        [MappedValue] ASC,
+        [ModelEntityDescriptorId] ASC,
+        [Namespace] ASC,
+        [Value] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[DescriptorMappingModelEntity] ADD CONSTRAINT [DescriptorMappingModelEntity_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[DiagnosisDescriptor] --
@@ -2668,6 +2654,91 @@ GO
 ALTER TABLE [edfi].[FeederSchoolAssociation] ADD CONSTRAINT [FeederSchoolAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
+-- Table [edfi].[FinancialCollectionDescriptor] --
+CREATE TABLE [edfi].[FinancialCollectionDescriptor] (
+    [FinancialCollectionDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [FinancialCollectionDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [FinancialCollectionDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[FunctionDimension] --
+CREATE TABLE [edfi].[FunctionDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [FunctionDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[FunctionDimension] ADD CONSTRAINT [FunctionDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[FunctionDimension] ADD CONSTRAINT [FunctionDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[FunctionDimension] ADD CONSTRAINT [FunctionDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[FunctionDimensionReportingTag] --
+CREATE TABLE [edfi].[FunctionDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [FunctionDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[FunctionDimensionReportingTag] ADD CONSTRAINT [FunctionDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[FundDimension] --
+CREATE TABLE [edfi].[FundDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [FundDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[FundDimension] ADD CONSTRAINT [FundDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[FundDimension] ADD CONSTRAINT [FundDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[FundDimension] ADD CONSTRAINT [FundDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[FundDimensionReportingTag] --
+CREATE TABLE [edfi].[FundDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [FundDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[FundDimensionReportingTag] ADD CONSTRAINT [FundDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[GeneralStudentProgramAssociation] --
 CREATE TABLE [edfi].[GeneralStudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
@@ -2802,7 +2873,7 @@ GO
 -- Table [edfi].[GradebookEntry] --
 CREATE TABLE [edfi].[GradebookEntry] (
     [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
-    [SourceSystemNamespace] [NVARCHAR](255) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NULL,
     [SessionName] [NVARCHAR](60) NULL,
@@ -2823,7 +2894,7 @@ CREATE TABLE [edfi].[GradebookEntry] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [GradebookEntry_PK] PRIMARY KEY CLUSTERED (
         [GradebookEntryIdentifier] ASC,
-        [SourceSystemNamespace] ASC
+        [Namespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -2838,12 +2909,12 @@ GO
 CREATE TABLE [edfi].[GradebookEntryLearningStandard] (
     [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
     [LearningStandardId] [NVARCHAR](60) NOT NULL,
-    [SourceSystemNamespace] [NVARCHAR](255) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [GradebookEntryLearningStandard_PK] PRIMARY KEY CLUSTERED (
         [GradebookEntryIdentifier] ASC,
         [LearningStandardId] ASC,
-        [SourceSystemNamespace] ASC
+        [Namespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -4130,6 +4201,134 @@ CREATE TABLE [edfi].[LimitedEnglishProficiencyDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[LocalAccount] --
+CREATE TABLE [edfi].[LocalAccount] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [AccountName] [NVARCHAR](100) NULL,
+    [ChartOfAccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [ChartOfAccountEducationOrganizationId] [INT] NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [LocalAccount_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalAccount] ADD CONSTRAINT [LocalAccount_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[LocalAccount] ADD CONSTRAINT [LocalAccount_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[LocalAccount] ADD CONSTRAINT [LocalAccount_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[LocalAccountReportingTag] --
+CREATE TABLE [edfi].[LocalAccountReportingTag] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [TagValue] [NVARCHAR](100) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [LocalAccountReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalAccountReportingTag] ADD CONSTRAINT [LocalAccountReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[LocalActual] --
+CREATE TABLE [edfi].[LocalActual] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [AsOfDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [Amount] [MONEY] NOT NULL,
+    [FinancialCollectionDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [LocalActual_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [AsOfDate] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalActual] ADD CONSTRAINT [LocalActual_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[LocalActual] ADD CONSTRAINT [LocalActual_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[LocalActual] ADD CONSTRAINT [LocalActual_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[LocalBudget] --
+CREATE TABLE [edfi].[LocalBudget] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [AsOfDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [Amount] [MONEY] NOT NULL,
+    [FinancialCollectionDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [LocalBudget_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [AsOfDate] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalBudget] ADD CONSTRAINT [LocalBudget_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[LocalBudget] ADD CONSTRAINT [LocalBudget_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[LocalBudget] ADD CONSTRAINT [LocalBudget_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[LocalContractedStaff] --
+CREATE TABLE [edfi].[LocalContractedStaff] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [AsOfDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [Amount] [MONEY] NOT NULL,
+    [FinancialCollectionDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [LocalContractedStaff_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [AsOfDate] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC,
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalContractedStaff] ADD CONSTRAINT [LocalContractedStaff_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[LocalContractedStaff] ADD CONSTRAINT [LocalContractedStaff_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[LocalContractedStaff] ADD CONSTRAINT [LocalContractedStaff_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
 -- Table [edfi].[LocaleDescriptor] --
 CREATE TABLE [edfi].[LocaleDescriptor] (
     [LocaleDescriptorId] [INT] NOT NULL,
@@ -4200,6 +4399,62 @@ GO
 ALTER TABLE [edfi].[LocalEducationAgencyFederalFunds] ADD CONSTRAINT [LocalEducationAgencyFederalFunds_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[LocalEncumbrance] --
+CREATE TABLE [edfi].[LocalEncumbrance] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [AsOfDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [Amount] [MONEY] NOT NULL,
+    [FinancialCollectionDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [LocalEncumbrance_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [AsOfDate] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalEncumbrance] ADD CONSTRAINT [LocalEncumbrance_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[LocalEncumbrance] ADD CONSTRAINT [LocalEncumbrance_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[LocalEncumbrance] ADD CONSTRAINT [LocalEncumbrance_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[LocalPayroll] --
+CREATE TABLE [edfi].[LocalPayroll] (
+    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
+    [AsOfDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [Amount] [MONEY] NOT NULL,
+    [FinancialCollectionDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [LocalPayroll_PK] PRIMARY KEY CLUSTERED (
+        [AccountIdentifier] ASC,
+        [AsOfDate] ASC,
+        [EducationOrganizationId] ASC,
+        [FiscalYear] ASC,
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[LocalPayroll] ADD CONSTRAINT [LocalPayroll_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[LocalPayroll] ADD CONSTRAINT [LocalPayroll_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[LocalPayroll] ADD CONSTRAINT [LocalPayroll_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
 -- Table [edfi].[Location] --
 CREATE TABLE [edfi].[Location] (
     [ClassroomIdentificationCode] [NVARCHAR](60) NOT NULL,
@@ -4259,6 +4514,15 @@ CREATE TABLE [edfi].[MigrantEducationProgramServiceDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[ModelEntityDescriptor] --
+CREATE TABLE [edfi].[ModelEntityDescriptor] (
+    [ModelEntityDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ModelEntityDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ModelEntityDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [edfi].[MonitoredDescriptor] --
 CREATE TABLE [edfi].[MonitoredDescriptor] (
     [MonitoredDescriptorId] [INT] NOT NULL,
@@ -4293,6 +4557,44 @@ CREATE TABLE [edfi].[NetworkPurposeDescriptor] (
         [NetworkPurposeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [edfi].[ObjectDimension] --
+CREATE TABLE [edfi].[ObjectDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [ObjectDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ObjectDimension] ADD CONSTRAINT [ObjectDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[ObjectDimension] ADD CONSTRAINT [ObjectDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[ObjectDimension] ADD CONSTRAINT [ObjectDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[ObjectDimensionReportingTag] --
+CREATE TABLE [edfi].[ObjectDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ObjectDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ObjectDimensionReportingTag] ADD CONSTRAINT [ObjectDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[ObjectiveAssessment] --
@@ -4481,6 +4783,44 @@ CREATE TABLE [edfi].[OperationalStatusDescriptor] (
         [OperationalStatusDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [edfi].[OperationalUnitDimension] --
+CREATE TABLE [edfi].[OperationalUnitDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [OperationalUnitDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[OperationalUnitDimension] ADD CONSTRAINT [OperationalUnitDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[OperationalUnitDimension] ADD CONSTRAINT [OperationalUnitDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[OperationalUnitDimension] ADD CONSTRAINT [OperationalUnitDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[OperationalUnitDimensionReportingTag] --
+CREATE TABLE [edfi].[OperationalUnitDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [OperationalUnitDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[OperationalUnitDimensionReportingTag] ADD CONSTRAINT [OperationalUnitDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[OrganizationDepartment] --
@@ -4742,34 +5082,6 @@ CREATE TABLE [edfi].[ParticipationStatusDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [edfi].[Payroll] --
-CREATE TABLE [edfi].[Payroll] (
-    [AccountIdentifier] [NVARCHAR](50) NOT NULL,
-    [AsOfDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FiscalYear] [INT] NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [AmountToDate] [MONEY] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [Payroll_PK] PRIMARY KEY CLUSTERED (
-        [AccountIdentifier] ASC,
-        [AsOfDate] ASC,
-        [EducationOrganizationId] ASC,
-        [FiscalYear] ASC,
-        [StaffUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [edfi].[Payroll] ADD CONSTRAINT [Payroll_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [edfi].[Payroll] ADD CONSTRAINT [Payroll_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [edfi].[Payroll] ADD CONSTRAINT [Payroll_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
 -- Table [edfi].[PerformanceBaseConversionDescriptor] --
 CREATE TABLE [edfi].[PerformanceBaseConversionDescriptor] (
     [PerformanceBaseConversionDescriptorId] [INT] NOT NULL,
@@ -5008,6 +5320,44 @@ CREATE TABLE [edfi].[ProgramCharacteristicDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[ProgramDimension] --
+CREATE TABLE [edfi].[ProgramDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [ProgramDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ProgramDimension] ADD CONSTRAINT [ProgramDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[ProgramDimension] ADD CONSTRAINT [ProgramDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[ProgramDimension] ADD CONSTRAINT [ProgramDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[ProgramDimensionReportingTag] --
+CREATE TABLE [edfi].[ProgramDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ProgramDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ProgramDimensionReportingTag] ADD CONSTRAINT [ProgramDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[ProgramLearningObjective] --
 CREATE TABLE [edfi].[ProgramLearningObjective] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -5116,6 +5466,44 @@ CREATE TABLE [edfi].[ProgressLevelDescriptor] (
         [ProgressLevelDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [edfi].[ProjectDimension] --
+CREATE TABLE [edfi].[ProjectDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [ProjectDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ProjectDimension] ADD CONSTRAINT [ProjectDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[ProjectDimension] ADD CONSTRAINT [ProjectDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[ProjectDimension] ADD CONSTRAINT [ProjectDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[ProjectDimensionReportingTag] --
+CREATE TABLE [edfi].[ProjectDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ProjectDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ProjectDimensionReportingTag] ADD CONSTRAINT [ProjectDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[ProviderCategoryDescriptor] --
@@ -5373,6 +5761,15 @@ CREATE TABLE [edfi].[ReporterDescriptionDescriptor] (
     [ReporterDescriptionDescriptorId] [INT] NOT NULL,
     CONSTRAINT [ReporterDescriptionDescriptor_PK] PRIMARY KEY CLUSTERED (
         [ReporterDescriptionDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[ReportingTagDescriptor] --
+CREATE TABLE [edfi].[ReportingTagDescriptor] (
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ReportingTagDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ReportingTagDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -5892,6 +6289,44 @@ CREATE TABLE [edfi].[SexDescriptor] (
         [SexDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [edfi].[SourceDimension] --
+CREATE TABLE [edfi].[SourceDimension] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [CodeName] [NVARCHAR](100) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [SourceDimension_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[SourceDimension] ADD CONSTRAINT [SourceDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[SourceDimension] ADD CONSTRAINT [SourceDimension_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[SourceDimension] ADD CONSTRAINT [SourceDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[SourceDimensionReportingTag] --
+CREATE TABLE [edfi].[SourceDimensionReportingTag] (
+    [Code] [NVARCHAR](16) NOT NULL,
+    [FiscalYear] [INT] NOT NULL,
+    [ReportingTagDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [SourceDimensionReportingTag_PK] PRIMARY KEY CLUSTERED (
+        [Code] ASC,
+        [FiscalYear] ASC,
+        [ReportingTagDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[SourceDimensionReportingTag] ADD CONSTRAINT [SourceDimensionReportingTag_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[SourceSystemDescriptor] --
@@ -7029,7 +7464,7 @@ CREATE TABLE [edfi].[StudentAssessment] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [AdministrationDate] [DATETIME2](7) NOT NULL,
+    [AdministrationDate] [DATETIME2](7) NULL,
     [AdministrationEndDate] [DATETIME2](7) NULL,
     [SerialNumber] [NVARCHAR](60) NULL,
     [AdministrationLanguageDescriptorId] [INT] NULL,
@@ -7041,6 +7476,7 @@ CREATE TABLE [edfi].[StudentAssessment] (
     [EventDescription] [NVARCHAR](1024) NULL,
     [SchoolYear] [SMALLINT] NULL,
     [PlatformTypeDescriptorId] [INT] NULL,
+    [AssessedMinutes] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -7115,7 +7551,6 @@ CREATE TABLE [edfi].[StudentAssessmentPerformanceLevel] (
     [PerformanceLevelDescriptorId] [INT] NOT NULL,
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [PerformanceLevelMet] [BIT] NOT NULL,
     [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
@@ -7129,6 +7564,27 @@ CREATE TABLE [edfi].[StudentAssessmentPerformanceLevel] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[StudentAssessmentPerformanceLevel] ADD CONSTRAINT [StudentAssessmentPerformanceLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentAssessmentPeriod] --
+CREATE TABLE [edfi].[StudentAssessmentPeriod] (
+    [AssessmentIdentifier] [NVARCHAR](60) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [AssessmentPeriodDescriptorId] [INT] NOT NULL,
+    [BeginDate] [DATE] NULL,
+    [EndDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentAssessmentPeriod_PK] PRIMARY KEY CLUSTERED (
+        [AssessmentIdentifier] ASC,
+        [Namespace] ASC,
+        [StudentAssessmentIdentifier] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentAssessmentPeriod] ADD CONSTRAINT [StudentAssessmentPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentAssessmentScoreResult] --
@@ -7160,6 +7616,9 @@ CREATE TABLE [edfi].[StudentAssessmentStudentObjectiveAssessment] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [AssessedMinutes] [INT] NULL,
+    [AdministrationDate] [DATETIME2](7) NULL,
+    [AdministrationEndDate] [DATETIME2](7) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAssessmentStudentObjectiveAssessment_PK] PRIMARY KEY CLUSTERED (
         [AssessmentIdentifier] ASC,
@@ -7182,7 +7641,6 @@ CREATE TABLE [edfi].[StudentAssessmentStudentObjectiveAssessmentPerformanceLevel
     [PerformanceLevelDescriptorId] [INT] NOT NULL,
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [PerformanceLevelMet] [BIT] NOT NULL,
     [PerformanceLevelIndicatorName] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentAssessmentStudentObjectiveAssessmentPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
@@ -8086,7 +8544,7 @@ GO
 -- Table [edfi].[StudentGradebookEntry] --
 CREATE TABLE [edfi].[StudentGradebookEntry] (
     [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
-    [SourceSystemNamespace] [NVARCHAR](255) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CompetencyLevelDescriptorId] [INT] NULL,
     [DateFulfilled] [DATE] NULL,
@@ -8103,7 +8561,7 @@ CREATE TABLE [edfi].[StudentGradebookEntry] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [StudentGradebookEntry_PK] PRIMARY KEY CLUSTERED (
         [GradebookEntryIdentifier] ASC,
-        [SourceSystemNamespace] ASC,
+        [Namespace] ASC,
         [StudentUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]

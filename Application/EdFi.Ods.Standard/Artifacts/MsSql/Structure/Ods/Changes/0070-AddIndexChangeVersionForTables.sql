@@ -10,26 +10,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Account') AND name = N'UX_Account_ChangeVersion')
-    CREATE INDEX [UX_Account_ChangeVersion] ON [edfi].[Account] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AccountCode') AND name = N'UX_AccountCode_ChangeVersion')
-    CREATE INDEX [UX_AccountCode_ChangeVersion] ON [edfi].[AccountCode] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AccountabilityRating') AND name = N'UX_AccountabilityRating_ChangeVersion')
     CREATE INDEX [UX_AccountabilityRating_ChangeVersion] ON [edfi].[AccountabilityRating] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Actual') AND name = N'UX_Actual_ChangeVersion')
-    CREATE INDEX [UX_Actual_ChangeVersion] ON [edfi].[Actual] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -52,14 +34,14 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.BellSchedule') AND name = N'UX_BellSchedule_ChangeVersion')
-    CREATE INDEX [UX_BellSchedule_ChangeVersion] ON [edfi].[BellSchedule] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.BalanceSheetDimension') AND name = N'UX_BalanceSheetDimension_ChangeVersion')
+    CREATE INDEX [UX_BalanceSheetDimension_ChangeVersion] ON [edfi].[BalanceSheetDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Budget') AND name = N'UX_Budget_ChangeVersion')
-    CREATE INDEX [UX_Budget_ChangeVersion] ON [edfi].[Budget] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.BellSchedule') AND name = N'UX_BellSchedule_ChangeVersion')
+    CREATE INDEX [UX_BellSchedule_ChangeVersion] ON [edfi].[BellSchedule] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -72,6 +54,12 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CalendarDate') AND name = N'UX_CalendarDate_ChangeVersion')
     CREATE INDEX [UX_CalendarDate_ChangeVersion] ON [edfi].[CalendarDate] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ChartOfAccount') AND name = N'UX_ChartOfAccount_ChangeVersion')
+    CREATE INDEX [UX_ChartOfAccount_ChangeVersion] ON [edfi].[ChartOfAccount] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -96,12 +84,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.CompetencyObjective') AND name = N'UX_CompetencyObjective_ChangeVersion')
     CREATE INDEX [UX_CompetencyObjective_ChangeVersion] ON [edfi].[CompetencyObjective] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ContractedStaff') AND name = N'UX_ContractedStaff_ChangeVersion')
-    CREATE INDEX [UX_ContractedStaff_ChangeVersion] ON [edfi].[ContractedStaff] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -132,6 +114,12 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Descriptor') AND name = N'UX_Descriptor_ChangeVersion')
     CREATE INDEX [UX_Descriptor_ChangeVersion] ON [edfi].[Descriptor] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.DescriptorMapping') AND name = N'UX_DescriptorMapping_ChangeVersion')
+    CREATE INDEX [UX_DescriptorMapping_ChangeVersion] ON [edfi].[DescriptorMapping] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -180,6 +168,18 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.FeederSchoolAssociation') AND name = N'UX_FeederSchoolAssociation_ChangeVersion')
     CREATE INDEX [UX_FeederSchoolAssociation_ChangeVersion] ON [edfi].[FeederSchoolAssociation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.FunctionDimension') AND name = N'UX_FunctionDimension_ChangeVersion')
+    CREATE INDEX [UX_FunctionDimension_ChangeVersion] ON [edfi].[FunctionDimension] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.FundDimension') AND name = N'UX_FundDimension_ChangeVersion')
+    CREATE INDEX [UX_FundDimension_ChangeVersion] ON [edfi].[FundDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -250,8 +250,50 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LocalAccount') AND name = N'UX_LocalAccount_ChangeVersion')
+    CREATE INDEX [UX_LocalAccount_ChangeVersion] ON [edfi].[LocalAccount] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LocalActual') AND name = N'UX_LocalActual_ChangeVersion')
+    CREATE INDEX [UX_LocalActual_ChangeVersion] ON [edfi].[LocalActual] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LocalBudget') AND name = N'UX_LocalBudget_ChangeVersion')
+    CREATE INDEX [UX_LocalBudget_ChangeVersion] ON [edfi].[LocalBudget] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LocalContractedStaff') AND name = N'UX_LocalContractedStaff_ChangeVersion')
+    CREATE INDEX [UX_LocalContractedStaff_ChangeVersion] ON [edfi].[LocalContractedStaff] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LocalEncumbrance') AND name = N'UX_LocalEncumbrance_ChangeVersion')
+    CREATE INDEX [UX_LocalEncumbrance_ChangeVersion] ON [edfi].[LocalEncumbrance] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.LocalPayroll') AND name = N'UX_LocalPayroll_ChangeVersion')
+    CREATE INDEX [UX_LocalPayroll_ChangeVersion] ON [edfi].[LocalPayroll] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Location') AND name = N'UX_Location_ChangeVersion')
     CREATE INDEX [UX_Location_ChangeVersion] ON [edfi].[Location] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ObjectDimension') AND name = N'UX_ObjectDimension_ChangeVersion')
+    CREATE INDEX [UX_ObjectDimension_ChangeVersion] ON [edfi].[ObjectDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -268,14 +310,14 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Parent') AND name = N'UX_Parent_ChangeVersion')
-    CREATE INDEX [UX_Parent_ChangeVersion] ON [edfi].[Parent] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.OperationalUnitDimension') AND name = N'UX_OperationalUnitDimension_ChangeVersion')
+    CREATE INDEX [UX_OperationalUnitDimension_ChangeVersion] ON [edfi].[OperationalUnitDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Payroll') AND name = N'UX_Payroll_ChangeVersion')
-    CREATE INDEX [UX_Payroll_ChangeVersion] ON [edfi].[Payroll] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Parent') AND name = N'UX_Parent_ChangeVersion')
+    CREATE INDEX [UX_Parent_ChangeVersion] ON [edfi].[Parent] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -294,6 +336,18 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Program') AND name = N'UX_Program_ChangeVersion')
     CREATE INDEX [UX_Program_ChangeVersion] ON [edfi].[Program] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ProgramDimension') AND name = N'UX_ProgramDimension_ChangeVersion')
+    CREATE INDEX [UX_ProgramDimension_ChangeVersion] ON [edfi].[ProgramDimension] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.ProjectDimension') AND name = N'UX_ProjectDimension_ChangeVersion')
+    CREATE INDEX [UX_ProjectDimension_ChangeVersion] ON [edfi].[ProjectDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -330,6 +384,12 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Session') AND name = N'UX_Session_ChangeVersion')
     CREATE INDEX [UX_Session_ChangeVersion] ON [edfi].[Session] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.SourceDimension') AND name = N'UX_SourceDimension_ChangeVersion')
+    CREATE INDEX [UX_SourceDimension_ChangeVersion] ON [edfi].[SourceDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 

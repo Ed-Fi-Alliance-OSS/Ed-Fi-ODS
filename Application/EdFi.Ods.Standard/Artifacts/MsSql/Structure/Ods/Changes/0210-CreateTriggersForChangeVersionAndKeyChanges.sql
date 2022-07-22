@@ -16,19 +16,6 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_Account_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_Account_TR_UpdateChangeVersion] ON [edfi].[Account] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[Account]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[Account] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_AccountabilityRating_TR_UpdateChangeVersion]
 GO
 
@@ -38,32 +25,6 @@ BEGIN
     UPDATE [edfi].[AccountabilityRating]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[AccountabilityRating] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_AccountCode_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_AccountCode_TR_UpdateChangeVersion] ON [edfi].[AccountCode] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[AccountCode]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[AccountCode] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_Actual_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_Actual_TR_UpdateChangeVersion] ON [edfi].[Actual] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[Actual]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[Actual] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -107,6 +68,19 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_BalanceSheetDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_BalanceSheetDimension_TR_UpdateChangeVersion] ON [edfi].[BalanceSheetDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[BalanceSheetDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[BalanceSheetDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_BellSchedule_TR_UpdateChangeVersion]
 GO
 
@@ -116,19 +90,6 @@ BEGIN
     UPDATE [edfi].[BellSchedule]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[BellSchedule] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_Budget_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_Budget_TR_UpdateChangeVersion] ON [edfi].[Budget] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[Budget]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[Budget] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -155,6 +116,19 @@ BEGIN
     UPDATE [edfi].[CalendarDate]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[CalendarDate] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ChartOfAccount_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ChartOfAccount_TR_UpdateChangeVersion] ON [edfi].[ChartOfAccount] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ChartOfAccount]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ChartOfAccount] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -221,19 +195,6 @@ BEGIN
     UPDATE [edfi].[CompetencyObjective]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[CompetencyObjective] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_ContractedStaff_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_ContractedStaff_TR_UpdateChangeVersion] ON [edfi].[ContractedStaff] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[ContractedStaff]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[ContractedStaff] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -313,6 +274,19 @@ BEGIN
     UPDATE [edfi].[Descriptor]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Descriptor] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_DescriptorMapping_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_DescriptorMapping_TR_UpdateChangeVersion] ON [edfi].[DescriptorMapping] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[DescriptorMapping]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[DescriptorMapping] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -421,6 +395,32 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_FunctionDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FunctionDimension_TR_UpdateChangeVersion] ON [edfi].[FunctionDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[FunctionDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[FunctionDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_FundDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_FundDimension_TR_UpdateChangeVersion] ON [edfi].[FundDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[FundDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[FundDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_GeneralStudentProgramAssociation_TR_UpdateChangeVersion]
 GO
 
@@ -486,17 +486,17 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.GradebookEntry(
-        OldGradebookEntryIdentifier, OldSourceSystemNamespace, 
-        NewGradebookEntryIdentifier, NewSourceSystemNamespace, 
+        OldGradebookEntryIdentifier, OldNamespace, 
+        NewGradebookEntryIdentifier, NewNamespace, 
         Id, ChangeVersion)
     SELECT
-        d.GradebookEntryIdentifier, d.SourceSystemNamespace, 
-        i.GradebookEntryIdentifier, i.SourceSystemNamespace, 
+        d.GradebookEntryIdentifier, d.Namespace, 
+        i.GradebookEntryIdentifier, i.Namespace, 
         d.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
 
     WHERE
-        d.GradebookEntryIdentifier <> i.GradebookEntryIdentifier OR d.SourceSystemNamespace <> i.SourceSystemNamespace;
+        d.GradebookEntryIdentifier <> i.GradebookEntryIdentifier OR d.Namespace <> i.Namespace;
 END	
 GO
 
@@ -604,6 +604,84 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_LocalAccount_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LocalAccount_TR_UpdateChangeVersion] ON [edfi].[LocalAccount] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[LocalAccount]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[LocalAccount] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_LocalActual_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LocalActual_TR_UpdateChangeVersion] ON [edfi].[LocalActual] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[LocalActual]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[LocalActual] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_LocalBudget_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LocalBudget_TR_UpdateChangeVersion] ON [edfi].[LocalBudget] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[LocalBudget]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[LocalBudget] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_LocalContractedStaff_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LocalContractedStaff_TR_UpdateChangeVersion] ON [edfi].[LocalContractedStaff] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[LocalContractedStaff]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[LocalContractedStaff] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_LocalEncumbrance_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LocalEncumbrance_TR_UpdateChangeVersion] ON [edfi].[LocalEncumbrance] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[LocalEncumbrance]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[LocalEncumbrance] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_LocalPayroll_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_LocalPayroll_TR_UpdateChangeVersion] ON [edfi].[LocalPayroll] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[LocalPayroll]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[LocalPayroll] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_Location_TR_UpdateChangeVersion]
 GO
 
@@ -628,6 +706,19 @@ BEGIN
 
     WHERE
         d.ClassroomIdentificationCode <> i.ClassroomIdentificationCode OR d.SchoolId <> i.SchoolId;
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ObjectDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ObjectDimension_TR_UpdateChangeVersion] ON [edfi].[ObjectDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ObjectDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ObjectDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
 
@@ -657,6 +748,19 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_OperationalUnitDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_OperationalUnitDimension_TR_UpdateChangeVersion] ON [edfi].[OperationalUnitDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[OperationalUnitDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[OperationalUnitDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_Parent_TR_UpdateChangeVersion]
 GO
 
@@ -679,19 +783,6 @@ BEGIN
         old.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted old INNER JOIN inserted new ON old.ParentUSI = new.ParentUSI
     WHERE new.ParentUniqueId <> old.ParentUniqueId;
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_Payroll_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_Payroll_TR_UpdateChangeVersion] ON [edfi].[Payroll] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[Payroll]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[Payroll] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
 
@@ -730,6 +821,32 @@ BEGIN
     UPDATE [edfi].[Program]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Program] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProgramDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProgramDimension_TR_UpdateChangeVersion] ON [edfi].[ProgramDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ProgramDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ProgramDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_ProjectDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_ProjectDimension_TR_UpdateChangeVersion] ON [edfi].[ProjectDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[ProjectDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[ProjectDimension] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -851,6 +968,19 @@ BEGIN
 
     WHERE
         d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SessionName <> i.SessionName;
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_SourceDimension_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_SourceDimension_TR_UpdateChangeVersion] ON [edfi].[SourceDimension] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[SourceDimension]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[SourceDimension] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
 
@@ -1182,12 +1312,12 @@ BEGIN
 
     -- Handle key changes
     INSERT INTO tracked_changes_edfi.StudentGradebookEntry(
-        OldGradebookEntryIdentifier, OldSourceSystemNamespace, OldStudentUSI, OldStudentUniqueId, 
-        NewGradebookEntryIdentifier, NewSourceSystemNamespace, NewStudentUSI, NewStudentUniqueId, 
+        OldGradebookEntryIdentifier, OldNamespace, OldStudentUSI, OldStudentUniqueId, 
+        NewGradebookEntryIdentifier, NewNamespace, NewStudentUSI, NewStudentUniqueId, 
         Id, ChangeVersion)
     SELECT
-        d.GradebookEntryIdentifier, d.SourceSystemNamespace, d.StudentUSI, dj0.StudentUniqueId, 
-        i.GradebookEntryIdentifier, i.SourceSystemNamespace, i.StudentUSI, ij0.StudentUniqueId, 
+        d.GradebookEntryIdentifier, d.Namespace, d.StudentUSI, dj0.StudentUniqueId, 
+        i.GradebookEntryIdentifier, i.Namespace, i.StudentUSI, ij0.StudentUniqueId, 
         d.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
         INNER JOIN edfi.Student dj0
@@ -1196,7 +1326,7 @@ BEGIN
             ON i.StudentUSI = ij0.StudentUSI
 
     WHERE
-        d.GradebookEntryIdentifier <> i.GradebookEntryIdentifier OR d.SourceSystemNamespace <> i.SourceSystemNamespace OR d.StudentUSI <> i.StudentUSI;
+        d.GradebookEntryIdentifier <> i.GradebookEntryIdentifier OR d.Namespace <> i.Namespace OR d.StudentUSI <> i.StudentUSI;
 END	
 GO
 

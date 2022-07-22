@@ -6,17 +6,8 @@
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AcademicWeek]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[AcademicWeek] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Account]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[Account] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AccountCode]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[AccountCode] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AccountabilityRating]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[AccountabilityRating] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Actual]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[Actual] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Assessment]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Assessment] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -27,17 +18,20 @@ ALTER TABLE [edfi].[AssessmentItem] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT V
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AssessmentScoreRangeLearningStandard]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[BalanceSheetDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[BalanceSheetDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[BellSchedule]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[BellSchedule] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Budget]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[Budget] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Calendar]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Calendar] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[CalendarDate]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[CalendarDate] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ChartOfAccount]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[ChartOfAccount] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ClassPeriod]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[ClassPeriod] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -50,9 +44,6 @@ ALTER TABLE [edfi].[CommunityProviderLicense] ADD [ChangeVersion] [BIGINT] DEFAU
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[CompetencyObjective]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[CompetencyObjective] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ContractedStaff]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[ContractedStaff] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Course]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Course] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -68,6 +59,9 @@ ALTER TABLE [edfi].[Credential] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Descriptor]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Descriptor] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[DescriptorMapping]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[DescriptorMapping] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[DisciplineAction]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[DisciplineAction] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -92,6 +86,12 @@ ALTER TABLE [edfi].[EducationOrganizationPeerAssociation] ADD [ChangeVersion] [B
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[FeederSchoolAssociation]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[FeederSchoolAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[FunctionDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[FunctionDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[FundDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[FundDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[GeneralStudentProgramAssociation]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[GeneralStudentProgramAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -126,8 +126,29 @@ ALTER TABLE [edfi].[LearningStandard] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LearningStandardEquivalenceAssociation]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[LearningStandardEquivalenceAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LocalAccount]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[LocalAccount] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LocalActual]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[LocalActual] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LocalBudget]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[LocalBudget] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LocalContractedStaff]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[LocalContractedStaff] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LocalEncumbrance]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[LocalEncumbrance] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LocalPayroll]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[LocalPayroll] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Location]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Location] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ObjectDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[ObjectDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ObjectiveAssessment]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[ObjectiveAssessment] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -135,11 +156,11 @@ ALTER TABLE [edfi].[ObjectiveAssessment] ADD [ChangeVersion] [BIGINT] DEFAULT (N
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[OpenStaffPosition]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[OpenStaffPosition] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[OperationalUnitDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[OperationalUnitDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Parent]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Parent] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Payroll]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[Payroll] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Person]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Person] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -149,6 +170,12 @@ ALTER TABLE [edfi].[PostSecondaryEvent] ADD [ChangeVersion] [BIGINT] DEFAULT (NE
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Program]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Program] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ProgramDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[ProgramDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ProjectDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[ProjectDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[ReportCard]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[ReportCard] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
@@ -167,6 +194,9 @@ ALTER TABLE [edfi].[SectionAttendanceTakenEvent] ADD [ChangeVersion] [BIGINT] DE
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Session]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Session] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[SourceDimension]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[SourceDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Staff]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Staff] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
