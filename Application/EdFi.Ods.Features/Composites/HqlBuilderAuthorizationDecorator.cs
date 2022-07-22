@@ -81,6 +81,7 @@ namespace EdFi.Ods.Features.Composites
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
+                resource,
                 _resourceClaimUriProvider.GetResourceClaimUris(resource),
                 RequestActions.ReadActionUri,
                 entityType);

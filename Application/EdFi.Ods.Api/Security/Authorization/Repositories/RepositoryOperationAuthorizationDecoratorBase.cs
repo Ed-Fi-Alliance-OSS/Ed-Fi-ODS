@@ -118,6 +118,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
+                _dataManagementRequestContextProvider.GetResource(),
                 _authorizationContextProvider.GetResourceUris(),
                 actionUri,
                 entity);
@@ -409,6 +410,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
+                _dataManagementRequestContextProvider.GetResource(),
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),
                 typeof(TEntity));

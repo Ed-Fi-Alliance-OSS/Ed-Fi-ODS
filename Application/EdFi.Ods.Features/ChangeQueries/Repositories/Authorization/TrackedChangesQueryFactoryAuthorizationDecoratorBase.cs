@@ -68,6 +68,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
+                _dataManagementRequestContextProvider.GetResource(),
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),
                 entityType);
