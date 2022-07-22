@@ -159,7 +159,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
             else
             {
                 queryBuilder.WhereLike(
-                    $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName(filterContext.SubjectEndpointName)}",
+                    $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName($"Old{filterContext.SubjectEndpointName}")}",
                     filterContext.ClaimParameterValues.Single());
             }
         }
@@ -176,7 +176,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
                     {
                         filterContext.ClaimParameterValues.ForEach(
                             ns => q.OrWhereLike(
-                                $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName(filterContext.SubjectEndpointName)}",
+                                $"{TrackedChangesAlias}.{_databaseNamingConvention.ColumnName($"Old{filterContext.SubjectEndpointName}")}",
                                 ns));
                     }
 
