@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Models.Domain;
@@ -37,6 +38,8 @@ namespace EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers
         {
             var allClassMetadata = _sessionFactory.GetAllClassMetadata();
 
+            var missingEntities = new List<(FullName expectedFullName, string mappedName)>();
+            
             foreach (KeyValuePair<string,IClassMetadata> classMetadata in allClassMetadata)
             {
                 var mappedEntityType = classMetadata.Value.MappedClass;
@@ -50,8 +53,17 @@ namespace EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers
                 }
                 else
                 {
-                    _logger.Debug($"Unable to locate entity '{expectedFullName}' for NHibernate entity type '{mappedEntityType.FullName}'. .NET Type will not be available on the entity in the model.");
+                    missingEntities.Add((expectedFullName, mappedEntityType.FullName));
                 }
+            }
+
+            if (missingEntities.Any() && _logger.IsDebugEnabled)
+            {
+                _logger.Debug(
+                    $"Unable to locate the following entity classes (the .NET Type references will not be available on the Entity in the semantic API model):{Environment.NewLine}"
+                    + string.Join(
+                        Environment.NewLine,
+                        missingEntities.Select(x => $"{x.expectedFullName} (for NHibernate entity type '{x.mappedName}')")));
             }
         }
     }
