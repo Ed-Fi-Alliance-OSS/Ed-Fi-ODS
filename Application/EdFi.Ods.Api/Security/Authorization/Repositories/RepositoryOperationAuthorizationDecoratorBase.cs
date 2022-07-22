@@ -44,6 +44,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly ISessionFactory _sessionFactory;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
+        private readonly IDataManagementRequestContextProvider _dataManagementRequestContextProvider;
 
         private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
 
@@ -65,7 +66,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISecurityRepository securityRepository,
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
@@ -75,6 +77,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _sessionFactory = sessionFactory;
             _apiKeyContextProvider = apiKeyContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
+            _dataManagementRequestContextProvider = dataManagementRequestContextProvider;
 
             // Lazy initialization
             _bitValuesByAction = new Lazy<Dictionary<string, Actions>>(
