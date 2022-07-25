@@ -2,15 +2,10 @@
 -- Licensed to the Ed-Fi Alliance under one or more agreements.
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
+
 CREATE INDEX IF NOT EXISTS UX_a97956_ChangeVersion ON edfi.AcademicWeek(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_7e1b0d_ChangeVersion ON edfi.Account(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_fb1ef3_ChangeVersion ON edfi.AccountCode(ChangeVersion);
-
 CREATE INDEX IF NOT EXISTS UX_2d3c0c_ChangeVersion ON edfi.AccountabilityRating(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_c40642_ChangeVersion ON edfi.Actual(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_7808ee_ChangeVersion ON edfi.Assessment(ChangeVersion);
 
@@ -18,13 +13,15 @@ CREATE INDEX IF NOT EXISTS UX_dc3dcf_ChangeVersion ON edfi.AssessmentItem(Change
 
 CREATE INDEX IF NOT EXISTS UX_a20588_ChangeVersion ON edfi.AssessmentScoreRangeLearningStandard(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_9bbaf5_ChangeVersion ON edfi.BellSchedule(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_e52c9c_ChangeVersion ON edfi.BalanceSheetDimension(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_1c6225_ChangeVersion ON edfi.Budget(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_9bbaf5_ChangeVersion ON edfi.BellSchedule(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_d5d0a3_ChangeVersion ON edfi.Calendar(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_8a9a67_ChangeVersion ON edfi.CalendarDate(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_131e2b_ChangeVersion ON edfi.ChartOfAccount(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_01fe80_ChangeVersion ON edfi.ClassPeriod(ChangeVersion);
 
@@ -33,8 +30,6 @@ CREATE INDEX IF NOT EXISTS UX_19c6d6_ChangeVersion ON edfi.Cohort(ChangeVersion)
 CREATE INDEX IF NOT EXISTS UX_f092ff_ChangeVersion ON edfi.CommunityProviderLicense(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_5e9932_ChangeVersion ON edfi.CompetencyObjective(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_57ca0f_ChangeVersion ON edfi.ContractedStaff(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_2096ce_ChangeVersion ON edfi.Course(ChangeVersion);
 
@@ -45,6 +40,8 @@ CREATE INDEX IF NOT EXISTS UX_6acf2b_ChangeVersion ON edfi.CourseTranscript(Chan
 CREATE INDEX IF NOT EXISTS UX_b1c42b_ChangeVersion ON edfi.Credential(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_219915_ChangeVersion ON edfi.Descriptor(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_ee9047_ChangeVersion ON edfi.DescriptorMapping(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_eec7b6_ChangeVersion ON edfi.DisciplineAction(ChangeVersion);
 
@@ -61,6 +58,10 @@ CREATE INDEX IF NOT EXISTS UX_252151_ChangeVersion ON edfi.EducationOrganization
 CREATE INDEX IF NOT EXISTS UX_74e4e5_ChangeVersion ON edfi.EducationOrganizationPeerAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_11f7b6_ChangeVersion ON edfi.FeederSchoolAssociation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_c4d12e_ChangeVersion ON edfi.FunctionDimension(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_937af8_ChangeVersion ON edfi.FundDimension(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_0516f9_ChangeVersion ON edfi.GeneralStudentProgramAssociation(ChangeVersion);
 
@@ -84,21 +85,39 @@ CREATE INDEX IF NOT EXISTS UX_8ceb4c_ChangeVersion ON edfi.LearningStandard(Chan
 
 CREATE INDEX IF NOT EXISTS UX_17c02a_ChangeVersion ON edfi.LearningStandardEquivalenceAssociation(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_32eddb_ChangeVersion ON edfi.LocalAccount(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_b6310e_ChangeVersion ON edfi.LocalActual(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_000683_ChangeVersion ON edfi.LocalBudget(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_4d9b4a_ChangeVersion ON edfi.LocalContractedStaff(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_ea526f_ChangeVersion ON edfi.LocalEncumbrance(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_46e5c2_ChangeVersion ON edfi.LocalPayroll(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_15b619_ChangeVersion ON edfi.Location(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_4100ee_ChangeVersion ON edfi.ObjectDimension(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_269e10_ChangeVersion ON edfi.ObjectiveAssessment(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_3cc1d4_ChangeVersion ON edfi.OpenStaffPosition(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_5f7953_ChangeVersion ON edfi.Parent(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_28b7c4_ChangeVersion ON edfi.OperationalUnitDimension(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_53fe8d_ChangeVersion ON edfi.Payroll(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_5f7953_ChangeVersion ON edfi.Parent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_6007db_ChangeVersion ON edfi.Person(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_b8b6d7_ChangeVersion ON edfi.PostSecondaryEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_90920d_ChangeVersion ON edfi.Program(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_a9a613_ChangeVersion ON edfi.ProgramDimension(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_d16e19_ChangeVersion ON edfi.ProjectDimension(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_ec1992_ChangeVersion ON edfi.ReportCard(ChangeVersion);
 
@@ -111,6 +130,8 @@ CREATE INDEX IF NOT EXISTS UX_dfca5d_ChangeVersion ON edfi.Section(ChangeVersion
 CREATE INDEX IF NOT EXISTS UX_7bbbe7_ChangeVersion ON edfi.SectionAttendanceTakenEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_6959b4_ChangeVersion ON edfi.Session(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_e91a4d_ChangeVersion ON edfi.SourceDimension(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_681927_ChangeVersion ON edfi.Staff(ChangeVersion);
 
