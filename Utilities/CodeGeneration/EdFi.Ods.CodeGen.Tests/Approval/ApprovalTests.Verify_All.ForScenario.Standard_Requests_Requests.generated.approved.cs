@@ -240,56 +240,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AccommodationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Accounts.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class AccountGetByExample
-    {
-        public string AccountIdentifier { get; set; }
-        public string AccountName { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public int FiscalYear { get; set; }
-        public Guid Id { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountGetByIds : IHasIdentifiers<Guid>
-    {
-        public AccountGetByIds() { }
-
-        public AccountGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountPost : Resources.Account.EdFi.Account
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountPut : Resources.Account.EdFi.Account
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountDelete : IHasIdentifier
-    {
-        public AccountDelete() { }
-
-        public AccountDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Common.Models.Requests.AccountabilityRatings.EdFi
 {
 
@@ -343,21 +293,21 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AccountabilityRatings.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi
+namespace EdFi.Ods.Api.Common.Models.Requests.AccountTypeDescriptors.EdFi
 {
 
     [ExcludeFromCodeCoverage]
-    public class AccountClassificationDescriptorGetByExample
+    public class AccountTypeDescriptorGetByExample
     {
-        public int AccountClassificationDescriptorId { get; set; }
+        public int AccountTypeDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class AccountClassificationDescriptorGetByIds : IHasIdentifiers<Guid>
+    public class AccountTypeDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public AccountClassificationDescriptorGetByIds() { }
+        public AccountTypeDescriptorGetByIds() { }
 
-        public AccountClassificationDescriptorGetByIds(params Guid[] ids)
+        public AccountTypeDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -366,72 +316,21 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AccountClassificationDescriptors.E
     }
 
     [ExcludeFromCodeCoverage]
-    public class AccountClassificationDescriptorPost : Resources.AccountClassificationDescriptor.EdFi.AccountClassificationDescriptor
+    public class AccountTypeDescriptorPost : Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AccountClassificationDescriptorPut : Resources.AccountClassificationDescriptor.EdFi.AccountClassificationDescriptor
+    public class AccountTypeDescriptorPut : Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AccountClassificationDescriptorDelete : IHasIdentifier
+    public class AccountTypeDescriptorDelete : IHasIdentifier
     {
-        public AccountClassificationDescriptorDelete() { }
+        public AccountTypeDescriptorDelete() { }
 
-        public AccountClassificationDescriptorDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.AccountCodes.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class AccountCodeGetByExample
-    {
-        public string AccountClassificationDescriptor { get; set; }
-        public string AccountCodeDescription { get; set; }
-        public string AccountCodeNumber { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public int FiscalYear { get; set; }
-        public Guid Id { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountCodeGetByIds : IHasIdentifiers<Guid>
-    {
-        public AccountCodeGetByIds() { }
-
-        public AccountCodeGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountCodePost : Resources.AccountCode.EdFi.AccountCode
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountCodePut : Resources.AccountCode.EdFi.AccountCode
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AccountCodeDelete : IHasIdentifier
-    {
-        public AccountCodeDelete() { }
-
-        public AccountCodeDelete(Guid id)
+        public AccountTypeDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -478,57 +377,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AchievementCategoryDescriptors.EdF
         public AchievementCategoryDescriptorDelete() { }
 
         public AchievementCategoryDescriptorDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.Actuals.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class ActualGetByExample
-    {
-        public string AccountIdentifier { get; set; }
-        public decimal AmountToDate { get; set; }
-        public DateTime AsOfDate { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public int FiscalYear { get; set; }
-        public Guid Id { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ActualGetByIds : IHasIdentifiers<Guid>
-    {
-        public ActualGetByIds() { }
-
-        public ActualGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ActualPost : Resources.Actual.EdFi.Actual
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ActualPut : Resources.Actual.EdFi.Actual
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ActualDelete : IHasIdentifier
-    {
-        public ActualDelete() { }
-
-        public ActualDelete(Guid id)
         {
             Id = id;
         }
@@ -1347,6 +1195,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AttendanceEventCategoryDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.BalanceSheetDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public BalanceSheetDimensionGetByIds() { }
+
+        public BalanceSheetDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionPost : Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionPut : Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionDelete : IHasIdentifier
+    {
+        public BalanceSheetDimensionDelete() { }
+
+        public BalanceSheetDimensionDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi
 {
 
@@ -1483,57 +1380,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.BellSchedules.EdFi
         public BellScheduleDelete() { }
 
         public BellScheduleDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.Budgets.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class BudgetGetByExample
-    {
-        public string AccountIdentifier { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime AsOfDate { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public int FiscalYear { get; set; }
-        public Guid Id { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class BudgetGetByIds : IHasIdentifiers<Guid>
-    {
-        public BudgetGetByIds() { }
-
-        public BudgetGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class BudgetPost : Resources.Budget.EdFi.Budget
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class BudgetPut : Resources.Budget.EdFi.Budget
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class BudgetDelete : IHasIdentifier
-    {
-        public BudgetDelete() { }
-
-        public BudgetDelete(Guid id)
         {
             Id = id;
         }
@@ -1864,6 +1710,65 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CharterStatusDescriptors.EdFi
         public CharterStatusDescriptorDelete() { }
 
         public CharterStatusDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ChartOfAccounts.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public string AccountName { get; set; }
+        public string AccountTypeDescriptor { get; set; }
+        public string BalanceSheetCode { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public int FiscalYear { get; set; }
+        public string FunctionCode { get; set; }
+        public string FundCode { get; set; }
+        public Guid Id { get; set; }
+        public string ObjectCode { get; set; }
+        public string OperationalUnitCode { get; set; }
+        public string ProgramCode { get; set; }
+        public string ProjectCode { get; set; }
+        public string SourceCode { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountGetByIds : IHasIdentifiers<Guid>
+    {
+        public ChartOfAccountGetByIds() { }
+
+        public ChartOfAccountGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountPost : Resources.ChartOfAccount.EdFi.ChartOfAccount
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountPut : Resources.ChartOfAccount.EdFi.ChartOfAccount
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountDelete : IHasIdentifier
+    {
+        public ChartOfAccountDelete() { }
+
+        public ChartOfAccountDelete(Guid id)
         {
             Id = id;
         }
@@ -2586,58 +2491,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ContinuationOfServicesReasonDescri
         public ContinuationOfServicesReasonDescriptorDelete() { }
 
         public ContinuationOfServicesReasonDescriptorDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.ContractedStaffs.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffGetByExample
-    {
-        public string AccountIdentifier { get; set; }
-        public decimal AmountToDate { get; set; }
-        public DateTime AsOfDate { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public int FiscalYear { get; set; }
-        public Guid Id { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffGetByIds : IHasIdentifiers<Guid>
-    {
-        public ContractedStaffGetByIds() { }
-
-        public ContractedStaffGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffPost : Resources.ContractedStaff.EdFi.ContractedStaff
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffPut : Resources.ContractedStaff.EdFi.ContractedStaff
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffDelete : IHasIdentifier
-    {
-        public ContractedStaffDelete() { }
-
-        public ContractedStaffDelete(Guid id)
         {
             Id = id;
         }
@@ -3574,6 +3427,56 @@ namespace EdFi.Ods.Api.Common.Models.Requests.DeliveryMethodDescriptors.EdFi
         public DeliveryMethodDescriptorDelete() { }
 
         public DeliveryMethodDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.DescriptorMappings.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingGetByExample
+    {
+        public Guid Id { get; set; }
+        public string MappedNamespace { get; set; }
+        public string MappedValue { get; set; }
+        public string Namespace { get; set; }
+        public string Value { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingGetByIds : IHasIdentifiers<Guid>
+    {
+        public DescriptorMappingGetByIds() { }
+
+        public DescriptorMappingGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingPost : Resources.DescriptorMapping.EdFi.DescriptorMapping
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingPut : Resources.DescriptorMapping.EdFi.DescriptorMapping
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingDelete : IHasIdentifier
+    {
+        public DescriptorMappingDelete() { }
+
+        public DescriptorMappingDelete(Guid id)
         {
             Id = id;
         }
@@ -4928,6 +4831,150 @@ namespace EdFi.Ods.Api.Common.Models.Requests.FeederSchoolAssociations.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class FinancialCollectionDescriptorGetByExample
+    {
+        public int FinancialCollectionDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FinancialCollectionDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public FinancialCollectionDescriptorGetByIds() { }
+
+        public FinancialCollectionDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FinancialCollectionDescriptorPost : Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FinancialCollectionDescriptorPut : Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FinancialCollectionDescriptorDelete : IHasIdentifier
+    {
+        public FinancialCollectionDescriptorDelete() { }
+
+        public FinancialCollectionDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.FunctionDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public FunctionDimensionGetByIds() { }
+
+        public FunctionDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionPost : Resources.FunctionDimension.EdFi.FunctionDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionPut : Resources.FunctionDimension.EdFi.FunctionDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionDelete : IHasIdentifier
+    {
+        public FunctionDimensionDelete() { }
+
+        public FunctionDimensionDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.FundDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public FundDimensionGetByIds() { }
+
+        public FundDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionPost : Resources.FundDimension.EdFi.FundDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionPut : Resources.FundDimension.EdFi.FundDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionDelete : IHasIdentifier
+    {
+        public FundDimensionDelete() { }
+
+        public FundDimensionDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.Grades.EdFi
 {
 
@@ -5007,12 +5054,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradebookEntries.EdFi
         public Guid Id { get; set; }
         public string LocalCourseCode { get; set; }
         public decimal MaxPoints { get; set; }
+        public string Namespace { get; set; }
         public int PeriodSequence { get; set; }
         public int SchoolId { get; set; }
         public short SchoolYear { get; set; }
         public string SectionIdentifier { get; set; }
         public string SessionName { get; set; }
-        public string SourceSystemNamespace { get; set; }
         public string Title { get; set; }
     }
 
@@ -6908,6 +6955,215 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LimitedEnglishProficiencyDescripto
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalAccounts.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public string AccountName { get; set; }
+        public int ChartOfAccountEducationOrganizationId { get; set; }
+        public string ChartOfAccountIdentifier { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountGetByIds : IHasIdentifiers<Guid>
+    {
+        public LocalAccountGetByIds() { }
+
+        public LocalAccountGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountPost : Resources.LocalAccount.EdFi.LocalAccount
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountPut : Resources.LocalAccount.EdFi.LocalAccount
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountDelete : IHasIdentifier
+    {
+        public LocalAccountDelete() { }
+
+        public LocalAccountDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalActuals.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class LocalActualGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime AsOfDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string FinancialCollectionDescriptor { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalActualGetByIds : IHasIdentifiers<Guid>
+    {
+        public LocalActualGetByIds() { }
+
+        public LocalActualGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalActualPost : Resources.LocalActual.EdFi.LocalActual
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalActualPut : Resources.LocalActual.EdFi.LocalActual
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalActualDelete : IHasIdentifier
+    {
+        public LocalActualDelete() { }
+
+        public LocalActualDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalBudgets.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime AsOfDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string FinancialCollectionDescriptor { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetGetByIds : IHasIdentifiers<Guid>
+    {
+        public LocalBudgetGetByIds() { }
+
+        public LocalBudgetGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetPost : Resources.LocalBudget.EdFi.LocalBudget
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetPut : Resources.LocalBudget.EdFi.LocalBudget
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetDelete : IHasIdentifier
+    {
+        public LocalBudgetDelete() { }
+
+        public LocalBudgetDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalContractedStaffs.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime AsOfDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string FinancialCollectionDescriptor { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+        public string StaffUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffGetByIds : IHasIdentifiers<Guid>
+    {
+        public LocalContractedStaffGetByIds() { }
+
+        public LocalContractedStaffGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffPost : Resources.LocalContractedStaff.EdFi.LocalContractedStaff
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffPut : Resources.LocalContractedStaff.EdFi.LocalContractedStaff
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffDelete : IHasIdentifier
+    {
+        public LocalContractedStaffDelete() { }
+
+        public LocalContractedStaffDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.LocaleDescriptors.EdFi
 {
 
@@ -7043,6 +7299,111 @@ namespace EdFi.Ods.Api.Common.Models.Requests.LocalEducationAgencyCategoryDescri
         public LocalEducationAgencyCategoryDescriptorDelete() { }
 
         public LocalEducationAgencyCategoryDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalEncumbrances.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbranceGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime AsOfDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string FinancialCollectionDescriptor { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbranceGetByIds : IHasIdentifiers<Guid>
+    {
+        public LocalEncumbranceGetByIds() { }
+
+        public LocalEncumbranceGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbrancePost : Resources.LocalEncumbrance.EdFi.LocalEncumbrance
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbrancePut : Resources.LocalEncumbrance.EdFi.LocalEncumbrance
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbranceDelete : IHasIdentifier
+    {
+        public LocalEncumbranceDelete() { }
+
+        public LocalEncumbranceDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalPayrolls.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollGetByExample
+    {
+        public string AccountIdentifier { get; set; }
+        public decimal Amount { get; set; }
+        public DateTime AsOfDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string FinancialCollectionDescriptor { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+        public string StaffUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollGetByIds : IHasIdentifiers<Guid>
+    {
+        public LocalPayrollGetByIds() { }
+
+        public LocalPayrollGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollPost : Resources.LocalPayroll.EdFi.LocalPayroll
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollPut : Resources.LocalPayroll.EdFi.LocalPayroll
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollDelete : IHasIdentifier
+    {
+        public LocalPayrollDelete() { }
+
+        public LocalPayrollDelete(Guid id)
         {
             Id = id;
         }
@@ -7285,6 +7646,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.MigrantEducationProgramServiceDesc
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.ModelEntityDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ModelEntityDescriptorGetByExample
+    {
+        public int ModelEntityDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ModelEntityDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public ModelEntityDescriptorGetByIds() { }
+
+        public ModelEntityDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ModelEntityDescriptorPost : Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ModelEntityDescriptorPut : Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ModelEntityDescriptorDelete : IHasIdentifier
+    {
+        public ModelEntityDescriptorDelete() { }
+
+        public ModelEntityDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.MonitoredDescriptors.EdFi
 {
 
@@ -7461,6 +7868,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi
         public NetworkPurposeDescriptorDelete() { }
 
         public NetworkPurposeDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ObjectDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public ObjectDimensionGetByIds() { }
+
+        public ObjectDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionPost : Resources.ObjectDimension.EdFi.ObjectDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionPut : Resources.ObjectDimension.EdFi.ObjectDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionDelete : IHasIdentifier
+    {
+        public ObjectDimensionDelete() { }
+
+        public ObjectDimensionDelete(Guid id)
         {
             Id = id;
         }
@@ -7663,6 +8119,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi
         public OperationalStatusDescriptorDelete() { }
 
         public OperationalStatusDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.OperationalUnitDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public OperationalUnitDimensionGetByIds() { }
+
+        public OperationalUnitDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionPost : Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionPut : Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionDelete : IHasIdentifier
+    {
+        public OperationalUnitDimensionDelete() { }
+
+        public OperationalUnitDimensionDelete(Guid id)
         {
             Id = id;
         }
@@ -7907,58 +8412,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ParticipationStatusDescriptors.EdF
         public ParticipationStatusDescriptorDelete() { }
 
         public ParticipationStatusDescriptorDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.Payrolls.EdFi
-{
-
-    [ExcludeFromCodeCoverage]
-    public class PayrollGetByExample
-    {
-        public string AccountIdentifier { get; set; }
-        public decimal AmountToDate { get; set; }
-        public DateTime AsOfDate { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public int FiscalYear { get; set; }
-        public Guid Id { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PayrollGetByIds : IHasIdentifiers<Guid>
-    {
-        public PayrollGetByIds() { }
-
-        public PayrollGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PayrollPost : Resources.Payroll.EdFi.Payroll
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PayrollPut : Resources.Payroll.EdFi.Payroll
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PayrollDelete : IHasIdentifier
-    {
-        public PayrollDelete() { }
-
-        public PayrollDelete(Guid id)
         {
             Id = id;
         }
@@ -8807,6 +9260,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgramCharacteristicDescriptors.E
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.ProgramDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProgramDimensionGetByIds() { }
+
+        public ProgramDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionPost : Resources.ProgramDimension.EdFi.ProgramDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionPut : Resources.ProgramDimension.EdFi.ProgramDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionDelete : IHasIdentifier
+    {
+        public ProgramDimensionDelete() { }
+
+        public ProgramDimensionDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi
 {
 
@@ -8983,6 +9485,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ProgressLevelDescriptors.EdFi
         public ProgressLevelDescriptorDelete() { }
 
         public ProgressLevelDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ProjectDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProjectDimensionGetByIds() { }
+
+        public ProjectDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionPost : Resources.ProjectDimension.EdFi.ProjectDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionPut : Resources.ProjectDimension.EdFi.ProjectDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionDelete : IHasIdentifier
+    {
+        public ProjectDimensionDelete() { }
+
+        public ProjectDimensionDelete(Guid id)
         {
             Id = id;
         }
@@ -9592,6 +10143,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.ReporterDescriptionDescriptors.EdF
         public ReporterDescriptionDescriptorDelete() { }
 
         public ReporterDescriptionDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.ReportingTagDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ReportingTagDescriptorGetByExample
+    {
+        public int ReportingTagDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ReportingTagDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public ReportingTagDescriptorGetByIds() { }
+
+        public ReportingTagDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ReportingTagDescriptorPost : Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ReportingTagDescriptorPut : Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ReportingTagDescriptorDelete : IHasIdentifier
+    {
+        public ReportingTagDescriptorDelete() { }
+
+        public ReportingTagDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -10608,6 +11205,55 @@ namespace EdFi.Ods.Api.Common.Models.Requests.SexDescriptors.EdFi
         public SexDescriptorDelete() { }
 
         public SexDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.SourceDimensions.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionGetByExample
+    {
+        public string Code { get; set; }
+        public string CodeName { get; set; }
+        public int FiscalYear { get; set; }
+        public Guid Id { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionGetByIds : IHasIdentifiers<Guid>
+    {
+        public SourceDimensionGetByIds() { }
+
+        public SourceDimensionGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionPost : Resources.SourceDimension.EdFi.SourceDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionPut : Resources.SourceDimension.EdFi.SourceDimension
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionDelete : IHasIdentifier
+    {
+        public SourceDimensionDelete() { }
+
+        public SourceDimensionDelete(Guid id)
         {
             Id = id;
         }
@@ -11726,6 +12372,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi
         public DateTime AdministrationEndDate { get; set; }
         public string AdministrationEnvironmentDescriptor { get; set; }
         public string AdministrationLanguageDescriptor { get; set; }
+        public int AssessedMinutes { get; set; }
         public string AssessmentIdentifier { get; set; }
         public string EventCircumstanceDescriptor { get; set; }
         public string EventDescription { get; set; }
@@ -12260,9 +12907,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentGradebookEntries.EdFi
         public string GradebookEntryIdentifier { get; set; }
         public Guid Id { get; set; }
         public string LetterGradeEarned { get; set; }
+        public string Namespace { get; set; }
         public decimal NumericGradeEarned { get; set; }
         public decimal PointsEarned { get; set; }
-        public string SourceSystemNamespace { get; set; }
         public string StudentUniqueId { get; set; }
         public string SubmissionStatusDescriptor { get; set; }
         public TimeSpan TimeFulfilled { get; set; }

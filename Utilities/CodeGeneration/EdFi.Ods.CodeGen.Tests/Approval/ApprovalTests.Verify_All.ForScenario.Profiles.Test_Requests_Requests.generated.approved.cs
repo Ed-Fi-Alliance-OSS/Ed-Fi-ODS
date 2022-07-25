@@ -902,6 +902,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profi
         public DateTime AdministrationEndDate { get; set; }
         public string AdministrationEnvironmentDescriptor { get; set; }
         public string AdministrationLanguageDescriptor { get; set; }
+        public int AssessedMinutes { get; set; }
         public string AssessmentIdentifier { get; set; }
         public string EventCircumstanceDescriptor { get; set; }
         public string EventDescription { get; set; }
@@ -966,6 +967,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profi
         public DateTime AdministrationEndDate { get; set; }
         public string AdministrationEnvironmentDescriptor { get; set; }
         public string AdministrationLanguageDescriptor { get; set; }
+        public int AssessedMinutes { get; set; }
         public string AssessmentIdentifier { get; set; }
         public string EventCircumstanceDescriptor { get; set; }
         public string EventDescription { get; set; }

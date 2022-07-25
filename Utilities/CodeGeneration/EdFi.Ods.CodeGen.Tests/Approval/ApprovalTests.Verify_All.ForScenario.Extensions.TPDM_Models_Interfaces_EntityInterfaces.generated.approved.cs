@@ -6,7 +6,7 @@ using EdFi.Ods.Common;
 
 #pragma warning disable 108,114
 
-namespace EdFi.Ods.Entities.Common.TPDM
+namespace EdFi.Ods.Entities.Common.Tpdm
 {
 
     /// <summary>

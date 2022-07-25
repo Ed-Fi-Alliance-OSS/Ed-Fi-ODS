@@ -264,117 +264,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccommodationDescriptorAggreg
         // -------------------------------------------------------------
     }
 }
-// Aggregate: Account
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.Account table of the Account aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class AccountQ : AggregateRootWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual string AccountIdentifier { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
-        [DomainSignature]
-        public virtual int FiscalYear { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string AccountName  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        public virtual ICollection<AccountAccountCodeQ> AccountAccountCodes { get; set; }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ActualAggregate.EdFi.ActualQ> Actuals  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.BudgetAggregate.EdFi.BudgetQ> Budgets  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ContractedStaffAggregate.EdFi.ContractedStaffQ> ContractedStaffs  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.PayrollAggregate.EdFi.PayrollQ> Payrolls  { get; set; }
-    #pragma warning restore 114
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
-        // -------------------------------------------------------------
-    }
-
-    /// <summary>
-    /// A class which represents the edfi.AccountAccountCode table of the Account aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class AccountAccountCodeQ : EntityWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
-        [DomainSignature]
-        public virtual int AccountClassificationDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual string AccountCodeNumber { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AccountCodeAggregate.EdFi.AccountCodeQ AccountCode { get; set; }
-        // -------------------------------------------------------------
-    }
-}
 // Aggregate: AccountabilityRating
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate.EdFi
@@ -430,24 +319,24 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate
         // -------------------------------------------------------------
     }
 }
-// Aggregate: AccountClassificationDescriptor
+// Aggregate: AccountTypeDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountClassificationDescriptorAggregate.EdFi
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountTypeDescriptorAggregate.EdFi
 {
 
     /// <summary>
-    /// A class which represents the edfi.AccountClassificationDescriptor table of the AccountClassificationDescriptor aggregate in the ODS database.
+    /// A class which represents the edfi.AccountTypeDescriptor table of the AccountTypeDescriptor aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class AccountClassificationDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    public class AccountTypeDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
     {
 
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature]
-        public virtual int AccountClassificationDescriptorId { get; set; }
+        public virtual int AccountTypeDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -467,67 +356,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountClassificationDescript
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.AccountCodeAggregate.EdFi.AccountCodeQ> AccountCodes  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
     #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: AccountCode
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountCodeAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.AccountCode table of the AccountCode aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class AccountCodeQ : AggregateRootWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual int AccountClassificationDescriptorId { get; set; }
-        [DomainSignature]
-        public virtual string AccountCodeNumber { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
-        [DomainSignature]
-        public virtual int FiscalYear { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual string AccountCodeDescription  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.AccountAggregate.EdFi.AccountAccountCodeQ> AccountAccountCodes  { get; set; }
-    #pragma warning restore 114
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AccountClassificationDescriptorAggregate.EdFi.AccountClassificationDescriptorQ AccountClassificationDescriptor { get; set; }
-        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -579,59 +409,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AchievementCategoryDescriptor
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordRecognitionQ> StudentAcademicRecordRecognitions  { get; set; }
     #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: Actual
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.ActualAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.Actual table of the Actual aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class ActualQ : AggregateRootWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual string AccountIdentifier { get; set; }
-        [DomainSignature]
-        public virtual DateTime AsOfDate { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
-        [DomainSignature]
-        public virtual int FiscalYear { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual decimal AmountToDate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -922,7 +699,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         //                     One-to-one relationships
         // -------------------------------------------------------------
         public virtual AssessmentContentStandardQ AssessmentContentStandard { get; set; }
-        public virtual AssessmentPeriodQ AssessmentPeriod { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -933,6 +709,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         public virtual ICollection<AssessmentIdentificationCodeQ> AssessmentIdentificationCodes { get; set; }
         public virtual ICollection<AssessmentLanguageQ> AssessmentLanguages { get; set; }
         public virtual ICollection<AssessmentPerformanceLevelQ> AssessmentPerformanceLevels { get; set; }
+        public virtual ICollection<AssessmentPeriodQ> AssessmentPeriods { get; set; }
         public virtual ICollection<AssessmentPlatformTypeQ> AssessmentPlatformTypes { get; set; }
         public virtual ICollection<AssessmentProgramQ> AssessmentPrograms { get; set; }
         public virtual ICollection<AssessmentScoreQ> AssessmentScores { get; set; }
@@ -1297,6 +1074,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // -------------------------------------------------------------
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
+        [DomainSignature]
+        public virtual int AssessmentPeriodDescriptorId { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -1308,7 +1087,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int AssessmentPeriodDescriptorId  { get; set; }
         public virtual DateTime? BeginDate  { get; set; }
         public virtual DateTime? EndDate  { get; set; }
         // -------------------------------------------------------------
@@ -1875,6 +1653,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentPeriodDescriptorAgg
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentPeriodQ> AssessmentPeriods  { get; set; }
     #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentPeriodQ> StudentAssessmentPeriods  { get; set; }
+    #pragma warning restore 114
         // -------------------------------------------------------------
     }
 }
@@ -2185,6 +1966,101 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AttendanceEventCategoryDescri
         // -------------------------------------------------------------
     }
 }
+// Aggregate: BalanceSheetDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.BalanceSheetDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.BalanceSheetDimension table of the BalanceSheetDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<BalanceSheetDimensionReportingTagQ> BalanceSheetDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.BalanceSheetDimensionReportingTag table of the BalanceSheetDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class BalanceSheetDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionQ BalanceSheetDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: BarrierToInternetAccessInResidenceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi
@@ -2453,59 +2329,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: Budget
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.BudgetAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.Budget table of the Budget aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class BudgetQ : AggregateRootWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual string AccountIdentifier { get; set; }
-        [DomainSignature]
-        public virtual DateTime AsOfDate { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
-        [DomainSignature]
-        public virtual int FiscalYear { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual decimal Amount  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -2931,6 +2754,125 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CharterStatusDescriptorAggreg
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ChartOfAccount
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ChartOfAccountAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ChartOfAccount table of the ChartOfAccount aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string AccountName  { get; set; }
+        public virtual int AccountTypeDescriptorId  { get; set; }
+        public virtual string BalanceSheetCode  { get; set; }
+        public virtual string FunctionCode  { get; set; }
+        public virtual string FundCode  { get; set; }
+        public virtual string ObjectCode  { get; set; }
+        public virtual string OperationalUnitCode  { get; set; }
+        public virtual string ProgramCode  { get; set; }
+        public virtual string ProjectCode  { get; set; }
+        public virtual string SourceCode  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ChartOfAccountReportingTagQ> ChartOfAccountReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ> LocalAccounts  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AccountTypeDescriptorAggregate.EdFi.AccountTypeDescriptorQ AccountTypeDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionQ BalanceSheetDimension { get; set; }
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        protected virtual NHibernate.QueryModels.FunctionDimensionAggregate.EdFi.FunctionDimensionQ FunctionDimension { get; set; }
+        protected virtual NHibernate.QueryModels.FundDimensionAggregate.EdFi.FundDimensionQ FundDimension { get; set; }
+        protected virtual NHibernate.QueryModels.ObjectDimensionAggregate.EdFi.ObjectDimensionQ ObjectDimension { get; set; }
+        protected virtual NHibernate.QueryModels.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionQ OperationalUnitDimension { get; set; }
+        protected virtual NHibernate.QueryModels.ProgramDimensionAggregate.EdFi.ProgramDimensionQ ProgramDimension { get; set; }
+        protected virtual NHibernate.QueryModels.ProjectDimensionAggregate.EdFi.ProjectDimensionQ ProjectDimension { get; set; }
+        protected virtual NHibernate.QueryModels.SourceDimensionAggregate.EdFi.SourceDimensionQ SourceDimension { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ChartOfAccountReportingTag table of the ChartOfAccount aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ ChartOfAccount { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string TagValue  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -3753,62 +3695,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContinuationOfServicesReasonD
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentMigrantEducationProgramAssociationAggregate.EdFi.StudentMigrantEducationProgramAssociationQ> StudentMigrantEducationProgramAssociations  { get; set; }
     #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: ContractedStaff
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContractedStaffAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.ContractedStaff table of the ContractedStaff aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffQ : AggregateRootWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual string AccountIdentifier { get; set; }
-        [DomainSignature]
-        public virtual DateTime AsOfDate { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
-        [DomainSignature]
-        public virtual int FiscalYear { get; set; }
-        [DomainSignature]
-        public virtual int StaffUSI { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual decimal AmountToDate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
-        protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -5627,6 +5513,99 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi
         // -------------------------------------------------------------
     }
 }
+// Aggregate: DescriptorMapping
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorMappingAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.DescriptorMapping table of the DescriptorMapping aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string MappedNamespace { get; set; }
+        [DomainSignature]
+        public virtual string MappedValue { get; set; }
+        [DomainSignature]
+        public virtual string Namespace { get; set; }
+        [DomainSignature]
+        public virtual string Value { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<DescriptorMappingModelEntityQ> DescriptorMappingModelEntities { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.DescriptorMappingModelEntity table of the DescriptorMapping aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class DescriptorMappingModelEntityQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.DescriptorMappingAggregate.EdFi.DescriptorMappingQ DescriptorMapping { get; set; }
+        [DomainSignature]
+        public virtual int ModelEntityDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ModelEntityDescriptorAggregate.EdFi.ModelEntityDescriptorQ ModelEntityDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: DiagnosisDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiagnosisDescriptorAggregate.EdFi
@@ -6975,16 +6954,13 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.AccountabilityRatingAggregate.EdFi.AccountabilityRatingQ> AccountabilityRatings  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.AccountCodeAggregate.EdFi.AccountCodeQ> AccountCodes  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ> Accounts  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentContentStandardQ> AssessmentContentStandards  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ> Assessments  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ> Cohorts  { get; set; }
@@ -7027,6 +7003,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardContentStandardQ> LearningStandardContentStandards  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ> LocalAccounts  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.OpenStaffPositionAggregate.EdFi.OpenStaffPositionQ> OpenStaffPositions  { get; set; }
@@ -8143,6 +8122,250 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.FeederSchoolAssociationAggreg
         // -------------------------------------------------------------
     }
 }
+// Aggregate: FinancialCollectionDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.FinancialCollectionDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.FinancialCollectionDescriptor table of the FinancialCollectionDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class FinancialCollectionDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int FinancialCollectionDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalActualAggregate.EdFi.LocalActualQ> LocalActuals  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalBudgetAggregate.EdFi.LocalBudgetQ> LocalBudgets  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalContractedStaffAggregate.EdFi.LocalContractedStaffQ> LocalContractedStaffs  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalEncumbranceAggregate.EdFi.LocalEncumbranceQ> LocalEncumbrances  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalPayrollAggregate.EdFi.LocalPayrollQ> LocalPayrolls  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: FunctionDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.FunctionDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.FunctionDimension table of the FunctionDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<FunctionDimensionReportingTagQ> FunctionDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.FunctionDimensionReportingTag table of the FunctionDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class FunctionDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.FunctionDimensionAggregate.EdFi.FunctionDimensionQ FunctionDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: FundDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.FundDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.FundDimension table of the FundDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<FundDimensionReportingTagQ> FundDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.FundDimensionReportingTag table of the FundDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class FundDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.FundDimensionAggregate.EdFi.FundDimensionQ FundDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: GeneralStudentProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi
@@ -8454,7 +8677,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
         [DomainSignature]
         public virtual string GradebookEntryIdentifier { get; set; }
         [DomainSignature]
-        public virtual string SourceSystemNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -12444,6 +12667,290 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LimitedEnglishProficiencyDesc
         // -------------------------------------------------------------
     }
 }
+// Aggregate: LocalAccount
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalAccountAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.LocalAccount table of the LocalAccount aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string AccountName  { get; set; }
+        public virtual int ChartOfAccountEducationOrganizationId  { get; set; }
+        public virtual string ChartOfAccountIdentifier  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<LocalAccountReportingTagQ> LocalAccountReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalActualAggregate.EdFi.LocalActualQ> LocalActuals  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalBudgetAggregate.EdFi.LocalBudgetQ> LocalBudgets  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalContractedStaffAggregate.EdFi.LocalContractedStaffQ> LocalContractedStaffs  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalEncumbranceAggregate.EdFi.LocalEncumbranceQ> LocalEncumbrances  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalPayrollAggregate.EdFi.LocalPayrollQ> LocalPayrolls  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ ChartOfAccount { get; set; }
+        protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.LocalAccountReportingTag table of the LocalAccount aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ LocalAccount { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string TagValue  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: LocalActual
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalActualAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.LocalActual table of the LocalActual aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalActualQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual DateTime AsOfDate { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal Amount  { get; set; }
+        public virtual int? FinancialCollectionDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptorQ FinancialCollectionDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ LocalAccount { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: LocalBudget
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalBudgetAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.LocalBudget table of the LocalBudget aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual DateTime AsOfDate { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal Amount  { get; set; }
+        public virtual int? FinancialCollectionDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptorQ FinancialCollectionDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ LocalAccount { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: LocalContractedStaff
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalContractedStaffAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.LocalContractedStaff table of the LocalContractedStaff aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual DateTime AsOfDate { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        [DomainSignature]
+        public virtual int StaffUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal Amount  { get; set; }
+        public virtual int? FinancialCollectionDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptorQ FinancialCollectionDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ LocalAccount { get; set; }
+        protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: LocaleDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi
@@ -12679,6 +13186,119 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyCategoryD
         // -------------------------------------------------------------
     }
 }
+// Aggregate: LocalEncumbrance
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEncumbranceAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.LocalEncumbrance table of the LocalEncumbrance aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbranceQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual DateTime AsOfDate { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal Amount  { get; set; }
+        public virtual int? FinancialCollectionDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptorQ FinancialCollectionDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ LocalAccount { get; set; }
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: LocalPayroll
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalPayrollAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.LocalPayroll table of the LocalPayroll aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string AccountIdentifier { get; set; }
+        [DomainSignature]
+        public virtual DateTime AsOfDate { get; set; }
+        [DomainSignature]
+        public virtual int EducationOrganizationId { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        [DomainSignature]
+        public virtual int StaffUSI { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal Amount  { get; set; }
+        public virtual int? FinancialCollectionDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptorQ FinancialCollectionDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountQ LocalAccount { get; set; }
+        protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: Location
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocationAggregate.EdFi
@@ -12908,6 +13528,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MigrantEducationProgramServic
         // -------------------------------------------------------------
     }
 }
+// Aggregate: ModelEntityDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ModelEntityDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ModelEntityDescriptor table of the ModelEntityDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ModelEntityDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ModelEntityDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.DescriptorMappingAggregate.EdFi.DescriptorMappingModelEntityQ> DescriptorMappingModelEntities  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: MonitoredDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.MonitoredDescriptorAggregate.EdFi
@@ -13073,6 +13735,101 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.NetworkPurposeDescriptorAggre
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetworkQ> EducationOrganizationNetworks  { get; set; }
     #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ObjectDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ObjectDimension table of the ObjectDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ObjectDimensionReportingTagQ> ObjectDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ObjectDimensionReportingTag table of the ObjectDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ObjectDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ObjectDimensionAggregate.EdFi.ObjectDimensionQ ObjectDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -13561,6 +14318,101 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OperationalStatusDescriptorAg
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ> EducationOrganizations  { get; set; }
     #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: OperationalUnitDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.OperationalUnitDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.OperationalUnitDimension table of the OperationalUnitDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<OperationalUnitDimensionReportingTagQ> OperationalUnitDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.OperationalUnitDimensionReportingTag table of the OperationalUnitDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class OperationalUnitDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionQ OperationalUnitDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -14253,62 +15105,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParticipationStatusDescriptor
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationProgramParticipationStatusQ> GeneralStudentProgramAssociationProgramParticipationStatuses  { get; set; }
     #pragma warning restore 114
-        // -------------------------------------------------------------
-    }
-}
-// Aggregate: Payroll
-
-namespace EdFi.Ods.Entities.NHibernate.QueryModels.PayrollAggregate.EdFi
-{
-
-    /// <summary>
-    /// A class which represents the edfi.Payroll table of the Payroll aggregate in the ODS database.
-    /// </summary>
-    [Serializable]
-    [ExcludeFromCodeCoverage]
-    public class PayrollQ : AggregateRootWithCompositeKey
-    {
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature]
-        public virtual string AccountIdentifier { get; set; }
-        [DomainSignature]
-        public virtual DateTime AsOfDate { get; set; }
-        [DomainSignature]
-        public virtual int EducationOrganizationId { get; set; }
-        [DomainSignature]
-        public virtual int FiscalYear { get; set; }
-        [DomainSignature]
-        public virtual int StaffUSI { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Discriminator
-        // -------------------------------------------------------------
-
-        public virtual string Discriminator { get; set; }
-
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual decimal AmountToDate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //              External references for HQL Queries
-        // -------------------------------------------------------------
-
-        // External references for NHibernate mappings and HQL query usage
-        protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
-        protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -15449,6 +16245,101 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramCharacteristicDescript
         // -------------------------------------------------------------
     }
 }
+// Aggregate: ProgramDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramDimension table of the ProgramDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ProgramDimensionReportingTagQ> ProgramDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ProgramDimensionReportingTag table of the ProgramDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProgramDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ProgramDimensionAggregate.EdFi.ProgramDimensionQ ProgramDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: ProgramSponsorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramSponsorDescriptorAggregate.EdFi
@@ -15620,6 +16511,101 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgressLevelDescriptorAggreg
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociationQ> MathematicsStudentNeglectedOrDelinquentProgramAssociations  { get; set; }
     #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ProjectDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProjectDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ProjectDimension table of the ProjectDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<ProjectDimensionReportingTagQ> ProjectDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.ProjectDimensionReportingTag table of the ProjectDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ProjectDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.ProjectDimensionAggregate.EdFi.ProjectDimensionQ ProjectDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -16400,6 +17386,75 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReporterDescriptionDescriptor
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ> DisciplineIncidents  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: ReportingTagDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.ReportingTagDescriptor table of the ReportingTagDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class ReportingTagDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionReportingTagQ> BalanceSheetDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountReportingTagQ> ChartOfAccountReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.FunctionDimensionAggregate.EdFi.FunctionDimensionReportingTagQ> FunctionDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.FundDimensionAggregate.EdFi.FundDimensionReportingTagQ> FundDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalAccountAggregate.EdFi.LocalAccountReportingTagQ> LocalAccountReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ObjectDimensionAggregate.EdFi.ObjectDimensionReportingTagQ> ObjectDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionReportingTagQ> OperationalUnitDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProgramDimensionAggregate.EdFi.ProgramDimensionReportingTagQ> ProgramDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ProjectDimensionAggregate.EdFi.ProjectDimensionReportingTagQ> ProjectDimensionReportingTags  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.SourceDimensionAggregate.EdFi.SourceDimensionReportingTagQ> SourceDimensionReportingTags  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -18051,6 +19106,101 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi
         // -------------------------------------------------------------
     }
 }
+// Aggregate: SourceDimension
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.SourceDimensionAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.SourceDimension table of the SourceDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string Code { get; set; }
+        [DomainSignature]
+        public virtual int FiscalYear { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string CodeName  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<SourceDimensionReportingTagQ> SourceDimensionReportingTags { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ChartOfAccountAggregate.EdFi.ChartOfAccountQ> ChartOfAccounts  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.SourceDimensionReportingTag table of the SourceDimension aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class SourceDimensionReportingTagQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.SourceDimensionAggregate.EdFi.SourceDimensionQ SourceDimension { get; set; }
+        [DomainSignature]
+        public virtual int ReportingTagDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptorQ ReportingTagDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: SourceSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SourceSystemDescriptorAggregate.EdFi
@@ -18254,9 +19404,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.ContractedStaffAggregate.EdFi.ContractedStaffQ> ContractedStaffs  { get; set; }
-    #pragma warning restore 114
-    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionStaffQ> DisciplineActionStaffs  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
@@ -18266,7 +19413,10 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.InterventionAggregate.EdFi.InterventionStaffQ> InterventionStaffs  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
-        protected virtual ICollection<NHibernate.QueryModels.PayrollAggregate.EdFi.PayrollQ> Payrolls  { get; set; }
+        protected virtual ICollection<NHibernate.QueryModels.LocalContractedStaffAggregate.EdFi.LocalContractedStaffQ> LocalContractedStaffs  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.LocalPayrollAggregate.EdFi.LocalPayrollQ> LocalPayrolls  { get; set; }
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.SectionAttendanceTakenEventAggregate.EdFi.SectionAttendanceTakenEventQ> SectionAttendanceTakenEvents  { get; set; }
@@ -21095,10 +22245,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual DateTime AdministrationDate  { get; set; }
+        public virtual DateTime? AdministrationDate  { get; set; }
         public virtual DateTime? AdministrationEndDate  { get; set; }
         public virtual int? AdministrationEnvironmentDescriptorId  { get; set; }
         public virtual int? AdministrationLanguageDescriptorId  { get; set; }
+        public virtual int? AssessedMinutes  { get; set; }
         public virtual int? EventCircumstanceDescriptorId  { get; set; }
         public virtual string EventDescription  { get; set; }
         public virtual int? PlatformTypeDescriptorId  { get; set; }
@@ -21107,6 +22258,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         public virtual short? SchoolYear  { get; set; }
         public virtual string SerialNumber  { get; set; }
         public virtual int? WhenAssessedGradeLevelDescriptorId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        public virtual StudentAssessmentPeriodQ StudentAssessmentPeriod { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21262,7 +22419,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         //                          Properties
         // -------------------------------------------------------------
         public virtual string PerformanceLevelIndicatorName  { get; set; }
-        public virtual bool PerformanceLevelMet  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21278,6 +22434,50 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptorQ PerformanceLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentAssessmentPeriod table of the StudentAssessment aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentPeriodQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ StudentAssessment { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int AssessmentPeriodDescriptorId  { get; set; }
+        public virtual DateTime? BeginDate  { get; set; }
+        public virtual DateTime? EndDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptorQ AssessmentPeriodDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -21353,6 +22553,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        public virtual DateTime? AdministrationDate  { get; set; }
+        public virtual DateTime? AdministrationEndDate  { get; set; }
+        public virtual int? AssessedMinutes  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21401,7 +22604,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         //                          Properties
         // -------------------------------------------------------------
         public virtual string PerformanceLevelIndicatorName  { get; set; }
-        public virtual bool PerformanceLevelMet  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -23342,7 +24544,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentGradebookEntryAggregat
         [DomainSignature]
         public virtual string GradebookEntryIdentifier { get; set; }
         [DomainSignature]
-        public virtual string SourceSystemNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         [DomainSignature]
         public virtual int StudentUSI { get; set; }
         // -------------------------------------------------------------

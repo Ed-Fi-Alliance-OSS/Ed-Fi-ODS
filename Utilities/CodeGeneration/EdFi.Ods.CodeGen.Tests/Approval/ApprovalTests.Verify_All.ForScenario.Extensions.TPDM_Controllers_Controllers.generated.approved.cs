@@ -11,12 +11,12 @@ using EdFi.Ods.Common.Models.Requests;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Entities.Common.TPDM;
+using EdFi.Ods.Entities.Common.Tpdm;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.AccreditationStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -24,21 +24,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
     [Authorize]
     [Route("tpdm/accreditationStatusDescriptors")]
     public partial class AccreditationStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
-        Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
-        Entities.Common.TPDM.IAccreditationStatusDescriptor,
-        Entities.NHibernate.AccreditationStatusDescriptorAggregate.TPDM.AccreditationStatusDescriptor,
-        Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorPut,
-        Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorPost,
-        Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample>
+        Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpdm.AccreditationStatusDescriptor,
+        Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpdm.AccreditationStatusDescriptor,
+        Entities.Common.Tpdm.IAccreditationStatusDescriptor,
+        Entities.NHibernate.AccreditationStatusDescriptorAggregate.Tpdm.AccreditationStatusDescriptor,
+        Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptors.AccreditationStatusDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptors.AccreditationStatusDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptors.AccreditationStatusDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample>
     {
         public AccreditationStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample request, Entities.Common.TPDM.IAccreditationStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample request, Entities.Common.Tpdm.IAccreditationStatusDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.AidTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -55,21 +55,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
     [Authorize]
     [Route("tpdm/aidTypeDescriptors")]
     public partial class AidTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor,
-        Api.Common.Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor,
-        Entities.Common.TPDM.IAidTypeDescriptor,
-        Entities.NHibernate.AidTypeDescriptorAggregate.TPDM.AidTypeDescriptor,
-        Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorPut,
-        Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorPost,
-        Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorGetByExample>
+        Api.Common.Models.Resources.AidTypeDescriptor.Tpdm.AidTypeDescriptor,
+        Api.Common.Models.Resources.AidTypeDescriptor.Tpdm.AidTypeDescriptor,
+        Entities.Common.Tpdm.IAidTypeDescriptor,
+        Entities.NHibernate.AidTypeDescriptorAggregate.Tpdm.AidTypeDescriptor,
+        Api.Common.Models.Requests.Tpdm.AidTypeDescriptors.AidTypeDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.AidTypeDescriptors.AidTypeDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.AidTypeDescriptors.AidTypeDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.AidTypeDescriptors.AidTypeDescriptorGetByExample>
     {
         public AidTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorGetByExample request, Entities.Common.TPDM.IAidTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.AidTypeDescriptors.AidTypeDescriptorGetByExample request, Entities.Common.Tpdm.IAidTypeDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.Candidates
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.Candidates
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -86,21 +86,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Candidates
     [Authorize]
     [Route("tpdm/candidates")]
     public partial class CandidatesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Candidate.TPDM.Candidate,
-        Api.Common.Models.Resources.Candidate.TPDM.Candidate,
-        Entities.Common.TPDM.ICandidate,
-        Entities.NHibernate.CandidateAggregate.TPDM.Candidate,
-        Api.Common.Models.Requests.TPDM.Candidates.CandidatePut,
-        Api.Common.Models.Requests.TPDM.Candidates.CandidatePost,
-        Api.Common.Models.Requests.TPDM.Candidates.CandidateDelete,
-        Api.Common.Models.Requests.TPDM.Candidates.CandidateGetByExample>
+        Api.Common.Models.Resources.Candidate.Tpdm.Candidate,
+        Api.Common.Models.Resources.Candidate.Tpdm.Candidate,
+        Entities.Common.Tpdm.ICandidate,
+        Entities.NHibernate.CandidateAggregate.Tpdm.Candidate,
+        Api.Common.Models.Requests.Tpdm.Candidates.CandidatePut,
+        Api.Common.Models.Requests.Tpdm.Candidates.CandidatePost,
+        Api.Common.Models.Requests.Tpdm.Candidates.CandidateDelete,
+        Api.Common.Models.Requests.Tpdm.Candidates.CandidateGetByExample>
     {
         public CandidatesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.Candidates.CandidateGetByExample request, Entities.Common.TPDM.ICandidate specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.Candidates.CandidateGetByExample request, Entities.Common.Tpdm.ICandidate specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -134,7 +134,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Candidates
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CandidateEducatorPreparationProgramAssociations
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.CandidateEducatorPreparationProgramAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -142,21 +142,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CandidateEducatorPreparationPro
     [Authorize]
     [Route("tpdm/candidateEducatorPreparationProgramAssociations")]
     public partial class CandidateEducatorPreparationProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation,
-        Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation,
-        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation,
-        Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociation,
-        Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationPut,
-        Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationPost,
-        Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationDelete,
-        Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationGetByExample>
+        Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.Tpdm.CandidateEducatorPreparationProgramAssociation,
+        Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.Tpdm.CandidateEducatorPreparationProgramAssociation,
+        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation,
+        Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociation,
+        Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationPut,
+        Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationPost,
+        Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationDelete,
+        Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationGetByExample>
     {
         public CandidateEducatorPreparationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationGetByExample request, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationGetByExample request, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -173,7 +173,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CandidateEducatorPreparationPro
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.CertificationRouteDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -181,21 +181,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
     [Authorize]
     [Route("tpdm/certificationRouteDescriptors")]
     public partial class CertificationRouteDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
-        Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
-        Entities.Common.TPDM.ICertificationRouteDescriptor,
-        Entities.NHibernate.CertificationRouteDescriptorAggregate.TPDM.CertificationRouteDescriptor,
-        Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorPut,
-        Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorPost,
-        Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample>
+        Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm.CertificationRouteDescriptor,
+        Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm.CertificationRouteDescriptor,
+        Entities.Common.Tpdm.ICertificationRouteDescriptor,
+        Entities.NHibernate.CertificationRouteDescriptorAggregate.Tpdm.CertificationRouteDescriptor,
+        Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors.CertificationRouteDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors.CertificationRouteDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors.CertificationRouteDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample>
     {
         public CertificationRouteDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample request, Entities.Common.TPDM.ICertificationRouteDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample request, Entities.Common.Tpdm.ICertificationRouteDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -204,7 +204,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.CoteachingStyleObservedDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -212,21 +212,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
     [Authorize]
     [Route("tpdm/coteachingStyleObservedDescriptors")]
     public partial class CoteachingStyleObservedDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor,
-        Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor,
-        Entities.Common.TPDM.ICoteachingStyleObservedDescriptor,
-        Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.TPDM.CoteachingStyleObservedDescriptor,
-        Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorPut,
-        Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorPost,
-        Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorGetByExample>
+        Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.Tpdm.CoteachingStyleObservedDescriptor,
+        Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.Tpdm.CoteachingStyleObservedDescriptor,
+        Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor,
+        Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.Tpdm.CoteachingStyleObservedDescriptor,
+        Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorGetByExample>
     {
         public CoteachingStyleObservedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorGetByExample request, Entities.Common.TPDM.ICoteachingStyleObservedDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorGetByExample request, Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.CredentialStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -243,21 +243,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
     [Authorize]
     [Route("tpdm/credentialStatusDescriptors")]
     public partial class CredentialStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
-        Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
-        Entities.Common.TPDM.ICredentialStatusDescriptor,
-        Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM.CredentialStatusDescriptor,
-        Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorPut,
-        Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorPost,
-        Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample>
+        Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm.CredentialStatusDescriptor,
+        Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm.CredentialStatusDescriptor,
+        Entities.Common.Tpdm.ICredentialStatusDescriptor,
+        Entities.NHibernate.CredentialStatusDescriptorAggregate.Tpdm.CredentialStatusDescriptor,
+        Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors.CredentialStatusDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors.CredentialStatusDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors.CredentialStatusDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample>
     {
         public CredentialStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample request, Entities.Common.TPDM.ICredentialStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample request, Entities.Common.Tpdm.ICredentialStatusDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -266,7 +266,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorPreparationPrograms
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EducatorPreparationPrograms
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -274,21 +274,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorPreparationPrograms
     [Authorize]
     [Route("tpdm/educatorPreparationPrograms")]
     public partial class EducatorPreparationProgramsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram,
-        Api.Common.Models.Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram,
-        Entities.Common.TPDM.IEducatorPreparationProgram,
-        Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgram,
-        Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms.EducatorPreparationProgramPut,
-        Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms.EducatorPreparationProgramPost,
-        Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms.EducatorPreparationProgramDelete,
-        Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms.EducatorPreparationProgramGetByExample>
+        Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm.EducatorPreparationProgram,
+        Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm.EducatorPreparationProgram,
+        Entities.Common.Tpdm.IEducatorPreparationProgram,
+        Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgram,
+        Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms.EducatorPreparationProgramPut,
+        Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms.EducatorPreparationProgramPost,
+        Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms.EducatorPreparationProgramDelete,
+        Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms.EducatorPreparationProgramGetByExample>
     {
         public EducatorPreparationProgramsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms.EducatorPreparationProgramGetByExample request, Entities.Common.TPDM.IEducatorPreparationProgram specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms.EducatorPreparationProgramGetByExample request, Entities.Common.Tpdm.IEducatorPreparationProgram specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -302,7 +302,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorPreparationPrograms
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EducatorRoleDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -310,21 +310,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
     [Authorize]
     [Route("tpdm/educatorRoleDescriptors")]
     public partial class EducatorRoleDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
-        Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
-        Entities.Common.TPDM.IEducatorRoleDescriptor,
-        Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM.EducatorRoleDescriptor,
-        Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample>
+        Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm.EducatorRoleDescriptor,
+        Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm.EducatorRoleDescriptor,
+        Entities.Common.Tpdm.IEducatorRoleDescriptor,
+        Entities.NHibernate.EducatorRoleDescriptorAggregate.Tpdm.EducatorRoleDescriptor,
+        Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors.EducatorRoleDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors.EducatorRoleDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors.EducatorRoleDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample>
     {
         public EducatorRoleDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample request, Entities.Common.TPDM.IEducatorRoleDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample request, Entities.Common.Tpdm.IEducatorRoleDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -333,7 +333,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EnglishLanguageExamDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -341,21 +341,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
     [Authorize]
     [Route("tpdm/englishLanguageExamDescriptors")]
     public partial class EnglishLanguageExamDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor,
-        Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor,
-        Entities.Common.TPDM.IEnglishLanguageExamDescriptor,
-        Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TPDM.EnglishLanguageExamDescriptor,
-        Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorGetByExample>
+        Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpdm.EnglishLanguageExamDescriptor,
+        Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpdm.EnglishLanguageExamDescriptor,
+        Entities.Common.Tpdm.IEnglishLanguageExamDescriptor,
+        Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.Tpdm.EnglishLanguageExamDescriptor,
+        Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorGetByExample>
     {
         public EnglishLanguageExamDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorGetByExample request, Entities.Common.TPDM.IEnglishLanguageExamDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorGetByExample request, Entities.Common.Tpdm.IEnglishLanguageExamDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -364,7 +364,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EPPProgramPathwayDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EPPProgramPathwayDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -372,21 +372,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EPPProgramPathwayDescriptors
     [Authorize]
     [Route("tpdm/eppProgramPathwayDescriptors")]
     public partial class EPPProgramPathwayDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor,
-        Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor,
-        Entities.Common.TPDM.IEPPProgramPathwayDescriptor,
-        Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM.EPPProgramPathwayDescriptor,
-        Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorGetByExample>
+        Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm.EPPProgramPathwayDescriptor,
+        Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm.EPPProgramPathwayDescriptor,
+        Entities.Common.Tpdm.IEPPProgramPathwayDescriptor,
+        Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.Tpdm.EPPProgramPathwayDescriptor,
+        Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorGetByExample>
     {
         public EPPProgramPathwayDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorGetByExample request, Entities.Common.TPDM.IEPPProgramPathwayDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorGetByExample request, Entities.Common.Tpdm.IEPPProgramPathwayDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -395,7 +395,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EPPProgramPathwayDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.Evaluations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -403,21 +403,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
     [Authorize]
     [Route("tpdm/evaluations")]
     public partial class EvaluationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Evaluation.TPDM.Evaluation,
-        Api.Common.Models.Resources.Evaluation.TPDM.Evaluation,
-        Entities.Common.TPDM.IEvaluation,
-        Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation,
-        Api.Common.Models.Requests.TPDM.Evaluations.EvaluationPut,
-        Api.Common.Models.Requests.TPDM.Evaluations.EvaluationPost,
-        Api.Common.Models.Requests.TPDM.Evaluations.EvaluationDelete,
-        Api.Common.Models.Requests.TPDM.Evaluations.EvaluationGetByExample>
+        Api.Common.Models.Resources.Evaluation.Tpdm.Evaluation,
+        Api.Common.Models.Resources.Evaluation.Tpdm.Evaluation,
+        Entities.Common.Tpdm.IEvaluation,
+        Entities.NHibernate.EvaluationAggregate.Tpdm.Evaluation,
+        Api.Common.Models.Requests.Tpdm.Evaluations.EvaluationPut,
+        Api.Common.Models.Requests.Tpdm.Evaluations.EvaluationPost,
+        Api.Common.Models.Requests.Tpdm.Evaluations.EvaluationDelete,
+        Api.Common.Models.Requests.Tpdm.Evaluations.EvaluationGetByExample>
     {
         public EvaluationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.Evaluations.EvaluationGetByExample request, Entities.Common.TPDM.IEvaluation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.Evaluations.EvaluationGetByExample request, Entities.Common.Tpdm.IEvaluation specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -438,7 +438,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationElements
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -446,21 +446,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
     [Authorize]
     [Route("tpdm/evaluationElements")]
     public partial class EvaluationElementsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationElement.TPDM.EvaluationElement,
-        Api.Common.Models.Resources.EvaluationElement.TPDM.EvaluationElement,
-        Entities.Common.TPDM.IEvaluationElement,
-        Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement,
-        Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementPut,
-        Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementPost,
-        Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementGetByExample>
+        Api.Common.Models.Resources.EvaluationElement.Tpdm.EvaluationElement,
+        Api.Common.Models.Resources.EvaluationElement.Tpdm.EvaluationElement,
+        Entities.Common.Tpdm.IEvaluationElement,
+        Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElement,
+        Api.Common.Models.Requests.Tpdm.EvaluationElements.EvaluationElementPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationElements.EvaluationElementPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationElements.EvaluationElementDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationElements.EvaluationElementGetByExample>
     {
         public EvaluationElementsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementGetByExample request, Entities.Common.TPDM.IEvaluationElement specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationElements.EvaluationElementGetByExample request, Entities.Common.Tpdm.IEvaluationElement specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -482,7 +482,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationElementRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -490,21 +490,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
     [Authorize]
     [Route("tpdm/evaluationElementRatings")]
     public partial class EvaluationElementRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
-        Api.Common.Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
-        Entities.Common.TPDM.IEvaluationElementRating,
-        Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingPut,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingPost,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingGetByExample>
+        Api.Common.Models.Resources.EvaluationElementRating.Tpdm.EvaluationElementRating,
+        Api.Common.Models.Resources.EvaluationElementRating.Tpdm.EvaluationElementRating,
+        Entities.Common.Tpdm.IEvaluationElementRating,
+        Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRating,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatings.EvaluationElementRatingPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatings.EvaluationElementRatingPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatings.EvaluationElementRatingDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatings.EvaluationElementRatingGetByExample>
     {
         public EvaluationElementRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingGetByExample request, Entities.Common.TPDM.IEvaluationElementRating specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationElementRatings.EvaluationElementRatingGetByExample request, Entities.Common.Tpdm.IEvaluationElementRating specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -530,7 +530,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationElementRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -538,21 +538,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
     [Authorize]
     [Route("tpdm/evaluationElementRatingLevelDescriptors")]
     public partial class EvaluationElementRatingLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
-        Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
-        Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor,
-        Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.TPDM.EvaluationElementRatingLevelDescriptor,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample>
+        Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.Tpdm.EvaluationElementRatingLevelDescriptor,
+        Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.Tpdm.EvaluationElementRatingLevelDescriptor,
+        Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor,
+        Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.Tpdm.EvaluationElementRatingLevelDescriptor,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample>
     {
         public EvaluationElementRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample request, Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -561,7 +561,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationObjectives
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -569,21 +569,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
     [Authorize]
     [Route("tpdm/evaluationObjectives")]
     public partial class EvaluationObjectivesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
-        Api.Common.Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
-        Entities.Common.TPDM.IEvaluationObjective,
-        Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectivePut,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectivePost,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveGetByExample>
+        Api.Common.Models.Resources.EvaluationObjective.Tpdm.EvaluationObjective,
+        Api.Common.Models.Resources.EvaluationObjective.Tpdm.EvaluationObjective,
+        Entities.Common.Tpdm.IEvaluationObjective,
+        Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjective,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectives.EvaluationObjectivePut,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectives.EvaluationObjectivePost,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectives.EvaluationObjectiveDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectives.EvaluationObjectiveGetByExample>
     {
         public EvaluationObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveGetByExample request, Entities.Common.TPDM.IEvaluationObjective specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationObjectives.EvaluationObjectiveGetByExample request, Entities.Common.Tpdm.IEvaluationObjective specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -605,7 +605,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationObjectiveRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -613,21 +613,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
     [Authorize]
     [Route("tpdm/evaluationObjectiveRatings")]
     public partial class EvaluationObjectiveRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
-        Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
-        Entities.Common.TPDM.IEvaluationObjectiveRating,
-        Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingPut,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingPost,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample>
+        Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRating,
+        Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRating,
+        Entities.Common.Tpdm.IEvaluationObjectiveRating,
+        Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRating,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings.EvaluationObjectiveRatingPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings.EvaluationObjectiveRatingPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings.EvaluationObjectiveRatingDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample>
     {
         public EvaluationObjectiveRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample request, Entities.Common.TPDM.IEvaluationObjectiveRating specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample request, Entities.Common.Tpdm.IEvaluationObjectiveRating specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -649,7 +649,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationPeriodDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -657,21 +657,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
     [Authorize]
     [Route("tpdm/evaluationPeriodDescriptors")]
     public partial class EvaluationPeriodDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
-        Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
-        Entities.Common.TPDM.IEvaluationPeriodDescriptor,
-        Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM.EvaluationPeriodDescriptor,
-        Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample>
+        Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm.EvaluationPeriodDescriptor,
+        Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm.EvaluationPeriodDescriptor,
+        Entities.Common.Tpdm.IEvaluationPeriodDescriptor,
+        Entities.NHibernate.EvaluationPeriodDescriptorAggregate.Tpdm.EvaluationPeriodDescriptor,
+        Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample>
     {
         public EvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationPeriodDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample request, Entities.Common.Tpdm.IEvaluationPeriodDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -680,7 +680,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -688,21 +688,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
     [Authorize]
     [Route("tpdm/evaluationRatings")]
     public partial class EvaluationRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationRating.TPDM.EvaluationRating,
-        Api.Common.Models.Resources.EvaluationRating.TPDM.EvaluationRating,
-        Entities.Common.TPDM.IEvaluationRating,
-        Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating,
-        Api.Common.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingPut,
-        Api.Common.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingPost,
-        Api.Common.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingGetByExample>
+        Api.Common.Models.Resources.EvaluationRating.Tpdm.EvaluationRating,
+        Api.Common.Models.Resources.EvaluationRating.Tpdm.EvaluationRating,
+        Entities.Common.Tpdm.IEvaluationRating,
+        Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRating,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatings.EvaluationRatingPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatings.EvaluationRatingPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatings.EvaluationRatingDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatings.EvaluationRatingGetByExample>
     {
         public EvaluationRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingGetByExample request, Entities.Common.TPDM.IEvaluationRating specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationRatings.EvaluationRatingGetByExample request, Entities.Common.Tpdm.IEvaluationRating specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -727,7 +727,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -735,21 +735,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
     [Authorize]
     [Route("tpdm/evaluationRatingLevelDescriptors")]
     public partial class EvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
-        Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
-        Entities.Common.TPDM.IEvaluationRatingLevelDescriptor,
-        Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.TPDM.EvaluationRatingLevelDescriptor,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample>
+        Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.Tpdm.EvaluationRatingLevelDescriptor,
+        Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.Tpdm.EvaluationRatingLevelDescriptor,
+        Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor,
+        Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.Tpdm.EvaluationRatingLevelDescriptor,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample>
     {
         public EvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationRatingLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample request, Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -758,7 +758,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationRatingStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -766,21 +766,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescripto
     [Authorize]
     [Route("tpdm/evaluationRatingStatusDescriptors")]
     public partial class EvaluationRatingStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
-        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
-        Entities.Common.TPDM.IEvaluationRatingStatusDescriptor,
-        Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.TPDM.EvaluationRatingStatusDescriptor,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorGetByExample>
+        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.Tpdm.EvaluationRatingStatusDescriptor,
+        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.Tpdm.EvaluationRatingStatusDescriptor,
+        Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor,
+        Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.Tpdm.EvaluationRatingStatusDescriptor,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorGetByExample>
     {
         public EvaluationRatingStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationRatingStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorGetByExample request, Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -789,7 +789,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescripto
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.EvaluationTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -797,21 +797,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
     [Authorize]
     [Route("tpdm/evaluationTypeDescriptors")]
     public partial class EvaluationTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
-        Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
-        Entities.Common.TPDM.IEvaluationTypeDescriptor,
-        Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM.EvaluationTypeDescriptor,
-        Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorPut,
-        Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorPost,
-        Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample>
+        Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm.EvaluationTypeDescriptor,
+        Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm.EvaluationTypeDescriptor,
+        Entities.Common.Tpdm.IEvaluationTypeDescriptor,
+        Entities.NHibernate.EvaluationTypeDescriptorAggregate.Tpdm.EvaluationTypeDescriptor,
+        Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors.EvaluationTypeDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors.EvaluationTypeDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors.EvaluationTypeDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample>
     {
         public EvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample request, Entities.Common.Tpdm.IEvaluationTypeDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -820,7 +820,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.FinancialAids
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.FinancialAids
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -828,21 +828,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FinancialAids
     [Authorize]
     [Route("tpdm/financialAids")]
     public partial class FinancialAidsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.FinancialAid.TPDM.FinancialAid,
-        Api.Common.Models.Resources.FinancialAid.TPDM.FinancialAid,
-        Entities.Common.TPDM.IFinancialAid,
-        Entities.NHibernate.FinancialAidAggregate.TPDM.FinancialAid,
-        Api.Common.Models.Requests.TPDM.FinancialAids.FinancialAidPut,
-        Api.Common.Models.Requests.TPDM.FinancialAids.FinancialAidPost,
-        Api.Common.Models.Requests.TPDM.FinancialAids.FinancialAidDelete,
-        Api.Common.Models.Requests.TPDM.FinancialAids.FinancialAidGetByExample>
+        Api.Common.Models.Resources.FinancialAid.Tpdm.FinancialAid,
+        Api.Common.Models.Resources.FinancialAid.Tpdm.FinancialAid,
+        Entities.Common.Tpdm.IFinancialAid,
+        Entities.NHibernate.FinancialAidAggregate.Tpdm.FinancialAid,
+        Api.Common.Models.Requests.Tpdm.FinancialAids.FinancialAidPut,
+        Api.Common.Models.Requests.Tpdm.FinancialAids.FinancialAidPost,
+        Api.Common.Models.Requests.Tpdm.FinancialAids.FinancialAidDelete,
+        Api.Common.Models.Requests.Tpdm.FinancialAids.FinancialAidGetByExample>
     {
         public FinancialAidsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.FinancialAids.FinancialAidGetByExample request, Entities.Common.TPDM.IFinancialAid specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.FinancialAids.FinancialAidGetByExample request, Entities.Common.Tpdm.IFinancialAid specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -858,7 +858,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FinancialAids
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.GenderDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -866,21 +866,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
     [Authorize]
     [Route("tpdm/genderDescriptors")]
     public partial class GenderDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.GenderDescriptor.TPDM.GenderDescriptor,
-        Api.Common.Models.Resources.GenderDescriptor.TPDM.GenderDescriptor,
-        Entities.Common.TPDM.IGenderDescriptor,
-        Entities.NHibernate.GenderDescriptorAggregate.TPDM.GenderDescriptor,
-        Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorPut,
-        Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorPost,
-        Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorGetByExample>
+        Api.Common.Models.Resources.GenderDescriptor.Tpdm.GenderDescriptor,
+        Api.Common.Models.Resources.GenderDescriptor.Tpdm.GenderDescriptor,
+        Entities.Common.Tpdm.IGenderDescriptor,
+        Entities.NHibernate.GenderDescriptorAggregate.Tpdm.GenderDescriptor,
+        Api.Common.Models.Requests.Tpdm.GenderDescriptors.GenderDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.GenderDescriptors.GenderDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.GenderDescriptors.GenderDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.GenderDescriptors.GenderDescriptorGetByExample>
     {
         public GenderDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorGetByExample request, Entities.Common.TPDM.IGenderDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.GenderDescriptors.GenderDescriptorGetByExample request, Entities.Common.Tpdm.IGenderDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -889,7 +889,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.ObjectiveRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -897,21 +897,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
     [Authorize]
     [Route("tpdm/objectiveRatingLevelDescriptors")]
     public partial class ObjectiveRatingLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
-        Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
-        Entities.Common.TPDM.IObjectiveRatingLevelDescriptor,
-        Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.TPDM.ObjectiveRatingLevelDescriptor,
-        Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPut,
-        Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPost,
-        Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample>
+        Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tpdm.ObjectiveRatingLevelDescriptor,
+        Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tpdm.ObjectiveRatingLevelDescriptor,
+        Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor,
+        Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.Tpdm.ObjectiveRatingLevelDescriptor,
+        Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample>
     {
         public ObjectiveRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IObjectiveRatingLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample request, Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -920,7 +920,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.PerformanceEvaluations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -928,21 +928,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
     [Authorize]
     [Route("tpdm/performanceEvaluations")]
     public partial class PerformanceEvaluationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
-        Api.Common.Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
-        Entities.Common.TPDM.IPerformanceEvaluation,
-        Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationPut,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationPost,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationDelete,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationGetByExample>
+        Api.Common.Models.Resources.PerformanceEvaluation.Tpdm.PerformanceEvaluation,
+        Api.Common.Models.Resources.PerformanceEvaluation.Tpdm.PerformanceEvaluation,
+        Entities.Common.Tpdm.IPerformanceEvaluation,
+        Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluation,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluations.PerformanceEvaluationPut,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluations.PerformanceEvaluationPost,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluations.PerformanceEvaluationDelete,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluations.PerformanceEvaluationGetByExample>
     {
         public PerformanceEvaluationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationGetByExample request, Entities.Common.TPDM.IPerformanceEvaluation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.PerformanceEvaluations.PerformanceEvaluationGetByExample request, Entities.Common.Tpdm.IPerformanceEvaluation specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -959,7 +959,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.PerformanceEvaluationRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -967,21 +967,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
     [Authorize]
     [Route("tpdm/performanceEvaluationRatings")]
     public partial class PerformanceEvaluationRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
-        Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
-        Entities.Common.TPDM.IPerformanceEvaluationRating,
-        Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingPut,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingPost,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingDelete,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample>
+        Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRating,
+        Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRating,
+        Entities.Common.Tpdm.IPerformanceEvaluationRating,
+        Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRating,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings.PerformanceEvaluationRatingPut,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings.PerformanceEvaluationRatingPost,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings.PerformanceEvaluationRatingDelete,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample>
     {
         public PerformanceEvaluationRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationRating specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample request, Entities.Common.Tpdm.IPerformanceEvaluationRating specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1006,7 +1006,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.PerformanceEvaluationRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1014,21 +1014,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
     [Authorize]
     [Route("tpdm/performanceEvaluationRatingLevelDescriptors")]
     public partial class PerformanceEvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
-        Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
-        Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor,
-        Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.TPDM.PerformanceEvaluationRatingLevelDescriptor,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPut,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPost,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample>
+        Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.Tpdm.PerformanceEvaluationRatingLevelDescriptor,
+        Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.Tpdm.PerformanceEvaluationRatingLevelDescriptor,
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor,
+        Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.Tpdm.PerformanceEvaluationRatingLevelDescriptor,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample>
     {
         public PerformanceEvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample request, Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1037,7 +1037,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.PerformanceEvaluationTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1045,21 +1045,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
     [Authorize]
     [Route("tpdm/performanceEvaluationTypeDescriptors")]
     public partial class PerformanceEvaluationTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
-        Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
-        Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor,
-        Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.TPDM.PerformanceEvaluationTypeDescriptor,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPut,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPost,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample>
+        Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.Tpdm.PerformanceEvaluationTypeDescriptor,
+        Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.Tpdm.PerformanceEvaluationTypeDescriptor,
+        Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor,
+        Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.Tpdm.PerformanceEvaluationTypeDescriptor,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample>
     {
         public PerformanceEvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample request, Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1068,7 +1068,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.RubricDimensions
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1076,21 +1076,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
     [Authorize]
     [Route("tpdm/rubricDimensions")]
     public partial class RubricDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.RubricDimension.TPDM.RubricDimension,
-        Api.Common.Models.Resources.RubricDimension.TPDM.RubricDimension,
-        Entities.Common.TPDM.IRubricDimension,
-        Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension,
-        Api.Common.Models.Requests.TPDM.RubricDimensions.RubricDimensionPut,
-        Api.Common.Models.Requests.TPDM.RubricDimensions.RubricDimensionPost,
-        Api.Common.Models.Requests.TPDM.RubricDimensions.RubricDimensionDelete,
-        Api.Common.Models.Requests.TPDM.RubricDimensions.RubricDimensionGetByExample>
+        Api.Common.Models.Resources.RubricDimension.Tpdm.RubricDimension,
+        Api.Common.Models.Resources.RubricDimension.Tpdm.RubricDimension,
+        Entities.Common.Tpdm.IRubricDimension,
+        Entities.NHibernate.RubricDimensionAggregate.Tpdm.RubricDimension,
+        Api.Common.Models.Requests.Tpdm.RubricDimensions.RubricDimensionPut,
+        Api.Common.Models.Requests.Tpdm.RubricDimensions.RubricDimensionPost,
+        Api.Common.Models.Requests.Tpdm.RubricDimensions.RubricDimensionDelete,
+        Api.Common.Models.Requests.Tpdm.RubricDimensions.RubricDimensionGetByExample>
     {
         public RubricDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.RubricDimensions.RubricDimensionGetByExample request, Entities.Common.TPDM.IRubricDimension specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.RubricDimensions.RubricDimensionGetByExample request, Entities.Common.Tpdm.IRubricDimension specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1112,7 +1112,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.RubricRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1120,21 +1120,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
     [Authorize]
     [Route("tpdm/rubricRatingLevelDescriptors")]
     public partial class RubricRatingLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
-        Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
-        Entities.Common.TPDM.IRubricRatingLevelDescriptor,
-        Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM.RubricRatingLevelDescriptor,
-        Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPut,
-        Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPost,
-        Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorDelete,
-        Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample>
+        Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm.RubricRatingLevelDescriptor,
+        Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm.RubricRatingLevelDescriptor,
+        Entities.Common.Tpdm.IRubricRatingLevelDescriptor,
+        Entities.NHibernate.RubricRatingLevelDescriptorAggregate.Tpdm.RubricRatingLevelDescriptor,
+        Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPut,
+        Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPost,
+        Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorDelete,
+        Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample>
     {
         public RubricRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IRubricRatingLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample request, Entities.Common.Tpdm.IRubricRatingLevelDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1143,7 +1143,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponsePersonTargetAssociations
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.SurveyResponsePersonTargetAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1151,21 +1151,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponsePersonTargetAssoc
     [Authorize]
     [Route("tpdm/surveyResponsePersonTargetAssociations")]
     public partial class SurveyResponsePersonTargetAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation,
-        Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation,
-        Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation,
-        Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociation,
-        Api.Common.Models.Requests.TPDM.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationPut,
-        Api.Common.Models.Requests.TPDM.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationPost,
-        Api.Common.Models.Requests.TPDM.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationDelete,
-        Api.Common.Models.Requests.TPDM.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationGetByExample>
+        Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.Tpdm.SurveyResponsePersonTargetAssociation,
+        Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.Tpdm.SurveyResponsePersonTargetAssociation,
+        Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation,
+        Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.Tpdm.SurveyResponsePersonTargetAssociation,
+        Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationPut,
+        Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationPost,
+        Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationDelete,
+        Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationGetByExample>
     {
         public SurveyResponsePersonTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationGetByExample request, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAssociations.SurveyResponsePersonTargetAssociationGetByExample request, Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1179,7 +1179,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponsePersonTargetAssoc
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponsePersonTargetAssociations
+namespace EdFi.Ods.Api.Services.Controllers.Tpdm.SurveySectionResponsePersonTargetAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1187,21 +1187,21 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponsePersonTarg
     [Authorize]
     [Route("tpdm/surveySectionResponsePersonTargetAssociations")]
     public partial class SurveySectionResponsePersonTargetAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation,
-        Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation,
-        Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation,
-        Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociation,
-        Api.Common.Models.Requests.TPDM.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationPut,
-        Api.Common.Models.Requests.TPDM.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationPost,
-        Api.Common.Models.Requests.TPDM.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationDelete,
-        Api.Common.Models.Requests.TPDM.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationGetByExample>
+        Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.Tpdm.SurveySectionResponsePersonTargetAssociation,
+        Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.Tpdm.SurveySectionResponsePersonTargetAssociation,
+        Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation,
+        Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.Tpdm.SurveySectionResponsePersonTargetAssociation,
+        Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationPut,
+        Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationPost,
+        Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationDelete,
+        Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationGetByExample>
     {
         public SurveySectionResponsePersonTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TPDM.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationGetByExample request, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTargetAssociations.SurveySectionResponsePersonTargetAssociationGetByExample request, Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();

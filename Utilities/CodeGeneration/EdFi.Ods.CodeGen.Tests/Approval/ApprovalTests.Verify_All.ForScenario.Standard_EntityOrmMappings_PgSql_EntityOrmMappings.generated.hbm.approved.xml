@@ -51,98 +51,6 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" table="Account" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.Account" table="Account" lazy="false" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FiscalYear" column="FiscalYear" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AccountName" column="AccountName" type="string" length="100" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="AccountAccountCodes" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="AccountIdentifier" />
-        <column name="EducationOrganizationId" />
-        <column name="FiscalYear" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountAccountCode" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountAccountCode" table="AccountAccountCode" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountClassificationDescriptorId" column="AccountClassificationDescriptorId" type="int" />
-      <key-property name="AccountCodeNumber" column="AccountCodeNumber" type="string" length="50" />
-      <key-many-to-one name="Account">
-        <column name="AccountIdentifier" />
-        <column name="EducationOrganizationId" />
-        <column name="FiscalYear" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="AccountCodeReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountCodeAggregate.EdFi.AccountCodeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="AccountClassificationDescriptorId" />
-      <column name="AccountCodeNumber" />
-      <column name="EducationOrganizationId" />
-      <column name="FiscalYear" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.AccountabilityRatingAggregate.EdFi.AccountabilityRatingReferenceData" table="AccountabilityRating" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -199,112 +107,6 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.AccountCodeAggregate.EdFi.AccountCodeReferenceData" table="AccountCode" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AccountClassificationDescriptorId" column="AccountClassificationDescriptorId" type="int"  />
-            <key-property name="AccountCodeNumber" column="AccountCodeNumber" type="string"  length="50"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.AccountCodeAggregate.EdFi.AccountCode" table="AccountCode" lazy="false" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountClassificationDescriptorId" column="AccountClassificationDescriptorId" type="int" />
-      <key-property name="AccountCodeNumber" column="AccountCodeNumber" type="string" length="50" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FiscalYear" column="FiscalYear" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AccountCodeDescription" column="AccountCodeDescription" type="string" length="1024" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.ActualAggregate.EdFi.ActualReferenceData" table="Actual" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ActualAggregate.EdFi.Actual" table="Actual" lazy="false" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FiscalYear" column="FiscalYear" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AmountToDate" column="AmountToDate" type="Currency" not-null="true" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="AccountIdentifier" />
-      <column name="EducationOrganizationId" />
-      <column name="FiscalYear" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentReferenceData" table="Assessment" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -343,7 +145,7 @@
     <property name="AssessmentCategoryDescriptorId" column="AssessmentCategoryDescriptorId" type="int" />
     <property name="AssessmentFamily" column="AssessmentFamily" type="string" length="60" />
     <property name="AssessmentForm" column="AssessmentForm" type="string" length="60" />
-    <property name="AssessmentTitle" column="AssessmentTitle" type="string" length="100" not-null="true" />
+    <property name="AssessmentTitle" column="AssessmentTitle" type="string" length="255" not-null="true" />
     <property name="AssessmentVersion" column="AssessmentVersion" type="int" />
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
     <property name="MaxRawScore" column="MaxRawScore" type="decimal" />
@@ -357,15 +159,6 @@
         <column name="Namespace" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentContentStandard" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="AssessmentPeriod" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="AssessmentIdentifier" />
-        <column name="Namespace" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentPeriod" />
     </set>
 
     <!-- Aggregate references -->
@@ -414,6 +207,14 @@
         <column name="Namespace" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentPerformanceLevel" />
+    </set>
+
+    <set name="AssessmentPeriods" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="AssessmentIdentifier" />
+        <column name="Namespace" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentPeriod" />
     </set>
 
     <set name="AssessmentPlatformTypes" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -657,6 +458,7 @@
   <class name="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentPeriod" table="AssessmentPeriod" lazy="false">
     <!-- Composite primary key -->
     <composite-id>
+      <key-property name="AssessmentPeriodDescriptorId" column="AssessmentPeriodDescriptorId" type="int" />
       <key-many-to-one name="Assessment">
         <column name="AssessmentIdentifier" />
         <column name="Namespace" />
@@ -667,7 +469,6 @@
 
 
     <!-- Properties -->
-    <property name="AssessmentPeriodDescriptorId" column="AssessmentPeriodDescriptorId" type="int" not-null="true" />
     <property name="BeginDate" column="BeginDate" type="date" />
     <property name="EndDate" column="EndDate" type="date" />
 
@@ -1029,6 +830,84 @@
 
 
     <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionReferenceData" table="BalanceSheetDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimension" table="BalanceSheetDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="BalanceSheetDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionReportingTag" table="BalanceSheetDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="BalanceSheetDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.BellScheduleAggregate.EdFi.BellScheduleReferenceData" table="BellSchedule" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -1175,60 +1054,6 @@
     <!-- Properties -->
 
     <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.BudgetAggregate.EdFi.BudgetReferenceData" table="Budget" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.BudgetAggregate.EdFi.Budget" table="Budget" lazy="false" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FiscalYear" column="FiscalYear" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="Amount" column="Amount" type="Currency" not-null="true" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="AccountIdentifier" />
-      <column name="EducationOrganizationId" />
-      <column name="FiscalYear" />
-    </many-to-one>
 
     <!-- Back references -->
 
@@ -1405,6 +1230,133 @@
 
 
     <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccountReferenceData" table="ChartOfAccount" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccount" table="ChartOfAccount" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AccountName" column="AccountName" type="string" length="100" />
+    <property name="AccountTypeDescriptorId" column="AccountTypeDescriptorId" type="int" not-null="true" />
+    <property name="BalanceSheetCode" column="BalanceSheetCode" type="string" length="16" />
+    <property name="FunctionCode" column="FunctionCode" type="string" length="16" />
+    <property name="FundCode" column="FundCode" type="string" length="16" />
+    <property name="ObjectCode" column="ObjectCode" type="string" length="16" />
+    <property name="OperationalUnitCode" column="OperationalUnitCode" type="string" length="16" />
+    <property name="ProgramCode" column="ProgramCode" type="string" length="16" />
+    <property name="ProjectCode" column="ProjectCode" type="string" length="16" />
+    <property name="SourceCode" column="SourceCode" type="string" length="16" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="BalanceSheetDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="BalanceSheetCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="FunctionDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="FunctionCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="FundDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="FundCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="ObjectDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ObjectCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="OperationalUnitDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="OperationalUnitCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="ProgramDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ProgramCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="ProjectDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ProjectCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="SourceDimensionReferenceData" class="EdFi.Ods.Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimensionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SourceCode" />
+      <column name="FiscalYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="ChartOfAccountReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="AccountIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccountReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccountReportingTag" table="ChartOfAccountReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="ChartOfAccount">
+        <column name="AccountIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="TagValue" column="TagValue" type="string" length="100" />
 
     <!-- Aggregate references -->
 
@@ -1688,65 +1640,6 @@
     <!-- Aggregate references -->
     <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.ContractedStaffAggregate.EdFi.ContractedStaffReferenceData" table="ContractedStaff" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
-            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.ContractedStaffAggregate.EdFi.ContractedStaff" table="ContractedStaff" lazy="false" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FiscalYear" column="FiscalYear" type="int" />
-      <key-property name="StaffUSI" column="StaffUSI" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AmountToDate" column="AmountToDate" type="Currency" not-null="true" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="AccountIdentifier" />
-      <column name="EducationOrganizationId" />
-      <column name="FiscalYear" />
-    </many-to-one>
-    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="StaffUSI" />
     </many-to-one>
 
     <!-- Back references -->
@@ -2751,13 +2644,13 @@
 
           <!-- Collections -->
       </joined-subclass>
-    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AccountClassificationDescriptorAggregate.EdFi.AccountClassificationDescriptor" table="AccountClassificationDescriptor" lazy="false">
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AccountTypeDescriptorAggregate.EdFi.AccountTypeDescriptor" table="AccountTypeDescriptor" lazy="false">
           <key>
-            <column name="AccountClassificationDescriptorId" />
+            <column name="AccountTypeDescriptorId" />
           </key>
 
           <!-- PK properties -->
-          <property name="AccountClassificationDescriptorId" column="AccountClassificationDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+          <property name="AccountTypeDescriptorId" column="AccountTypeDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -3675,6 +3568,20 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptor" table="FinancialCollectionDescriptor" lazy="false">
+          <key>
+            <column name="FinancialCollectionDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.GradebookEntryTypeDescriptorAggregate.EdFi.GradebookEntryTypeDescriptor" table="GradebookEntryTypeDescriptor" lazy="false">
           <key>
             <column name="GradebookEntryTypeDescriptorId" />
@@ -4186,6 +4093,20 @@
 
           <!-- PK properties -->
           <property name="MigrantEducationProgramServiceDescriptorId" column="MigrantEducationProgramServiceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ModelEntityDescriptorAggregate.EdFi.ModelEntityDescriptor" table="ModelEntityDescriptor" lazy="false">
+          <key>
+            <column name="ModelEntityDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ModelEntityDescriptorId" column="ModelEntityDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -4739,6 +4660,20 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptor" table="ReportingTagDescriptor" lazy="false">
+          <key>
+            <column name="ReportingTagDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.ResidencyStatusDescriptorAggregate.EdFi.ResidencyStatusDescriptor" table="ResidencyStatusDescriptor" lazy="false">
           <key>
             <column name="ResidencyStatusDescriptorId" />
@@ -5285,6 +5220,91 @@
 
           <!-- Collections -->
       </joined-subclass>
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.DescriptorMappingAggregate.EdFi.DescriptorMappingReferenceData" table="DescriptorMapping" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="MappedNamespace" column="MappedNamespace" type="string"  length="255"  />
+            <key-property name="MappedValue" column="MappedValue" type="string"  length="50"  />
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
+            <key-property name="Value" column="Value" type="string"  length="50"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.DescriptorMappingAggregate.EdFi.DescriptorMapping" table="DescriptorMapping" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="MappedNamespace" column="MappedNamespace" type="string" length="255" />
+      <key-property name="MappedValue" column="MappedValue" type="string" length="50" />
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
+      <key-property name="Value" column="Value" type="string" length="50" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="DescriptorMappingModelEntities" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="MappedNamespace" />
+        <column name="MappedValue" />
+        <column name="Namespace" />
+        <column name="Value" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.DescriptorMappingAggregate.EdFi.DescriptorMappingModelEntity" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.DescriptorMappingAggregate.EdFi.DescriptorMappingModelEntity" table="DescriptorMappingModelEntity" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ModelEntityDescriptorId" column="ModelEntityDescriptorId" type="int" />
+      <key-many-to-one name="DescriptorMapping">
+        <column name="MappedNamespace" />
+        <column name="MappedValue" />
+        <column name="Namespace" />
+        <column name="Value" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
 </class>
 
 
@@ -6747,6 +6767,162 @@
 
 
     <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimensionReferenceData" table="FunctionDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimension" table="FunctionDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="FunctionDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimensionReportingTag" table="FunctionDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="FunctionDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimensionReferenceData" table="FundDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimension" table="FundDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="FundDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimensionReportingTag" table="FundDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="FundDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData" table="GeneralStudentProgramAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -7494,7 +7670,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="GradebookEntryIdentifier" column="GradebookEntryIdentifier" type="string"  length="60"  />
-            <key-property name="SourceSystemNamespace" column="SourceSystemNamespace" type="string"  length="255"  />
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -7508,7 +7684,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradebookEntryIdentifier" column="GradebookEntryIdentifier" type="string" length="60" />
-      <key-property name="SourceSystemNamespace" column="SourceSystemNamespace" type="string" length="255" />
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -7560,7 +7736,7 @@
     <set name="GradebookEntryLearningStandards" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="GradebookEntryIdentifier" />
-        <column name="SourceSystemNamespace" />
+        <column name="Namespace" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.GradebookEntryAggregate.EdFi.GradebookEntryLearningStandard" />
     </set>
@@ -7576,7 +7752,7 @@
       <key-property name="LearningStandardId" column="LearningStandardId" type="string" length="60" />
       <key-many-to-one name="GradebookEntry">
         <column name="GradebookEntryIdentifier" />
-        <column name="SourceSystemNamespace" />
+        <column name="Namespace" />
       </key-many-to-one>
     </composite-id>
     <!-- Transient state detection -->
@@ -9545,6 +9721,269 @@
 </class>
 
 
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReferenceData" table="LocalAccount" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccount" table="LocalAccount" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AccountName" column="AccountName" type="string" length="100" />
+    <property name="ChartOfAccountEducationOrganizationId" column="ChartOfAccountEducationOrganizationId" type="int" not-null="true" />
+    <property name="ChartOfAccountIdentifier" column="ChartOfAccountIdentifier" type="string" length="50" not-null="true" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="ChartOfAccountReferenceData" class="EdFi.Ods.Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ChartOfAccountIdentifier" />
+      <column name="ChartOfAccountEducationOrganizationId" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="LocalAccountReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="AccountIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReportingTag" table="LocalAccountReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="LocalAccount">
+        <column name="AccountIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="TagValue" column="TagValue" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.LocalActualAggregate.EdFi.LocalActualReferenceData" table="LocalActual" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalActualAggregate.EdFi.LocalActual" table="LocalActual" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="AsOfDate" column="AsOfDate" type="date" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="Amount" column="Amount" type="Currency" not-null="true" />
+    <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="LocalAccountReferenceData" class="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="AccountIdentifier" />
+      <column name="EducationOrganizationId" />
+      <column name="FiscalYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.LocalBudgetAggregate.EdFi.LocalBudgetReferenceData" table="LocalBudget" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalBudgetAggregate.EdFi.LocalBudget" table="LocalBudget" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="AsOfDate" column="AsOfDate" type="date" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="Amount" column="Amount" type="Currency" not-null="true" />
+    <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="LocalAccountReferenceData" class="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="AccountIdentifier" />
+      <column name="EducationOrganizationId" />
+      <column name="FiscalYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.LocalContractedStaffAggregate.EdFi.LocalContractedStaffReferenceData" table="LocalContractedStaff" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalContractedStaffAggregate.EdFi.LocalContractedStaff" table="LocalContractedStaff" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="AsOfDate" column="AsOfDate" type="date" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="Amount" column="Amount" type="Currency" not-null="true" />
+    <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="LocalAccountReferenceData" class="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="AccountIdentifier" />
+      <column name="EducationOrganizationId" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StaffUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
 
   <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyAccountability" table="LocalEducationAgencyAccountability" lazy="false">
@@ -9607,6 +10046,121 @@
 
 
     <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.LocalEncumbranceAggregate.EdFi.LocalEncumbranceReferenceData" table="LocalEncumbrance" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalEncumbranceAggregate.EdFi.LocalEncumbrance" table="LocalEncumbrance" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="AsOfDate" column="AsOfDate" type="date" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="Amount" column="Amount" type="Currency" not-null="true" />
+    <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="LocalAccountReferenceData" class="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="AccountIdentifier" />
+      <column name="EducationOrganizationId" />
+      <column name="FiscalYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.LocalPayrollAggregate.EdFi.LocalPayrollReferenceData" table="LocalPayroll" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
+            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.LocalPayrollAggregate.EdFi.LocalPayroll" table="LocalPayroll" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
+      <key-property name="AsOfDate" column="AsOfDate" type="date" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="Amount" column="Amount" type="Currency" not-null="true" />
+    <property name="FinancialCollectionDescriptorId" column="FinancialCollectionDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="LocalAccountReferenceData" class="EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="AccountIdentifier" />
+      <column name="EducationOrganizationId" />
+      <column name="FiscalYear" />
+    </many-to-one>
+    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StaffUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.LocationAggregate.EdFi.LocationReferenceData" table="Location" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -9648,6 +10202,84 @@
     <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="SchoolId" />
     </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimensionReferenceData" table="ObjectDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimension" table="ObjectDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="ObjectDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimensionReportingTag" table="ObjectDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="ObjectDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
 
     <!-- Back references -->
 
@@ -9976,6 +10608,84 @@
       <key-many-to-one name="OpenStaffPosition">
         <column name="EducationOrganizationId" />
         <column name="RequisitionNumber" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionReferenceData" table="OperationalUnitDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimension" table="OperationalUnitDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="OperationalUnitDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimensionReportingTag" table="OperationalUnitDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="OperationalUnitDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
       </key-many-to-one>
     </composite-id>
     <!-- Transient state detection -->
@@ -10381,65 +11091,6 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.PayrollAggregate.EdFi.PayrollReferenceData" table="Payroll" lazy="true" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AccountIdentifier" column="AccountIdentifier" type="string"  length="50"  />
-            <key-property name="AsOfDate" column="AsOfDate" type="date"  />
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
-            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PayrollAggregate.EdFi.Payroll" table="Payroll" lazy="false" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AccountIdentifier" column="AccountIdentifier" type="string" length="50" />
-      <key-property name="AsOfDate" column="AsOfDate" type="date" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FiscalYear" column="FiscalYear" type="int" />
-      <key-property name="StaffUSI" column="StaffUSI" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AmountToDate" column="AmountToDate" type="Currency" not-null="true" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="AccountIdentifier" />
-      <column name="EducationOrganizationId" />
-      <column name="FiscalYear" />
-    </many-to-one>
-    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="StaffUSI" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" table="Person" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -10777,6 +11428,162 @@
         <column name="EducationOrganizationId" />
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimensionReferenceData" table="ProgramDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimension" table="ProgramDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="ProgramDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimensionReportingTag" table="ProgramDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="ProgramDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimensionReferenceData" table="ProjectDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimension" table="ProjectDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="ProjectDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimensionReportingTag" table="ProjectDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="ProjectDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
       </key-many-to-one>
     </composite-id>
     <!-- Transient state detection -->
@@ -11771,6 +12578,84 @@
       <column name="SchoolId" />
       <column name="SchoolYear" />
     </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimensionReferenceData" table="SourceDimension" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Code" column="Code" type="string"  length="16"  />
+            <key-property name="FiscalYear" column="FiscalYear" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimension" table="SourceDimension" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Code" column="Code" type="string" length="16" />
+      <key-property name="FiscalYear" column="FiscalYear" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CodeName" column="CodeName" type="string" length="100" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="SourceDimensionReportingTags" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimensionReportingTag" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimensionReportingTag" table="SourceDimensionReportingTag" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ReportingTagDescriptorId" column="ReportingTagDescriptorId" type="int" />
+      <key-many-to-one name="SourceDimension">
+        <column name="Code" />
+        <column name="FiscalYear" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
 
     <!-- Back references -->
 
@@ -13920,10 +14805,11 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="AdministrationDate" column="AdministrationDate" type="UtcDateTime" not-null="true" />
+    <property name="AdministrationDate" column="AdministrationDate" type="UtcDateTime" />
     <property name="AdministrationEndDate" column="AdministrationEndDate" type="UtcDateTime" />
     <property name="AdministrationEnvironmentDescriptorId" column="AdministrationEnvironmentDescriptorId" type="int" />
     <property name="AdministrationLanguageDescriptorId" column="AdministrationLanguageDescriptorId" type="int" />
+    <property name="AssessedMinutes" column="AssessedMinutes" type="int" />
     <property name="EventCircumstanceDescriptorId" column="EventCircumstanceDescriptorId" type="int" />
     <property name="EventDescription" column="EventDescription" type="string" length="1024" />
     <property name="PlatformTypeDescriptorId" column="PlatformTypeDescriptorId" type="int" />
@@ -13932,6 +14818,17 @@
     <property name="SchoolYear" column="SchoolYear" type="short" />
     <property name="SerialNumber" column="SerialNumber" type="string" length="60" />
     <property name="WhenAssessedGradeLevelDescriptorId" column="WhenAssessedGradeLevelDescriptorId" type="int" />
+
+    <!-- One-to-one child mappings -->
+    <set name="StudentAssessmentPeriod" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="AssessmentIdentifier" />
+        <column name="Namespace" />
+        <column name="StudentAssessmentIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessmentPeriod" />
+    </set>
 
     <!-- Aggregate references -->
     <many-to-one name="AssessmentReferenceData" class="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -14087,7 +14984,35 @@
 
     <!-- Properties -->
     <property name="PerformanceLevelIndicatorName" column="PerformanceLevelIndicatorName" type="string" length="60" />
-    <property name="PerformanceLevelMet" column="PerformanceLevelMet" type="bool" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessmentPeriod" table="StudentAssessmentPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StudentAssessment">
+        <column name="AssessmentIdentifier" />
+        <column name="Namespace" />
+        <column name="StudentAssessmentIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="AssessmentPeriodDescriptorId" column="AssessmentPeriodDescriptorId" type="int" not-null="true" />
+    <property name="BeginDate" column="BeginDate" type="date" />
+    <property name="EndDate" column="EndDate" type="date" />
 
     <!-- Aggregate references -->
 
@@ -14144,6 +15069,9 @@
 
 
     <!-- Properties -->
+    <property name="AdministrationDate" column="AdministrationDate" type="UtcDateTime" />
+    <property name="AdministrationEndDate" column="AdministrationEndDate" type="UtcDateTime" />
+    <property name="AssessedMinutes" column="AssessedMinutes" type="int" />
 
     <!-- Aggregate references -->
     <many-to-one name="ObjectiveAssessmentReferenceData" class="EdFi.Ods.Entities.NHibernate.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -14201,7 +15129,6 @@
 
     <!-- Properties -->
     <property name="PerformanceLevelIndicatorName" column="PerformanceLevelIndicatorName" type="string" length="60" />
-    <property name="PerformanceLevelMet" column="PerformanceLevelMet" type="bool" not-null="true" />
 
     <!-- Aggregate references -->
 
@@ -15753,7 +16680,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="GradebookEntryIdentifier" column="GradebookEntryIdentifier" type="string"  length="60"  />
-            <key-property name="SourceSystemNamespace" column="SourceSystemNamespace" type="string"  length="255"  />
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="StudentUSI" column="StudentUSI" type="int"  />
         </composite-id>
 
@@ -15768,7 +16695,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradebookEntryIdentifier" column="GradebookEntryIdentifier" type="string" length="60" />
-      <key-property name="SourceSystemNamespace" column="SourceSystemNamespace" type="string" length="255" />
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="StudentUSI" column="StudentUSI" type="int" />
     </composite-id>
 
@@ -15798,7 +16725,7 @@
     <!-- Aggregate references -->
     <many-to-one name="GradebookEntryReferenceData" class="EdFi.Ods.Entities.NHibernate.GradebookEntryAggregate.EdFi.GradebookEntryReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="GradebookEntryIdentifier" />
-      <column name="SourceSystemNamespace" />
+      <column name="Namespace" />
     </many-to-one>
     <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StudentUSI" />
