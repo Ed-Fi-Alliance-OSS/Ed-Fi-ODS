@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.LoadTools.ApiClient;
-using EdFi.LoadTools.Engine;
+using log4net;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
@@ -29,7 +29,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             _dependenciesRetriever = dependenciesRetriever;
             _dependenciesSorter = dependenciesSorter;
         }
-        
+
+        protected ILog Log => LogManager.GetLogger(GetType().Name);
+
         public IEnumerable<ITest> GenerateTests()
         {
             var dependencies = _dependenciesRetriever.GetDependencyOrderAsync().GetResultSafely()
@@ -45,20 +47,20 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                             .Select(
                                 dependency =>
                                 {
-                                    var expectedSdkResourceName = DependencyResourceNameToSdkResourceName(dependency);
-                                    var sdkResource = sdkResourcesByName.GetValueOrDefault(expectedSdkResourceName);
+                                    var sdkResource = sdkResourcesByName.GetValueOrDefault(
+                                        DependencyResourceNameToSdkResourceName(dependency));
 
-                                    if (sdkResource is null)
+                                    if (sdkResource is not null)
                                     {
-                                        // There is no exact name match, fallback to an approximate match
-                                        sdkResource = sdkResourcesByName
-                                            .MaxBy(kv => kv.Key.ToUpper().PercentMatchTo(expectedSdkResourceName.ToUpper()))
-                                            .Value;
+                                        return testFactory(sdkResource);
                                     }
 
-                                    return sdkResource;
-                                })
-                            .Select(testFactory));
+                                    Log.Info(
+                                        $"Skipped - Couldn't find a matching SDK for the resource '{dependency.Resource}' with namespace '{dependency.Namespace}'.");
+
+                                    return null;
+                                }))
+                .Where(test => test is not null);
         }
 
         private static string DependencyResourceNameToSdkResourceName(Dependency dependency) =>
