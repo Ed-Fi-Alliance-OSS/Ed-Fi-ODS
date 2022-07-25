@@ -1,9 +1,9 @@
 {
   "odsApiVersion": "6.0",
   "schemaDefinition": {
-    "logicalName": "sample",
+    "logicalName": "Sample",
     "physicalName": "sample",
-    "description": "The Sample extension data model",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [

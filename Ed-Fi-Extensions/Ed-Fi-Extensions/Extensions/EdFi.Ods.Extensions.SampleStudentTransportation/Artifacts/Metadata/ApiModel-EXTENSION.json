@@ -1,9 +1,9 @@
 {
   "odsApiVersion": "6.0",
   "schemaDefinition": {
-    "logicalName": "sample-student-transportation",
+    "logicalName": "SampleStudentTransportation",
     "physicalName": "samplestudenttransportation",
-    "description": "The SampleStudentTransportation extension data model",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [
