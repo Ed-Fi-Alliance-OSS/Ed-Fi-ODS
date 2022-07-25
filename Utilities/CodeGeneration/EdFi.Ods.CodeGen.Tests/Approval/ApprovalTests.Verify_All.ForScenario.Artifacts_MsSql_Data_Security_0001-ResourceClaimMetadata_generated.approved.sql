@@ -163,22 +163,13 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'accommodationDescriptor', N'accommodationDescriptor', N'http://ed-fi.org/ods/identity/claims/accommodationDescriptor', @managedDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'account', N'account', N'http://ed-fi.org/ods/identity/claims/account', @relationshipBasedDataResourceClaimId, @applicationId);
-
-INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'accountabilityRating', N'accountabilityRating', N'http://ed-fi.org/ods/identity/claims/accountabilityRating', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'accountClassificationDescriptor', N'accountClassificationDescriptor', N'http://ed-fi.org/ods/identity/claims/accountClassificationDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
-
-INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'accountCode', N'accountCode', N'http://ed-fi.org/ods/identity/claims/accountCode', @relationshipBasedDataResourceClaimId, @applicationId);
+VALUES (N'accountTypeDescriptor', N'accountTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/accountTypeDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'achievementCategoryDescriptor', N'achievementCategoryDescriptor', N'http://ed-fi.org/ods/identity/claims/achievementCategoryDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
-
-INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'actual', N'actual', N'http://ed-fi.org/ods/identity/claims/actual', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'additionalCreditTypeDescriptor', N'additionalCreditTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/additionalCreditTypeDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -232,6 +223,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'attendanceEventCategoryDescriptor', N'attendanceEventCategoryDescriptor', N'http://ed-fi.org/ods/identity/claims/attendanceEventCategoryDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'balanceSheetDimension', N'balanceSheetDimension', N'http://ed-fi.org/ods/identity/claims/balanceSheetDimension', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'barrierToInternetAccessInResidenceDescriptor', N'barrierToInternetAccessInResidenceDescriptor', N'http://ed-fi.org/ods/identity/claims/barrierToInternetAccessInResidenceDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -239,9 +233,6 @@ VALUES (N'behaviorDescriptor', N'behaviorDescriptor', N'http://ed-fi.org/ods/ide
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'bellSchedule', N'bellSchedule', N'http://ed-fi.org/ods/identity/claims/bellSchedule', @relationshipBasedDataResourceClaimId, @applicationId);
-
-INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'budget', N'budget', N'http://ed-fi.org/ods/identity/claims/budget', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'calendar', N'calendar', N'http://ed-fi.org/ods/identity/claims/calendar', @relationshipBasedDataResourceClaimId, @applicationId);
@@ -263,6 +254,9 @@ VALUES (N'charterApprovalAgencyTypeDescriptor', N'charterApprovalAgencyTypeDescr
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'charterStatusDescriptor', N'charterStatusDescriptor', N'http://ed-fi.org/ods/identity/claims/charterStatusDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'chartOfAccount', N'chartOfAccount', N'http://ed-fi.org/ods/identity/claims/chartOfAccount', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'citizenshipStatusDescriptor', N'citizenshipStatusDescriptor', N'http://ed-fi.org/ods/identity/claims/citizenshipStatusDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -308,9 +302,6 @@ VALUES (N'contentClassDescriptor', N'contentClassDescriptor', N'http://ed-fi.org
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'continuationOfServicesReasonDescriptor', N'continuationOfServicesReasonDescriptor', N'http://ed-fi.org/ods/identity/claims/continuationOfServicesReasonDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
-
-INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'contractedStaff', N'contractedStaff', N'http://ed-fi.org/ods/identity/claims/contractedStaff', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'costRateDescriptor', N'costRateDescriptor', N'http://ed-fi.org/ods/identity/claims/costRateDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -368,6 +359,9 @@ VALUES (N'curriculumUsedDescriptor', N'curriculumUsedDescriptor', N'http://ed-fi
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'deliveryMethodDescriptor', N'deliveryMethodDescriptor', N'http://ed-fi.org/ods/identity/claims/deliveryMethodDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'descriptorMapping', N'descriptorMapping', N'http://ed-fi.org/ods/identity/claims/descriptorMapping', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'diagnosisDescriptor', N'diagnosisDescriptor', N'http://ed-fi.org/ods/identity/claims/diagnosisDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -452,6 +446,15 @@ VALUES (N'exitWithdrawTypeDescriptor', N'exitWithdrawTypeDescriptor', N'http://e
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'feederSchoolAssociation', N'feederSchoolAssociation', N'http://ed-fi.org/ods/identity/claims/feederSchoolAssociation', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'financialCollectionDescriptor', N'financialCollectionDescriptor', N'http://ed-fi.org/ods/identity/claims/financialCollectionDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'functionDimension', N'functionDimension', N'http://ed-fi.org/ods/identity/claims/functionDimension', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'fundDimension', N'fundDimension', N'http://ed-fi.org/ods/identity/claims/fundDimension', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'grade', N'grade', N'http://ed-fi.org/ods/identity/claims/grade', @relationshipBasedDataResourceClaimId, @applicationId);
@@ -577,6 +580,18 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'limitedEnglishProficiencyDescriptor', N'limitedEnglishProficiencyDescriptor', N'http://ed-fi.org/ods/identity/claims/limitedEnglishProficiencyDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'localAccount', N'localAccount', N'http://ed-fi.org/ods/identity/claims/localAccount', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'localActual', N'localActual', N'http://ed-fi.org/ods/identity/claims/localActual', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'localBudget', N'localBudget', N'http://ed-fi.org/ods/identity/claims/localBudget', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'localContractedStaff', N'localContractedStaff', N'http://ed-fi.org/ods/identity/claims/localContractedStaff', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'localeDescriptor', N'localeDescriptor', N'http://ed-fi.org/ods/identity/claims/localeDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -584,6 +599,12 @@ VALUES (N'localEducationAgency', N'localEducationAgency', N'http://ed-fi.org/ods
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'localEducationAgencyCategoryDescriptor', N'localEducationAgencyCategoryDescriptor', N'http://ed-fi.org/ods/identity/claims/localEducationAgencyCategoryDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'localEncumbrance', N'localEncumbrance', N'http://ed-fi.org/ods/identity/claims/localEncumbrance', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'localPayroll', N'localPayroll', N'http://ed-fi.org/ods/identity/claims/localPayroll', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'location', N'location', N'http://ed-fi.org/ods/identity/claims/location', @relationshipBasedDataResourceClaimId, @applicationId);
@@ -601,6 +622,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'migrantEducationProgramServiceDescriptor', N'migrantEducationProgramServiceDescriptor', N'http://ed-fi.org/ods/identity/claims/migrantEducationProgramServiceDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'modelEntityDescriptor', N'modelEntityDescriptor', N'http://ed-fi.org/ods/identity/claims/modelEntityDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'monitoredDescriptor', N'monitoredDescriptor', N'http://ed-fi.org/ods/identity/claims/monitoredDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -613,6 +637,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'networkPurposeDescriptor', N'networkPurposeDescriptor', N'http://ed-fi.org/ods/identity/claims/networkPurposeDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'objectDimension', N'objectDimension', N'http://ed-fi.org/ods/identity/claims/objectDimension', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'objectiveAssessment', N'objectiveAssessment', N'http://ed-fi.org/ods/identity/claims/objectiveAssessment', @assessmentMetadataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -623,6 +650,9 @@ VALUES (N'openStaffPosition', N'openStaffPosition', N'http://ed-fi.org/ods/ident
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'operationalStatusDescriptor', N'operationalStatusDescriptor', N'http://ed-fi.org/ods/identity/claims/operationalStatusDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'operationalUnitDimension', N'operationalUnitDimension', N'http://ed-fi.org/ods/identity/claims/operationalUnitDimension', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'organizationDepartment', N'organizationDepartment', N'http://ed-fi.org/ods/identity/claims/organizationDepartment', @educationOrganizationsResourceClaimId, @applicationId);
@@ -638,9 +668,6 @@ VALUES (N'participationDescriptor', N'participationDescriptor', N'http://ed-fi.o
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'participationStatusDescriptor', N'participationStatusDescriptor', N'http://ed-fi.org/ods/identity/claims/participationStatusDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
-
-INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
-VALUES (N'payroll', N'payroll', N'http://ed-fi.org/ods/identity/claims/payroll', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'performanceBaseConversionDescriptor', N'performanceBaseConversionDescriptor', N'http://ed-fi.org/ods/identity/claims/performanceBaseConversionDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -697,6 +724,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'programCharacteristicDescriptor', N'programCharacteristicDescriptor', N'http://ed-fi.org/ods/identity/claims/programCharacteristicDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'programDimension', N'programDimension', N'http://ed-fi.org/ods/identity/claims/programDimension', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'programSponsorDescriptor', N'programSponsorDescriptor', N'http://ed-fi.org/ods/identity/claims/programSponsorDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -707,6 +737,9 @@ VALUES (N'progressDescriptor', N'progressDescriptor', N'http://ed-fi.org/ods/ide
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'progressLevelDescriptor', N'progressLevelDescriptor', N'http://ed-fi.org/ods/identity/claims/progressLevelDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'projectDimension', N'projectDimension', N'http://ed-fi.org/ods/identity/claims/projectDimension', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'providerCategoryDescriptor', N'providerCategoryDescriptor', N'http://ed-fi.org/ods/identity/claims/providerCategoryDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -746,6 +779,9 @@ VALUES (N'reportCard', N'reportCard', N'http://ed-fi.org/ods/identity/claims/rep
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'reporterDescriptionDescriptor', N'reporterDescriptionDescriptor', N'http://ed-fi.org/ods/identity/claims/reporterDescriptionDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'reportingTagDescriptor', N'reportingTagDescriptor', N'http://ed-fi.org/ods/identity/claims/reportingTagDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'residencyStatusDescriptor', N'residencyStatusDescriptor', N'http://ed-fi.org/ods/identity/claims/residencyStatusDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -809,6 +845,9 @@ VALUES (N'session', N'session', N'http://ed-fi.org/ods/identity/claims/session',
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'sexDescriptor', N'sexDescriptor', N'http://ed-fi.org/ods/identity/claims/sexDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'sourceDimension', N'sourceDimension', N'http://ed-fi.org/ods/identity/claims/sourceDimension', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'sourceSystemDescriptor', N'sourceSystemDescriptor', N'http://ed-fi.org/ods/identity/claims/sourceSystemDescriptor', @systemDescriptorsResourceClaimId, @applicationId);

@@ -3,25 +3,25 @@ using System;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Entities.Common.TPDM;
+using EdFi.Ods.Entities.Common.Tpdm;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 #region Aggregate Entity Includes
-using EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM;
+using EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm;
+using EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.Tpdm;
 #endregion
 
-namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.TPDM
+namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.Tpdm
 {
 
     /// <summary>

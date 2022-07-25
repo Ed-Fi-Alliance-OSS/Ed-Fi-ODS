@@ -8,22 +8,18 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 #region Aggregate Entity Includes
 using EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.AccountabilityRatingAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.AccountCodeAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.ActualAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.BellScheduleAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.BudgetAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CalendarAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CalendarDateAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.ChartOfAccountAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.ClassPeriodAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CohortAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CommunityProviderLicenseAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CompetencyObjectiveAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.ContractedStaffAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CourseAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CourseOfferingAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi;
@@ -44,12 +40,17 @@ using EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.InterventionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.InterventionPrescriptionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.InterventionStudyAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalAccountAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalActualAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalBudgetAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalContractedStaffAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalEncumbranceAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalPayrollAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.LocationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.OrganizationDepartmentAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.ParentAggregate.EdFi;
-using EdFi.Ods.Entities.NHibernate.PayrollAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.PostSecondaryEventAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi;
@@ -159,50 +160,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
     }
 
     /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Account table of the Account aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class AccountRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAccount, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IAccount resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'account' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as Account;
-
-            var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((Account) resource);
-        }
-    }
-
-    /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AccountabilityRating table of the AccountabilityRating aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -243,94 +200,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((AccountabilityRating) resource);
-        }
-    }
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AccountCode table of the AccountCode aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class AccountCodeRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAccountCode, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IAccountCode resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'accountCode' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as AccountCode;
-
-            var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((AccountCode) resource);
-        }
-    }
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Actual table of the Actual aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class ActualRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IActual, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IActual resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'actual' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as Actual;
-
-            var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((Actual) resource);
         }
     }
 
@@ -423,50 +292,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
     }
 
     /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Budget table of the Budget aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class BudgetRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IBudget, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IBudget resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'budget' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as Budget;
-
-            var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((Budget) resource);
-        }
-    }
-
-    /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Calendar table of the Calendar aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -551,6 +376,50 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CalendarDate) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ChartOfAccount table of the ChartOfAccount aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class ChartOfAccountRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IChartOfAccount, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IChartOfAccount resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'chartOfAccount' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as ChartOfAccount;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((ChartOfAccount) resource);
         }
     }
 
@@ -817,52 +686,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CompetencyObjective) resource);
-        }
-    }
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ContractedStaff table of the ContractedStaff aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class ContractedStaffRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IContractedStaff, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IContractedStaff resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'contractedStaff' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as ContractedStaff;
-
-            var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                    "StaffUSI",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((ContractedStaff) resource);
         }
     }
 
@@ -1779,6 +1602,186 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
     }
 
     /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalAccount table of the LocalAccount aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class LocalAccountRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalAccount, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(ILocalAccount resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'localAccount' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as LocalAccount;
+
+            var contextData = new TContextData();
+            // ChartOfAccountEducationOrganizationId = entity.ChartOfAccountEducationOrganizationId, // Role name applied and not part of primary key
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    // "ChartOfAccountEducationOrganizationId",
+                    "EducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((LocalAccount) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalActual table of the LocalActual aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class LocalActualRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalActual, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(ILocalActual resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'localActual' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as LocalActual;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((LocalActual) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalBudget table of the LocalBudget aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class LocalBudgetRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalBudget, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(ILocalBudget resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'localBudget' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as LocalBudget;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((LocalBudget) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalContractedStaff table of the LocalContractedStaff aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class LocalContractedStaffRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalContractedStaff, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(ILocalContractedStaff resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'localContractedStaff' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as LocalContractedStaff;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StaffUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((LocalContractedStaff) resource);
+        }
+    }
+
+    /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalEducationAgency table of the LocalEducationAgency aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -1825,6 +1828,96 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((LocalEducationAgency) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalEncumbrance table of the LocalEncumbrance aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class LocalEncumbranceRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalEncumbrance, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(ILocalEncumbrance resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'localEncumbrance' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as LocalEncumbrance;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((LocalEncumbrance) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalPayroll table of the LocalPayroll aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class LocalPayrollRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalPayroll, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(ILocalPayroll resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'localPayroll' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as LocalPayroll;
+
+            var contextData = new TContextData();
+            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
+            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "EducationOrganizationId",
+                    "StaffUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((LocalPayroll) resource);
         }
     }
 
@@ -2003,52 +2096,6 @@ namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Parent) resource);
-        }
-    }
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Payroll table of the Payroll aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class PayrollRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IPayroll, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IPayroll resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'payroll' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as Payroll;
-
-            var contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
-            return contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                    "StaffUSI",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((Payroll) resource);
         }
     }
 

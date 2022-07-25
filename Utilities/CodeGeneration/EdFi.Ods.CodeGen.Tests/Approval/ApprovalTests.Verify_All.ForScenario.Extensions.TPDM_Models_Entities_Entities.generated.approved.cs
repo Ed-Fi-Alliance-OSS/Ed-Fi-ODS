@@ -17,12 +17,12 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Entities.Common.TPDM;
+using EdFi.Ods.Entities.Common.Tpdm;
 using Newtonsoft.Json;
 
 // Aggregate: AccreditationStatusDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class AccreditationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IAccreditationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IAccreditationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -194,12 +194,12 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IAccreditationStatusDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IAccreditationStatusDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IAccreditationStatusDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IAccreditationStatusDescriptor) target, null);
         }
 
 
@@ -208,49 +208,49 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -261,7 +261,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
 }
 // Aggregate: AidTypeDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -272,7 +272,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class AidTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IAidTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IAidTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -433,12 +433,12 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IAidTypeDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IAidTypeDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IAidTypeDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IAidTypeDescriptor) target, null);
         }
 
 
@@ -447,49 +447,49 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -500,7 +500,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
 }
 // Aggregate: Candidate
 
-namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="Candidate"/> entity.
@@ -587,7 +587,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class Candidate : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ICandidate, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidate, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -967,7 +967,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ICandidate.PersonDiscriminator
+        string Entities.Common.Tpdm.ICandidate.PersonDiscriminator
         {
             get { return PersonReferenceData?.Discriminator; }
             set { }
@@ -976,7 +976,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ICandidate.PersonResourceId
+        Guid? Entities.Common.Tpdm.ICandidate.PersonResourceId
         {
             get { return PersonReferenceData?.Id; }
             set { }
@@ -988,10 +988,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> _candidateAddresses;
-        private ICollection<Entities.Common.TPDM.ICandidateAddress> _candidateAddressesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress> _candidateAddresses;
+        private ICollection<Entities.Common.Tpdm.ICandidateAddress> _candidateAddressesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress> CandidateAddresses
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress> CandidateAddresses
         {
             get
             {
@@ -1010,12 +1010,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateAddresses = value;
-                _candidateAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateAddress, Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress>(value);
+                _candidateAddressesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateAddress, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateAddress> Entities.Common.TPDM.ICandidate.CandidateAddresses
+        ICollection<Entities.Common.Tpdm.ICandidateAddress> Entities.Common.Tpdm.ICandidate.CandidateAddresses
         {
             get
             {
@@ -1031,15 +1031,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateAddresses = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress>());
+                CandidateAddresses = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> _candidateDisabilities;
-        private ICollection<Entities.Common.TPDM.ICandidateDisability> _candidateDisabilitiesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability> _candidateDisabilities;
+        private ICollection<Entities.Common.Tpdm.ICandidateDisability> _candidateDisabilitiesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability> CandidateDisabilities
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability> CandidateDisabilities
         {
             get
             {
@@ -1058,12 +1058,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateDisabilities = value;
-                _candidateDisabilitiesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateDisability, Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability>(value);
+                _candidateDisabilitiesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateDisability, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateDisability> Entities.Common.TPDM.ICandidate.CandidateDisabilities
+        ICollection<Entities.Common.Tpdm.ICandidateDisability> Entities.Common.Tpdm.ICandidate.CandidateDisabilities
         {
             get
             {
@@ -1079,15 +1079,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateDisabilities = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability>());
+                CandidateDisabilities = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> _candidateElectronicMails;
-        private ICollection<Entities.Common.TPDM.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail> _candidateElectronicMails;
+        private ICollection<Entities.Common.Tpdm.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail> CandidateElectronicMails
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail> CandidateElectronicMails
         {
             get
             {
@@ -1106,12 +1106,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateElectronicMails = value;
-                _candidateElectronicMailsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateElectronicMail, Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail>(value);
+                _candidateElectronicMailsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateElectronicMail, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateElectronicMail> Entities.Common.TPDM.ICandidate.CandidateElectronicMails
+        ICollection<Entities.Common.Tpdm.ICandidateElectronicMail> Entities.Common.Tpdm.ICandidate.CandidateElectronicMails
         {
             get
             {
@@ -1127,15 +1127,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateElectronicMails = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail>());
+                CandidateElectronicMails = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> _candidateLanguages;
-        private ICollection<Entities.Common.TPDM.ICandidateLanguage> _candidateLanguagesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage> _candidateLanguages;
+        private ICollection<Entities.Common.Tpdm.ICandidateLanguage> _candidateLanguagesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage> CandidateLanguages
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage> CandidateLanguages
         {
             get
             {
@@ -1154,12 +1154,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateLanguages = value;
-                _candidateLanguagesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateLanguage, Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage>(value);
+                _candidateLanguagesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateLanguage, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateLanguage> Entities.Common.TPDM.ICandidate.CandidateLanguages
+        ICollection<Entities.Common.Tpdm.ICandidateLanguage> Entities.Common.Tpdm.ICandidate.CandidateLanguages
         {
             get
             {
@@ -1175,15 +1175,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateLanguages = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage>());
+                CandidateLanguages = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> _candidateOtherNames;
-        private ICollection<Entities.Common.TPDM.ICandidateOtherName> _candidateOtherNamesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName> _candidateOtherNames;
+        private ICollection<Entities.Common.Tpdm.ICandidateOtherName> _candidateOtherNamesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName> CandidateOtherNames
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName> CandidateOtherNames
         {
             get
             {
@@ -1202,12 +1202,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateOtherNames = value;
-                _candidateOtherNamesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateOtherName, Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName>(value);
+                _candidateOtherNamesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateOtherName, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateOtherName> Entities.Common.TPDM.ICandidate.CandidateOtherNames
+        ICollection<Entities.Common.Tpdm.ICandidateOtherName> Entities.Common.Tpdm.ICandidate.CandidateOtherNames
         {
             get
             {
@@ -1223,15 +1223,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateOtherNames = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName>());
+                CandidateOtherNames = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocuments;
-        private ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocuments;
+        private ICollection<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
         {
             get
             {
@@ -1250,12 +1250,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidatePersonalIdentificationDocuments = value;
-                _candidatePersonalIdentificationDocumentsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument>(value);
+                _candidatePersonalIdentificationDocumentsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> Entities.Common.TPDM.ICandidate.CandidatePersonalIdentificationDocuments
+        ICollection<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument> Entities.Common.Tpdm.ICandidate.CandidatePersonalIdentificationDocuments
         {
             get
             {
@@ -1271,15 +1271,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidatePersonalIdentificationDocuments = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument>());
+                CandidatePersonalIdentificationDocuments = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> _candidateRaces;
-        private ICollection<Entities.Common.TPDM.ICandidateRace> _candidateRacesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace> _candidateRaces;
+        private ICollection<Entities.Common.Tpdm.ICandidateRace> _candidateRacesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace> CandidateRaces
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace> CandidateRaces
         {
             get
             {
@@ -1298,12 +1298,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateRaces = value;
-                _candidateRacesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateRace, Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace>(value);
+                _candidateRacesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateRace, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateRace> Entities.Common.TPDM.ICandidate.CandidateRaces
+        ICollection<Entities.Common.Tpdm.ICandidateRace> Entities.Common.Tpdm.ICandidate.CandidateRaces
         {
             get
             {
@@ -1319,15 +1319,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateRaces = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace>());
+                CandidateRaces = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> _candidateTelephones;
-        private ICollection<Entities.Common.TPDM.ICandidateTelephone> _candidateTelephonesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone> _candidateTelephones;
+        private ICollection<Entities.Common.Tpdm.ICandidateTelephone> _candidateTelephonesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone> CandidateTelephones
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone> CandidateTelephones
         {
             get
             {
@@ -1346,12 +1346,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateTelephones = value;
-                _candidateTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateTelephone, Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone>(value);
+                _candidateTelephonesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateTelephone, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateTelephone> Entities.Common.TPDM.ICandidate.CandidateTelephones
+        ICollection<Entities.Common.Tpdm.ICandidateTelephone> Entities.Common.Tpdm.ICandidate.CandidateTelephones
         {
             get
             {
@@ -1367,7 +1367,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateTelephones = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone>());
+                CandidateTelephones = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone>());
             }
         }
 
@@ -1462,12 +1462,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidate)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidate)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidate) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidate) target, null);
         }
 
 
@@ -1476,280 +1476,280 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isBirthCitySupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthCitySupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthCitySupported
         {
             get { return _isBirthCitySupported; }
             set { _isBirthCitySupported = value; }
         }
 
         private bool _isBirthCountryDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthCountryDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthCountryDescriptorSupported
         {
             get { return _isBirthCountryDescriptorSupported; }
             set { _isBirthCountryDescriptorSupported = value; }
         }
 
         private bool _isBirthDateSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthDateSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthDateSupported
         {
             get { return _isBirthDateSupported; }
             set { _isBirthDateSupported = value; }
         }
 
         private bool _isBirthInternationalProvinceSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthInternationalProvinceSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthInternationalProvinceSupported
         {
             get { return _isBirthInternationalProvinceSupported; }
             set { _isBirthInternationalProvinceSupported = value; }
         }
 
         private bool _isBirthSexDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthSexDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthSexDescriptorSupported
         {
             get { return _isBirthSexDescriptorSupported; }
             set { _isBirthSexDescriptorSupported = value; }
         }
 
         private bool _isBirthStateAbbreviationDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthStateAbbreviationDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthStateAbbreviationDescriptorSupported
         {
             get { return _isBirthStateAbbreviationDescriptorSupported; }
             set { _isBirthStateAbbreviationDescriptorSupported = value; }
         }
 
         private bool _isCandidateAddressesSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateAddressesSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateAddressesSupported
         {
             get { return _isCandidateAddressesSupported; }
             set { _isCandidateAddressesSupported = value; }
         }
 
         private bool _isCandidateDisabilitiesSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateDisabilitiesSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateDisabilitiesSupported
         {
             get { return _isCandidateDisabilitiesSupported; }
             set { _isCandidateDisabilitiesSupported = value; }
         }
 
         private bool _isCandidateElectronicMailsSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailsSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailsSupported
         {
             get { return _isCandidateElectronicMailsSupported; }
             set { _isCandidateElectronicMailsSupported = value; }
         }
 
         private bool _isCandidateLanguagesSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateLanguagesSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateLanguagesSupported
         {
             get { return _isCandidateLanguagesSupported; }
             set { _isCandidateLanguagesSupported = value; }
         }
 
         private bool _isCandidateOtherNamesSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateOtherNamesSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateOtherNamesSupported
         {
             get { return _isCandidateOtherNamesSupported; }
             set { _isCandidateOtherNamesSupported = value; }
         }
 
         private bool _isCandidatePersonalIdentificationDocumentsSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentsSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentsSupported
         {
             get { return _isCandidatePersonalIdentificationDocumentsSupported; }
             set { _isCandidatePersonalIdentificationDocumentsSupported = value; }
         }
 
         private bool _isCandidateRacesSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateRacesSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateRacesSupported
         {
             get { return _isCandidateRacesSupported; }
             set { _isCandidateRacesSupported = value; }
         }
 
         private bool _isCandidateTelephonesSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateTelephonesSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateTelephonesSupported
         {
             get { return _isCandidateTelephonesSupported; }
             set { _isCandidateTelephonesSupported = value; }
         }
 
         private bool _isDateEnteredUSSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsDateEnteredUSSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsDateEnteredUSSupported
         {
             get { return _isDateEnteredUSSupported; }
             set { _isDateEnteredUSSupported = value; }
         }
 
         private bool _isDisplacementStatusSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsDisplacementStatusSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsDisplacementStatusSupported
         {
             get { return _isDisplacementStatusSupported; }
             set { _isDisplacementStatusSupported = value; }
         }
 
         private bool _isEconomicDisadvantagedSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsEconomicDisadvantagedSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsEconomicDisadvantagedSupported
         {
             get { return _isEconomicDisadvantagedSupported; }
             set { _isEconomicDisadvantagedSupported = value; }
         }
 
         private bool _isEnglishLanguageExamDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsEnglishLanguageExamDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsEnglishLanguageExamDescriptorSupported
         {
             get { return _isEnglishLanguageExamDescriptorSupported; }
             set { _isEnglishLanguageExamDescriptorSupported = value; }
         }
 
         private bool _isFirstGenerationStudentSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsFirstGenerationStudentSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsFirstGenerationStudentSupported
         {
             get { return _isFirstGenerationStudentSupported; }
             set { _isFirstGenerationStudentSupported = value; }
         }
 
         private bool _isFirstNameSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsFirstNameSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsFirstNameSupported
         {
             get { return _isFirstNameSupported; }
             set { _isFirstNameSupported = value; }
         }
 
         private bool _isGenderDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsGenderDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsGenderDescriptorSupported
         {
             get { return _isGenderDescriptorSupported; }
             set { _isGenderDescriptorSupported = value; }
         }
 
         private bool _isGenerationCodeSuffixSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsGenerationCodeSuffixSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsGenerationCodeSuffixSupported
         {
             get { return _isGenerationCodeSuffixSupported; }
             set { _isGenerationCodeSuffixSupported = value; }
         }
 
         private bool _isHispanicLatinoEthnicitySupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsHispanicLatinoEthnicitySupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsHispanicLatinoEthnicitySupported
         {
             get { return _isHispanicLatinoEthnicitySupported; }
             set { _isHispanicLatinoEthnicitySupported = value; }
         }
 
         private bool _isLastSurnameSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsLastSurnameSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsLastSurnameSupported
         {
             get { return _isLastSurnameSupported; }
             set { _isLastSurnameSupported = value; }
         }
 
         private bool _isLimitedEnglishProficiencyDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsLimitedEnglishProficiencyDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsLimitedEnglishProficiencyDescriptorSupported
         {
             get { return _isLimitedEnglishProficiencyDescriptorSupported; }
             set { _isLimitedEnglishProficiencyDescriptorSupported = value; }
         }
 
         private bool _isMaidenNameSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMaidenNameSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsMaidenNameSupported
         {
             get { return _isMaidenNameSupported; }
             set { _isMaidenNameSupported = value; }
         }
 
         private bool _isMiddleNameSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMiddleNameSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsMiddleNameSupported
         {
             get { return _isMiddleNameSupported; }
             set { _isMiddleNameSupported = value; }
         }
 
         private bool _isMultipleBirthStatusSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMultipleBirthStatusSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsMultipleBirthStatusSupported
         {
             get { return _isMultipleBirthStatusSupported; }
             set { _isMultipleBirthStatusSupported = value; }
         }
 
         private bool _isPersonalTitlePrefixSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsPersonalTitlePrefixSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsPersonalTitlePrefixSupported
         {
             get { return _isPersonalTitlePrefixSupported; }
             set { _isPersonalTitlePrefixSupported = value; }
         }
 
         private bool _isPersonIdSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsPersonIdSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsPersonIdSupported
         {
             get { return _isPersonIdSupported; }
             set { _isPersonIdSupported = value; }
         }
 
         private bool _isSexDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsSexDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsSexDescriptorSupported
         {
             get { return _isSexDescriptorSupported; }
             set { _isSexDescriptorSupported = value; }
         }
 
         private bool _isSourceSystemDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsSourceSystemDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsSourceSystemDescriptorSupported
         {
             get { return _isSourceSystemDescriptorSupported; }
             set { _isSourceSystemDescriptorSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateAddress, bool> _isCandidateAddressIncluded;
-        Func<Entities.Common.TPDM.ICandidateAddress, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateAddressIncluded
+        private Func<Entities.Common.Tpdm.ICandidateAddress, bool> _isCandidateAddressIncluded;
+        Func<Entities.Common.Tpdm.ICandidateAddress, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateAddressIncluded
         {
             get { return _isCandidateAddressIncluded; }
             set { _isCandidateAddressIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateDisability, bool> _isCandidateDisabilityIncluded;
-        Func<Entities.Common.TPDM.ICandidateDisability, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateDisabilityIncluded
+        private Func<Entities.Common.Tpdm.ICandidateDisability, bool> _isCandidateDisabilityIncluded;
+        Func<Entities.Common.Tpdm.ICandidateDisability, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateDisabilityIncluded
         {
             get { return _isCandidateDisabilityIncluded; }
             set { _isCandidateDisabilityIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateElectronicMail, bool> _isCandidateElectronicMailIncluded;
-        Func<Entities.Common.TPDM.ICandidateElectronicMail, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailIncluded
+        private Func<Entities.Common.Tpdm.ICandidateElectronicMail, bool> _isCandidateElectronicMailIncluded;
+        Func<Entities.Common.Tpdm.ICandidateElectronicMail, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailIncluded
         {
             get { return _isCandidateElectronicMailIncluded; }
             set { _isCandidateElectronicMailIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateLanguage, bool> _isCandidateLanguageIncluded;
-        Func<Entities.Common.TPDM.ICandidateLanguage, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateLanguageIncluded
+        private Func<Entities.Common.Tpdm.ICandidateLanguage, bool> _isCandidateLanguageIncluded;
+        Func<Entities.Common.Tpdm.ICandidateLanguage, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateLanguageIncluded
         {
             get { return _isCandidateLanguageIncluded; }
             set { _isCandidateLanguageIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateOtherName, bool> _isCandidateOtherNameIncluded;
-        Func<Entities.Common.TPDM.ICandidateOtherName, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateOtherNameIncluded
+        private Func<Entities.Common.Tpdm.ICandidateOtherName, bool> _isCandidateOtherNameIncluded;
+        Func<Entities.Common.Tpdm.ICandidateOtherName, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateOtherNameIncluded
         {
             get { return _isCandidateOtherNameIncluded; }
             set { _isCandidateOtherNameIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, bool> _isCandidatePersonalIdentificationDocumentIncluded;
-        Func<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentIncluded
+        private Func<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, bool> _isCandidatePersonalIdentificationDocumentIncluded;
+        Func<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentIncluded
         {
             get { return _isCandidatePersonalIdentificationDocumentIncluded; }
             set { _isCandidatePersonalIdentificationDocumentIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateRace, bool> _isCandidateRaceIncluded;
-        Func<Entities.Common.TPDM.ICandidateRace, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateRaceIncluded
+        private Func<Entities.Common.Tpdm.ICandidateRace, bool> _isCandidateRaceIncluded;
+        Func<Entities.Common.Tpdm.ICandidateRace, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateRaceIncluded
         {
             get { return _isCandidateRaceIncluded; }
             set { _isCandidateRaceIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateTelephone, bool> _isCandidateTelephoneIncluded;
-        Func<Entities.Common.TPDM.ICandidateTelephone, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateTelephoneIncluded
+        private Func<Entities.Common.Tpdm.ICandidateTelephone, bool> _isCandidateTelephoneIncluded;
+        Func<Entities.Common.Tpdm.ICandidateTelephone, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateTelephoneIncluded
         {
             get { return _isCandidateTelephoneIncluded; }
             set { _isCandidateTelephoneIncluded = value; }
@@ -1766,7 +1766,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1783,7 +1783,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateAddress.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateAddress.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -1945,10 +1945,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> _candidateAddressPeriods;
-        private ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod> _candidateAddressPeriods;
+        private ICollection<Entities.Common.Tpdm.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod> CandidateAddressPeriods
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod> CandidateAddressPeriods
         {
             get
             {
@@ -1967,12 +1967,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateAddressPeriods = value;
-                _candidateAddressPeriodsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateAddressPeriod, Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod>(value);
+                _candidateAddressPeriodsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateAddressPeriod, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> Entities.Common.TPDM.ICandidateAddress.CandidateAddressPeriods
+        ICollection<Entities.Common.Tpdm.ICandidateAddressPeriod> Entities.Common.Tpdm.ICandidateAddress.CandidateAddressPeriods
         {
             get
             {
@@ -1988,7 +1988,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateAddressPeriods = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod>());
+                CandidateAddressPeriods = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod>());
             }
         }
 
@@ -2082,12 +2082,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateAddress)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateAddress)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateAddress) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateAddress) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -2100,77 +2100,77 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isApartmentRoomSuiteNumberSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsApartmentRoomSuiteNumberSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsApartmentRoomSuiteNumberSupported
         {
             get { return _isApartmentRoomSuiteNumberSupported; }
             set { _isApartmentRoomSuiteNumberSupported = value; }
         }
 
         private bool _isBuildingSiteNumberSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsBuildingSiteNumberSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsBuildingSiteNumberSupported
         {
             get { return _isBuildingSiteNumberSupported; }
             set { _isBuildingSiteNumberSupported = value; }
         }
 
         private bool _isCandidateAddressPeriodsSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodsSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodsSupported
         {
             get { return _isCandidateAddressPeriodsSupported; }
             set { _isCandidateAddressPeriodsSupported = value; }
         }
 
         private bool _isCongressionalDistrictSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCongressionalDistrictSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCongressionalDistrictSupported
         {
             get { return _isCongressionalDistrictSupported; }
             set { _isCongressionalDistrictSupported = value; }
         }
 
         private bool _isCountyFIPSCodeSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCountyFIPSCodeSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCountyFIPSCodeSupported
         {
             get { return _isCountyFIPSCodeSupported; }
             set { _isCountyFIPSCodeSupported = value; }
         }
 
         private bool _isDoNotPublishIndicatorSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
         {
             get { return _isDoNotPublishIndicatorSupported; }
             set { _isDoNotPublishIndicatorSupported = value; }
         }
 
         private bool _isLatitudeSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLatitudeSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsLatitudeSupported
         {
             get { return _isLatitudeSupported; }
             set { _isLatitudeSupported = value; }
         }
 
         private bool _isLocaleDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLocaleDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsLocaleDescriptorSupported
         {
             get { return _isLocaleDescriptorSupported; }
             set { _isLocaleDescriptorSupported = value; }
         }
 
         private bool _isLongitudeSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLongitudeSupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsLongitudeSupported
         {
             get { return _isLongitudeSupported; }
             set { _isLongitudeSupported = value; }
         }
 
         private bool _isNameOfCountySupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsNameOfCountySupported
+        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsNameOfCountySupported
         {
             get { return _isNameOfCountySupported; }
             set { _isNameOfCountySupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateAddressPeriod, bool> _isCandidateAddressPeriodIncluded;
-        Func<Entities.Common.TPDM.ICandidateAddressPeriod, bool> Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodIncluded
+        private Func<Entities.Common.Tpdm.ICandidateAddressPeriod, bool> _isCandidateAddressPeriodIncluded;
+        Func<Entities.Common.Tpdm.ICandidateAddressPeriod, bool> Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodIncluded
         {
             get { return _isCandidateAddressPeriodIncluded; }
             set { _isCandidateAddressPeriodIncluded = value; }
@@ -2187,7 +2187,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateAddressPeriod : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateAddressPeriod, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateAddressPeriod, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateAddressPeriodSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2203,7 +2203,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual CandidateAddress CandidateAddress { get; set; }
 
-        Entities.Common.TPDM.ICandidateAddress ICandidateAddressPeriod.CandidateAddress
+        Entities.Common.Tpdm.ICandidateAddress ICandidateAddressPeriod.CandidateAddress
         {
             get { return CandidateAddress; }
             set { CandidateAddress = (CandidateAddress) value; }
@@ -2354,12 +2354,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateAddressPeriod)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateAddressPeriod)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateAddressPeriod) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateAddressPeriod) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -2372,7 +2372,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isEndDateSupported = true;
-        bool Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport.IsEndDateSupported
+        bool Entities.Common.Tpdm.ICandidateAddressPeriodSynchronizationSourceSupport.IsEndDateSupported
         {
             get { return _isEndDateSupported; }
             set { _isEndDateSupported = value; }
@@ -2389,7 +2389,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateDisability : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateDisability, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateDisability, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2406,7 +2406,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateDisability.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateDisability.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -2515,10 +2515,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> _candidateDisabilityDesignations;
-        private ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation> _candidateDisabilityDesignations;
+        private ICollection<Entities.Common.Tpdm.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation> CandidateDisabilityDesignations
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation> CandidateDisabilityDesignations
         {
             get
             {
@@ -2537,12 +2537,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateDisabilityDesignations = value;
-                _candidateDisabilityDesignationsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateDisabilityDesignation, Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation>(value);
+                _candidateDisabilityDesignationsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateDisabilityDesignation, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> Entities.Common.TPDM.ICandidateDisability.CandidateDisabilityDesignations
+        ICollection<Entities.Common.Tpdm.ICandidateDisabilityDesignation> Entities.Common.Tpdm.ICandidateDisability.CandidateDisabilityDesignations
         {
             get
             {
@@ -2558,7 +2558,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateDisabilityDesignations = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation>());
+                CandidateDisabilityDesignations = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation>());
             }
         }
 
@@ -2647,12 +2647,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateDisability)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateDisability)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateDisability) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateDisability) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -2665,35 +2665,35 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCandidateDisabilityDesignationsSupported = true;
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationsSupported
+        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationsSupported
         {
             get { return _isCandidateDisabilityDesignationsSupported; }
             set { _isCandidateDisabilityDesignationsSupported = value; }
         }
 
         private bool _isDisabilityDeterminationSourceTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported
         {
             get { return _isDisabilityDeterminationSourceTypeDescriptorSupported; }
             set { _isDisabilityDeterminationSourceTypeDescriptorSupported = value; }
         }
 
         private bool _isDisabilityDiagnosisSupported = true;
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDiagnosisSupported
+        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDiagnosisSupported
         {
             get { return _isDisabilityDiagnosisSupported; }
             set { _isDisabilityDiagnosisSupported = value; }
         }
 
         private bool _isOrderOfDisabilitySupported = true;
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsOrderOfDisabilitySupported
+        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsOrderOfDisabilitySupported
         {
             get { return _isOrderOfDisabilitySupported; }
             set { _isOrderOfDisabilitySupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateDisabilityDesignation, bool> _isCandidateDisabilityDesignationIncluded;
-        Func<Entities.Common.TPDM.ICandidateDisabilityDesignation, bool> Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationIncluded
+        private Func<Entities.Common.Tpdm.ICandidateDisabilityDesignation, bool> _isCandidateDisabilityDesignationIncluded;
+        Func<Entities.Common.Tpdm.ICandidateDisabilityDesignation, bool> Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationIncluded
         {
             get { return _isCandidateDisabilityDesignationIncluded; }
             set { _isCandidateDisabilityDesignationIncluded = value; }
@@ -2710,7 +2710,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateDisabilityDesignation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateDisabilityDesignation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateDisabilityDesignationSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateDisabilityDesignation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateDisabilityDesignationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2726,7 +2726,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual CandidateDisability CandidateDisability { get; set; }
 
-        Entities.Common.TPDM.ICandidateDisability ICandidateDisabilityDesignation.CandidateDisability
+        Entities.Common.Tpdm.ICandidateDisability ICandidateDisabilityDesignation.CandidateDisability
         {
             get { return CandidateDisability; }
             set { CandidateDisability = (CandidateDisability) value; }
@@ -2882,12 +2882,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateDisabilityDesignation)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateDisabilityDesignation)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateDisabilityDesignation) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateDisabilityDesignation) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -2910,7 +2910,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateElectronicMail : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateElectronicMail, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateElectronicMail, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateElectronicMailSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2926,7 +2926,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateElectronicMail.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateElectronicMail.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -3086,12 +3086,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateElectronicMail)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateElectronicMail)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateElectronicMail) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateElectronicMail) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -3104,14 +3104,14 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isDoNotPublishIndicatorSupported = true;
-        bool Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
+        bool Entities.Common.Tpdm.ICandidateElectronicMailSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
         {
             get { return _isDoNotPublishIndicatorSupported; }
             set { _isDoNotPublishIndicatorSupported = value; }
         }
 
         private bool _isPrimaryEmailAddressIndicatorSupported = true;
-        bool Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport.IsPrimaryEmailAddressIndicatorSupported
+        bool Entities.Common.Tpdm.ICandidateElectronicMailSynchronizationSourceSupport.IsPrimaryEmailAddressIndicatorSupported
         {
             get { return _isPrimaryEmailAddressIndicatorSupported; }
             set { _isPrimaryEmailAddressIndicatorSupported = value; }
@@ -3128,7 +3128,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateLanguage : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateLanguage, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateLanguage, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateLanguageSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3145,7 +3145,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateLanguage.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateLanguage.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -3217,10 +3217,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> _candidateLanguageUses;
-        private ICollection<Entities.Common.TPDM.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
+        private ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse> _candidateLanguageUses;
+        private ICollection<Entities.Common.Tpdm.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse> CandidateLanguageUses
+        public virtual ICollection<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse> CandidateLanguageUses
         {
             get
             {
@@ -3239,12 +3239,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set
             {
                 _candidateLanguageUses = value;
-                _candidateLanguageUsesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateLanguageUse, Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse>(value);
+                _candidateLanguageUsesCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateLanguageUse, Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateLanguageUse> Entities.Common.TPDM.ICandidateLanguage.CandidateLanguageUses
+        ICollection<Entities.Common.Tpdm.ICandidateLanguageUse> Entities.Common.Tpdm.ICandidateLanguage.CandidateLanguageUses
         {
             get
             {
@@ -3260,7 +3260,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
             set
             {
-                CandidateLanguageUses = new HashSet<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse>(value.Cast<Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse>());
+                CandidateLanguageUses = new HashSet<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse>(value.Cast<Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse>());
             }
         }
 
@@ -3348,12 +3348,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateLanguage)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateLanguage)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateLanguage) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateLanguage) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -3366,14 +3366,14 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCandidateLanguageUsesSupported = true;
-        bool Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUsesSupported
+        bool Entities.Common.Tpdm.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUsesSupported
         {
             get { return _isCandidateLanguageUsesSupported; }
             set { _isCandidateLanguageUsesSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateLanguageUse, bool> _isCandidateLanguageUseIncluded;
-        Func<Entities.Common.TPDM.ICandidateLanguageUse, bool> Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUseIncluded
+        private Func<Entities.Common.Tpdm.ICandidateLanguageUse, bool> _isCandidateLanguageUseIncluded;
+        Func<Entities.Common.Tpdm.ICandidateLanguageUse, bool> Entities.Common.Tpdm.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUseIncluded
         {
             get { return _isCandidateLanguageUseIncluded; }
             set { _isCandidateLanguageUseIncluded = value; }
@@ -3390,7 +3390,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateLanguageUse : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateLanguageUse, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateLanguageUseSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateLanguageUse, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateLanguageUseSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3406,7 +3406,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual CandidateLanguage CandidateLanguage { get; set; }
 
-        Entities.Common.TPDM.ICandidateLanguage ICandidateLanguageUse.CandidateLanguage
+        Entities.Common.Tpdm.ICandidateLanguage ICandidateLanguageUse.CandidateLanguage
         {
             get { return CandidateLanguage; }
             set { CandidateLanguage = (CandidateLanguage) value; }
@@ -3562,12 +3562,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateLanguageUse)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateLanguageUse)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateLanguageUse) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateLanguageUse) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -3590,7 +3590,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateOtherName : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateOtherName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateOtherName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3606,7 +3606,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateOtherName.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateOtherName.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -3771,12 +3771,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateOtherName)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateOtherName)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateOtherName) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateOtherName) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -3789,35 +3789,35 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isFirstNameSupported = true;
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsFirstNameSupported
+        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsFirstNameSupported
         {
             get { return _isFirstNameSupported; }
             set { _isFirstNameSupported = value; }
         }
 
         private bool _isGenerationCodeSuffixSupported = true;
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsGenerationCodeSuffixSupported
+        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsGenerationCodeSuffixSupported
         {
             get { return _isGenerationCodeSuffixSupported; }
             set { _isGenerationCodeSuffixSupported = value; }
         }
 
         private bool _isLastSurnameSupported = true;
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsLastSurnameSupported
+        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsLastSurnameSupported
         {
             get { return _isLastSurnameSupported; }
             set { _isLastSurnameSupported = value; }
         }
 
         private bool _isMiddleNameSupported = true;
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsMiddleNameSupported
+        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsMiddleNameSupported
         {
             get { return _isMiddleNameSupported; }
             set { _isMiddleNameSupported = value; }
         }
 
         private bool _isPersonalTitlePrefixSupported = true;
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsPersonalTitlePrefixSupported
+        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsPersonalTitlePrefixSupported
         {
             get { return _isPersonalTitlePrefixSupported; }
             set { _isPersonalTitlePrefixSupported = value; }
@@ -3834,7 +3834,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidatePersonalIdentificationDocument : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3850,7 +3850,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidatePersonalIdentificationDocument.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidatePersonalIdentificationDocument.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -4103,12 +4103,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidatePersonalIdentificationDocument)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidatePersonalIdentificationDocument) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -4121,35 +4121,35 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isDocumentExpirationDateSupported = true;
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentExpirationDateSupported
+        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentExpirationDateSupported
         {
             get { return _isDocumentExpirationDateSupported; }
             set { _isDocumentExpirationDateSupported = value; }
         }
 
         private bool _isDocumentTitleSupported = true;
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentTitleSupported
+        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentTitleSupported
         {
             get { return _isDocumentTitleSupported; }
             set { _isDocumentTitleSupported = value; }
         }
 
         private bool _isIssuerCountryDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerCountryDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerCountryDescriptorSupported
         {
             get { return _isIssuerCountryDescriptorSupported; }
             set { _isIssuerCountryDescriptorSupported = value; }
         }
 
         private bool _isIssuerDocumentIdentificationCodeSupported = true;
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerDocumentIdentificationCodeSupported
+        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerDocumentIdentificationCodeSupported
         {
             get { return _isIssuerDocumentIdentificationCodeSupported; }
             set { _isIssuerDocumentIdentificationCodeSupported = value; }
         }
 
         private bool _isIssuerNameSupported = true;
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerNameSupported
+        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerNameSupported
         {
             get { return _isIssuerNameSupported; }
             set { _isIssuerNameSupported = value; }
@@ -4166,7 +4166,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateRace : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateRace, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateRaceSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateRace, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateRaceSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4182,7 +4182,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateRace.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateRace.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -4337,12 +4337,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateRace)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateRace)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateRace) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateRace) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -4365,7 +4365,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateTelephone : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4381,7 +4381,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Candidate Candidate { get; set; }
 
-        Entities.Common.TPDM.ICandidate ICandidateTelephone.Candidate
+        Entities.Common.Tpdm.ICandidate ICandidateTelephone.Candidate
         {
             get { return Candidate; }
             set { Candidate = (Candidate) value; }
@@ -4542,12 +4542,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateTelephone)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateTelephone)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateTelephone) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateTelephone) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -4560,21 +4560,21 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // -----------------------------------------
 
         private bool _isDoNotPublishIndicatorSupported = true;
-        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
+        bool Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
         {
             get { return _isDoNotPublishIndicatorSupported; }
             set { _isDoNotPublishIndicatorSupported = value; }
         }
 
         private bool _isOrderOfPrioritySupported = true;
-        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported
+        bool Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported
         {
             get { return _isOrderOfPrioritySupported; }
             set { _isOrderOfPrioritySupported = value; }
         }
 
         private bool _isTextMessageCapabilityIndicatorSupported = true;
-        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported
+        bool Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported
         {
             get { return _isTextMessageCapabilityIndicatorSupported; }
             set { _isTextMessageCapabilityIndicatorSupported = value; }
@@ -4585,7 +4585,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 }
 // Aggregate: CandidateEducatorPreparationProgramAssociation
 
-namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="CandidateEducatorPreparationProgramAssociation"/> entity.
@@ -4680,7 +4680,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4859,12 +4859,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.CandidateAggregate.TPDM.CandidateReferenceData CandidateReferenceData { get; set; }
+        public virtual NHibernate.CandidateAggregate.Tpdm.CandidateReferenceData CandidateReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the Candidate discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateDiscriminator
+        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateDiscriminator
         {
             get { return CandidateReferenceData?.Discriminator; }
             set { }
@@ -4873,18 +4873,18 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         /// <summary>
         /// Read-only property that allows the Candidate resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateResourceId
+        Guid? Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateResourceId
         {
             get { return CandidateReferenceData?.Id; }
             set { }
         }
 
-        public virtual NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData EducatorPreparationProgramReferenceData { get; set; }
+        public virtual NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramReferenceData EducatorPreparationProgramReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EducatorPreparationProgram discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramDiscriminator
+        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramDiscriminator
         {
             get { return EducatorPreparationProgramReferenceData?.Discriminator; }
             set { }
@@ -4893,7 +4893,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         /// <summary>
         /// Read-only property that allows the EducatorPreparationProgram resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramResourceId
+        Guid? Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramResourceId
         {
             get { return EducatorPreparationProgramReferenceData?.Id; }
             set { }
@@ -4905,10 +4905,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYears;
-        private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
+        private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYears;
+        private ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
+        public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get
             {
@@ -4927,12 +4927,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             set
             {
                 _candidateEducatorPreparationProgramAssociationCohortYears = value;
-                _candidateEducatorPreparationProgramAssociationCohortYearsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear>(value);
+                _candidateEducatorPreparationProgramAssociationCohortYearsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationCohortYears
+        ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get
             {
@@ -4948,15 +4948,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             }
             set
             {
-                CandidateEducatorPreparationProgramAssociationCohortYears = new HashSet<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear>(value.Cast<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear>());
+                CandidateEducatorPreparationProgramAssociationCohortYears = new HashSet<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear>(value.Cast<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializations;
-        private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
+        private ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializations;
+        private ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
+        public virtual ICollection<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get
             {
@@ -4975,12 +4975,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             set
             {
                 _candidateEducatorPreparationProgramAssociationDegreeSpecializations = value;
-                _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value);
+                _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationDegreeSpecializations
+        ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get
             {
@@ -4996,7 +4996,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             }
             set
             {
-                CandidateEducatorPreparationProgramAssociationDegreeSpecializations = new HashSet<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value.Cast<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>());
+                CandidateEducatorPreparationProgramAssociationDegreeSpecializations = new HashSet<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value.Cast<Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization>());
             }
         }
 
@@ -5090,12 +5090,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation) target, null);
         }
 
 
@@ -5104,49 +5104,49 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // -----------------------------------------
 
         private bool _isCandidateEducatorPreparationProgramAssociationCohortYearsSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported
         {
             get { return _isCandidateEducatorPreparationProgramAssociationCohortYearsSupported; }
             set { _isCandidateEducatorPreparationProgramAssociationCohortYearsSupported = value; }
         }
 
         private bool _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported
         {
             get { return _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported; }
             set { _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported = value; }
         }
 
         private bool _isEndDateSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEndDateSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEndDateSupported
         {
             get { return _isEndDateSupported; }
             set { _isEndDateSupported = value; }
         }
 
         private bool _isEPPProgramPathwayDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEPPProgramPathwayDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEPPProgramPathwayDescriptorSupported
         {
             get { return _isEPPProgramPathwayDescriptorSupported; }
             set { _isEPPProgramPathwayDescriptorSupported = value; }
         }
 
         private bool _isReasonExitedDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported
         {
             get { return _isReasonExitedDescriptorSupported; }
             set { _isReasonExitedDescriptorSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> _isCandidateEducatorPreparationProgramAssociationCohortYearIncluded;
-        Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded
+        private Func<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> _isCandidateEducatorPreparationProgramAssociationCohortYearIncluded;
+        Func<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded
         {
             get { return _isCandidateEducatorPreparationProgramAssociationCohortYearIncluded; }
             set { _isCandidateEducatorPreparationProgramAssociationCohortYearIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded;
-        Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded
+        private Func<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded;
+        Func<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded
         {
             get { return _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded; }
             set { _isCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded = value; }
@@ -5163,7 +5163,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationCohortYear : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5179,7 +5179,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual CandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
 
-        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation ICandidateEducatorPreparationProgramAssociationCohortYear.CandidateEducatorPreparationProgramAssociation
+        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation ICandidateEducatorPreparationProgramAssociationCohortYear.CandidateEducatorPreparationProgramAssociation
         {
             get { return CandidateEducatorPreparationProgramAssociation; }
             set { CandidateEducatorPreparationProgramAssociation = (CandidateEducatorPreparationProgramAssociation) value; }
@@ -5286,7 +5286,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         /// <summary>
         /// Read-only property that allows the SchoolYearType resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear.SchoolYearTypeResourceId
+        Guid? Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear.SchoolYearTypeResourceId
         {
             get { return SchoolYearTypeReferenceData?.Id; }
             set { }
@@ -5384,12 +5384,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -5402,7 +5402,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // -----------------------------------------
 
         private bool _isTermDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport.IsTermDescriptorSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport.IsTermDescriptorSupported
         {
             get { return _isTermDescriptorSupported; }
             set { _isTermDescriptorSupported = value; }
@@ -5419,7 +5419,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5435,7 +5435,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual CandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
 
-        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation ICandidateEducatorPreparationProgramAssociationDegreeSpecialization.CandidateEducatorPreparationProgramAssociation
+        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation ICandidateEducatorPreparationProgramAssociationDegreeSpecialization.CandidateEducatorPreparationProgramAssociation
         {
             get { return CandidateEducatorPreparationProgramAssociation; }
             set { CandidateEducatorPreparationProgramAssociation = (CandidateEducatorPreparationProgramAssociation) value; }
@@ -5579,12 +5579,12 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -5597,14 +5597,14 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // -----------------------------------------
 
         private bool _isEndDateSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsEndDateSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsEndDateSupported
         {
             get { return _isEndDateSupported; }
             set { _isEndDateSupported = value; }
         }
 
         private bool _isMinorSpecializationSupported = true;
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsMinorSpecializationSupported
+        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsMinorSpecializationSupported
         {
             get { return _isMinorSpecializationSupported; }
             set { _isMinorSpecializationSupported = value; }
@@ -5615,7 +5615,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 }
 // Aggregate: CertificationRouteDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -5626,7 +5626,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CertificationRouteDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.ICertificationRouteDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.ICertificationRouteDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -5787,12 +5787,12 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICertificationRouteDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICertificationRouteDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICertificationRouteDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICertificationRouteDescriptor) target, null);
         }
 
 
@@ -5801,49 +5801,49 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -5854,7 +5854,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
 }
 // Aggregate: CoteachingStyleObservedDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -5865,7 +5865,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CoteachingStyleObservedDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -6026,12 +6026,12 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICoteachingStyleObservedDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICoteachingStyleObservedDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor) target, null);
         }
 
 
@@ -6040,49 +6040,49 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -6093,7 +6093,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
 }
 // Aggregate: Credential
 
-namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -6104,7 +6104,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CredentialStudentAcademicRecord : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICredentialStudentAcademicRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICredentialStudentAcademicRecordSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICredentialStudentAcademicRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICredentialStudentAcademicRecordSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6120,10 +6120,10 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EdFi.Credential Credential { get; set; }
 
-        Entities.Common.TPDM.ICredentialExtension ICredentialStudentAcademicRecord.CredentialExtension
+        Entities.Common.Tpdm.ICredentialExtension ICredentialStudentAcademicRecord.CredentialExtension
         {
-            get { return (ICredentialExtension) Credential.Extensions["TPDM"]; }
-            set { Credential.Extensions["TPDM"] = value; }
+            get { return (ICredentialExtension) Credential.Extensions["Tpdm"]; }
+            set { Credential.Extensions["Tpdm"] = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -6233,7 +6233,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the StudentAcademicRecord discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ICredentialStudentAcademicRecord.StudentAcademicRecordDiscriminator
+        string Entities.Common.Tpdm.ICredentialStudentAcademicRecord.StudentAcademicRecordDiscriminator
         {
             get { return StudentAcademicRecordReferenceData?.Discriminator; }
             set { }
@@ -6242,7 +6242,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the StudentAcademicRecord resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ICredentialStudentAcademicRecord.StudentAcademicRecordResourceId
+        Guid? Entities.Common.Tpdm.ICredentialStudentAcademicRecord.StudentAcademicRecordResourceId
         {
             get { return StudentAcademicRecordReferenceData?.Id; }
             set { }
@@ -6341,12 +6341,12 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICredentialStudentAcademicRecord)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICredentialStudentAcademicRecord)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICredentialStudentAcademicRecord) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICredentialStudentAcademicRecord) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -6369,7 +6369,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CredentialExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICredentialExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport
+        Entities.Common.Tpdm.ICredentialExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6582,7 +6582,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ICredentialExtension.PersonDiscriminator
+        string Entities.Common.Tpdm.ICredentialExtension.PersonDiscriminator
         {
             get { return PersonReferenceData?.Discriminator; }
             set { }
@@ -6591,7 +6591,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ICredentialExtension.PersonResourceId
+        Guid? Entities.Common.Tpdm.ICredentialExtension.PersonResourceId
         {
             get { return PersonReferenceData?.Id; }
             set { }
@@ -6602,13 +6602,13 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         //=============================================================
         //                          Collections
         // -------------------------------------------------------------
-        private ICollection<Entities.Common.TPDM.ICredentialStudentAcademicRecord> _credentialStudentAcademicRecords;
+        private ICollection<Entities.Common.Tpdm.ICredentialStudentAcademicRecord> _credentialStudentAcademicRecords;
         // Aggregate extension explicit implementation to redirect model abstraction to the persistent entity location
-        ICollection<Entities.Common.TPDM.ICredentialStudentAcademicRecord> ICredentialExtension.CredentialStudentAcademicRecords
+        ICollection<Entities.Common.Tpdm.ICredentialStudentAcademicRecord> ICredentialExtension.CredentialStudentAcademicRecords
         {
             get
             {
-                var sourceList =  new ContravariantCollectionAdapter<object, CredentialStudentAcademicRecord>((IList<object>) Credential.AggregateExtensions["TPDM_CredentialStudentAcademicRecords"]);
+                var sourceList =  new ContravariantCollectionAdapter<object, CredentialStudentAcademicRecord>((IList<object>) Credential.AggregateExtensions["Tpdm_CredentialStudentAcademicRecords"]);
 
                 // -------------------------------------------------------------
                 // Back-reference is required by NHibernate for persistence.
@@ -6619,13 +6619,13 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 // -------------------------------------------------------------
 
                 if (_credentialStudentAcademicRecords == null)
-                    _credentialStudentAcademicRecords = new CovariantCollectionAdapter<Entities.Common.TPDM.ICredentialStudentAcademicRecord, CredentialStudentAcademicRecord>(sourceList);
+                    _credentialStudentAcademicRecords = new CovariantCollectionAdapter<Entities.Common.Tpdm.ICredentialStudentAcademicRecord, CredentialStudentAcademicRecord>(sourceList);
 
                 return _credentialStudentAcademicRecords;
             }
             set
             {
-                Credential.AggregateExtensions["TPDM_CredentialStudentAcademicRecords"] = value;
+                Credential.AggregateExtensions["Tpdm_CredentialStudentAcademicRecords"] = value;
             }
         }
         // -------------------------------------------------------------
@@ -6714,12 +6714,12 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICredentialExtension)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICredentialExtension)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICredentialExtension) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICredentialExtension) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -6732,70 +6732,70 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         // -----------------------------------------
 
         private bool _isBoardCertificationIndicatorSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsBoardCertificationIndicatorSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsBoardCertificationIndicatorSupported
         {
             get { return _isBoardCertificationIndicatorSupported; }
             set { _isBoardCertificationIndicatorSupported = value; }
         }
 
         private bool _isCertificationRouteDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCertificationRouteDescriptorSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCertificationRouteDescriptorSupported
         {
             get { return _isCertificationRouteDescriptorSupported; }
             set { _isCertificationRouteDescriptorSupported = value; }
         }
 
         private bool _isCertificationTitleSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCertificationTitleSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCertificationTitleSupported
         {
             get { return _isCertificationTitleSupported; }
             set { _isCertificationTitleSupported = value; }
         }
 
         private bool _isCredentialStatusDateSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDateSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDateSupported
         {
             get { return _isCredentialStatusDateSupported; }
             set { _isCredentialStatusDateSupported = value; }
         }
 
         private bool _isCredentialStatusDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDescriptorSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDescriptorSupported
         {
             get { return _isCredentialStatusDescriptorSupported; }
             set { _isCredentialStatusDescriptorSupported = value; }
         }
 
         private bool _isCredentialStudentAcademicRecordsSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordsSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordsSupported
         {
             get { return _isCredentialStudentAcademicRecordsSupported; }
             set { _isCredentialStudentAcademicRecordsSupported = value; }
         }
 
         private bool _isEducatorRoleDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsEducatorRoleDescriptorSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsEducatorRoleDescriptorSupported
         {
             get { return _isEducatorRoleDescriptorSupported; }
             set { _isEducatorRoleDescriptorSupported = value; }
         }
 
         private bool _isPersonIdSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsPersonIdSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsPersonIdSupported
         {
             get { return _isPersonIdSupported; }
             set { _isPersonIdSupported = value; }
         }
 
         private bool _isSourceSystemDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported
+        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported
         {
             get { return _isSourceSystemDescriptorSupported; }
             set { _isSourceSystemDescriptorSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.ICredentialStudentAcademicRecord, bool> _isCredentialStudentAcademicRecordIncluded;
-        Func<Entities.Common.TPDM.ICredentialStudentAcademicRecord, bool> Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordIncluded
+        private Func<Entities.Common.Tpdm.ICredentialStudentAcademicRecord, bool> _isCredentialStudentAcademicRecordIncluded;
+        Func<Entities.Common.Tpdm.ICredentialStudentAcademicRecord, bool> Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordIncluded
         {
             get { return _isCredentialStudentAcademicRecordIncluded; }
             set { _isCredentialStudentAcademicRecordIncluded = value; }
@@ -6806,7 +6806,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 }
 // Aggregate: CredentialStatusDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -6817,7 +6817,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class CredentialStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.ICredentialStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.ICredentialStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -6978,12 +6978,12 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICredentialStatusDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ICredentialStatusDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ICredentialStatusDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.ICredentialStatusDescriptor) target, null);
         }
 
 
@@ -6992,49 +6992,49 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -7045,7 +7045,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
 }
 // Aggregate: EducatorPreparationProgram
 
-namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="EducatorPreparationProgram"/> entity.
@@ -7136,7 +7136,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgram : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEducatorPreparationProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEducatorPreparationProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7255,7 +7255,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EducationOrganization discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationDiscriminator
+        string Entities.Common.Tpdm.IEducatorPreparationProgram.EducationOrganizationDiscriminator
         {
             get { return EducationOrganizationReferenceData?.Discriminator; }
             set { }
@@ -7264,7 +7264,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EducationOrganization resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationResourceId
+        Guid? Entities.Common.Tpdm.IEducatorPreparationProgram.EducationOrganizationResourceId
         {
             get { return EducationOrganizationReferenceData?.Id; }
             set { }
@@ -7276,10 +7276,10 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevels;
-        private ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
+        private ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevels;
+        private ICollection<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
+        public virtual ICollection<Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
         {
             get
             {
@@ -7298,12 +7298,12 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             set
             {
                 _educatorPreparationProgramGradeLevels = value;
-                _educatorPreparationProgramGradeLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel>(value);
+                _educatorPreparationProgramGradeLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> Entities.Common.TPDM.IEducatorPreparationProgram.EducatorPreparationProgramGradeLevels
+        ICollection<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel> Entities.Common.Tpdm.IEducatorPreparationProgram.EducatorPreparationProgramGradeLevels
         {
             get
             {
@@ -7319,7 +7319,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             }
             set
             {
-                EducatorPreparationProgramGradeLevels = new HashSet<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel>(value.Cast<Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel>());
+                EducatorPreparationProgramGradeLevels = new HashSet<Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel>(value.Cast<Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel>());
             }
         }
 
@@ -7410,12 +7410,12 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducatorPreparationProgram)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEducatorPreparationProgram)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEducatorPreparationProgram) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEducatorPreparationProgram) target, null);
         }
 
 
@@ -7424,28 +7424,28 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         // -----------------------------------------
 
         private bool _isAccreditationStatusDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported
+        bool Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported
         {
             get { return _isAccreditationStatusDescriptorSupported; }
             set { _isAccreditationStatusDescriptorSupported = value; }
         }
 
         private bool _isEducatorPreparationProgramGradeLevelsSupported = true;
-        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelsSupported
+        bool Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelsSupported
         {
             get { return _isEducatorPreparationProgramGradeLevelsSupported; }
             set { _isEducatorPreparationProgramGradeLevelsSupported = value; }
         }
 
         private bool _isProgramIdSupported = true;
-        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsProgramIdSupported
+        bool Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsProgramIdSupported
         {
             get { return _isProgramIdSupported; }
             set { _isProgramIdSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, bool> _isEducatorPreparationProgramGradeLevelIncluded;
-        Func<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, bool> Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelIncluded
+        private Func<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, bool> _isEducatorPreparationProgramGradeLevelIncluded;
+        Func<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, bool> Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelIncluded
         {
             get { return _isEducatorPreparationProgramGradeLevelIncluded; }
             set { _isEducatorPreparationProgramGradeLevelIncluded = value; }
@@ -7462,7 +7462,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgramGradeLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7478,7 +7478,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EducatorPreparationProgram EducatorPreparationProgram { get; set; }
 
-        Entities.Common.TPDM.IEducatorPreparationProgram IEducatorPreparationProgramGradeLevel.EducatorPreparationProgram
+        Entities.Common.Tpdm.IEducatorPreparationProgram IEducatorPreparationProgramGradeLevel.EducatorPreparationProgram
         {
             get { return EducatorPreparationProgram; }
             set { EducatorPreparationProgram = (EducatorPreparationProgram) value; }
@@ -7634,12 +7634,12 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -7656,7 +7656,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 }
 // Aggregate: EducatorRoleDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -7667,7 +7667,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EducatorRoleDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEducatorRoleDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEducatorRoleDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -7828,12 +7828,12 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducatorRoleDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEducatorRoleDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEducatorRoleDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEducatorRoleDescriptor) target, null);
         }
 
 
@@ -7842,49 +7842,49 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -7895,7 +7895,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
 }
 // Aggregate: EnglishLanguageExamDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -7906,7 +7906,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EnglishLanguageExamDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEnglishLanguageExamDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEnglishLanguageExamDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -8067,12 +8067,12 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEnglishLanguageExamDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEnglishLanguageExamDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEnglishLanguageExamDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEnglishLanguageExamDescriptor) target, null);
         }
 
 
@@ -8081,49 +8081,49 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -8134,7 +8134,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
 }
 // Aggregate: EPPProgramPathwayDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -8145,7 +8145,7 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EPPProgramPathwayDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEPPProgramPathwayDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEPPProgramPathwayDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -8306,12 +8306,12 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEPPProgramPathwayDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEPPProgramPathwayDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEPPProgramPathwayDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEPPProgramPathwayDescriptor) target, null);
         }
 
 
@@ -8320,49 +8320,49 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -8373,7 +8373,7 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
 }
 // Aggregate: Evaluation
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="Evaluation"/> entity.
@@ -8472,7 +8472,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class Evaluation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -8665,12 +8665,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData PerformanceEvaluationReferenceData { get; set; }
+        public virtual NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationReferenceData PerformanceEvaluationReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the PerformanceEvaluation discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluation.PerformanceEvaluationDiscriminator
+        string Entities.Common.Tpdm.IEvaluation.PerformanceEvaluationDiscriminator
         {
             get { return PerformanceEvaluationReferenceData?.Discriminator; }
             set { }
@@ -8679,7 +8679,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the PerformanceEvaluation resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluation.PerformanceEvaluationResourceId
+        Guid? Entities.Common.Tpdm.IEvaluation.PerformanceEvaluationResourceId
         {
             get { return PerformanceEvaluationReferenceData?.Id; }
             set { }
@@ -8691,10 +8691,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> _evaluationRatingLevels;
-        private ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
+        private ICollection<Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel> _evaluationRatingLevels;
+        private ICollection<Entities.Common.Tpdm.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel> EvaluationRatingLevels
+        public virtual ICollection<Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel> EvaluationRatingLevels
         {
             get
             {
@@ -8713,12 +8713,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             set
             {
                 _evaluationRatingLevels = value;
-                _evaluationRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationRatingLevel, Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel>(value);
+                _evaluationRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationRatingLevel, Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> Entities.Common.TPDM.IEvaluation.EvaluationRatingLevels
+        ICollection<Entities.Common.Tpdm.IEvaluationRatingLevel> Entities.Common.Tpdm.IEvaluation.EvaluationRatingLevels
         {
             get
             {
@@ -8734,7 +8734,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             }
             set
             {
-                EvaluationRatingLevels = new HashSet<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel>(value.Cast<Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel>());
+                EvaluationRatingLevels = new HashSet<Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel>(value.Cast<Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel>());
             }
         }
 
@@ -8831,12 +8831,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluation)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluation)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluation) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluation) target, null);
         }
 
 
@@ -8845,49 +8845,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // -----------------------------------------
 
         private bool _isEvaluationDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationDescriptionSupported
         {
             get { return _isEvaluationDescriptionSupported; }
             set { _isEvaluationDescriptionSupported = value; }
         }
 
         private bool _isEvaluationRatingLevelsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelsSupported
+        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelsSupported
         {
             get { return _isEvaluationRatingLevelsSupported; }
             set { _isEvaluationRatingLevelsSupported = value; }
         }
 
         private bool _isEvaluationTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported
         {
             get { return _isEvaluationTypeDescriptorSupported; }
             set { _isEvaluationTypeDescriptorSupported = value; }
         }
 
         private bool _isInterRaterReliabilityScoreSupported = true;
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported
+        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported
         {
             get { return _isInterRaterReliabilityScoreSupported; }
             set { _isInterRaterReliabilityScoreSupported = value; }
         }
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationRatingLevel, bool> _isEvaluationRatingLevelIncluded;
-        Func<Entities.Common.TPDM.IEvaluationRatingLevel, bool> Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationRatingLevel, bool> _isEvaluationRatingLevelIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationRatingLevel, bool> Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelIncluded
         {
             get { return _isEvaluationRatingLevelIncluded; }
             set { _isEvaluationRatingLevelIncluded = value; }
@@ -8904,7 +8904,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingLevelSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -8920,7 +8920,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual Evaluation Evaluation { get; set; }
 
-        Entities.Common.TPDM.IEvaluation IEvaluationRatingLevel.Evaluation
+        Entities.Common.Tpdm.IEvaluation IEvaluationRatingLevel.Evaluation
         {
             get { return Evaluation; }
             set { Evaluation = (Evaluation) value; }
@@ -9082,12 +9082,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingLevel)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRatingLevel) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRatingLevel) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -9100,14 +9100,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // -----------------------------------------
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
@@ -9118,7 +9118,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 }
 // Aggregate: EvaluationElement
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationElement"/> entity.
@@ -9221,7 +9221,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationElement : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEvaluationElement, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationElement, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9416,12 +9416,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData EvaluationObjectiveReferenceData { get; set; }
+        public virtual NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveReferenceData EvaluationObjectiveReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EvaluationObjective discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationElement.EvaluationObjectiveDiscriminator
+        string Entities.Common.Tpdm.IEvaluationElement.EvaluationObjectiveDiscriminator
         {
             get { return EvaluationObjectiveReferenceData?.Discriminator; }
             set { }
@@ -9430,7 +9430,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EvaluationObjective resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationElement.EvaluationObjectiveResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationElement.EvaluationObjectiveResourceId
         {
             get { return EvaluationObjectiveReferenceData?.Id; }
             set { }
@@ -9442,10 +9442,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> _evaluationElementRatingLevels;
-        private ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
+        private ICollection<Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel> _evaluationElementRatingLevels;
+        private ICollection<Entities.Common.Tpdm.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel> EvaluationElementRatingLevels
+        public virtual ICollection<Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel> EvaluationElementRatingLevels
         {
             get
             {
@@ -9464,12 +9464,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             set
             {
                 _evaluationElementRatingLevels = value;
-                _evaluationElementRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationElementRatingLevel, Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel>(value);
+                _evaluationElementRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationElementRatingLevel, Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> Entities.Common.TPDM.IEvaluationElement.EvaluationElementRatingLevels
+        ICollection<Entities.Common.Tpdm.IEvaluationElementRatingLevel> Entities.Common.Tpdm.IEvaluationElement.EvaluationElementRatingLevels
         {
             get
             {
@@ -9485,7 +9485,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             }
             set
             {
-                EvaluationElementRatingLevels = new HashSet<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel>(value.Cast<Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel>());
+                EvaluationElementRatingLevels = new HashSet<Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel>(value.Cast<Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel>());
             }
         }
 
@@ -9584,12 +9584,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationElement)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationElement)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationElement) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationElement) target, null);
         }
 
 
@@ -9598,42 +9598,42 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // -----------------------------------------
 
         private bool _isEvaluationElementRatingLevelsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelsSupported
+        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelsSupported
         {
             get { return _isEvaluationElementRatingLevelsSupported; }
             set { _isEvaluationElementRatingLevelsSupported = value; }
         }
 
         private bool _isEvaluationTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported
         {
             get { return _isEvaluationTypeDescriptorSupported; }
             set { _isEvaluationTypeDescriptorSupported = value; }
         }
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
         }
 
         private bool _isSortOrderSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsSortOrderSupported
+        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsSortOrderSupported
         {
             get { return _isSortOrderSupported; }
             set { _isSortOrderSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationElementRatingLevel, bool> _isEvaluationElementRatingLevelIncluded;
-        Func<Entities.Common.TPDM.IEvaluationElementRatingLevel, bool> Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationElementRatingLevel, bool> _isEvaluationElementRatingLevelIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationElementRatingLevel, bool> Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelIncluded
         {
             get { return _isEvaluationElementRatingLevelIncluded; }
             set { _isEvaluationElementRatingLevelIncluded = value; }
@@ -9650,7 +9650,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationElementRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationElementRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationElementRatingLevelSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9666,7 +9666,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationElement EvaluationElement { get; set; }
 
-        Entities.Common.TPDM.IEvaluationElement IEvaluationElementRatingLevel.EvaluationElement
+        Entities.Common.Tpdm.IEvaluationElement IEvaluationElementRatingLevel.EvaluationElement
         {
             get { return EvaluationElement; }
             set { EvaluationElement = (EvaluationElement) value; }
@@ -9828,12 +9828,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationElementRatingLevel)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationElementRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationElementRatingLevel) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationElementRatingLevel) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -9846,14 +9846,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // -----------------------------------------
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
@@ -9864,7 +9864,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 }
 // Aggregate: EvaluationElementRating
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationElementRating"/> entity.
@@ -9973,7 +9973,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRating : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEvaluationElementRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationElementRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10227,12 +10227,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData EvaluationElementReferenceData { get; set; }
+        public virtual NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementReferenceData EvaluationElementReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EvaluationElement discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementDiscriminator
+        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementDiscriminator
         {
             get { return EvaluationElementReferenceData?.Discriminator; }
             set { }
@@ -10241,18 +10241,18 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EvaluationElement resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementResourceId
         {
             get { return EvaluationElementReferenceData?.Id; }
             set { }
         }
 
-        public virtual NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData EvaluationObjectiveRatingReferenceData { get; set; }
+        public virtual NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingReferenceData EvaluationObjectiveRatingReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EvaluationObjectiveRating discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationObjectiveRatingDiscriminator
+        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationObjectiveRatingDiscriminator
         {
             get { return EvaluationObjectiveRatingReferenceData?.Discriminator; }
             set { }
@@ -10261,7 +10261,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EvaluationObjectiveRating resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationElementRating.EvaluationObjectiveRatingResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationElementRating.EvaluationObjectiveRatingResourceId
         {
             get { return EvaluationObjectiveRatingReferenceData?.Id; }
             set { }
@@ -10273,10 +10273,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> _evaluationElementRatingResults;
-        private ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
+        private ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult> _evaluationElementRatingResults;
+        private ICollection<Entities.Common.Tpdm.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult> EvaluationElementRatingResults
+        public virtual ICollection<Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult> EvaluationElementRatingResults
         {
             get
             {
@@ -10295,12 +10295,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             set
             {
                 _evaluationElementRatingResults = value;
-                _evaluationElementRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationElementRatingResult, Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult>(value);
+                _evaluationElementRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationElementRatingResult, Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementRatingResults
+        ICollection<Entities.Common.Tpdm.IEvaluationElementRatingResult> Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementRatingResults
         {
             get
             {
@@ -10316,7 +10316,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             }
             set
             {
-                EvaluationElementRatingResults = new HashSet<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult>(value.Cast<Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult>());
+                EvaluationElementRatingResults = new HashSet<Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult>(value.Cast<Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult>());
             }
         }
 
@@ -10419,12 +10419,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationElementRating)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationElementRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationElementRating) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationElementRating) target, null);
         }
 
 
@@ -10433,49 +10433,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isAreaOfRefinementSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfRefinementSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfRefinementSupported
         {
             get { return _isAreaOfRefinementSupported; }
             set { _isAreaOfRefinementSupported = value; }
         }
 
         private bool _isAreaOfReinforcementSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfReinforcementSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfReinforcementSupported
         {
             get { return _isAreaOfReinforcementSupported; }
             set { _isAreaOfReinforcementSupported = value; }
         }
 
         private bool _isCommentsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsCommentsSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsCommentsSupported
         {
             get { return _isCommentsSupported; }
             set { _isCommentsSupported = value; }
         }
 
         private bool _isEvaluationElementRatingLevelDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingLevelDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingLevelDescriptorSupported
         {
             get { return _isEvaluationElementRatingLevelDescriptorSupported; }
             set { _isEvaluationElementRatingLevelDescriptorSupported = value; }
         }
 
         private bool _isEvaluationElementRatingResultsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultsSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultsSupported
         {
             get { return _isEvaluationElementRatingResultsSupported; }
             set { _isEvaluationElementRatingResultsSupported = value; }
         }
 
         private bool _isFeedbackSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsFeedbackSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsFeedbackSupported
         {
             get { return _isFeedbackSupported; }
             set { _isFeedbackSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationElementRatingResult, bool> _isEvaluationElementRatingResultIncluded;
-        Func<Entities.Common.TPDM.IEvaluationElementRatingResult, bool> Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationElementRatingResult, bool> _isEvaluationElementRatingResultIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationElementRatingResult, bool> Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultIncluded
         {
             get { return _isEvaluationElementRatingResultIncluded; }
             set { _isEvaluationElementRatingResultIncluded = value; }
@@ -10492,7 +10492,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingResult : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationElementRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationElementRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationElementRatingResultSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10508,7 +10508,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationElementRating EvaluationElementRating { get; set; }
 
-        Entities.Common.TPDM.IEvaluationElementRating IEvaluationElementRatingResult.EvaluationElementRating
+        Entities.Common.Tpdm.IEvaluationElementRating IEvaluationElementRatingResult.EvaluationElementRating
         {
             get { return EvaluationElementRating; }
             set { EvaluationElementRating = (EvaluationElementRating) value; }
@@ -10672,12 +10672,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationElementRatingResult)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationElementRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationElementRatingResult) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationElementRatingResult) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -10690,7 +10690,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isResultDatatypeTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
         {
             get { return _isResultDatatypeTypeDescriptorSupported; }
             set { _isResultDatatypeTypeDescriptorSupported = value; }
@@ -10701,7 +10701,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 }
 // Aggregate: EvaluationElementRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -10712,7 +10712,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -10873,12 +10873,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor) target, null);
         }
 
 
@@ -10887,49 +10887,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -10940,7 +10940,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
 }
 // Aggregate: EvaluationObjective
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationObjective"/> entity.
@@ -11041,7 +11041,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjective : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEvaluationObjective, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationObjective, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11236,12 +11236,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData EvaluationReferenceData { get; set; }
+        public virtual NHibernate.EvaluationAggregate.Tpdm.EvaluationReferenceData EvaluationReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the Evaluation discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationObjective.EvaluationDiscriminator
+        string Entities.Common.Tpdm.IEvaluationObjective.EvaluationDiscriminator
         {
             get { return EvaluationReferenceData?.Discriminator; }
             set { }
@@ -11250,7 +11250,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Evaluation resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationObjective.EvaluationResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationObjective.EvaluationResourceId
         {
             get { return EvaluationReferenceData?.Id; }
             set { }
@@ -11262,10 +11262,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevels;
-        private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
+        private ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevels;
+        private ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
+        public virtual ICollection<Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
         {
             get
             {
@@ -11284,12 +11284,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             set
             {
                 _evaluationObjectiveRatingLevels = value;
-                _evaluationObjectiveRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel>(value);
+                _evaluationObjectiveRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> Entities.Common.TPDM.IEvaluationObjective.EvaluationObjectiveRatingLevels
+        ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel> Entities.Common.Tpdm.IEvaluationObjective.EvaluationObjectiveRatingLevels
         {
             get
             {
@@ -11305,7 +11305,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             }
             set
             {
-                EvaluationObjectiveRatingLevels = new HashSet<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel>(value.Cast<Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel>());
+                EvaluationObjectiveRatingLevels = new HashSet<Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel>(value.Cast<Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel>());
             }
         }
 
@@ -11403,12 +11403,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationObjective)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationObjective)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationObjective) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationObjective) target, null);
         }
 
 
@@ -11417,49 +11417,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // -----------------------------------------
 
         private bool _isEvaluationObjectiveDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveDescriptionSupported
         {
             get { return _isEvaluationObjectiveDescriptionSupported; }
             set { _isEvaluationObjectiveDescriptionSupported = value; }
         }
 
         private bool _isEvaluationObjectiveRatingLevelsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelsSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelsSupported
         {
             get { return _isEvaluationObjectiveRatingLevelsSupported; }
             set { _isEvaluationObjectiveRatingLevelsSupported = value; }
         }
 
         private bool _isEvaluationTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported
         {
             get { return _isEvaluationTypeDescriptorSupported; }
             set { _isEvaluationTypeDescriptorSupported = value; }
         }
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
         }
 
         private bool _isSortOrderSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsSortOrderSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsSortOrderSupported
         {
             get { return _isSortOrderSupported; }
             set { _isSortOrderSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, bool> _isEvaluationObjectiveRatingLevelIncluded;
-        Func<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, bool> Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, bool> _isEvaluationObjectiveRatingLevelIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, bool> Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelIncluded
         {
             get { return _isEvaluationObjectiveRatingLevelIncluded; }
             set { _isEvaluationObjectiveRatingLevelIncluded = value; }
@@ -11476,7 +11476,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRatingLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11492,7 +11492,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationObjective EvaluationObjective { get; set; }
 
-        Entities.Common.TPDM.IEvaluationObjective IEvaluationObjectiveRatingLevel.EvaluationObjective
+        Entities.Common.Tpdm.IEvaluationObjective IEvaluationObjectiveRatingLevel.EvaluationObjective
         {
             get { return EvaluationObjective; }
             set { EvaluationObjective = (EvaluationObjective) value; }
@@ -11654,12 +11654,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationObjectiveRatingLevel)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationObjectiveRatingLevel) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -11672,14 +11672,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // -----------------------------------------
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
@@ -11690,7 +11690,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 }
 // Aggregate: EvaluationObjectiveRating
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationObjectiveRating"/> entity.
@@ -11797,7 +11797,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRating : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEvaluationObjectiveRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationObjectiveRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12043,12 +12043,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData EvaluationObjectiveReferenceData { get; set; }
+        public virtual NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveReferenceData EvaluationObjectiveReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EvaluationObjective discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveDiscriminator
+        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveDiscriminator
         {
             get { return EvaluationObjectiveReferenceData?.Discriminator; }
             set { }
@@ -12057,18 +12057,18 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EvaluationObjective resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveResourceId
         {
             get { return EvaluationObjectiveReferenceData?.Id; }
             set { }
         }
 
-        public virtual NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData EvaluationRatingReferenceData { get; set; }
+        public virtual NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReferenceData EvaluationRatingReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EvaluationRating discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationRatingDiscriminator
+        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationRatingDiscriminator
         {
             get { return EvaluationRatingReferenceData?.Discriminator; }
             set { }
@@ -12077,7 +12077,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EvaluationRating resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationRatingResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationRatingResourceId
         {
             get { return EvaluationRatingReferenceData?.Id; }
             set { }
@@ -12089,10 +12089,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> _evaluationObjectiveRatingResults;
-        private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
+        private ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult> _evaluationObjectiveRatingResults;
+        private ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
+        public virtual ICollection<Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
         {
             get
             {
@@ -12111,12 +12111,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             set
             {
                 _evaluationObjectiveRatingResults = value;
-                _evaluationObjectiveRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationObjectiveRatingResult, Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult>(value);
+                _evaluationObjectiveRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveRatingResults
+        ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult> Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveRatingResults
         {
             get
             {
@@ -12132,7 +12132,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             }
             set
             {
-                EvaluationObjectiveRatingResults = new HashSet<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult>(value.Cast<Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult>());
+                EvaluationObjectiveRatingResults = new HashSet<Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult>(value.Cast<Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult>());
             }
         }
 
@@ -12234,12 +12234,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationObjectiveRating)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationObjectiveRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationObjectiveRating) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationObjectiveRating) target, null);
         }
 
 
@@ -12248,28 +12248,28 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCommentsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsCommentsSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsCommentsSupported
         {
             get { return _isCommentsSupported; }
             set { _isCommentsSupported = value; }
         }
 
         private bool _isEvaluationObjectiveRatingResultsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultsSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultsSupported
         {
             get { return _isEvaluationObjectiveRatingResultsSupported; }
             set { _isEvaluationObjectiveRatingResultsSupported = value; }
         }
 
         private bool _isObjectiveRatingLevelDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsObjectiveRatingLevelDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsObjectiveRatingLevelDescriptorSupported
         {
             get { return _isObjectiveRatingLevelDescriptorSupported; }
             set { _isObjectiveRatingLevelDescriptorSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationObjectiveRatingResult, bool> _isEvaluationObjectiveRatingResultIncluded;
-        Func<Entities.Common.TPDM.IEvaluationObjectiveRatingResult, bool> Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, bool> _isEvaluationObjectiveRatingResultIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, bool> Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultIncluded
         {
             get { return _isEvaluationObjectiveRatingResultIncluded; }
             set { _isEvaluationObjectiveRatingResultIncluded = value; }
@@ -12286,7 +12286,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRatingResult : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationObjectiveRatingResultSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12302,7 +12302,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationObjectiveRating EvaluationObjectiveRating { get; set; }
 
-        Entities.Common.TPDM.IEvaluationObjectiveRating IEvaluationObjectiveRatingResult.EvaluationObjectiveRating
+        Entities.Common.Tpdm.IEvaluationObjectiveRating IEvaluationObjectiveRatingResult.EvaluationObjectiveRating
         {
             get { return EvaluationObjectiveRating; }
             set { EvaluationObjectiveRating = (EvaluationObjectiveRating) value; }
@@ -12466,12 +12466,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationObjectiveRatingResult)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationObjectiveRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationObjectiveRatingResult) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationObjectiveRatingResult) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -12484,7 +12484,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isResultDatatypeTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
         {
             get { return _isResultDatatypeTypeDescriptorSupported; }
             set { _isResultDatatypeTypeDescriptorSupported = value; }
@@ -12495,7 +12495,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 }
 // Aggregate: EvaluationPeriodDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -12506,7 +12506,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationPeriodDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEvaluationPeriodDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEvaluationPeriodDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -12667,12 +12667,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationPeriodDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationPeriodDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationPeriodDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationPeriodDescriptor) target, null);
         }
 
 
@@ -12681,49 +12681,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -12734,7 +12734,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
 }
 // Aggregate: EvaluationRating
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="EvaluationRating"/> entity.
@@ -12839,7 +12839,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRating : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13123,12 +13123,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData EvaluationReferenceData { get; set; }
+        public virtual NHibernate.EvaluationAggregate.Tpdm.EvaluationReferenceData EvaluationReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the Evaluation discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationRating.EvaluationDiscriminator
+        string Entities.Common.Tpdm.IEvaluationRating.EvaluationDiscriminator
         {
             get { return EvaluationReferenceData?.Discriminator; }
             set { }
@@ -13137,18 +13137,18 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Evaluation resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationRating.EvaluationResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationRating.EvaluationResourceId
         {
             get { return EvaluationReferenceData?.Id; }
             set { }
         }
 
-        public virtual NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData PerformanceEvaluationRatingReferenceData { get; set; }
+        public virtual NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReferenceData PerformanceEvaluationRatingReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the PerformanceEvaluationRating discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationRating.PerformanceEvaluationRatingDiscriminator
+        string Entities.Common.Tpdm.IEvaluationRating.PerformanceEvaluationRatingDiscriminator
         {
             get { return PerformanceEvaluationRatingReferenceData?.Discriminator; }
             set { }
@@ -13157,7 +13157,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the PerformanceEvaluationRating resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationRating.PerformanceEvaluationRatingResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationRating.PerformanceEvaluationRatingResourceId
         {
             get { return PerformanceEvaluationRatingReferenceData?.Id; }
             set { }
@@ -13168,7 +13168,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Section discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationRating.SectionDiscriminator
+        string Entities.Common.Tpdm.IEvaluationRating.SectionDiscriminator
         {
             get { return SectionReferenceData?.Discriminator; }
             set { }
@@ -13177,7 +13177,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Section resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationRating.SectionResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationRating.SectionResourceId
         {
             get { return SectionReferenceData?.Id; }
             set { }
@@ -13189,10 +13189,10 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> _evaluationRatingResults;
-        private ICollection<Entities.Common.TPDM.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
+        private ICollection<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult> _evaluationRatingResults;
+        private ICollection<Entities.Common.Tpdm.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult> EvaluationRatingResults
+        public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult> EvaluationRatingResults
         {
             get
             {
@@ -13211,12 +13211,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set
             {
                 _evaluationRatingResults = value;
-                _evaluationRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationRatingResult, Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult>(value);
+                _evaluationRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationRatingResult, Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationRatingResult> Entities.Common.TPDM.IEvaluationRating.EvaluationRatingResults
+        ICollection<Entities.Common.Tpdm.IEvaluationRatingResult> Entities.Common.Tpdm.IEvaluationRating.EvaluationRatingResults
         {
             get
             {
@@ -13232,15 +13232,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             }
             set
             {
-                EvaluationRatingResults = new HashSet<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult>(value.Cast<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult>());
+                EvaluationRatingResults = new HashSet<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult>(value.Cast<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> _evaluationRatingReviewers;
-        private ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
+        private ICollection<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer> _evaluationRatingReviewers;
+        private ICollection<Entities.Common.Tpdm.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer> EvaluationRatingReviewers
+        public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer> EvaluationRatingReviewers
         {
             get
             {
@@ -13259,12 +13259,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set
             {
                 _evaluationRatingReviewers = value;
-                _evaluationRatingReviewersCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEvaluationRatingReviewer, Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer>(value);
+                _evaluationRatingReviewersCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IEvaluationRatingReviewer, Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> Entities.Common.TPDM.IEvaluationRating.EvaluationRatingReviewers
+        ICollection<Entities.Common.Tpdm.IEvaluationRatingReviewer> Entities.Common.Tpdm.IEvaluationRating.EvaluationRatingReviewers
         {
             get
             {
@@ -13280,7 +13280,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             }
             set
             {
-                EvaluationRatingReviewers = new HashSet<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer>(value.Cast<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer>());
+                EvaluationRatingReviewers = new HashSet<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer>(value.Cast<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer>());
             }
         }
 
@@ -13382,12 +13382,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRating)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRating) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRating) target, null);
         }
 
 
@@ -13396,70 +13396,70 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isEvaluationRatingLevelDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported
         {
             get { return _isEvaluationRatingLevelDescriptorSupported; }
             set { _isEvaluationRatingLevelDescriptorSupported = value; }
         }
 
         private bool _isEvaluationRatingResultsSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported
         {
             get { return _isEvaluationRatingResultsSupported; }
             set { _isEvaluationRatingResultsSupported = value; }
         }
 
         private bool _isEvaluationRatingReviewersSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported
         {
             get { return _isEvaluationRatingReviewersSupported; }
             set { _isEvaluationRatingReviewersSupported = value; }
         }
 
         private bool _isEvaluationRatingStatusDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported
         {
             get { return _isEvaluationRatingStatusDescriptorSupported; }
             set { _isEvaluationRatingStatusDescriptorSupported = value; }
         }
 
         private bool _isLocalCourseCodeSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported
         {
             get { return _isLocalCourseCodeSupported; }
             set { _isLocalCourseCodeSupported = value; }
         }
 
         private bool _isSchoolIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported
         {
             get { return _isSchoolIdSupported; }
             set { _isSchoolIdSupported = value; }
         }
 
         private bool _isSectionIdentifierSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported
         {
             get { return _isSectionIdentifierSupported; }
             set { _isSectionIdentifierSupported = value; }
         }
 
         private bool _isSessionNameSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported
         {
             get { return _isSessionNameSupported; }
             set { _isSessionNameSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationRatingResult, bool> _isEvaluationRatingResultIncluded;
-        Func<Entities.Common.TPDM.IEvaluationRatingResult, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationRatingResult, bool> _isEvaluationRatingResultIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationRatingResult, bool> Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultIncluded
         {
             get { return _isEvaluationRatingResultIncluded; }
             set { _isEvaluationRatingResultIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.IEvaluationRatingReviewer, bool> _isEvaluationRatingReviewerIncluded;
-        Func<Entities.Common.TPDM.IEvaluationRatingReviewer, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewerIncluded
+        private Func<Entities.Common.Tpdm.IEvaluationRatingReviewer, bool> _isEvaluationRatingReviewerIncluded;
+        Func<Entities.Common.Tpdm.IEvaluationRatingReviewer, bool> Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewerIncluded
         {
             get { return _isEvaluationRatingReviewerIncluded; }
             set { _isEvaluationRatingReviewerIncluded = value; }
@@ -13476,7 +13476,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingResult : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingResultSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13492,7 +13492,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationRating EvaluationRating { get; set; }
 
-        Entities.Common.TPDM.IEvaluationRating IEvaluationRatingResult.EvaluationRating
+        Entities.Common.Tpdm.IEvaluationRating IEvaluationRatingResult.EvaluationRating
         {
             get { return EvaluationRating; }
             set { EvaluationRating = (EvaluationRating) value; }
@@ -13656,12 +13656,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingResult)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRatingResult) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRatingResult) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -13674,7 +13674,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isResultDatatypeTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
         {
             get { return _isResultDatatypeTypeDescriptorSupported; }
             set { _isResultDatatypeTypeDescriptorSupported = value; }
@@ -13691,7 +13691,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReviewer : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13708,7 +13708,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationRating EvaluationRating { get; set; }
 
-        Entities.Common.TPDM.IEvaluationRating IEvaluationRatingReviewer.EvaluationRating
+        Entities.Common.Tpdm.IEvaluationRating IEvaluationRatingReviewer.EvaluationRating
         {
             get { return EvaluationRating; }
             set { EvaluationRating = (EvaluationRating) value; }
@@ -13770,7 +13770,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                     One-to-one relationships
         // -------------------------------------------------------------
         [ValidateObject]
-        public virtual Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining
+        public virtual Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining
         {
             get
             {
@@ -13798,15 +13798,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             }
         }
 
-        Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IEvaluationRatingReviewer.EvaluationRatingReviewerReceivedTraining
+        Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining Entities.Common.Tpdm.IEvaluationRatingReviewer.EvaluationRatingReviewerReceivedTraining
         {
             get { return EvaluationRatingReviewerReceivedTraining; }
-            set { EvaluationRatingReviewerReceivedTraining = (Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining) value; }
+            set { EvaluationRatingReviewerReceivedTraining = (Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewerReceivedTraining) value; }
         }
 
-        private ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining> _evaluationRatingReviewerReceivedTrainingPersistentList;
+        private ICollection<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewerReceivedTraining> _evaluationRatingReviewerReceivedTrainingPersistentList;
 
-        public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining> EvaluationRatingReviewerReceivedTrainingPersistentList
+        public virtual ICollection<Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewerReceivedTraining> EvaluationRatingReviewerReceivedTrainingPersistentList
         {
             get
             {
@@ -13843,7 +13843,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the ReviewerPerson discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonDiscriminator
+        string Entities.Common.Tpdm.IEvaluationRatingReviewer.ReviewerPersonDiscriminator
         {
             get { return ReviewerPersonReferenceData?.Discriminator; }
             set { }
@@ -13852,7 +13852,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the ReviewerPerson resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonResourceId
+        Guid? Entities.Common.Tpdm.IEvaluationRatingReviewer.ReviewerPersonResourceId
         {
             get { return ReviewerPersonReferenceData?.Id; }
             set { }
@@ -13952,12 +13952,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingReviewer)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRatingReviewer)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRatingReviewer) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRatingReviewer) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -13970,21 +13970,21 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isEvaluationRatingReviewerReceivedTrainingSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsEvaluationRatingReviewerReceivedTrainingSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport.IsEvaluationRatingReviewerReceivedTrainingSupported
         {
             get { return _isEvaluationRatingReviewerReceivedTrainingSupported; }
             set { _isEvaluationRatingReviewerReceivedTrainingSupported = value; }
         }
 
         private bool _isReviewerPersonIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported
         {
             get { return _isReviewerPersonIdSupported; }
             set { _isReviewerPersonIdSupported = value; }
         }
 
         private bool _isReviewerSourceSystemDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported
         {
             get { return _isReviewerSourceSystemDescriptorSupported; }
             set { _isReviewerSourceSystemDescriptorSupported = value; }
@@ -14001,7 +14001,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingReviewerReceivedTraining : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
+        Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14017,7 +14017,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual EvaluationRatingReviewer EvaluationRatingReviewer { get; set; }
 
-        Entities.Common.TPDM.IEvaluationRatingReviewer IEvaluationRatingReviewerReceivedTraining.EvaluationRatingReviewer
+        Entities.Common.Tpdm.IEvaluationRatingReviewer IEvaluationRatingReviewerReceivedTraining.EvaluationRatingReviewer
         {
             get { return EvaluationRatingReviewer; }
             set { EvaluationRatingReviewer = (EvaluationRatingReviewer) value; }
@@ -14160,12 +14160,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -14178,14 +14178,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isInterRaterReliabilityScoreSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported
         {
             get { return _isInterRaterReliabilityScoreSupported; }
             set { _isInterRaterReliabilityScoreSupported = value; }
         }
 
         private bool _isReceivedTrainingDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported
         {
             get { return _isReceivedTrainingDateSupported; }
             set { _isReceivedTrainingDateSupported = value; }
@@ -14196,7 +14196,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 }
 // Aggregate: EvaluationRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -14207,7 +14207,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -14368,12 +14368,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingLevelDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRatingLevelDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor) target, null);
         }
 
 
@@ -14382,49 +14382,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -14435,7 +14435,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
 }
 // Aggregate: EvaluationRatingStatusDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -14446,7 +14446,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -14607,12 +14607,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingStatusDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationRatingStatusDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor) target, null);
         }
 
 
@@ -14621,49 +14621,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -14674,7 +14674,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
 }
 // Aggregate: EvaluationTypeDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -14685,7 +14685,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class EvaluationTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -14846,12 +14846,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationTypeDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IEvaluationTypeDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IEvaluationTypeDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IEvaluationTypeDescriptor) target, null);
         }
 
 
@@ -14860,49 +14860,49 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -14913,7 +14913,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
 }
 // Aggregate: FinancialAid
 
-namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="FinancialAid"/> entity.
@@ -15004,7 +15004,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class FinancialAid : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IFinancialAid, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport
+        Entities.Common.Tpdm.IFinancialAid, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -15155,7 +15155,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Student discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IFinancialAid.StudentDiscriminator
+        string Entities.Common.Tpdm.IFinancialAid.StudentDiscriminator
         {
             get { return StudentReferenceData?.Discriminator; }
             set { }
@@ -15164,7 +15164,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Student resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IFinancialAid.StudentResourceId
+        Guid? Entities.Common.Tpdm.IFinancialAid.StudentResourceId
         {
             get { return StudentReferenceData?.Id; }
             set { }
@@ -15261,12 +15261,12 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IFinancialAid)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IFinancialAid)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IFinancialAid) target, null);
+            this.MapTo((Entities.Common.Tpdm.IFinancialAid) target, null);
         }
 
 
@@ -15275,28 +15275,28 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         // -----------------------------------------
 
         private bool _isAidAmountSupported = true;
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsAidAmountSupported
+        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsAidAmountSupported
         {
             get { return _isAidAmountSupported; }
             set { _isAidAmountSupported = value; }
         }
 
         private bool _isAidConditionDescriptionSupported = true;
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsAidConditionDescriptionSupported
+        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsAidConditionDescriptionSupported
         {
             get { return _isAidConditionDescriptionSupported; }
             set { _isAidConditionDescriptionSupported = value; }
         }
 
         private bool _isEndDateSupported = true;
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsEndDateSupported
+        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsEndDateSupported
         {
             get { return _isEndDateSupported; }
             set { _isEndDateSupported = value; }
         }
 
         private bool _isPellGrantRecipientSupported = true;
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsPellGrantRecipientSupported
+        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsPellGrantRecipientSupported
         {
             get { return _isPellGrantRecipientSupported; }
             set { _isPellGrantRecipientSupported = value; }
@@ -15307,7 +15307,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
 }
 // Aggregate: GenderDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -15318,7 +15318,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class GenderDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IGenderDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IGenderDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -15479,12 +15479,12 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IGenderDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IGenderDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IGenderDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IGenderDescriptor) target, null);
         }
 
 
@@ -15493,49 +15493,49 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -15546,7 +15546,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
 }
 // Aggregate: ObjectiveRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -15557,7 +15557,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class ObjectiveRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -15718,12 +15718,12 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IObjectiveRatingLevelDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IObjectiveRatingLevelDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor) target, null);
         }
 
 
@@ -15732,49 +15732,49 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -15785,7 +15785,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
 }
 // Aggregate: PerformanceEvaluation
 
-namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="PerformanceEvaluation"/> entity.
@@ -15882,7 +15882,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IPerformanceEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -16074,7 +16074,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EducationOrganization discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationDiscriminator
+        string Entities.Common.Tpdm.IPerformanceEvaluation.EducationOrganizationDiscriminator
         {
             get { return EducationOrganizationReferenceData?.Discriminator; }
             set { }
@@ -16083,7 +16083,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EducationOrganization resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationResourceId
+        Guid? Entities.Common.Tpdm.IPerformanceEvaluation.EducationOrganizationResourceId
         {
             get { return EducationOrganizationReferenceData?.Id; }
             set { }
@@ -16094,7 +16094,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the SchoolYearType resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IPerformanceEvaluation.SchoolYearTypeResourceId
+        Guid? Entities.Common.Tpdm.IPerformanceEvaluation.SchoolYearTypeResourceId
         {
             get { return SchoolYearTypeReferenceData?.Id; }
             set { }
@@ -16106,10 +16106,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevels;
-        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
+        private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevels;
+        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
+        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
         {
             get
             {
@@ -16128,12 +16128,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set
             {
                 _performanceEvaluationGradeLevels = value;
-                _performanceEvaluationGradeLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel>(value);
+                _performanceEvaluationGradeLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> Entities.Common.TPDM.IPerformanceEvaluation.PerformanceEvaluationGradeLevels
+        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel> Entities.Common.Tpdm.IPerformanceEvaluation.PerformanceEvaluationGradeLevels
         {
             get
             {
@@ -16149,15 +16149,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             }
             set
             {
-                PerformanceEvaluationGradeLevels = new HashSet<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel>(value.Cast<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel>());
+                PerformanceEvaluationGradeLevels = new HashSet<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel>(value.Cast<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevels;
-        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
+        private ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevels;
+        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
+        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
         {
             get
             {
@@ -16176,12 +16176,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set
             {
                 _performanceEvaluationRatingLevels = value;
-                _performanceEvaluationRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel>(value);
+                _performanceEvaluationRatingLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> Entities.Common.TPDM.IPerformanceEvaluation.PerformanceEvaluationRatingLevels
+        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel> Entities.Common.Tpdm.IPerformanceEvaluation.PerformanceEvaluationRatingLevels
         {
             get
             {
@@ -16197,7 +16197,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             }
             set
             {
-                PerformanceEvaluationRatingLevels = new HashSet<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel>(value.Cast<Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel>());
+                PerformanceEvaluationRatingLevels = new HashSet<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel>(value.Cast<Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel>());
             }
         }
 
@@ -16293,12 +16293,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluation)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluation)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluation) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluation) target, null);
         }
 
 
@@ -16307,42 +16307,42 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // -----------------------------------------
 
         private bool _isAcademicSubjectDescriptorSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsAcademicSubjectDescriptorSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsAcademicSubjectDescriptorSupported
         {
             get { return _isAcademicSubjectDescriptorSupported; }
             set { _isAcademicSubjectDescriptorSupported = value; }
         }
 
         private bool _isPerformanceEvaluationDescriptionSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationDescriptionSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationDescriptionSupported
         {
             get { return _isPerformanceEvaluationDescriptionSupported; }
             set { _isPerformanceEvaluationDescriptionSupported = value; }
         }
 
         private bool _isPerformanceEvaluationGradeLevelsSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelsSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelsSupported
         {
             get { return _isPerformanceEvaluationGradeLevelsSupported; }
             set { _isPerformanceEvaluationGradeLevelsSupported = value; }
         }
 
         private bool _isPerformanceEvaluationRatingLevelsSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelsSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelsSupported
         {
             get { return _isPerformanceEvaluationRatingLevelsSupported; }
             set { _isPerformanceEvaluationRatingLevelsSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, bool> _isPerformanceEvaluationGradeLevelIncluded;
-        Func<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, bool> Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelIncluded
+        private Func<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, bool> _isPerformanceEvaluationGradeLevelIncluded;
+        Func<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, bool> Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelIncluded
         {
             get { return _isPerformanceEvaluationGradeLevelIncluded; }
             set { _isPerformanceEvaluationGradeLevelIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, bool> _isPerformanceEvaluationRatingLevelIncluded;
-        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, bool> Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelIncluded
+        private Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, bool> _isPerformanceEvaluationRatingLevelIncluded;
+        Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, bool> Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelIncluded
         {
             get { return _isPerformanceEvaluationRatingLevelIncluded; }
             set { _isPerformanceEvaluationRatingLevelIncluded = value; }
@@ -16359,7 +16359,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationGradeLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationGradeLevelSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationGradeLevelSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -16375,7 +16375,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual PerformanceEvaluation PerformanceEvaluation { get; set; }
 
-        Entities.Common.TPDM.IPerformanceEvaluation IPerformanceEvaluationGradeLevel.PerformanceEvaluation
+        Entities.Common.Tpdm.IPerformanceEvaluation IPerformanceEvaluationGradeLevel.PerformanceEvaluation
         {
             get { return PerformanceEvaluation; }
             set { PerformanceEvaluation = (PerformanceEvaluation) value; }
@@ -16533,12 +16533,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationGradeLevel)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationGradeLevel) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -16561,7 +16561,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -16577,7 +16577,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual PerformanceEvaluation PerformanceEvaluation { get; set; }
 
-        Entities.Common.TPDM.IPerformanceEvaluation IPerformanceEvaluationRatingLevel.PerformanceEvaluation
+        Entities.Common.Tpdm.IPerformanceEvaluation IPerformanceEvaluationRatingLevel.PerformanceEvaluation
         {
             get { return PerformanceEvaluation; }
             set { PerformanceEvaluation = (PerformanceEvaluation) value; }
@@ -16739,12 +16739,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationRatingLevel)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationRatingLevel) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -16757,14 +16757,14 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // -----------------------------------------
 
         private bool _isMaxRatingSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported
         {
             get { return _isMaxRatingSupported; }
             set { _isMaxRatingSupported = value; }
         }
 
         private bool _isMinRatingSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported
         {
             get { return _isMinRatingSupported; }
             set { _isMinRatingSupported = value; }
@@ -16775,7 +16775,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 }
 // Aggregate: PerformanceEvaluationRating
 
-namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="PerformanceEvaluationRating"/> entity.
@@ -16876,7 +16876,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRating : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IPerformanceEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -17167,12 +17167,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData PerformanceEvaluationReferenceData { get; set; }
+        public virtual NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationReferenceData PerformanceEvaluationReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the PerformanceEvaluation discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationDiscriminator
+        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationDiscriminator
         {
             get { return PerformanceEvaluationReferenceData?.Discriminator; }
             set { }
@@ -17181,7 +17181,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the PerformanceEvaluation resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationResourceId
+        Guid? Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationResourceId
         {
             get { return PerformanceEvaluationReferenceData?.Id; }
             set { }
@@ -17192,7 +17192,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IPerformanceEvaluationRating.PersonDiscriminator
+        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PersonDiscriminator
         {
             get { return PersonReferenceData?.Discriminator; }
             set { }
@@ -17201,7 +17201,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IPerformanceEvaluationRating.PersonResourceId
+        Guid? Entities.Common.Tpdm.IPerformanceEvaluationRating.PersonResourceId
         {
             get { return PersonReferenceData?.Id; }
             set { }
@@ -17213,10 +17213,10 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
-        private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> _performanceEvaluationRatingResults;
-        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
+        private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult> _performanceEvaluationRatingResults;
+        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
+        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
         {
             get
             {
@@ -17235,12 +17235,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set
             {
                 _performanceEvaluationRatingResults = value;
-                _performanceEvaluationRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IPerformanceEvaluationRatingResult, Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult>(value);
+                _performanceEvaluationRatingResultsCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationRatingResults
+        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult> Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationRatingResults
         {
             get
             {
@@ -17256,15 +17256,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             }
             set
             {
-                PerformanceEvaluationRatingResults = new HashSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult>(value.Cast<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult>());
+                PerformanceEvaluationRatingResults = new HashSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult>(value.Cast<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult>());
             }
         }
 
 
-        private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewers;
-        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
+        private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewers;
+        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
+        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
         {
             get
             {
@@ -17283,12 +17283,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set
             {
                 _performanceEvaluationRatingReviewers = value;
-                _performanceEvaluationRatingReviewersCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer>(value);
+                _performanceEvaluationRatingReviewersCovariant = new CovariantCollectionAdapter<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer>(value);
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationRatingReviewers
+        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer> Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationRatingReviewers
         {
             get
             {
@@ -17304,7 +17304,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             }
             set
             {
-                PerformanceEvaluationRatingReviewers = new HashSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer>(value.Cast<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer>());
+                PerformanceEvaluationRatingReviewers = new HashSet<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer>(value.Cast<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer>());
             }
         }
 
@@ -17404,12 +17404,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationRating)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationRating) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationRating) target, null);
         }
 
 
@@ -17418,84 +17418,84 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isActualDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDateSupported
         {
             get { return _isActualDateSupported; }
             set { _isActualDateSupported = value; }
         }
 
         private bool _isActualDurationSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDurationSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDurationSupported
         {
             get { return _isActualDurationSupported; }
             set { _isActualDurationSupported = value; }
         }
 
         private bool _isActualTimeSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualTimeSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualTimeSupported
         {
             get { return _isActualTimeSupported; }
             set { _isActualTimeSupported = value; }
         }
 
         private bool _isAnnouncedSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsAnnouncedSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsAnnouncedSupported
         {
             get { return _isAnnouncedSupported; }
             set { _isAnnouncedSupported = value; }
         }
 
         private bool _isCommentsSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCommentsSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCommentsSupported
         {
             get { return _isCommentsSupported; }
             set { _isCommentsSupported = value; }
         }
 
         private bool _isCoteachingStyleObservedDescriptorSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCoteachingStyleObservedDescriptorSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCoteachingStyleObservedDescriptorSupported
         {
             get { return _isCoteachingStyleObservedDescriptorSupported; }
             set { _isCoteachingStyleObservedDescriptorSupported = value; }
         }
 
         private bool _isPerformanceEvaluationRatingLevelDescriptorSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported
         {
             get { return _isPerformanceEvaluationRatingLevelDescriptorSupported; }
             set { _isPerformanceEvaluationRatingLevelDescriptorSupported = value; }
         }
 
         private bool _isPerformanceEvaluationRatingResultsSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultsSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultsSupported
         {
             get { return _isPerformanceEvaluationRatingResultsSupported; }
             set { _isPerformanceEvaluationRatingResultsSupported = value; }
         }
 
         private bool _isPerformanceEvaluationRatingReviewersSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewersSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewersSupported
         {
             get { return _isPerformanceEvaluationRatingReviewersSupported; }
             set { _isPerformanceEvaluationRatingReviewersSupported = value; }
         }
 
         private bool _isScheduleDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsScheduleDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsScheduleDateSupported
         {
             get { return _isScheduleDateSupported; }
             set { _isScheduleDateSupported = value; }
         }
 
-        private Func<Entities.Common.TPDM.IPerformanceEvaluationRatingResult, bool> _isPerformanceEvaluationRatingResultIncluded;
-        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingResult, bool> Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultIncluded
+        private Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, bool> _isPerformanceEvaluationRatingResultIncluded;
+        Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, bool> Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultIncluded
         {
             get { return _isPerformanceEvaluationRatingResultIncluded; }
             set { _isPerformanceEvaluationRatingResultIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, bool> _isPerformanceEvaluationRatingReviewerIncluded;
-        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, bool> Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerIncluded
+        private Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, bool> _isPerformanceEvaluationRatingReviewerIncluded;
+        Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, bool> Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerIncluded
         {
             get { return _isPerformanceEvaluationRatingReviewerIncluded; }
             set { _isPerformanceEvaluationRatingReviewerIncluded = value; }
@@ -17512,7 +17512,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingResult : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationRatingResultSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -17528,7 +17528,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual PerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
 
-        Entities.Common.TPDM.IPerformanceEvaluationRating IPerformanceEvaluationRatingResult.PerformanceEvaluationRating
+        Entities.Common.Tpdm.IPerformanceEvaluationRating IPerformanceEvaluationRatingResult.PerformanceEvaluationRating
         {
             get { return PerformanceEvaluationRating; }
             set { PerformanceEvaluationRating = (PerformanceEvaluationRating) value; }
@@ -17692,12 +17692,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationRatingResult)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationRatingResult) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingResult) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -17710,7 +17710,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isResultDatatypeTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
         {
             get { return _isResultDatatypeTypeDescriptorSupported; }
             set { _isResultDatatypeTypeDescriptorSupported = value; }
@@ -17727,7 +17727,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReviewer : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -17744,7 +17744,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual PerformanceEvaluationRating PerformanceEvaluationRating { get; set; }
 
-        Entities.Common.TPDM.IPerformanceEvaluationRating IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRating
+        Entities.Common.Tpdm.IPerformanceEvaluationRating IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRating
         {
             get { return PerformanceEvaluationRating; }
             set { PerformanceEvaluationRating = (PerformanceEvaluationRating) value; }
@@ -17806,7 +17806,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                     One-to-one relationships
         // -------------------------------------------------------------
         [ValidateObject]
-        public virtual Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining
+        public virtual Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining
         {
             get
             {
@@ -17834,15 +17834,15 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             }
         }
 
-        Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRatingReviewerReceivedTraining
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRatingReviewerReceivedTraining
         {
             get { return PerformanceEvaluationRatingReviewerReceivedTraining; }
-            set { PerformanceEvaluationRatingReviewerReceivedTraining = (Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining) value; }
+            set { PerformanceEvaluationRatingReviewerReceivedTraining = (Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewerReceivedTraining) value; }
         }
 
-        private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining> _performanceEvaluationRatingReviewerReceivedTrainingPersistentList;
+        private ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewerReceivedTraining> _performanceEvaluationRatingReviewerReceivedTrainingPersistentList;
 
-        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining> PerformanceEvaluationRatingReviewerReceivedTrainingPersistentList
+        public virtual ICollection<Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewerReceivedTraining> PerformanceEvaluationRatingReviewerReceivedTrainingPersistentList
         {
             get
             {
@@ -17879,7 +17879,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the ReviewerPerson discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonDiscriminator
+        string Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.ReviewerPersonDiscriminator
         {
             get { return ReviewerPersonReferenceData?.Discriminator; }
             set { }
@@ -17888,7 +17888,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the ReviewerPerson resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonResourceId
+        Guid? Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.ReviewerPersonResourceId
         {
             get { return ReviewerPersonReferenceData?.Id; }
             set { }
@@ -17988,12 +17988,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -18006,21 +18006,21 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isPerformanceEvaluationRatingReviewerReceivedTrainingSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported
         {
             get { return _isPerformanceEvaluationRatingReviewerReceivedTrainingSupported; }
             set { _isPerformanceEvaluationRatingReviewerReceivedTrainingSupported = value; }
         }
 
         private bool _isReviewerPersonIdSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported
         {
             get { return _isReviewerPersonIdSupported; }
             set { _isReviewerPersonIdSupported = value; }
         }
 
         private bool _isReviewerSourceSystemDescriptorSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported
         {
             get { return _isReviewerSourceSystemDescriptorSupported; }
             set { _isReviewerSourceSystemDescriptorSupported = value; }
@@ -18037,7 +18037,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingReviewerReceivedTraining : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -18053,7 +18053,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         [DomainSignature, JsonIgnore, IgnoreDataMember]
         public virtual PerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer { get; set; }
 
-        Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer IPerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationRatingReviewer
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer IPerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationRatingReviewer
         {
             get { return PerformanceEvaluationRatingReviewer; }
             set { PerformanceEvaluationRatingReviewer = (PerformanceEvaluationRatingReviewer) value; }
@@ -18196,12 +18196,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -18214,14 +18214,14 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // -----------------------------------------
 
         private bool _isInterRaterReliabilityScoreSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported
         {
             get { return _isInterRaterReliabilityScoreSupported; }
             set { _isInterRaterReliabilityScoreSupported = value; }
         }
 
         private bool _isReceivedTrainingDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported
         {
             get { return _isReceivedTrainingDateSupported; }
             set { _isReceivedTrainingDateSupported = value; }
@@ -18232,7 +18232,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 }
 // Aggregate: PerformanceEvaluationRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -18243,7 +18243,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -18404,12 +18404,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor) target, null);
         }
 
 
@@ -18418,49 +18418,49 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -18471,7 +18471,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
 }
 // Aggregate: PerformanceEvaluationTypeDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -18482,7 +18482,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -18643,12 +18643,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor) target, null);
         }
 
 
@@ -18657,49 +18657,49 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -18710,7 +18710,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
 }
 // Aggregate: RubricDimension
 
-namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="RubricDimension"/> entity.
@@ -18815,7 +18815,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class RubricDimension : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IRubricDimension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport
+        Entities.Common.Tpdm.IRubricDimension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -19009,12 +19009,12 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData EvaluationElementReferenceData { get; set; }
+        public virtual NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementReferenceData EvaluationElementReferenceData { get; set; }
 
         /// <summary>
         /// Read-only property that allows the EvaluationElement discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IRubricDimension.EvaluationElementDiscriminator
+        string Entities.Common.Tpdm.IRubricDimension.EvaluationElementDiscriminator
         {
             get { return EvaluationElementReferenceData?.Discriminator; }
             set { }
@@ -19023,7 +19023,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the EvaluationElement resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IRubricDimension.EvaluationElementResourceId
+        Guid? Entities.Common.Tpdm.IRubricDimension.EvaluationElementResourceId
         {
             get { return EvaluationElementReferenceData?.Id; }
             set { }
@@ -19130,12 +19130,12 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IRubricDimension)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IRubricDimension)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IRubricDimension) target, null);
+            this.MapTo((Entities.Common.Tpdm.IRubricDimension) target, null);
         }
 
 
@@ -19144,21 +19144,21 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCriterionDescriptionSupported = true;
-        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsCriterionDescriptionSupported
+        bool Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport.IsCriterionDescriptionSupported
         {
             get { return _isCriterionDescriptionSupported; }
             set { _isCriterionDescriptionSupported = value; }
         }
 
         private bool _isDimensionOrderSupported = true;
-        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsDimensionOrderSupported
+        bool Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport.IsDimensionOrderSupported
         {
             get { return _isDimensionOrderSupported; }
             set { _isDimensionOrderSupported = value; }
         }
 
         private bool _isRubricRatingLevelDescriptorSupported = true;
-        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsRubricRatingLevelDescriptorSupported
+        bool Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport.IsRubricRatingLevelDescriptorSupported
         {
             get { return _isRubricRatingLevelDescriptorSupported; }
             set { _isRubricRatingLevelDescriptorSupported = value; }
@@ -19169,7 +19169,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 }
 // Aggregate: RubricRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -19180,7 +19180,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class RubricRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.TPDM.IRubricRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Tpdm.IRubricRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -19341,12 +19341,12 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.IRubricRatingLevelDescriptor)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.IRubricRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.IRubricRatingLevelDescriptor) target, null);
+            this.MapTo((Entities.Common.Tpdm.IRubricRatingLevelDescriptor) target, null);
         }
 
 
@@ -19355,49 +19355,49 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
         // -----------------------------------------
 
         private bool _isCodeValueSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
         {
             get { return _isCodeValueSupported; }
             set { _isCodeValueSupported = value; }
         }
 
         private bool _isDescriptionSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
         {
             get { return _isDescriptionSupported; }
             set { _isDescriptionSupported = value; }
         }
 
         private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
         {
             get { return _isEffectiveBeginDateSupported; }
             set { _isEffectiveBeginDateSupported = value; }
         }
 
         private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
         {
             get { return _isEffectiveEndDateSupported; }
             set { _isEffectiveEndDateSupported = value; }
         }
 
         private bool _isNamespaceSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
         {
             get { return _isNamespaceSupported; }
             set { _isNamespaceSupported = value; }
         }
 
         private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
         {
             get { return _isPriorDescriptorIdSupported; }
             set { _isPriorDescriptorIdSupported = value; }
         }
 
         private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -19408,7 +19408,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -19419,7 +19419,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+        Entities.Common.Tpdm.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ISchoolExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -19472,7 +19472,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the PostSecondaryInstitution resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        Guid? Entities.Common.Tpdm.ISchoolExtension.PostSecondaryInstitutionResourceId
         {
             get { return PostSecondaryInstitutionReferenceData?.Id; }
             set { }
@@ -19565,12 +19565,12 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ISchoolExtension)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ISchoolExtension)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ISchoolExtension) target, null);
+            this.MapTo((Entities.Common.Tpdm.ISchoolExtension) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -19583,7 +19583,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         // -----------------------------------------
 
         private bool _isPostSecondaryInstitutionIdSupported = true;
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported
+        bool Entities.Common.Tpdm.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported
         {
             get { return _isPostSecondaryInstitutionIdSupported; }
             set { _isPostSecondaryInstitutionIdSupported = value; }
@@ -19594,7 +19594,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
 }
 // Aggregate: SurveyResponse
 
-namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.Tpdm
 {
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -19605,7 +19605,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class SurveyResponseExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ISurveyResponseExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport
+        Entities.Common.Tpdm.ISurveyResponseExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ISurveyResponseExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -19693,7 +19693,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ISurveyResponseExtension.PersonDiscriminator
+        string Entities.Common.Tpdm.ISurveyResponseExtension.PersonDiscriminator
         {
             get { return PersonReferenceData?.Discriminator; }
             set { }
@@ -19702,7 +19702,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         /// <summary>
         /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ISurveyResponseExtension.PersonResourceId
+        Guid? Entities.Common.Tpdm.ISurveyResponseExtension.PersonResourceId
         {
             get { return PersonReferenceData?.Id; }
             set { }
@@ -19796,12 +19796,12 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ISurveyResponseExtension)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ISurveyResponseExtension)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ISurveyResponseExtension) target, null);
+            this.MapTo((Entities.Common.Tpdm.ISurveyResponseExtension) target, null);
         }
 
         void IChildEntity.SetParent(object value)
@@ -19814,14 +19814,14 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         // -----------------------------------------
 
         private bool _isPersonIdSupported = true;
-        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsPersonIdSupported
+        bool Entities.Common.Tpdm.ISurveyResponseExtensionSynchronizationSourceSupport.IsPersonIdSupported
         {
             get { return _isPersonIdSupported; }
             set { _isPersonIdSupported = value; }
         }
 
         private bool _isSourceSystemDescriptorSupported = true;
-        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported
+        bool Entities.Common.Tpdm.ISurveyResponseExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported
         {
             get { return _isSourceSystemDescriptorSupported; }
             set { _isSourceSystemDescriptorSupported = value; }
@@ -19832,7 +19832,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
 }
 // Aggregate: SurveyResponsePersonTargetAssociation
 
-namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="SurveyResponsePersonTargetAssociation"/> entity.
@@ -19927,7 +19927,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class SurveyResponsePersonTargetAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
+        Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -20013,7 +20013,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         /// <summary>
         /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.PersonDiscriminator
+        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.PersonDiscriminator
         {
             get { return PersonReferenceData?.Discriminator; }
             set { }
@@ -20022,7 +20022,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         /// <summary>
         /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.PersonResourceId
+        Guid? Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.PersonResourceId
         {
             get { return PersonReferenceData?.Id; }
             set { }
@@ -20033,7 +20033,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         /// <summary>
         /// Read-only property that allows the SurveyResponse discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SurveyResponseDiscriminator
+        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SurveyResponseDiscriminator
         {
             get { return SurveyResponseReferenceData?.Discriminator; }
             set { }
@@ -20042,7 +20042,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         /// <summary>
         /// Read-only property that allows the SurveyResponse resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SurveyResponseResourceId
+        Guid? Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SurveyResponseResourceId
         {
             get { return SurveyResponseReferenceData?.Id; }
             set { }
@@ -20141,12 +20141,12 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation) target, null);
+            this.MapTo((Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation) target, null);
         }
 
 
@@ -20159,7 +20159,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 }
 // Aggregate: SurveySectionResponsePersonTargetAssociation
 
-namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM
+namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.Tpdm
 {
     /// <summary>
     /// Represents a read-only reference to the <see cref="SurveySectionResponsePersonTargetAssociation"/> entity.
@@ -20256,7 +20256,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
     [Serializable, Schema("tpdm")]
     [ExcludeFromCodeCoverage]
     public class SurveySectionResponsePersonTargetAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
+        Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -20344,7 +20344,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         /// <summary>
         /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.PersonDiscriminator
+        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.PersonDiscriminator
         {
             get { return PersonReferenceData?.Discriminator; }
             set { }
@@ -20353,7 +20353,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         /// <summary>
         /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.PersonResourceId
+        Guid? Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.PersonResourceId
         {
             get { return PersonReferenceData?.Id; }
             set { }
@@ -20364,7 +20364,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         /// <summary>
         /// Read-only property that allows the SurveySectionResponse discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseDiscriminator
+        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseDiscriminator
         {
             get { return SurveySectionResponseReferenceData?.Discriminator; }
             set { }
@@ -20373,7 +20373,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         /// <summary>
         /// Read-only property that allows the SurveySectionResponse resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseResourceId
+        Guid? Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseResourceId
         {
             get { return SurveySectionResponseReferenceData?.Id; }
             set { }
@@ -20473,12 +20473,12 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         #endregion
         bool ISynchronizable.Synchronize(object target)
         {
-            return this.SynchronizeTo((Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation)target);
+            return this.SynchronizeTo((Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation)target);
         }
 
         void IMappable.Map(object target)
         {
-            this.MapTo((Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation) target, null);
+            this.MapTo((Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation) target, null);
         }
 
 
