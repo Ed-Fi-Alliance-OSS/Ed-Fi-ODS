@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "resource": "/ed-fi/absenceEventCategoryDescriptors",
     "order": 1,
@@ -32,7 +32,7 @@
     ]
   },
   {
-    "resource": "/ed-fi/accountClassificationDescriptors",
+    "resource": "/ed-fi/accountTypeDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -560,6 +560,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/financialCollectionDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/gradebookEntryTypeDescriptors",
     "order": 1,
     "operations": [
@@ -849,6 +857,14 @@
   },
   {
     "resource": "/ed-fi/migrantEducationProgramServiceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/modelEntityDescriptors",
     "order": 1,
     "operations": [
       "Create",
@@ -1168,6 +1184,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/reportingTagDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/residencyStatusDescriptors",
     "order": 1,
     "operations": [
@@ -1480,6 +1504,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/balanceSheetDimensions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/communityOrganizations",
     "order": 2,
     "operations": [
@@ -1496,7 +1528,47 @@
     ]
   },
   {
+    "resource": "/ed-fi/descriptorMappings",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/educationOrganizationNetworks",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/functionDimensions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/fundDimensions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/objectDimensions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/operationalUnitDimensions",
     "order": 2,
     "operations": [
       "Create",
@@ -1513,6 +1585,30 @@
   },
   {
     "resource": "/ed-fi/postSecondaryInstitutions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/programDimensions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/projectDimensions",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/sourceDimensions",
     "order": 2,
     "operations": [
       "Create",
@@ -1653,14 +1749,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/accountCodes",
-    "order": 7,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
     "resource": "/ed-fi/bellSchedules",
     "order": 7,
     "operations": [
@@ -1670,6 +1758,14 @@
   },
   {
     "resource": "/ed-fi/calendarDates",
+    "order": 7,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/chartOfAccounts",
     "order": 7,
     "operations": [
       "Create",
@@ -1733,14 +1829,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/accounts",
-    "order": 8,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
     "resource": "/ed-fi/educationContents",
     "order": 8,
     "operations": [
@@ -1758,6 +1846,14 @@
   },
   {
     "resource": "/ed-fi/learningStandardEquivalenceAssociations",
+    "order": 8,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/localAccounts",
     "order": 8,
     "operations": [
       "Create",
@@ -1788,30 +1884,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/actuals",
-    "order": 9,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/budgets",
-    "order": 9,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/contractedStaffs",
-    "order": 9,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
     "resource": "/ed-fi/courses",
     "order": 9,
     "operations": [
@@ -1836,7 +1908,39 @@
     ]
   },
   {
-    "resource": "/ed-fi/payrolls",
+    "resource": "/ed-fi/localActuals",
+    "order": 9,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/localBudgets",
+    "order": 9,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/localContractedStaffs",
+    "order": 9,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/localEncumbrances",
+    "order": 9,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/localPayrolls",
     "order": 9,
     "operations": [
       "Create",
