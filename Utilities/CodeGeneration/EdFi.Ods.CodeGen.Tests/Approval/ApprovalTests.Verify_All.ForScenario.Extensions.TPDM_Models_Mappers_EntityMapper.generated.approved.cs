@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: AccreditationStatusDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.AccreditationStatusDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class AccreditationStatusDescriptorMapper
@@ -194,7 +194,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.AccreditationStatusDescriptorAggregat
 }
 // Aggregate: AidTypeDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.AidTypeDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class AidTypeDescriptorMapper
@@ -377,7 +377,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.AidTypeDescriptorAggregate
 }
 // Aggregate: Candidate
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.CandidateAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class CandidateMapper
@@ -2289,7 +2289,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CandidateAggregate
 }
 // Aggregate: CandidateEducatorPreparationProgramAssociation
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.CandidateEducatorPreparationProgramAssociationAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAssociationAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class CandidateEducatorPreparationProgramAssociationMapper
@@ -2692,7 +2692,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CandidateEducatorPreparationProgramAs
 }
 // Aggregate: CertificationRouteDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.CertificationRouteDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class CertificationRouteDescriptorMapper
@@ -2875,7 +2875,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CertificationRouteDescriptorAggregate
 }
 // Aggregate: CoteachingStyleObservedDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.CoteachingStyleObservedDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class CoteachingStyleObservedDescriptorMapper
@@ -3058,7 +3058,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CoteachingStyleObservedDescriptorAggr
 }
 // Aggregate: Credential
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.CredentialAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class CredentialExtensionMapper
@@ -3071,7 +3071,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CredentialAggregate
 
             var sourceExtensionSupport = source.Credential as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Tpdm"))
+            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
                 return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
@@ -3375,7 +3375,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CredentialAggregate
 }
 // Aggregate: CredentialStatusDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.CredentialStatusDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class CredentialStatusDescriptorMapper
@@ -3558,7 +3558,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.CredentialStatusDescriptorAggregate
 }
 // Aggregate: EducatorPreparationProgram
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EducatorPreparationProgramAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EducatorPreparationProgramMapper
@@ -3785,7 +3785,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EducatorPreparationProgramAggregate
 }
 // Aggregate: EducatorRoleDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EducatorRoleDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EducatorRoleDescriptorMapper
@@ -3968,7 +3968,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EducatorRoleDescriptorAggregate
 }
 // Aggregate: EnglishLanguageExamDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EnglishLanguageExamDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EnglishLanguageExamDescriptorMapper
@@ -4151,7 +4151,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EnglishLanguageExamDescriptorAggregat
 }
 // Aggregate: EPPProgramPathwayDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EPPProgramPathwayDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EPPProgramPathwayDescriptorMapper
@@ -4334,7 +4334,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EPPProgramPathwayDescriptorAggregate
 }
 // Aggregate: Evaluation
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationMapper
@@ -4646,7 +4646,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationAggregate
 }
 // Aggregate: EvaluationElement
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationElementAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementMapper
@@ -4955,7 +4955,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationElementAggregate
 }
 // Aggregate: EvaluationElementRating
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationElementRatingAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementRatingMapper
@@ -5286,7 +5286,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationElementRatingAggregate
 }
 // Aggregate: EvaluationElementRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationElementRatingLevelDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementRatingLevelDescriptorMapper
@@ -5469,7 +5469,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationElementRatingLevelDescripto
 }
 // Aggregate: EvaluationObjective
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationObjectiveAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationObjectiveMapper
@@ -5786,7 +5786,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationObjectiveAggregate
 }
 // Aggregate: EvaluationObjectiveRating
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationObjectiveRatingAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationObjectiveRatingMapper
@@ -6073,7 +6073,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationObjectiveRatingAggregate
 }
 // Aggregate: EvaluationPeriodDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationPeriodDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationPeriodDescriptorMapper
@@ -6256,7 +6256,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationPeriodDescriptorAggregate
 }
 // Aggregate: EvaluationRating
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationRatingAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingMapper
@@ -6884,7 +6884,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationRatingAggregate
 }
 // Aggregate: EvaluationRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationRatingLevelDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingLevelDescriptorMapper
@@ -7067,7 +7067,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationRatingLevelDescriptorAggreg
 }
 // Aggregate: EvaluationRatingStatusDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationRatingStatusDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingStatusDescriptorMapper
@@ -7250,7 +7250,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationRatingStatusDescriptorAggre
 }
 // Aggregate: EvaluationTypeDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationTypeDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class EvaluationTypeDescriptorMapper
@@ -7433,7 +7433,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.EvaluationTypeDescriptorAggregate
 }
 // Aggregate: FinancialAid
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.FinancialAidAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class FinancialAidMapper
@@ -7585,7 +7585,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.FinancialAidAggregate
 }
 // Aggregate: GenderDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.GenderDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class GenderDescriptorMapper
@@ -7768,7 +7768,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.GenderDescriptorAggregate
 }
 // Aggregate: ObjectiveRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.ObjectiveRatingLevelDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class ObjectiveRatingLevelDescriptorMapper
@@ -7951,7 +7951,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.ObjectiveRatingLevelDescriptorAggrega
 }
 // Aggregate: PerformanceEvaluation
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationMapper
@@ -8321,7 +8321,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationAggregate
 }
 // Aggregate: PerformanceEvaluationRating
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationRatingAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingMapper
@@ -8963,7 +8963,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationRatingAggregate
 }
 // Aggregate: PerformanceEvaluationRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationRatingLevelDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingLevelDescriptorMapper
@@ -9146,7 +9146,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationRatingLevelDescr
 }
 // Aggregate: PerformanceEvaluationTypeDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationTypeDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationTypeDescriptorMapper
@@ -9329,7 +9329,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.PerformanceEvaluationTypeDescriptorAg
 }
 // Aggregate: RubricDimension
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.RubricDimensionAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class RubricDimensionMapper
@@ -9503,7 +9503,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.RubricDimensionAggregate
 }
 // Aggregate: RubricRatingLevelDescriptor
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.RubricRatingLevelDescriptorAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class RubricRatingLevelDescriptorMapper
@@ -9686,7 +9686,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.RubricRatingLevelDescriptorAggregate
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.SchoolAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class SchoolExtensionMapper
@@ -9699,7 +9699,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.SchoolAggregate
 
             var sourceExtensionSupport = source.School as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Tpdm"))
+            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
                 return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
@@ -9785,7 +9785,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.SchoolAggregate
 }
 // Aggregate: SurveyResponse
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.SurveyResponseAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class SurveyResponseExtensionMapper
@@ -9798,7 +9798,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.SurveyResponseAggregate
 
             var sourceExtensionSupport = source.SurveyResponse as IExtensionsSynchronizationSourceSupport;
 
-            if (!sourceExtensionSupport.IsExtensionAvailable("Tpdm"))
+            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
                 return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
@@ -9898,7 +9898,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.SurveyResponseAggregate
 }
 // Aggregate: SurveyResponsePersonTargetAssociation
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.SurveyResponsePersonTargetAssociationAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociationAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class SurveyResponsePersonTargetAssociationMapper
@@ -10010,7 +10010,7 @@ namespace EdFi.Ods.Entities.Common.Tpdm //.SurveyResponsePersonTargetAssociation
 }
 // Aggregate: SurveySectionResponsePersonTargetAssociation
 
-namespace EdFi.Ods.Entities.Common.Tpdm //.SurveySectionResponsePersonTargetAssociationAggregate
+namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAssociationAggregate
 {
     [ExcludeFromCodeCoverage]
     public static class SurveySectionResponsePersonTargetAssociationMapper

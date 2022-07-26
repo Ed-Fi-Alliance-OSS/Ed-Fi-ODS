@@ -17,20 +17,20 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Entities.Common.Tpdm;
+using EdFi.Ods.Entities.Common.TPDM;
 using Newtonsoft.Json;
 using FluentValidation.Results;
 
 // Aggregate: AccreditationStatusDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.AccreditationStatusDescriptor table of the AccreditationStatusDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class AccreditationStatusDescriptor : Entities.Common.Tpdm.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport
+    public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -90,7 +90,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpd
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IAccreditationStatusDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IAccreditationStatusDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpd
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.Equals(compareTo.AccreditationStatusDescriptorId))
+            if (!(this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.Equals(compareTo.AccreditationStatusDescriptorId))
                 return false;
 
 
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpd
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -235,25 +235,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpd
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.AccreditationStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IAccreditationStatusDescriptor)target);
+            return Entities.Common.TPDM.AccreditationStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IAccreditationStatusDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.AccreditationStatusDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IAccreditationStatusDescriptor)target, null);
+            Entities.Common.TPDM.AccreditationStatusDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IAccreditationStatusDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -307,14 +307,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.Tpd
 }
 // Aggregate: AidTypeDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.AidTypeDescriptor table of the AidTypeDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class AidTypeDescriptor : Entities.Common.Tpdm.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport
+    public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -374,7 +374,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IAidTypeDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IAidTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -384,7 +384,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IAidTypeDescriptor).AidTypeDescriptorId.Equals(compareTo.AidTypeDescriptorId))
+            if (!(this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId.Equals(compareTo.AidTypeDescriptorId))
                 return false;
 
 
@@ -402,7 +402,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IAidTypeDescriptor).AidTypeDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -519,25 +519,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.AidTypeDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IAidTypeDescriptor)target);
+            return Entities.Common.TPDM.AidTypeDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IAidTypeDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.AidTypeDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IAidTypeDescriptor)target, null);
+            Entities.Common.TPDM.AidTypeDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IAidTypeDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IAidTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -591,7 +591,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.Tpdm
 }
 // Aggregate: Candidate
 
-namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 {
     /// <summary>
     /// Represents a reference to the Candidate resource.
@@ -678,7 +678,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Candidate : Entities.Common.Tpdm.ICandidate, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport
+    public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICandidateSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -776,7 +776,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidate;
+            var compareTo = obj as Entities.Common.TPDM.ICandidate;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -786,7 +786,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidate).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
+             if ((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
                 return false;
 
 
@@ -804,7 +804,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
             var hash = new HashCode();
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidate).CandidateIdentifier);
+                hash.Add((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier);
 
             return hash.ToHashCode();
         }
@@ -970,7 +970,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ICandidate.PersonId
+        string Entities.Common.TPDM.ICandidate.PersonId
         {
             get
             {
@@ -1005,7 +1005,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </summary>
 
         // IS in a reference (Candidate.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ICandidate.SourceSystemDescriptor
+        string Entities.Common.TPDM.ICandidate.SourceSystemDescriptor
         {
             get
             {
@@ -1053,7 +1053,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<CandidateAddress> _candidateAddresses;
-        private ICollection<Entities.Common.Tpdm.ICandidateAddress> _candidateAddressesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateAddress> _candidateAddressesCovariant;
 
         [DataMember(Name="addresses"), NoDuplicateMembers]
         public ICollection<CandidateAddress> CandidateAddresses
@@ -1064,25 +1064,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateAddress>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateAddress)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateAddress)e.Item).Candidate = this);
                 _candidateAddresses = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateAddress, CandidateAddress>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateAddress)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateAddress, CandidateAddress>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateAddress)e.Item).Candidate = this;
                 _candidateAddressesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateAddress> Entities.Common.Tpdm.ICandidate.CandidateAddresses
+        ICollection<Entities.Common.TPDM.ICandidateAddress> Entities.Common.TPDM.ICandidate.CandidateAddresses
         {
             get { return _candidateAddressesCovariant; }
             set { CandidateAddresses = new List<CandidateAddress>(value.Cast<CandidateAddress>()); }
         }
 
         private ICollection<CandidateDisability> _candidateDisabilities;
-        private ICollection<Entities.Common.Tpdm.ICandidateDisability> _candidateDisabilitiesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateDisability> _candidateDisabilitiesCovariant;
 
         [DataMember(Name="disabilities"), NoDuplicateMembers]
         public ICollection<CandidateDisability> CandidateDisabilities
@@ -1093,25 +1093,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateDisability>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateDisability)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateDisability)e.Item).Candidate = this);
                 _candidateDisabilities = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateDisability, CandidateDisability>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateDisability)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateDisability, CandidateDisability>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateDisability)e.Item).Candidate = this;
                 _candidateDisabilitiesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateDisability> Entities.Common.Tpdm.ICandidate.CandidateDisabilities
+        ICollection<Entities.Common.TPDM.ICandidateDisability> Entities.Common.TPDM.ICandidate.CandidateDisabilities
         {
             get { return _candidateDisabilitiesCovariant; }
             set { CandidateDisabilities = new List<CandidateDisability>(value.Cast<CandidateDisability>()); }
         }
 
         private ICollection<CandidateElectronicMail> _candidateElectronicMails;
-        private ICollection<Entities.Common.Tpdm.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateElectronicMail> _candidateElectronicMailsCovariant;
 
         [DataMember(Name="electronicMails"), NoDuplicateMembers]
         public ICollection<CandidateElectronicMail> CandidateElectronicMails
@@ -1122,25 +1122,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateElectronicMail>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateElectronicMail)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateElectronicMail)e.Item).Candidate = this);
                 _candidateElectronicMails = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateElectronicMail, CandidateElectronicMail>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateElectronicMail)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateElectronicMail, CandidateElectronicMail>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateElectronicMail)e.Item).Candidate = this;
                 _candidateElectronicMailsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateElectronicMail> Entities.Common.Tpdm.ICandidate.CandidateElectronicMails
+        ICollection<Entities.Common.TPDM.ICandidateElectronicMail> Entities.Common.TPDM.ICandidate.CandidateElectronicMails
         {
             get { return _candidateElectronicMailsCovariant; }
             set { CandidateElectronicMails = new List<CandidateElectronicMail>(value.Cast<CandidateElectronicMail>()); }
         }
 
         private ICollection<CandidateLanguage> _candidateLanguages;
-        private ICollection<Entities.Common.Tpdm.ICandidateLanguage> _candidateLanguagesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateLanguage> _candidateLanguagesCovariant;
 
         [DataMember(Name="languages"), NoDuplicateMembers]
         public ICollection<CandidateLanguage> CandidateLanguages
@@ -1151,25 +1151,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateLanguage>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateLanguage)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateLanguage)e.Item).Candidate = this);
                 _candidateLanguages = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateLanguage, CandidateLanguage>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateLanguage)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateLanguage, CandidateLanguage>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateLanguage)e.Item).Candidate = this;
                 _candidateLanguagesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateLanguage> Entities.Common.Tpdm.ICandidate.CandidateLanguages
+        ICollection<Entities.Common.TPDM.ICandidateLanguage> Entities.Common.TPDM.ICandidate.CandidateLanguages
         {
             get { return _candidateLanguagesCovariant; }
             set { CandidateLanguages = new List<CandidateLanguage>(value.Cast<CandidateLanguage>()); }
         }
 
         private ICollection<CandidateOtherName> _candidateOtherNames;
-        private ICollection<Entities.Common.Tpdm.ICandidateOtherName> _candidateOtherNamesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateOtherName> _candidateOtherNamesCovariant;
 
         [DataMember(Name="otherNames"), NoDuplicateMembers]
         public ICollection<CandidateOtherName> CandidateOtherNames
@@ -1180,25 +1180,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateOtherName>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateOtherName)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateOtherName)e.Item).Candidate = this);
                 _candidateOtherNames = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateOtherName, CandidateOtherName>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateOtherName)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateOtherName, CandidateOtherName>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateOtherName)e.Item).Candidate = this;
                 _candidateOtherNamesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateOtherName> Entities.Common.Tpdm.ICandidate.CandidateOtherNames
+        ICollection<Entities.Common.TPDM.ICandidateOtherName> Entities.Common.TPDM.ICandidate.CandidateOtherNames
         {
             get { return _candidateOtherNamesCovariant; }
             set { CandidateOtherNames = new List<CandidateOtherName>(value.Cast<CandidateOtherName>()); }
         }
 
         private ICollection<CandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocuments;
-        private ICollection<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> _candidatePersonalIdentificationDocumentsCovariant;
 
         [DataMember(Name="personalIdentificationDocuments"), NoDuplicateMembers]
         public ICollection<CandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments
@@ -1209,25 +1209,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidatePersonalIdentificationDocument>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidatePersonalIdentificationDocument)e.Item).Candidate = this);
                 _candidatePersonalIdentificationDocuments = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, CandidatePersonalIdentificationDocument>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, CandidatePersonalIdentificationDocument>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidatePersonalIdentificationDocument)e.Item).Candidate = this;
                 _candidatePersonalIdentificationDocumentsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument> Entities.Common.Tpdm.ICandidate.CandidatePersonalIdentificationDocuments
+        ICollection<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument> Entities.Common.TPDM.ICandidate.CandidatePersonalIdentificationDocuments
         {
             get { return _candidatePersonalIdentificationDocumentsCovariant; }
             set { CandidatePersonalIdentificationDocuments = new List<CandidatePersonalIdentificationDocument>(value.Cast<CandidatePersonalIdentificationDocument>()); }
         }
 
         private ICollection<CandidateRace> _candidateRaces;
-        private ICollection<Entities.Common.Tpdm.ICandidateRace> _candidateRacesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateRace> _candidateRacesCovariant;
 
         [DataMember(Name="races"), NoDuplicateMembers]
         public ICollection<CandidateRace> CandidateRaces
@@ -1238,25 +1238,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateRace>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateRace)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateRace)e.Item).Candidate = this);
                 _candidateRaces = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateRace, CandidateRace>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateRace)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateRace, CandidateRace>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateRace)e.Item).Candidate = this;
                 _candidateRacesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateRace> Entities.Common.Tpdm.ICandidate.CandidateRaces
+        ICollection<Entities.Common.TPDM.ICandidateRace> Entities.Common.TPDM.ICandidate.CandidateRaces
         {
             get { return _candidateRacesCovariant; }
             set { CandidateRaces = new List<CandidateRace>(value.Cast<CandidateRace>()); }
         }
 
         private ICollection<CandidateTelephone> _candidateTelephones;
-        private ICollection<Entities.Common.Tpdm.ICandidateTelephone> _candidateTelephonesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateTelephone> _candidateTelephonesCovariant;
 
         [DataMember(Name="telephones"), NoDuplicateMembers]
         public ICollection<CandidateTelephone> CandidateTelephones
@@ -1267,18 +1267,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateTelephone>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateTelephone)e.Item).Candidate = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateTelephone)e.Item).Candidate = this);
                 _candidateTelephones = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateTelephone, CandidateTelephone>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateTelephone)e.Item).Candidate = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateTelephone, CandidateTelephone>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateTelephone)e.Item).Candidate = this;
                 _candidateTelephonesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateTelephone> Entities.Common.Tpdm.ICandidate.CandidateTelephones
+        ICollection<Entities.Common.TPDM.ICandidateTelephone> Entities.Common.TPDM.ICandidate.CandidateTelephones
         {
             get { return _candidateTelephonesCovariant; }
             set { CandidateTelephones = new List<CandidateTelephone>(value.Cast<CandidateTelephone>()); }
@@ -1354,88 +1354,88 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidate)target);
+            return Entities.Common.TPDM.CandidateMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidate)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateMapper.MapTo(this, (Entities.Common.Tpdm.ICandidate)target, null);
+            Entities.Common.TPDM.CandidateMapper.MapTo(this, (Entities.Common.TPDM.ICandidate)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthCitySupported                                 { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthCountryDescriptorSupported                    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthDateSupported                                 { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthInternationalProvinceSupported                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthSexDescriptorSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsBirthStateAbbreviationDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateAddressesSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateDisabilitiesSupported                     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailsSupported                  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateLanguagesSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateOtherNamesSupported                       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateRacesSupported                            { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateTelephonesSupported                       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsDateEnteredUSSupported                             { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsDisplacementStatusSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsEconomicDisadvantagedSupported                     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsEnglishLanguageExamDescriptorSupported             { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsFirstGenerationStudentSupported                    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsFirstNameSupported                                 { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsGenderDescriptorSupported                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsGenerationCodeSuffixSupported                      { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsHispanicLatinoEthnicitySupported                   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsLastSurnameSupported                               { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsLimitedEnglishProficiencyDescriptorSupported       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsMaidenNameSupported                                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsMiddleNameSupported                                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsMultipleBirthStatusSupported                       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsPersonalTitlePrefixSupported                       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsPersonIdSupported                                  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsSexDescriptorSupported                             { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsSourceSystemDescriptorSupported                    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthCitySupported                                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthCountryDescriptorSupported                    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthDateSupported                                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthInternationalProvinceSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthSexDescriptorSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthStateAbbreviationDescriptorSupported          { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateAddressesSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateDisabilitiesSupported                     { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailsSupported                  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateLanguagesSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateOtherNamesSupported                       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateRacesSupported                            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateTelephonesSupported                       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsDateEnteredUSSupported                             { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsDisplacementStatusSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsEconomicDisadvantagedSupported                     { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsEnglishLanguageExamDescriptorSupported             { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsFirstGenerationStudentSupported                    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsFirstNameSupported                                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsGenderDescriptorSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsGenerationCodeSuffixSupported                      { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsHispanicLatinoEthnicitySupported                   { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsLastSurnameSupported                               { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsLimitedEnglishProficiencyDescriptorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMaidenNameSupported                                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMiddleNameSupported                                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMultipleBirthStatusSupported                       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsPersonalTitlePrefixSupported                       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsPersonIdSupported                                  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsSexDescriptorSupported                             { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsSourceSystemDescriptorSupported                    { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.ICandidateAddress, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateAddressIncluded
+        Func<Entities.Common.TPDM.ICandidateAddress, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateAddressIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateDisability, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateDisabilityIncluded
+        Func<Entities.Common.TPDM.ICandidateDisability, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateDisabilityIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateElectronicMail, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailIncluded
+        Func<Entities.Common.TPDM.ICandidateElectronicMail, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateLanguage, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateLanguageIncluded
+        Func<Entities.Common.TPDM.ICandidateLanguage, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateLanguageIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateOtherName, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateOtherNameIncluded
+        Func<Entities.Common.TPDM.ICandidateOtherName, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateOtherNameIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentIncluded
+        Func<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateRace, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateRaceIncluded
+        Func<Entities.Common.TPDM.ICandidateRace, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateRaceIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateTelephone, bool> Entities.Common.Tpdm.ICandidateSynchronizationSourceSupport.IsCandidateTelephoneIncluded
+        Func<Entities.Common.TPDM.ICandidateTelephone, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateTelephoneIncluded
         {
             get { return null; }
             set { }
@@ -1446,13 +1446,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ICandidate.PersonResourceId
+        Guid? Entities.Common.TPDM.ICandidate.PersonResourceId
         {
             get { return null; }
             set { ImplicitPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ICandidate.PersonDiscriminator
+        string Entities.Common.TPDM.ICandidate.PersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -1589,7 +1589,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateAddress : Entities.Common.Tpdm.ICandidateAddress, Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport
+    public class CandidateAddress : Entities.Common.TPDM.ICandidateAddress, Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1619,21 +1619,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateAddress.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateAddress.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -1686,7 +1686,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateAddress;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateAddress;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -1700,27 +1700,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateAddress).AddressTypeDescriptor.Equals(compareTo.AddressTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.Equals(compareTo.AddressTypeDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateAddress).City.Equals(compareTo.City))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).City.Equals(compareTo.City))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateAddress).PostalCode.Equals(compareTo.PostalCode))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).PostalCode.Equals(compareTo.PostalCode))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateAddress).StateAbbreviationDescriptor.Equals(compareTo.StateAbbreviationDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.Equals(compareTo.StateAbbreviationDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateAddress).StreetNumberName.Equals(compareTo.StreetNumberName))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.Equals(compareTo.StreetNumberName))
                 return false;
 
 
@@ -1741,23 +1741,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateAddress).AddressTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateAddress).City);
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).City);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateAddress).PostalCode);
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).PostalCode);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateAddress).StateAbbreviationDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateAddress).StreetNumberName);
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName);
 
             return hash.ToHashCode();
         }
@@ -1865,7 +1865,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<CandidateAddressPeriod> _candidateAddressPeriods;
-        private ICollection<Entities.Common.Tpdm.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> _candidateAddressPeriodsCovariant;
 
         [DataMember(Name="periods"), NoDuplicateMembers]
         public ICollection<CandidateAddressPeriod> CandidateAddressPeriods
@@ -1876,18 +1876,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateAddressPeriod>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateAddressPeriod)e.Item).CandidateAddress = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateAddressPeriod)e.Item).CandidateAddress = this);
                 _candidateAddressPeriods = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateAddressPeriod, CandidateAddressPeriod>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateAddressPeriod)e.Item).CandidateAddress = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateAddressPeriod, CandidateAddressPeriod>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateAddressPeriod)e.Item).CandidateAddress = this;
                 _candidateAddressPeriodsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateAddressPeriod> Entities.Common.Tpdm.ICandidateAddress.CandidateAddressPeriods
+        ICollection<Entities.Common.TPDM.ICandidateAddressPeriod> Entities.Common.TPDM.ICandidateAddress.CandidateAddressPeriods
         {
             get { return _candidateAddressPeriodsCovariant; }
             set { CandidateAddressPeriods = new List<CandidateAddressPeriod>(value.Cast<CandidateAddressPeriod>()); }
@@ -1921,31 +1921,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateAddressMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateAddress)target);
+            return Entities.Common.TPDM.CandidateAddressMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateAddress)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateAddressMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateAddress)target, null);
+            Entities.Common.TPDM.CandidateAddressMapper.MapTo(this, (Entities.Common.TPDM.ICandidateAddress)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsApartmentRoomSuiteNumberSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsBuildingSiteNumberSupported        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodsSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCongressionalDistrictSupported     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCountyFIPSCodeSupported            { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsLatitudeSupported                  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsLocaleDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsLongitudeSupported                 { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsNameOfCountySupported              { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsApartmentRoomSuiteNumberSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsBuildingSiteNumberSupported        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodsSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCongressionalDistrictSupported     { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCountyFIPSCodeSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported     { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLatitudeSupported                  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLocaleDescriptorSupported          { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLongitudeSupported                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsNameOfCountySupported              { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.ICandidateAddressPeriod, bool> Entities.Common.Tpdm.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodIncluded
+        Func<Entities.Common.TPDM.ICandidateAddressPeriod, bool> Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodIncluded
         {
             get { return null; }
             set { }
@@ -2015,7 +2015,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateAddressPeriod : Entities.Common.Tpdm.ICandidateAddressPeriod, Entities.Common.Tpdm.ICandidateAddressPeriodSynchronizationSourceSupport
+    public class CandidateAddressPeriod : Entities.Common.TPDM.ICandidateAddressPeriod, Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2041,21 +2041,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidateAddress _candidateAddress;
+        private Entities.Common.TPDM.ICandidateAddress _candidateAddress;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidateAddress Entities.Common.Tpdm.ICandidateAddressPeriod.CandidateAddress
+        Entities.Common.TPDM.ICandidateAddress Entities.Common.TPDM.ICandidateAddressPeriod.CandidateAddress
         {
             get { return _candidateAddress; }
             set { SetCandidateAddress(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidateAddress CandidateAddress
+        internal Entities.Common.TPDM.ICandidateAddress CandidateAddress
         {
             set { SetCandidateAddress(value); }
         }
 
-        private void SetCandidateAddress(Entities.Common.Tpdm.ICandidateAddress value)
+        private void SetCandidateAddress(Entities.Common.TPDM.ICandidateAddress value)
         {
             _candidateAddress = value;
         }
@@ -2080,7 +2080,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateAddressPeriod;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateAddressPeriod;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -2094,7 +2094,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateAddressPeriod).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
@@ -2115,7 +2115,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidateAddress);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateAddressPeriod).BeginDate);
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate);
 
             return hash.ToHashCode();
         }
@@ -2183,19 +2183,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateAddressPeriodMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateAddressPeriod)target);
+            return Entities.Common.TPDM.CandidateAddressPeriodMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateAddressPeriod)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateAddressPeriodMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateAddressPeriod)target, null);
+            Entities.Common.TPDM.CandidateAddressPeriodMapper.MapTo(this, (Entities.Common.TPDM.ICandidateAddressPeriod)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateAddressPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -2251,7 +2251,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateDisability : Entities.Common.Tpdm.ICandidateDisability, Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport
+    public class CandidateDisability : Entities.Common.TPDM.ICandidateDisability, Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2281,21 +2281,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateDisability.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateDisability.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -2320,7 +2320,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateDisability;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateDisability;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -2334,7 +2334,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateDisability).DisabilityDescriptor.Equals(compareTo.DisabilityDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.Equals(compareTo.DisabilityDescriptor))
                 return false;
 
 
@@ -2355,7 +2355,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateDisability).DisabilityDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor);
 
             return hash.ToHashCode();
         }
@@ -2421,7 +2421,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<CandidateDisabilityDesignation> _candidateDisabilityDesignations;
-        private ICollection<Entities.Common.Tpdm.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> _candidateDisabilityDesignationsCovariant;
 
         [DataMember(Name="designations"), NoDuplicateMembers]
         public ICollection<CandidateDisabilityDesignation> CandidateDisabilityDesignations
@@ -2432,18 +2432,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateDisabilityDesignation>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateDisabilityDesignation)e.Item).CandidateDisability = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateDisabilityDesignation)e.Item).CandidateDisability = this);
                 _candidateDisabilityDesignations = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateDisabilityDesignation, CandidateDisabilityDesignation>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateDisabilityDesignation)e.Item).CandidateDisability = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateDisabilityDesignation, CandidateDisabilityDesignation>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateDisabilityDesignation)e.Item).CandidateDisability = this;
                 _candidateDisabilityDesignationsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateDisabilityDesignation> Entities.Common.Tpdm.ICandidateDisability.CandidateDisabilityDesignations
+        ICollection<Entities.Common.TPDM.ICandidateDisabilityDesignation> Entities.Common.TPDM.ICandidateDisability.CandidateDisabilityDesignations
         {
             get { return _candidateDisabilityDesignationsCovariant; }
             set { CandidateDisabilityDesignations = new List<CandidateDisabilityDesignation>(value.Cast<CandidateDisabilityDesignation>()); }
@@ -2477,25 +2477,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateDisabilityMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateDisability)target);
+            return Entities.Common.TPDM.CandidateDisabilityMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateDisability)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateDisabilityMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateDisability)target, null);
+            Entities.Common.TPDM.CandidateDisabilityMapper.MapTo(this, (Entities.Common.TPDM.ICandidateDisability)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationsSupported              { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDiagnosisSupported                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsOrderOfDisabilitySupported                            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationsSupported              { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDiagnosisSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsOrderOfDisabilitySupported                            { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.ICandidateDisabilityDesignation, bool> Entities.Common.Tpdm.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationIncluded
+        Func<Entities.Common.TPDM.ICandidateDisabilityDesignation, bool> Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationIncluded
         {
             get { return null; }
             set { }
@@ -2565,7 +2565,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateDisabilityDesignation : Entities.Common.Tpdm.ICandidateDisabilityDesignation, Entities.Common.Tpdm.ICandidateDisabilityDesignationSynchronizationSourceSupport
+    public class CandidateDisabilityDesignation : Entities.Common.TPDM.ICandidateDisabilityDesignation, Entities.Common.TPDM.ICandidateDisabilityDesignationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2591,21 +2591,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidateDisability _candidateDisability;
+        private Entities.Common.TPDM.ICandidateDisability _candidateDisability;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidateDisability Entities.Common.Tpdm.ICandidateDisabilityDesignation.CandidateDisability
+        Entities.Common.TPDM.ICandidateDisability Entities.Common.TPDM.ICandidateDisabilityDesignation.CandidateDisability
         {
             get { return _candidateDisability; }
             set { SetCandidateDisability(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidateDisability CandidateDisability
+        internal Entities.Common.TPDM.ICandidateDisability CandidateDisability
         {
             set { SetCandidateDisability(value); }
         }
 
-        private void SetCandidateDisability(Entities.Common.Tpdm.ICandidateDisability value)
+        private void SetCandidateDisability(Entities.Common.TPDM.ICandidateDisability value)
         {
             _candidateDisability = value;
         }
@@ -2630,7 +2630,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateDisabilityDesignation;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateDisabilityDesignation;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -2644,7 +2644,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.Equals(compareTo.DisabilityDesignationDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.Equals(compareTo.DisabilityDesignationDescriptor))
                 return false;
 
 
@@ -2665,7 +2665,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidateDisability);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor);
 
             return hash.ToHashCode();
         }
@@ -2726,12 +2726,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateDisabilityDesignationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateDisabilityDesignation)target);
+            return Entities.Common.TPDM.CandidateDisabilityDesignationMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateDisabilityDesignation)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateDisabilityDesignationMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateDisabilityDesignation)target, null);
+            Entities.Common.TPDM.CandidateDisabilityDesignationMapper.MapTo(this, (Entities.Common.TPDM.ICandidateDisabilityDesignation)target, null);
         }
         // -------------------------------------------------------------
 
@@ -2793,7 +2793,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateElectronicMail : Entities.Common.Tpdm.ICandidateElectronicMail, Entities.Common.Tpdm.ICandidateElectronicMailSynchronizationSourceSupport
+    public class CandidateElectronicMail : Entities.Common.TPDM.ICandidateElectronicMail, Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2819,21 +2819,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateElectronicMail.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateElectronicMail.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -2865,7 +2865,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateElectronicMail;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateElectronicMail;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -2879,12 +2879,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateElectronicMail).ElectronicMailAddress.Equals(compareTo.ElectronicMailAddress))
+             if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.Equals(compareTo.ElectronicMailAddress))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateElectronicMail).ElectronicMailTypeDescriptor.Equals(compareTo.ElectronicMailTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.Equals(compareTo.ElectronicMailTypeDescriptor))
                 return false;
 
 
@@ -2905,11 +2905,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateElectronicMail).ElectronicMailAddress);
+                hash.Add((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateElectronicMail).ElectronicMailTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor);
 
             return hash.ToHashCode();
         }
@@ -2984,20 +2984,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateElectronicMailMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateElectronicMail)target);
+            return Entities.Common.TPDM.CandidateElectronicMailMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateElectronicMail)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateElectronicMailMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateElectronicMail)target, null);
+            Entities.Common.TPDM.CandidateElectronicMailMapper.MapTo(this, (Entities.Common.TPDM.ICandidateElectronicMail)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateElectronicMailSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateElectronicMailSynchronizationSourceSupport.IsPrimaryEmailAddressIndicatorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport.IsPrimaryEmailAddressIndicatorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -3053,7 +3053,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateLanguage : Entities.Common.Tpdm.ICandidateLanguage, Entities.Common.Tpdm.ICandidateLanguageSynchronizationSourceSupport
+    public class CandidateLanguage : Entities.Common.TPDM.ICandidateLanguage, Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3083,21 +3083,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateLanguage.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateLanguage.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -3122,7 +3122,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateLanguage;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateLanguage;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -3136,7 +3136,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateLanguage).LanguageDescriptor.Equals(compareTo.LanguageDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.Equals(compareTo.LanguageDescriptor))
                 return false;
 
 
@@ -3157,7 +3157,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateLanguage).LanguageDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor);
 
             return hash.ToHashCode();
         }
@@ -3202,7 +3202,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<CandidateLanguageUse> _candidateLanguageUses;
-        private ICollection<Entities.Common.Tpdm.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateLanguageUse> _candidateLanguageUsesCovariant;
 
         [DataMember(Name="uses"), NoDuplicateMembers]
         public ICollection<CandidateLanguageUse> CandidateLanguageUses
@@ -3213,18 +3213,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateLanguageUse>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateLanguageUse)e.Item).CandidateLanguage = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateLanguageUse)e.Item).CandidateLanguage = this);
                 _candidateLanguageUses = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateLanguageUse, CandidateLanguageUse>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateLanguageUse)e.Item).CandidateLanguage = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateLanguageUse, CandidateLanguageUse>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateLanguageUse)e.Item).CandidateLanguage = this;
                 _candidateLanguageUsesCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateLanguageUse> Entities.Common.Tpdm.ICandidateLanguage.CandidateLanguageUses
+        ICollection<Entities.Common.TPDM.ICandidateLanguageUse> Entities.Common.TPDM.ICandidateLanguage.CandidateLanguageUses
         {
             get { return _candidateLanguageUsesCovariant; }
             set { CandidateLanguageUses = new List<CandidateLanguageUse>(value.Cast<CandidateLanguageUse>()); }
@@ -3258,22 +3258,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateLanguageMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateLanguage)target);
+            return Entities.Common.TPDM.CandidateLanguageMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateLanguage)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateLanguageMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateLanguage)target, null);
+            Entities.Common.TPDM.CandidateLanguageMapper.MapTo(this, (Entities.Common.TPDM.ICandidateLanguage)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUsesSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUsesSupported  { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.ICandidateLanguageUse, bool> Entities.Common.Tpdm.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUseIncluded
+        Func<Entities.Common.TPDM.ICandidateLanguageUse, bool> Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUseIncluded
         {
             get { return null; }
             set { }
@@ -3343,7 +3343,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateLanguageUse : Entities.Common.Tpdm.ICandidateLanguageUse, Entities.Common.Tpdm.ICandidateLanguageUseSynchronizationSourceSupport
+    public class CandidateLanguageUse : Entities.Common.TPDM.ICandidateLanguageUse, Entities.Common.TPDM.ICandidateLanguageUseSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3369,21 +3369,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidateLanguage _candidateLanguage;
+        private Entities.Common.TPDM.ICandidateLanguage _candidateLanguage;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidateLanguage Entities.Common.Tpdm.ICandidateLanguageUse.CandidateLanguage
+        Entities.Common.TPDM.ICandidateLanguage Entities.Common.TPDM.ICandidateLanguageUse.CandidateLanguage
         {
             get { return _candidateLanguage; }
             set { SetCandidateLanguage(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidateLanguage CandidateLanguage
+        internal Entities.Common.TPDM.ICandidateLanguage CandidateLanguage
         {
             set { SetCandidateLanguage(value); }
         }
 
-        private void SetCandidateLanguage(Entities.Common.Tpdm.ICandidateLanguage value)
+        private void SetCandidateLanguage(Entities.Common.TPDM.ICandidateLanguage value)
         {
             _candidateLanguage = value;
         }
@@ -3408,7 +3408,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateLanguageUse;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateLanguageUse;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -3422,7 +3422,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateLanguageUse).LanguageUseDescriptor.Equals(compareTo.LanguageUseDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.Equals(compareTo.LanguageUseDescriptor))
                 return false;
 
 
@@ -3443,7 +3443,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidateLanguage);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateLanguageUse).LanguageUseDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor);
 
             return hash.ToHashCode();
         }
@@ -3504,12 +3504,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateLanguageUseMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateLanguageUse)target);
+            return Entities.Common.TPDM.CandidateLanguageUseMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateLanguageUse)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateLanguageUseMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateLanguageUse)target, null);
+            Entities.Common.TPDM.CandidateLanguageUseMapper.MapTo(this, (Entities.Common.TPDM.ICandidateLanguageUse)target, null);
         }
         // -------------------------------------------------------------
 
@@ -3571,7 +3571,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateOtherName : Entities.Common.Tpdm.ICandidateOtherName, Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport
+    public class CandidateOtherName : Entities.Common.TPDM.ICandidateOtherName, Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3597,21 +3597,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateOtherName.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateOtherName.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -3636,7 +3636,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateOtherName;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateOtherName;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -3650,7 +3650,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateOtherName).OtherNameTypeDescriptor.Equals(compareTo.OtherNameTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.Equals(compareTo.OtherNameTypeDescriptor))
                 return false;
 
 
@@ -3671,7 +3671,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateOtherName).OtherNameTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor);
 
             return hash.ToHashCode();
         }
@@ -3767,23 +3767,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateOtherNameMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateOtherName)target);
+            return Entities.Common.TPDM.CandidateOtherNameMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateOtherName)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateOtherNameMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateOtherName)target, null);
+            Entities.Common.TPDM.CandidateOtherNameMapper.MapTo(this, (Entities.Common.TPDM.ICandidateOtherName)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsFirstNameSupported             { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsGenerationCodeSuffixSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsLastSurnameSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsMiddleNameSupported            { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateOtherNameSynchronizationSourceSupport.IsPersonalTitlePrefixSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsFirstNameSupported             { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsGenerationCodeSuffixSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsLastSurnameSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsMiddleNameSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsPersonalTitlePrefixSupported   { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -3839,7 +3839,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidatePersonalIdentificationDocument : Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument, Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport
+    public class CandidatePersonalIdentificationDocument : Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3865,21 +3865,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidatePersonalIdentificationDocument.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -3911,7 +3911,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument;
+            var compareTo = obj as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -3925,12 +3925,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.Equals(compareTo.IdentificationDocumentUseDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.Equals(compareTo.IdentificationDocumentUseDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.Equals(compareTo.PersonalInformationVerificationDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.Equals(compareTo.PersonalInformationVerificationDescriptor))
                 return false;
 
 
@@ -3951,11 +3951,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor);
 
             return hash.ToHashCode();
         }
@@ -4051,23 +4051,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidatePersonalIdentificationDocumentMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument)target);
+            return Entities.Common.TPDM.CandidatePersonalIdentificationDocumentMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidatePersonalIdentificationDocument)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidatePersonalIdentificationDocumentMapper.MapTo(this, (Entities.Common.Tpdm.ICandidatePersonalIdentificationDocument)target, null);
+            Entities.Common.TPDM.CandidatePersonalIdentificationDocumentMapper.MapTo(this, (Entities.Common.TPDM.ICandidatePersonalIdentificationDocument)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentExpirationDateSupported            { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentTitleSupported                     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerCountryDescriptorSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerDocumentIdentificationCodeSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerNameSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentExpirationDateSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentTitleSupported                     { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerCountryDescriptorSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerDocumentIdentificationCodeSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerNameSupported                        { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -4123,7 +4123,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateRace : Entities.Common.Tpdm.ICandidateRace, Entities.Common.Tpdm.ICandidateRaceSynchronizationSourceSupport
+    public class CandidateRace : Entities.Common.TPDM.ICandidateRace, Entities.Common.TPDM.ICandidateRaceSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4149,21 +4149,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateRace.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateRace.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -4188,7 +4188,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateRace;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateRace;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -4202,7 +4202,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateRace).RaceDescriptor.Equals(compareTo.RaceDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.Equals(compareTo.RaceDescriptor))
                 return false;
 
 
@@ -4223,7 +4223,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateRace).RaceDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor);
 
             return hash.ToHashCode();
         }
@@ -4284,12 +4284,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateRaceMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateRace)target);
+            return Entities.Common.TPDM.CandidateRaceMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateRace)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateRaceMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateRace)target, null);
+            Entities.Common.TPDM.CandidateRaceMapper.MapTo(this, (Entities.Common.TPDM.ICandidateRace)target, null);
         }
         // -------------------------------------------------------------
 
@@ -4351,7 +4351,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateTelephone : Entities.Common.Tpdm.ICandidateTelephone, Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport
+    public class CandidateTelephone : Entities.Common.TPDM.ICandidateTelephone, Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4377,21 +4377,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidate _candidate;
+        private Entities.Common.TPDM.ICandidate _candidate;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidate Entities.Common.Tpdm.ICandidateTelephone.Candidate
+        Entities.Common.TPDM.ICandidate Entities.Common.TPDM.ICandidateTelephone.Candidate
         {
             get { return _candidate; }
             set { SetCandidate(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidate Candidate
+        internal Entities.Common.TPDM.ICandidate Candidate
         {
             set { SetCandidate(value); }
         }
 
-        private void SetCandidate(Entities.Common.Tpdm.ICandidate value)
+        private void SetCandidate(Entities.Common.TPDM.ICandidate value)
         {
             _candidate = value;
         }
@@ -4423,7 +4423,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateTelephone;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateTelephone;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -4437,12 +4437,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
+             if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
                 return false;
 
 
@@ -4463,11 +4463,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
                 hash.Add(_candidate);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateTelephone).TelephoneNumber);
+                hash.Add((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateTelephone).TelephoneNumberTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor);
 
             return hash.ToHashCode();
         }
@@ -4549,21 +4549,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateTelephoneMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateTelephone)target);
+            return Entities.Common.TPDM.CandidateTelephoneMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateTelephone)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateTelephoneMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateTelephone)target, null);
+            Entities.Common.TPDM.CandidateTelephoneMapper.MapTo(this, (Entities.Common.TPDM.ICandidateTelephone)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported                 { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -4617,7 +4617,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.Tpdm
 }
 // Aggregate: CandidateEducatorPreparationProgramAssociation
 
-namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM
 {
     /// <summary>
     /// Represents a reference to the CandidateEducatorPreparationProgramAssociation resource.
@@ -4716,7 +4716,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociation : Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4751,21 +4751,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // -------------------------------------------------------------
 
         private bool _candidateReferenceExplicitlyAssigned;
-        private Candidate.Tpdm.CandidateReference _candidateReference;
-        private Candidate.Tpdm.CandidateReference ImplicitCandidateReference
+        private Candidate.TPDM.CandidateReference _candidateReference;
+        private Candidate.TPDM.CandidateReference ImplicitCandidateReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_candidateReference == null && !_candidateReferenceExplicitlyAssigned)
-                    _candidateReference = new Candidate.Tpdm.CandidateReference();
+                    _candidateReference = new Candidate.TPDM.CandidateReference();
 
                 return _candidateReference;
             }
         }
 
         [DataMember(Name="candidateReference")][NaturalKeyMember]
-        public Candidate.Tpdm.CandidateReference CandidateReference
+        public Candidate.TPDM.CandidateReference CandidateReference
         {
             get
             {
@@ -4783,21 +4783,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             }
         }
         private bool _educatorPreparationProgramReferenceExplicitlyAssigned;
-        private EducatorPreparationProgram.Tpdm.EducatorPreparationProgramReference _educatorPreparationProgramReference;
-        private EducatorPreparationProgram.Tpdm.EducatorPreparationProgramReference ImplicitEducatorPreparationProgramReference
+        private EducatorPreparationProgram.TPDM.EducatorPreparationProgramReference _educatorPreparationProgramReference;
+        private EducatorPreparationProgram.TPDM.EducatorPreparationProgramReference ImplicitEducatorPreparationProgramReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_educatorPreparationProgramReference == null && !_educatorPreparationProgramReferenceExplicitlyAssigned)
-                    _educatorPreparationProgramReference = new EducatorPreparationProgram.Tpdm.EducatorPreparationProgramReference();
+                    _educatorPreparationProgramReference = new EducatorPreparationProgram.TPDM.EducatorPreparationProgramReference();
 
                 return _educatorPreparationProgramReference;
             }
         }
 
         [DataMember(Name="educatorPreparationProgramReference")][NaturalKeyMember]
-        public EducatorPreparationProgram.Tpdm.EducatorPreparationProgramReference EducatorPreparationProgramReference
+        public EducatorPreparationProgram.TPDM.EducatorPreparationProgramReference EducatorPreparationProgramReference
         {
             get
             {
@@ -4831,7 +4831,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// A unique alphanumeric code assigned to a candidate.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateIdentifier
+        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateIdentifier
         {
             get
             {
@@ -4856,7 +4856,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.EducationOrganizationId
+        int Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducationOrganizationId
         {
             get
             {
@@ -4881,7 +4881,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// The name of the Educator Preparation Program.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.ProgramName
+        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.ProgramName
         {
             get
             {
@@ -4907,7 +4907,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </summary>
 
         // IS in a reference (CandidateEducatorPreparationProgramAssociation.ProgramTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.ProgramTypeDescriptor
+        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.ProgramTypeDescriptor
         {
             get
             {
@@ -4936,7 +4936,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -4946,27 +4946,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
 
 
@@ -4984,20 +4984,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             var hash = new HashCode();
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).BeginDate);
+                hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier);
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).ProgramName);
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor);
 
             return hash.ToHashCode();
         }
@@ -5063,7 +5063,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<CandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYears;
-        private ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> _candidateEducatorPreparationProgramAssociationCohortYearsCovariant;
 
         [DataMember(Name="cohortYears"), NoDuplicateMembers]
         public ICollection<CandidateEducatorPreparationProgramAssociationCohortYear> CandidateEducatorPreparationProgramAssociationCohortYears
@@ -5074,25 +5074,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateEducatorPreparationProgramAssociationCohortYear>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear)e.Item).CandidateEducatorPreparationProgramAssociation = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear)e.Item).CandidateEducatorPreparationProgramAssociation = this);
                 _candidateEducatorPreparationProgramAssociationCohortYears = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, CandidateEducatorPreparationProgramAssociationCohortYear>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear)e.Item).CandidateEducatorPreparationProgramAssociation = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, CandidateEducatorPreparationProgramAssociationCohortYear>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear)e.Item).CandidateEducatorPreparationProgramAssociation = this;
                 _candidateEducatorPreparationProgramAssociationCohortYearsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationCohortYears
+        ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationCohortYears
         {
             get { return _candidateEducatorPreparationProgramAssociationCohortYearsCovariant; }
             set { CandidateEducatorPreparationProgramAssociationCohortYears = new List<CandidateEducatorPreparationProgramAssociationCohortYear>(value.Cast<CandidateEducatorPreparationProgramAssociationCohortYear>()); }
         }
 
         private ICollection<CandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializations;
-        private ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
+        private ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant;
 
         [DataMember(Name="degreeSpecializations"), NoDuplicateMembers]
         public ICollection<CandidateEducatorPreparationProgramAssociationDegreeSpecialization> CandidateEducatorPreparationProgramAssociationDegreeSpecializations
@@ -5103,18 +5103,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)e.Item).CandidateEducatorPreparationProgramAssociation = this);
+                    (s, e) => ((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)e.Item).CandidateEducatorPreparationProgramAssociation = this);
                 _candidateEducatorPreparationProgramAssociationDegreeSpecializations = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)e.Item).CandidateEducatorPreparationProgramAssociation = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)e.Item).CandidateEducatorPreparationProgramAssociation = this;
                 _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationDegreeSpecializations
+        ICollection<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateEducatorPreparationProgramAssociationDegreeSpecializations
         {
             get { return _candidateEducatorPreparationProgramAssociationDegreeSpecializationsCovariant; }
             set { CandidateEducatorPreparationProgramAssociationDegreeSpecializations = new List<CandidateEducatorPreparationProgramAssociationDegreeSpecialization>(value.Cast<CandidateEducatorPreparationProgramAssociationDegreeSpecialization>()); }
@@ -5160,31 +5160,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateEducatorPreparationProgramAssociationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation)target);
+            return Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateEducatorPreparationProgramAssociationMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation)target, null);
+            Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationMapper.MapTo(this, (Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported            { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEndDateSupported                                                              { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEPPProgramPathwayDescriptorSupported                                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported                                               { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEndDateSupported                                                              { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEPPProgramPathwayDescriptorSupported                                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported                                               { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded
+        Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded
+        Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded
         {
             get { return null; }
             set { }
@@ -5195,13 +5195,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateResourceId
+        Guid? Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateResourceId
         {
             get { return null; }
             set { ImplicitCandidateReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.CandidateDiscriminator
+        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.CandidateDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -5209,13 +5209,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
 
 
-        Guid? Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramResourceId
+        Guid? Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramResourceId
         {
             get { return null; }
             set { ImplicitEducatorPreparationProgramReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramDiscriminator
+        string Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation.EducatorPreparationProgramDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -5292,7 +5292,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5351,21 +5351,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation _candidateEducatorPreparationProgramAssociation;
+        private Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation _candidateEducatorPreparationProgramAssociation;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear.CandidateEducatorPreparationProgramAssociation
+        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear.CandidateEducatorPreparationProgramAssociation
         {
             get { return _candidateEducatorPreparationProgramAssociation; }
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
+        internal Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
         {
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
-        private void SetCandidateEducatorPreparationProgramAssociation(Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation value)
+        private void SetCandidateEducatorPreparationProgramAssociation(Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation value)
         {
             _candidateEducatorPreparationProgramAssociation = value;
         }
@@ -5381,7 +5381,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// The school year associated with the cohort; for example, the intended school year of graduation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear.SchoolYear
+        short Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear.SchoolYear
         {
             get
             {
@@ -5415,7 +5415,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -5429,12 +5429,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.Equals(compareTo.CohortYearTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.Equals(compareTo.CohortYearTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
@@ -5455,11 +5455,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                 hash.Add(_candidateEducatorPreparationProgramAssociation);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear);
             return hash.ToHashCode();
         }
         // -------------------------------------------------------------
@@ -5526,26 +5526,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYearMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear)target);
+            return Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationCohortYearMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYearMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear)target, null);
+            Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationCohortYearMapper.MapTo(this, (Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport.IsTermDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport.IsTermDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationCohortYear.SchoolYearTypeResourceId
+        Guid? Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear.SchoolYearTypeResourceId
         {
             get { return null; }
             set { ImplicitSchoolYearTypeReference.ResourceId = value ?? default(Guid); }
@@ -5601,7 +5601,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5627,21 +5627,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation _candidateEducatorPreparationProgramAssociation;
+        private Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation _candidateEducatorPreparationProgramAssociation;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization.CandidateEducatorPreparationProgramAssociation
+        Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization.CandidateEducatorPreparationProgramAssociation
         {
             get { return _candidateEducatorPreparationProgramAssociation; }
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
-        internal Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
+        internal Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation
         {
             set { SetCandidateEducatorPreparationProgramAssociation(value); }
         }
 
-        private void SetCandidateEducatorPreparationProgramAssociation(Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociation value)
+        private void SetCandidateEducatorPreparationProgramAssociation(Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation value)
         {
             _candidateEducatorPreparationProgramAssociation = value;
         }
@@ -5666,7 +5666,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization;
+            var compareTo = obj as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -5680,7 +5680,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.Equals(compareTo.MajorSpecialization))
+             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.Equals(compareTo.MajorSpecialization))
                 return false;
 
 
@@ -5701,7 +5701,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                 hash.Add(_candidateEducatorPreparationProgramAssociation);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization);
+                hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization);
 
             return hash.ToHashCode();
         }
@@ -5776,20 +5776,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecializationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)target);
+            return Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecializationMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecializationMapper.MapTo(this, (Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)target, null);
+            Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecializationMapper.MapTo(this, (Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsEndDateSupported              { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsMinorSpecializationSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsEndDateSupported              { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsMinorSpecializationSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -5843,14 +5843,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 }
 // Aggregate: CertificationRouteDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.CertificationRouteDescriptor table of the CertificationRouteDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CertificationRouteDescriptor : Entities.Common.Tpdm.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport
+    public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5910,7 +5910,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICertificationRouteDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.ICertificationRouteDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -5920,7 +5920,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.ICertificationRouteDescriptor).CertificationRouteDescriptorId.Equals(compareTo.CertificationRouteDescriptorId))
+            if (!(this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId.Equals(compareTo.CertificationRouteDescriptorId))
                 return false;
 
 
@@ -5938,7 +5938,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.ICertificationRouteDescriptor).CertificationRouteDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -6055,25 +6055,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CertificationRouteDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICertificationRouteDescriptor)target);
+            return Entities.Common.TPDM.CertificationRouteDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICertificationRouteDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CertificationRouteDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.ICertificationRouteDescriptor)target, null);
+            Entities.Common.TPDM.CertificationRouteDescriptorMapper.MapTo(this, (Entities.Common.TPDM.ICertificationRouteDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICertificationRouteDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -6127,14 +6127,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.Tpdm
 }
 // Aggregate: CoteachingStyleObservedDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.CoteachingStyleObservedDescriptor table of the CoteachingStyleObservedDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CoteachingStyleObservedDescriptor : Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport
+    public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6194,7 +6194,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -6204,7 +6204,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.Equals(compareTo.CoteachingStyleObservedDescriptorId))
+            if (!(this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.Equals(compareTo.CoteachingStyleObservedDescriptorId))
                 return false;
 
 
@@ -6222,7 +6222,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -6339,25 +6339,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CoteachingStyleObservedDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor)target);
+            return Entities.Common.TPDM.CoteachingStyleObservedDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICoteachingStyleObservedDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CoteachingStyleObservedDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.ICoteachingStyleObservedDescriptor)target, null);
+            Entities.Common.TPDM.CoteachingStyleObservedDescriptorMapper.MapTo(this, (Entities.Common.TPDM.ICoteachingStyleObservedDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -6411,14 +6411,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
 }
 // Aggregate: Credential
 
-namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.CredentialExtension table of the Credential aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialExtension : Entities.Common.Tpdm.ICredentialExtension, Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport
+    public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension, Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6484,7 +6484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         private Entities.Common.EdFi.ICredential _credential;
 
         [IgnoreDataMember]
-        Entities.Common.EdFi.ICredential Entities.Common.Tpdm.ICredentialExtension.Credential
+        Entities.Common.EdFi.ICredential Entities.Common.TPDM.ICredentialExtension.Credential
         {
             get { return _credential; }
             set { SetCredential(value); }
@@ -6513,7 +6513,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICredentialExtension;
+            var compareTo = obj as Entities.Common.TPDM.ICredentialExtension;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -6600,7 +6600,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ICredentialExtension.PersonId
+        string Entities.Common.TPDM.ICredentialExtension.PersonId
         {
             get
             {
@@ -6628,7 +6628,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// </summary>
 
         // IS in a reference (Credential.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ICredentialExtension.SourceSystemDescriptor
+        string Entities.Common.TPDM.ICredentialExtension.SourceSystemDescriptor
         {
             get
             {
@@ -6676,7 +6676,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<CredentialStudentAcademicRecord> _credentialStudentAcademicRecords;
-        private ICollection<Entities.Common.Tpdm.ICredentialStudentAcademicRecord> _credentialStudentAcademicRecordsCovariant;
+        private ICollection<Entities.Common.TPDM.ICredentialStudentAcademicRecord> _credentialStudentAcademicRecordsCovariant;
 
         [DataMember(Name="studentAcademicRecords"), NoDuplicateMembers]
         public ICollection<CredentialStudentAcademicRecord> CredentialStudentAcademicRecords
@@ -6687,18 +6687,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<CredentialStudentAcademicRecord>(value,
-                    (s, e) => ((Entities.Common.Tpdm.ICredentialStudentAcademicRecord)e.Item).CredentialExtension = this);
+                    (s, e) => ((Entities.Common.TPDM.ICredentialStudentAcademicRecord)e.Item).CredentialExtension = this);
                 _credentialStudentAcademicRecords = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.ICredentialStudentAcademicRecord, CredentialStudentAcademicRecord>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.ICredentialStudentAcademicRecord)e.Item).CredentialExtension = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.ICredentialStudentAcademicRecord, CredentialStudentAcademicRecord>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.ICredentialStudentAcademicRecord)e.Item).CredentialExtension = this;
                 _credentialStudentAcademicRecordsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.ICredentialStudentAcademicRecord> Entities.Common.Tpdm.ICredentialExtension.CredentialStudentAcademicRecords
+        ICollection<Entities.Common.TPDM.ICredentialStudentAcademicRecord> Entities.Common.TPDM.ICredentialExtension.CredentialStudentAcademicRecords
         {
             get { return _credentialStudentAcademicRecordsCovariant; }
             set { CredentialStudentAcademicRecords = new List<CredentialStudentAcademicRecord>(value.Cast<CredentialStudentAcademicRecord>()); }
@@ -6732,30 +6732,30 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CredentialExtensionMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICredentialExtension)target);
+            return Entities.Common.TPDM.CredentialExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICredentialExtension)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CredentialExtensionMapper.MapTo(this, (Entities.Common.Tpdm.ICredentialExtension)target, null);
+            Entities.Common.TPDM.CredentialExtensionMapper.MapTo(this, (Entities.Common.TPDM.ICredentialExtension)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsBoardCertificationIndicatorSupported       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCertificationRouteDescriptorSupported      { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCertificationTitleSupported                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDateSupported              { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDescriptorSupported        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsEducatorRoleDescriptorSupported            { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsPersonIdSupported                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsBoardCertificationIndicatorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCertificationRouteDescriptorSupported      { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCertificationTitleSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDateSupported              { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDescriptorSupported        { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsEducatorRoleDescriptorSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsPersonIdSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported            { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.ICredentialStudentAcademicRecord, bool> Entities.Common.Tpdm.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordIncluded
+        Func<Entities.Common.TPDM.ICredentialStudentAcademicRecord, bool> Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordIncluded
         {
             get { return null; }
             set { }
@@ -6766,13 +6766,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ICredentialExtension.PersonResourceId
+        Guid? Entities.Common.TPDM.ICredentialExtension.PersonResourceId
         {
             get { return null; }
             set { ImplicitPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ICredentialExtension.PersonDiscriminator
+        string Entities.Common.TPDM.ICredentialExtension.PersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -6839,7 +6839,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialStudentAcademicRecord : Entities.Common.Tpdm.ICredentialStudentAcademicRecord, Entities.Common.Tpdm.ICredentialStudentAcademicRecordSynchronizationSourceSupport
+    public class CredentialStudentAcademicRecord : Entities.Common.TPDM.ICredentialStudentAcademicRecord, Entities.Common.TPDM.ICredentialStudentAcademicRecordSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6898,21 +6898,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.ICredentialExtension _credentialExtension;
+        private Entities.Common.TPDM.ICredentialExtension _credentialExtension;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.ICredentialExtension Entities.Common.Tpdm.ICredentialStudentAcademicRecord.CredentialExtension
+        Entities.Common.TPDM.ICredentialExtension Entities.Common.TPDM.ICredentialStudentAcademicRecord.CredentialExtension
         {
             get { return _credentialExtension; }
             set { SetCredentialExtension(value); }
         }
 
-        internal Entities.Common.Tpdm.ICredentialExtension CredentialExtension
+        internal Entities.Common.TPDM.ICredentialExtension CredentialExtension
         {
             set { SetCredentialExtension(value); }
         }
 
-        private void SetCredentialExtension(Entities.Common.Tpdm.ICredentialExtension value)
+        private void SetCredentialExtension(Entities.Common.TPDM.ICredentialExtension value)
         {
             _credentialExtension = value;
         }
@@ -6921,7 +6921,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.ICredentialStudentAcademicRecord.EducationOrganizationId
+        int Entities.Common.TPDM.ICredentialStudentAcademicRecord.EducationOrganizationId
         {
             get
             {
@@ -6946,7 +6946,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.ICredentialStudentAcademicRecord.SchoolYear
+        short Entities.Common.TPDM.ICredentialStudentAcademicRecord.SchoolYear
         {
             get
             {
@@ -6971,7 +6971,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// A unique alphanumeric code assigned to a student.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ICredentialStudentAcademicRecord.StudentUniqueId
+        string Entities.Common.TPDM.ICredentialStudentAcademicRecord.StudentUniqueId
         {
             get
             {
@@ -6997,7 +6997,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// </summary>
 
         // IS in a reference (CredentialStudentAcademicRecord.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ICredentialStudentAcademicRecord.TermDescriptor
+        string Entities.Common.TPDM.ICredentialStudentAcademicRecord.TermDescriptor
         {
             get
             {
@@ -7026,7 +7026,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICredentialStudentAcademicRecord;
+            var compareTo = obj as Entities.Common.TPDM.ICredentialStudentAcademicRecord;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -7040,22 +7040,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -7076,16 +7076,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
                 hash.Add(_credentialExtension);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).StudentUniqueId);
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.ICredentialStudentAcademicRecord).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -7146,12 +7146,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CredentialStudentAcademicRecordMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICredentialStudentAcademicRecord)target);
+            return Entities.Common.TPDM.CredentialStudentAcademicRecordMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICredentialStudentAcademicRecord)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CredentialStudentAcademicRecordMapper.MapTo(this, (Entities.Common.Tpdm.ICredentialStudentAcademicRecord)target, null);
+            Entities.Common.TPDM.CredentialStudentAcademicRecordMapper.MapTo(this, (Entities.Common.TPDM.ICredentialStudentAcademicRecord)target, null);
         }
         // -------------------------------------------------------------
 
@@ -7164,13 +7164,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ICredentialStudentAcademicRecord.StudentAcademicRecordResourceId
+        Guid? Entities.Common.TPDM.ICredentialStudentAcademicRecord.StudentAcademicRecordResourceId
         {
             get { return null; }
             set { ImplicitStudentAcademicRecordReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ICredentialStudentAcademicRecord.StudentAcademicRecordDiscriminator
+        string Entities.Common.TPDM.ICredentialStudentAcademicRecord.StudentAcademicRecordDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -7225,14 +7225,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.Tpdm
 }
 // Aggregate: CredentialStatusDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.CredentialStatusDescriptor table of the CredentialStatusDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialStatusDescriptor : Entities.Common.Tpdm.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport
+    public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7292,7 +7292,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ICredentialStatusDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.ICredentialStatusDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -7302,7 +7302,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.ICredentialStatusDescriptor).CredentialStatusDescriptorId.Equals(compareTo.CredentialStatusDescriptorId))
+            if (!(this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId.Equals(compareTo.CredentialStatusDescriptorId))
                 return false;
 
 
@@ -7320,7 +7320,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.ICredentialStatusDescriptor).CredentialStatusDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -7437,25 +7437,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.CredentialStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ICredentialStatusDescriptor)target);
+            return Entities.Common.TPDM.CredentialStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.ICredentialStatusDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.CredentialStatusDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.ICredentialStatusDescriptor)target, null);
+            Entities.Common.TPDM.CredentialStatusDescriptorMapper.MapTo(this, (Entities.Common.TPDM.ICredentialStatusDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ICredentialStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -7509,7 +7509,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.Tpdm
 }
 // Aggregate: EducatorPreparationProgram
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 {
     /// <summary>
     /// Represents a reference to the EducatorPreparationProgram resource.
@@ -7602,7 +7602,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgram : Entities.Common.Tpdm.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport
+    public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7677,7 +7677,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEducatorPreparationProgram.EducationOrganizationId
+        int Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationId
         {
             get
             {
@@ -7725,7 +7725,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEducatorPreparationProgram;
+            var compareTo = obj as Entities.Common.TPDM.IEducatorPreparationProgram;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -7735,17 +7735,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEducatorPreparationProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEducatorPreparationProgram).ProgramName.Equals(compareTo.ProgramName))
+             if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.Equals(compareTo.ProgramName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEducatorPreparationProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+             if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
 
 
@@ -7763,14 +7763,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEducatorPreparationProgram).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEducatorPreparationProgram).ProgramName);
+                hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEducatorPreparationProgram).ProgramTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor);
 
             return hash.ToHashCode();
         }
@@ -7829,7 +7829,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevels;
-        private ICollection<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
+        private ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> _educatorPreparationProgramGradeLevelsCovariant;
 
         [DataMember(Name="gradeLevels"), NoDuplicateMembers]
         public ICollection<EducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels
@@ -7840,18 +7840,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EducatorPreparationProgramGradeLevel>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel)e.Item).EducatorPreparationProgram = this);
+                    (s, e) => ((Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel)e.Item).EducatorPreparationProgram = this);
                 _educatorPreparationProgramGradeLevels = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, EducatorPreparationProgramGradeLevel>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel)e.Item).EducatorPreparationProgram = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, EducatorPreparationProgramGradeLevel>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel)e.Item).EducatorPreparationProgram = this;
                 _educatorPreparationProgramGradeLevelsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel> Entities.Common.Tpdm.IEducatorPreparationProgram.EducatorPreparationProgramGradeLevels
+        ICollection<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel> Entities.Common.TPDM.IEducatorPreparationProgram.EducatorPreparationProgramGradeLevels
         {
             get { return _educatorPreparationProgramGradeLevelsCovariant; }
             set { EducatorPreparationProgramGradeLevels = new List<EducatorPreparationProgramGradeLevel>(value.Cast<EducatorPreparationProgramGradeLevel>()); }
@@ -7892,24 +7892,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EducatorPreparationProgramMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEducatorPreparationProgram)target);
+            return Entities.Common.TPDM.EducatorPreparationProgramMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEducatorPreparationProgram)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EducatorPreparationProgramMapper.MapTo(this, (Entities.Common.Tpdm.IEducatorPreparationProgram)target, null);
+            Entities.Common.TPDM.EducatorPreparationProgramMapper.MapTo(this, (Entities.Common.TPDM.IEducatorPreparationProgram)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsProgramIdSupported                              { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsProgramIdSupported                              { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, bool> Entities.Common.Tpdm.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelIncluded
+        Func<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, bool> Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelIncluded
         {
             get { return null; }
             set { }
@@ -7920,13 +7920,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEducatorPreparationProgram.EducationOrganizationResourceId
+        Guid? Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationResourceId
         {
             get { return null; }
             set { ImplicitEducationOrganizationReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEducatorPreparationProgram.EducationOrganizationDiscriminator
+        string Entities.Common.TPDM.IEducatorPreparationProgram.EducationOrganizationDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -7993,7 +7993,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgramGradeLevel : Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel, Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport
+    public class EducatorPreparationProgramGradeLevel : Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, Entities.Common.TPDM.IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8019,21 +8019,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEducatorPreparationProgram _educatorPreparationProgram;
+        private Entities.Common.TPDM.IEducatorPreparationProgram _educatorPreparationProgram;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEducatorPreparationProgram Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel.EducatorPreparationProgram
+        Entities.Common.TPDM.IEducatorPreparationProgram Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel.EducatorPreparationProgram
         {
             get { return _educatorPreparationProgram; }
             set { SetEducatorPreparationProgram(value); }
         }
 
-        internal Entities.Common.Tpdm.IEducatorPreparationProgram EducatorPreparationProgram
+        internal Entities.Common.TPDM.IEducatorPreparationProgram EducatorPreparationProgram
         {
             set { SetEducatorPreparationProgram(value); }
         }
 
-        private void SetEducatorPreparationProgram(Entities.Common.Tpdm.IEducatorPreparationProgram value)
+        private void SetEducatorPreparationProgram(Entities.Common.TPDM.IEducatorPreparationProgram value)
         {
             _educatorPreparationProgram = value;
         }
@@ -8058,7 +8058,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel;
+            var compareTo = obj as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -8072,7 +8072,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
                 return false;
 
 
@@ -8093,7 +8093,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
                 hash.Add(_educatorPreparationProgram);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor);
 
             return hash.ToHashCode();
         }
@@ -8154,12 +8154,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EducatorPreparationProgramGradeLevelMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel)target);
+            return Entities.Common.TPDM.EducatorPreparationProgramGradeLevelMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EducatorPreparationProgramGradeLevelMapper.MapTo(this, (Entities.Common.Tpdm.IEducatorPreparationProgramGradeLevel)target, null);
+            Entities.Common.TPDM.EducatorPreparationProgramGradeLevelMapper.MapTo(this, (Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel)target, null);
         }
         // -------------------------------------------------------------
 
@@ -8219,14 +8219,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.Tpdm
 }
 // Aggregate: EducatorRoleDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EducatorRoleDescriptor table of the EducatorRoleDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorRoleDescriptor : Entities.Common.Tpdm.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport
+    public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8286,7 +8286,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEducatorRoleDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEducatorRoleDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -8296,7 +8296,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEducatorRoleDescriptor).EducatorRoleDescriptorId.Equals(compareTo.EducatorRoleDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId.Equals(compareTo.EducatorRoleDescriptorId))
                 return false;
 
 
@@ -8314,7 +8314,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEducatorRoleDescriptor).EducatorRoleDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -8431,25 +8431,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EducatorRoleDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEducatorRoleDescriptor)target);
+            return Entities.Common.TPDM.EducatorRoleDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEducatorRoleDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EducatorRoleDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEducatorRoleDescriptor)target, null);
+            Entities.Common.TPDM.EducatorRoleDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEducatorRoleDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEducatorRoleDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -8503,14 +8503,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.Tpdm
 }
 // Aggregate: EnglishLanguageExamDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EnglishLanguageExamDescriptor table of the EnglishLanguageExamDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EnglishLanguageExamDescriptor : Entities.Common.Tpdm.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport
+    public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8570,7 +8570,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpd
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEnglishLanguageExamDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEnglishLanguageExamDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -8580,7 +8580,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpd
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.Equals(compareTo.EnglishLanguageExamDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.Equals(compareTo.EnglishLanguageExamDescriptorId))
                 return false;
 
 
@@ -8598,7 +8598,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpd
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -8715,25 +8715,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpd
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EnglishLanguageExamDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEnglishLanguageExamDescriptor)target);
+            return Entities.Common.TPDM.EnglishLanguageExamDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEnglishLanguageExamDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EnglishLanguageExamDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEnglishLanguageExamDescriptor)target, null);
+            Entities.Common.TPDM.EnglishLanguageExamDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEnglishLanguageExamDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -8787,14 +8787,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.Tpd
 }
 // Aggregate: EPPProgramPathwayDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EPPProgramPathwayDescriptor table of the EPPProgramPathwayDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EPPProgramPathwayDescriptor : Entities.Common.Tpdm.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport
+    public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8854,7 +8854,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEPPProgramPathwayDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEPPProgramPathwayDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -8864,7 +8864,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.Equals(compareTo.EPPProgramPathwayDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.Equals(compareTo.EPPProgramPathwayDescriptorId))
                 return false;
 
 
@@ -8882,7 +8882,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -8999,25 +8999,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EPPProgramPathwayDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEPPProgramPathwayDescriptor)target);
+            return Entities.Common.TPDM.EPPProgramPathwayDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEPPProgramPathwayDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EPPProgramPathwayDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEPPProgramPathwayDescriptor)target, null);
+            Entities.Common.TPDM.EPPProgramPathwayDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEPPProgramPathwayDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -9071,7 +9071,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.Tpdm
 }
 // Aggregate: Evaluation
 
-namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 {
     /// <summary>
     /// Represents a reference to the Evaluation resource.
@@ -9176,7 +9176,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Evaluation : Entities.Common.Tpdm.IEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport
+    public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9210,21 +9210,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         // -------------------------------------------------------------
 
         private bool _performanceEvaluationReferenceExplicitlyAssigned;
-        private PerformanceEvaluation.Tpdm.PerformanceEvaluationReference _performanceEvaluationReference;
-        private PerformanceEvaluation.Tpdm.PerformanceEvaluationReference ImplicitPerformanceEvaluationReference
+        private PerformanceEvaluation.TPDM.PerformanceEvaluationReference _performanceEvaluationReference;
+        private PerformanceEvaluation.TPDM.PerformanceEvaluationReference ImplicitPerformanceEvaluationReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_performanceEvaluationReference == null && !_performanceEvaluationReferenceExplicitlyAssigned)
-                    _performanceEvaluationReference = new PerformanceEvaluation.Tpdm.PerformanceEvaluationReference();
+                    _performanceEvaluationReference = new PerformanceEvaluation.TPDM.PerformanceEvaluationReference();
 
                 return _performanceEvaluationReference;
             }
         }
 
         [DataMember(Name="performanceEvaluationReference")][NaturalKeyMember]
-        public PerformanceEvaluation.Tpdm.PerformanceEvaluationReference PerformanceEvaluationReference
+        public PerformanceEvaluation.TPDM.PerformanceEvaluationReference PerformanceEvaluationReference
         {
             get
             {
@@ -9251,7 +9251,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEvaluation.EducationOrganizationId
+        int Entities.Common.TPDM.IEvaluation.EducationOrganizationId
         {
             get
             {
@@ -9277,7 +9277,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// </summary>
 
         // IS in a reference (Evaluation.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluation.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IEvaluation.EvaluationPeriodDescriptor
         {
             get
             {
@@ -9304,7 +9304,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluation.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IEvaluation.PerformanceEvaluationTitle
         {
             get
             {
@@ -9330,7 +9330,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// </summary>
 
         // IS in a reference (Evaluation.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluation.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IEvaluation.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -9350,7 +9350,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IEvaluation.SchoolYear
+        short Entities.Common.TPDM.IEvaluation.SchoolYear
         {
             get
             {
@@ -9376,7 +9376,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// </summary>
 
         // IS in a reference (Evaluation.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluation.TermDescriptor
+        string Entities.Common.TPDM.IEvaluation.TermDescriptor
         {
             get
             {
@@ -9405,7 +9405,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluation;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluation;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -9415,37 +9415,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluation).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+             if ((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -9463,28 +9463,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluation).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluation).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluation).EvaluationTitle);
+                hash.Add((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluation).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluation).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluation).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluation).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -9564,7 +9564,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EvaluationRatingLevel> _evaluationRatingLevels;
-        private ICollection<Entities.Common.Tpdm.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> _evaluationRatingLevelsCovariant;
 
         [DataMember(Name="ratingLevels"), NoDuplicateMembers]
         public ICollection<EvaluationRatingLevel> EvaluationRatingLevels
@@ -9575,18 +9575,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationRatingLevel>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationRatingLevel)e.Item).Evaluation = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationRatingLevel)e.Item).Evaluation = this);
                 _evaluationRatingLevels = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationRatingLevel, EvaluationRatingLevel>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationRatingLevel)e.Item).Evaluation = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationRatingLevel, EvaluationRatingLevel>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationRatingLevel)e.Item).Evaluation = this;
                 _evaluationRatingLevelsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationRatingLevel> Entities.Common.Tpdm.IEvaluation.EvaluationRatingLevels
+        ICollection<Entities.Common.TPDM.IEvaluationRatingLevel> Entities.Common.TPDM.IEvaluation.EvaluationRatingLevels
         {
             get { return _evaluationRatingLevelsCovariant; }
             set { EvaluationRatingLevels = new List<EvaluationRatingLevel>(value.Cast<EvaluationRatingLevel>()); }
@@ -9627,27 +9627,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluation)target);
+            return Entities.Common.TPDM.EvaluationMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluation)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluation)target, null);
+            Entities.Common.TPDM.EvaluationMapper.MapTo(this, (Entities.Common.TPDM.IEvaluation)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationDescriptionSupported       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelsSupported      { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsMaxRatingSupported                   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsMinRatingSupported                   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationDescriptionSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelsSupported      { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsMaxRatingSupported                   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsMinRatingSupported                   { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEvaluationRatingLevel, bool> Entities.Common.Tpdm.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelIncluded
+        Func<Entities.Common.TPDM.IEvaluationRatingLevel, bool> Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelIncluded
         {
             get { return null; }
             set { }
@@ -9658,13 +9658,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluation.PerformanceEvaluationResourceId
+        Guid? Entities.Common.TPDM.IEvaluation.PerformanceEvaluationResourceId
         {
             get { return null; }
             set { ImplicitPerformanceEvaluationReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluation.PerformanceEvaluationDiscriminator
+        string Entities.Common.TPDM.IEvaluation.PerformanceEvaluationDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -9731,7 +9731,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevel : Entities.Common.Tpdm.IEvaluationRatingLevel, Entities.Common.Tpdm.IEvaluationRatingLevelSynchronizationSourceSupport
+    public class EvaluationRatingLevel : Entities.Common.TPDM.IEvaluationRatingLevel, Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9757,21 +9757,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluation _evaluation;
+        private Entities.Common.TPDM.IEvaluation _evaluation;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluation Entities.Common.Tpdm.IEvaluationRatingLevel.Evaluation
+        Entities.Common.TPDM.IEvaluation Entities.Common.TPDM.IEvaluationRatingLevel.Evaluation
         {
             get { return _evaluation; }
             set { SetEvaluation(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluation Evaluation
+        internal Entities.Common.TPDM.IEvaluation Evaluation
         {
             set { SetEvaluation(value); }
         }
 
-        private void SetEvaluation(Entities.Common.Tpdm.IEvaluation value)
+        private void SetEvaluation(Entities.Common.TPDM.IEvaluation value)
         {
             _evaluation = value;
         }
@@ -9796,7 +9796,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRatingLevel;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -9810,7 +9810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -9831,7 +9831,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
                 hash.Add(_evaluation);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor);
 
             return hash.ToHashCode();
         }
@@ -9906,20 +9906,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingLevelMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRatingLevel)target);
+            return Entities.Common.TPDM.EvaluationRatingLevelMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingLevelMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRatingLevel)target, null);
+            Entities.Common.TPDM.EvaluationRatingLevelMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingLevel)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -9973,7 +9973,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.Tpdm
 }
 // Aggregate: EvaluationElement
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 {
     /// <summary>
     /// Represents a reference to the EvaluationElement resource.
@@ -10084,7 +10084,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElement : Entities.Common.Tpdm.IEvaluationElement, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport
+    public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10118,21 +10118,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         // -------------------------------------------------------------
 
         private bool _evaluationObjectiveReferenceExplicitlyAssigned;
-        private EvaluationObjective.Tpdm.EvaluationObjectiveReference _evaluationObjectiveReference;
-        private EvaluationObjective.Tpdm.EvaluationObjectiveReference ImplicitEvaluationObjectiveReference
+        private EvaluationObjective.TPDM.EvaluationObjectiveReference _evaluationObjectiveReference;
+        private EvaluationObjective.TPDM.EvaluationObjectiveReference ImplicitEvaluationObjectiveReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationObjectiveReference == null && !_evaluationObjectiveReferenceExplicitlyAssigned)
-                    _evaluationObjectiveReference = new EvaluationObjective.Tpdm.EvaluationObjectiveReference();
+                    _evaluationObjectiveReference = new EvaluationObjective.TPDM.EvaluationObjectiveReference();
 
                 return _evaluationObjectiveReference;
             }
         }
 
         [DataMember(Name="evaluationObjectiveReference")][NaturalKeyMember]
-        public EvaluationObjective.Tpdm.EvaluationObjectiveReference EvaluationObjectiveReference
+        public EvaluationObjective.TPDM.EvaluationObjectiveReference EvaluationObjectiveReference
         {
             get
             {
@@ -10159,7 +10159,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEvaluationElement.EducationOrganizationId
+        int Entities.Common.TPDM.IEvaluationElement.EducationOrganizationId
         {
             get
             {
@@ -10191,7 +10191,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// The name or title of the evaluation Objective.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElement.EvaluationObjectiveTitle
+        string Entities.Common.TPDM.IEvaluationElement.EvaluationObjectiveTitle
         {
             get
             {
@@ -10217,7 +10217,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElement.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElement.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IEvaluationElement.EvaluationPeriodDescriptor
         {
             get
             {
@@ -10237,7 +10237,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// The name or title of the evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElement.EvaluationTitle
+        string Entities.Common.TPDM.IEvaluationElement.EvaluationTitle
         {
             get
             {
@@ -10262,7 +10262,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElement.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IEvaluationElement.PerformanceEvaluationTitle
         {
             get
             {
@@ -10288,7 +10288,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElement.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElement.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IEvaluationElement.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -10308,7 +10308,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IEvaluationElement.SchoolYear
+        short Entities.Common.TPDM.IEvaluationElement.SchoolYear
         {
             get
             {
@@ -10334,7 +10334,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElement.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElement.TermDescriptor
+        string Entities.Common.TPDM.IEvaluationElement.TermDescriptor
         {
             get
             {
@@ -10363,7 +10363,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationElement;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationElement;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -10373,47 +10373,47 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationElement).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElement).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -10431,34 +10431,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).EvaluationElementTitle);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).EvaluationObjectiveTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).EvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElement).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -10531,7 +10531,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EvaluationElementRatingLevel> _evaluationElementRatingLevels;
-        private ICollection<Entities.Common.Tpdm.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> _evaluationElementRatingLevelsCovariant;
 
         [DataMember(Name="ratingLevels"), NoDuplicateMembers]
         public ICollection<EvaluationElementRatingLevel> EvaluationElementRatingLevels
@@ -10542,18 +10542,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationElementRatingLevel>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationElementRatingLevel)e.Item).EvaluationElement = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationElementRatingLevel)e.Item).EvaluationElement = this);
                 _evaluationElementRatingLevels = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationElementRatingLevel, EvaluationElementRatingLevel>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationElementRatingLevel)e.Item).EvaluationElement = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationElementRatingLevel, EvaluationElementRatingLevel>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationElementRatingLevel)e.Item).EvaluationElement = this;
                 _evaluationElementRatingLevelsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationElementRatingLevel> Entities.Common.Tpdm.IEvaluationElement.EvaluationElementRatingLevels
+        ICollection<Entities.Common.TPDM.IEvaluationElementRatingLevel> Entities.Common.TPDM.IEvaluationElement.EvaluationElementRatingLevels
         {
             get { return _evaluationElementRatingLevelsCovariant; }
             set { EvaluationElementRatingLevels = new List<EvaluationElementRatingLevel>(value.Cast<EvaluationElementRatingLevel>()); }
@@ -10594,26 +10594,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationElementMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationElement)target);
+            return Entities.Common.TPDM.EvaluationElementMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationElement)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationElementMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationElement)target, null);
+            Entities.Common.TPDM.EvaluationElementMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationElement)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported       { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsMaxRatingSupported                      { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsMinRatingSupported                      { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsSortOrderSupported                      { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsMaxRatingSupported                      { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsMinRatingSupported                      { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsSortOrderSupported                      { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEvaluationElementRatingLevel, bool> Entities.Common.Tpdm.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelIncluded
+        Func<Entities.Common.TPDM.IEvaluationElementRatingLevel, bool> Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelIncluded
         {
             get { return null; }
             set { }
@@ -10624,13 +10624,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluationElement.EvaluationObjectiveResourceId
+        Guid? Entities.Common.TPDM.IEvaluationElement.EvaluationObjectiveResourceId
         {
             get { return null; }
             set { ImplicitEvaluationObjectiveReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationElement.EvaluationObjectiveDiscriminator
+        string Entities.Common.TPDM.IEvaluationElement.EvaluationObjectiveDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -10697,7 +10697,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevel : Entities.Common.Tpdm.IEvaluationElementRatingLevel, Entities.Common.Tpdm.IEvaluationElementRatingLevelSynchronizationSourceSupport
+    public class EvaluationElementRatingLevel : Entities.Common.TPDM.IEvaluationElementRatingLevel, Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10723,21 +10723,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationElement _evaluationElement;
+        private Entities.Common.TPDM.IEvaluationElement _evaluationElement;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationElement Entities.Common.Tpdm.IEvaluationElementRatingLevel.EvaluationElement
+        Entities.Common.TPDM.IEvaluationElement Entities.Common.TPDM.IEvaluationElementRatingLevel.EvaluationElement
         {
             get { return _evaluationElement; }
             set { SetEvaluationElement(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationElement EvaluationElement
+        internal Entities.Common.TPDM.IEvaluationElement EvaluationElement
         {
             set { SetEvaluationElement(value); }
         }
 
-        private void SetEvaluationElement(Entities.Common.Tpdm.IEvaluationElement value)
+        private void SetEvaluationElement(Entities.Common.TPDM.IEvaluationElement value)
         {
             _evaluationElement = value;
         }
@@ -10762,7 +10762,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationElementRatingLevel;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -10776,7 +10776,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -10797,7 +10797,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
                 hash.Add(_evaluationElement);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor);
 
             return hash.ToHashCode();
         }
@@ -10872,20 +10872,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationElementRatingLevelMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationElementRatingLevel)target);
+            return Entities.Common.TPDM.EvaluationElementRatingLevelMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationElementRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationElementRatingLevelMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationElementRatingLevel)target, null);
+            Entities.Common.TPDM.EvaluationElementRatingLevelMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationElementRatingLevel)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -10939,7 +10939,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.Tpdm
 }
 // Aggregate: EvaluationElementRating
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 {
     /// <summary>
     /// Represents a reference to the EvaluationElementRating resource.
@@ -11059,7 +11059,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRating : Entities.Common.Tpdm.IEvaluationElementRating, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport
+    public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11093,21 +11093,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         // -------------------------------------------------------------
 
         private bool _evaluationElementReferenceExplicitlyAssigned;
-        private EvaluationElement.Tpdm.EvaluationElementReference _evaluationElementReference;
-        private EvaluationElement.Tpdm.EvaluationElementReference ImplicitEvaluationElementReference
+        private EvaluationElement.TPDM.EvaluationElementReference _evaluationElementReference;
+        private EvaluationElement.TPDM.EvaluationElementReference ImplicitEvaluationElementReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationElementReference == null && !_evaluationElementReferenceExplicitlyAssigned)
-                    _evaluationElementReference = new EvaluationElement.Tpdm.EvaluationElementReference();
+                    _evaluationElementReference = new EvaluationElement.TPDM.EvaluationElementReference();
 
                 return _evaluationElementReference;
             }
         }
 
         [DataMember(Name="evaluationElementReference")][NaturalKeyMember]
-        public EvaluationElement.Tpdm.EvaluationElementReference EvaluationElementReference
+        public EvaluationElement.TPDM.EvaluationElementReference EvaluationElementReference
         {
             get
             {
@@ -11125,21 +11125,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
             }
         }
         private bool _evaluationObjectiveRatingReferenceExplicitlyAssigned;
-        private EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRatingReference _evaluationObjectiveRatingReference;
-        private EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRatingReference ImplicitEvaluationObjectiveRatingReference
+        private EvaluationObjectiveRating.TPDM.EvaluationObjectiveRatingReference _evaluationObjectiveRatingReference;
+        private EvaluationObjectiveRating.TPDM.EvaluationObjectiveRatingReference ImplicitEvaluationObjectiveRatingReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationObjectiveRatingReference == null && !_evaluationObjectiveRatingReferenceExplicitlyAssigned)
-                    _evaluationObjectiveRatingReference = new EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRatingReference();
+                    _evaluationObjectiveRatingReference = new EvaluationObjectiveRating.TPDM.EvaluationObjectiveRatingReference();
 
                 return _evaluationObjectiveRatingReference;
             }
         }
 
         [DataMember(Name="evaluationObjectiveRatingReference")][NaturalKeyMember]
-        public EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRatingReference EvaluationObjectiveRatingReference
+        public EvaluationObjectiveRating.TPDM.EvaluationObjectiveRatingReference EvaluationObjectiveRatingReference
         {
             get
             {
@@ -11166,7 +11166,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEvaluationElementRating.EducationOrganizationId
+        int Entities.Common.TPDM.IEvaluationElementRating.EducationOrganizationId
         {
             get
             {
@@ -11195,7 +11195,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// The date for the person's evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        DateTime Entities.Common.Tpdm.IEvaluationElementRating.EvaluationDate
+        DateTime Entities.Common.TPDM.IEvaluationElementRating.EvaluationDate
         {
             get
             {
@@ -11220,7 +11220,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// The name or title of the evaluation element.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementTitle
+        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementTitle
         {
             get
             {
@@ -11245,7 +11245,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// The name or title of the evaluation Objective.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationObjectiveTitle
+        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationObjectiveTitle
         {
             get
             {
@@ -11275,7 +11275,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElementRating.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationPeriodDescriptor
         {
             get
             {
@@ -11296,7 +11296,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// The name or title of the evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationTitle
+        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationTitle
         {
             get
             {
@@ -11325,7 +11325,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IEvaluationElementRating.PerformanceEvaluationTitle
         {
             get
             {
@@ -11355,7 +11355,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElementRating.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IEvaluationElementRating.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -11376,7 +11376,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.PersonId
+        string Entities.Common.TPDM.IEvaluationElementRating.PersonId
         {
             get
             {
@@ -11401,7 +11401,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IEvaluationElementRating.SchoolYear
+        short Entities.Common.TPDM.IEvaluationElementRating.SchoolYear
         {
             get
             {
@@ -11431,7 +11431,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElementRating.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.SourceSystemDescriptor
+        string Entities.Common.TPDM.IEvaluationElementRating.SourceSystemDescriptor
         {
             get
             {
@@ -11452,7 +11452,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationElementRating.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationElementRating.TermDescriptor
+        string Entities.Common.TPDM.IEvaluationElementRating.TermDescriptor
         {
             get
             {
@@ -11482,7 +11482,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationElementRating;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRating;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -11492,62 +11492,62 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationDate.Equals(compareTo.EvaluationDate))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.Equals(compareTo.PersonId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -11565,43 +11565,43 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationDate);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationElementTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationObjectiveTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).EvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).PersonId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).PersonId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).SourceSystemDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor);
 
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRating).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -11681,7 +11681,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EvaluationElementRatingResult> _evaluationElementRatingResults;
-        private ICollection<Entities.Common.Tpdm.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> _evaluationElementRatingResultsCovariant;
 
         [DataMember(Name="results"), NoDuplicateMembers]
         public ICollection<EvaluationElementRatingResult> EvaluationElementRatingResults
@@ -11692,18 +11692,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationElementRatingResult>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationElementRatingResult)e.Item).EvaluationElementRating = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationElementRatingResult)e.Item).EvaluationElementRating = this);
                 _evaluationElementRatingResults = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationElementRatingResult, EvaluationElementRatingResult>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationElementRatingResult)e.Item).EvaluationElementRating = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationElementRatingResult, EvaluationElementRatingResult>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationElementRatingResult)e.Item).EvaluationElementRating = this;
                 _evaluationElementRatingResultsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationElementRatingResult> Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementRatingResults
+        ICollection<Entities.Common.TPDM.IEvaluationElementRatingResult> Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementRatingResults
         {
             get { return _evaluationElementRatingResultsCovariant; }
             set { EvaluationElementRatingResults = new List<EvaluationElementRatingResult>(value.Cast<EvaluationElementRatingResult>()); }
@@ -11744,27 +11744,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationElementRatingMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationElementRating)target);
+            return Entities.Common.TPDM.EvaluationElementRatingMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationElementRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationElementRatingMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationElementRating)target, null);
+            Entities.Common.TPDM.EvaluationElementRatingMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationElementRating)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfRefinementSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfReinforcementSupported                     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsCommentsSupported                                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingLevelDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultsSupported          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsFeedbackSupported                                { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfRefinementSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfReinforcementSupported                     { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsCommentsSupported                                { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingLevelDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultsSupported          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsFeedbackSupported                                { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEvaluationElementRatingResult, bool> Entities.Common.Tpdm.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultIncluded
+        Func<Entities.Common.TPDM.IEvaluationElementRatingResult, bool> Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultIncluded
         {
             get { return null; }
             set { }
@@ -11775,13 +11775,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementResourceId
+        Guid? Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementResourceId
         {
             get { return null; }
             set { ImplicitEvaluationElementReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationElementDiscriminator
+        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationElementDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -11789,13 +11789,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         }
 
 
-        Guid? Entities.Common.Tpdm.IEvaluationElementRating.EvaluationObjectiveRatingResourceId
+        Guid? Entities.Common.TPDM.IEvaluationElementRating.EvaluationObjectiveRatingResourceId
         {
             get { return null; }
             set { ImplicitEvaluationObjectiveRatingReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationElementRating.EvaluationObjectiveRatingDiscriminator
+        string Entities.Common.TPDM.IEvaluationElementRating.EvaluationObjectiveRatingDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -12078,7 +12078,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingResult : Entities.Common.Tpdm.IEvaluationElementRatingResult, Entities.Common.Tpdm.IEvaluationElementRatingResultSynchronizationSourceSupport
+    public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult, Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12104,21 +12104,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationElementRating _evaluationElementRating;
+        private Entities.Common.TPDM.IEvaluationElementRating _evaluationElementRating;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationElementRating Entities.Common.Tpdm.IEvaluationElementRatingResult.EvaluationElementRating
+        Entities.Common.TPDM.IEvaluationElementRating Entities.Common.TPDM.IEvaluationElementRatingResult.EvaluationElementRating
         {
             get { return _evaluationElementRating; }
             set { SetEvaluationElementRating(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationElementRating EvaluationElementRating
+        internal Entities.Common.TPDM.IEvaluationElementRating EvaluationElementRating
         {
             set { SetEvaluationElementRating(value); }
         }
 
-        private void SetEvaluationElementRating(Entities.Common.Tpdm.IEvaluationElementRating value)
+        private void SetEvaluationElementRating(Entities.Common.TPDM.IEvaluationElementRating value)
         {
             _evaluationElementRating = value;
         }
@@ -12150,7 +12150,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationElementRatingResult;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRatingResult;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -12164,12 +12164,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationElementRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationElementRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
 
 
@@ -12190,11 +12190,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
                 hash.Add(_evaluationElementRating);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRatingResult).Rating);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRatingResult).RatingResultTitle);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle);
 
             return hash.ToHashCode();
         }
@@ -12262,19 +12262,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationElementRatingResultMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationElementRatingResult)target);
+            return Entities.Common.TPDM.EvaluationElementRatingResultMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationElementRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationElementRatingResultMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationElementRatingResult)target, null);
+            Entities.Common.TPDM.EvaluationElementRatingResultMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationElementRatingResult)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationElementRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -12328,14 +12328,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.Tpdm
 }
 // Aggregate: EvaluationElementRatingLevelDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EvaluationElementRatingLevelDescriptor table of the EvaluationElementRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevelDescriptor : Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport
+    public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12395,7 +12395,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -12405,7 +12405,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.Equals(compareTo.EvaluationElementRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.Equals(compareTo.EvaluationElementRatingLevelDescriptorId))
                 return false;
 
 
@@ -12423,7 +12423,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -12540,25 +12540,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationElementRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor)target);
+            return Entities.Common.TPDM.EvaluationElementRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationElementRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptor)target, null);
+            Entities.Common.TPDM.EvaluationElementRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -12612,7 +12612,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
 }
 // Aggregate: EvaluationObjective
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 {
     /// <summary>
     /// Represents a reference to the EvaluationObjective resource.
@@ -12720,7 +12720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjective : Entities.Common.Tpdm.IEvaluationObjective, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport
+    public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12754,21 +12754,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         // -------------------------------------------------------------
 
         private bool _evaluationReferenceExplicitlyAssigned;
-        private Evaluation.Tpdm.EvaluationReference _evaluationReference;
-        private Evaluation.Tpdm.EvaluationReference ImplicitEvaluationReference
+        private Evaluation.TPDM.EvaluationReference _evaluationReference;
+        private Evaluation.TPDM.EvaluationReference ImplicitEvaluationReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationReference == null && !_evaluationReferenceExplicitlyAssigned)
-                    _evaluationReference = new Evaluation.Tpdm.EvaluationReference();
+                    _evaluationReference = new Evaluation.TPDM.EvaluationReference();
 
                 return _evaluationReference;
             }
         }
 
         [DataMember(Name="evaluationReference")][NaturalKeyMember]
-        public Evaluation.Tpdm.EvaluationReference EvaluationReference
+        public Evaluation.TPDM.EvaluationReference EvaluationReference
         {
             get
             {
@@ -12795,7 +12795,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEvaluationObjective.EducationOrganizationId
+        int Entities.Common.TPDM.IEvaluationObjective.EducationOrganizationId
         {
             get
             {
@@ -12828,7 +12828,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjective.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjective.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IEvaluationObjective.EvaluationPeriodDescriptor
         {
             get
             {
@@ -12848,7 +12848,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// The name or title of the evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjective.EvaluationTitle
+        string Entities.Common.TPDM.IEvaluationObjective.EvaluationTitle
         {
             get
             {
@@ -12873,7 +12873,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjective.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IEvaluationObjective.PerformanceEvaluationTitle
         {
             get
             {
@@ -12899,7 +12899,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjective.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjective.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IEvaluationObjective.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -12919,7 +12919,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IEvaluationObjective.SchoolYear
+        short Entities.Common.TPDM.IEvaluationObjective.SchoolYear
         {
             get
             {
@@ -12945,7 +12945,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjective.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjective.TermDescriptor
+        string Entities.Common.TPDM.IEvaluationObjective.TermDescriptor
         {
             get
             {
@@ -12974,7 +12974,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationObjective;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationObjective;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -12984,42 +12984,42 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationObjective).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjective).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -13037,31 +13037,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).EvaluationObjectiveTitle);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle);
 
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).EvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjective).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -13141,7 +13141,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevels;
-        private ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> _evaluationObjectiveRatingLevelsCovariant;
 
         [DataMember(Name="ratingLevels"), NoDuplicateMembers]
         public ICollection<EvaluationObjectiveRatingLevel> EvaluationObjectiveRatingLevels
@@ -13152,18 +13152,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationObjectiveRatingLevel>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel)e.Item).EvaluationObjective = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationObjectiveRatingLevel)e.Item).EvaluationObjective = this);
                 _evaluationObjectiveRatingLevels = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, EvaluationObjectiveRatingLevel>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel)e.Item).EvaluationObjective = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, EvaluationObjectiveRatingLevel>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationObjectiveRatingLevel)e.Item).EvaluationObjective = this;
                 _evaluationObjectiveRatingLevelsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel> Entities.Common.Tpdm.IEvaluationObjective.EvaluationObjectiveRatingLevels
+        ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel> Entities.Common.TPDM.IEvaluationObjective.EvaluationObjectiveRatingLevels
         {
             get { return _evaluationObjectiveRatingLevelsCovariant; }
             set { EvaluationObjectiveRatingLevels = new List<EvaluationObjectiveRatingLevel>(value.Cast<EvaluationObjectiveRatingLevel>()); }
@@ -13204,27 +13204,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationObjectiveMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationObjective)target);
+            return Entities.Common.TPDM.EvaluationObjectiveMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationObjective)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationObjectiveMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationObjective)target, null);
+            Entities.Common.TPDM.EvaluationObjectiveMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationObjective)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveDescriptionSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsMaxRatingSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsMinRatingSupported                        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsSortOrderSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveDescriptionSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsMaxRatingSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsMinRatingSupported                        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsSortOrderSupported                        { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, bool> Entities.Common.Tpdm.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelIncluded
+        Func<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, bool> Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelIncluded
         {
             get { return null; }
             set { }
@@ -13235,13 +13235,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluationObjective.EvaluationResourceId
+        Guid? Entities.Common.TPDM.IEvaluationObjective.EvaluationResourceId
         {
             get { return null; }
             set { ImplicitEvaluationReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationObjective.EvaluationDiscriminator
+        string Entities.Common.TPDM.IEvaluationObjective.EvaluationDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -13308,7 +13308,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingLevel : Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel, Entities.Common.Tpdm.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport
+    public class EvaluationObjectiveRatingLevel : Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13334,21 +13334,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationObjective _evaluationObjective;
+        private Entities.Common.TPDM.IEvaluationObjective _evaluationObjective;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationObjective Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel.EvaluationObjective
+        Entities.Common.TPDM.IEvaluationObjective Entities.Common.TPDM.IEvaluationObjectiveRatingLevel.EvaluationObjective
         {
             get { return _evaluationObjective; }
             set { SetEvaluationObjective(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationObjective EvaluationObjective
+        internal Entities.Common.TPDM.IEvaluationObjective EvaluationObjective
         {
             set { SetEvaluationObjective(value); }
         }
 
-        private void SetEvaluationObjective(Entities.Common.Tpdm.IEvaluationObjective value)
+        private void SetEvaluationObjective(Entities.Common.TPDM.IEvaluationObjective value)
         {
             _evaluationObjective = value;
         }
@@ -13373,7 +13373,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -13387,7 +13387,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -13408,7 +13408,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
                 hash.Add(_evaluationObjective);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor);
 
             return hash.ToHashCode();
         }
@@ -13483,20 +13483,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationObjectiveRatingLevelMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel)target);
+            return Entities.Common.TPDM.EvaluationObjectiveRatingLevelMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationObjectiveRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationObjectiveRatingLevelMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationObjectiveRatingLevel)target, null);
+            Entities.Common.TPDM.EvaluationObjectiveRatingLevelMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationObjectiveRatingLevel)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -13550,7 +13550,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.Tpdm
 }
 // Aggregate: EvaluationObjectiveRating
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 {
     /// <summary>
     /// Represents a reference to the EvaluationObjectiveRating resource.
@@ -13667,7 +13667,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRating : Entities.Common.Tpdm.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport
+    public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13701,21 +13701,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         // -------------------------------------------------------------
 
         private bool _evaluationObjectiveReferenceExplicitlyAssigned;
-        private EvaluationObjective.Tpdm.EvaluationObjectiveReference _evaluationObjectiveReference;
-        private EvaluationObjective.Tpdm.EvaluationObjectiveReference ImplicitEvaluationObjectiveReference
+        private EvaluationObjective.TPDM.EvaluationObjectiveReference _evaluationObjectiveReference;
+        private EvaluationObjective.TPDM.EvaluationObjectiveReference ImplicitEvaluationObjectiveReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationObjectiveReference == null && !_evaluationObjectiveReferenceExplicitlyAssigned)
-                    _evaluationObjectiveReference = new EvaluationObjective.Tpdm.EvaluationObjectiveReference();
+                    _evaluationObjectiveReference = new EvaluationObjective.TPDM.EvaluationObjectiveReference();
 
                 return _evaluationObjectiveReference;
             }
         }
 
         [DataMember(Name="evaluationObjectiveReference")][NaturalKeyMember]
-        public EvaluationObjective.Tpdm.EvaluationObjectiveReference EvaluationObjectiveReference
+        public EvaluationObjective.TPDM.EvaluationObjectiveReference EvaluationObjectiveReference
         {
             get
             {
@@ -13733,21 +13733,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
             }
         }
         private bool _evaluationRatingReferenceExplicitlyAssigned;
-        private EvaluationRating.Tpdm.EvaluationRatingReference _evaluationRatingReference;
-        private EvaluationRating.Tpdm.EvaluationRatingReference ImplicitEvaluationRatingReference
+        private EvaluationRating.TPDM.EvaluationRatingReference _evaluationRatingReference;
+        private EvaluationRating.TPDM.EvaluationRatingReference ImplicitEvaluationRatingReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationRatingReference == null && !_evaluationRatingReferenceExplicitlyAssigned)
-                    _evaluationRatingReference = new EvaluationRating.Tpdm.EvaluationRatingReference();
+                    _evaluationRatingReference = new EvaluationRating.TPDM.EvaluationRatingReference();
 
                 return _evaluationRatingReference;
             }
         }
 
         [DataMember(Name="evaluationRatingReference")][NaturalKeyMember]
-        public EvaluationRating.Tpdm.EvaluationRatingReference EvaluationRatingReference
+        public EvaluationRating.TPDM.EvaluationRatingReference EvaluationRatingReference
         {
             get
             {
@@ -13774,7 +13774,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEvaluationObjectiveRating.EducationOrganizationId
+        int Entities.Common.TPDM.IEvaluationObjectiveRating.EducationOrganizationId
         {
             get
             {
@@ -13803,7 +13803,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// The date for the person's evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        DateTime Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationDate
+        DateTime Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationDate
         {
             get
             {
@@ -13828,7 +13828,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// The name or title of the evaluation Objective.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveTitle
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveTitle
         {
             get
             {
@@ -13854,7 +13854,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjectiveRating.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationPeriodDescriptor
         {
             get
             {
@@ -13875,7 +13875,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// The name or title of the evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationTitle
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationTitle
         {
             get
             {
@@ -13904,7 +13904,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.PerformanceEvaluationTitle
         {
             get
             {
@@ -13934,7 +13934,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjectiveRating.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -13955,7 +13955,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.PersonId
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.PersonId
         {
             get
             {
@@ -13980,7 +13980,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IEvaluationObjectiveRating.SchoolYear
+        short Entities.Common.TPDM.IEvaluationObjectiveRating.SchoolYear
         {
             get
             {
@@ -14010,7 +14010,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjectiveRating.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.SourceSystemDescriptor
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.SourceSystemDescriptor
         {
             get
             {
@@ -14031,7 +14031,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationObjectiveRating.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.TermDescriptor
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.TermDescriptor
         {
             get
             {
@@ -14061,7 +14061,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationObjectiveRating;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationObjectiveRating;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -14071,57 +14071,57 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationDate.Equals(compareTo.EvaluationDate))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.Equals(compareTo.PersonId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationObjectiveRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -14139,40 +14139,40 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationDate);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationObjectiveTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).EvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).PersonId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).SourceSystemDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor);
 
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRating).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -14231,7 +14231,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EvaluationObjectiveRatingResult> _evaluationObjectiveRatingResults;
-        private ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> _evaluationObjectiveRatingResultsCovariant;
 
         [DataMember(Name="results"), NoDuplicateMembers]
         public ICollection<EvaluationObjectiveRatingResult> EvaluationObjectiveRatingResults
@@ -14242,18 +14242,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationObjectiveRatingResult>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationObjectiveRatingResult)e.Item).EvaluationObjectiveRating = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationObjectiveRatingResult)e.Item).EvaluationObjectiveRating = this);
                 _evaluationObjectiveRatingResults = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, EvaluationObjectiveRatingResult>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationObjectiveRatingResult)e.Item).EvaluationObjectiveRating = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationObjectiveRatingResult, EvaluationObjectiveRatingResult>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationObjectiveRatingResult)e.Item).EvaluationObjectiveRating = this;
                 _evaluationObjectiveRatingResultsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult> Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveRatingResults
+        ICollection<Entities.Common.TPDM.IEvaluationObjectiveRatingResult> Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveRatingResults
         {
             get { return _evaluationObjectiveRatingResultsCovariant; }
             set { EvaluationObjectiveRatingResults = new List<EvaluationObjectiveRatingResult>(value.Cast<EvaluationObjectiveRatingResult>()); }
@@ -14294,24 +14294,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationObjectiveRatingMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationObjectiveRating)target);
+            return Entities.Common.TPDM.EvaluationObjectiveRatingMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationObjectiveRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationObjectiveRatingMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationObjectiveRating)target, null);
+            Entities.Common.TPDM.EvaluationObjectiveRatingMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationObjectiveRating)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsCommentsSupported                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultsSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsObjectiveRatingLevelDescriptorSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsCommentsSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsObjectiveRatingLevelDescriptorSupported    { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, bool> Entities.Common.Tpdm.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultIncluded
+        Func<Entities.Common.TPDM.IEvaluationObjectiveRatingResult, bool> Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultIncluded
         {
             get { return null; }
             set { }
@@ -14322,13 +14322,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveResourceId
+        Guid? Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveResourceId
         {
             get { return null; }
             set { ImplicitEvaluationObjectiveReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationObjectiveDiscriminator
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationObjectiveDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -14336,13 +14336,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         }
 
 
-        Guid? Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationRatingResourceId
+        Guid? Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationRatingResourceId
         {
             get { return null; }
             set { ImplicitEvaluationRatingReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationObjectiveRating.EvaluationRatingDiscriminator
+        string Entities.Common.TPDM.IEvaluationObjectiveRating.EvaluationRatingDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -14598,7 +14598,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingResult : Entities.Common.Tpdm.IEvaluationObjectiveRatingResult, Entities.Common.Tpdm.IEvaluationObjectiveRatingResultSynchronizationSourceSupport
+    public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult, Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14624,21 +14624,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationObjectiveRating _evaluationObjectiveRating;
+        private Entities.Common.TPDM.IEvaluationObjectiveRating _evaluationObjectiveRating;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationObjectiveRating Entities.Common.Tpdm.IEvaluationObjectiveRatingResult.EvaluationObjectiveRating
+        Entities.Common.TPDM.IEvaluationObjectiveRating Entities.Common.TPDM.IEvaluationObjectiveRatingResult.EvaluationObjectiveRating
         {
             get { return _evaluationObjectiveRating; }
             set { SetEvaluationObjectiveRating(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationObjectiveRating EvaluationObjectiveRating
+        internal Entities.Common.TPDM.IEvaluationObjectiveRating EvaluationObjectiveRating
         {
             set { SetEvaluationObjectiveRating(value); }
         }
 
-        private void SetEvaluationObjectiveRating(Entities.Common.Tpdm.IEvaluationObjectiveRating value)
+        private void SetEvaluationObjectiveRating(Entities.Common.TPDM.IEvaluationObjectiveRating value)
         {
             _evaluationObjectiveRating = value;
         }
@@ -14670,7 +14670,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationObjectiveRatingResult;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationObjectiveRatingResult;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -14684,12 +14684,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationObjectiveRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationObjectiveRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
 
 
@@ -14710,11 +14710,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
                 hash.Add(_evaluationObjectiveRating);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRatingResult).Rating);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationObjectiveRatingResult).RatingResultTitle);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle);
 
             return hash.ToHashCode();
         }
@@ -14782,19 +14782,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationObjectiveRatingResultMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationObjectiveRatingResult)target);
+            return Entities.Common.TPDM.EvaluationObjectiveRatingResultMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationObjectiveRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationObjectiveRatingResultMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationObjectiveRatingResult)target, null);
+            Entities.Common.TPDM.EvaluationObjectiveRatingResultMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationObjectiveRatingResult)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationObjectiveRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -14848,14 +14848,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.Tpdm
 }
 // Aggregate: EvaluationPeriodDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EvaluationPeriodDescriptor table of the EvaluationPeriodDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptor : Entities.Common.Tpdm.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport
+    public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14915,7 +14915,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationPeriodDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationPeriodDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -14925,7 +14925,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.Equals(compareTo.EvaluationPeriodDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.Equals(compareTo.EvaluationPeriodDescriptorId))
                 return false;
 
 
@@ -14943,7 +14943,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -15060,25 +15060,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationPeriodDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationPeriodDescriptor)target);
+            return Entities.Common.TPDM.EvaluationPeriodDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationPeriodDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationPeriodDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationPeriodDescriptor)target, null);
+            Entities.Common.TPDM.EvaluationPeriodDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationPeriodDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -15132,7 +15132,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.Tpdm
 }
 // Aggregate: EvaluationRating
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 {
     /// <summary>
     /// Represents a reference to the EvaluationRating resource.
@@ -15246,7 +15246,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRating : Entities.Common.Tpdm.IEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport
+    public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15281,21 +15281,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         // -------------------------------------------------------------
 
         private bool _evaluationReferenceExplicitlyAssigned;
-        private Evaluation.Tpdm.EvaluationReference _evaluationReference;
-        private Evaluation.Tpdm.EvaluationReference ImplicitEvaluationReference
+        private Evaluation.TPDM.EvaluationReference _evaluationReference;
+        private Evaluation.TPDM.EvaluationReference ImplicitEvaluationReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationReference == null && !_evaluationReferenceExplicitlyAssigned)
-                    _evaluationReference = new Evaluation.Tpdm.EvaluationReference();
+                    _evaluationReference = new Evaluation.TPDM.EvaluationReference();
 
                 return _evaluationReference;
             }
         }
 
         [DataMember(Name="evaluationReference")][NaturalKeyMember]
-        public Evaluation.Tpdm.EvaluationReference EvaluationReference
+        public Evaluation.TPDM.EvaluationReference EvaluationReference
         {
             get
             {
@@ -15313,21 +15313,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
             }
         }
         private bool _performanceEvaluationRatingReferenceExplicitlyAssigned;
-        private PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRatingReference _performanceEvaluationRatingReference;
-        private PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRatingReference ImplicitPerformanceEvaluationRatingReference
+        private PerformanceEvaluationRating.TPDM.PerformanceEvaluationRatingReference _performanceEvaluationRatingReference;
+        private PerformanceEvaluationRating.TPDM.PerformanceEvaluationRatingReference ImplicitPerformanceEvaluationRatingReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_performanceEvaluationRatingReference == null && !_performanceEvaluationRatingReferenceExplicitlyAssigned)
-                    _performanceEvaluationRatingReference = new PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRatingReference();
+                    _performanceEvaluationRatingReference = new PerformanceEvaluationRating.TPDM.PerformanceEvaluationRatingReference();
 
                 return _performanceEvaluationRatingReference;
             }
         }
 
         [DataMember(Name="performanceEvaluationRatingReference")][NaturalKeyMember]
-        public PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRatingReference PerformanceEvaluationRatingReference
+        public PerformanceEvaluationRating.TPDM.PerformanceEvaluationRatingReference PerformanceEvaluationRatingReference
         {
             get
             {
@@ -15386,7 +15386,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IEvaluationRating.EducationOrganizationId
+        int Entities.Common.TPDM.IEvaluationRating.EducationOrganizationId
         {
             get
             {
@@ -15423,7 +15423,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationRating.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IEvaluationRating.EvaluationPeriodDescriptor
         {
             get
             {
@@ -15444,7 +15444,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The name or title of the evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.EvaluationTitle
+        string Entities.Common.TPDM.IEvaluationRating.EvaluationTitle
         {
             get
             {
@@ -15469,7 +15469,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IEvaluationRating.PerformanceEvaluationTitle
         {
             get
             {
@@ -15499,7 +15499,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationRating.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IEvaluationRating.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -15520,7 +15520,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.PersonId
+        string Entities.Common.TPDM.IEvaluationRating.PersonId
         {
             get
             {
@@ -15545,7 +15545,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IEvaluationRating.SchoolYear
+        short Entities.Common.TPDM.IEvaluationRating.SchoolYear
         {
             get
             {
@@ -15579,7 +15579,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationRating.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.SourceSystemDescriptor
+        string Entities.Common.TPDM.IEvaluationRating.SourceSystemDescriptor
         {
             get
             {
@@ -15600,7 +15600,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationRating.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.TermDescriptor
+        string Entities.Common.TPDM.IEvaluationRating.TermDescriptor
         {
             get
             {
@@ -15630,7 +15630,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRating;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRating;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -15640,52 +15640,52 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationRating).EvaluationDate.Equals(compareTo.EvaluationDate))
+             if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).PersonId.Equals(compareTo.PersonId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -15703,38 +15703,38 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).EvaluationDate);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate);
 
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).EvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).PersonId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).PersonId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).SourceSystemDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor);
 
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRating).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -15767,7 +15767,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The local code assigned by the School that identifies the course offering provided for the instruction of students.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.LocalCourseCode
+        string Entities.Common.TPDM.IEvaluationRating.LocalCourseCode
         {
             get
             {
@@ -15794,7 +15794,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The identifier assigned to a school.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int? Entities.Common.Tpdm.IEvaluationRating.SchoolId
+        int? Entities.Common.TPDM.IEvaluationRating.SchoolId
         {
             get
             {
@@ -15821,7 +15821,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The local identifier assigned to a section.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.SectionIdentifier
+        string Entities.Common.TPDM.IEvaluationRating.SectionIdentifier
         {
             get
             {
@@ -15848,7 +15848,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// The identifier for the calendar for the academic session.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRating.SessionName
+        string Entities.Common.TPDM.IEvaluationRating.SessionName
         {
             get
             {
@@ -15901,7 +15901,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<EvaluationRatingResult> _evaluationRatingResults;
-        private ICollection<Entities.Common.Tpdm.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationRatingResult> _evaluationRatingResultsCovariant;
 
         [DataMember(Name="results"), NoDuplicateMembers]
         public ICollection<EvaluationRatingResult> EvaluationRatingResults
@@ -15912,25 +15912,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationRatingResult>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationRatingResult)e.Item).EvaluationRating = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationRatingResult)e.Item).EvaluationRating = this);
                 _evaluationRatingResults = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationRatingResult, EvaluationRatingResult>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationRatingResult)e.Item).EvaluationRating = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationRatingResult, EvaluationRatingResult>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationRatingResult)e.Item).EvaluationRating = this;
                 _evaluationRatingResultsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationRatingResult> Entities.Common.Tpdm.IEvaluationRating.EvaluationRatingResults
+        ICollection<Entities.Common.TPDM.IEvaluationRatingResult> Entities.Common.TPDM.IEvaluationRating.EvaluationRatingResults
         {
             get { return _evaluationRatingResultsCovariant; }
             set { EvaluationRatingResults = new List<EvaluationRatingResult>(value.Cast<EvaluationRatingResult>()); }
         }
 
         private ICollection<EvaluationRatingReviewer> _evaluationRatingReviewers;
-        private ICollection<Entities.Common.Tpdm.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
+        private ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> _evaluationRatingReviewersCovariant;
 
         [DataMember(Name="reviewers"), NoDuplicateMembers]
         public ICollection<EvaluationRatingReviewer> EvaluationRatingReviewers
@@ -15941,18 +15941,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<EvaluationRatingReviewer>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IEvaluationRatingReviewer)e.Item).EvaluationRating = this);
+                    (s, e) => ((Entities.Common.TPDM.IEvaluationRatingReviewer)e.Item).EvaluationRating = this);
                 _evaluationRatingReviewers = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IEvaluationRatingReviewer, EvaluationRatingReviewer>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IEvaluationRatingReviewer)e.Item).EvaluationRating = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IEvaluationRatingReviewer, EvaluationRatingReviewer>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IEvaluationRatingReviewer)e.Item).EvaluationRating = this;
                 _evaluationRatingReviewersCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IEvaluationRatingReviewer> Entities.Common.Tpdm.IEvaluationRating.EvaluationRatingReviewers
+        ICollection<Entities.Common.TPDM.IEvaluationRatingReviewer> Entities.Common.TPDM.IEvaluationRating.EvaluationRatingReviewers
         {
             get { return _evaluationRatingReviewersCovariant; }
             set { EvaluationRatingReviewers = new List<EvaluationRatingReviewer>(value.Cast<EvaluationRatingReviewer>()); }
@@ -15998,34 +15998,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRating)target);
+            return Entities.Common.TPDM.EvaluationRatingMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRating)target, null);
+            Entities.Common.TPDM.EvaluationRatingMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRating)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported                   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported                 { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported                       { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported                   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported                       { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IEvaluationRatingResult, bool> Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultIncluded
+        Func<Entities.Common.TPDM.IEvaluationRatingResult, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.IEvaluationRatingReviewer, bool> Entities.Common.Tpdm.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewerIncluded
+        Func<Entities.Common.TPDM.IEvaluationRatingReviewer, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewerIncluded
         {
             get { return null; }
             set { }
@@ -16036,13 +16036,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluationRating.EvaluationResourceId
+        Guid? Entities.Common.TPDM.IEvaluationRating.EvaluationResourceId
         {
             get { return null; }
             set { ImplicitEvaluationReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationRating.EvaluationDiscriminator
+        string Entities.Common.TPDM.IEvaluationRating.EvaluationDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -16050,13 +16050,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         }
 
 
-        Guid? Entities.Common.Tpdm.IEvaluationRating.PerformanceEvaluationRatingResourceId
+        Guid? Entities.Common.TPDM.IEvaluationRating.PerformanceEvaluationRatingResourceId
         {
             get { return null; }
             set { ImplicitPerformanceEvaluationRatingReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationRating.PerformanceEvaluationRatingDiscriminator
+        string Entities.Common.TPDM.IEvaluationRating.PerformanceEvaluationRatingDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -16064,13 +16064,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         }
 
 
-        Guid? Entities.Common.Tpdm.IEvaluationRating.SectionResourceId
+        Guid? Entities.Common.TPDM.IEvaluationRating.SectionResourceId
         {
             get { return null; }
             set { ImplicitSectionReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationRating.SectionDiscriminator
+        string Entities.Common.TPDM.IEvaluationRating.SectionDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -16317,7 +16317,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingResult : Entities.Common.Tpdm.IEvaluationRatingResult, Entities.Common.Tpdm.IEvaluationRatingResultSynchronizationSourceSupport
+    public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult, Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16343,21 +16343,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationRating _evaluationRating;
+        private Entities.Common.TPDM.IEvaluationRating _evaluationRating;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationRating Entities.Common.Tpdm.IEvaluationRatingResult.EvaluationRating
+        Entities.Common.TPDM.IEvaluationRating Entities.Common.TPDM.IEvaluationRatingResult.EvaluationRating
         {
             get { return _evaluationRating; }
             set { SetEvaluationRating(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationRating EvaluationRating
+        internal Entities.Common.TPDM.IEvaluationRating EvaluationRating
         {
             set { SetEvaluationRating(value); }
         }
 
-        private void SetEvaluationRating(Entities.Common.Tpdm.IEvaluationRating value)
+        private void SetEvaluationRating(Entities.Common.TPDM.IEvaluationRating value)
         {
             _evaluationRating = value;
         }
@@ -16389,7 +16389,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRatingResult;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingResult;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -16403,12 +16403,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
 
 
@@ -16429,11 +16429,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
                 hash.Add(_evaluationRating);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingResult).Rating);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingResult).RatingResultTitle);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle);
 
             return hash.ToHashCode();
         }
@@ -16501,19 +16501,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingResultMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRatingResult)target);
+            return Entities.Common.TPDM.EvaluationRatingResultMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingResultMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRatingResult)target, null);
+            Entities.Common.TPDM.EvaluationRatingResultMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingResult)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -16569,7 +16569,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingReviewer : Entities.Common.Tpdm.IEvaluationRatingReviewer, Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport
+    public class EvaluationRatingReviewer : Entities.Common.TPDM.IEvaluationRatingReviewer, Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16628,21 +16628,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationRating _evaluationRating;
+        private Entities.Common.TPDM.IEvaluationRating _evaluationRating;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationRating Entities.Common.Tpdm.IEvaluationRatingReviewer.EvaluationRating
+        Entities.Common.TPDM.IEvaluationRating Entities.Common.TPDM.IEvaluationRatingReviewer.EvaluationRating
         {
             get { return _evaluationRating; }
             set { SetEvaluationRating(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationRating EvaluationRating
+        internal Entities.Common.TPDM.IEvaluationRating EvaluationRating
         {
             set { SetEvaluationRating(value); }
         }
 
-        private void SetEvaluationRating(Entities.Common.Tpdm.IEvaluationRating value)
+        private void SetEvaluationRating(Entities.Common.TPDM.IEvaluationRating value)
         {
             _evaluationRating = value;
         }
@@ -16674,7 +16674,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRatingReviewer;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingReviewer;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -16688,12 +16688,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
                 return false;
 
 
@@ -16714,11 +16714,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
                 hash.Add(_evaluationRating);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingReviewer).FirstName);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingReviewer).LastSurname);
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname);
 
             return hash.ToHashCode();
         }
@@ -16737,7 +16737,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRatingReviewer.ReviewerPersonId
+        string Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonId
         {
             get
             {
@@ -16765,7 +16765,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (EvaluationRatingReviewer.ReviewerSourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IEvaluationRatingReviewer.ReviewerSourceSystemDescriptor
+        string Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerSourceSystemDescriptor
         {
             get
             {
@@ -16793,7 +16793,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         [DataMember(Name = "receivedTraining")]
         public EvaluationRatingReviewerReceivedTraining EvaluationRatingReviewerReceivedTraining { get; set; }
 
-        Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining Entities.Common.Tpdm.IEvaluationRatingReviewer.EvaluationRatingReviewerReceivedTraining
+        Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IEvaluationRatingReviewer.EvaluationRatingReviewerReceivedTraining
         {
             get { return EvaluationRatingReviewerReceivedTraining; }
             set { EvaluationRatingReviewerReceivedTraining = (EvaluationRatingReviewerReceivedTraining) value; }
@@ -16841,34 +16841,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingReviewerMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRatingReviewer)target);
+            return Entities.Common.TPDM.EvaluationRatingReviewerMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingReviewer)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingReviewerMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRatingReviewer)target, null);
+            Entities.Common.TPDM.EvaluationRatingReviewerMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingReviewer)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport.IsEvaluationRatingReviewerReceivedTrainingSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported                          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported            { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsEvaluationRatingReviewerReceivedTrainingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported            { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IEvaluationRatingReviewer.ReviewerPersonResourceId
+        Guid? Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonResourceId
         {
             get { return null; }
             set { ImplicitReviewerPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IEvaluationRatingReviewer.ReviewerPersonDiscriminator
+        string Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -16925,7 +16925,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingReviewerReceivedTraining : Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining, Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
+    public class EvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining, Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16951,21 +16951,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IEvaluationRatingReviewer _evaluationRatingReviewer;
+        private Entities.Common.TPDM.IEvaluationRatingReviewer _evaluationRatingReviewer;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IEvaluationRatingReviewer Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining.EvaluationRatingReviewer
+        Entities.Common.TPDM.IEvaluationRatingReviewer Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining.EvaluationRatingReviewer
         {
             get { return _evaluationRatingReviewer; }
             set { SetEvaluationRatingReviewer(value); }
         }
 
-        internal Entities.Common.Tpdm.IEvaluationRatingReviewer EvaluationRatingReviewer
+        internal Entities.Common.TPDM.IEvaluationRatingReviewer EvaluationRatingReviewer
         {
             set { SetEvaluationRatingReviewer(value); }
         }
 
-        private void SetEvaluationRatingReviewer(Entities.Common.Tpdm.IEvaluationRatingReviewer value)
+        private void SetEvaluationRatingReviewer(Entities.Common.TPDM.IEvaluationRatingReviewer value)
         {
             _evaluationRatingReviewer = value;
         }
@@ -16983,7 +16983,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -17084,20 +17084,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingReviewerReceivedTrainingMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining)target);
+            return Entities.Common.TPDM.EvaluationRatingReviewerReceivedTrainingMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingReviewerReceivedTrainingMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTraining)target, null);
+            Entities.Common.TPDM.EvaluationRatingReviewerReceivedTrainingMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported        { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -17151,14 +17151,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.Tpdm
 }
 // Aggregate: EvaluationRatingLevelDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingLevelDescriptor table of the EvaluationRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevelDescriptor : Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport
+    public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17218,7 +17218,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -17228,7 +17228,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.Equals(compareTo.EvaluationRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.Equals(compareTo.EvaluationRatingLevelDescriptorId))
                 return false;
 
 
@@ -17246,7 +17246,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -17363,25 +17363,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor)target);
+            return Entities.Common.TPDM.EvaluationRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRatingLevelDescriptor)target, null);
+            Entities.Common.TPDM.EvaluationRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingLevelDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -17435,14 +17435,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
 }
 // Aggregate: EvaluationRatingStatusDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EvaluationRatingStatusDescriptor table of the EvaluationRatingStatusDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingStatusDescriptor : Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport
+    public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17502,7 +17502,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -17512,7 +17512,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.Equals(compareTo.EvaluationRatingStatusDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.Equals(compareTo.EvaluationRatingStatusDescriptorId))
                 return false;
 
 
@@ -17530,7 +17530,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -17647,25 +17647,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationRatingStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor)target);
+            return Entities.Common.TPDM.EvaluationRatingStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingStatusDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationRatingStatusDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationRatingStatusDescriptor)target, null);
+            Entities.Common.TPDM.EvaluationRatingStatusDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingStatusDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -17719,14 +17719,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
 }
 // Aggregate: EvaluationTypeDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.EvaluationTypeDescriptor table of the EvaluationTypeDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptor : Entities.Common.Tpdm.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport
+    public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17786,7 +17786,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IEvaluationTypeDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -17796,7 +17796,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.Equals(compareTo.EvaluationTypeDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.Equals(compareTo.EvaluationTypeDescriptorId))
                 return false;
 
 
@@ -17814,7 +17814,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -17931,25 +17931,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.EvaluationTypeDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IEvaluationTypeDescriptor)target);
+            return Entities.Common.TPDM.EvaluationTypeDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationTypeDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.EvaluationTypeDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IEvaluationTypeDescriptor)target, null);
+            Entities.Common.TPDM.EvaluationTypeDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationTypeDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -18003,7 +18003,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.Tpdm
 }
 // Aggregate: FinancialAid
 
-namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
 {
     /// <summary>
     /// Represents a reference to the FinancialAid resource.
@@ -18096,7 +18096,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class FinancialAid : Entities.Common.Tpdm.IFinancialAid, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport
+    public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18181,7 +18181,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
         /// A unique alphanumeric code assigned to a student.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IFinancialAid.StudentUniqueId
+        string Entities.Common.TPDM.IFinancialAid.StudentUniqueId
         {
             get
             {
@@ -18215,7 +18215,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IFinancialAid;
+            var compareTo = obj as Entities.Common.TPDM.IFinancialAid;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -18225,17 +18225,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IFinancialAid).AidTypeDescriptor.Equals(compareTo.AidTypeDescriptor))
+             if ((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.Equals(compareTo.AidTypeDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IFinancialAid).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.TPDM.IFinancialAid).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IFinancialAid).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
 
 
@@ -18253,15 +18253,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
             var hash = new HashCode();
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IFinancialAid).AidTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IFinancialAid).BeginDate);
+                hash.Add((this as Entities.Common.TPDM.IFinancialAid).BeginDate);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IFinancialAid).StudentUniqueId);
+            hash.Add((this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId);
             return hash.ToHashCode();
         }
         // -------------------------------------------------------------
@@ -18356,35 +18356,35 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.FinancialAidMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IFinancialAid)target);
+            return Entities.Common.TPDM.FinancialAidMapper.SynchronizeTo(this, (Entities.Common.TPDM.IFinancialAid)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.FinancialAidMapper.MapTo(this, (Entities.Common.Tpdm.IFinancialAid)target, null);
+            Entities.Common.TPDM.FinancialAidMapper.MapTo(this, (Entities.Common.TPDM.IFinancialAid)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsAidAmountSupported                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsAidConditionDescriptionSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsEndDateSupported                  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IFinancialAidSynchronizationSourceSupport.IsPellGrantRecipientSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsAidAmountSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsAidConditionDescriptionSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsEndDateSupported                  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsPellGrantRecipientSupported       { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IFinancialAid.StudentResourceId
+        Guid? Entities.Common.TPDM.IFinancialAid.StudentResourceId
         {
             get { return null; }
             set { ImplicitStudentReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IFinancialAid.StudentDiscriminator
+        string Entities.Common.TPDM.IFinancialAid.StudentDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -18439,14 +18439,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.Tpdm
 }
 // Aggregate: GenderDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.GenderDescriptor table of the GenderDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class GenderDescriptor : Entities.Common.Tpdm.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport
+    public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18506,7 +18506,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IGenderDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IGenderDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -18516,7 +18516,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IGenderDescriptor).GenderDescriptorId.Equals(compareTo.GenderDescriptorId))
+            if (!(this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId.Equals(compareTo.GenderDescriptorId))
                 return false;
 
 
@@ -18534,7 +18534,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IGenderDescriptor).GenderDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -18651,25 +18651,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.GenderDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IGenderDescriptor)target);
+            return Entities.Common.TPDM.GenderDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IGenderDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.GenderDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IGenderDescriptor)target, null);
+            Entities.Common.TPDM.GenderDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IGenderDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IGenderDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -18723,14 +18723,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.Tpdm
 }
 // Aggregate: ObjectiveRatingLevelDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.ObjectiveRatingLevelDescriptor table of the ObjectiveRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ObjectiveRatingLevelDescriptor : Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport
+    public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18790,7 +18790,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tp
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -18800,7 +18800,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tp
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.Equals(compareTo.ObjectiveRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.Equals(compareTo.ObjectiveRatingLevelDescriptorId))
                 return false;
 
 
@@ -18818,7 +18818,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tp
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -18935,25 +18935,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tp
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.ObjectiveRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor)target);
+            return Entities.Common.TPDM.ObjectiveRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IObjectiveRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.ObjectiveRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IObjectiveRatingLevelDescriptor)target, null);
+            Entities.Common.TPDM.ObjectiveRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IObjectiveRatingLevelDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -19007,7 +19007,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.Tp
 }
 // Aggregate: PerformanceEvaluation
 
-namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 {
     /// <summary>
     /// Represents a reference to the PerformanceEvaluation resource.
@@ -19109,7 +19109,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluation : Entities.Common.Tpdm.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport
+    public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19217,7 +19217,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IPerformanceEvaluation.EducationOrganizationId
+        int Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationId
         {
             get
             {
@@ -19263,7 +19263,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IPerformanceEvaluation.SchoolYear
+        short Entities.Common.TPDM.IPerformanceEvaluation.SchoolYear
         {
             get
             {
@@ -19304,7 +19304,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluation;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluation;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -19314,32 +19314,32 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -19357,25 +19357,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluation).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluation).EvaluationPeriodDescriptor);
-
-
-            // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluation).PerformanceEvaluationTitle);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle);
+
+
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluation).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluation).TermDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -19434,7 +19434,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<PerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevels;
-        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
+        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> _performanceEvaluationGradeLevelsCovariant;
 
         [DataMember(Name="gradeLevels"), NoDuplicateMembers]
         public ICollection<PerformanceEvaluationGradeLevel> PerformanceEvaluationGradeLevels
@@ -19445,25 +19445,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<PerformanceEvaluationGradeLevel>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel)e.Item).PerformanceEvaluation = this);
+                    (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationGradeLevel)e.Item).PerformanceEvaluation = this);
                 _performanceEvaluationGradeLevels = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, PerformanceEvaluationGradeLevel>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel)e.Item).PerformanceEvaluation = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, PerformanceEvaluationGradeLevel>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationGradeLevel)e.Item).PerformanceEvaluation = this;
                 _performanceEvaluationGradeLevelsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel> Entities.Common.Tpdm.IPerformanceEvaluation.PerformanceEvaluationGradeLevels
+        ICollection<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel> Entities.Common.TPDM.IPerformanceEvaluation.PerformanceEvaluationGradeLevels
         {
             get { return _performanceEvaluationGradeLevelsCovariant; }
             set { PerformanceEvaluationGradeLevels = new List<PerformanceEvaluationGradeLevel>(value.Cast<PerformanceEvaluationGradeLevel>()); }
         }
 
         private ICollection<PerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevels;
-        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
+        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> _performanceEvaluationRatingLevelsCovariant;
 
         [DataMember(Name="ratingLevels"), NoDuplicateMembers]
         public ICollection<PerformanceEvaluationRatingLevel> PerformanceEvaluationRatingLevels
@@ -19474,18 +19474,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<PerformanceEvaluationRatingLevel>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel)e.Item).PerformanceEvaluation = this);
+                    (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationRatingLevel)e.Item).PerformanceEvaluation = this);
                 _performanceEvaluationRatingLevels = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, PerformanceEvaluationRatingLevel>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel)e.Item).PerformanceEvaluation = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, PerformanceEvaluationRatingLevel>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationRatingLevel)e.Item).PerformanceEvaluation = this;
                 _performanceEvaluationRatingLevelsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel> Entities.Common.Tpdm.IPerformanceEvaluation.PerformanceEvaluationRatingLevels
+        ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel> Entities.Common.TPDM.IPerformanceEvaluation.PerformanceEvaluationRatingLevels
         {
             get { return _performanceEvaluationRatingLevelsCovariant; }
             set { PerformanceEvaluationRatingLevels = new List<PerformanceEvaluationRatingLevel>(value.Cast<PerformanceEvaluationRatingLevel>()); }
@@ -19531,30 +19531,30 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluation)target);
+            return Entities.Common.TPDM.PerformanceEvaluationMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluation)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluation)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluation)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsAcademicSubjectDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationDescriptionSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelsSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelsSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsAcademicSubjectDescriptorSupported          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationDescriptionSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelsSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelsSupported  { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, bool> Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelIncluded
+        Func<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, bool> Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, bool> Entities.Common.Tpdm.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelIncluded
+        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, bool> Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelIncluded
         {
             get { return null; }
             set { }
@@ -19565,13 +19565,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IPerformanceEvaluation.EducationOrganizationResourceId
+        Guid? Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationResourceId
         {
             get { return null; }
             set { ImplicitEducationOrganizationReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IPerformanceEvaluation.EducationOrganizationDiscriminator
+        string Entities.Common.TPDM.IPerformanceEvaluation.EducationOrganizationDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -19579,7 +19579,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         }
 
 
-        Guid? Entities.Common.Tpdm.IPerformanceEvaluation.SchoolYearTypeResourceId
+        Guid? Entities.Common.TPDM.IPerformanceEvaluation.SchoolYearTypeResourceId
         {
             get { return null; }
             set { ImplicitSchoolYearTypeReference.ResourceId = value ?? default(Guid); }
@@ -19655,7 +19655,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationGradeLevel : Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel, Entities.Common.Tpdm.IPerformanceEvaluationGradeLevelSynchronizationSourceSupport
+    public class PerformanceEvaluationGradeLevel : Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, Entities.Common.TPDM.IPerformanceEvaluationGradeLevelSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19681,21 +19681,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IPerformanceEvaluation _performanceEvaluation;
+        private Entities.Common.TPDM.IPerformanceEvaluation _performanceEvaluation;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IPerformanceEvaluation Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel.PerformanceEvaluation
+        Entities.Common.TPDM.IPerformanceEvaluation Entities.Common.TPDM.IPerformanceEvaluationGradeLevel.PerformanceEvaluation
         {
             get { return _performanceEvaluation; }
             set { SetPerformanceEvaluation(value); }
         }
 
-        internal Entities.Common.Tpdm.IPerformanceEvaluation PerformanceEvaluation
+        internal Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
         {
             set { SetPerformanceEvaluation(value); }
         }
 
-        private void SetPerformanceEvaluation(Entities.Common.Tpdm.IPerformanceEvaluation value)
+        private void SetPerformanceEvaluation(Entities.Common.TPDM.IPerformanceEvaluation value)
         {
             _performanceEvaluation = value;
         }
@@ -19720,7 +19720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -19734,7 +19734,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
                 return false;
 
 
@@ -19755,7 +19755,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
                 hash.Add(_performanceEvaluation);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor);
 
             return hash.ToHashCode();
         }
@@ -19816,12 +19816,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationGradeLevelMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel)target);
+            return Entities.Common.TPDM.PerformanceEvaluationGradeLevelMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationGradeLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationGradeLevelMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationGradeLevel)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationGradeLevelMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationGradeLevel)target, null);
         }
         // -------------------------------------------------------------
 
@@ -19883,7 +19883,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevel : Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel, Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingLevel : Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19909,21 +19909,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IPerformanceEvaluation _performanceEvaluation;
+        private Entities.Common.TPDM.IPerformanceEvaluation _performanceEvaluation;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IPerformanceEvaluation Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel.PerformanceEvaluation
+        Entities.Common.TPDM.IPerformanceEvaluation Entities.Common.TPDM.IPerformanceEvaluationRatingLevel.PerformanceEvaluation
         {
             get { return _performanceEvaluation; }
             set { SetPerformanceEvaluation(value); }
         }
 
-        internal Entities.Common.Tpdm.IPerformanceEvaluation PerformanceEvaluation
+        internal Entities.Common.TPDM.IPerformanceEvaluation PerformanceEvaluation
         {
             set { SetPerformanceEvaluation(value); }
         }
 
-        private void SetPerformanceEvaluation(Entities.Common.Tpdm.IPerformanceEvaluation value)
+        private void SetPerformanceEvaluation(Entities.Common.TPDM.IPerformanceEvaluation value)
         {
             _performanceEvaluation = value;
         }
@@ -19948,7 +19948,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -19962,7 +19962,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
 
 
@@ -19983,7 +19983,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
                 hash.Add(_performanceEvaluation);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor);
 
             return hash.ToHashCode();
         }
@@ -20058,20 +20058,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationRatingLevelMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel)target);
+            return Entities.Common.TPDM.PerformanceEvaluationRatingLevelMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingLevel)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationRatingLevelMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingLevel)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationRatingLevelMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingLevel)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -20125,7 +20125,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.Tpdm
 }
 // Aggregate: PerformanceEvaluationRating
 
-namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 {
     /// <summary>
     /// Represents a reference to the PerformanceEvaluationRating resource.
@@ -20233,7 +20233,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRating : Entities.Common.Tpdm.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport
+    public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -20268,21 +20268,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         // -------------------------------------------------------------
 
         private bool _performanceEvaluationReferenceExplicitlyAssigned;
-        private PerformanceEvaluation.Tpdm.PerformanceEvaluationReference _performanceEvaluationReference;
-        private PerformanceEvaluation.Tpdm.PerformanceEvaluationReference ImplicitPerformanceEvaluationReference
+        private PerformanceEvaluation.TPDM.PerformanceEvaluationReference _performanceEvaluationReference;
+        private PerformanceEvaluation.TPDM.PerformanceEvaluationReference ImplicitPerformanceEvaluationReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_performanceEvaluationReference == null && !_performanceEvaluationReferenceExplicitlyAssigned)
-                    _performanceEvaluationReference = new PerformanceEvaluation.Tpdm.PerformanceEvaluationReference();
+                    _performanceEvaluationReference = new PerformanceEvaluation.TPDM.PerformanceEvaluationReference();
 
                 return _performanceEvaluationReference;
             }
         }
 
         [DataMember(Name="performanceEvaluationReference")][NaturalKeyMember]
-        public PerformanceEvaluation.Tpdm.PerformanceEvaluationReference PerformanceEvaluationReference
+        public PerformanceEvaluation.TPDM.PerformanceEvaluationReference PerformanceEvaluationReference
         {
             get
             {
@@ -20341,7 +20341,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IPerformanceEvaluationRating.EducationOrganizationId
+        int Entities.Common.TPDM.IPerformanceEvaluationRating.EducationOrganizationId
         {
             get
             {
@@ -20367,7 +20367,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (PerformanceEvaluationRating.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.EvaluationPeriodDescriptor
         {
             get
             {
@@ -20387,7 +20387,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationTitle
         {
             get
             {
@@ -20413,7 +20413,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (PerformanceEvaluationRating.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -20433,7 +20433,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PersonId
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.PersonId
         {
             get
             {
@@ -20458,7 +20458,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IPerformanceEvaluationRating.SchoolYear
+        short Entities.Common.TPDM.IPerformanceEvaluationRating.SchoolYear
         {
             get
             {
@@ -20484,7 +20484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (PerformanceEvaluationRating.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.SourceSystemDescriptor
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.SourceSystemDescriptor
         {
             get
             {
@@ -20505,7 +20505,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (PerformanceEvaluationRating.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.TermDescriptor
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.TermDescriptor
         {
             get
             {
@@ -20534,7 +20534,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationRating;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRating;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -20544,42 +20544,42 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.Equals(compareTo.PersonId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -20597,31 +20597,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).PersonId);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).SourceSystemDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor);
 
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRating).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -20722,7 +20722,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         //                          Collections
         // -------------------------------------------------------------
         private ICollection<PerformanceEvaluationRatingResult> _performanceEvaluationRatingResults;
-        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
+        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> _performanceEvaluationRatingResultsCovariant;
 
         [DataMember(Name="results"), NoDuplicateMembers]
         public ICollection<PerformanceEvaluationRatingResult> PerformanceEvaluationRatingResults
@@ -20733,25 +20733,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<PerformanceEvaluationRatingResult>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationRatingResult)e.Item).PerformanceEvaluationRating = this);
+                    (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationRatingResult)e.Item).PerformanceEvaluationRating = this);
                 _performanceEvaluationRatingResults = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, PerformanceEvaluationRatingResult>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationRatingResult)e.Item).PerformanceEvaluationRating = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IPerformanceEvaluationRatingResult, PerformanceEvaluationRatingResult>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationRatingResult)e.Item).PerformanceEvaluationRating = this;
                 _performanceEvaluationRatingResultsCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult> Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationRatingResults
+        ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingResult> Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationRatingResults
         {
             get { return _performanceEvaluationRatingResultsCovariant; }
             set { PerformanceEvaluationRatingResults = new List<PerformanceEvaluationRatingResult>(value.Cast<PerformanceEvaluationRatingResult>()); }
         }
 
         private ICollection<PerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewers;
-        private ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
+        private ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> _performanceEvaluationRatingReviewersCovariant;
 
         [DataMember(Name="reviewers"), NoDuplicateMembers]
         public ICollection<PerformanceEvaluationRatingReviewer> PerformanceEvaluationRatingReviewers
@@ -20762,18 +20762,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
                 if (value == null) return;
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<PerformanceEvaluationRatingReviewer>(value,
-                    (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer)e.Item).PerformanceEvaluationRating = this);
+                    (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer)e.Item).PerformanceEvaluationRating = this);
                 _performanceEvaluationRatingReviewers = list;
 
                 // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, PerformanceEvaluationRatingReviewer>(value);
-                covariantList.ItemAdded += (s, e) => ((Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer)e.Item).PerformanceEvaluationRating = this;
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, PerformanceEvaluationRatingReviewer>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer)e.Item).PerformanceEvaluationRating = this;
                 _performanceEvaluationRatingReviewersCovariant = covariantList;
             }
         }
 
         // Covariant version, visible only on the interface
-        ICollection<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer> Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationRatingReviewers
+        ICollection<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer> Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationRatingReviewers
         {
             get { return _performanceEvaluationRatingReviewersCovariant; }
             set { PerformanceEvaluationRatingReviewers = new List<PerformanceEvaluationRatingReviewer>(value.Cast<PerformanceEvaluationRatingReviewer>()); }
@@ -20819,36 +20819,36 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationRatingMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRating)target);
+            return Entities.Common.TPDM.PerformanceEvaluationRatingMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRating)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationRatingMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRating)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationRatingMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRating)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDateSupported                                  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDurationSupported                              { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualTimeSupported                                  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsAnnouncedSupported                                   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCommentsSupported                                    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCoteachingStyleObservedDescriptorSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultsSupported          { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewersSupported        { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsScheduleDateSupported                                { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDateSupported                                  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDurationSupported                              { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualTimeSupported                                  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsAnnouncedSupported                                   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCommentsSupported                                    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCoteachingStyleObservedDescriptorSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultsSupported          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewersSupported        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsScheduleDateSupported                                { get { return true; } set { } }
 
         // Child collection item filter delegates
-        Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, bool> Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultIncluded
+        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingResult, bool> Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultIncluded
         {
             get { return null; }
             set { }
         }
-        Func<Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, bool> Entities.Common.Tpdm.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerIncluded
+        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, bool> Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerIncluded
         {
             get { return null; }
             set { }
@@ -20859,13 +20859,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationResourceId
+        Guid? Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationResourceId
         {
             get { return null; }
             set { ImplicitPerformanceEvaluationReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PerformanceEvaluationDiscriminator
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.PerformanceEvaluationDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -20873,13 +20873,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         }
 
 
-        Guid? Entities.Common.Tpdm.IPerformanceEvaluationRating.PersonResourceId
+        Guid? Entities.Common.TPDM.IPerformanceEvaluationRating.PersonResourceId
         {
             get { return null; }
             set { ImplicitPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRating.PersonDiscriminator
+        string Entities.Common.TPDM.IPerformanceEvaluationRating.PersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -20956,7 +20956,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingResult : Entities.Common.Tpdm.IPerformanceEvaluationRatingResult, Entities.Common.Tpdm.IPerformanceEvaluationRatingResultSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult, Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -20982,21 +20982,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IPerformanceEvaluationRating _performanceEvaluationRating;
+        private Entities.Common.TPDM.IPerformanceEvaluationRating _performanceEvaluationRating;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IPerformanceEvaluationRating Entities.Common.Tpdm.IPerformanceEvaluationRatingResult.PerformanceEvaluationRating
+        Entities.Common.TPDM.IPerformanceEvaluationRating Entities.Common.TPDM.IPerformanceEvaluationRatingResult.PerformanceEvaluationRating
         {
             get { return _performanceEvaluationRating; }
             set { SetPerformanceEvaluationRating(value); }
         }
 
-        internal Entities.Common.Tpdm.IPerformanceEvaluationRating PerformanceEvaluationRating
+        internal Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
         {
             set { SetPerformanceEvaluationRating(value); }
         }
 
-        private void SetPerformanceEvaluationRating(Entities.Common.Tpdm.IPerformanceEvaluationRating value)
+        private void SetPerformanceEvaluationRating(Entities.Common.TPDM.IPerformanceEvaluationRating value)
         {
             _performanceEvaluationRating = value;
         }
@@ -21028,7 +21028,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationRatingResult;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingResult;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -21042,12 +21042,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
 
 
@@ -21068,11 +21068,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
                 hash.Add(_performanceEvaluationRating);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingResult).Rating);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingResult).RatingResultTitle);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle);
 
             return hash.ToHashCode();
         }
@@ -21140,19 +21140,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationRatingResultMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingResult)target);
+            return Entities.Common.TPDM.PerformanceEvaluationRatingResultMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingResult)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationRatingResultMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingResult)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationRatingResultMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingResult)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -21208,7 +21208,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingReviewer : Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer, Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingReviewer : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21267,21 +21267,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IPerformanceEvaluationRating _performanceEvaluationRating;
+        private Entities.Common.TPDM.IPerformanceEvaluationRating _performanceEvaluationRating;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IPerformanceEvaluationRating Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRating
+        Entities.Common.TPDM.IPerformanceEvaluationRating Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRating
         {
             get { return _performanceEvaluationRating; }
             set { SetPerformanceEvaluationRating(value); }
         }
 
-        internal Entities.Common.Tpdm.IPerformanceEvaluationRating PerformanceEvaluationRating
+        internal Entities.Common.TPDM.IPerformanceEvaluationRating PerformanceEvaluationRating
         {
             set { SetPerformanceEvaluationRating(value); }
         }
 
-        private void SetPerformanceEvaluationRating(Entities.Common.Tpdm.IPerformanceEvaluationRating value)
+        private void SetPerformanceEvaluationRating(Entities.Common.TPDM.IPerformanceEvaluationRating value)
         {
             _performanceEvaluationRating = value;
         }
@@ -21313,7 +21313,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -21327,12 +21327,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
                 return false;
 
 
@@ -21353,11 +21353,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
                 hash.Add(_performanceEvaluationRating);
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer).FirstName);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer).LastSurname);
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname);
 
             return hash.ToHashCode();
         }
@@ -21376,7 +21376,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.ReviewerPersonId
+        string Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonId
         {
             get
             {
@@ -21404,7 +21404,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </summary>
 
         // IS in a reference (PerformanceEvaluationRatingReviewer.ReviewerSourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.ReviewerSourceSystemDescriptor
+        string Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerSourceSystemDescriptor
         {
             get
             {
@@ -21432,7 +21432,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         [DataMember(Name = "receivedTraining")]
         public PerformanceEvaluationRatingReviewerReceivedTraining PerformanceEvaluationRatingReviewerReceivedTraining { get; set; }
 
-        Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRatingReviewerReceivedTraining
+        Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PerformanceEvaluationRatingReviewerReceivedTraining
         {
             get { return PerformanceEvaluationRatingReviewerReceivedTraining; }
             set { PerformanceEvaluationRatingReviewerReceivedTraining = (PerformanceEvaluationRatingReviewerReceivedTraining) value; }
@@ -21480,34 +21480,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationRatingReviewerMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer)target);
+            return Entities.Common.TPDM.PerformanceEvaluationRatingReviewerMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationRatingReviewerMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationRatingReviewerMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported                                     { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported                       { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported                                     { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported                       { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.ReviewerPersonResourceId
+        Guid? Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonResourceId
         {
             get { return null; }
             set { ImplicitReviewerPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer.ReviewerPersonDiscriminator
+        string Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -21564,7 +21564,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining, Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21590,21 +21590,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         //==============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        private Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer _performanceEvaluationRatingReviewer;
+        private Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer _performanceEvaluationRatingReviewer;
 
         [IgnoreDataMember]
-        Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationRatingReviewer
+        Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationRatingReviewer
         {
             get { return _performanceEvaluationRatingReviewer; }
             set { SetPerformanceEvaluationRatingReviewer(value); }
         }
 
-        internal Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer
+        internal Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer PerformanceEvaluationRatingReviewer
         {
             set { SetPerformanceEvaluationRatingReviewer(value); }
         }
 
-        private void SetPerformanceEvaluationRatingReviewer(Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewer value)
+        private void SetPerformanceEvaluationRatingReviewer(Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer value)
         {
             _performanceEvaluationRatingReviewer = value;
         }
@@ -21622,7 +21622,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -21723,20 +21723,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationRatingReviewerReceivedTrainingMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining)target);
+            return Entities.Common.TPDM.PerformanceEvaluationRatingReviewerReceivedTrainingMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationRatingReviewerReceivedTrainingMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTraining)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationRatingReviewerReceivedTrainingMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported        { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported        { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -21790,14 +21790,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.Tpdm
 }
 // Aggregate: PerformanceEvaluationRatingLevelDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationRatingLevelDescriptor table of the PerformanceEvaluationRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21857,7 +21857,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -21867,7 +21867,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.Equals(compareTo.PerformanceEvaluationRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.Equals(compareTo.PerformanceEvaluationRatingLevelDescriptorId))
                 return false;
 
 
@@ -21885,7 +21885,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -22002,25 +22002,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor)target);
+            return Entities.Common.TPDM.PerformanceEvaluationRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptor)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -22074,14 +22074,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
 }
 // Aggregate: PerformanceEvaluationTypeDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.PerformanceEvaluationTypeDescriptor table of the PerformanceEvaluationTypeDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationTypeDescriptor : Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport
+    public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22141,7 +22141,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -22151,7 +22151,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.Equals(compareTo.PerformanceEvaluationTypeDescriptorId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.Equals(compareTo.PerformanceEvaluationTypeDescriptorId))
                 return false;
 
 
@@ -22169,7 +22169,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -22286,25 +22286,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.PerformanceEvaluationTypeDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor)target);
+            return Entities.Common.TPDM.PerformanceEvaluationTypeDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.PerformanceEvaluationTypeDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptor)target, null);
+            Entities.Common.TPDM.PerformanceEvaluationTypeDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -22358,7 +22358,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
 }
 // Aggregate: RubricDimension
 
-namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
 {
     /// <summary>
     /// Represents a reference to the RubricDimension resource.
@@ -22472,7 +22472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricDimension : Entities.Common.Tpdm.IRubricDimension, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport
+    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22502,21 +22502,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         // -------------------------------------------------------------
 
         private bool _evaluationElementReferenceExplicitlyAssigned;
-        private EvaluationElement.Tpdm.EvaluationElementReference _evaluationElementReference;
-        private EvaluationElement.Tpdm.EvaluationElementReference ImplicitEvaluationElementReference
+        private EvaluationElement.TPDM.EvaluationElementReference _evaluationElementReference;
+        private EvaluationElement.TPDM.EvaluationElementReference ImplicitEvaluationElementReference
         {
             get
             {
                 // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
                 if (_evaluationElementReference == null && !_evaluationElementReferenceExplicitlyAssigned)
-                    _evaluationElementReference = new EvaluationElement.Tpdm.EvaluationElementReference();
+                    _evaluationElementReference = new EvaluationElement.TPDM.EvaluationElementReference();
 
                 return _evaluationElementReference;
             }
         }
 
         [DataMember(Name="evaluationElementReference")][NaturalKeyMember]
-        public EvaluationElement.Tpdm.EvaluationElementReference EvaluationElementReference
+        public EvaluationElement.TPDM.EvaluationElementReference EvaluationElementReference
         {
             get
             {
@@ -22543,7 +22543,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// The identifier assigned to an education organization.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int Entities.Common.Tpdm.IRubricDimension.EducationOrganizationId
+        int Entities.Common.TPDM.IRubricDimension.EducationOrganizationId
         {
             get
             {
@@ -22568,7 +22568,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// The name or title of the evaluation element.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.EvaluationElementTitle
+        string Entities.Common.TPDM.IRubricDimension.EvaluationElementTitle
         {
             get
             {
@@ -22593,7 +22593,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// The name or title of the evaluation Objective.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.EvaluationObjectiveTitle
+        string Entities.Common.TPDM.IRubricDimension.EvaluationObjectiveTitle
         {
             get
             {
@@ -22619,7 +22619,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// </summary>
 
         // IS in a reference (RubricDimension.EvaluationPeriodDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.EvaluationPeriodDescriptor
+        string Entities.Common.TPDM.IRubricDimension.EvaluationPeriodDescriptor
         {
             get
             {
@@ -22639,7 +22639,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// The name or title of the evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.EvaluationTitle
+        string Entities.Common.TPDM.IRubricDimension.EvaluationTitle
         {
             get
             {
@@ -22664,7 +22664,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// An assigned unique identifier for the performance evaluation.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.PerformanceEvaluationTitle
+        string Entities.Common.TPDM.IRubricDimension.PerformanceEvaluationTitle
         {
             get
             {
@@ -22690,7 +22690,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// </summary>
 
         // IS in a reference (RubricDimension.PerformanceEvaluationTypeDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.PerformanceEvaluationTypeDescriptor
+        string Entities.Common.TPDM.IRubricDimension.PerformanceEvaluationTypeDescriptor
         {
             get
             {
@@ -22717,7 +22717,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// The identifier for the school year.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        short Entities.Common.Tpdm.IRubricDimension.SchoolYear
+        short Entities.Common.TPDM.IRubricDimension.SchoolYear
         {
             get
             {
@@ -22743,7 +22743,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// </summary>
 
         // IS in a reference (RubricDimension.TermDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.IRubricDimension.TermDescriptor
+        string Entities.Common.TPDM.IRubricDimension.TermDescriptor
         {
             get
             {
@@ -22772,7 +22772,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IRubricDimension;
+            var compareTo = obj as Entities.Common.TPDM.IRubricDimension;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -22782,52 +22782,52 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
 
 
             // Standard Property
-             if ((this as Entities.Common.Tpdm.IRubricDimension).RubricRating.Equals(compareTo.RubricRating))
+             if ((this as Entities.Common.TPDM.IRubricDimension).RubricRating.Equals(compareTo.RubricRating))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.IRubricDimension).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
 
 
@@ -22845,37 +22845,37 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).EducationOrganizationId);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).EvaluationElementTitle);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).EvaluationObjectiveTitle);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).EvaluationPeriodDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).EvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).PerformanceEvaluationTitle);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).PerformanceEvaluationTypeDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor);
 
 
             // Standard Property
-                hash.Add((this as Entities.Common.Tpdm.IRubricDimension).RubricRating);
+                hash.Add((this as Entities.Common.TPDM.IRubricDimension).RubricRating);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).SchoolYear);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).SchoolYear);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricDimension).TermDescriptor);
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).TermDescriptor);
 
             return hash.ToHashCode();
         }
@@ -22964,34 +22964,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.RubricDimensionMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IRubricDimension)target);
+            return Entities.Common.TPDM.RubricDimensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.IRubricDimension)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.RubricDimensionMapper.MapTo(this, (Entities.Common.Tpdm.IRubricDimension)target, null);
+            Entities.Common.TPDM.RubricDimensionMapper.MapTo(this, (Entities.Common.TPDM.IRubricDimension)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport.IsCriterionDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport.IsDimensionOrderSupported               { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricDimensionSynchronizationSourceSupport.IsRubricRatingLevelDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsCriterionDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsDimensionOrderSupported               { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsRubricRatingLevelDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.IRubricDimension.EvaluationElementResourceId
+        Guid? Entities.Common.TPDM.IRubricDimension.EvaluationElementResourceId
         {
             get { return null; }
             set { ImplicitEvaluationElementReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.IRubricDimension.EvaluationElementDiscriminator
+        string Entities.Common.TPDM.IRubricDimension.EvaluationElementDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -23046,14 +23046,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.Tpdm
 }
 // Aggregate: RubricRatingLevelDescriptor
 
-namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.RubricRatingLevelDescriptor table of the RubricRatingLevelDescriptor aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricRatingLevelDescriptor : Entities.Common.Tpdm.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport
+    public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23113,7 +23113,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.IRubricRatingLevelDescriptor;
+            var compareTo = obj as Entities.Common.TPDM.IRubricRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -23123,7 +23123,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm
 
 
             // Derived Property
-            if (!(this as Entities.Common.Tpdm.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.Equals(compareTo.RubricRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.Equals(compareTo.RubricRatingLevelDescriptorId))
                 return false;
 
 
@@ -23141,7 +23141,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm
             var hash = new HashCode();
 
             //Derived Property
-            hash.Add((this as Entities.Common.Tpdm.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId);
+            hash.Add((this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId);
 
             return hash.ToHashCode();
         }
@@ -23258,25 +23258,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.RubricRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.Tpdm.IRubricRatingLevelDescriptor)target);
+            return Entities.Common.TPDM.RubricRatingLevelDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IRubricRatingLevelDescriptor)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.RubricRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.Tpdm.IRubricRatingLevelDescriptor)target, null);
+            Entities.Common.TPDM.RubricRatingLevelDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IRubricRatingLevelDescriptor)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Tpdm.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
@@ -23330,14 +23330,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.Tpdm
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolExtension : Entities.Common.Tpdm.ISchoolExtension, Entities.Common.Tpdm.ISchoolExtensionSynchronizationSourceSupport
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23399,7 +23399,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Tpdm
         private Entities.Common.EdFi.ISchool _school;
 
         [IgnoreDataMember]
-        Entities.Common.EdFi.ISchool Entities.Common.Tpdm.ISchoolExtension.School
+        Entities.Common.EdFi.ISchool Entities.Common.TPDM.ISchoolExtension.School
         {
             get { return _school; }
             set { SetSchool(value); }
@@ -23428,7 +23428,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Tpdm
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ISchoolExtension;
+            var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -23473,7 +23473,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Tpdm
         /// The ID of the post secondary institution.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        int? Entities.Common.Tpdm.ISchoolExtension.PostSecondaryInstitutionId
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
         {
             get
             {
@@ -23542,26 +23542,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Tpdm
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ISchoolExtension)target);
+            return Entities.Common.TPDM.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISchoolExtension)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.SchoolExtensionMapper.MapTo(this, (Entities.Common.Tpdm.ISchoolExtension)target, null);
+            Entities.Common.TPDM.SchoolExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISchoolExtension)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ISchoolExtension.PostSecondaryInstitutionResourceId
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
         {
             get { return null; }
             set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
@@ -23615,14 +23615,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Tpdm
 }
 // Aggregate: SurveyResponse
 
-namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TPDM
 {
     /// <summary>
     /// A class which represents the tpdm.SurveyResponseExtension table of the SurveyResponse aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponseExtension : Entities.Common.Tpdm.ISurveyResponseExtension, Entities.Common.Tpdm.ISurveyResponseExtensionSynchronizationSourceSupport
+    public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension, Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23684,7 +23684,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tp
         private Entities.Common.EdFi.ISurveyResponse _surveyResponse;
 
         [IgnoreDataMember]
-        Entities.Common.EdFi.ISurveyResponse Entities.Common.Tpdm.ISurveyResponseExtension.SurveyResponse
+        Entities.Common.EdFi.ISurveyResponse Entities.Common.TPDM.ISurveyResponseExtension.SurveyResponse
         {
             get { return _surveyResponse; }
             set { SetSurveyResponse(value); }
@@ -23713,7 +23713,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tp
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ISurveyResponseExtension;
+            var compareTo = obj as Entities.Common.TPDM.ISurveyResponseExtension;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -23758,7 +23758,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tp
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponseExtension.PersonId
+        string Entities.Common.TPDM.ISurveyResponseExtension.PersonId
         {
             get
             {
@@ -23786,7 +23786,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tp
         /// </summary>
 
         // IS in a reference (SurveyResponse.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponseExtension.SourceSystemDescriptor
+        string Entities.Common.TPDM.ISurveyResponseExtension.SourceSystemDescriptor
         {
             get
             {
@@ -23850,33 +23850,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tp
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.SurveyResponseExtensionMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ISurveyResponseExtension)target);
+            return Entities.Common.TPDM.SurveyResponseExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISurveyResponseExtension)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.SurveyResponseExtensionMapper.MapTo(this, (Entities.Common.Tpdm.ISurveyResponseExtension)target, null);
+            Entities.Common.TPDM.SurveyResponseExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISurveyResponseExtension)target, null);
         }
         // -------------------------------------------------------------
 
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Tpdm.ISurveyResponseExtensionSynchronizationSourceSupport.IsPersonIdSupported                { get { return true; } set { } }
-        bool Entities.Common.Tpdm.ISurveyResponseExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsPersonIdSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ISurveyResponseExtension.PersonResourceId
+        Guid? Entities.Common.TPDM.ISurveyResponseExtension.PersonResourceId
         {
             get { return null; }
             set { ImplicitPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ISurveyResponseExtension.PersonDiscriminator
+        string Entities.Common.TPDM.ISurveyResponseExtension.PersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -23931,7 +23931,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.Tp
 }
 // Aggregate: SurveyResponsePersonTargetAssociation
 
-namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM
 {
     /// <summary>
     /// Represents a reference to the SurveyResponsePersonTargetAssociation resource.
@@ -24030,7 +24030,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponsePersonTargetAssociation : Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
+    public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -24133,7 +24133,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// Namespace for the survey.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.Namespace
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.Namespace
         {
             get
             {
@@ -24158,7 +24158,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.PersonId
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.PersonId
         {
             get
             {
@@ -24184,7 +24184,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// </summary>
 
         // IS in a reference (SurveyResponsePersonTargetAssociation.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SourceSystemDescriptor
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SourceSystemDescriptor
         {
             get
             {
@@ -24204,7 +24204,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// The unique survey identifier from the survey tool.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SurveyIdentifier
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SurveyIdentifier
         {
             get
             {
@@ -24229,7 +24229,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// The identifier of the survey typically from the survey application.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SurveyResponseIdentifier
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SurveyResponseIdentifier
         {
             get
             {
@@ -24263,7 +24263,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation;
+            var compareTo = obj as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -24273,27 +24273,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
                 return false;
 
 
@@ -24311,20 +24311,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).Namespace);
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).PersonId);
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor);
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).SurveyIdentifier);
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier);
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier);
             return hash.ToHashCode();
         }
         // -------------------------------------------------------------
@@ -24391,12 +24391,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.SurveyResponsePersonTargetAssociationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation)target);
+            return Entities.Common.TPDM.SurveyResponsePersonTargetAssociationMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.SurveyResponsePersonTargetAssociationMapper.MapTo(this, (Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation)target, null);
+            Entities.Common.TPDM.SurveyResponsePersonTargetAssociationMapper.MapTo(this, (Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation)target, null);
         }
         // -------------------------------------------------------------
 
@@ -24409,13 +24409,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.PersonResourceId
+        Guid? Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.PersonResourceId
         {
             get { return null; }
             set { ImplicitPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.PersonDiscriminator
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.PersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -24423,13 +24423,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         }
 
 
-        Guid? Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SurveyResponseResourceId
+        Guid? Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SurveyResponseResourceId
         {
             get { return null; }
             set { ImplicitSurveyResponseReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ISurveyResponsePersonTargetAssociation.SurveyResponseDiscriminator
+        string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.SurveyResponseDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -24484,7 +24484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
 }
 // Aggregate: SurveySectionResponsePersonTargetAssociation
 
-namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.Tpdm
+namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM
 {
     /// <summary>
     /// Represents a reference to the SurveySectionResponsePersonTargetAssociation resource.
@@ -24586,7 +24586,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponsePersonTargetAssociation : Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
+    public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -24689,7 +24689,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// Namespace for the survey.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.Namespace
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.Namespace
         {
             get
             {
@@ -24714,7 +24714,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// A unique alphanumeric code assigned to a person.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.PersonId
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.PersonId
         {
             get
             {
@@ -24740,7 +24740,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// </summary>
 
         // IS in a reference (SurveySectionResponsePersonTargetAssociation.SourceSystemDescriptorId), IS a lookup column 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SourceSystemDescriptor
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SourceSystemDescriptor
         {
             get
             {
@@ -24760,7 +24760,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// The unique survey identifier from the survey tool.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveyIdentifier
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveyIdentifier
         {
             get
             {
@@ -24785,7 +24785,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// The identifier of the survey typically from the survey application.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveyResponseIdentifier
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveyResponseIdentifier
         {
             get
             {
@@ -24810,7 +24810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// The title or label for the survey section.
         /// </summary>
         // IS in a reference, NOT a lookup column 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveySectionTitle
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveySectionTitle
         {
             get
             {
@@ -24844,7 +24844,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// </returns>
         public override bool Equals(object obj)
         {
-            var compareTo = obj as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation;
+            var compareTo = obj as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation;
 
             if (ReferenceEquals(this, compareTo))
                 return true;
@@ -24854,32 +24854,32 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
                 return false;
 
 
             // Unified Type Property
-            if (!(this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
                 return false;
 
 
             // Referenced Property
-            if (!(this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.Equals(compareTo.SurveySectionTitle))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.Equals(compareTo.SurveySectionTitle))
                 return false;
 
 
@@ -24897,23 +24897,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
             var hash = new HashCode();
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).Namespace);
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).PersonId);
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId);
 
             //Unified Type Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor);
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor);
 
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier);
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier);
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier);
 
             //Referenced Property
-            hash.Add((this as Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle);
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle);
             return hash.ToHashCode();
         }
         // -------------------------------------------------------------
@@ -24980,12 +24980,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         // ------------------------------------------------------------
         bool ISynchronizable.Synchronize(object target)
         {
-            return Entities.Common.Tpdm.SurveySectionResponsePersonTargetAssociationMapper.SynchronizeTo(this, (Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation)target);
+            return Entities.Common.TPDM.SurveySectionResponsePersonTargetAssociationMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation)target);
         }
 
         void IMappable.Map(object target)
         {
-            Entities.Common.Tpdm.SurveySectionResponsePersonTargetAssociationMapper.MapTo(this, (Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation)target, null);
+            Entities.Common.TPDM.SurveySectionResponsePersonTargetAssociationMapper.MapTo(this, (Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation)target, null);
         }
         // -------------------------------------------------------------
 
@@ -24998,13 +24998,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.PersonResourceId
+        Guid? Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.PersonResourceId
         {
             get { return null; }
             set { ImplicitPersonReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.PersonDiscriminator
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.PersonDiscriminator
         {
             // Not supported for Resources
             get { return null; }
@@ -25012,13 +25012,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         }
 
 
-        Guid? Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseResourceId
+        Guid? Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseResourceId
         {
             get { return null; }
             set { ImplicitSurveySectionResponseReference.ResourceId = value ?? default(Guid); }
         }
 
-        string Entities.Common.Tpdm.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseDiscriminator
+        string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.SurveySectionResponseDiscriminator
         {
             // Not supported for Resources
             get { return null; }

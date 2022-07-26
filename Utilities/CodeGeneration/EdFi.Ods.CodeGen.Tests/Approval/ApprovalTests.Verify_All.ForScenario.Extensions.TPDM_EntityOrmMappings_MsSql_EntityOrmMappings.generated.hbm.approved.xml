@@ -1,7 +1,7 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Extensions.TPDM" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateReferenceData" table="Candidate" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateReferenceData" table="Candidate" lazy="true"  schema="tpdm" >
         <id name="CandidateIdentifier" column="CandidateIdentifier" type="string"  length="32" >
             <generator class="assigned" />
         </id>
@@ -13,7 +13,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.Candidate" table="Candidate" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.Candidate" table="Candidate" lazy="false" schema="tpdm" discriminator-value="NULL">
     <id name="CandidateIdentifier" column="CandidateIdentifier" type="string" length="32">
       <generator class="assigned" />
     </id>
@@ -69,56 +69,56 @@
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress" />
     </set>
 
     <set name="CandidateDisabilities" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability" />
     </set>
 
     <set name="CandidateElectronicMails" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail" />
     </set>
 
     <set name="CandidateLanguages" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage" />
     </set>
 
     <set name="CandidateOtherNames" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName" />
     </set>
 
     <set name="CandidatePersonalIdentificationDocuments" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument" />
     </set>
 
     <set name="CandidateRaces" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace" />
     </set>
 
     <set name="CandidateTelephones" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone" />
     </set>
 
 </class>
@@ -126,7 +126,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddress" table="CandidateAddress" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress" table="CandidateAddress" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AddressTypeDescriptorId" column="AddressTypeDescriptorId" type="int" />
@@ -167,7 +167,7 @@
         <column name="StreetNumberName" />
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod" />
     </set>
 
 </class>
@@ -175,7 +175,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateAddressPeriod" table="CandidateAddressPeriod" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod" table="CandidateAddressPeriod" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -205,7 +205,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisability" table="CandidateDisability" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability" table="CandidateDisability" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="DisabilityDescriptorId" column="DisabilityDescriptorId" type="int" />
@@ -232,7 +232,7 @@
         <column name="DisabilityDescriptorId" />
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation" />
     </set>
 
 </class>
@@ -240,7 +240,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateDisabilityDesignation" table="CandidateDisabilityDesignation" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation" table="CandidateDisabilityDesignation" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="DisabilityDesignationDescriptorId" column="DisabilityDesignationDescriptorId" type="int" />
@@ -265,7 +265,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateElectronicMail" table="CandidateElectronicMail" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail" table="CandidateElectronicMail" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="ElectronicMailAddress" column="ElectronicMailAddress" type="string" length="128" />
@@ -292,7 +292,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguage" table="CandidateLanguage" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage" table="CandidateLanguage" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LanguageDescriptorId" column="LanguageDescriptorId" type="int" />
@@ -316,7 +316,7 @@
         <column name="LanguageDescriptorId" />
         <column name="CandidateIdentifier" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse" />
     </set>
 
 </class>
@@ -324,7 +324,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateLanguageUse" table="CandidateLanguageUse" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse" table="CandidateLanguageUse" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="LanguageUseDescriptorId" column="LanguageUseDescriptorId" type="int" />
@@ -349,7 +349,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateOtherName" table="CandidateOtherName" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName" table="CandidateOtherName" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="OtherNameTypeDescriptorId" column="OtherNameTypeDescriptorId" type="int" />
@@ -378,7 +378,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidatePersonalIdentificationDocument" table="CandidatePersonalIdentificationDocument" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument" table="CandidatePersonalIdentificationDocument" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="IdentificationDocumentUseDescriptorId" column="IdentificationDocumentUseDescriptorId" type="int" />
@@ -408,7 +408,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateRace" table="CandidateRace" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace" table="CandidateRace" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="RaceDescriptorId" column="RaceDescriptorId" type="int" />
@@ -432,7 +432,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateTelephone" table="CandidateTelephone" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone" table="CandidateTelephone" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="TelephoneNumber" column="TelephoneNumber" type="string" length="24" />
@@ -459,7 +459,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationReferenceData" table="CandidateEducatorPreparationProgramAssociation" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationReferenceData" table="CandidateEducatorPreparationProgramAssociation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="BeginDate" column="BeginDate" type="date"  />
@@ -476,7 +476,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociation" table="CandidateEducatorPreparationProgramAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociation" table="CandidateEducatorPreparationProgramAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="BeginDate" column="BeginDate" type="date" />
@@ -504,10 +504,10 @@
     <property name="ReasonExitedDescriptorId" column="ReasonExitedDescriptorId" type="int" />
 
     <!-- Aggregate references -->
-    <many-to-one name="CandidateReferenceData" class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.Tpdm.CandidateReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="CandidateReferenceData" class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="CandidateIdentifier" />
     </many-to-one>
-    <many-to-one name="EducatorPreparationProgramReferenceData" class="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EducatorPreparationProgramReferenceData" class="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="ProgramName" />
       <column name="ProgramTypeDescriptorId" />
@@ -524,7 +524,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear" />
     </set>
 
     <set name="CandidateEducatorPreparationProgramAssociationDegreeSpecializations" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -535,7 +535,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization" />
     </set>
 
 </class>
@@ -543,7 +543,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationCohortYear" table="CandidateEducatorPreparationProgramAssociationCohortYear" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear" table="CandidateEducatorPreparationProgramAssociationCohortYear" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CohortYearTypeDescriptorId" column="CohortYearTypeDescriptorId" type="int" />
@@ -576,7 +576,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.Tpdm.CandidateEducatorPreparationProgramAssociationDegreeSpecialization" table="CandidateEducatorPreparationProgramAssociationDegreeSpecialization" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization" table="CandidateEducatorPreparationProgramAssociationDegreeSpecialization" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="MajorSpecialization" column="MajorSpecialization" type="string" length="255" />
@@ -606,7 +606,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.Tpdm.CredentialStudentAcademicRecord" table="CredentialStudentAcademicRecord" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM.CredentialStudentAcademicRecord" table="CredentialStudentAcademicRecord" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -640,7 +640,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.Tpdm.CredentialExtension" table="CredentialExtension" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM.CredentialExtension" table="CredentialExtension" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="Credential">
@@ -675,7 +675,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramReferenceData" table="EducatorPreparationProgram" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData" table="EducatorPreparationProgram" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -690,7 +690,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgram" table="EducatorPreparationProgram" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgram" table="EducatorPreparationProgram" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -728,7 +728,7 @@
         <column name="ProgramName" />
         <column name="ProgramTypeDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel" />
     </set>
 
 </class>
@@ -736,7 +736,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.Tpdm.EducatorPreparationProgramGradeLevel" table="EducatorPreparationProgramGradeLevel" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel" table="EducatorPreparationProgramGradeLevel" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradeLevelDescriptorId" column="GradeLevelDescriptorId" type="int" />
@@ -761,7 +761,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationReferenceData" table="Evaluation" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" table="Evaluation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -780,7 +780,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm.Evaluation" table="Evaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation" table="Evaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -812,7 +812,7 @@
     <property name="MinRating" column="MinRating" type="decimal" />
 
     <!-- Aggregate references -->
-    <many-to-one name="PerformanceEvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="PerformanceEvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationPeriodDescriptorId" />
       <column name="PerformanceEvaluationTitle" />
@@ -834,7 +834,7 @@
         <column name="SchoolYear" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel" />
     </set>
 
 </class>
@@ -842,7 +842,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationRatingLevel" table="EvaluationRatingLevel" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel" table="EvaluationRatingLevel" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
@@ -873,7 +873,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementReferenceData" table="EvaluationElement" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" table="EvaluationElement" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -894,7 +894,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElement" table="EvaluationElement" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement" table="EvaluationElement" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -927,7 +927,7 @@
     <property name="SortOrder" column="SortOrder" type="int" />
 
     <!-- Aggregate references -->
-    <many-to-one name="EvaluationObjectiveReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationObjectiveReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationObjectiveTitle" />
       <column name="EvaluationPeriodDescriptorId" />
@@ -953,7 +953,7 @@
         <column name="SchoolYear" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel" />
     </set>
 
 </class>
@@ -961,7 +961,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementRatingLevel" table="EvaluationElementRatingLevel" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel" table="EvaluationElementRatingLevel" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
@@ -994,7 +994,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingReferenceData" table="EvaluationElementRating" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingReferenceData" table="EvaluationElementRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -1018,7 +1018,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRating" table="EvaluationElementRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating" table="EvaluationElementRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1055,7 +1055,7 @@
     <property name="Feedback" column="Feedback" type="string" length="2048" />
 
     <!-- Aggregate references -->
-    <many-to-one name="EvaluationElementReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationElementReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationElementTitle" />
       <column name="EvaluationObjectiveTitle" />
@@ -1066,7 +1066,7 @@
       <column name="SchoolYear" />
       <column name="TermDescriptorId" />
     </many-to-one>
-    <many-to-one name="EvaluationObjectiveRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationObjectiveRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationDate" />
       <column name="EvaluationObjectiveTitle" />
@@ -1098,7 +1098,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult" />
     </set>
 
 </class>
@@ -1106,7 +1106,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.Tpdm.EvaluationElementRatingResult" table="EvaluationElementRatingResult" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult" table="EvaluationElementRatingResult" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Rating" column="Rating" type="decimal" />
@@ -1142,7 +1142,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveReferenceData" table="EvaluationObjective" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" table="EvaluationObjective" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -1162,7 +1162,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjective" table="EvaluationObjective" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective" table="EvaluationObjective" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1195,7 +1195,7 @@
     <property name="SortOrder" column="SortOrder" type="int" />
 
     <!-- Aggregate references -->
-    <many-to-one name="EvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationPeriodDescriptorId" />
       <column name="EvaluationTitle" />
@@ -1219,7 +1219,7 @@
         <column name="SchoolYear" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel" />
     </set>
 
 </class>
@@ -1227,7 +1227,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveRatingLevel" table="EvaluationObjectiveRatingLevel" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel" table="EvaluationObjectiveRatingLevel" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
@@ -1259,7 +1259,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingReferenceData" table="EvaluationObjectiveRating" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData" table="EvaluationObjectiveRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -1282,7 +1282,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRating" table="EvaluationObjectiveRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating" table="EvaluationObjectiveRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1315,7 +1315,7 @@
     <property name="ObjectiveRatingLevelDescriptorId" column="ObjectiveRatingLevelDescriptorId" type="int" />
 
     <!-- Aggregate references -->
-    <many-to-one name="EvaluationObjectiveReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.Tpdm.EvaluationObjectiveReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationObjectiveReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationObjectiveTitle" />
       <column name="EvaluationPeriodDescriptorId" />
@@ -1325,7 +1325,7 @@
       <column name="SchoolYear" />
       <column name="TermDescriptorId" />
     </many-to-one>
-    <many-to-one name="EvaluationRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationDate" />
       <column name="EvaluationPeriodDescriptorId" />
@@ -1355,7 +1355,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult" />
     </set>
 
 </class>
@@ -1363,7 +1363,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.Tpdm.EvaluationObjectiveRatingResult" table="EvaluationObjectiveRatingResult" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult" table="EvaluationObjectiveRatingResult" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Rating" column="Rating" type="decimal" />
@@ -1398,7 +1398,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReferenceData" table="EvaluationRating" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData" table="EvaluationRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -1420,7 +1420,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRating" table="EvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating" table="EvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1456,7 +1456,7 @@
     <property name="SessionName" column="SessionName" type="string" length="60" />
 
     <!-- Aggregate references -->
-    <many-to-one name="EvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.Tpdm.EvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationPeriodDescriptorId" />
       <column name="EvaluationTitle" />
@@ -1465,7 +1465,7 @@
       <column name="SchoolYear" />
       <column name="TermDescriptorId" />
     </many-to-one>
-    <many-to-one name="PerformanceEvaluationRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="PerformanceEvaluationRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationPeriodDescriptorId" />
       <column name="PerformanceEvaluationTitle" />
@@ -1499,7 +1499,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult" />
     </set>
 
     <set name="EvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -1515,7 +1515,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer" />
     </set>
 
 </class>
@@ -1523,7 +1523,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingResult" table="EvaluationRatingResult" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult" table="EvaluationRatingResult" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Rating" column="Rating" type="decimal" />
@@ -1558,7 +1558,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewer" table="EvaluationRatingReviewer" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer" table="EvaluationRatingReviewer" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="FirstName" column="FirstName" type="string" length="75" />
@@ -1600,7 +1600,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewerReceivedTraining" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining" />
     </set>
 
     <!-- Aggregate references -->
@@ -1617,7 +1617,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.Tpdm.EvaluationRatingReviewerReceivedTraining" table="EvaluationRatingReviewerReceivedTraining" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining" table="EvaluationRatingReviewerReceivedTraining" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="EvaluationRatingReviewer">
@@ -1652,7 +1652,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.Tpdm.FinancialAidReferenceData" table="FinancialAid" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM.FinancialAidReferenceData" table="FinancialAid" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="AidTypeDescriptorId" column="AidTypeDescriptorId" type="int"  />
@@ -1667,7 +1667,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.Tpdm.FinancialAid" table="FinancialAid" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM.FinancialAid" table="FinancialAid" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="AidTypeDescriptorId" column="AidTypeDescriptorId" type="int" />
@@ -1705,7 +1705,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationReferenceData" table="PerformanceEvaluation" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" table="PerformanceEvaluation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -1723,7 +1723,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluation" table="PerformanceEvaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation" table="PerformanceEvaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1770,7 +1770,7 @@
         <column name="SchoolYear" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel" />
     </set>
 
     <set name="PerformanceEvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -1782,7 +1782,7 @@
         <column name="SchoolYear" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel" />
     </set>
 
 </class>
@@ -1790,7 +1790,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationGradeLevel" table="PerformanceEvaluationGradeLevel" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel" table="PerformanceEvaluationGradeLevel" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="GradeLevelDescriptorId" column="GradeLevelDescriptorId" type="int" />
@@ -1819,7 +1819,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationRatingLevel" table="PerformanceEvaluationRatingLevel" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel" table="PerformanceEvaluationRatingLevel" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
@@ -1849,7 +1849,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReferenceData" table="PerformanceEvaluationRating" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData" table="PerformanceEvaluationRating" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -1869,7 +1869,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRating" table="PerformanceEvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating" table="PerformanceEvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -1905,7 +1905,7 @@
     <property name="ScheduleDate" column="ScheduleDate" type="date" />
 
     <!-- Aggregate references -->
-    <many-to-one name="PerformanceEvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.Tpdm.PerformanceEvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="PerformanceEvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationPeriodDescriptorId" />
       <column name="PerformanceEvaluationTitle" />
@@ -1932,7 +1932,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult" />
     </set>
 
     <set name="PerformanceEvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -1946,7 +1946,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer" />
     </set>
 
 </class>
@@ -1954,7 +1954,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingResult" table="PerformanceEvaluationRatingResult" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult" table="PerformanceEvaluationRatingResult" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Rating" column="Rating" type="decimal" />
@@ -1987,7 +1987,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewer" table="PerformanceEvaluationRatingReviewer" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer" table="PerformanceEvaluationRatingReviewer" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="FirstName" column="FirstName" type="string" length="75" />
@@ -2025,7 +2025,7 @@
         <column name="SourceSystemDescriptorId" />
         <column name="TermDescriptorId" />
       </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewerReceivedTraining" />
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining" />
     </set>
 
     <!-- Aggregate references -->
@@ -2042,7 +2042,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.Tpdm.PerformanceEvaluationRatingReviewerReceivedTraining" table="PerformanceEvaluationRatingReviewerReceivedTraining" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining" table="PerformanceEvaluationRatingReviewerReceivedTraining" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="PerformanceEvaluationRatingReviewer">
@@ -2075,7 +2075,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.Tpdm.RubricDimensionReferenceData" table="RubricDimension" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimensionReferenceData" table="RubricDimension" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
@@ -2097,7 +2097,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.Tpdm.RubricDimension" table="RubricDimension" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension" table="RubricDimension" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
@@ -2130,7 +2130,7 @@
     <property name="RubricRatingLevelDescriptorId" column="RubricRatingLevelDescriptorId" type="int" />
 
     <!-- Aggregate references -->
-    <many-to-one name="EvaluationElementReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.Tpdm.EvaluationElementReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+    <many-to-one name="EvaluationElementReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="EducationOrganizationId" />
       <column name="EvaluationElementTitle" />
       <column name="EvaluationObjectiveTitle" />
@@ -2150,7 +2150,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Tpdm.SchoolExtension" table="SchoolExtension" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM.SchoolExtension" table="SchoolExtension" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="School">
@@ -2177,7 +2177,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.Tpdm.SurveyResponseExtension" table="SurveyResponseExtension" lazy="false" schema="tpdm">
+  <class name="EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM.SurveyResponseExtension" table="SurveyResponseExtension" lazy="false" schema="tpdm">
     <!-- Composite primary key -->
     <composite-id>
       <key-many-to-one name="SurveyResponse">
@@ -2207,7 +2207,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.Tpdm.SurveyResponsePersonTargetAssociationReferenceData" table="SurveyResponsePersonTargetAssociation" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociationReferenceData" table="SurveyResponsePersonTargetAssociation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
@@ -2224,7 +2224,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.Tpdm.SurveyResponsePersonTargetAssociation" table="SurveyResponsePersonTargetAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociation" table="SurveyResponsePersonTargetAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />
@@ -2266,7 +2266,7 @@
 
 
     <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.Tpdm.SurveySectionResponsePersonTargetAssociationReferenceData" table="SurveySectionResponsePersonTargetAssociation" lazy="true"  schema="tpdm" >
+    <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociationReferenceData" table="SurveySectionResponsePersonTargetAssociation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
@@ -2284,7 +2284,7 @@
     </class>
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.Tpdm.SurveySectionResponsePersonTargetAssociation" table="SurveySectionResponsePersonTargetAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+  <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociation" table="SurveySectionResponsePersonTargetAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="Namespace" column="Namespace" type="string" length="255" />

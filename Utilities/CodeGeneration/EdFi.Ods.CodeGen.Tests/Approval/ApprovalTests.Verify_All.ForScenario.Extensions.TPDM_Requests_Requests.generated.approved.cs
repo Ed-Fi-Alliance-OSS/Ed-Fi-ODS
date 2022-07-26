@@ -5,7 +5,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Attributes;
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -28,12 +28,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptor
     }
 
     [ExcludeFromCodeCoverage]
-    public class AccreditationStatusDescriptorPost : Resources.AccreditationStatusDescriptor.Tpdm.AccreditationStatusDescriptor
+    public class AccreditationStatusDescriptorPost : Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AccreditationStatusDescriptorPut : Resources.AccreditationStatusDescriptor.Tpdm.AccreditationStatusDescriptor
+    public class AccreditationStatusDescriptorPut : Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor
     {
     }
 
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.AccreditationStatusDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.AidTypeDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.AidTypeDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -74,12 +74,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.AidTypeDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class AidTypeDescriptorPost : Resources.AidTypeDescriptor.Tpdm.AidTypeDescriptor
+    public class AidTypeDescriptorPost : Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AidTypeDescriptorPut : Resources.AidTypeDescriptor.Tpdm.AidTypeDescriptor
+    public class AidTypeDescriptorPut : Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor
     {
     }
 
@@ -97,7 +97,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.AidTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.Candidates
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Candidates
 {
 
     [ExcludeFromCodeCoverage]
@@ -145,12 +145,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.Candidates
     }
 
     [ExcludeFromCodeCoverage]
-    public class CandidatePost : Resources.Candidate.Tpdm.Candidate
+    public class CandidatePost : Resources.Candidate.TPDM.Candidate
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CandidatePut : Resources.Candidate.Tpdm.Candidate
+    public class CandidatePut : Resources.Candidate.TPDM.Candidate
     {
     }
 
@@ -168,7 +168,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.Candidates
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationProgramAssociations
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations
 {
 
     [ExcludeFromCodeCoverage]
@@ -199,12 +199,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationP
     }
 
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationPost : Resources.CandidateEducatorPreparationProgramAssociation.Tpdm.CandidateEducatorPreparationProgramAssociation
+    public class CandidateEducatorPreparationProgramAssociationPost : Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationPut : Resources.CandidateEducatorPreparationProgramAssociation.Tpdm.CandidateEducatorPreparationProgramAssociation
+    public class CandidateEducatorPreparationProgramAssociationPut : Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation
     {
     }
 
@@ -222,7 +222,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CandidateEducatorPreparationP
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -245,12 +245,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class CertificationRouteDescriptorPost : Resources.CertificationRouteDescriptor.Tpdm.CertificationRouteDescriptor
+    public class CertificationRouteDescriptorPost : Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CertificationRouteDescriptorPut : Resources.CertificationRouteDescriptor.Tpdm.CertificationRouteDescriptor
+    public class CertificationRouteDescriptorPut : Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor
     {
     }
 
@@ -268,7 +268,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CertificationRouteDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -291,12 +291,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescri
     }
 
     [ExcludeFromCodeCoverage]
-    public class CoteachingStyleObservedDescriptorPost : Resources.CoteachingStyleObservedDescriptor.Tpdm.CoteachingStyleObservedDescriptor
+    public class CoteachingStyleObservedDescriptorPost : Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CoteachingStyleObservedDescriptorPut : Resources.CoteachingStyleObservedDescriptor.Tpdm.CoteachingStyleObservedDescriptor
+    public class CoteachingStyleObservedDescriptorPut : Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor
     {
     }
 
@@ -314,7 +314,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CoteachingStyleObservedDescri
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -337,12 +337,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class CredentialStatusDescriptorPost : Resources.CredentialStatusDescriptor.Tpdm.CredentialStatusDescriptor
+    public class CredentialStatusDescriptorPost : Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CredentialStatusDescriptorPut : Resources.CredentialStatusDescriptor.Tpdm.CredentialStatusDescriptor
+    public class CredentialStatusDescriptorPut : Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor
     {
     }
 
@@ -360,7 +360,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.CredentialStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducatorPreparationPrograms
 {
 
     [ExcludeFromCodeCoverage]
@@ -388,12 +388,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgramPost : Resources.EducatorPreparationProgram.Tpdm.EducatorPreparationProgram
+    public class EducatorPreparationProgramPost : Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgramPut : Resources.EducatorPreparationProgram.Tpdm.EducatorPreparationProgram
+    public class EducatorPreparationProgramPut : Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram
     {
     }
 
@@ -411,7 +411,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EducatorPreparationPrograms
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -434,12 +434,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducatorRoleDescriptorPost : Resources.EducatorRoleDescriptor.Tpdm.EducatorRoleDescriptor
+    public class EducatorRoleDescriptorPost : Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducatorRoleDescriptorPut : Resources.EducatorRoleDescriptor.Tpdm.EducatorRoleDescriptor
+    public class EducatorRoleDescriptorPut : Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor
     {
     }
 
@@ -457,7 +457,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EducatorRoleDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -480,12 +480,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptor
     }
 
     [ExcludeFromCodeCoverage]
-    public class EnglishLanguageExamDescriptorPost : Resources.EnglishLanguageExamDescriptor.Tpdm.EnglishLanguageExamDescriptor
+    public class EnglishLanguageExamDescriptorPost : Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EnglishLanguageExamDescriptorPut : Resources.EnglishLanguageExamDescriptor.Tpdm.EnglishLanguageExamDescriptor
+    public class EnglishLanguageExamDescriptorPut : Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor
     {
     }
 
@@ -503,7 +503,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EnglishLanguageExamDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -526,12 +526,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class EPPProgramPathwayDescriptorPost : Resources.EPPProgramPathwayDescriptor.Tpdm.EPPProgramPathwayDescriptor
+    public class EPPProgramPathwayDescriptorPost : Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EPPProgramPathwayDescriptorPut : Resources.EPPProgramPathwayDescriptor.Tpdm.EPPProgramPathwayDescriptor
+    public class EPPProgramPathwayDescriptorPut : Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor
     {
     }
 
@@ -549,7 +549,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EPPProgramPathwayDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.Evaluations
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Evaluations
 {
 
     [ExcludeFromCodeCoverage]
@@ -584,12 +584,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.Evaluations
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationPost : Resources.Evaluation.Tpdm.Evaluation
+    public class EvaluationPost : Resources.Evaluation.TPDM.Evaluation
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationPut : Resources.Evaluation.Tpdm.Evaluation
+    public class EvaluationPut : Resources.Evaluation.TPDM.Evaluation
     {
     }
 
@@ -607,7 +607,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.Evaluations
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElements
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElements
 {
 
     [ExcludeFromCodeCoverage]
@@ -643,12 +643,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElements
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementPost : Resources.EvaluationElement.Tpdm.EvaluationElement
+    public class EvaluationElementPost : Resources.EvaluationElement.TPDM.EvaluationElement
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementPut : Resources.EvaluationElement.Tpdm.EvaluationElement
+    public class EvaluationElementPut : Resources.EvaluationElement.TPDM.EvaluationElement
     {
     }
 
@@ -666,7 +666,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElements
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElementRatings
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElementRatings
 {
 
     [ExcludeFromCodeCoverage]
@@ -706,12 +706,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElementRatings
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingPost : Resources.EvaluationElementRating.Tpdm.EvaluationElementRating
+    public class EvaluationElementRatingPost : Resources.EvaluationElementRating.TPDM.EvaluationElementRating
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingPut : Resources.EvaluationElementRating.Tpdm.EvaluationElementRating
+    public class EvaluationElementRatingPut : Resources.EvaluationElementRating.TPDM.EvaluationElementRating
     {
     }
 
@@ -729,7 +729,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElementRatings
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -752,12 +752,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelD
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevelDescriptorPost : Resources.EvaluationElementRatingLevelDescriptor.Tpdm.EvaluationElementRatingLevelDescriptor
+    public class EvaluationElementRatingLevelDescriptorPost : Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevelDescriptorPut : Resources.EvaluationElementRatingLevelDescriptor.Tpdm.EvaluationElementRatingLevelDescriptor
+    public class EvaluationElementRatingLevelDescriptorPut : Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor
     {
     }
 
@@ -775,7 +775,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationElementRatingLevelD
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationObjectives
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectives
 {
 
     [ExcludeFromCodeCoverage]
@@ -811,12 +811,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationObjectives
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectivePost : Resources.EvaluationObjective.Tpdm.EvaluationObjective
+    public class EvaluationObjectivePost : Resources.EvaluationObjective.TPDM.EvaluationObjective
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectivePut : Resources.EvaluationObjective.Tpdm.EvaluationObjective
+    public class EvaluationObjectivePut : Resources.EvaluationObjective.TPDM.EvaluationObjective
     {
     }
 
@@ -834,7 +834,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationObjectives
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings
 {
 
     [ExcludeFromCodeCoverage]
@@ -870,12 +870,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingPost : Resources.EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRating
+    public class EvaluationObjectiveRatingPost : Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingPut : Resources.EvaluationObjectiveRating.Tpdm.EvaluationObjectiveRating
+    public class EvaluationObjectiveRatingPut : Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating
     {
     }
 
@@ -893,7 +893,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationObjectiveRatings
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -916,12 +916,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptorPost : Resources.EvaluationPeriodDescriptor.Tpdm.EvaluationPeriodDescriptor
+    public class EvaluationPeriodDescriptorPost : Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptorPut : Resources.EvaluationPeriodDescriptor.Tpdm.EvaluationPeriodDescriptor
+    public class EvaluationPeriodDescriptorPut : Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor
     {
     }
 
@@ -939,7 +939,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationPeriodDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatings
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatings
 {
 
     [ExcludeFromCodeCoverage]
@@ -978,12 +978,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatings
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingPost : Resources.EvaluationRating.Tpdm.EvaluationRating
+    public class EvaluationRatingPost : Resources.EvaluationRating.TPDM.EvaluationRating
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingPut : Resources.EvaluationRating.Tpdm.EvaluationRating
+    public class EvaluationRatingPut : Resources.EvaluationRating.TPDM.EvaluationRating
     {
     }
 
@@ -1001,7 +1001,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatings
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1024,12 +1024,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescript
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevelDescriptorPost : Resources.EvaluationRatingLevelDescriptor.Tpdm.EvaluationRatingLevelDescriptor
+    public class EvaluationRatingLevelDescriptorPost : Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevelDescriptorPut : Resources.EvaluationRatingLevelDescriptor.Tpdm.EvaluationRatingLevelDescriptor
+    public class EvaluationRatingLevelDescriptorPut : Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor
     {
     }
 
@@ -1047,7 +1047,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatingLevelDescript
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1070,12 +1070,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescrip
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingStatusDescriptorPost : Resources.EvaluationRatingStatusDescriptor.Tpdm.EvaluationRatingStatusDescriptor
+    public class EvaluationRatingStatusDescriptorPost : Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingStatusDescriptorPut : Resources.EvaluationRatingStatusDescriptor.Tpdm.EvaluationRatingStatusDescriptor
+    public class EvaluationRatingStatusDescriptorPut : Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor
     {
     }
 
@@ -1093,7 +1093,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationRatingStatusDescrip
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1116,12 +1116,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptorPost : Resources.EvaluationTypeDescriptor.Tpdm.EvaluationTypeDescriptor
+    public class EvaluationTypeDescriptorPost : Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptorPut : Resources.EvaluationTypeDescriptor.Tpdm.EvaluationTypeDescriptor
+    public class EvaluationTypeDescriptorPut : Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor
     {
     }
 
@@ -1139,7 +1139,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.EvaluationTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.FinancialAids
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.FinancialAids
 {
 
     [ExcludeFromCodeCoverage]
@@ -1169,12 +1169,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.FinancialAids
     }
 
     [ExcludeFromCodeCoverage]
-    public class FinancialAidPost : Resources.FinancialAid.Tpdm.FinancialAid
+    public class FinancialAidPost : Resources.FinancialAid.TPDM.FinancialAid
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class FinancialAidPut : Resources.FinancialAid.Tpdm.FinancialAid
+    public class FinancialAidPut : Resources.FinancialAid.TPDM.FinancialAid
     {
     }
 
@@ -1192,7 +1192,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.FinancialAids
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.GenderDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.GenderDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1215,12 +1215,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.GenderDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class GenderDescriptorPost : Resources.GenderDescriptor.Tpdm.GenderDescriptor
+    public class GenderDescriptorPost : Resources.GenderDescriptor.TPDM.GenderDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class GenderDescriptorPut : Resources.GenderDescriptor.Tpdm.GenderDescriptor
+    public class GenderDescriptorPut : Resources.GenderDescriptor.TPDM.GenderDescriptor
     {
     }
 
@@ -1238,7 +1238,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.GenderDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1261,12 +1261,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescripto
     }
 
     [ExcludeFromCodeCoverage]
-    public class ObjectiveRatingLevelDescriptorPost : Resources.ObjectiveRatingLevelDescriptor.Tpdm.ObjectiveRatingLevelDescriptor
+    public class ObjectiveRatingLevelDescriptorPost : Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class ObjectiveRatingLevelDescriptorPut : Resources.ObjectiveRatingLevelDescriptor.Tpdm.ObjectiveRatingLevelDescriptor
+    public class ObjectiveRatingLevelDescriptorPut : Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor
     {
     }
 
@@ -1284,7 +1284,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.ObjectiveRatingLevelDescripto
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluations
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluations
 {
 
     [ExcludeFromCodeCoverage]
@@ -1315,12 +1315,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluations
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationPost : Resources.PerformanceEvaluation.Tpdm.PerformanceEvaluation
+    public class PerformanceEvaluationPost : Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationPut : Resources.PerformanceEvaluation.Tpdm.PerformanceEvaluation
+    public class PerformanceEvaluationPut : Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation
     {
     }
 
@@ -1338,7 +1338,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluations
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings
 {
 
     [ExcludeFromCodeCoverage]
@@ -1377,12 +1377,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingPost : Resources.PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRating
+    public class PerformanceEvaluationRatingPost : Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingPut : Resources.PerformanceEvaluationRating.Tpdm.PerformanceEvaluationRating
+    public class PerformanceEvaluationRatingPut : Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating
     {
     }
 
@@ -1400,7 +1400,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatings
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLevelDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1423,12 +1423,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLe
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevelDescriptorPost : Resources.PerformanceEvaluationRatingLevelDescriptor.Tpdm.PerformanceEvaluationRatingLevelDescriptor
+    public class PerformanceEvaluationRatingLevelDescriptorPost : Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevelDescriptorPut : Resources.PerformanceEvaluationRatingLevelDescriptor.Tpdm.PerformanceEvaluationRatingLevelDescriptor
+    public class PerformanceEvaluationRatingLevelDescriptorPut : Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor
     {
     }
 
@@ -1446,7 +1446,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationRatingLe
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1469,12 +1469,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDesc
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationTypeDescriptorPost : Resources.PerformanceEvaluationTypeDescriptor.Tpdm.PerformanceEvaluationTypeDescriptor
+    public class PerformanceEvaluationTypeDescriptorPost : Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationTypeDescriptorPut : Resources.PerformanceEvaluationTypeDescriptor.Tpdm.PerformanceEvaluationTypeDescriptor
+    public class PerformanceEvaluationTypeDescriptorPut : Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor
     {
     }
 
@@ -1492,7 +1492,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.PerformanceEvaluationTypeDesc
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.RubricDimensions
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.RubricDimensions
 {
 
     [ExcludeFromCodeCoverage]
@@ -1528,12 +1528,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.RubricDimensions
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricDimensionPost : Resources.RubricDimension.Tpdm.RubricDimension
+    public class RubricDimensionPost : Resources.RubricDimension.TPDM.RubricDimension
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricDimensionPut : Resources.RubricDimension.Tpdm.RubricDimension
+    public class RubricDimensionPut : Resources.RubricDimension.TPDM.RubricDimension
     {
     }
 
@@ -1551,7 +1551,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.RubricDimensions
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors
 {
 
     [ExcludeFromCodeCoverage]
@@ -1574,12 +1574,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricRatingLevelDescriptorPost : Resources.RubricRatingLevelDescriptor.Tpdm.RubricRatingLevelDescriptor
+    public class RubricRatingLevelDescriptorPost : Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricRatingLevelDescriptorPut : Resources.RubricRatingLevelDescriptor.Tpdm.RubricRatingLevelDescriptor
+    public class RubricRatingLevelDescriptorPut : Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor
     {
     }
 
@@ -1597,7 +1597,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.RubricRatingLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAssociations
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.SurveyResponsePersonTargetAssociations
 {
 
     [ExcludeFromCodeCoverage]
@@ -1625,12 +1625,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAss
     }
 
     [ExcludeFromCodeCoverage]
-    public class SurveyResponsePersonTargetAssociationPost : Resources.SurveyResponsePersonTargetAssociation.Tpdm.SurveyResponsePersonTargetAssociation
+    public class SurveyResponsePersonTargetAssociationPost : Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SurveyResponsePersonTargetAssociationPut : Resources.SurveyResponsePersonTargetAssociation.Tpdm.SurveyResponsePersonTargetAssociation
+    public class SurveyResponsePersonTargetAssociationPut : Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation
     {
     }
 
@@ -1648,7 +1648,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.SurveyResponsePersonTargetAss
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTargetAssociations
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.SurveySectionResponsePersonTargetAssociations
 {
 
     [ExcludeFromCodeCoverage]
@@ -1677,12 +1677,12 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Tpdm.SurveySectionResponsePersonTa
     }
 
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponsePersonTargetAssociationPost : Resources.SurveySectionResponsePersonTargetAssociation.Tpdm.SurveySectionResponsePersonTargetAssociation
+    public class SurveySectionResponsePersonTargetAssociationPost : Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponsePersonTargetAssociationPut : Resources.SurveySectionResponsePersonTargetAssociation.Tpdm.SurveySectionResponsePersonTargetAssociation
+    public class SurveySectionResponsePersonTargetAssociationPut : Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation
     {
     }
 

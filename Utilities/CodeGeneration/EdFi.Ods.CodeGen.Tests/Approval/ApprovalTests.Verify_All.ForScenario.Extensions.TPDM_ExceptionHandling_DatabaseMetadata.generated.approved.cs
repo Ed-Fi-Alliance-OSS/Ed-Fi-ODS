@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Providers;
 
-namespace EdFi.Ods.Api.Common.ExceptionHandling.Tpdm
+namespace EdFi.Ods.Api.Common.ExceptionHandling.TPDM
 {
     [ExcludeFromCodeCoverage]
     public class DatabaseMetadataProvider : IDatabaseMetadataProvider
