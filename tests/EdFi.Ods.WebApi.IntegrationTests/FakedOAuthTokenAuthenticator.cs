@@ -43,7 +43,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                     null,
                     null,
                     null,
-                    null));
+                    null,
+                    0));
         }
 
         public Task<AuthenticateResult> AuthenticateAsync(string token, string authorizationScheme)

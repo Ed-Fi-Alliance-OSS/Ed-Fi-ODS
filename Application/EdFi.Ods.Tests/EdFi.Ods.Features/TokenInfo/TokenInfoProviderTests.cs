@@ -31,7 +31,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
 
             return new ApiKeyContext(
                 Guid.NewGuid().ToString("n"), "Claim Set", educationOrganizationIds, namespacePrefixes, new List<string>(),
-                "descriptor", null, null);
+                "descriptor", null, null,0);
         }
 
         private List<TokenInfoEducationOrganizationData> CreateEducationOrganizationIdentifiers()

@@ -98,7 +98,8 @@ namespace EdFi.Ods.Api.Providers
                             apiClientDetails.Profiles,
                             apiClientDetails.StudentIdentificationSystemDescriptor,
                             apiClientDetails.CreatorOwnershipTokenId,
-                            apiClientDetails.OwnershipTokenIds)
+                            apiClientDetails.OwnershipTokenIds,
+                            apiClientDetails.ApiClientId)
                     }
                 };
 

@@ -36,7 +36,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
-                    null, null));
+                    null, null,0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
-                    null, null));
+                    null, null,0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -143,7 +143,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
-                    null, null));
+                    null, null,0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -207,7 +207,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
-                    null, null));
+                    null, null,0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -244,7 +244,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
-                    null, null));
+                    null, null,0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);

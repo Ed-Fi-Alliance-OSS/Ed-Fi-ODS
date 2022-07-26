@@ -63,6 +63,8 @@ namespace EdFi.Ods.Api.Startup
     {
         private const string CorsPolicyName = "_development_";
 
+        private const string EmptyClientId = "";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
@@ -76,6 +78,8 @@ namespace EdFi.Ods.Api.Startup
             Configuration.Bind("ApiSettings", ApiSettings);
 
             Configuration.Bind("Plugin", Plugin);
+
+            GlobalContext.Properties["ApiClientId"] = EmptyClientId;
 
             _logger.Debug($"built configuration = {Configuration}");
         }
