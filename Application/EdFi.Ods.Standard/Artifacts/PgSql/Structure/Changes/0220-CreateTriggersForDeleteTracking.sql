@@ -1382,10 +1382,10 @@ BEGIN
 
     INSERT INTO tracked_changes_edfi.disciplineaction(
         olddisciplineactionidentifier, olddisciplinedate, oldstudentusi, oldstudentuniqueid,
-        id, discriminator, changeversion)
+        id, oldresponsibilitySchoolid, discriminator, changeversion)
     VALUES (
         OLD.disciplineactionidentifier, OLD.disciplinedate, OLD.studentusi, dj0.studentuniqueid, 
-        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
+        OLD.id, OLD.responsibilityschoolid, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
 END;

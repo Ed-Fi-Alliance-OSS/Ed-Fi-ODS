@@ -379,6 +379,7 @@ CREATE TABLE tracked_changes_edfi.disciplineaction
        newstudentusi INT NULL,
        newstudentuniqueid VARCHAR(32) NULL,
        id uuid NOT NULL,
+       oldresponsibilityschoolid INT NOT NULL,
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
        createdate timestamp NOT NULL DEFAULT (now()),
