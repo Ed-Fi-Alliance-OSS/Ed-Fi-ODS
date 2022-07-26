@@ -30,7 +30,7 @@ RETURN
         ,ac.[CreatorOwnershipTokenId_OwnershipTokenId] as CreatorOwnershipTokenId
         ,acot.[OwnershipToken_OwnershipTokenId] as OwnershipTokenId
         ,cat.Expiration
-		,cat.ApiClient_ApiClientId as ApiClientId
+        ,cat.ApiClient_ApiClientId as ApiClientId
     FROM ClientAccessTokens cat
     INNER JOIN ApiClients ac ON
         cat.[ApiClient_ApiClientId] = ac.[ApiClientId]

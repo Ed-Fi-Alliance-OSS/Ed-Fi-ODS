@@ -17,7 +17,7 @@ RETURNS TABLE (
     ,CreatorOwnershipTokenId SMALLINT
     ,OwnershipTokenId SMALLINT
     ,Expiration TIMESTAMP
-	,ApiClientId INT
+    ,ApiClientId INT
 )
 AS
 $$
@@ -34,7 +34,7 @@ BEGIN
         ,ac.CreatorOwnershipTokenId_OwnershipTokenId as CreatorOwnershipTokenId
         ,acot.OwnershipToken_OwnershipTokenId as OwnershipTokenId
         ,cat.Expiration
-		,cat.ApiClient_ApiClientId as ApiClientId
+        ,cat.ApiClient_ApiClientId as ApiClientId
     FROM dbo.ClientAccessTokens cat
          INNER JOIN dbo.ApiClients ac ON
         cat.ApiClient_ApiClientId = ac.ApiClientId
