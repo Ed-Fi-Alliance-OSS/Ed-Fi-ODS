@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "605c1a4d-8837-4d40-b4a4-eadbbbe3898f",
+		"_postman_id": "834bae65-732d-4f30-b82a-68de5f98d281",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -5010,7 +5010,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604822",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5028,6 +5028,10 @@
 												{
 													"key": "limit",
 													"value": "1"
+												},
+												{
+													"key": "studentUniqueId",
+													"value": "604822"
 												}
 											]
 										}
