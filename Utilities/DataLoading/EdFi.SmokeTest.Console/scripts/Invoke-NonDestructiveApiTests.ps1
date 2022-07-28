@@ -13,21 +13,8 @@ Param(
     $secret,
 
     [string]
-    $apiUrl = "http://localhost:54746/data/v3",
-
-    [string]
-    $tokenUrl = "http://localhost:54746",
-
-    [string]
-    $metadataUrl = "http://localhost:54746/metadata"
+    $apiUrl = "http://localhost:54746"
 )
 $ErrorActionPreference = 'Stop'
 
-$exe = ".\bin\debug\EdFi.SmokeTest.Console.exe"
-
-if (-not(Test-Path($exe)))
-{
-    Throw "Build the solution in debug mode first"
-}
-
-&$exe -k $key -s $secret -a $apiUrl -o $tokenUrl -m $metadataUrl -t NonDestructiveApi | Write-Host
+& dotnet run --project ../EdFi.SmokeTest.Console.csproj -- -k $key -s $secret -b $apiUrl -t NonDestructiveApi | Write-Host
