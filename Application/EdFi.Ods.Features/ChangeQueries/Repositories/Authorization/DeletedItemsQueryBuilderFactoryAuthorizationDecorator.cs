@@ -29,7 +29,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             IDomainModelEnhancer domainModelEnhancer,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector)
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
             : base(
                 authorizationContextProvider,
                 apiKeyContextProvider,
@@ -37,7 +38,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 domainModelEnhancer,
                 authorizationFilteringProvider,
                 authorizationBasisMetadataSelector,
-                authorizationFilterDefinitionProvider)
+                authorizationFilterDefinitionProvider,
+                dataManagementRequestContextProvider)
         {
             _next = next;
         }

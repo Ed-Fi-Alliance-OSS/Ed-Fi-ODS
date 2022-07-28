@@ -6,185 +6,296 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Database.NamingConventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Tests._Extensions;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using Test.Common.ModelBuilders;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     [TestFixture]
     public class NamespaceBasedAuthorizationStrategyTests
     {
-        [Test]
-        public void NamespaceBasedAuthorization_EmptyNamespaceClaim()
+        [TestFixture]
+        public class SingleItemAuthorizationTests
         {
-            //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy();
-
-            var claims = new List<Claim>
+            [Test]
+            public void AuthorizationContextNamespaceIsEmpty_ShouldThrowAnException()
             {
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
-            };
+                //Arrange
+                var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
-            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                var claims = new List<Claim>
+                {
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                };
 
-            string resource = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
-            string action = @"http://ed-fi.org/ods/actions/manage";
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
-            var data = new NamespaceBasedAuthorizationContextData
-            {
-                Namespace = @"uri://ed-fi.org/"
-            };
+                var resource = new Resource("Ignored");
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
 
-            //Act
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @""
+                };
 
-            var exception = Assert.Throws<EdFiSecurityException>(
-                () => strategy.GetAuthorizationStrategyFiltering(
-                        new List<Claim>(), new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] {resource}, action, data)));
+                //Act
+                var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
-            exception.Message.ShouldBe(
-                "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
-                + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
-
-            //Assert
-        }
-
-        [Test]
-        public void NamespaceBasedAuthorization_EmptyResourceNamespace()
-        {
-            //Arrange
-            var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
-
-            var claims = new List<Claim>
-            {
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
-            };
-
-            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
-
-            string resource = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
-            string action = @"http://ed-fi.org/ods/actions/manage";
-
-            var data = new NamespaceBasedAuthorizationContextData
-            {
-                Namespace = @""
-            };
-
-            //Act
-            var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
-
-            var result = filterDefinition.AuthorizeInstance(
-                new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),
-                new AuthorizationFilterContext());
+                var result = filterDefinition.AuthorizeInstance(
+                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data),
+                    new AuthorizationFilterContext());
             
-            //Assert
-            result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
-            result.Exception.Message.ShouldBe("Access to the resource item could not be authorized because the Namespace of the resource is empty.");
+                //Assert
+                result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
+                result.Exception.Message.ShouldBe("Access to the resource item could not be authorized because the Namespace of the resource is empty.");
+            }
+
+            [Test]
+            public void NonMatchingNamespaceClaims_ShouldThrowAnException()
+            {
+                //Arrange
+                var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
+
+                var claims = new List<Claim>
+                {
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                };
+
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+
+                var resource = new Resource("Ignored");
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
+
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @"uri://www.TEST.org/"
+                };
+
+                //Act
+                var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
+
+                var result = filterDefinition.AuthorizeInstance(
+                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data),
+                    new AuthorizationFilterContext());
+
+                //Assert
+                result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
+                result.Exception.Message.ShouldBe("Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
+            }
         }
 
-        [Test]
-        public void NamespaceBasedAuthorization_MatchOnNamespace_ShouldThrowNoExceptions()
+        [TestFixture]
+        public class AuthorizationFilteringTests
         {
-            //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy();
-
-            var claims = new List<Claim>
+            [Test]
+            public void EmptyNamespaceClaims_ShouldThrowAnException()
             {
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
-            };
+                //Arrange
+                var resource = new Resource("Ignored");
+                
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
-            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                var claims = new List<Claim>
+                {
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
+                };
 
-            string resource = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
-            string action = @"http://ed-fi.org/ods/actions/manage";
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
-            var data = new NamespaceBasedAuthorizationContextData
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
+
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @"uri://ed-fi.org/"
+                };
+
+                //Act
+                var exception = Assert.Throws<EdFiSecurityException>(
+                    () => strategy.GetAuthorizationStrategyFiltering(
+                        new List<Claim>(),
+                        new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)));
+
+                //Assert
+                exception.Message.ShouldBe(
+                    "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
+                    + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
+            }
+
+            [Test]
+            public void ClaimsMatchNamespaceWithoutPrefix_ShouldNotThrowAnException()
             {
-                Namespace = @"uri://ed-fi.org/"
-            };
+                //Arrange
+                var domainModel = new FluentDomainModelBuilder()
+                    .WithSchemas(_ => _
+                        .Schema("edfi")
+                        .WithAggregates(_ => _
+                            .AggregateRoot("TestResource")
+                            .WithProperties(_ => _
+                                .Property("SomeId").Identifying().AsInteger()
+                                .Property("Namespace").AsString()))) // Namespace without prefix
+                    .Build();
 
-            //Act
-            strategy.GetAuthorizationStrategyFiltering(
-                new List<Claim>(),
-                new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data));
+                var resource = domainModel.ResourceModel.GetAllResources().Single();
 
-            //Assert
-        }
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
-        [Test]
-        public void NamespaceBasedAuthorization_MismatchedNamespaces()
-        {
-            //Arrange
-            var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
+                var claims = new List<Claim>
+                {
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                };
 
-            var claims = new List<Claim>
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
+
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @"uri://ed-fi.org/One/Two/Three"
+                };
+
+                //Act
+                strategy.GetAuthorizationStrategyFiltering(
+                    new List<Claim>(),
+                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data));
+
+                //Assert
+            }
+
+            [Test]
+            public void ClaimsMatchNamespaceWithPrefix_ShouldNotThrowAnException()
             {
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
-            };
+                var domainModel = new FluentDomainModelBuilder()
+                    .WithSchemas(_ => _
+                        .Schema("edfi")
+                        .WithAggregates(_ => _
+                            .AggregateRoot("TestResource")
+                            .WithProperties(_ => _
+                                .Property("SomeId").Identifying().AsInteger()
+                                .Property("AbcNamespace").AsString())))  // Namespace with prefix
+                    .Build();
 
-            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                //Arrange
+                var resource = domainModel.ResourceModel.GetAllResources().Single();
 
-            string resource = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
-            string action = @"http://ed-fi.org/ods/actions/manage";
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
-            var data = new NamespaceBasedAuthorizationContextData
+                var claims = new List<Claim>
+                {
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                };
+
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
+
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @"uri://ed-fi.org/One/Two/Three"
+                };
+
+                //Act
+                strategy.GetAuthorizationStrategyFiltering(
+                    new List<Claim>(),
+                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data));
+
+                //Assert
+            }
+
+            [Test]
+            public void NoNamespacePresent_ShouldNotThrowAnException()
             {
-                Namespace = @"uri://www.TEST.org/"
-            };
+                var domainModel = new FluentDomainModelBuilder()
+                    .WithSchemas(_ => _
+                        .Schema("edfi")
+                        .WithAggregates(_ => _
+                            .AggregateRoot("TestResource")
+                            .WithProperties(_ => _
+                                .Property("SomeId").Identifying().AsInteger()
+                                .Property("SomethingElse").AsString()))) // No Namespace property
+                    .Build();
 
-            //Act
-            var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
+                //Arrange
+                var resource = domainModel.ResourceModel.GetAllResources().Single();
+                var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
+                A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
 
-            var result = filterDefinition.AuthorizeInstance(
-                new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),
-                new AuthorizationFilterContext());
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
-            //Assert
-            result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
-            result.Exception.Message.ShouldBe("Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
-        }
+                var claims = new List<Claim>
+                {
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                };
 
-        [Test]
-        public void NamespaceBasedAuthorization_NoNamespaceClaim()
-        {
-            //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy();
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
-            var claims = new List<Claim>();
-            ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
 
-            string resource = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
-            string action = @"http://ed-fi.org/ods/actions/manage";
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @"uri://ed-fi.org/One/Two/Three"
+                };
 
-            var data = new NamespaceBasedAuthorizationContextData
+                //Act
+                Should.Throw<EdFiSecurityException>(() => 
+                        strategy.GetAuthorizationStrategyFiltering(
+                            new List<Claim>(),
+                            new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)))
+                    .MessageShouldContain("Unable to definitively identify a Namespace-based property in the 'edfi.TestResource' resource to use for Namespace-based authorization.");
+
+                //Assert
+            }
+
+            [Test]
+            public void NoNamespaceClaims_ShouldThrowAnException()
             {
-                Namespace = @"uri://ed-fi.org/"
-            };
+                //Arrange
+                var resource = new Resource("Ignored");
 
-            //Act
+                var strategy = new NamespaceBasedAuthorizationStrategy();
 
-            var exception = Assert.Throws<EdFiSecurityException>(() => strategy.GetAuthorizationStrategyFiltering(
-                new List<Claim>(),
-                new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data)));
+                var claims = new List<Claim>();
+                ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
-            exception.Message.ShouldBe(
-                "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
-                + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
+                string resourceUri = @"http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor";
+                string action = @"http://ed-fi.org/ods/actions/manage";
 
+                var data = new NamespaceBasedAuthorizationContextData
+                {
+                    Namespace = @"uri://ed-fi.org/One/Two/Three"
+                };
+
+                //Act
+
+                var exception = Assert.Throws<EdFiSecurityException>(() => strategy.GetAuthorizationStrategyFiltering(
+                    new List<Claim>(),
+                    new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)));
+
+                // Assert
+                exception.Message.ShouldBe(
+                    "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
+                    + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
+            }
         }
     }
 }

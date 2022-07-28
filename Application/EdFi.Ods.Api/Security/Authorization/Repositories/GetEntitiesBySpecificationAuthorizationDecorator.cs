@@ -46,6 +46,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="securityRepository"></param>
         /// <param name="apiKeyContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
+        /// <param name="dataManagementRequestContextProvider"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
@@ -57,7 +58,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
             IApiKeyContextProvider apiKeyContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -67,7 +69,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 securityRepository,
                 sessionFactory,
                 apiKeyContextProvider,
-                viewBasedSingleItemAuthorizationQuerySupport)
+                viewBasedSingleItemAuthorizationQuerySupport,
+                dataManagementRequestContextProvider)
         {
             _next = next;
             _sessionFactory = sessionFactory;

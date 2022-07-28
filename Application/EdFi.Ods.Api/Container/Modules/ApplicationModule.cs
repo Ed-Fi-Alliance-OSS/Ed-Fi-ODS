@@ -33,6 +33,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
@@ -52,6 +53,14 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ExceptionHandlingFilter>()
                 .As<IFilterMetadata>()
+                .SingleInstance();
+            
+            builder.RegisterType<DataManagementRequestContextFilter>()
+                .As<IFilterMetadata>()
+                .SingleInstance();
+            
+            builder.RegisterType<DataManagementRequestContextProvider>()
+                .As<IDataManagementRequestContextProvider>()
                 .SingleInstance();
 
             builder.RegisterType<EnterpriseApiVersionProvider>()

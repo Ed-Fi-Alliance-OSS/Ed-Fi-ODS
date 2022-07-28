@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -88,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiKeyContext apiKeyContext, object entity)
         {
-            return new EdFiAuthorizationContext(apiKeyContext, new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
+            return new EdFiAuthorizationContext(apiKeyContext, new ClaimsPrincipal(), new Resource("Ignored"), new[] { "resource" }, "action", entity);
         }
 
         public class When_authorizing_a_multiple_item_request

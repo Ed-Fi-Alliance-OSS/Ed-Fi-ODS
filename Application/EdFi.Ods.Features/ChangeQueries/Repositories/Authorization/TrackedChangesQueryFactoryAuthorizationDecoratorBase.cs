@@ -29,6 +29,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
+        private readonly IDataManagementRequestContextProvider _dataManagementRequestContextProvider;
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
 
         protected TrackedChangesQueryFactoryAuthorizationDecoratorBase(
@@ -38,13 +39,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             IDomainModelEnhancer domainModelEnhancer,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
+            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _apiKeyContextProvider = apiKeyContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
+            _dataManagementRequestContextProvider = dataManagementRequestContextProvider;
 
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
@@ -65,6 +68,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
+                _dataManagementRequestContextProvider.GetResource(),
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),
                 entityType);

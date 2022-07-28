@@ -148,7 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
             private bool CompareContexts(EdFiAuthorizationContext context)
             {
-                context.Resource.Single()
+                context.ResourceClaims.Single()
                     .Value.ShouldBe("Resource");
 
                 context.Action.Single()

@@ -141,7 +141,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         _logger.DebugFormat(
             "Authorization strategy '{0}' selected for request against resource '{1}'.",
             string.Join("', '", authorizationStrategyNames),
-            authorizationContext.Resource.First()
+            authorizationContext.ResourceClaims.First()
                 .Value);
 
         // Look for an authorization validation rule set name override on the caller's claims (flow the overrides down, even if they aren't the first claim encountered going up the hierarchy)
@@ -191,7 +191,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
         ValidateAuthorizationContext(authorizationContext);
 
         // Extract individual values
-        string[] requestedResourceClaimUris = authorizationContext.Resource.Select(x => x.Value).ToArray();
+        string[] requestedResourceClaimUris = authorizationContext.ResourceClaims.Select(x => x.Value).ToArray();
 
         string requestedAction = authorizationContext.Action.Single().Value;
 
@@ -225,14 +225,14 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 throw new ArgumentNullException("authorizationContext");
             }
 
-            if (authorizationContext.Resource == null || authorizationContext.Resource.All(r => string.IsNullOrWhiteSpace(r.Value)))
+            if (authorizationContext.ResourceClaims == null || authorizationContext.ResourceClaims.All(r => string.IsNullOrWhiteSpace(r.Value)))
             {
                 throw new AuthorizationContextException("Authorization can only be performed if a resource is specified.");
             }
 
-            if (authorizationContext.Resource.Count > 2)
+            if (authorizationContext.ResourceClaims.Count > 2)
             {
-                throw new AuthorizationContextException($"Unexpected number of Resource URIs found in the authorization context. Expected up to 2, but found {authorizationContext.Resource.Count}.");
+                throw new AuthorizationContextException($"Unexpected number of Resource URIs found in the authorization context. Expected up to 2, but found {authorizationContext.ResourceClaims.Count}.");
             }
 
             if (authorizationContext.Action == null || authorizationContext.Action.All(a => string.IsNullOrWhiteSpace(a.Value)))

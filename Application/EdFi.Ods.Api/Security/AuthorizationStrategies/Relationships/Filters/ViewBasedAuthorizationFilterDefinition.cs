@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -24,10 +23,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
-                filterName, 
+                filterName,
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
-                    FROM " + GetFullNameForView($"auth_{viewName}") + $@" {{newAlias1}} 
+                    FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} 
                     WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
                 (criteria, @where, subjectEndpointName, parameters, joinType) => criteria.ApplyJoinFilter(
                     @where,

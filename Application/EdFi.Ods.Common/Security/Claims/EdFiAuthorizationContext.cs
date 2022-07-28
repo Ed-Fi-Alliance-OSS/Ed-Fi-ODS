@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using System.Security.Claims;
 using EdFi.Common;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Utils.Extensions;
+using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Security.Claims
 {
@@ -24,6 +24,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="apiKeyContext">Direct information about the current API client, typically presented as claims.</param>
         /// <param name="principal">The <see cref="ClaimsPrincipal" /> containing the claims.</param>
+        /// <param name="resource">The semantic model's representation of the resource being authorized.</param>
         /// <param name="resourceClaimUris">The URI representations of the resource claims being authorized.</param>
         /// <param name="action">The action being taken on the resource.</param>
         /// <param name="data">An object containing the data available for authorization which implements one of the
@@ -31,6 +32,7 @@ namespace EdFi.Ods.Common.Security.Claims
         public EdFiAuthorizationContext(
             ApiKeyContext apiKeyContext,
             ClaimsPrincipal principal,
+            Resource resource,
             string[] resourceClaimUris,
             string action,
             object data)
@@ -42,10 +44,11 @@ namespace EdFi.Ods.Common.Security.Claims
             ApiKeyContext = apiKeyContext;
             Principal = principal;
             Data = data;
-
+            Resource = resource;
+            
             resourceClaimUris.ForEach(
                 resourceClaimUri =>
-                    Resource.Add(new Claim(ClaimsName, resourceClaimUri)));
+                    ResourceClaims.Add(new Claim(ClaimsName, resourceClaimUri)));
 
             Action.Add(new Claim(ClaimsName, action));
 
@@ -60,17 +63,20 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="apiKeyContext">Direct information about the current API client, typically presented as claims.</param>
         /// <param name="principal">The <see cref="ClaimsPrincipal" /> containing the claims.</param>
+        /// <param name="resource">The semantic model's representation of the resource being authorized.</param>
         /// <param name="resourceClaimUris">The URI representations of the resource claims being authorized.</param>
         /// <param name="action">The action being taken on the resource.</param>
         /// <param name="type">The entity type which implements one of the model interfaces (e.g. IStudent) which is the subject of a multiple-item request.</param>
         public EdFiAuthorizationContext(
             ApiKeyContext apiKeyContext,
             ClaimsPrincipal principal,
+            Resource resource,
             string[] resourceClaimUris,
             string action,
             Type type)
         {
             Preconditions.ThrowIfNull(apiKeyContext, nameof(apiKeyContext));
+            Preconditions.ThrowIfNull(resource, nameof(resource));
             Preconditions.ThrowIfNull(resourceClaimUris, nameof(resourceClaimUris));
             Preconditions.ThrowIfNull(action, nameof(action));
             Preconditions.ThrowIfNull(type, nameof(type));
@@ -78,10 +84,11 @@ namespace EdFi.Ods.Common.Security.Claims
             ApiKeyContext = apiKeyContext;
             Principal = principal;
             Type = type;
-
+            Resource = resource;
+            
             resourceClaimUris.ForEach(
                 resourceClaimUri =>
-                    Resource.Add(new Claim(ClaimsName, resourceClaimUri)));
+                    ResourceClaims.Add(new Claim(ClaimsName, resourceClaimUri)));
 
             Action.Add(new Claim(ClaimsName, action));
         }
@@ -105,6 +112,11 @@ namespace EdFi.Ods.Common.Security.Claims
 
         /// <summary>Gets the resource on which the principal is to be authorized.</summary>
         /// <returns>A collection of URI claims that represent the resource.</returns>
-        public Collection<Claim> Resource { get; } = new Collection<Claim>();
+        public Collection<Claim> ResourceClaims { get; } = new Collection<Claim>();
+        
+        /// <summary>
+        /// The semantic model's representation of the resource being authorized.
+        /// </summary>
+        public Resource Resource { get; }
     }
 }

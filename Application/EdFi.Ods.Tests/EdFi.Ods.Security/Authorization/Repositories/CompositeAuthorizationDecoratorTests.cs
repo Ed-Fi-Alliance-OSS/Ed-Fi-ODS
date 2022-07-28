@@ -244,7 +244,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 Should_attempt_to_authorize_the_request_with_the_authorization_context_with_the_corresponding_resource_URI()
             {
                 Assert.That(
-                    _actualAuthorizationContext.Resource.Single()
+                    _actualAuthorizationContext.ResourceClaims.Single()
                         .Value,
                     Is.EqualTo(Supplied<string>("ResourceUriValue")));
             }
