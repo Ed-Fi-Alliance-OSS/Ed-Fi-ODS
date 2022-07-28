@@ -18,7 +18,7 @@ public class PropertyDescriptor
         PropertyName = name;
             
         // By default, it's a string
-        AsString(20);
+        AsString();
     }
 
     public PropertyDescriptor Identifying()

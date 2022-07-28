@@ -56,9 +56,9 @@ public class DataManagementRequestContextFilter : IActionFilter
             {
                 var parts = template.Substring(RouteConstants.DataManagementRoutePrefix.Length + 1).Split('/');
 
-                string schema = null, resourceCollection = null;
+                string schema, resourceCollection;
                 
-                // If the schema segment is a templatized route value...
+                // If the schema segment is a templated route value...
                 if (parts[0] == "{schema}")
                 {
                     if (!context.RouteData.Values.TryGetValue("schema", out object schemaAsObject)

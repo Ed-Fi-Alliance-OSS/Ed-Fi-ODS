@@ -34,8 +34,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var claims = new List<Claim>
                 {
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                 };
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -69,8 +69,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var claims = new List<Claim>
                 {
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                 };
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -110,8 +110,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var claims = new List<Claim>
                 {
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
                 };
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -156,8 +156,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var claims = new List<Claim>
                 {
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                 };
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -198,8 +198,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var claims = new List<Claim>
                 {
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                 };
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -242,8 +242,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 var claims = new List<Claim>
                 {
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                    new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                    new(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                 };
 
                 ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
