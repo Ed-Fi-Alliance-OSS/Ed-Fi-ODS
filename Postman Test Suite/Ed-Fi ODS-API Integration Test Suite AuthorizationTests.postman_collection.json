@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "834bae65-732d-4f30-b82a-68de5f98d281",
+		"_postman_id": "e6725dd6-8772-4b43-ab7f-f948d8718dd9",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1713280"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -4111,6 +4110,40 @@
 					]
 				},
 				{
+					"name": "Clean Up Test Data",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "OrganizationDepartment Authorization Tests",
 					"item": [
 						{
@@ -5010,7 +5043,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604822",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5028,10 +5061,6 @@
 												{
 													"key": "limit",
 													"value": "1"
-												},
-												{
-													"key": "studentUniqueId",
-													"value": "604822"
 												}
 											]
 										}
@@ -7006,40 +7035,6 @@
 									"response": []
 								}
 							]
-						}
-					]
-				},
-				{
-					"name": "Clean Up Test Data",
-					"item": [
-						{
-							"name": "Clean up Environment Variables",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-											"_.chain(_.keys(pm.environment.toObject()))\r",
-											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-											"  .each(k => pm.environment.unset(k)).value();\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									]
-								}
-							},
-							"response": []
 						}
 					]
 				}
