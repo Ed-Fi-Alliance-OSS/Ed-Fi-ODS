@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "e6725dd6-8772-4b43-ab7f-f948d8718dd9",
+		"_postman_id": "f318b565-d7cd-4712-9915-12b6a2adbbc1",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1713280"
 	},
 	"item": [
 		{
@@ -4110,40 +4111,6 @@
 					]
 				},
 				{
-					"name": "Clean Up Test Data",
-					"item": [
-						{
-							"name": "Clean up Environment Variables",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-											"_.chain(_.keys(pm.environment.toObject()))\r",
-											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-											"  .each(k => pm.environment.unset(k)).value();\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "OrganizationDepartment Authorization Tests",
 					"item": [
 						{
@@ -5043,7 +5010,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations?schoolId=255901001&limit=1&studentUniqueId=604822",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -5061,6 +5028,10 @@
 												{
 													"key": "limit",
 													"value": "1"
+												},
+												{
+													"key": "studentUniqueId",
+													"value": "604822"
 												}
 											]
 										}
@@ -7131,7 +7102,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"sourceSystemNamespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7185,7 +7156,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"sourceSystemNamespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7247,7 +7218,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"sourceSystemNamespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7304,7 +7275,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"sourceSystemNamespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7409,7 +7380,7 @@
 													"const responseItem = responseItems[0];\r",
 													"\r",
 													"pm.test(\"Should return the gradebook entry with the other.org source system namespace value\", () => {\r",
-													"  pm.expect(responseItem.sourceSystemNamespace).equal('uri://other.org/PostmanTesting');\r",
+													"  pm.expect(responseItem.namespace).equal('uri://other.org/PostmanTesting');\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -7470,7 +7441,7 @@
 													"const responseItem = responseItems[0];\r",
 													"\r",
 													"pm.test(\"Should return the gradebook entry with the ed-fi.org source system namespace value\", () => {\r",
-													"  pm.expect(responseItem.sourceSystemNamespace).equal('uri://ed-fi.org/PostmanTesting');\r",
+													"  pm.expect(responseItem.namespace).equal('uri://ed-fi.org/PostmanTesting');\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -7624,6 +7595,40 @@
 									"response": []
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "Clean Up Test Data",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
