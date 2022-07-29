@@ -41,18 +41,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccommodationDescriptor', @level2type=N'COLUMN', @level2name=N'AccommodationDescriptorId'
 GO
 
--- Extended Properties [edfi].[Account] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This financial entity represents a funding source combined with its purpose and type of transaction. It provides a formal record of the debits and credits relating to the specific account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Account'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The alphanumeric string that identifies the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Account', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Account', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Account', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A descriptive name for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Account', @level2type=N'COLUMN', @level2name=N'AccountName'
-GO
-
 -- Extended Properties [edfi].[AccountabilityRating] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An accountability rating for a school or district.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountabilityRating'
 GO
@@ -71,58 +59,16 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The program associated with the accountability rating (e.g., NCLB, AEIS).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountabilityRating', @level2type=N'COLUMN', @level2name=N'RatingProgram'
 GO
 
--- Extended Properties [edfi].[AccountAccountCode] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of account codes defined for the education accounting system organized by account code type (e.g., fund, function, object) that map to the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountAccountCode'
+-- Extended Properties [edfi].[AccountTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of account used in accounting such as revenue, expenditure, or balance sheet.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountTypeDescriptor'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of account code associated with the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountAccountCode', @level2type=N'COLUMN', @level2name=N'AccountClassificationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An account code defined for the education accounting system by the education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountAccountCode', @level2type=N'COLUMN', @level2name=N'AccountCodeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The alphanumeric string that identifies the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountAccountCode', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountAccountCode', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountAccountCode', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-
--- Extended Properties [edfi].[AccountClassificationDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor holds the set of account code categories defined for the education accounting system organized by account code type (e.g., fund, function, object).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountClassificationDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountClassificationDescriptor', @level2type=N'COLUMN', @level2name=N'AccountClassificationDescriptorId'
-GO
-
--- Extended Properties [edfi].[AccountCode] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of account codes defined by an education organization for a fiscal year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of account code associated with the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountCode', @level2type=N'COLUMN', @level2name=N'AccountClassificationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An account code defined for the education accounting system by the education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountCode', @level2type=N'COLUMN', @level2name=N'AccountCodeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountCode', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountCode', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account code.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountCode', @level2type=N'COLUMN', @level2name=N'AccountCodeDescription'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AccountTypeDescriptor', @level2type=N'COLUMN', @level2name=N'AccountTypeDescriptorId'
 GO
 
 -- Extended Properties [edfi].[AchievementCategoryDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the category of achievement attributed to the learner.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AchievementCategoryDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AchievementCategoryDescriptor', @level2type=N'COLUMN', @level2name=N'AchievementCategoryDescriptorId'
-GO
-
--- Extended Properties [edfi].[Actual] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This financial entity represents the sum of the financial transactions to date relating to a specific account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Actual'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The alphanumeric string that identifies the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Actual', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported actual element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Actual', @level2type=N'COLUMN', @level2name=N'AsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Actual', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Actual', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Actual', @level2type=N'COLUMN', @level2name=N'AmountToDate'
 GO
 
 -- Extended Properties [edfi].[AdditionalCreditTypeDescriptor] --
@@ -366,9 +312,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period or 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentPeriod', @level2type=N'COLUMN', @level2name=N'AssessmentIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentPeriod', @level2type=N'COLUMN', @level2name=N'Namespace'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period of time in which an assessment is supposed to be administered (e.g., Beginning of Year, Middle of Year, End of Year).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentPeriod', @level2type=N'COLUMN', @level2name=N'AssessmentPeriodDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentPeriod', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first date the assessment is to be administered.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssessmentPeriod', @level2type=N'COLUMN', @level2name=N'BeginDate'
 GO
@@ -476,7 +422,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier
 GO
 
 -- Extended Properties [edfi].[AssignmentLateStatusDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Status of whether the assignment was submitted after the due date and/or marked as.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssignmentLateStatusDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Status of whether the assignment was submitted after the due date and/or marked as late.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssignmentLateStatusDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AssignmentLateStatusDescriptor', @level2type=N'COLUMN', @level2name=N'AssignmentLateStatusDescriptorId'
 GO
@@ -491,6 +437,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor holds the category of the attendance event (e.g., tardy). The map to known enumeration values is required.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AttendanceEventCategoryDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AttendanceEventCategoryDescriptor', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
+GO
+
+-- Extended Properties [edfi].[BalanceSheetDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES balance sheet accounting dimension, used to track financial transactions for each fund. These financial statements only report assets, deferred outflows of resources, liabilities, deferred inflows of resources, and equity accounts. The statements are considered snapshots of how these accounts stand as of a certain point in time.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account balance sheet dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account balance sheet dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account balance sheet dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[BalanceSheetDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account balance sheet dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account balance sheet dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BalanceSheetDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
 GO
 
 -- Extended Properties [edfi].[BarrierToInternetAccessInResidenceDescriptor] --
@@ -549,20 +515,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade levels the particular bell schedule applies to.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BellScheduleGradeLevel', @level2type=N'COLUMN', @level2name=N'GradeLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BellScheduleGradeLevel', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-
--- Extended Properties [edfi].[Budget] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This financial entity represents the amount of monies allocated to be spent or received by an education organization as related to a specific account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Budget'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The alphanumeric string that identifies the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Budget', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported budget element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Budget', @level2type=N'COLUMN', @level2name=N'AsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Budget', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Budget', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Amount budgeted for the account for this fiscal year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Budget', @level2type=N'COLUMN', @level2name=N'Amount'
 GO
 
 -- Extended Properties [edfi].[Calendar] --
@@ -643,6 +595,50 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The category of charter school. For example: School Charter, Open Enrollment Charter.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CharterStatusDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CharterStatusDescriptor', @level2type=N'COLUMN', @level2name=N'CharterStatusDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ChartOfAccount] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A valid combination of account dimensions under which financials are reported. This financial entity represents a funding source combined with its purpose and type of transaction. It provides a formal record of the debits and credits relating to the specific account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEA populated code value for the valid combination of account dimensions under which financials are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of account used in accounting such as revenue, expenditure, or balance sheet.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'AccountTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A descriptive name for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'AccountName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account balance sheet dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'BalanceSheetCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account function dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'FunctionCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account fund dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'FundCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account object dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'ObjectCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account operational unit dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'OperationalUnitCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account program dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'ProgramCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account project dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'ProjectCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account source dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccount', @level2type=N'COLUMN', @level2name=N'SourceCode'
+GO
+
+-- Extended Properties [edfi].[ChartOfAccountReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccountReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEA populated code value for the valid combination of account dimensions under which financials are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccountReportingTag', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccountReportingTag', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccountReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccountReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value associated with the reporting tag.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ChartOfAccountReportingTag', @level2type=N'COLUMN', @level2name=N'TagValue'
 GO
 
 -- Extended Properties [edfi].[CitizenshipStatusDescriptor] --
@@ -815,22 +811,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'In the Migrant Education program, a provision allows continuation of services after a child is no longer considered migratory for certain reasons. This descriptor holds the reasons prescribed in the statute. The mapping of descriptor values to known Ed-Fi enumeration values is required.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContinuationOfServicesReasonDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContinuationOfServicesReasonDescriptor', @level2type=N'COLUMN', @level2name=N'ContinuationOfServicesReasonDescriptorId'
-GO
-
--- Extended Properties [edfi].[ContractedStaff] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This financial entity represents the sum of the financial transactions to date for contracted staff. Contracted staff includes "contractors" or "consultants" who perform services for an agreed upon fee, or an employee of a management service contracted to work on site.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The alphanumeric string that identifies the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported contracted staff element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff', @level2type=N'COLUMN', @level2name=N'AsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance (amount paid to contractor) for account for the fiscal year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContractedStaff', @level2type=N'COLUMN', @level2name=N'AmountToDate'
 GO
 
 -- Extended Properties [edfi].[CostRateDescriptor] --
@@ -1337,6 +1317,32 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The beginning date of the period when the descriptor is in effect. If omitted, the default is immediate effectiveness.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Descriptor', @level2type=N'COLUMN', @level2name=N'EffectiveBeginDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The end date of the period when the descriptor is in effect.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Descriptor', @level2type=N'COLUMN', @level2name=N'EffectiveEndDate'
+GO
+
+-- Extended Properties [edfi].[DescriptorMapping] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A mapping of a descriptor value in one namespace to a descriptor value in another namespace. This can be used to exchange known contextual mappings of enumeration values.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMapping'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The namespace of the descriptor value to which the from descriptor value is mapped to.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMapping', @level2type=N'COLUMN', @level2name=N'MappedNamespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor value to which the from descriptor value is being mapped to.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMapping', @level2type=N'COLUMN', @level2name=N'MappedValue'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The namespace of the descriptor value that is being mapped to another value.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMapping', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor value that is being mapped to another value.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMapping', @level2type=N'COLUMN', @level2name=N'Value'
+GO
+
+-- Extended Properties [edfi].[DescriptorMappingModelEntity] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMappingModelEntity'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The namespace of the descriptor value to which the from descriptor value is mapped to.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMappingModelEntity', @level2type=N'COLUMN', @level2name=N'MappedNamespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor value to which the from descriptor value is being mapped to.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMappingModelEntity', @level2type=N'COLUMN', @level2name=N'MappedValue'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMappingModelEntity', @level2type=N'COLUMN', @level2name=N'ModelEntityDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The namespace of the descriptor value that is being mapped to another value.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMappingModelEntity', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor value that is being mapped to another value.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'DescriptorMappingModelEntity', @level2type=N'COLUMN', @level2name=N'Value'
 GO
 
 -- Extended Properties [edfi].[DiagnosisDescriptor] --
@@ -1906,6 +1912,52 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Describes the relationship from the feeder school to the receiving school, for example by program emphasis, such as special education, language immersion, science, or performing art.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FeederSchoolAssociation', @level2type=N'COLUMN', @level2name=N'FeederRelationshipDescription'
 GO
 
+-- Extended Properties [edfi].[FinancialCollectionDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The accounting period or grouping for which financial information is collected.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FinancialCollectionDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FinancialCollectionDescriptor', @level2type=N'COLUMN', @level2name=N'FinancialCollectionDescriptorId'
+GO
+
+-- Extended Properties [edfi].[FunctionDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES function accounting dimension representing an expenditure. The function describes the activity for which a service or material object is acquired. The functions of a school district are generally classified into five broad areas, including instruction, support services, operation of non-instructional services, facilities acquisition and construction, and debt service.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account function dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account function dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account function dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[FunctionDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account function dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account function dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FunctionDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
+GO
+
+-- Extended Properties [edfi].[FundDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES fund accounting dimension. A fund is a fiscal and accounting entity with a self-balancing set of accounts recording cash and other financial resources, together with all related liabilities and residual equities or balances, and changes therein, which are segregated for the purpose of carrying on specific activities or attaining certain objectives in accordance with special regulations, restrictions, or limitations.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account fund dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account fund dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account fund dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[FundDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account fund dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account fund dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'FundDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
+GO
+
 -- Extended Properties [edfi].[GeneralStudentProgramAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association base class represents the basic relationship between students and programs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GeneralStudentProgramAssociation'
 GO
@@ -2019,7 +2071,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity re
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to a gradebook entry by the source system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'GradebookEntryIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'SourceSystemNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
 GO
@@ -2057,7 +2109,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique numbe
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the specific learning standard (e.g., 111.15.3.1.A).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntryLearningStandard', @level2type=N'COLUMN', @level2name=N'LearningStandardId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntryLearningStandard', @level2type=N'COLUMN', @level2name=N'SourceSystemNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntryLearningStandard', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 
 -- Extended Properties [edfi].[GradebookEntryTypeDescriptor] --
@@ -2964,6 +3016,86 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LimitedEnglishProficiencyDescriptor', @level2type=N'COLUMN', @level2name=N'LimitedEnglishProficiencyDescriptorId'
 GO
 
+-- Extended Properties [edfi].[LocalAccount] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of account codes defined by an education organization for a fiscal year. It provides a formal record of the debits and credits relating to the specific account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A descriptive name for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount', @level2type=N'COLUMN', @level2name=N'AccountName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'SEA populated code value for the valid combination of account dimensions under which financials are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount', @level2type=N'COLUMN', @level2name=N'ChartOfAccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccount', @level2type=N'COLUMN', @level2name=N'ChartOfAccountEducationOrganizationId'
+GO
+
+-- Extended Properties [edfi].[LocalAccountReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccountReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccountReportingTag', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccountReportingTag', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccountReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccountReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value associated with the reporting tag.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalAccountReportingTag', @level2type=N'COLUMN', @level2name=N'TagValue'
+GO
+
+-- Extended Properties [edfi].[LocalActual] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of local education agency or charter management organization expense or revenue amounts.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported amount for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual', @level2type=N'COLUMN', @level2name=N'AsOfDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual', @level2type=N'COLUMN', @level2name=N'Amount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The accounting period or grouping for which the amount is collected.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalActual', @level2type=N'COLUMN', @level2name=N'FinancialCollectionDescriptorId'
+GO
+
+-- Extended Properties [edfi].[LocalBudget] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of local education agency or charter management organization budget amounts.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported amount for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget', @level2type=N'COLUMN', @level2name=N'AsOfDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget', @level2type=N'COLUMN', @level2name=N'Amount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The accounting period or grouping for which the amount is collected.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalBudget', @level2type=N'COLUMN', @level2name=N'FinancialCollectionDescriptorId'
+GO
+
+-- Extended Properties [edfi].[LocalContractedStaff] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of local education agency or charter management organization contracted staff amounts.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported amount for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'AsOfDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'StaffUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'Amount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The accounting period or grouping for which the amount is collected.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalContractedStaff', @level2type=N'COLUMN', @level2name=N'FinancialCollectionDescriptorId'
+GO
+
 -- Extended Properties [edfi].[LocaleDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocaleDescriptor'
 GO
@@ -3028,6 +3160,40 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of funds used to administer assessments required by Section 1111(b) or to carry out other activities described in Section 6111 and other activities related to ensuring that the state''s schools and LEAs are held accountable for results.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyFederalFunds', @level2type=N'COLUMN', @level2name=N'StateAssessmentAdministrationFunding'
 GO
 
+-- Extended Properties [edfi].[LocalEncumbrance] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of local education agency or charter management organization encumbrance amounts.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported amount for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance', @level2type=N'COLUMN', @level2name=N'AsOfDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance', @level2type=N'COLUMN', @level2name=N'Amount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The accounting period or grouping for which the amount is collected.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalEncumbrance', @level2type=N'COLUMN', @level2name=N'FinancialCollectionDescriptorId'
+GO
+
+-- Extended Properties [edfi].[LocalPayroll] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The set of local education agency or charter management organization payroll amounts.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code value for the valid combination of account dimensions by LEA under which financials are reported. ', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported amount for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'AsOfDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'StaffUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance for the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'Amount'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The accounting period or grouping for which the amount is collected.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'LocalPayroll', @level2type=N'COLUMN', @level2name=N'FinancialCollectionDescriptorId'
+GO
+
 -- Extended Properties [edfi].[Location] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents the physical space where students gather for a particular class/section. The location may be an indoor or outdoor area designated for the purpose of meeting the educational needs of students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Location'
 GO
@@ -3064,6 +3230,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'MigrantEducationProgramServiceDescriptor', @level2type=N'COLUMN', @level2name=N'MigrantEducationProgramServiceDescriptorId'
 GO
 
+-- Extended Properties [edfi].[ModelEntityDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ModelEntityDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ModelEntityDescriptor', @level2type=N'COLUMN', @level2name=N'ModelEntityDescriptorId'
+GO
+
 -- Extended Properties [edfi].[MonitoredDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines monitorization statuses for students who are no longer receiving language instruction program services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'MonitoredDescriptor'
 GO
@@ -3086,6 +3258,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The purpose(s) of the network, e.g. shared services, collective procurement, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'NetworkPurposeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'NetworkPurposeDescriptor', @level2type=N'COLUMN', @level2name=N'NetworkPurposeDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ObjectDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES object accounting dimension representing an expenditure. Per the NCES definition, this classification is used to describe the service or commodity obtained as the result of a specific expenditure, such as salaries, benefits, tuition reimbursement, and so forth.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account object dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account object dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account object dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[ObjectDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account object dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account object dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ObjectDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
 GO
 
 -- Extended Properties [edfi].[ObjectiveAssessment] --
@@ -3226,6 +3418,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The current operational status of the education organization (e.g., active, inactive).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalStatusDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalStatusDescriptor', @level2type=N'COLUMN', @level2name=N'OperationalStatusDescriptorId'
+GO
+
+-- Extended Properties [edfi].[OperationalUnitDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES operational unit accounting dimension. This dimension is used to segregate costs by school and operational unit such as physical location, department, or other method.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account operational unit dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account operational unit dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account operational unit dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[OperationalUnitDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account operational unit dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account operational unit dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'OperationalUnitDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
 GO
 
 -- Extended Properties [edfi].[OrganizationDepartment] --
@@ -3453,22 +3665,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ParticipationStatusDescriptor', @level2type=N'COLUMN', @level2name=N'ParticipationStatusDescriptorId'
 GO
 
--- Extended Properties [edfi].[Payroll] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This financial entity represents the sum of the financial transactions to date for employee compensation. An "employee" who performs services under the direction of the employing institution or agency, is compensated for such services by the employer and is eligible for employee benefits and wage or salary tax withholdings.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The alphanumeric string that identifies the account.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll', @level2type=N'COLUMN', @level2name=N'AccountIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the reported payroll element.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll', @level2type=N'COLUMN', @level2name=N'AsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The financial accounting year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll', @level2type=N'COLUMN', @level2name=N'FiscalYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Current balance (amount paid to employee) for account for the fiscal year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Payroll', @level2type=N'COLUMN', @level2name=N'AmountToDate'
-GO
-
 -- Extended Properties [edfi].[PerformanceBaseConversionDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Defines standard levels of competency or performance that can be used for dashboard visualizations: advanced, proficient, basic, and below basic.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PerformanceBaseConversionDescriptor'
 GO
@@ -3615,6 +3811,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramCharacteristicDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramCharacteristicDescriptorId'
 GO
 
+-- Extended Properties [edfi].[ProgramDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES program accounting dimension. A program is defined by the NCES as a plan of activities and procedures designed to accomplish a predetermined objective or set of objectives. These are often categorized into broad program areas such as regular education, special education, vocational education, other PK-12 instructional, nonpublic school, adult and continuing education, community and junior college education, community services, and co-curricular or extracurricular activities.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account program dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account program dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account program dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[ProgramDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account program dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account program dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
+GO
+
 -- Extended Properties [edfi].[ProgramLearningObjective] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'References the learning objective(s) with which the program is associated.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgramLearningObjective'
 GO
@@ -3687,6 +3903,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines progress measured from pre- to post-test.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgressLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProgressLevelDescriptor', @level2type=N'COLUMN', @level2name=N'ProgressLevelDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ProjectDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES project accounting dimension. The project dimension reporting code permits school districts to accumulate expenditures to meet a variety of specialized reporting requirements at the local, state, and federal levels.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account project dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account project dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account project dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[ProjectDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account project dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account project dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ProjectDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
 GO
 
 -- Extended Properties [edfi].[ProviderCategoryDescriptor] --
@@ -3881,6 +4117,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the type of individual who reported an incident.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReporterDescriptionDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReporterDescriptionDescriptor', @level2type=N'COLUMN', @level2name=N'ReporterDescriptionDescriptorId'
+GO
+
+-- Extended Properties [edfi].[ReportingTagDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportingTagDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportingTagDescriptor', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
 GO
 
 -- Extended Properties [edfi].[ResidencyStatusDescriptor] --
@@ -4251,6 +4493,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s gender.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SexDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SexDescriptor', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
+GO
+
+-- Extended Properties [edfi].[SourceDimension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The NCES source dimension. This dimension is used to segregate costs by school and operational unit such as physical location, department, or other method.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account source dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimension', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account source dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimension', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the account source dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimension', @level2type=N'COLUMN', @level2name=N'CodeName'
+GO
+
+-- Extended Properties [edfi].[SourceDimensionReportingTag] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimensionReportingTag'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The code representation of the account source dimension.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'Code'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The fiscal year for which the account source dimension is valid.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'FiscalYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Optional tag for accountability reporting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceDimensionReportingTag', @level2type=N'COLUMN', @level2name=N'ReportingTagDescriptorId'
 GO
 
 -- Extended Properties [edfi].[SourceSystemDescriptor] --
@@ -5245,6 +5507,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school yea
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The platform with which the assessment was delivered to the student during the assessment session.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessment', @level2type=N'COLUMN', @level2name=N'PlatformTypeDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reported time student was assessed in minutes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessment', @level2type=N'COLUMN', @level2name=N'AssessedMinutes'
+GO
 
 -- Extended Properties [edfi].[StudentAssessmentAccommodation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentAccommodation'
@@ -5303,9 +5567,25 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique numbe
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the performance level was met.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'PerformanceLevelMet'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the indicator being measured for a collection of performance level values.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'PerformanceLevelIndicatorName'
+GO
+
+-- Extended Properties [edfi].[StudentAssessmentPeriod] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period or window in which an assessment is supposed to be administered.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'AssessmentIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment administered to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'StudentAssessmentIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period of time in which an assessment is supposed to be administered (e.g., Beginning of Year, Middle of Year, End of Year).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'AssessmentPeriodDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first date the assessment is to be administered.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The last date the assessment is to be administered.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentPeriod', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
 
 -- Extended Properties [edfi].[StudentAssessmentScoreResult] --
@@ -5339,6 +5619,12 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique numbe
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reported time student was assessed in minutes.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'AssessedMinutes'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date and time an assessment was completed by the student. The use of ISO-8601 formats with a timezone designator (UTC or time offset) is recommended in order to prevent ambiguity due to time zones.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'AdministrationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date and time an assessment administration ended.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessment', @level2type=N'COLUMN', @level2name=N'AdministrationEndDate'
+GO
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessmentPerformanceLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The performance level(s) achieved for the objective assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel'
@@ -5356,8 +5642,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an assessment administered to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'StudentAssessmentIdentifier'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether the performance level was met.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'PerformanceLevelMet'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the indicator being measured for a collection of performance level values.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentAssessmentStudentObjectiveAssessmentPerformanceLevel', @level2type=N'COLUMN', @level2name=N'PerformanceLevelIndicatorName'
 GO
@@ -6053,7 +6337,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity ho
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to a gradebook entry by the source system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentGradebookEntry', @level2type=N'COLUMN', @level2name=N'GradebookEntryIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentGradebookEntry', @level2type=N'COLUMN', @level2name=N'SourceSystemNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentGradebookEntry', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentGradebookEntry', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO

@@ -27,13 +27,6 @@ COMMENT ON COLUMN edfi.AcademicWeek.TotalInstructionalDays IS 'The total instruc
 COMMENT ON TABLE edfi.AccommodationDescriptor IS 'This descriptor defines variations used in how an assessment is presented or taken.';
 COMMENT ON COLUMN edfi.AccommodationDescriptor.AccommodationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [edfi].[Account] --
-COMMENT ON TABLE edfi.Account IS 'This financial entity represents a funding source combined with its purpose and type of transaction. It provides a formal record of the debits and credits relating to the specific account.';
-COMMENT ON COLUMN edfi.Account.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
-COMMENT ON COLUMN edfi.Account.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.Account.FiscalYear IS 'The financial accounting year.';
-COMMENT ON COLUMN edfi.Account.AccountName IS 'A descriptive name for the account.';
-
 -- Extended Properties [edfi].[AccountabilityRating] --
 COMMENT ON TABLE edfi.AccountabilityRating IS 'An accountability rating for a school or district.';
 COMMENT ON COLUMN edfi.AccountabilityRating.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -44,37 +37,13 @@ COMMENT ON COLUMN edfi.AccountabilityRating.RatingDate IS 'The date the rating w
 COMMENT ON COLUMN edfi.AccountabilityRating.RatingOrganization IS 'The organization that assessed the rating.';
 COMMENT ON COLUMN edfi.AccountabilityRating.RatingProgram IS 'The program associated with the accountability rating (e.g., NCLB, AEIS).';
 
--- Extended Properties [edfi].[AccountAccountCode] --
-COMMENT ON TABLE edfi.AccountAccountCode IS 'The set of account codes defined for the education accounting system organized by account code type (e.g., fund, function, object) that map to the account.';
-COMMENT ON COLUMN edfi.AccountAccountCode.AccountClassificationDescriptorId IS 'The type of account code associated with the account.';
-COMMENT ON COLUMN edfi.AccountAccountCode.AccountCodeNumber IS 'An account code defined for the education accounting system by the education organization.';
-COMMENT ON COLUMN edfi.AccountAccountCode.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
-COMMENT ON COLUMN edfi.AccountAccountCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.AccountAccountCode.FiscalYear IS 'The financial accounting year.';
-
--- Extended Properties [edfi].[AccountClassificationDescriptor] --
-COMMENT ON TABLE edfi.AccountClassificationDescriptor IS 'This descriptor holds the set of account code categories defined for the education accounting system organized by account code type (e.g., fund, function, object).';
-COMMENT ON COLUMN edfi.AccountClassificationDescriptor.AccountClassificationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[AccountCode] --
-COMMENT ON TABLE edfi.AccountCode IS 'The set of account codes defined by an education organization for a fiscal year.';
-COMMENT ON COLUMN edfi.AccountCode.AccountClassificationDescriptorId IS 'The type of account code associated with the account.';
-COMMENT ON COLUMN edfi.AccountCode.AccountCodeNumber IS 'An account code defined for the education accounting system by the education organization.';
-COMMENT ON COLUMN edfi.AccountCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.AccountCode.FiscalYear IS 'The financial accounting year.';
-COMMENT ON COLUMN edfi.AccountCode.AccountCodeDescription IS 'A description of the account code.';
+-- Extended Properties [edfi].[AccountTypeDescriptor] --
+COMMENT ON TABLE edfi.AccountTypeDescriptor IS 'The type of account used in accounting such as revenue, expenditure, or balance sheet.';
+COMMENT ON COLUMN edfi.AccountTypeDescriptor.AccountTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[AchievementCategoryDescriptor] --
 COMMENT ON TABLE edfi.AchievementCategoryDescriptor IS 'This descriptor defines the category of achievement attributed to the learner.';
 COMMENT ON COLUMN edfi.AchievementCategoryDescriptor.AchievementCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[Actual] --
-COMMENT ON TABLE edfi.Actual IS 'This financial entity represents the sum of the financial transactions to date relating to a specific account.';
-COMMENT ON COLUMN edfi.Actual.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
-COMMENT ON COLUMN edfi.Actual.AsOfDate IS 'The date of the reported actual element.';
-COMMENT ON COLUMN edfi.Actual.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.Actual.FiscalYear IS 'The financial accounting year.';
-COMMENT ON COLUMN edfi.Actual.AmountToDate IS 'Current balance for the account.';
 
 -- Extended Properties [edfi].[AdditionalCreditTypeDescriptor] --
 COMMENT ON TABLE edfi.AdditionalCreditTypeDescriptor IS 'The type of additional credits or units of value awarded for the completion of a course.';
@@ -219,8 +188,8 @@ COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.PerformanceLevelIndicatorName 
 -- Extended Properties [edfi].[AssessmentPeriod] --
 COMMENT ON TABLE edfi.AssessmentPeriod IS 'The period or window in which an assessment is supposed to be administered.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.AssessmentPeriod.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.AssessmentPeriodDescriptorId IS 'The period of time in which an assessment is supposed to be administered (e.g., Beginning of Year, Middle of Year, End of Year).';
+COMMENT ON COLUMN edfi.AssessmentPeriod.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.BeginDate IS 'The first date the assessment is to be administered.';
 COMMENT ON COLUMN edfi.AssessmentPeriod.EndDate IS 'The last date the assessment is to be administered.';
 
@@ -283,7 +252,7 @@ COMMENT ON COLUMN edfi.AssessmentSection.SectionIdentifier IS 'The local identif
 COMMENT ON COLUMN edfi.AssessmentSection.SessionName IS 'The identifier for the calendar for the academic session.';
 
 -- Extended Properties [edfi].[AssignmentLateStatusDescriptor] --
-COMMENT ON TABLE edfi.AssignmentLateStatusDescriptor IS 'Status of whether the assignment was submitted after the due date and/or marked as.';
+COMMENT ON TABLE edfi.AssignmentLateStatusDescriptor IS 'Status of whether the assignment was submitted after the due date and/or marked as late.';
 COMMENT ON COLUMN edfi.AssignmentLateStatusDescriptor.AssignmentLateStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[AttemptStatusDescriptor] --
@@ -293,6 +262,18 @@ COMMENT ON COLUMN edfi.AttemptStatusDescriptor.AttemptStatusDescriptorId IS 'A u
 -- Extended Properties [edfi].[AttendanceEventCategoryDescriptor] --
 COMMENT ON TABLE edfi.AttendanceEventCategoryDescriptor IS 'This descriptor holds the category of the attendance event (e.g., tardy). The map to known enumeration values is required.';
 COMMENT ON COLUMN edfi.AttendanceEventCategoryDescriptor.AttendanceEventCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[BalanceSheetDimension] --
+COMMENT ON TABLE edfi.BalanceSheetDimension IS 'The NCES balance sheet accounting dimension, used to track financial transactions for each fund. These financial statements only report assets, deferred outflows of resources, liabilities, deferred inflows of resources, and equity accounts. The statements are considered snapshots of how these accounts stand as of a certain point in time.';
+COMMENT ON COLUMN edfi.BalanceSheetDimension.Code IS 'The code representation of the account balance sheet dimension.';
+COMMENT ON COLUMN edfi.BalanceSheetDimension.FiscalYear IS 'The fiscal year for which the account balance sheet dimension is valid.';
+COMMENT ON COLUMN edfi.BalanceSheetDimension.CodeName IS 'A description of the account balance sheet dimension.';
+
+-- Extended Properties [edfi].[BalanceSheetDimensionReportingTag] --
+COMMENT ON TABLE edfi.BalanceSheetDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.BalanceSheetDimensionReportingTag.Code IS 'The code representation of the account balance sheet dimension.';
+COMMENT ON COLUMN edfi.BalanceSheetDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account balance sheet dimension is valid.';
+COMMENT ON COLUMN edfi.BalanceSheetDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
 
 -- Extended Properties [edfi].[BarrierToInternetAccessInResidenceDescriptor] --
 COMMENT ON TABLE edfi.BarrierToInternetAccessInResidenceDescriptor IS 'An indication of the barrier to having internet access in the student’s primary place of residence.';
@@ -328,14 +309,6 @@ COMMENT ON TABLE edfi.BellScheduleGradeLevel IS 'The grade levels the particular
 COMMENT ON COLUMN edfi.BellScheduleGradeLevel.BellScheduleName IS 'Name or title of the bell schedule.';
 COMMENT ON COLUMN edfi.BellScheduleGradeLevel.GradeLevelDescriptorId IS 'The grade levels the particular bell schedule applies to.';
 COMMENT ON COLUMN edfi.BellScheduleGradeLevel.SchoolId IS 'The identifier assigned to a school.';
-
--- Extended Properties [edfi].[Budget] --
-COMMENT ON TABLE edfi.Budget IS 'This financial entity represents the amount of monies allocated to be spent or received by an education organization as related to a specific account.';
-COMMENT ON COLUMN edfi.Budget.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
-COMMENT ON COLUMN edfi.Budget.AsOfDate IS 'The date of the reported budget element.';
-COMMENT ON COLUMN edfi.Budget.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.Budget.FiscalYear IS 'The financial accounting year.';
-COMMENT ON COLUMN edfi.Budget.Amount IS 'Amount budgeted for the account for this fiscal year.';
 
 -- Extended Properties [edfi].[Calendar] --
 COMMENT ON TABLE edfi.Calendar IS 'A set of dates associated with an organization.';
@@ -385,6 +358,30 @@ COMMENT ON COLUMN edfi.CharterApprovalAgencyTypeDescriptor.CharterApprovalAgency
 -- Extended Properties [edfi].[CharterStatusDescriptor] --
 COMMENT ON TABLE edfi.CharterStatusDescriptor IS 'The category of charter school. For example: School Charter, Open Enrollment Charter.';
 COMMENT ON COLUMN edfi.CharterStatusDescriptor.CharterStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ChartOfAccount] --
+COMMENT ON TABLE edfi.ChartOfAccount IS 'A valid combination of account dimensions under which financials are reported. This financial entity represents a funding source combined with its purpose and type of transaction. It provides a formal record of the debits and credits relating to the specific account.';
+COMMENT ON COLUMN edfi.ChartOfAccount.AccountIdentifier IS 'SEA populated code value for the valid combination of account dimensions under which financials are reported.';
+COMMENT ON COLUMN edfi.ChartOfAccount.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.ChartOfAccount.FiscalYear IS 'The fiscal year for the account';
+COMMENT ON COLUMN edfi.ChartOfAccount.AccountTypeDescriptorId IS 'The type of account used in accounting such as revenue, expenditure, or balance sheet.';
+COMMENT ON COLUMN edfi.ChartOfAccount.AccountName IS 'A descriptive name for the account.';
+COMMENT ON COLUMN edfi.ChartOfAccount.BalanceSheetCode IS 'The code representation of the account balance sheet dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.FunctionCode IS 'The code representation of the account function dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.FundCode IS 'The code representation of the account fund dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.ObjectCode IS 'The code representation of the account object dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.OperationalUnitCode IS 'The code representation of the account operational unit dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.ProgramCode IS 'The code representation of the account program dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.ProjectCode IS 'The code representation of the account project dimension.';
+COMMENT ON COLUMN edfi.ChartOfAccount.SourceCode IS 'The code representation of the account source dimension.';
+
+-- Extended Properties [edfi].[ChartOfAccountReportingTag] --
+COMMENT ON TABLE edfi.ChartOfAccountReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.ChartOfAccountReportingTag.AccountIdentifier IS 'SEA populated code value for the valid combination of account dimensions under which financials are reported.';
+COMMENT ON COLUMN edfi.ChartOfAccountReportingTag.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.ChartOfAccountReportingTag.FiscalYear IS 'The fiscal year for the account';
+COMMENT ON COLUMN edfi.ChartOfAccountReportingTag.ReportingTagDescriptorId IS 'A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.';
+COMMENT ON COLUMN edfi.ChartOfAccountReportingTag.TagValue IS 'The value associated with the reporting tag.';
 
 -- Extended Properties [edfi].[CitizenshipStatusDescriptor] --
 COMMENT ON TABLE edfi.CitizenshipStatusDescriptor IS 'An indicator of whether or not the person is a U.S. citizen.';
@@ -488,15 +485,6 @@ COMMENT ON COLUMN edfi.ContentClassDescriptor.ContentClassDescriptorId IS 'A uni
 -- Extended Properties [edfi].[ContinuationOfServicesReasonDescriptor] --
 COMMENT ON TABLE edfi.ContinuationOfServicesReasonDescriptor IS 'In the Migrant Education program, a provision allows continuation of services after a child is no longer considered migratory for certain reasons. This descriptor holds the reasons prescribed in the statute. The mapping of descriptor values to known Ed-Fi enumeration values is required.';
 COMMENT ON COLUMN edfi.ContinuationOfServicesReasonDescriptor.ContinuationOfServicesReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [edfi].[ContractedStaff] --
-COMMENT ON TABLE edfi.ContractedStaff IS 'This financial entity represents the sum of the financial transactions to date for contracted staff. Contracted staff includes "contractors" or "consultants" who perform services for an agreed upon fee, or an employee of a management service contracted to work on site.';
-COMMENT ON COLUMN edfi.ContractedStaff.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
-COMMENT ON COLUMN edfi.ContractedStaff.AsOfDate IS 'The date of the reported contracted staff element.';
-COMMENT ON COLUMN edfi.ContractedStaff.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ContractedStaff.FiscalYear IS 'The financial accounting year.';
-COMMENT ON COLUMN edfi.ContractedStaff.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.ContractedStaff.AmountToDate IS 'Current balance (amount paid to contractor) for account for the fiscal year.';
 
 -- Extended Properties [edfi].[CostRateDescriptor] --
 COMMENT ON TABLE edfi.CostRateDescriptor IS 'The rate by which a cost applies (e.g. $1 per student).';
@@ -787,6 +775,21 @@ COMMENT ON COLUMN edfi.Descriptor.Description IS 'The description of the descrip
 COMMENT ON COLUMN edfi.Descriptor.PriorDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 COMMENT ON COLUMN edfi.Descriptor.EffectiveBeginDate IS 'The beginning date of the period when the descriptor is in effect. If omitted, the default is immediate effectiveness.';
 COMMENT ON COLUMN edfi.Descriptor.EffectiveEndDate IS 'The end date of the period when the descriptor is in effect.';
+
+-- Extended Properties [edfi].[DescriptorMapping] --
+COMMENT ON TABLE edfi.DescriptorMapping IS 'A mapping of a descriptor value in one namespace to a descriptor value in another namespace. This can be used to exchange known contextual mappings of enumeration values.';
+COMMENT ON COLUMN edfi.DescriptorMapping.MappedNamespace IS 'The namespace of the descriptor value to which the from descriptor value is mapped to.';
+COMMENT ON COLUMN edfi.DescriptorMapping.MappedValue IS 'The descriptor value to which the from descriptor value is being mapped to.';
+COMMENT ON COLUMN edfi.DescriptorMapping.Namespace IS 'The namespace of the descriptor value that is being mapped to another value.';
+COMMENT ON COLUMN edfi.DescriptorMapping.Value IS 'The descriptor value that is being mapped to another value.';
+
+-- Extended Properties [edfi].[DescriptorMappingModelEntity] --
+COMMENT ON TABLE edfi.DescriptorMappingModelEntity IS 'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.';
+COMMENT ON COLUMN edfi.DescriptorMappingModelEntity.MappedNamespace IS 'The namespace of the descriptor value to which the from descriptor value is mapped to.';
+COMMENT ON COLUMN edfi.DescriptorMappingModelEntity.MappedValue IS 'The descriptor value to which the from descriptor value is being mapped to.';
+COMMENT ON COLUMN edfi.DescriptorMappingModelEntity.ModelEntityDescriptorId IS 'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.';
+COMMENT ON COLUMN edfi.DescriptorMappingModelEntity.Namespace IS 'The namespace of the descriptor value that is being mapped to another value.';
+COMMENT ON COLUMN edfi.DescriptorMappingModelEntity.Value IS 'The descriptor value that is being mapped to another value.';
 
 -- Extended Properties [edfi].[DiagnosisDescriptor] --
 COMMENT ON TABLE edfi.DiagnosisDescriptor IS 'This descriptor defines diagnoses that interventions are intended to target.';
@@ -1123,6 +1126,34 @@ COMMENT ON COLUMN edfi.FeederSchoolAssociation.SchoolId IS 'The identifier assig
 COMMENT ON COLUMN edfi.FeederSchoolAssociation.EndDate IS 'The month, day, and year of the last day of the feeder school association.';
 COMMENT ON COLUMN edfi.FeederSchoolAssociation.FeederRelationshipDescription IS 'Describes the relationship from the feeder school to the receiving school, for example by program emphasis, such as special education, language immersion, science, or performing art.';
 
+-- Extended Properties [edfi].[FinancialCollectionDescriptor] --
+COMMENT ON TABLE edfi.FinancialCollectionDescriptor IS 'The accounting period or grouping for which financial information is collected.';
+COMMENT ON COLUMN edfi.FinancialCollectionDescriptor.FinancialCollectionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[FunctionDimension] --
+COMMENT ON TABLE edfi.FunctionDimension IS 'The NCES function accounting dimension representing an expenditure. The function describes the activity for which a service or material object is acquired. The functions of a school district are generally classified into five broad areas, including instruction, support services, operation of non-instructional services, facilities acquisition and construction, and debt service.';
+COMMENT ON COLUMN edfi.FunctionDimension.Code IS 'The code representation of the account function dimension.';
+COMMENT ON COLUMN edfi.FunctionDimension.FiscalYear IS 'The fiscal year for which the account function dimension is valid.';
+COMMENT ON COLUMN edfi.FunctionDimension.CodeName IS 'A description of the account function dimension.';
+
+-- Extended Properties [edfi].[FunctionDimensionReportingTag] --
+COMMENT ON TABLE edfi.FunctionDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.FunctionDimensionReportingTag.Code IS 'The code representation of the account function dimension.';
+COMMENT ON COLUMN edfi.FunctionDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account function dimension is valid.';
+COMMENT ON COLUMN edfi.FunctionDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
+
+-- Extended Properties [edfi].[FundDimension] --
+COMMENT ON TABLE edfi.FundDimension IS 'The NCES fund accounting dimension. A fund is a fiscal and accounting entity with a self-balancing set of accounts recording cash and other financial resources, together with all related liabilities and residual equities or balances, and changes therein, which are segregated for the purpose of carrying on specific activities or attaining certain objectives in accordance with special regulations, restrictions, or limitations.';
+COMMENT ON COLUMN edfi.FundDimension.Code IS 'The code representation of the account fund dimension.';
+COMMENT ON COLUMN edfi.FundDimension.FiscalYear IS 'The fiscal year for which the account fund dimension is valid.';
+COMMENT ON COLUMN edfi.FundDimension.CodeName IS 'A description of the account fund dimension.';
+
+-- Extended Properties [edfi].[FundDimensionReportingTag] --
+COMMENT ON TABLE edfi.FundDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.FundDimensionReportingTag.Code IS 'The code representation of the account fund dimension.';
+COMMENT ON COLUMN edfi.FundDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account fund dimension is valid.';
+COMMENT ON COLUMN edfi.FundDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
+
 -- Extended Properties [edfi].[GeneralStudentProgramAssociation] --
 COMMENT ON TABLE edfi.GeneralStudentProgramAssociation IS 'This association base class represents the basic relationship between students and programs.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
@@ -1184,7 +1215,7 @@ COMMENT ON COLUMN edfi.Grade.CurrentGradeAsOfDate IS 'As-Of date for a grade pos
 -- Extended Properties [edfi].[GradebookEntry] --
 COMMENT ON TABLE edfi.GradebookEntry IS 'This entity represents an assignment, homework, or classroom assessment to be recorded in a gradebook.';
 COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
-COMMENT ON COLUMN edfi.GradebookEntry.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntry.Namespace IS 'Namespace URI for the source of the gradebook entry.';
 COMMENT ON COLUMN edfi.GradebookEntry.SectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN edfi.GradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.GradebookEntry.SessionName IS 'The identifier for the calendar for the academic session.';
@@ -1204,7 +1235,7 @@ COMMENT ON COLUMN edfi.GradebookEntry.SchoolYear IS 'The identifier for the scho
 COMMENT ON TABLE edfi.GradebookEntryLearningStandard IS 'LearningStandard(s) associated with the gradebook entry.';
 COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
 COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.Namespace IS 'Namespace URI for the source of the gradebook entry.';
 
 -- Extended Properties [edfi].[GradebookEntryTypeDescriptor] --
 COMMENT ON TABLE edfi.GradebookEntryTypeDescriptor IS 'The type of the gradebook entry; for example, homework, assignment, quiz, unit test, oral presentation, etc.';
@@ -1741,6 +1772,51 @@ COMMENT ON COLUMN edfi.LicenseTypeDescriptor.LicenseTypeDescriptorId IS 'A uniqu
 COMMENT ON TABLE edfi.LimitedEnglishProficiencyDescriptor IS 'This descriptor defines the indications that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient. The mapping of descriptor values to known Ed-Fi enumeration values is required.';
 COMMENT ON COLUMN edfi.LimitedEnglishProficiencyDescriptor.LimitedEnglishProficiencyDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[LocalAccount] --
+COMMENT ON TABLE edfi.LocalAccount IS 'The set of account codes defined by an education organization for a fiscal year. It provides a formal record of the debits and credits relating to the specific account.';
+COMMENT ON COLUMN edfi.LocalAccount.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalAccount.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalAccount.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalAccount.AccountName IS 'A descriptive name for the account.';
+COMMENT ON COLUMN edfi.LocalAccount.ChartOfAccountIdentifier IS 'SEA populated code value for the valid combination of account dimensions under which financials are reported.';
+COMMENT ON COLUMN edfi.LocalAccount.ChartOfAccountEducationOrganizationId IS 'The identifier assigned to an education organization.';
+
+-- Extended Properties [edfi].[LocalAccountReportingTag] --
+COMMENT ON TABLE edfi.LocalAccountReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.LocalAccountReportingTag.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalAccountReportingTag.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalAccountReportingTag.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalAccountReportingTag.ReportingTagDescriptorId IS 'A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.';
+COMMENT ON COLUMN edfi.LocalAccountReportingTag.TagValue IS 'The value associated with the reporting tag.';
+
+-- Extended Properties [edfi].[LocalActual] --
+COMMENT ON TABLE edfi.LocalActual IS 'The set of local education agency or charter management organization expense or revenue amounts.';
+COMMENT ON COLUMN edfi.LocalActual.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalActual.AsOfDate IS 'The date of the reported amount for the account.';
+COMMENT ON COLUMN edfi.LocalActual.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalActual.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalActual.Amount IS 'Current balance for the account.';
+COMMENT ON COLUMN edfi.LocalActual.FinancialCollectionDescriptorId IS 'The accounting period or grouping for which the amount is collected.';
+
+-- Extended Properties [edfi].[LocalBudget] --
+COMMENT ON TABLE edfi.LocalBudget IS 'The set of local education agency or charter management organization budget amounts.';
+COMMENT ON COLUMN edfi.LocalBudget.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalBudget.AsOfDate IS 'The date of the reported amount for the account.';
+COMMENT ON COLUMN edfi.LocalBudget.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalBudget.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalBudget.Amount IS 'Current balance for the account.';
+COMMENT ON COLUMN edfi.LocalBudget.FinancialCollectionDescriptorId IS 'The accounting period or grouping for which the amount is collected.';
+
+-- Extended Properties [edfi].[LocalContractedStaff] --
+COMMENT ON TABLE edfi.LocalContractedStaff IS 'The set of local education agency or charter management organization contracted staff amounts.';
+COMMENT ON COLUMN edfi.LocalContractedStaff.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalContractedStaff.AsOfDate IS 'The date of the reported amount for the account.';
+COMMENT ON COLUMN edfi.LocalContractedStaff.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalContractedStaff.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalContractedStaff.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN edfi.LocalContractedStaff.Amount IS 'Current balance for the account.';
+COMMENT ON COLUMN edfi.LocalContractedStaff.FinancialCollectionDescriptorId IS 'The accounting period or grouping for which the amount is collected.';
+
 -- Extended Properties [edfi].[LocaleDescriptor] --
 COMMENT ON TABLE edfi.LocaleDescriptor IS 'A general geographic indicator that categorizes U.S. territory (e.g., City, Suburban).';
 COMMENT ON COLUMN edfi.LocaleDescriptor.LocaleDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1778,6 +1854,25 @@ COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.SupplementalEducationalS
 COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.SupplementalEducationalServicesPerPupilExpenditure IS 'The maximum dollar amount that may be spent per child for expenditures related to supplemental educational services under Title I of the ESEA.';
 COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.StateAssessmentAdministrationFunding IS 'The percentage of funds used to administer assessments required by Section 1111(b) or to carry out other activities described in Section 6111 and other activities related to ensuring that the state''s schools and LEAs are held accountable for results.';
 
+-- Extended Properties [edfi].[LocalEncumbrance] --
+COMMENT ON TABLE edfi.LocalEncumbrance IS 'The set of local education agency or charter management organization encumbrance amounts.';
+COMMENT ON COLUMN edfi.LocalEncumbrance.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalEncumbrance.AsOfDate IS 'The date of the reported amount for the account.';
+COMMENT ON COLUMN edfi.LocalEncumbrance.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalEncumbrance.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalEncumbrance.Amount IS 'Current balance for the account.';
+COMMENT ON COLUMN edfi.LocalEncumbrance.FinancialCollectionDescriptorId IS 'The accounting period or grouping for which the amount is collected.';
+
+-- Extended Properties [edfi].[LocalPayroll] --
+COMMENT ON TABLE edfi.LocalPayroll IS 'The set of local education agency or charter management organization payroll amounts.';
+COMMENT ON COLUMN edfi.LocalPayroll.AccountIdentifier IS 'Code value for the valid combination of account dimensions by LEA under which financials are reported. ';
+COMMENT ON COLUMN edfi.LocalPayroll.AsOfDate IS 'The date of the reported amount for the account.';
+COMMENT ON COLUMN edfi.LocalPayroll.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.LocalPayroll.FiscalYear IS 'The fiscal year for the account.';
+COMMENT ON COLUMN edfi.LocalPayroll.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN edfi.LocalPayroll.Amount IS 'Current balance for the account.';
+COMMENT ON COLUMN edfi.LocalPayroll.FinancialCollectionDescriptorId IS 'The accounting period or grouping for which the amount is collected.';
+
 -- Extended Properties [edfi].[Location] --
 COMMENT ON TABLE edfi.Location IS 'This entity represents the physical space where students gather for a particular class/section. The location may be an indoor or outdoor area designated for the purpose of meeting the educational needs of students.';
 COMMENT ON COLUMN edfi.Location.ClassroomIdentificationCode IS 'A unique number or alphanumeric code assigned to a room by a school, school system, state, or other agency or entity.';
@@ -1801,6 +1896,10 @@ COMMENT ON COLUMN edfi.MethodCreditEarnedDescriptor.MethodCreditEarnedDescriptor
 COMMENT ON TABLE edfi.MigrantEducationProgramServiceDescriptor IS 'This descriptor defines the services provided by an education organization to populations of students associated with a migrant education program.';
 COMMENT ON COLUMN edfi.MigrantEducationProgramServiceDescriptor.MigrantEducationProgramServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[ModelEntityDescriptor] --
+COMMENT ON TABLE edfi.ModelEntityDescriptor IS 'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.';
+COMMENT ON COLUMN edfi.ModelEntityDescriptor.ModelEntityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[MonitoredDescriptor] --
 COMMENT ON TABLE edfi.MonitoredDescriptor IS 'This descriptor defines monitorization statuses for students who are no longer receiving language instruction program services.';
 COMMENT ON COLUMN edfi.MonitoredDescriptor.MonitoredDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1816,6 +1915,18 @@ COMMENT ON COLUMN edfi.NeglectedOrDelinquentProgramServiceDescriptor.NeglectedOr
 -- Extended Properties [edfi].[NetworkPurposeDescriptor] --
 COMMENT ON TABLE edfi.NetworkPurposeDescriptor IS 'The purpose(s) of the network, e.g. shared services, collective procurement, etc.';
 COMMENT ON COLUMN edfi.NetworkPurposeDescriptor.NetworkPurposeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ObjectDimension] --
+COMMENT ON TABLE edfi.ObjectDimension IS 'The NCES object accounting dimension representing an expenditure. Per the NCES definition, this classification is used to describe the service or commodity obtained as the result of a specific expenditure, such as salaries, benefits, tuition reimbursement, and so forth.';
+COMMENT ON COLUMN edfi.ObjectDimension.Code IS 'The code representation of the account object dimension.';
+COMMENT ON COLUMN edfi.ObjectDimension.FiscalYear IS 'The fiscal year for which the account object dimension is valid.';
+COMMENT ON COLUMN edfi.ObjectDimension.CodeName IS 'A description of the account object dimension.';
+
+-- Extended Properties [edfi].[ObjectDimensionReportingTag] --
+COMMENT ON TABLE edfi.ObjectDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.ObjectDimensionReportingTag.Code IS 'The code representation of the account object dimension.';
+COMMENT ON COLUMN edfi.ObjectDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account object dimension is valid.';
+COMMENT ON COLUMN edfi.ObjectDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
 
 -- Extended Properties [edfi].[ObjectiveAssessment] --
 COMMENT ON TABLE edfi.ObjectiveAssessment IS 'This entity represents subtests that assess specific learning objectives.';
@@ -1896,6 +2007,18 @@ COMMENT ON COLUMN edfi.OpenStaffPositionInstructionalGradeLevel.RequisitionNumbe
 -- Extended Properties [edfi].[OperationalStatusDescriptor] --
 COMMENT ON TABLE edfi.OperationalStatusDescriptor IS 'The current operational status of the education organization (e.g., active, inactive).';
 COMMENT ON COLUMN edfi.OperationalStatusDescriptor.OperationalStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[OperationalUnitDimension] --
+COMMENT ON TABLE edfi.OperationalUnitDimension IS 'The NCES operational unit accounting dimension. This dimension is used to segregate costs by school and operational unit such as physical location, department, or other method.';
+COMMENT ON COLUMN edfi.OperationalUnitDimension.Code IS 'The code representation of the account operational unit dimension.';
+COMMENT ON COLUMN edfi.OperationalUnitDimension.FiscalYear IS 'The fiscal year for which the account operational unit dimension is valid.';
+COMMENT ON COLUMN edfi.OperationalUnitDimension.CodeName IS 'A description of the account operational unit dimension.';
+
+-- Extended Properties [edfi].[OperationalUnitDimensionReportingTag] --
+COMMENT ON TABLE edfi.OperationalUnitDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.OperationalUnitDimensionReportingTag.Code IS 'The code representation of the account operational unit dimension.';
+COMMENT ON COLUMN edfi.OperationalUnitDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account operational unit dimension is valid.';
+COMMENT ON COLUMN edfi.OperationalUnitDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
 
 -- Extended Properties [edfi].[OrganizationDepartment] --
 COMMENT ON TABLE edfi.OrganizationDepartment IS 'An organizational unit of another education organization, often devoted to a particular academic discipline, area of study, or organization function.';
@@ -2024,15 +2147,6 @@ COMMENT ON COLUMN edfi.ParticipationDescriptor.ParticipationDescriptorId IS 'A u
 COMMENT ON TABLE edfi.ParticipationStatusDescriptor IS 'The student''s program participation status.';
 COMMENT ON COLUMN edfi.ParticipationStatusDescriptor.ParticipationStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [edfi].[Payroll] --
-COMMENT ON TABLE edfi.Payroll IS 'This financial entity represents the sum of the financial transactions to date for employee compensation. An "employee" who performs services under the direction of the employing institution or agency, is compensated for such services by the employer and is eligible for employee benefits and wage or salary tax withholdings.';
-COMMENT ON COLUMN edfi.Payroll.AccountIdentifier IS 'The alphanumeric string that identifies the account.';
-COMMENT ON COLUMN edfi.Payroll.AsOfDate IS 'The date of the reported payroll element.';
-COMMENT ON COLUMN edfi.Payroll.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.Payroll.FiscalYear IS 'The financial accounting year.';
-COMMENT ON COLUMN edfi.Payroll.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN edfi.Payroll.AmountToDate IS 'Current balance (amount paid to employee) for account for the fiscal year.';
-
 -- Extended Properties [edfi].[PerformanceBaseConversionDescriptor] --
 COMMENT ON TABLE edfi.PerformanceBaseConversionDescriptor IS 'Defines standard levels of competency or performance that can be used for dashboard visualizations: advanced, proficient, basic, and below basic.';
 COMMENT ON COLUMN edfi.PerformanceBaseConversionDescriptor.PerformanceBaseConversionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -2126,6 +2240,18 @@ COMMENT ON COLUMN edfi.ProgramCharacteristic.ProgramTypeDescriptorId IS 'The typ
 COMMENT ON TABLE edfi.ProgramCharacteristicDescriptor IS 'This descriptor defines important characteristics of the Program, such as categories or particular indications.';
 COMMENT ON COLUMN edfi.ProgramCharacteristicDescriptor.ProgramCharacteristicDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[ProgramDimension] --
+COMMENT ON TABLE edfi.ProgramDimension IS 'The NCES program accounting dimension. A program is defined by the NCES as a plan of activities and procedures designed to accomplish a predetermined objective or set of objectives. These are often categorized into broad program areas such as regular education, special education, vocational education, other PK-12 instructional, nonpublic school, adult and continuing education, community and junior college education, community services, and co-curricular or extracurricular activities.';
+COMMENT ON COLUMN edfi.ProgramDimension.Code IS 'The code representation of the account program dimension.';
+COMMENT ON COLUMN edfi.ProgramDimension.FiscalYear IS 'The fiscal year for which the account program dimension is valid.';
+COMMENT ON COLUMN edfi.ProgramDimension.CodeName IS 'A description of the account program dimension.';
+
+-- Extended Properties [edfi].[ProgramDimensionReportingTag] --
+COMMENT ON TABLE edfi.ProgramDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.ProgramDimensionReportingTag.Code IS 'The code representation of the account program dimension.';
+COMMENT ON COLUMN edfi.ProgramDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account program dimension is valid.';
+COMMENT ON COLUMN edfi.ProgramDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
+
 -- Extended Properties [edfi].[ProgramLearningObjective] --
 COMMENT ON TABLE edfi.ProgramLearningObjective IS 'References the learning objective(s) with which the program is associated.';
 COMMENT ON COLUMN edfi.ProgramLearningObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -2170,6 +2296,18 @@ COMMENT ON COLUMN edfi.ProgressDescriptor.ProgressDescriptorId IS 'A unique iden
 -- Extended Properties [edfi].[ProgressLevelDescriptor] --
 COMMENT ON TABLE edfi.ProgressLevelDescriptor IS 'This descriptor defines progress measured from pre- to post-test.';
 COMMENT ON COLUMN edfi.ProgressLevelDescriptor.ProgressLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ProjectDimension] --
+COMMENT ON TABLE edfi.ProjectDimension IS 'The NCES project accounting dimension. The project dimension reporting code permits school districts to accumulate expenditures to meet a variety of specialized reporting requirements at the local, state, and federal levels.';
+COMMENT ON COLUMN edfi.ProjectDimension.Code IS 'The code representation of the account project dimension.';
+COMMENT ON COLUMN edfi.ProjectDimension.FiscalYear IS 'The fiscal year for which the account project dimension is valid.';
+COMMENT ON COLUMN edfi.ProjectDimension.CodeName IS 'A description of the account project dimension.';
+
+-- Extended Properties [edfi].[ProjectDimensionReportingTag] --
+COMMENT ON TABLE edfi.ProjectDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.ProjectDimensionReportingTag.Code IS 'The code representation of the account project dimension.';
+COMMENT ON COLUMN edfi.ProjectDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account project dimension is valid.';
+COMMENT ON COLUMN edfi.ProjectDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
 
 -- Extended Properties [edfi].[ProviderCategoryDescriptor] --
 COMMENT ON TABLE edfi.ProviderCategoryDescriptor IS 'This descriptor holds the category of the provider.';
@@ -2284,6 +2422,10 @@ COMMENT ON COLUMN edfi.ReportCardStudentLearningObjective.StudentUSI IS 'A uniqu
 -- Extended Properties [edfi].[ReporterDescriptionDescriptor] --
 COMMENT ON TABLE edfi.ReporterDescriptionDescriptor IS 'This descriptor defines the type of individual who reported an incident.';
 COMMENT ON COLUMN edfi.ReporterDescriptionDescriptor.ReporterDescriptionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[ReportingTagDescriptor] --
+COMMENT ON TABLE edfi.ReportingTagDescriptor IS 'A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.';
+COMMENT ON COLUMN edfi.ReportingTagDescriptor.ReportingTagDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ResidencyStatusDescriptor] --
 COMMENT ON TABLE edfi.ResidencyStatusDescriptor IS 'This descriptor defines indications of the location of a person''s legal residence relative to (within or outside of) the boundaries of the public school attended and its administrative unit.';
@@ -2501,6 +2643,18 @@ COMMENT ON COLUMN edfi.SessionGradingPeriod.SessionName IS 'The identifier for t
 -- Extended Properties [edfi].[SexDescriptor] --
 COMMENT ON TABLE edfi.SexDescriptor IS 'A person''s gender.';
 COMMENT ON COLUMN edfi.SexDescriptor.SexDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[SourceDimension] --
+COMMENT ON TABLE edfi.SourceDimension IS 'The NCES source dimension. This dimension is used to segregate costs by school and operational unit such as physical location, department, or other method.';
+COMMENT ON COLUMN edfi.SourceDimension.Code IS 'The code representation of the account source dimension.';
+COMMENT ON COLUMN edfi.SourceDimension.FiscalYear IS 'The fiscal year for which the account source dimension is valid.';
+COMMENT ON COLUMN edfi.SourceDimension.CodeName IS 'A description of the account source dimension.';
+
+-- Extended Properties [edfi].[SourceDimensionReportingTag] --
+COMMENT ON TABLE edfi.SourceDimensionReportingTag IS 'Optional tag for accountability reporting.';
+COMMENT ON COLUMN edfi.SourceDimensionReportingTag.Code IS 'The code representation of the account source dimension.';
+COMMENT ON COLUMN edfi.SourceDimensionReportingTag.FiscalYear IS 'The fiscal year for which the account source dimension is valid.';
+COMMENT ON COLUMN edfi.SourceDimensionReportingTag.ReportingTagDescriptorId IS 'Optional tag for accountability reporting.';
 
 -- Extended Properties [edfi].[SourceSystemDescriptor] --
 COMMENT ON TABLE edfi.SourceSystemDescriptor IS 'This descriptor defines the originating record source system.';
@@ -3054,6 +3208,7 @@ COMMENT ON COLUMN edfi.StudentAssessment.EventCircumstanceDescriptorId IS 'An un
 COMMENT ON COLUMN edfi.StudentAssessment.EventDescription IS 'Describes special events that occur before during or after the assessment session that may impact use of results.';
 COMMENT ON COLUMN edfi.StudentAssessment.SchoolYear IS 'The school year for which the assessment was administered to a student. Among other uses, handles cases in which a student takes a prior-year exam in a subsequent school year during an exam re-test.';
 COMMENT ON COLUMN edfi.StudentAssessment.PlatformTypeDescriptorId IS 'The platform with which the assessment was delivered to the student during the assessment session.';
+COMMENT ON COLUMN edfi.StudentAssessment.AssessedMinutes IS 'Reported time student was assessed in minutes.';
 
 -- Extended Properties [edfi].[StudentAssessmentAccommodation] --
 COMMENT ON TABLE edfi.StudentAssessmentAccommodation IS 'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
@@ -3086,8 +3241,17 @@ COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.Namespace IS 'Namespace
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the student proficiency.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelMet IS 'Indicator of whether the performance level was met.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
+
+-- Extended Properties [edfi].[StudentAssessmentPeriod] --
+COMMENT ON TABLE edfi.StudentAssessmentPeriod IS 'The period or window in which an assessment is supposed to be administered.';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.AssessmentPeriodDescriptorId IS 'The period of time in which an assessment is supposed to be administered (e.g., Beginning of Year, Middle of Year, End of Year).';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.BeginDate IS 'The first date the assessment is to be administered.';
+COMMENT ON COLUMN edfi.StudentAssessmentPeriod.EndDate IS 'The last date the assessment is to be administered.';
 
 -- Extended Properties [edfi].[StudentAssessmentScoreResult] --
 COMMENT ON TABLE edfi.StudentAssessmentScoreResult IS 'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
@@ -3106,6 +3270,9 @@ COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.Identificatio
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.AssessedMinutes IS 'Reported time student was assessed in minutes.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.AdministrationDate IS 'The date and time an assessment was completed by the student. The use of ISO-8601 formats with a timezone designator (UTC or time offset) is recommended in order to prevent ambiguity due to time zones.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessment.AdministrationEndDate IS 'The date and time an assessment administration ended.';
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessmentPerformanceLevel] --
 COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel IS 'The performance level(s) achieved for the objective assessment.';
@@ -3116,7 +3283,6 @@ COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLev
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the student proficiency.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelMet IS 'Indicator of whether the performance level was met.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessmentScoreResult] --
@@ -3507,7 +3673,7 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.End
 -- Extended Properties [edfi].[StudentGradebookEntry] --
 COMMENT ON TABLE edfi.StudentGradebookEntry IS 'This entity holds a student''s grade or competency level for a gradebook entry.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.Namespace IS 'Namespace URI for the source of the gradebook entry.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced learning objective.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.DateFulfilled IS 'The date an assignment was turned in or the date of an assessment.';

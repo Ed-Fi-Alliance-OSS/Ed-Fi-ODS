@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d4479013-78bc-4947-92fd-212ef1578302",
+		"_postman_id": "20d0b8ee-0b4d-45ff-a08a-626fe64d222d",
 		"name": "Ed-Fi ODS/API ChangeQueries Key Changes and Deletes Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1713280"
@@ -6088,444 +6088,383 @@
 					"name": "GradebookEntries",
 					"item": [
 						{
-							"name": "Setup",
-							"item": [
+							"name": "Get AvailableChangeVersions",
+							"event": [
 								{
-									"name": "Get AvailableChangeVersions",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"  pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"const responseItem = pm.response.json();",
-													"pm.environment.set('known:newestChangeVersion', responseItem.newestChangeVersion + 1);"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Content-Type",
-												"type": "text",
-												"value": "application/json"
-											}
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"changeQueries",
-												"v1",
-												"availableChangeVersions"
-											]
-										}
-									},
-									"response": []
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"name": "Full Lifecycle",
-							"item": [
+							"name": "* Get Gradebook Entries",
+							"event": [
 								{
-									"name": "Create Gradebook Entry",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set('supplied:gradebookEntryIdentifier', pm.variables.replaceIn(\"{{$guid}}\"));\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:gradebookEntry:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"Test GradeBookEntry Title1\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:gradebookEntryIdentifier}}\",\r\n    \"title\": \"Test GradeBookEntry Title1\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
-											]
-										}
-									},
-									"response": []
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								},
 								{
-									"name": "Change Gradebook Entry Key",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set('supplied:gradebookEntryIdentifier2', pm.variables.replaceIn(\"{{$guid}}\"));"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ART-01\",\r\n        \"schoolId\": 255901107,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590110705Trad504ART0112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-08-04\",\r\n    \"gradebookEntryTitle\": \"Test GradeBookEntry Title2\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:gradebookEntryIdentifier2}}\",\r\n    \"title\": \"Test GradeBookEntry Title2\"\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"{{known:gradebookEntry:id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get Key Changes",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
-													"\r",
-													"const items = pm.response.json();\r",
-													"const item = items[0];\r",
-													"\r",
-													"pm.test(\"Single item with the updated key is returned\", () => {\r",
-													"  pm.expect(items.length).equal(1);\r",
-													"  pm.expect(item.id).equal(pm.environment.get('known:gradebookEntry:id'));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-													"  pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
-													"  pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Old key values are correctly reported\", () => {\r",
-													"  pm.expect(item.oldKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier'));\r",
-													"  pm.expect(item.oldKeyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
-													"});\r",
-													"\r",
-													"pm.test(\"New key values are correctly reported\", () => {\r",
-													"  pm.expect(item.newKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier2'));\r",
-													"  pm.expect(item.oldKeyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/keyChanges?minChangeVersion={{known:newestChangeVersion}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"keyChanges"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:newestChangeVersion}}"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Gradebook Entry",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"{{known:gradebookEntry:id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get Deleted Gradebook Entries",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(200);\r",
-													"});\r",
-													"\r",
-													"const items = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Single item is returned\", () => {\r",
-													"  pm.expect(items.length).equal(1);\r",
-													"});\r",
-													"\r",
-													"const item = items[0];\r",
-													"\r",
-													"pm.test(\"Item returned is the deleted item\", () => {\r",
-													"  pm.expect(item.id).equal(pm.environment.get('known:gradebookEntry:id'));\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Key values contain the correct number of properties\", () => {\r",
-													"  pm.expect(Object.keys(item.keyValues).length).equal(2);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Key values of the deleted item reflect the updated gradebookEntryIdentifier (last value before deletion)\", () => {\r",
-													"  pm.expect(item.keyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier2'));\r",
-													"  pm.expect(item.keyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/deletes?minChangeVersion={{known:newestChangeVersion}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"deletes"
-											],
-											"query": [
-												{
-													"key": "minChangeVersion",
-													"value": "{{known:newestChangeVersion}}"
-												}
-											]
-										}
-									},
-									"response": []
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"if (items.length > 0) {\r",
+											"    pm.environment.set('known:'+scenarioId+':gradebookEntry:id', item.id);\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradebookEntries"
+									]
+								}
+							},
+							"response": []
 						},
 						{
-							"name": "Teardown",
-							"item": [
+							"name": "Create Gradebook Entry",
+							"event": [
 								{
-									"name": "Clean up Environment Variables",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"const __ = require('lodash');\r",
-													"\r",
-													"const keys = __.keys(pm.environment.toObject());\r",
-													"console.log('Initial keys: ' + JSON.stringify(keys));\r",
-													"\r",
-													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
-													"\r",
-													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
-													"\r",
-													"const remainingKeys = __.keys(pm.environment.toObject());\r",
-													"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											]
-										}
-									},
-									"response": []
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"\r",
+											"pm.environment.set('supplied:gradebookEntryIdentifier', newGuid());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:'+scenarioId+':gradebookEntry:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"Test GradeBookEntry Title1\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"Namespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:gradebookEntryIdentifier}}\",\r\n    \"title\": \"Test GradeBookEntry Title1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradebookEntries"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Gradebook Entry Key",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"\r",
+											"pm.environment.set('supplied:gradebookEntryIdentifier2', newGuid());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ART-01\",\r\n        \"schoolId\": 255901107,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590110705Trad504ART0112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-08-04\",\r\n    \"gradebookEntryTitle\": \"Test GradeBookEntry Title2\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"Namespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:gradebookEntryIdentifier2}}\",\r\n    \"title\": \"Test GradeBookEntry Title2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:{{scenarioId}}:gradebookEntry:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradebookEntries",
+										"{{known:{{scenarioId}}:gradebookEntry:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Key Changes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Single item with the updated key is returned\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:gradebookEntry:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
+											"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old key values are correctly reported\", () => {\r",
+											"    pm.expect(item.oldKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier'));\r",
+											"    pm.expect(item.oldKeyValues.namespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"New key values are correctly reported\", () => {\r",
+											"    pm.expect(item.newKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:gradebookEntryIdentifier2'));\r",
+											"    pm.expect(item.oldKeyValues.namespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradebookEntries",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Gradebook Entry",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:{{scenarioId}}:gradebookEntry:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradebookEntries",
+										"{{known:{{scenarioId}}:gradebookEntry:id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -11569,11 +11508,17 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-									"_.chain(_.keys(pm.environment.toObject()))\r",
-									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-									"  .each(k => pm.environment.unset(k)).value();\r",
-									""
+									"const __ = require('lodash');\r",
+									"\r",
+									"const keys = __.keys(pm.environment.toObject());\r",
+									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+									"\r",
+									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+									"\r",
+									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+									"\r",
+									"const remainingKeys = __.keys(pm.environment.toObject());\r",
+									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
 								],
 								"type": "text/javascript"
 							}

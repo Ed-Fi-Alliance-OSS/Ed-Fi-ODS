@@ -892,7 +892,7 @@
           <Property name="LastSurname" />
           <LinkedCollection name="StudentGradebookEntries">
             <Property name="GradebookEntryIdentifier" />
-            <Property name="SourceSystemNamespace" />
+            <Property name="Namespace" />
             <Property name="StudentUniqueId" />
             <ReferencedResource name="GradebookEntryReference">
               <Property name="SectionIdentifier" />

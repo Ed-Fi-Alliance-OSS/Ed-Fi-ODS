@@ -46,45 +46,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Account">
-    <xs:annotation>
-      <xs:documentation>This financial entity represents a funding source combined with its purpose and type of transaction. It provides a formal record of the debits and credits relating to the specific account.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="AccountIdentifier" type="AccountIdentifier">
-            <xs:annotation>
-              <xs:documentation>The alphanumeric string that identifies the account.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountCodeReference" type="AccountCodeReferenceType" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The set of account codes defined for the education accounting system organized by account code type (e.g., fund, function, object) that map to the account.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="FiscalYear" type="xs:int">
-            <xs:annotation>
-              <xs:documentation>The financial accounting year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>Relates the account to an education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountName" type="AccountName" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A descriptive name for the account.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="AccountabilityRating">
     <xs:annotation>
       <xs:documentation>An accountability rating for a school or district.</xs:documentation>
@@ -128,77 +89,6 @@
           <xs:element name="RatingProgram" type="RatingProgram" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The program associated with the accountability rating (e.g., NCLB, AEIS).</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="AccountCode">
-    <xs:annotation>
-      <xs:documentation>The set of account codes defined by an education organization for a fiscal year.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="AccountCodeNumber" type="AccountCodeNumber">
-            <xs:annotation>
-              <xs:documentation>An account code defined for the education accounting system by the education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountClassification" type="AccountClassificationDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The type of account code associated with the account.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AccountClassificationDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>A reference to the education organization for which the codes are applicable.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="FiscalYear" type="xs:int">
-            <xs:annotation>
-              <xs:documentation>The financial accounting year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountCodeDescription" type="AccountCodeDescription" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A description of the account code.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Actual">
-    <xs:annotation>
-      <xs:documentation>This financial entity represents the sum of the financial transactions to date relating to a specific account.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="AmountToDate" type="Currency">
-            <xs:annotation>
-              <xs:documentation>Current balance for the account.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AsOfDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The date of the reported actual element.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountReference" type="AccountReferenceType">
-            <xs:annotation>
-              <xs:documentation>Account with which the actual is associated.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -302,7 +192,7 @@
               <xs:documentation>Reflects the specific nomenclature used for assessment.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="AssessmentPeriod" type="AssessmentPeriod" minOccurs="0">
+          <xs:element name="AssessmentPeriod" type="AssessmentPeriod" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>The period or window in which an assessment is supposed to be administered.</xs:documentation>
             </xs:annotation>
@@ -470,6 +360,43 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="BalanceSheetDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES balance sheet accounting dimension, used to track financial transactions for each fund. These financial statements only report assets, deferred outflows of resources, liabilities, deferred inflows of resources, and equity accounts. The statements are considered snapshots of how these accounts stand as of a certain point in time.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account balance sheet dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account balance sheet dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account balance sheet dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="BellSchedule">
     <xs:annotation>
       <xs:documentation>This entity represents the schedule of class period meeting times.</xs:documentation>
@@ -526,35 +453,6 @@
           <xs:element name="TotalInstructionalTime" type="TotalInstructionalTime" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The total instructional time in minutes per day for the bell schedule.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Budget">
-    <xs:annotation>
-      <xs:documentation>This financial entity represents the amount of monies allocated to be spent or received by an education organization as related to a specific account.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="Amount" type="Currency">
-            <xs:annotation>
-              <xs:documentation>Amount budgeted for the account for this fiscal year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AsOfDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The date of the reported budget element.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountReference" type="AccountReferenceType">
-            <xs:annotation>
-              <xs:documentation>Account with which the budget is associated.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -632,6 +530,93 @@
           <xs:element name="CalendarReference" type="CalendarReferenceType">
             <xs:annotation>
               <xs:documentation>Reference to the calendar associated to the calendar event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChartOfAccount">
+    <xs:annotation>
+      <xs:documentation>A valid combination of account dimensions under which financials are reported. This financial entity represents a funding source combined with its purpose and type of transaction. It provides a formal record of the debits and credits relating to the specific account.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="AccountIdentifier" type="AccountIdentifier">
+            <xs:annotation>
+              <xs:documentation>SEA populated code value for the valid combination of account dimensions under which financials are reported.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for the account</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the education organization managing the chart of accounts.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccountType" type="AccountTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The type of account used in accounting such as revenue, expenditure, or balance sheet.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AccountTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccountName" type="AccountName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A descriptive name for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BalanceSheetBalanceSheetDimensionReference" type="BalanceSheetDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the balance sheet dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FunctionFunctionDimensionReference" type="FunctionDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the function dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FundFundDimensionReference" type="FundDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the fund dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ObjectObjectDimensionReference" type="ObjectDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the object dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OperationalUnitOperationalUnitDimensionReference" type="OperationalUnitDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the operational unit dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramProgramDimensionReference" type="ProgramDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the program dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProjectProjectDimensionReference" type="ProjectDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the project dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SourceSourceDimensionReference" type="SourceDimensionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>References the source dimension with which the chart of account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTag" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -872,40 +857,6 @@
           <xs:element name="SuccessCriteria" type="Criteria" minOccurs="0">
             <xs:annotation>
               <xs:documentation>One or more statements that describes the criteria used by teachers and students to check for attainment of a competency objective. This criteria gives clear indications as to the degree to which learning is moving through the Zone or Proximal Development toward independent achievement of the competency objective.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="ContractedStaff">
-    <xs:annotation>
-      <xs:documentation>This financial entity represents the sum of the financial transactions to date for contracted staff. Contracted staff includes "contractors" or "consultants" who perform services for an agreed upon fee, or an employee of a management service contracted to work on site.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="AmountToDate" type="Currency">
-            <xs:annotation>
-              <xs:documentation>Current balance (amount paid to contractor) for account for the fiscal year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AsOfDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The date of the reported contracted staff element.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountReference" type="AccountReferenceType">
-            <xs:annotation>
-              <xs:documentation>Account with which the contracted staff expense is associated.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StaffReference" type="StaffReferenceType">
-            <xs:annotation>
-              <xs:documentation>Relates the staff member to the associated contracted staff expense.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -1362,6 +1313,48 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="DescriptorMapping">
+    <xs:annotation>
+      <xs:documentation>A mapping of a descriptor value in one namespace to a descriptor value in another namespace. This can be used to exchange known contextual mappings of enumeration values.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Value" type="Value">
+            <xs:annotation>
+              <xs:documentation>The descriptor value that is being mapped to another value.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Namespace" type="URI">
+            <xs:annotation>
+              <xs:documentation>The namespace of the descriptor value that is being mapped to another value.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MappedValue" type="MappedValue">
+            <xs:annotation>
+              <xs:documentation>The descriptor value to which the from descriptor value is being mapped to.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MappedNamespace" type="URI">
+            <xs:annotation>
+              <xs:documentation>The namespace of the descriptor value to which the from descriptor value is mapped to.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ModelEntity" type="ModelEntityDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ModelEntityDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="DisciplineAction">
     <xs:annotation>
       <xs:documentation>This event entity represents actions taken by an education organization after a disruptive event that is recorded as a discipline incident.</xs:documentation>
@@ -1725,6 +1718,80 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="FunctionDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES function accounting dimension representing an expenditure. The function describes the activity for which a service or material object is acquired. The functions of a school district are generally classified into five broad areas, including instruction, support services, operation of non-instructional services, facilities acquisition and construction, and debt service.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account function dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account function dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account function dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FundDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES fund accounting dimension. A fund is a fiscal and accounting entity with a self-balancing set of accounts recording cash and other financial resources, together with all related liabilities and residual equities or balances, and changes therein, which are segregated for the purpose of carrying on specific activities or attaining certain objectives in accordance with special regulations, restrictions, or limitations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account fund dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account fund dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account fund dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="Grade">
     <xs:annotation>
       <xs:documentation>This educational entity represents an overall score or assessment tied to a course over a period of time (i.e., the grading period). Student grades are usually a compilation of marks and other scores.</xs:documentation>
@@ -1810,7 +1877,7 @@
               <xs:documentation>A unique number or alphanumeric code assigned to a gradebook entry by the source system.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="SourceSystemNamespace" type="URI">
+          <xs:element name="Namespace" type="URI">
             <xs:annotation>
               <xs:documentation>Namespace URI for the source of the gradebook entry.</xs:documentation>
             </xs:annotation>
@@ -2468,6 +2535,166 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LocalAccount">
+    <xs:annotation>
+      <xs:documentation>The set of account codes defined by an education organization for a fiscal year. It provides a formal record of the debits and credits relating to the specific account.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="AccountIdentifier" type="AccountIdentifier">
+            <xs:annotation>
+              <xs:documentation>Code value for the valid combination of account dimensions by LEA under which financials are reported. </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the education organization for which the account is applicable.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccountName" type="AccountName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A descriptive name for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ChartOfAccountReference" type="ChartOfAccountReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the chart of account with which the local account is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTag" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalActual">
+    <xs:annotation>
+      <xs:documentation>The set of local education agency or charter management organization expense or revenue amounts.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the local account with which the local actual is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AsOfDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Amount" type="Currency">
+            <xs:annotation>
+              <xs:documentation>Current balance for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FinancialCollection" type="FinancialCollectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The accounting period or grouping for which the amount is collected.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>FinancialCollectionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalBudget">
+    <xs:annotation>
+      <xs:documentation>The set of local education agency or charter management organization budget amounts.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the local account with which the local budget is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AsOfDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Amount" type="Currency">
+            <xs:annotation>
+              <xs:documentation>Current balance for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FinancialCollection" type="FinancialCollectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The accounting period or grouping for which the amount is collected.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>FinancialCollectionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalContractedStaff">
+    <xs:annotation>
+      <xs:documentation>The set of local education agency or charter management organization contracted staff amounts.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="StaffReference" type="StaffReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the staff with which the local contracted staff is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the local account with which the local contracted staff is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AsOfDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Amount" type="Currency">
+            <xs:annotation>
+              <xs:documentation>Current balance for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FinancialCollection" type="FinancialCollectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The accounting period or grouping for which the amount is collected.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>FinancialCollectionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocalEducationAgency">
     <xs:annotation>
       <xs:documentation>This entity represents an administrative unit at the local level which exists primarily to operate schools or to contract for educational services. It includes school districts, charter schools, charter management organizations, or other local administrative organizations.</xs:documentation>
@@ -2528,6 +2755,85 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LocalEncumbrance">
+    <xs:annotation>
+      <xs:documentation>The set of local education agency or charter management organization encumbrance amounts.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the local account with which the encumbrance is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AsOfDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Amount" type="Currency">
+            <xs:annotation>
+              <xs:documentation>Current balance for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FinancialCollection" type="FinancialCollectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The accounting period or grouping for which the amount is collected.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>FinancialCollectionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalPayroll">
+    <xs:annotation>
+      <xs:documentation>The set of local education agency or charter management organization payroll amounts.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="StaffReference" type="StaffReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the staff with which the payroll is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the local account with which the payroll is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AsOfDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Amount" type="Currency">
+            <xs:annotation>
+              <xs:documentation>Current balance for the account.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FinancialCollection" type="FinancialCollectionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The accounting period or grouping for which the amount is collected.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>FinancialCollectionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="Location">
     <xs:annotation>
       <xs:documentation>This entity represents the physical space where students gather for a particular class/section. The location may be an indoor or outdoor area designated for the purpose of meeting the educational needs of students.</xs:documentation>
@@ -2556,6 +2862,43 @@
           <xs:element name="OptimalNumberOfSeats" type="xs:int" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The number of seats that is most favorable to the class.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ObjectDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES object accounting dimension representing an expenditure. Per the NCES definition, this classification is used to describe the service or commodity obtained as the result of a specific expenditure, such as salaries, benefits, tuition reimbursement, and so forth.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account object dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account object dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account object dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2726,6 +3069,43 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="OperationalUnitDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES operational unit accounting dimension. This dimension is used to segregate costs by school and operational unit such as physical location, department, or other method.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account operational unit dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account operational unit dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account operational unit dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="OrganizationDepartment">
     <xs:annotation>
       <xs:documentation>An organizational unit of another education organization, often devoted to a particular academic discipline, area of study, or organization function.</xs:documentation>
@@ -2832,40 +3212,6 @@
               <xs:appinfo>
                 <ann:Descriptor>LevelOfEducationDescriptor</ann:Descriptor>
               </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Payroll">
-    <xs:annotation>
-      <xs:documentation>This financial entity represents the sum of the financial transactions to date for employee compensation. An "employee" who performs services under the direction of the employing institution or agency, is compensated for such services by the employer and is eligible for employee benefits and wage or salary tax withholdings.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="AmountToDate" type="Currency">
-            <xs:annotation>
-              <xs:documentation>Current balance (amount paid to employee) for account for the fiscal year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AsOfDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The date of the reported payroll element.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccountReference" type="AccountReferenceType">
-            <xs:annotation>
-              <xs:documentation>Account with which the payroll expense is associated.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StaffReference" type="StaffReferenceType">
-            <xs:annotation>
-              <xs:documentation>Staff member associated with the payroll expense.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -3044,6 +3390,80 @@
           <xs:element name="LearningStandardReference" type="LearningStandardReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>Learning standard followed by this program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProgramDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES program accounting dimension. A program is defined by the NCES as a plan of activities and procedures designed to accomplish a predetermined objective or set of objectives. These are often categorized into broad program areas such as regular education, special education, vocational education, other PK-12 instructional, nonpublic school, adult and continuing education, community and junior college education, community services, and co-curricular or extracurricular activities.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account program dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account program dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account program dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProjectDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES project accounting dimension. The project dimension reporting code permits school districts to accumulate expenditures to meet a variety of specialized reporting requirements at the local, state, and federal levels.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account project dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account project dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account project dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -3490,6 +3910,43 @@
           <xs:element name="AcademicWeekReference" type="AcademicWeekReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>The academic weeks associated with the school year.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SourceDimension">
+    <xs:annotation>
+      <xs:documentation>The NCES source dimension. This dimension is used to segregate costs by school and operational unit such as physical location, department, or other method.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="Code" type="Code">
+            <xs:annotation>
+              <xs:documentation>The code representation of the account source dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FiscalYear" type="LocalFiscalYear">
+            <xs:annotation>
+              <xs:documentation>The fiscal year for which the account source dimension is valid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CodeName" type="CodeName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the account source dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -3952,7 +4409,7 @@
               <xs:documentation>A unique number or alphanumeric code assigned to an assessment administered to a student.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="AdministrationDate" type="xs:dateTime">
+          <xs:element name="AdministrationDate" type="xs:dateTime" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The date and time an assessment was completed by the student. The use of ISO-8601 formats with a timezone designator (UTC or time offset) is recommended in order to prevent ambiguity due to time zones.</xs:documentation>
             </xs:annotation>
@@ -4069,6 +4526,16 @@
               <xs:appinfo>
                 <ann:Descriptor>PlatformTypeDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AssessmentPeriod" type="AssessmentPeriod" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The period or window in which an assessment is supposed to be administered.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AssessedMinutes" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Reported time student was assessed in minutes.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -4759,9 +5226,9 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="AccountClassificationDescriptor">
+  <xs:complexType name="AccountTypeDescriptor">
     <xs:annotation>
-      <xs:documentation>This descriptor holds the set of account code categories defined for the education accounting system organized by account code type (e.g., fund, function, object).</xs:documentation>
+      <xs:documentation>The type of account used in accounting such as revenue, expenditure, or balance sheet.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -4908,7 +5375,7 @@
   </xs:complexType>
   <xs:complexType name="AssignmentLateStatusDescriptor">
     <xs:annotation>
-      <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as.</xs:documentation>
+      <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as late.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -5489,6 +5956,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="FinancialCollectionDescriptor">
+    <xs:annotation>
+      <xs:documentation>The accounting period or grouping for which financial information is collected.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="GradebookEntryTypeDescriptor">
     <xs:annotation>
       <xs:documentation>The type of the gradebook entry; for example, homework, assignment, quiz, unit test, oral presentation, etc.</xs:documentation>
@@ -5888,6 +6366,17 @@
   <xs:complexType name="MigrantEducationProgramServiceDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor defines the services provided by an education organization to populations of students associated with a migrant education program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ModelEntityDescriptor">
+    <xs:annotation>
+      <xs:documentation>The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -6317,6 +6806,17 @@
   <xs:complexType name="ReporterDescriptionDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor defines the type of individual who reported an incident.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ReportingTagDescriptor">
+    <xs:annotation>
+      <xs:documentation>A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -8823,141 +9323,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="AccountCodeIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of an AccountCode.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AccountCodeNumber" type="AccountCodeNumber">
-        <xs:annotation>
-          <xs:documentation>An account code defined for the education accounting system by the education organization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AccountClassification" type="AccountClassificationDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The type of account code associated with the account.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>AccountClassificationDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-        <xs:annotation>
-          <xs:documentation>A reference to the education organization for which the codes are applicable.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="FiscalYear" type="xs:int">
-        <xs:annotation>
-          <xs:documentation>The financial accounting year.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="AccountCodeReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for an AccountCode. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="AccountCodeIdentity" type="AccountCodeIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of an AccountCode.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="AccountIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of an Account.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AccountIdentifier" type="AccountIdentifier">
-        <xs:annotation>
-          <xs:documentation>The alphanumeric string that identifies the account.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="FiscalYear" type="xs:int">
-        <xs:annotation>
-          <xs:documentation>The financial accounting year.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-        <xs:annotation>
-          <xs:documentation>Relates the account to an education organization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="AccountReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for an Account. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="AccountIdentity" type="AccountIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of an Account.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="ActualIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of an Actual.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AsOfDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The date of the reported actual element.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AccountReference" type="AccountReferenceType">
-        <xs:annotation>
-          <xs:documentation>Account with which the actual is associated.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ActualReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for an Actual. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="ActualIdentity" type="ActualIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of an Actual.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="AssessmentIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of an Assessment.</xs:documentation>
@@ -9088,6 +9453,45 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="BalanceSheetDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a BalanceSheetDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account balance sheet dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account balance sheet dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BalanceSheetDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a BalanceSheetDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="BalanceSheetDimensionIdentity" type="BalanceSheetDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a BalanceSheetDimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="BellScheduleIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a BellSchedule.</xs:documentation>
@@ -9121,45 +9525,6 @@
           <xs:element name="BellScheduleIdentity" type="BellScheduleIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a BellSchedule.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="BudgetIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a Budget.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AsOfDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The date of the reported budget element.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AccountReference" type="AccountReferenceType">
-        <xs:annotation>
-          <xs:documentation>Account with which the budget is associated.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="BudgetReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a Budget. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="BudgetIdentity" type="BudgetIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a Budget.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -9243,6 +9608,50 @@
           <xs:element name="CalendarIdentity" type="CalendarIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a Calendar.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ChartOfAccountIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a ChartOfAccount.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountIdentifier" type="AccountIdentifier">
+        <xs:annotation>
+          <xs:documentation>SEA populated code value for the valid combination of account dimensions under which financials are reported.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for the account</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the education organization managing the chart of accounts.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChartOfAccountReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ChartOfAccount. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ChartOfAccountIdentity" type="ChartOfAccountIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a ChartOfAccount.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -9486,50 +9895,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ContractedStaffIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a ContractedStaff.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AsOfDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The date of the reported contracted staff element.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AccountReference" type="AccountReferenceType">
-        <xs:annotation>
-          <xs:documentation>Account with which the contracted staff expense is associated.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="StaffReference" type="StaffReferenceType">
-        <xs:annotation>
-          <xs:documentation>Relates the staff member to the associated contracted staff expense.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="ContractedStaffReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a ContractedStaff. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="ContractedStaffIdentity" type="ContractedStaffIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a ContractedStaff.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="CourseIdentityType">
     <xs:annotation>
       <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Course.</xs:documentation>
@@ -9731,6 +10096,55 @@
           <xs:element name="CredentialIdentity" type="CredentialIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a Credential.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DescriptorMappingIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a DescriptorMapping.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Value" type="Value">
+        <xs:annotation>
+          <xs:documentation>The descriptor value that is being mapped to another value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Namespace" type="URI">
+        <xs:annotation>
+          <xs:documentation>The namespace of the descriptor value that is being mapped to another value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MappedValue" type="MappedValue">
+        <xs:annotation>
+          <xs:documentation>The descriptor value to which the from descriptor value is being mapped to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MappedNamespace" type="URI">
+        <xs:annotation>
+          <xs:documentation>The namespace of the descriptor value to which the from descriptor value is mapped to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DescriptorMappingReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a DescriptorMapping. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="DescriptorMappingIdentity" type="DescriptorMappingIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a DescriptorMapping.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -10231,6 +10645,84 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="FunctionDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a FunctionDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account function dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account function dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FunctionDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a FunctionDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="FunctionDimensionIdentity" type="FunctionDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a FunctionDimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FundDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a FundDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account fund dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account fund dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FundDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a FundDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="FundDimensionIdentity" type="FundDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a FundDimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="GeneralStudentProgramAssociationIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a GeneralStudentProgramAssociation.</xs:documentation>
@@ -10293,7 +10785,7 @@
           <xs:documentation>A unique number or alphanumeric code assigned to a gradebook entry by the source system.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="SourceSystemNamespace" type="URI">
+      <xs:element name="Namespace" type="URI">
         <xs:annotation>
           <xs:documentation>Namespace URI for the source of the gradebook entry.</xs:documentation>
         </xs:annotation>
@@ -10773,6 +11265,172 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LocalAccountIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalAccount.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AccountIdentifier" type="AccountIdentifier">
+        <xs:annotation>
+          <xs:documentation>Code value for the valid combination of account dimensions by LEA under which financials are reported. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the education organization for which the account is applicable.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for the account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocalAccountReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalAccount. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalAccountIdentity" type="LocalAccountIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalAccount.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalActualIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalActual.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the local account with which the local actual is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AsOfDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocalActualReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalActual. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalActualIdentity" type="LocalActualIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalActual.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalBudgetIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalBudget.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the local account with which the local budget is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AsOfDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocalBudgetReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalBudget. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalBudgetIdentity" type="LocalBudgetIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalBudget.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalContractedStaffIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalContractedStaff.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StaffReference" type="StaffReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the staff with which the local contracted staff is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the local account with which the local contracted staff is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AsOfDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocalContractedStaffReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalContractedStaff. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalContractedStaffIdentity" type="LocalContractedStaffIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalContractedStaff.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocalEducationAgencyIdentityType">
     <xs:annotation>
       <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalEducationAgency.</xs:documentation>
@@ -10845,6 +11503,89 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="LocalEncumbranceIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalEncumbrance.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the local account with which the encumbrance is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AsOfDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocalEncumbranceReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalEncumbrance. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalEncumbranceIdentity" type="LocalEncumbranceIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalEncumbrance.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="LocalPayrollIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalPayroll.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StaffReference" type="StaffReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the staff with which the payroll is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LocalAccountReference" type="LocalAccountReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the local account with which the payroll is associated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AsOfDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date of the reported amount for the account.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="LocalPayrollReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalPayroll. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalPayrollIdentity" type="LocalPayrollIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalPayroll.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="LocationIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a Location.</xs:documentation>
@@ -10878,6 +11619,45 @@
           <xs:element name="LocationIdentity" type="LocationIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a Location.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ObjectDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an ObjectDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account object dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account object dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ObjectDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an ObjectDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ObjectDimensionIdentity" type="ObjectDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an ObjectDimension.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -10956,6 +11736,45 @@
           <xs:element name="OpenStaffPositionIdentity" type="OpenStaffPositionIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of an OpenStaffPosition.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="OperationalUnitDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an OperationalUnitDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account operational unit dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account operational unit dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OperationalUnitDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an OperationalUnitDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="OperationalUnitDimensionIdentity" type="OperationalUnitDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an OperationalUnitDimension.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -11088,50 +11907,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="PayrollIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a Payroll.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AsOfDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The date of the reported payroll element.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AccountReference" type="AccountReferenceType">
-        <xs:annotation>
-          <xs:documentation>Account with which the payroll expense is associated.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="StaffReference" type="StaffReferenceType">
-        <xs:annotation>
-          <xs:documentation>Staff member associated with the payroll expense.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="PayrollReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a Payroll. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="PayrollIdentity" type="PayrollIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a Payroll.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="PersonIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a Person.</xs:documentation>
@@ -11255,6 +12030,45 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="ProgramDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ProgramDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account program dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account program dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProgramDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ProgramDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ProgramDimensionIdentity" type="ProgramDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ProgramDimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="ProgramIdentityType">
     <xs:annotation>
       <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Program.</xs:documentation>
@@ -11334,6 +12148,45 @@
           <xs:element name="ProgramLookup" type="ProgramLookupType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Encapsulates alternative attributes that can be used to look up the identity of a Program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProjectDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ProjectDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account project dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account project dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProjectDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ProjectDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ProjectDimensionIdentity" type="ProjectDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ProjectDimension.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -11679,6 +12532,45 @@
           <xs:element name="SessionLookup" type="SessionLookupType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Encapsulates alternative attributes that can be used to look up the identity of a Session.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SourceDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a SourceDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Code" type="Code">
+        <xs:annotation>
+          <xs:documentation>The code representation of the account source dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="FiscalYear" type="LocalFiscalYear">
+        <xs:annotation>
+          <xs:documentation>The fiscal year for which the account source dimension is valid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SourceDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a SourceDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="SourceDimensionIdentity" type="SourceDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a SourceDimension.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -14266,9 +15158,9 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
-  <xs:simpleType name="AccountClassificationDescriptorReferenceType">
+  <xs:simpleType name="AccountTypeDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>This descriptor holds the set of account code categories defined for the education accounting system organized by account code type (e.g., fund, function, object).</xs:documentation>
+      <xs:documentation>The type of account used in accounting such as revenue, expenditure, or balance sheet.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -14389,7 +15281,7 @@
   </xs:simpleType>
   <xs:simpleType name="AssignmentLateStatusDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as.</xs:documentation>
+      <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as late.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -14864,6 +15756,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="FinancialCollectionDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The accounting period or grouping for which financial information is collected.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="GradebookEntryTypeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The type of the gradebook entry; for example, homework, assignment, quiz, unit test, oral presentation, etc.</xs:documentation>
@@ -15191,6 +16092,15 @@
   <xs:simpleType name="MigrantEducationProgramServiceDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor defines the services provided by an education organization to populations of students associated with a migrant education program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="ModelEntityDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -15542,6 +16452,15 @@
   <xs:simpleType name="ReporterDescriptionDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor defines the type of individual who reported an incident.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="ReportingTagDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -18007,11 +18926,6 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="PerformanceLevelMet" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>Indicator of whether the performance level was met.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="PerformanceLevel" type="PerformanceLevelDescriptorReferenceType">
         <xs:annotation>
           <xs:documentation>A specification of which performance level value describes the student proficiency.</xs:documentation>
@@ -18188,6 +19102,29 @@
       <xs:element name="RecognitionAwardExpiresDate" type="xs:date" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Date on which the recognition expires.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReportingTag">
+    <xs:annotation>
+      <xs:documentation>Optional tag for accountability reporting.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="TagValue" type="TagValue" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The value associated with the reporting tag.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReportingTag" type="ReportingTagDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>A descriptor used at the dimension and/or chart of account levels to demote specific state needs for reporting.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>ReportingTagDescriptor</ann:Descriptor>
+          </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -18620,7 +19557,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="ScoreResult" type="ScoreResult" maxOccurs="unbounded">
+      <xs:element name="ScoreResult" type="ScoreResult" minOccurs="0" maxOccurs="unbounded">
         <xs:annotation>
           <xs:documentation>A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.</xs:documentation>
         </xs:annotation>
@@ -18633,6 +19570,21 @@
       <xs:element name="ObjectiveAssessmentReference" type="ObjectiveAssessmentReferenceType">
         <xs:annotation>
           <xs:documentation>Reference to the test objective that is being measured by the objective-level assessment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AssessedMinutes" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Reported time student was assessed in minutes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdministrationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time an assessment was completed by the student. The use of ISO-8601 formats with a timezone designator (UTC or time offset) is recommended in order to prevent ambiguity due to time zones.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdministrationEndDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date and time an assessment administration ended.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -19089,41 +20041,6 @@
   <xs:annotation>
     <xs:documentation>===== String Simple Types =====</xs:documentation>
   </xs:annotation>
-  <xs:simpleType name="AccountCodeCategory">
-    <xs:annotation>
-      <xs:documentation>The type of the account code (e.g., fund, function, object).</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1" />
-      <xs:maxLength value="20" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="AccountCodeDescription">
-    <xs:annotation>
-      <xs:documentation>A description of the account code.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:maxLength value="1024" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="AccountCodeNumber">
-    <xs:annotation>
-      <xs:documentation>An account code defined for the education accounting system by the education organization.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1" />
-      <xs:maxLength value="50" />
-    </xs:restriction>
-  </xs:simpleType>
   <xs:simpleType name="AccountIdentifier">
     <xs:annotation>
       <xs:documentation>The alphanumeric string that identifies the account.</xs:documentation>
@@ -19252,7 +20169,7 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:minLength value="1" />
-      <xs:maxLength value="100" />
+      <xs:maxLength value="255" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="AttendanceEventReason">
@@ -19373,6 +20290,30 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="1" />
       <xs:maxLength value="60" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Code">
+    <xs:annotation>
+      <xs:documentation>The code representation of a chart of account dimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="16" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CodeName">
+    <xs:annotation>
+      <xs:documentation>Descriptive name for a chart of account dimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="CodeValue">
@@ -19984,6 +20925,18 @@
       <xs:maxLength value="60" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="MappedValue">
+    <xs:annotation>
+      <xs:documentation>The descriptor value to which the from descriptor value is being mapped to.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="MatrixElement">
     <xs:annotation>
       <xs:documentation>For matrix questions, the text identifying each row of the matrix.</xs:documentation>
@@ -20392,6 +21345,18 @@
       <xs:maxLength value="255" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="TagValue">
+    <xs:annotation>
+      <xs:documentation>Descriptive name for a tag value.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="TelephoneNumber">
     <xs:annotation>
       <xs:documentation>The telephone number including the area code, and extension, if applicable.</xs:documentation>
@@ -20470,6 +21435,18 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="5" />
       <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Value">
+    <xs:annotation>
+      <xs:documentation>The descriptor value that is being mapped to another value.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="WeekIdentifier">
@@ -20677,6 +21654,18 @@
     <xs:restriction base="xs:decimal">
       <xs:totalDigits value="5" />
       <xs:fractionDigits value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LocalFiscalYear">
+    <xs:annotation>
+      <xs:documentation>Local fiscal year for which a chart of account dimension is valid.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="2020" />
+      <xs:maxInclusive value="2040" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="MaxCompletionsForCredit">

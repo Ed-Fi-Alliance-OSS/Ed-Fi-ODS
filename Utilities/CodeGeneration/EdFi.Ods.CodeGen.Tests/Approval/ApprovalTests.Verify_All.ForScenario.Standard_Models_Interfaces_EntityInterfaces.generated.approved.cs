@@ -106,32 +106,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the Account model.
-    /// </summary>
-    public interface IAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AccountIdentifier { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int FiscalYear { get; set; }
-
-        // Non-PK properties
-        string AccountName { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IAccountAccountCode> AccountAccountCodes { get; set; }
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the AccountabilityRating model.
     /// </summary>
     public interface IAccountabilityRating : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -161,37 +135,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the AccountAccountCode model.
+    /// Defines available properties and methods for the abstraction of the AccountTypeDescriptor model.
     /// </summary>
-    public interface IAccountAccountCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAccount Account { get; set; }
-        [NaturalKeyMember]
-        string AccountClassificationDescriptor { get; set; }
-        [NaturalKeyMember]
-        string AccountCodeNumber { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AccountCodeResourceId { get; set; }
-        string AccountCodeDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AccountClassificationDescriptor model.
-    /// </summary>
-    public interface IAccountClassificationDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IAccountTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
-        int AccountClassificationDescriptorId { get; set; }
+        int AccountTypeDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -200,33 +150,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AccountCode model.
-    /// </summary>
-    public interface IAccountCode : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AccountClassificationDescriptor { get; set; }
-        [NaturalKeyMember]
-        string AccountCodeNumber { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int FiscalYear { get; set; }
-
-        // Non-PK properties
-        string AccountCodeDescription { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -245,33 +168,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the Actual model.
-    /// </summary>
-    public interface IActual : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AccountIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime AsOfDate { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int FiscalYear { get; set; }
-
-        // Non-PK properties
-        decimal AmountToDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AccountResourceId { get; set; }
-        string AccountDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -391,14 +287,13 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         IAssessmentContentStandard AssessmentContentStandard { get; set; }
 
-        IAssessmentPeriod AssessmentPeriod { get; set; }
-
         // Lists
         ICollection<IAssessmentAcademicSubject> AssessmentAcademicSubjects { get; set; }
         ICollection<IAssessmentAssessedGradeLevel> AssessmentAssessedGradeLevels { get; set; }
         ICollection<IAssessmentIdentificationCode> AssessmentIdentificationCodes { get; set; }
         ICollection<IAssessmentLanguage> AssessmentLanguages { get; set; }
         ICollection<IAssessmentPerformanceLevel> AssessmentPerformanceLevels { get; set; }
+        ICollection<IAssessmentPeriod> AssessmentPeriods { get; set; }
         ICollection<IAssessmentPlatformType> AssessmentPlatformTypes { get; set; }
         ICollection<IAssessmentProgram> AssessmentPrograms { get; set; }
         ICollection<IAssessmentScore> AssessmentScores { get; set; }
@@ -723,9 +618,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember]
         IAssessment Assessment { get; set; }
+        [NaturalKeyMember]
+        string AssessmentPeriodDescriptor { get; set; }
 
         // Non-PK properties
-        string AssessmentPeriodDescriptor { get; set; }
         DateTime? BeginDate { get; set; }
         DateTime? EndDate { get; set; }
 
@@ -979,6 +875,48 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the BalanceSheetDimension model.
+    /// </summary>
+    public interface IBalanceSheetDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IBalanceSheetDimensionReportingTag> BalanceSheetDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the BalanceSheetDimensionReportingTag model.
+    /// </summary>
+    public interface IBalanceSheetDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IBalanceSheetDimension BalanceSheetDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the BarrierToInternetAccessInResidenceDescriptor model.
     /// </summary>
     public interface IBarrierToInternetAccessInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -1102,33 +1040,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the Budget model.
-    /// </summary>
-    public interface IBudget : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AccountIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime AsOfDate { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int FiscalYear { get; set; }
-
-        // Non-PK properties
-        decimal Amount { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AccountResourceId { get; set; }
-        string AccountDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -1306,6 +1217,78 @@ namespace EdFi.Ods.Entities.Common.EdFi
         int CharterStatusDescriptorId { get; set; }
 
         // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ChartOfAccount model.
+    /// </summary>
+    public interface IChartOfAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string AccountName { get; set; }
+        string AccountTypeDescriptor { get; set; }
+        string BalanceSheetCode { get; set; }
+        string FunctionCode { get; set; }
+        string FundCode { get; set; }
+        string ObjectCode { get; set; }
+        string OperationalUnitCode { get; set; }
+        string ProgramCode { get; set; }
+        string ProjectCode { get; set; }
+        string SourceCode { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IChartOfAccountReportingTag> ChartOfAccountReportingTags { get; set; }
+
+        // Resource reference data
+        Guid? BalanceSheetDimensionResourceId { get; set; }
+        string BalanceSheetDimensionDiscriminator { get; set; }
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? FunctionDimensionResourceId { get; set; }
+        string FunctionDimensionDiscriminator { get; set; }
+        Guid? FundDimensionResourceId { get; set; }
+        string FundDimensionDiscriminator { get; set; }
+        Guid? ObjectDimensionResourceId { get; set; }
+        string ObjectDimensionDiscriminator { get; set; }
+        Guid? OperationalUnitDimensionResourceId { get; set; }
+        string OperationalUnitDimensionDiscriminator { get; set; }
+        Guid? ProgramDimensionResourceId { get; set; }
+        string ProgramDimensionDiscriminator { get; set; }
+        Guid? ProjectDimensionResourceId { get; set; }
+        string ProjectDimensionDiscriminator { get; set; }
+        Guid? SourceDimensionResourceId { get; set; }
+        string SourceDimensionDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ChartOfAccountReportingTag model.
+    /// </summary>
+    public interface IChartOfAccountReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IChartOfAccount ChartOfAccount { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
+
+        // Non-PK properties
+        string TagValue { get; set; }
 
         // One-to-one relationships
 
@@ -1673,37 +1656,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ContractedStaff model.
-    /// </summary>
-    public interface IContractedStaff : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AccountIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime AsOfDate { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int FiscalYear { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        decimal AmountToDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AccountResourceId { get; set; }
-        string AccountDiscriminator { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -2521,6 +2473,51 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string Namespace { get; set; }
         int? PriorDescriptorId { get; set; }
         string ShortDescription { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the DescriptorMapping model.
+    /// </summary>
+    public interface IDescriptorMapping : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string MappedNamespace { get; set; }
+        [NaturalKeyMember]
+        string MappedValue { get; set; }
+        [NaturalKeyMember]
+        string Namespace { get; set; }
+        [NaturalKeyMember]
+        string Value { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IDescriptorMappingModelEntity> DescriptorMappingModelEntities { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the DescriptorMappingModelEntity model.
+    /// </summary>
+    public interface IDescriptorMappingModelEntity : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IDescriptorMapping DescriptorMapping { get; set; }
+        [NaturalKeyMember]
+        string ModelEntityDescriptor { get; set; }
+
+        // Non-PK properties
 
         // One-to-one relationships
 
@@ -3654,6 +3651,108 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the FinancialCollectionDescriptor model.
+    /// </summary>
+    public interface IFinancialCollectionDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int FinancialCollectionDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the FunctionDimension model.
+    /// </summary>
+    public interface IFunctionDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IFunctionDimensionReportingTag> FunctionDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the FunctionDimensionReportingTag model.
+    /// </summary>
+    public interface IFunctionDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IFunctionDimension FunctionDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the FundDimension model.
+    /// </summary>
+    public interface IFundDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IFundDimensionReportingTag> FundDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the FundDimensionReportingTag model.
+    /// </summary>
+    public interface IFundDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IFundDimension FundDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the GeneralStudentProgramAssociation model.
     /// </summary>
     public interface IGeneralStudentProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -3797,7 +3896,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradebookEntryIdentifier { get; set; }
         [NaturalKeyMember]
-        string SourceSystemNamespace { get; set; }
+        string Namespace { get; set; }
 
         // Non-PK properties
         DateTime DateAssigned { get; set; }
@@ -5638,6 +5737,145 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalAccount model.
+    /// </summary>
+    public interface ILocalAccount : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string AccountName { get; set; }
+        int ChartOfAccountEducationOrganizationId { get; set; }
+        string ChartOfAccountIdentifier { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<ILocalAccountReportingTag> LocalAccountReportingTags { get; set; }
+
+        // Resource reference data
+        Guid? ChartOfAccountResourceId { get; set; }
+        string ChartOfAccountDiscriminator { get; set; }
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalAccountReportingTag model.
+    /// </summary>
+    public interface ILocalAccountReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ILocalAccount LocalAccount { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
+
+        // Non-PK properties
+        string TagValue { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalActual model.
+    /// </summary>
+    public interface ILocalActual : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        DateTime AsOfDate { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        decimal Amount { get; set; }
+        string FinancialCollectionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? LocalAccountResourceId { get; set; }
+        string LocalAccountDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalBudget model.
+    /// </summary>
+    public interface ILocalBudget : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        DateTime AsOfDate { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        decimal Amount { get; set; }
+        string FinancialCollectionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? LocalAccountResourceId { get; set; }
+        string LocalAccountDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalContractedStaff model.
+    /// </summary>
+    public interface ILocalContractedStaff : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        DateTime AsOfDate { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+        [NaturalKeyMember]
+        string StaffUniqueId { get; set; }
+
+        // Non-PK properties
+        decimal Amount { get; set; }
+        string FinancialCollectionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? LocalAccountResourceId { get; set; }
+        string LocalAccountDiscriminator { get; set; }
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the LocaleDescriptor model.
     /// </summary>
     public interface ILocaleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -5753,6 +5991,66 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalEncumbrance model.
+    /// </summary>
+    public interface ILocalEncumbrance : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        DateTime AsOfDate { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        decimal Amount { get; set; }
+        string FinancialCollectionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? LocalAccountResourceId { get; set; }
+        string LocalAccountDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the LocalPayroll model.
+    /// </summary>
+    public interface ILocalPayroll : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AccountIdentifier { get; set; }
+        [NaturalKeyMember]
+        DateTime AsOfDate { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+        [NaturalKeyMember]
+        string StaffUniqueId { get; set; }
+
+        // Non-PK properties
+        decimal Amount { get; set; }
+        string FinancialCollectionDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? LocalAccountResourceId { get; set; }
+        string LocalAccountDiscriminator { get; set; }
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the Location model.
     /// </summary>
     public interface ILocation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -5848,6 +6146,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ModelEntityDescriptor model.
+    /// </summary>
+    public interface IModelEntityDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int ModelEntityDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the MonitoredDescriptor model.
     /// </summary>
     public interface IMonitoredDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -5909,6 +6225,48 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int NetworkPurposeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ObjectDimension model.
+    /// </summary>
+    public interface IObjectDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IObjectDimensionReportingTag> ObjectDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ObjectDimensionReportingTag model.
+    /// </summary>
+    public interface IObjectDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IObjectDimension ObjectDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -6145,6 +6503,48 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int OperationalStatusDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the OperationalUnitDimension model.
+    /// </summary>
+    public interface IOperationalUnitDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IOperationalUnitDimensionReportingTag> OperationalUnitDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the OperationalUnitDimensionReportingTag model.
+    /// </summary>
+    public interface IOperationalUnitDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IOperationalUnitDimension OperationalUnitDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -6497,37 +6897,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the Payroll model.
-    /// </summary>
-    public interface IPayroll : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AccountIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime AsOfDate { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int FiscalYear { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        decimal AmountToDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AccountResourceId { get; set; }
-        string AccountDiscriminator { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -6920,6 +7289,48 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramDimension model.
+    /// </summary>
+    public interface IProgramDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IProgramDimensionReportingTag> ProgramDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProgramDimensionReportingTag model.
+    /// </summary>
+    public interface IProgramDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IProgramDimension ProgramDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the ProgramLearningObjective model.
     /// </summary>
     public interface IProgramLearningObjective : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -7067,6 +7478,48 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int ProgressLevelDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProjectDimension model.
+    /// </summary>
+    public interface IProjectDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IProjectDimensionReportingTag> ProjectDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ProjectDimensionReportingTag model.
+    /// </summary>
+    public interface IProjectDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IProjectDimension ProjectDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -7433,6 +7886,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int ReporterDescriptionDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ReportingTagDescriptor model.
+    /// </summary>
+    public interface IReportingTagDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int ReportingTagDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -8139,6 +8610,48 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int SexDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the SourceDimension model.
+    /// </summary>
+    public interface ISourceDimension : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string Code { get; set; }
+        [NaturalKeyMember]
+        int FiscalYear { get; set; }
+
+        // Non-PK properties
+        string CodeName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<ISourceDimensionReportingTag> SourceDimensionReportingTags { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the SourceDimensionReportingTag model.
+    /// </summary>
+    public interface ISourceDimensionReportingTag : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ISourceDimension SourceDimension { get; set; }
+        [NaturalKeyMember]
+        string ReportingTagDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -9552,10 +10065,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
-        DateTime AdministrationDate { get; set; }
+        DateTime? AdministrationDate { get; set; }
         DateTime? AdministrationEndDate { get; set; }
         string AdministrationEnvironmentDescriptor { get; set; }
         string AdministrationLanguageDescriptor { get; set; }
+        int? AssessedMinutes { get; set; }
         string EventCircumstanceDescriptor { get; set; }
         string EventDescription { get; set; }
         string PlatformTypeDescriptor { get; set; }
@@ -9566,6 +10080,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string WhenAssessedGradeLevelDescriptor { get; set; }
 
         // One-to-one relationships
+
+        IStudentAssessmentPeriod StudentAssessmentPeriod { get; set; }
 
         // Lists
         ICollection<IStudentAssessmentAccommodation> StudentAssessmentAccommodations { get; set; }
@@ -9646,7 +10162,27 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string PerformanceLevelIndicatorName { get; set; }
-        bool PerformanceLevelMet { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentPeriod model.
+    /// </summary>
+    public interface IStudentAssessmentPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentAssessment StudentAssessment { get; set; }
+
+        // Non-PK properties
+        string AssessmentPeriodDescriptor { get; set; }
+        DateTime? BeginDate { get; set; }
+        DateTime? EndDate { get; set; }
 
         // One-to-one relationships
 
@@ -9689,6 +10225,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string IdentificationCode { get; set; }
 
         // Non-PK properties
+        DateTime? AdministrationDate { get; set; }
+        DateTime? AdministrationEndDate { get; set; }
+        int? AssessedMinutes { get; set; }
 
         // One-to-one relationships
 
@@ -9716,7 +10255,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         string PerformanceLevelIndicatorName { get; set; }
-        bool PerformanceLevelMet { get; set; }
 
         // One-to-one relationships
 
@@ -10717,7 +11255,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         [NaturalKeyMember]
         string GradebookEntryIdentifier { get; set; }
         [NaturalKeyMember]
-        string SourceSystemNamespace { get; set; }
+        string Namespace { get; set; }
         [NaturalKeyMember]
         string StudentUniqueId { get; set; }
 

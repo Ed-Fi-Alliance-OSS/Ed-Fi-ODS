@@ -176,41 +176,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [Route("ed-fi/accounts")]
-    public partial class AccountsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Account.EdFi.Account,
-        Api.Common.Models.Resources.Account.EdFi.Account,
-        Entities.Common.EdFi.IAccount,
-        Entities.NHibernate.AccountAggregate.EdFi.Account,
-        Api.Common.Models.Requests.Accounts.EdFi.AccountPut,
-        Api.Common.Models.Requests.Accounts.EdFi.AccountPost,
-        Api.Common.Models.Requests.Accounts.EdFi.AccountDelete,
-        Api.Common.Models.Requests.Accounts.EdFi.AccountGetByExample>
-    {
-        public AccountsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.Accounts.EdFi.AccountGetByExample request, Entities.Common.EdFi.IAccount specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AccountIdentifier = request.AccountIdentifier;
-            specification.AccountName = request.AccountName;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FiscalYear = request.FiscalYear;
-            specification.Id = request.Id;
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -249,69 +214,33 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AccountTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/accountClassificationDescriptors")]
-    public partial class AccountClassificationDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AccountClassificationDescriptor.EdFi.AccountClassificationDescriptor,
-        Api.Common.Models.Resources.AccountClassificationDescriptor.EdFi.AccountClassificationDescriptor,
-        Entities.Common.EdFi.IAccountClassificationDescriptor,
-        Entities.NHibernate.AccountClassificationDescriptorAggregate.EdFi.AccountClassificationDescriptor,
-        Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorPut,
-        Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorPost,
-        Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorDelete,
-        Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorGetByExample>
+    [Route("ed-fi/accountTypeDescriptors")]
+    public partial class AccountTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor,
+        Api.Common.Models.Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor,
+        Entities.Common.EdFi.IAccountTypeDescriptor,
+        Entities.NHibernate.AccountTypeDescriptorAggregate.EdFi.AccountTypeDescriptor,
+        Api.Common.Models.Requests.AccountTypeDescriptors.EdFi.AccountTypeDescriptorPut,
+        Api.Common.Models.Requests.AccountTypeDescriptors.EdFi.AccountTypeDescriptorPost,
+        Api.Common.Models.Requests.AccountTypeDescriptors.EdFi.AccountTypeDescriptorDelete,
+        Api.Common.Models.Requests.AccountTypeDescriptors.EdFi.AccountTypeDescriptorGetByExample>
     {
-        public AccountClassificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+        public AccountTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorGetByExample request, Entities.Common.EdFi.IAccountClassificationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AccountTypeDescriptors.EdFi.AccountTypeDescriptorGetByExample request, Entities.Common.EdFi.IAccountTypeDescriptor specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.AccountClassificationDescriptorId = request.AccountClassificationDescriptorId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [Route("ed-fi/accountCodes")]
-    public partial class AccountCodesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AccountCode.EdFi.AccountCode,
-        Api.Common.Models.Resources.AccountCode.EdFi.AccountCode,
-        Entities.Common.EdFi.IAccountCode,
-        Entities.NHibernate.AccountCodeAggregate.EdFi.AccountCode,
-        Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodePut,
-        Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodePost,
-        Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodeDelete,
-        Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodeGetByExample>
-    {
-        public AccountCodesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodeGetByExample request, Entities.Common.EdFi.IAccountCode specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AccountClassificationDescriptor = request.AccountClassificationDescriptor;
-            specification.AccountCodeDescription = request.AccountCodeDescription;
-            specification.AccountCodeNumber = request.AccountCodeNumber;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FiscalYear = request.FiscalYear;
-            specification.Id = request.Id;
+            specification.AccountTypeDescriptorId = request.AccountTypeDescriptorId;
         }
     }
 }
@@ -343,42 +272,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AchievementCategoryDescriptorId = request.AchievementCategoryDescriptorId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [Route("ed-fi/actuals")]
-    public partial class ActualsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Actual.EdFi.Actual,
-        Api.Common.Models.Resources.Actual.EdFi.Actual,
-        Entities.Common.EdFi.IActual,
-        Entities.NHibernate.ActualAggregate.EdFi.Actual,
-        Api.Common.Models.Requests.Actuals.EdFi.ActualPut,
-        Api.Common.Models.Requests.Actuals.EdFi.ActualPost,
-        Api.Common.Models.Requests.Actuals.EdFi.ActualDelete,
-        Api.Common.Models.Requests.Actuals.EdFi.ActualGetByExample>
-    {
-        public ActualsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.Actuals.EdFi.ActualGetByExample request, Entities.Common.EdFi.IActual specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AccountIdentifier = request.AccountIdentifier;
-            specification.AmountToDate = request.AmountToDate;
-            specification.AsOfDate = request.AsOfDate;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FiscalYear = request.FiscalYear;
-            specification.Id = request.Id;
         }
     }
 }
@@ -938,6 +831,40 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.BalanceSheetDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/balanceSheetDimensions")]
+    public partial class BalanceSheetDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension,
+        Api.Common.Models.Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension,
+        Entities.Common.EdFi.IBalanceSheetDimension,
+        Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimension,
+        Api.Common.Models.Requests.BalanceSheetDimensions.EdFi.BalanceSheetDimensionPut,
+        Api.Common.Models.Requests.BalanceSheetDimensions.EdFi.BalanceSheetDimensionPost,
+        Api.Common.Models.Requests.BalanceSheetDimensions.EdFi.BalanceSheetDimensionDelete,
+        Api.Common.Models.Requests.BalanceSheetDimensions.EdFi.BalanceSheetDimensionGetByExample>
+    {
+        public BalanceSheetDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.BalanceSheetDimensions.EdFi.BalanceSheetDimensionGetByExample request, Entities.Common.EdFi.IBalanceSheetDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.BarrierToInternetAccessInResidenceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1033,42 +960,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
             specification.SchoolId = request.SchoolId;
             specification.StartTime = request.StartTime;
             specification.TotalInstructionalTime = request.TotalInstructionalTime;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [Route("ed-fi/budgets")]
-    public partial class BudgetsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Budget.EdFi.Budget,
-        Api.Common.Models.Resources.Budget.EdFi.Budget,
-        Entities.Common.EdFi.IBudget,
-        Entities.NHibernate.BudgetAggregate.EdFi.Budget,
-        Api.Common.Models.Requests.Budgets.EdFi.BudgetPut,
-        Api.Common.Models.Requests.Budgets.EdFi.BudgetPost,
-        Api.Common.Models.Requests.Budgets.EdFi.BudgetDelete,
-        Api.Common.Models.Requests.Budgets.EdFi.BudgetGetByExample>
-    {
-        public BudgetsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.Budgets.EdFi.BudgetGetByExample request, Entities.Common.EdFi.IBudget specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AccountIdentifier = request.AccountIdentifier;
-            specification.Amount = request.Amount;
-            specification.AsOfDate = request.AsOfDate;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FiscalYear = request.FiscalYear;
-            specification.Id = request.Id;
         }
     }
 }
@@ -1294,6 +1185,50 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptorId = request.CharterStatusDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ChartOfAccounts.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/chartOfAccounts")]
+    public partial class ChartOfAccountsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ChartOfAccount.EdFi.ChartOfAccount,
+        Api.Common.Models.Resources.ChartOfAccount.EdFi.ChartOfAccount,
+        Entities.Common.EdFi.IChartOfAccount,
+        Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccount,
+        Api.Common.Models.Requests.ChartOfAccounts.EdFi.ChartOfAccountPut,
+        Api.Common.Models.Requests.ChartOfAccounts.EdFi.ChartOfAccountPost,
+        Api.Common.Models.Requests.ChartOfAccounts.EdFi.ChartOfAccountDelete,
+        Api.Common.Models.Requests.ChartOfAccounts.EdFi.ChartOfAccountGetByExample>
+    {
+        public ChartOfAccountsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ChartOfAccounts.EdFi.ChartOfAccountGetByExample request, Entities.Common.EdFi.IChartOfAccount specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.AccountName = request.AccountName;
+            specification.AccountTypeDescriptor = request.AccountTypeDescriptor;
+            specification.BalanceSheetCode = request.BalanceSheetCode;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FiscalYear = request.FiscalYear;
+            specification.FunctionCode = request.FunctionCode;
+            specification.FundCode = request.FundCode;
+            specification.Id = request.Id;
+            specification.ObjectCode = request.ObjectCode;
+            specification.OperationalUnitCode = request.OperationalUnitCode;
+            specification.ProgramCode = request.ProgramCode;
+            specification.ProjectCode = request.ProjectCode;
+            specification.SourceCode = request.SourceCode;
         }
     }
 }
@@ -1791,43 +1726,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContinuationOfServicesReasonDescriptorId = request.ContinuationOfServicesReasonDescriptorId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [Route("ed-fi/contractedStaffs")]
-    public partial class ContractedStaffsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ContractedStaff.EdFi.ContractedStaff,
-        Api.Common.Models.Resources.ContractedStaff.EdFi.ContractedStaff,
-        Entities.Common.EdFi.IContractedStaff,
-        Entities.NHibernate.ContractedStaffAggregate.EdFi.ContractedStaff,
-        Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffPut,
-        Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffPost,
-        Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffDelete,
-        Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffGetByExample>
-    {
-        public ContractedStaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffGetByExample request, Entities.Common.EdFi.IContractedStaff specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AccountIdentifier = request.AccountIdentifier;
-            specification.AmountToDate = request.AmountToDate;
-            specification.AsOfDate = request.AsOfDate;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FiscalYear = request.FiscalYear;
-            specification.Id = request.Id;
-            specification.StaffUniqueId = request.StaffUniqueId;
         }
     }
 }
@@ -2479,6 +2377,41 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DeliveryMethodDescriptorId = request.DeliveryMethodDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.DescriptorMappings.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/descriptorMappings")]
+    public partial class DescriptorMappingsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.DescriptorMapping.EdFi.DescriptorMapping,
+        Api.Common.Models.Resources.DescriptorMapping.EdFi.DescriptorMapping,
+        Entities.Common.EdFi.IDescriptorMapping,
+        Entities.NHibernate.DescriptorMappingAggregate.EdFi.DescriptorMapping,
+        Api.Common.Models.Requests.DescriptorMappings.EdFi.DescriptorMappingPut,
+        Api.Common.Models.Requests.DescriptorMappings.EdFi.DescriptorMappingPost,
+        Api.Common.Models.Requests.DescriptorMappings.EdFi.DescriptorMappingDelete,
+        Api.Common.Models.Requests.DescriptorMappings.EdFi.DescriptorMappingGetByExample>
+    {
+        public DescriptorMappingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.DescriptorMappings.EdFi.DescriptorMappingGetByExample request, Entities.Common.EdFi.IDescriptorMapping specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.MappedNamespace = request.MappedNamespace;
+            specification.MappedValue = request.MappedValue;
+            specification.Namespace = request.Namespace;
+            specification.Value = request.Value;
         }
     }
 }
@@ -3409,6 +3342,105 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.FinancialCollectionDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/financialCollectionDescriptors")]
+    public partial class FinancialCollectionDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor,
+        Api.Common.Models.Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor,
+        Entities.Common.EdFi.IFinancialCollectionDescriptor,
+        Entities.NHibernate.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptor,
+        Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi.FinancialCollectionDescriptorPut,
+        Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi.FinancialCollectionDescriptorPost,
+        Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi.FinancialCollectionDescriptorDelete,
+        Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi.FinancialCollectionDescriptorGetByExample>
+    {
+        public FinancialCollectionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi.FinancialCollectionDescriptorGetByExample request, Entities.Common.EdFi.IFinancialCollectionDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.FinancialCollectionDescriptorId = request.FinancialCollectionDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FunctionDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/functionDimensions")]
+    public partial class FunctionDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FunctionDimension.EdFi.FunctionDimension,
+        Api.Common.Models.Resources.FunctionDimension.EdFi.FunctionDimension,
+        Entities.Common.EdFi.IFunctionDimension,
+        Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimension,
+        Api.Common.Models.Requests.FunctionDimensions.EdFi.FunctionDimensionPut,
+        Api.Common.Models.Requests.FunctionDimensions.EdFi.FunctionDimensionPost,
+        Api.Common.Models.Requests.FunctionDimensions.EdFi.FunctionDimensionDelete,
+        Api.Common.Models.Requests.FunctionDimensions.EdFi.FunctionDimensionGetByExample>
+    {
+        public FunctionDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FunctionDimensions.EdFi.FunctionDimensionGetByExample request, Entities.Common.EdFi.IFunctionDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.FundDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/fundDimensions")]
+    public partial class FundDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FundDimension.EdFi.FundDimension,
+        Api.Common.Models.Resources.FundDimension.EdFi.FundDimension,
+        Entities.Common.EdFi.IFundDimension,
+        Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimension,
+        Api.Common.Models.Requests.FundDimensions.EdFi.FundDimensionPut,
+        Api.Common.Models.Requests.FundDimensions.EdFi.FundDimensionPost,
+        Api.Common.Models.Requests.FundDimensions.EdFi.FundDimensionDelete,
+        Api.Common.Models.Requests.FundDimensions.EdFi.FundDimensionGetByExample>
+    {
+        public FundDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.FundDimensions.EdFi.FundDimensionGetByExample request, Entities.Common.EdFi.IFundDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -3493,12 +3525,12 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             specification.Id = request.Id;
             specification.LocalCourseCode = request.LocalCourseCode;
             specification.MaxPoints = request.MaxPoints;
+            specification.Namespace = request.Namespace;
             specification.PeriodSequence = request.PeriodSequence;
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
-            specification.SourceSystemNamespace = request.SourceSystemNamespace;
             specification.Title = request.Title;
         }
     }
@@ -4774,6 +4806,155 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.LocalAccounts.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/localAccounts")]
+    public partial class LocalAccountsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalAccount.EdFi.LocalAccount,
+        Api.Common.Models.Resources.LocalAccount.EdFi.LocalAccount,
+        Entities.Common.EdFi.ILocalAccount,
+        Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccount,
+        Api.Common.Models.Requests.LocalAccounts.EdFi.LocalAccountPut,
+        Api.Common.Models.Requests.LocalAccounts.EdFi.LocalAccountPost,
+        Api.Common.Models.Requests.LocalAccounts.EdFi.LocalAccountDelete,
+        Api.Common.Models.Requests.LocalAccounts.EdFi.LocalAccountGetByExample>
+    {
+        public LocalAccountsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LocalAccounts.EdFi.LocalAccountGetByExample request, Entities.Common.EdFi.ILocalAccount specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.AccountName = request.AccountName;
+            specification.ChartOfAccountEducationOrganizationId = request.ChartOfAccountEducationOrganizationId;
+            specification.ChartOfAccountIdentifier = request.ChartOfAccountIdentifier;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.LocalActuals.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/localActuals")]
+    public partial class LocalActualsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalActual.EdFi.LocalActual,
+        Api.Common.Models.Resources.LocalActual.EdFi.LocalActual,
+        Entities.Common.EdFi.ILocalActual,
+        Entities.NHibernate.LocalActualAggregate.EdFi.LocalActual,
+        Api.Common.Models.Requests.LocalActuals.EdFi.LocalActualPut,
+        Api.Common.Models.Requests.LocalActuals.EdFi.LocalActualPost,
+        Api.Common.Models.Requests.LocalActuals.EdFi.LocalActualDelete,
+        Api.Common.Models.Requests.LocalActuals.EdFi.LocalActualGetByExample>
+    {
+        public LocalActualsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LocalActuals.EdFi.LocalActualGetByExample request, Entities.Common.EdFi.ILocalActual specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.Amount = request.Amount;
+            specification.AsOfDate = request.AsOfDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FinancialCollectionDescriptor = request.FinancialCollectionDescriptor;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.LocalBudgets.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/localBudgets")]
+    public partial class LocalBudgetsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalBudget.EdFi.LocalBudget,
+        Api.Common.Models.Resources.LocalBudget.EdFi.LocalBudget,
+        Entities.Common.EdFi.ILocalBudget,
+        Entities.NHibernate.LocalBudgetAggregate.EdFi.LocalBudget,
+        Api.Common.Models.Requests.LocalBudgets.EdFi.LocalBudgetPut,
+        Api.Common.Models.Requests.LocalBudgets.EdFi.LocalBudgetPost,
+        Api.Common.Models.Requests.LocalBudgets.EdFi.LocalBudgetDelete,
+        Api.Common.Models.Requests.LocalBudgets.EdFi.LocalBudgetGetByExample>
+    {
+        public LocalBudgetsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LocalBudgets.EdFi.LocalBudgetGetByExample request, Entities.Common.EdFi.ILocalBudget specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.Amount = request.Amount;
+            specification.AsOfDate = request.AsOfDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FinancialCollectionDescriptor = request.FinancialCollectionDescriptor;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.LocalContractedStaffs.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/localContractedStaffs")]
+    public partial class LocalContractedStaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalContractedStaff.EdFi.LocalContractedStaff,
+        Api.Common.Models.Resources.LocalContractedStaff.EdFi.LocalContractedStaff,
+        Entities.Common.EdFi.ILocalContractedStaff,
+        Entities.NHibernate.LocalContractedStaffAggregate.EdFi.LocalContractedStaff,
+        Api.Common.Models.Requests.LocalContractedStaffs.EdFi.LocalContractedStaffPut,
+        Api.Common.Models.Requests.LocalContractedStaffs.EdFi.LocalContractedStaffPost,
+        Api.Common.Models.Requests.LocalContractedStaffs.EdFi.LocalContractedStaffDelete,
+        Api.Common.Models.Requests.LocalContractedStaffs.EdFi.LocalContractedStaffGetByExample>
+    {
+        public LocalContractedStaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LocalContractedStaffs.EdFi.LocalContractedStaffGetByExample request, Entities.Common.EdFi.ILocalContractedStaff specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.Amount = request.Amount;
+            specification.AsOfDate = request.AsOfDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FinancialCollectionDescriptor = request.FinancialCollectionDescriptor;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+            specification.StaffUniqueId = request.StaffUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -4868,6 +5049,81 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LocalEducationAgencyCategoryDescriptorId = request.LocalEducationAgencyCategoryDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.LocalEncumbrances.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/localEncumbrances")]
+    public partial class LocalEncumbrancesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalEncumbrance.EdFi.LocalEncumbrance,
+        Api.Common.Models.Resources.LocalEncumbrance.EdFi.LocalEncumbrance,
+        Entities.Common.EdFi.ILocalEncumbrance,
+        Entities.NHibernate.LocalEncumbranceAggregate.EdFi.LocalEncumbrance,
+        Api.Common.Models.Requests.LocalEncumbrances.EdFi.LocalEncumbrancePut,
+        Api.Common.Models.Requests.LocalEncumbrances.EdFi.LocalEncumbrancePost,
+        Api.Common.Models.Requests.LocalEncumbrances.EdFi.LocalEncumbranceDelete,
+        Api.Common.Models.Requests.LocalEncumbrances.EdFi.LocalEncumbranceGetByExample>
+    {
+        public LocalEncumbrancesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LocalEncumbrances.EdFi.LocalEncumbranceGetByExample request, Entities.Common.EdFi.ILocalEncumbrance specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.Amount = request.Amount;
+            specification.AsOfDate = request.AsOfDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FinancialCollectionDescriptor = request.FinancialCollectionDescriptor;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.LocalPayrolls.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/localPayrolls")]
+    public partial class LocalPayrollsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalPayroll.EdFi.LocalPayroll,
+        Api.Common.Models.Resources.LocalPayroll.EdFi.LocalPayroll,
+        Entities.Common.EdFi.ILocalPayroll,
+        Entities.NHibernate.LocalPayrollAggregate.EdFi.LocalPayroll,
+        Api.Common.Models.Requests.LocalPayrolls.EdFi.LocalPayrollPut,
+        Api.Common.Models.Requests.LocalPayrolls.EdFi.LocalPayrollPost,
+        Api.Common.Models.Requests.LocalPayrolls.EdFi.LocalPayrollDelete,
+        Api.Common.Models.Requests.LocalPayrolls.EdFi.LocalPayrollGetByExample>
+    {
+        public LocalPayrollsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.LocalPayrolls.EdFi.LocalPayrollGetByExample request, Entities.Common.EdFi.ILocalPayroll specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccountIdentifier = request.AccountIdentifier;
+            specification.Amount = request.Amount;
+            specification.AsOfDate = request.AsOfDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.FinancialCollectionDescriptor = request.FinancialCollectionDescriptor;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+            specification.StaffUniqueId = request.StaffUniqueId;
         }
     }
 }
@@ -5031,6 +5287,37 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ModelEntityDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/modelEntityDescriptors")]
+    public partial class ModelEntityDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor,
+        Api.Common.Models.Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor,
+        Entities.Common.EdFi.IModelEntityDescriptor,
+        Entities.NHibernate.ModelEntityDescriptorAggregate.EdFi.ModelEntityDescriptor,
+        Api.Common.Models.Requests.ModelEntityDescriptors.EdFi.ModelEntityDescriptorPut,
+        Api.Common.Models.Requests.ModelEntityDescriptors.EdFi.ModelEntityDescriptorPost,
+        Api.Common.Models.Requests.ModelEntityDescriptors.EdFi.ModelEntityDescriptorDelete,
+        Api.Common.Models.Requests.ModelEntityDescriptors.EdFi.ModelEntityDescriptorGetByExample>
+    {
+        public ModelEntityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ModelEntityDescriptors.EdFi.ModelEntityDescriptorGetByExample request, Entities.Common.EdFi.IModelEntityDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ModelEntityDescriptorId = request.ModelEntityDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -5151,6 +5438,40 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.NetworkPurposeDescriptorId = request.NetworkPurposeDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ObjectDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/objectDimensions")]
+    public partial class ObjectDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ObjectDimension.EdFi.ObjectDimension,
+        Api.Common.Models.Resources.ObjectDimension.EdFi.ObjectDimension,
+        Entities.Common.EdFi.IObjectDimension,
+        Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimension,
+        Api.Common.Models.Requests.ObjectDimensions.EdFi.ObjectDimensionPut,
+        Api.Common.Models.Requests.ObjectDimensions.EdFi.ObjectDimensionPost,
+        Api.Common.Models.Requests.ObjectDimensions.EdFi.ObjectDimensionDelete,
+        Api.Common.Models.Requests.ObjectDimensions.EdFi.ObjectDimensionGetByExample>
+    {
+        public ObjectDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ObjectDimensions.EdFi.ObjectDimensionGetByExample request, Entities.Common.EdFi.IObjectDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
         }
     }
 }
@@ -5293,6 +5614,40 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OperationalStatusDescriptorId = request.OperationalStatusDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.OperationalUnitDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/operationalUnitDimensions")]
+    public partial class OperationalUnitDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension,
+        Api.Common.Models.Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension,
+        Entities.Common.EdFi.IOperationalUnitDimension,
+        Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimension,
+        Api.Common.Models.Requests.OperationalUnitDimensions.EdFi.OperationalUnitDimensionPut,
+        Api.Common.Models.Requests.OperationalUnitDimensions.EdFi.OperationalUnitDimensionPost,
+        Api.Common.Models.Requests.OperationalUnitDimensions.EdFi.OperationalUnitDimensionDelete,
+        Api.Common.Models.Requests.OperationalUnitDimensions.EdFi.OperationalUnitDimensionGetByExample>
+    {
+        public OperationalUnitDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.OperationalUnitDimensions.EdFi.OperationalUnitDimensionGetByExample request, Entities.Common.EdFi.IOperationalUnitDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
         }
     }
 }
@@ -5462,43 +5817,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ParticipationStatusDescriptorId = request.ParticipationStatusDescriptorId;
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
-    [Authorize]
-    [Route("ed-fi/payrolls")]
-    public partial class PayrollsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Payroll.EdFi.Payroll,
-        Api.Common.Models.Resources.Payroll.EdFi.Payroll,
-        Entities.Common.EdFi.IPayroll,
-        Entities.NHibernate.PayrollAggregate.EdFi.Payroll,
-        Api.Common.Models.Requests.Payrolls.EdFi.PayrollPut,
-        Api.Common.Models.Requests.Payrolls.EdFi.PayrollPost,
-        Api.Common.Models.Requests.Payrolls.EdFi.PayrollDelete,
-        Api.Common.Models.Requests.Payrolls.EdFi.PayrollGetByExample>
-    {
-        public PayrollsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
-        {
-        }
-
-        protected override void MapAll(Api.Common.Models.Requests.Payrolls.EdFi.PayrollGetByExample request, Entities.Common.EdFi.IPayroll specification)
-        {
-            // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AccountIdentifier = request.AccountIdentifier;
-            specification.AmountToDate = request.AmountToDate;
-            specification.AsOfDate = request.AsOfDate;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FiscalYear = request.FiscalYear;
-            specification.Id = request.Id;
-            specification.StaffUniqueId = request.StaffUniqueId;
         }
     }
 }
@@ -6073,6 +6391,40 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.ProgramDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/programDimensions")]
+    public partial class ProgramDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProgramDimension.EdFi.ProgramDimension,
+        Api.Common.Models.Resources.ProgramDimension.EdFi.ProgramDimension,
+        Entities.Common.EdFi.IProgramDimension,
+        Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimension,
+        Api.Common.Models.Requests.ProgramDimensions.EdFi.ProgramDimensionPut,
+        Api.Common.Models.Requests.ProgramDimensions.EdFi.ProgramDimensionPost,
+        Api.Common.Models.Requests.ProgramDimensions.EdFi.ProgramDimensionDelete,
+        Api.Common.Models.Requests.ProgramDimensions.EdFi.ProgramDimensionGetByExample>
+    {
+        public ProgramDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProgramDimensions.EdFi.ProgramDimensionGetByExample request, Entities.Common.EdFi.IProgramDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -6193,6 +6545,40 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgressLevelDescriptorId = request.ProgressLevelDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ProjectDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/projectDimensions")]
+    public partial class ProjectDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ProjectDimension.EdFi.ProjectDimension,
+        Api.Common.Models.Resources.ProjectDimension.EdFi.ProjectDimension,
+        Entities.Common.EdFi.IProjectDimension,
+        Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimension,
+        Api.Common.Models.Requests.ProjectDimensions.EdFi.ProjectDimensionPut,
+        Api.Common.Models.Requests.ProjectDimensions.EdFi.ProjectDimensionPost,
+        Api.Common.Models.Requests.ProjectDimensions.EdFi.ProjectDimensionDelete,
+        Api.Common.Models.Requests.ProjectDimensions.EdFi.ProjectDimensionGetByExample>
+    {
+        public ProjectDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ProjectDimensions.EdFi.ProjectDimensionGetByExample request, Entities.Common.EdFi.IProjectDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
         }
     }
 }
@@ -6607,6 +6993,37 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ReporterDescriptionDescriptorId = request.ReporterDescriptionDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.ReportingTagDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/reportingTagDescriptors")]
+    public partial class ReportingTagDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor,
+        Api.Common.Models.Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor,
+        Entities.Common.EdFi.IReportingTagDescriptor,
+        Entities.NHibernate.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptor,
+        Api.Common.Models.Requests.ReportingTagDescriptors.EdFi.ReportingTagDescriptorPut,
+        Api.Common.Models.Requests.ReportingTagDescriptors.EdFi.ReportingTagDescriptorPost,
+        Api.Common.Models.Requests.ReportingTagDescriptors.EdFi.ReportingTagDescriptorDelete,
+        Api.Common.Models.Requests.ReportingTagDescriptors.EdFi.ReportingTagDescriptorGetByExample>
+    {
+        public ReportingTagDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.ReportingTagDescriptors.EdFi.ReportingTagDescriptorGetByExample request, Entities.Common.EdFi.IReportingTagDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ReportingTagDescriptorId = request.ReportingTagDescriptorId;
         }
     }
 }
@@ -7308,6 +7725,40 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SexDescriptorId = request.SexDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SourceDimensions.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/sourceDimensions")]
+    public partial class SourceDimensionsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SourceDimension.EdFi.SourceDimension,
+        Api.Common.Models.Resources.SourceDimension.EdFi.SourceDimension,
+        Entities.Common.EdFi.ISourceDimension,
+        Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimension,
+        Api.Common.Models.Requests.SourceDimensions.EdFi.SourceDimensionPut,
+        Api.Common.Models.Requests.SourceDimensions.EdFi.SourceDimensionPost,
+        Api.Common.Models.Requests.SourceDimensions.EdFi.SourceDimensionDelete,
+        Api.Common.Models.Requests.SourceDimensions.EdFi.SourceDimensionGetByExample>
+    {
+        public SourceDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SourceDimensions.EdFi.SourceDimensionGetByExample request, Entities.Common.EdFi.ISourceDimension specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Code = request.Code;
+            specification.CodeName = request.CodeName;
+            specification.FiscalYear = request.FiscalYear;
+            specification.Id = request.Id;
         }
     }
 }
@@ -8127,6 +8578,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             specification.AdministrationEndDate = request.AdministrationEndDate;
             specification.AdministrationEnvironmentDescriptor = request.AdministrationEnvironmentDescriptor;
             specification.AdministrationLanguageDescriptor = request.AdministrationLanguageDescriptor;
+            specification.AssessedMinutes = request.AssessedMinutes;
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
             specification.EventCircumstanceDescriptor = request.EventCircumstanceDescriptor;
             specification.EventDescription = request.EventDescription;
@@ -8511,9 +8963,9 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             specification.GradebookEntryIdentifier = request.GradebookEntryIdentifier;
             specification.Id = request.Id;
             specification.LetterGradeEarned = request.LetterGradeEarned;
+            specification.Namespace = request.Namespace;
             specification.NumericGradeEarned = request.NumericGradeEarned;
             specification.PointsEarned = request.PointsEarned;
-            specification.SourceSystemNamespace = request.SourceSystemNamespace;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.SubmissionStatusDescriptor = request.SubmissionStatusDescriptor;
             specification.TimeFulfilled = request.TimeFulfilled;

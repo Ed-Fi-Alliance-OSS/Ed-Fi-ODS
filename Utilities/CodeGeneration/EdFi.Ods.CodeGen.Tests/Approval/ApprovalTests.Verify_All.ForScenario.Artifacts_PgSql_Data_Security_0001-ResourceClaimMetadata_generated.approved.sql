@@ -171,22 +171,13 @@ begin
     values ('accommodationDescriptor', 'accommodationDescriptor', 'http://ed-fi.org/ods/identity/claims/accommodationDescriptor', managedDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('account', 'account', 'http://ed-fi.org/ods/identity/claims/account', relationshipBasedDataResourceClaimId, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('accountabilityRating', 'accountabilityRating', 'http://ed-fi.org/ods/identity/claims/accountabilityRating', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('accountClassificationDescriptor', 'accountClassificationDescriptor', 'http://ed-fi.org/ods/identity/claims/accountClassificationDescriptor', systemDescriptorsResourceClaimId, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('accountCode', 'accountCode', 'http://ed-fi.org/ods/identity/claims/accountCode', relationshipBasedDataResourceClaimId, application_id);
+    values ('accountTypeDescriptor', 'accountTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/accountTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('achievementCategoryDescriptor', 'achievementCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/achievementCategoryDescriptor', systemDescriptorsResourceClaimId, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('actual', 'actual', 'http://ed-fi.org/ods/identity/claims/actual', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('additionalCreditTypeDescriptor', 'additionalCreditTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/additionalCreditTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -240,6 +231,9 @@ begin
     values ('attendanceEventCategoryDescriptor', 'attendanceEventCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/attendanceEventCategoryDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('balanceSheetDimension', 'balanceSheetDimension', 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('barrierToInternetAccessInResidenceDescriptor', 'barrierToInternetAccessInResidenceDescriptor', 'http://ed-fi.org/ods/identity/claims/barrierToInternetAccessInResidenceDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -247,9 +241,6 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('bellSchedule', 'bellSchedule', 'http://ed-fi.org/ods/identity/claims/bellSchedule', relationshipBasedDataResourceClaimId, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('budget', 'budget', 'http://ed-fi.org/ods/identity/claims/budget', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('calendar', 'calendar', 'http://ed-fi.org/ods/identity/claims/calendar', relationshipBasedDataResourceClaimId, application_id);
@@ -271,6 +262,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('charterStatusDescriptor', 'charterStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/charterStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('chartOfAccount', 'chartOfAccount', 'http://ed-fi.org/ods/identity/claims/chartOfAccount', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('citizenshipStatusDescriptor', 'citizenshipStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/citizenshipStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -316,9 +310,6 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('continuationOfServicesReasonDescriptor', 'continuationOfServicesReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/continuationOfServicesReasonDescriptor', systemDescriptorsResourceClaimId, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('contractedStaff', 'contractedStaff', 'http://ed-fi.org/ods/identity/claims/contractedStaff', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('costRateDescriptor', 'costRateDescriptor', 'http://ed-fi.org/ods/identity/claims/costRateDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -376,6 +367,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('deliveryMethodDescriptor', 'deliveryMethodDescriptor', 'http://ed-fi.org/ods/identity/claims/deliveryMethodDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('descriptorMapping', 'descriptorMapping', 'http://ed-fi.org/ods/identity/claims/descriptorMapping', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('diagnosisDescriptor', 'diagnosisDescriptor', 'http://ed-fi.org/ods/identity/claims/diagnosisDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -460,6 +454,15 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('feederSchoolAssociation', 'feederSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/feederSchoolAssociation', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('financialCollectionDescriptor', 'financialCollectionDescriptor', 'http://ed-fi.org/ods/identity/claims/financialCollectionDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('functionDimension', 'functionDimension', 'http://ed-fi.org/ods/identity/claims/functionDimension', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('fundDimension', 'fundDimension', 'http://ed-fi.org/ods/identity/claims/fundDimension', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('grade', 'grade', 'http://ed-fi.org/ods/identity/claims/grade', relationshipBasedDataResourceClaimId, application_id);
@@ -585,6 +588,18 @@ begin
     values ('limitedEnglishProficiencyDescriptor', 'limitedEnglishProficiencyDescriptor', 'http://ed-fi.org/ods/identity/claims/limitedEnglishProficiencyDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('localAccount', 'localAccount', 'http://ed-fi.org/ods/identity/claims/localAccount', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('localActual', 'localActual', 'http://ed-fi.org/ods/identity/claims/localActual', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('localBudget', 'localBudget', 'http://ed-fi.org/ods/identity/claims/localBudget', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('localContractedStaff', 'localContractedStaff', 'http://ed-fi.org/ods/identity/claims/localContractedStaff', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('localeDescriptor', 'localeDescriptor', 'http://ed-fi.org/ods/identity/claims/localeDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -592,6 +607,12 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('localEducationAgencyCategoryDescriptor', 'localEducationAgencyCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/localEducationAgencyCategoryDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('localEncumbrance', 'localEncumbrance', 'http://ed-fi.org/ods/identity/claims/localEncumbrance', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('localPayroll', 'localPayroll', 'http://ed-fi.org/ods/identity/claims/localPayroll', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('location', 'location', 'http://ed-fi.org/ods/identity/claims/location', relationshipBasedDataResourceClaimId, application_id);
@@ -609,6 +630,9 @@ begin
     values ('migrantEducationProgramServiceDescriptor', 'migrantEducationProgramServiceDescriptor', 'http://ed-fi.org/ods/identity/claims/migrantEducationProgramServiceDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('modelEntityDescriptor', 'modelEntityDescriptor', 'http://ed-fi.org/ods/identity/claims/modelEntityDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('monitoredDescriptor', 'monitoredDescriptor', 'http://ed-fi.org/ods/identity/claims/monitoredDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -621,6 +645,9 @@ begin
     values ('networkPurposeDescriptor', 'networkPurposeDescriptor', 'http://ed-fi.org/ods/identity/claims/networkPurposeDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('objectDimension', 'objectDimension', 'http://ed-fi.org/ods/identity/claims/objectDimension', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('objectiveAssessment', 'objectiveAssessment', 'http://ed-fi.org/ods/identity/claims/objectiveAssessment', assessmentMetadataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -631,6 +658,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('operationalStatusDescriptor', 'operationalStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/operationalStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('operationalUnitDimension', 'operationalUnitDimension', 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('organizationDepartment', 'organizationDepartment', 'http://ed-fi.org/ods/identity/claims/organizationDepartment', educationOrganizationsResourceClaimId, application_id);
@@ -646,9 +676,6 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('participationStatusDescriptor', 'participationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/participationStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('payroll', 'payroll', 'http://ed-fi.org/ods/identity/claims/payroll', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('performanceBaseConversionDescriptor', 'performanceBaseConversionDescriptor', 'http://ed-fi.org/ods/identity/claims/performanceBaseConversionDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -705,6 +732,9 @@ begin
     values ('programCharacteristicDescriptor', 'programCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/programCharacteristicDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('programDimension', 'programDimension', 'http://ed-fi.org/ods/identity/claims/programDimension', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('programSponsorDescriptor', 'programSponsorDescriptor', 'http://ed-fi.org/ods/identity/claims/programSponsorDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -715,6 +745,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('progressLevelDescriptor', 'progressLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/progressLevelDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('projectDimension', 'projectDimension', 'http://ed-fi.org/ods/identity/claims/projectDimension', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('providerCategoryDescriptor', 'providerCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/providerCategoryDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -754,6 +787,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('reporterDescriptionDescriptor', 'reporterDescriptionDescriptor', 'http://ed-fi.org/ods/identity/claims/reporterDescriptionDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('reportingTagDescriptor', 'reportingTagDescriptor', 'http://ed-fi.org/ods/identity/claims/reportingTagDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('residencyStatusDescriptor', 'residencyStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/residencyStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -817,6 +853,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('sexDescriptor', 'sexDescriptor', 'http://ed-fi.org/ods/identity/claims/sexDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('sourceDimension', 'sourceDimension', 'http://ed-fi.org/ods/identity/claims/sourceDimension', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('sourceSystemDescriptor', 'sourceSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/sourceSystemDescriptor', systemDescriptorsResourceClaimId, application_id);

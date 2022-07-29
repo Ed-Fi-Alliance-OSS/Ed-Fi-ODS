@@ -44,22 +44,6 @@ CREATE TABLE edfi.AccommodationDescriptor (
     CONSTRAINT AccommodationDescriptor_PK PRIMARY KEY (AccommodationDescriptorId)
 ); 
 
--- Table edfi.Account --
-CREATE TABLE edfi.Account (
-    AccountIdentifier VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    AccountName VARCHAR(100) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT Account_PK PRIMARY KEY (AccountIdentifier, EducationOrganizationId, FiscalYear)
-); 
-ALTER TABLE edfi.Account ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.Account ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.Account ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
 -- Table edfi.AccountabilityRating --
 CREATE TABLE edfi.AccountabilityRating (
     EducationOrganizationId INT NOT NULL,
@@ -79,63 +63,17 @@ ALTER TABLE edfi.AccountabilityRating ALTER COLUMN CreateDate SET DEFAULT curren
 ALTER TABLE edfi.AccountabilityRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.AccountabilityRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table edfi.AccountAccountCode --
-CREATE TABLE edfi.AccountAccountCode (
-    AccountClassificationDescriptorId INT NOT NULL,
-    AccountCodeNumber VARCHAR(50) NOT NULL,
-    AccountIdentifier VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT AccountAccountCode_PK PRIMARY KEY (AccountClassificationDescriptorId, AccountCodeNumber, AccountIdentifier, EducationOrganizationId, FiscalYear)
+-- Table edfi.AccountTypeDescriptor --
+CREATE TABLE edfi.AccountTypeDescriptor (
+    AccountTypeDescriptorId INT NOT NULL,
+    CONSTRAINT AccountTypeDescriptor_PK PRIMARY KEY (AccountTypeDescriptorId)
 ); 
-ALTER TABLE edfi.AccountAccountCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.AccountClassificationDescriptor --
-CREATE TABLE edfi.AccountClassificationDescriptor (
-    AccountClassificationDescriptorId INT NOT NULL,
-    CONSTRAINT AccountClassificationDescriptor_PK PRIMARY KEY (AccountClassificationDescriptorId)
-); 
-
--- Table edfi.AccountCode --
-CREATE TABLE edfi.AccountCode (
-    AccountClassificationDescriptorId INT NOT NULL,
-    AccountCodeNumber VARCHAR(50) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    AccountCodeDescription VARCHAR(1024) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT AccountCode_PK PRIMARY KEY (AccountClassificationDescriptorId, AccountCodeNumber, EducationOrganizationId, FiscalYear)
-); 
-ALTER TABLE edfi.AccountCode ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.AccountCode ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.AccountCode ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table edfi.AchievementCategoryDescriptor --
 CREATE TABLE edfi.AchievementCategoryDescriptor (
     AchievementCategoryDescriptorId INT NOT NULL,
     CONSTRAINT AchievementCategoryDescriptor_PK PRIMARY KEY (AchievementCategoryDescriptorId)
 ); 
-
--- Table edfi.Actual --
-CREATE TABLE edfi.Actual (
-    AccountIdentifier VARCHAR(50) NOT NULL,
-    AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    AmountToDate MONEY NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT Actual_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear)
-); 
-ALTER TABLE edfi.Actual ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.Actual ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.Actual ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table edfi.AdditionalCreditTypeDescriptor --
 CREATE TABLE edfi.AdditionalCreditTypeDescriptor (
@@ -171,7 +109,7 @@ CREATE TABLE edfi.AncestryEthnicOriginDescriptor (
 CREATE TABLE edfi.Assessment (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
-    AssessmentTitle VARCHAR(100) NOT NULL,
+    AssessmentTitle VARCHAR(255) NOT NULL,
     AssessmentCategoryDescriptorId INT NULL,
     AssessmentForm VARCHAR(60) NULL,
     AssessmentVersion INT NULL,
@@ -348,12 +286,12 @@ ALTER TABLE edfi.AssessmentPerformanceLevel ALTER COLUMN CreateDate SET DEFAULT 
 -- Table edfi.AssessmentPeriod --
 CREATE TABLE edfi.AssessmentPeriod (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
-    Namespace VARCHAR(255) NOT NULL,
     AssessmentPeriodDescriptorId INT NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
     BeginDate DATE NULL,
     EndDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT AssessmentPeriod_PK PRIMARY KEY (AssessmentIdentifier, Namespace)
+    CONSTRAINT AssessmentPeriod_PK PRIMARY KEY (AssessmentIdentifier, AssessmentPeriodDescriptorId, Namespace)
 ); 
 ALTER TABLE edfi.AssessmentPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
@@ -466,6 +404,31 @@ CREATE TABLE edfi.AttendanceEventCategoryDescriptor (
     CONSTRAINT AttendanceEventCategoryDescriptor_PK PRIMARY KEY (AttendanceEventCategoryDescriptorId)
 ); 
 
+-- Table edfi.BalanceSheetDimension --
+CREATE TABLE edfi.BalanceSheetDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT BalanceSheetDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.BalanceSheetDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.BalanceSheetDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.BalanceSheetDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.BalanceSheetDimensionReportingTag --
+CREATE TABLE edfi.BalanceSheetDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT BalanceSheetDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.BalanceSheetDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.BarrierToInternetAccessInResidenceDescriptor --
 CREATE TABLE edfi.BarrierToInternetAccessInResidenceDescriptor (
     BarrierToInternetAccessInResidenceDescriptorId INT NOT NULL,
@@ -525,23 +488,6 @@ CREATE TABLE edfi.BellScheduleGradeLevel (
     CONSTRAINT BellScheduleGradeLevel_PK PRIMARY KEY (BellScheduleName, GradeLevelDescriptorId, SchoolId)
 ); 
 ALTER TABLE edfi.BellScheduleGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table edfi.Budget --
-CREATE TABLE edfi.Budget (
-    AccountIdentifier VARCHAR(50) NOT NULL,
-    AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    Amount MONEY NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT Budget_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear)
-); 
-ALTER TABLE edfi.Budget ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.Budget ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.Budget ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table edfi.Calendar --
 CREATE TABLE edfi.Calendar (
@@ -627,6 +573,43 @@ CREATE TABLE edfi.CharterStatusDescriptor (
     CharterStatusDescriptorId INT NOT NULL,
     CONSTRAINT CharterStatusDescriptor_PK PRIMARY KEY (CharterStatusDescriptorId)
 ); 
+
+-- Table edfi.ChartOfAccount --
+CREATE TABLE edfi.ChartOfAccount (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    AccountTypeDescriptorId INT NOT NULL,
+    AccountName VARCHAR(100) NULL,
+    BalanceSheetCode VARCHAR(16) NULL,
+    FunctionCode VARCHAR(16) NULL,
+    FundCode VARCHAR(16) NULL,
+    ObjectCode VARCHAR(16) NULL,
+    OperationalUnitCode VARCHAR(16) NULL,
+    ProgramCode VARCHAR(16) NULL,
+    ProjectCode VARCHAR(16) NULL,
+    SourceCode VARCHAR(16) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT ChartOfAccount_PK PRIMARY KEY (AccountIdentifier, EducationOrganizationId, FiscalYear)
+); 
+ALTER TABLE edfi.ChartOfAccount ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.ChartOfAccount ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.ChartOfAccount ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ChartOfAccountReportingTag --
+CREATE TABLE edfi.ChartOfAccountReportingTag (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    TagValue VARCHAR(100) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ChartOfAccountReportingTag_PK PRIMARY KEY (AccountIdentifier, EducationOrganizationId, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.ChartOfAccountReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.CitizenshipStatusDescriptor --
 CREATE TABLE edfi.CitizenshipStatusDescriptor (
@@ -796,24 +779,6 @@ CREATE TABLE edfi.ContinuationOfServicesReasonDescriptor (
     ContinuationOfServicesReasonDescriptorId INT NOT NULL,
     CONSTRAINT ContinuationOfServicesReasonDescriptor_PK PRIMARY KEY (ContinuationOfServicesReasonDescriptorId)
 ); 
-
--- Table edfi.ContractedStaff --
-CREATE TABLE edfi.ContractedStaff (
-    AccountIdentifier VARCHAR(50) NOT NULL,
-    AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    StaffUSI INT NOT NULL,
-    AmountToDate MONEY NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT ContractedStaff_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear, StaffUSI)
-); 
-ALTER TABLE edfi.ContractedStaff ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.ContractedStaff ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.ContractedStaff ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table edfi.CostRateDescriptor --
 CREATE TABLE edfi.CostRateDescriptor (
@@ -1247,6 +1212,34 @@ CREATE TABLE edfi.Descriptor (
 ALTER TABLE edfi.Descriptor ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.Descriptor ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.Descriptor ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.DescriptorMapping --
+CREATE TABLE edfi.DescriptorMapping (
+    MappedNamespace VARCHAR(255) NOT NULL,
+    MappedValue VARCHAR(50) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    Value VARCHAR(50) NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT DescriptorMapping_PK PRIMARY KEY (MappedNamespace, MappedValue, Namespace, Value)
+); 
+ALTER TABLE edfi.DescriptorMapping ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.DescriptorMapping ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.DescriptorMapping ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.DescriptorMappingModelEntity --
+CREATE TABLE edfi.DescriptorMappingModelEntity (
+    MappedNamespace VARCHAR(255) NOT NULL,
+    MappedValue VARCHAR(50) NOT NULL,
+    ModelEntityDescriptorId INT NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    Value VARCHAR(50) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT DescriptorMappingModelEntity_PK PRIMARY KEY (MappedNamespace, MappedValue, ModelEntityDescriptorId, Namespace, Value)
+); 
+ALTER TABLE edfi.DescriptorMappingModelEntity ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.DiagnosisDescriptor --
 CREATE TABLE edfi.DiagnosisDescriptor (
@@ -1784,6 +1777,62 @@ ALTER TABLE edfi.FeederSchoolAssociation ALTER COLUMN CreateDate SET DEFAULT cur
 ALTER TABLE edfi.FeederSchoolAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.FeederSchoolAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
+-- Table edfi.FinancialCollectionDescriptor --
+CREATE TABLE edfi.FinancialCollectionDescriptor (
+    FinancialCollectionDescriptorId INT NOT NULL,
+    CONSTRAINT FinancialCollectionDescriptor_PK PRIMARY KEY (FinancialCollectionDescriptorId)
+); 
+
+-- Table edfi.FunctionDimension --
+CREATE TABLE edfi.FunctionDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT FunctionDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.FunctionDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.FunctionDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.FunctionDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.FunctionDimensionReportingTag --
+CREATE TABLE edfi.FunctionDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT FunctionDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.FunctionDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.FundDimension --
+CREATE TABLE edfi.FundDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT FundDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.FundDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.FundDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.FundDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.FundDimensionReportingTag --
+CREATE TABLE edfi.FundDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT FundDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.FundDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.GeneralStudentProgramAssociation --
 CREATE TABLE edfi.GeneralStudentProgramAssociation (
     BeginDate DATE NOT NULL,
@@ -1871,7 +1920,7 @@ ALTER TABLE edfi.Grade ALTER COLUMN LastModifiedDate SET DEFAULT current_timesta
 -- Table edfi.GradebookEntry --
 CREATE TABLE edfi.GradebookEntry (
     GradebookEntryIdentifier VARCHAR(60) NOT NULL,
-    SourceSystemNamespace VARCHAR(255) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     LocalCourseCode VARCHAR(60) NULL,
     SessionName VARCHAR(60) NULL,
@@ -1890,7 +1939,7 @@ CREATE TABLE edfi.GradebookEntry (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT GradebookEntry_PK PRIMARY KEY (GradebookEntryIdentifier, SourceSystemNamespace)
+    CONSTRAINT GradebookEntry_PK PRIMARY KEY (GradebookEntryIdentifier, Namespace)
 ); 
 ALTER TABLE edfi.GradebookEntry ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.GradebookEntry ALTER COLUMN Id SET DEFAULT gen_random_uuid();
@@ -1900,9 +1949,9 @@ ALTER TABLE edfi.GradebookEntry ALTER COLUMN LastModifiedDate SET DEFAULT curren
 CREATE TABLE edfi.GradebookEntryLearningStandard (
     GradebookEntryIdentifier VARCHAR(60) NOT NULL,
     LearningStandardId VARCHAR(60) NOT NULL,
-    SourceSystemNamespace VARCHAR(255) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT GradebookEntryLearningStandard_PK PRIMARY KEY (GradebookEntryIdentifier, LearningStandardId, SourceSystemNamespace)
+    CONSTRAINT GradebookEntryLearningStandard_PK PRIMARY KEY (GradebookEntryIdentifier, LearningStandardId, Namespace)
 ); 
 ALTER TABLE edfi.GradebookEntryLearningStandard ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
@@ -2751,6 +2800,91 @@ CREATE TABLE edfi.LimitedEnglishProficiencyDescriptor (
     CONSTRAINT LimitedEnglishProficiencyDescriptor_PK PRIMARY KEY (LimitedEnglishProficiencyDescriptorId)
 ); 
 
+-- Table edfi.LocalAccount --
+CREATE TABLE edfi.LocalAccount (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    AccountName VARCHAR(100) NULL,
+    ChartOfAccountIdentifier VARCHAR(50) NOT NULL,
+    ChartOfAccountEducationOrganizationId INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalAccount_PK PRIMARY KEY (AccountIdentifier, EducationOrganizationId, FiscalYear)
+); 
+ALTER TABLE edfi.LocalAccount ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.LocalAccount ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.LocalAccount ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.LocalAccountReportingTag --
+CREATE TABLE edfi.LocalAccountReportingTag (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    TagValue VARCHAR(100) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT LocalAccountReportingTag_PK PRIMARY KEY (AccountIdentifier, EducationOrganizationId, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.LocalAccountReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.LocalActual --
+CREATE TABLE edfi.LocalActual (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    AsOfDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    Amount MONEY NOT NULL,
+    FinancialCollectionDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalActual_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear)
+); 
+ALTER TABLE edfi.LocalActual ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.LocalActual ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.LocalActual ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.LocalBudget --
+CREATE TABLE edfi.LocalBudget (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    AsOfDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    Amount MONEY NOT NULL,
+    FinancialCollectionDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalBudget_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear)
+); 
+ALTER TABLE edfi.LocalBudget ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.LocalBudget ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.LocalBudget ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.LocalContractedStaff --
+CREATE TABLE edfi.LocalContractedStaff (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    AsOfDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    StaffUSI INT NOT NULL,
+    Amount MONEY NOT NULL,
+    FinancialCollectionDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalContractedStaff_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear, StaffUSI)
+); 
+ALTER TABLE edfi.LocalContractedStaff ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.LocalContractedStaff ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.LocalContractedStaff ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table edfi.LocaleDescriptor --
 CREATE TABLE edfi.LocaleDescriptor (
     LocaleDescriptorId INT NOT NULL,
@@ -2802,6 +2936,43 @@ CREATE TABLE edfi.LocalEducationAgencyFederalFunds (
 ); 
 ALTER TABLE edfi.LocalEducationAgencyFederalFunds ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.LocalEncumbrance --
+CREATE TABLE edfi.LocalEncumbrance (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    AsOfDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    Amount MONEY NOT NULL,
+    FinancialCollectionDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalEncumbrance_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear)
+); 
+ALTER TABLE edfi.LocalEncumbrance ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.LocalEncumbrance ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.LocalEncumbrance ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.LocalPayroll --
+CREATE TABLE edfi.LocalPayroll (
+    AccountIdentifier VARCHAR(50) NOT NULL,
+    AsOfDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    FiscalYear INT NOT NULL,
+    StaffUSI INT NOT NULL,
+    Amount MONEY NOT NULL,
+    FinancialCollectionDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalPayroll_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear, StaffUSI)
+); 
+ALTER TABLE edfi.LocalPayroll ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.LocalPayroll ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.LocalPayroll ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table edfi.Location --
 CREATE TABLE edfi.Location (
     ClassroomIdentificationCode VARCHAR(60) NOT NULL,
@@ -2842,6 +3013,12 @@ CREATE TABLE edfi.MigrantEducationProgramServiceDescriptor (
     CONSTRAINT MigrantEducationProgramServiceDescriptor_PK PRIMARY KEY (MigrantEducationProgramServiceDescriptorId)
 ); 
 
+-- Table edfi.ModelEntityDescriptor --
+CREATE TABLE edfi.ModelEntityDescriptor (
+    ModelEntityDescriptorId INT NOT NULL,
+    CONSTRAINT ModelEntityDescriptor_PK PRIMARY KEY (ModelEntityDescriptorId)
+); 
+
 -- Table edfi.MonitoredDescriptor --
 CREATE TABLE edfi.MonitoredDescriptor (
     MonitoredDescriptorId INT NOT NULL,
@@ -2865,6 +3042,31 @@ CREATE TABLE edfi.NetworkPurposeDescriptor (
     NetworkPurposeDescriptorId INT NOT NULL,
     CONSTRAINT NetworkPurposeDescriptor_PK PRIMARY KEY (NetworkPurposeDescriptorId)
 ); 
+
+-- Table edfi.ObjectDimension --
+CREATE TABLE edfi.ObjectDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT ObjectDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.ObjectDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.ObjectDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.ObjectDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ObjectDimensionReportingTag --
+CREATE TABLE edfi.ObjectDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ObjectDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.ObjectDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.ObjectiveAssessment --
 CREATE TABLE edfi.ObjectiveAssessment (
@@ -2991,6 +3193,31 @@ CREATE TABLE edfi.OperationalStatusDescriptor (
     OperationalStatusDescriptorId INT NOT NULL,
     CONSTRAINT OperationalStatusDescriptor_PK PRIMARY KEY (OperationalStatusDescriptorId)
 ); 
+
+-- Table edfi.OperationalUnitDimension --
+CREATE TABLE edfi.OperationalUnitDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT OperationalUnitDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.OperationalUnitDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.OperationalUnitDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.OperationalUnitDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.OperationalUnitDimensionReportingTag --
+CREATE TABLE edfi.OperationalUnitDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT OperationalUnitDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.OperationalUnitDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.OrganizationDepartment --
 CREATE TABLE edfi.OrganizationDepartment (
@@ -3172,24 +3399,6 @@ CREATE TABLE edfi.ParticipationStatusDescriptor (
     CONSTRAINT ParticipationStatusDescriptor_PK PRIMARY KEY (ParticipationStatusDescriptorId)
 ); 
 
--- Table edfi.Payroll --
-CREATE TABLE edfi.Payroll (
-    AccountIdentifier VARCHAR(50) NOT NULL,
-    AsOfDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FiscalYear INT NOT NULL,
-    StaffUSI INT NOT NULL,
-    AmountToDate MONEY NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT Payroll_PK PRIMARY KEY (AccountIdentifier, AsOfDate, EducationOrganizationId, FiscalYear, StaffUSI)
-); 
-ALTER TABLE edfi.Payroll ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE edfi.Payroll ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE edfi.Payroll ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
 -- Table edfi.PerformanceBaseConversionDescriptor --
 CREATE TABLE edfi.PerformanceBaseConversionDescriptor (
     PerformanceBaseConversionDescriptorId INT NOT NULL,
@@ -3348,6 +3557,31 @@ CREATE TABLE edfi.ProgramCharacteristicDescriptor (
     CONSTRAINT ProgramCharacteristicDescriptor_PK PRIMARY KEY (ProgramCharacteristicDescriptorId)
 ); 
 
+-- Table edfi.ProgramDimension --
+CREATE TABLE edfi.ProgramDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT ProgramDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.ProgramDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.ProgramDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.ProgramDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ProgramDimensionReportingTag --
+CREATE TABLE edfi.ProgramDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ProgramDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.ProgramDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.ProgramLearningObjective --
 CREATE TABLE edfi.ProgramLearningObjective (
     EducationOrganizationId INT NOT NULL,
@@ -3416,6 +3650,31 @@ CREATE TABLE edfi.ProgressLevelDescriptor (
     ProgressLevelDescriptorId INT NOT NULL,
     CONSTRAINT ProgressLevelDescriptor_PK PRIMARY KEY (ProgressLevelDescriptorId)
 ); 
+
+-- Table edfi.ProjectDimension --
+CREATE TABLE edfi.ProjectDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT ProjectDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.ProjectDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.ProjectDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.ProjectDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.ProjectDimensionReportingTag --
+CREATE TABLE edfi.ProjectDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ProjectDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.ProjectDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.ProviderCategoryDescriptor --
 CREATE TABLE edfi.ProviderCategoryDescriptor (
@@ -3578,6 +3837,12 @@ ALTER TABLE edfi.ReportCardStudentLearningObjective ALTER COLUMN CreateDate SET 
 CREATE TABLE edfi.ReporterDescriptionDescriptor (
     ReporterDescriptionDescriptorId INT NOT NULL,
     CONSTRAINT ReporterDescriptionDescriptor_PK PRIMARY KEY (ReporterDescriptionDescriptorId)
+); 
+
+-- Table edfi.ReportingTagDescriptor --
+CREATE TABLE edfi.ReportingTagDescriptor (
+    ReportingTagDescriptorId INT NOT NULL,
+    CONSTRAINT ReportingTagDescriptor_PK PRIMARY KEY (ReportingTagDescriptorId)
 ); 
 
 -- Table edfi.ResidencyStatusDescriptor --
@@ -3916,6 +4181,31 @@ CREATE TABLE edfi.SexDescriptor (
     SexDescriptorId INT NOT NULL,
     CONSTRAINT SexDescriptor_PK PRIMARY KEY (SexDescriptorId)
 ); 
+
+-- Table edfi.SourceDimension --
+CREATE TABLE edfi.SourceDimension (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    CodeName VARCHAR(100) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT SourceDimension_PK PRIMARY KEY (Code, FiscalYear)
+); 
+ALTER TABLE edfi.SourceDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.SourceDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.SourceDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.SourceDimensionReportingTag --
+CREATE TABLE edfi.SourceDimensionReportingTag (
+    Code VARCHAR(16) NOT NULL,
+    FiscalYear INT NOT NULL,
+    ReportingTagDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT SourceDimensionReportingTag_PK PRIMARY KEY (Code, FiscalYear, ReportingTagDescriptorId)
+); 
+ALTER TABLE edfi.SourceDimensionReportingTag ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.SourceSystemDescriptor --
 CREATE TABLE edfi.SourceSystemDescriptor (
@@ -4709,7 +4999,7 @@ CREATE TABLE edfi.StudentAssessment (
     Namespace VARCHAR(255) NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
-    AdministrationDate TIMESTAMP NOT NULL,
+    AdministrationDate TIMESTAMP NULL,
     AdministrationEndDate TIMESTAMP NULL,
     SerialNumber VARCHAR(60) NULL,
     AdministrationLanguageDescriptorId INT NULL,
@@ -4721,6 +5011,7 @@ CREATE TABLE edfi.StudentAssessment (
     EventDescription VARCHAR(1024) NULL,
     SchoolYear SMALLINT NULL,
     PlatformTypeDescriptorId INT NULL,
+    AssessedMinutes INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -4770,12 +5061,25 @@ CREATE TABLE edfi.StudentAssessmentPerformanceLevel (
     PerformanceLevelDescriptorId INT NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
-    PerformanceLevelMet BOOLEAN NOT NULL,
     PerformanceLevelIndicatorName VARCHAR(60) NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAssessmentPerformanceLevel_PK PRIMARY KEY (AssessmentIdentifier, AssessmentReportingMethodDescriptorId, Namespace, PerformanceLevelDescriptorId, StudentAssessmentIdentifier, StudentUSI)
 ); 
 ALTER TABLE edfi.StudentAssessmentPerformanceLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentAssessmentPeriod --
+CREATE TABLE edfi.StudentAssessmentPeriod (
+    AssessmentIdentifier VARCHAR(60) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
+    StudentUSI INT NOT NULL,
+    AssessmentPeriodDescriptorId INT NOT NULL,
+    BeginDate DATE NULL,
+    EndDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentAssessmentPeriod_PK PRIMARY KEY (AssessmentIdentifier, Namespace, StudentAssessmentIdentifier, StudentUSI)
+); 
+ALTER TABLE edfi.StudentAssessmentPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.StudentAssessmentScoreResult --
 CREATE TABLE edfi.StudentAssessmentScoreResult (
@@ -4798,6 +5102,9 @@ CREATE TABLE edfi.StudentAssessmentStudentObjectiveAssessment (
     Namespace VARCHAR(255) NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
+    AssessedMinutes INT NULL,
+    AdministrationDate TIMESTAMP NULL,
+    AdministrationEndDate TIMESTAMP NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAssessmentStudentObjectiveAssessment_PK PRIMARY KEY (AssessmentIdentifier, IdentificationCode, Namespace, StudentAssessmentIdentifier, StudentUSI)
 ); 
@@ -4812,7 +5119,6 @@ CREATE TABLE edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel (
     PerformanceLevelDescriptorId INT NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
-    PerformanceLevelMet BOOLEAN NOT NULL,
     PerformanceLevelIndicatorName VARCHAR(60) NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentAssessmentStudentObjectiveAssessmentPerformanceLevel_PK PRIMARY KEY (AssessmentIdentifier, AssessmentReportingMethodDescriptorId, IdentificationCode, Namespace, PerformanceLevelDescriptorId, StudentAssessmentIdentifier, StudentUSI)
@@ -5388,7 +5694,7 @@ ALTER TABLE edfi.StudentEducationOrganizationResponsibilityAssociation ALTER COL
 -- Table edfi.StudentGradebookEntry --
 CREATE TABLE edfi.StudentGradebookEntry (
     GradebookEntryIdentifier VARCHAR(60) NOT NULL,
-    SourceSystemNamespace VARCHAR(255) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
     StudentUSI INT NOT NULL,
     CompetencyLevelDescriptorId INT NULL,
     DateFulfilled DATE NULL,
@@ -5403,7 +5709,7 @@ CREATE TABLE edfi.StudentGradebookEntry (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT StudentGradebookEntry_PK PRIMARY KEY (GradebookEntryIdentifier, SourceSystemNamespace, StudentUSI)
+    CONSTRAINT StudentGradebookEntry_PK PRIMARY KEY (GradebookEntryIdentifier, Namespace, StudentUSI)
 ); 
 ALTER TABLE edfi.StudentGradebookEntry ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.StudentGradebookEntry ALTER COLUMN Id SET DEFAULT gen_random_uuid();

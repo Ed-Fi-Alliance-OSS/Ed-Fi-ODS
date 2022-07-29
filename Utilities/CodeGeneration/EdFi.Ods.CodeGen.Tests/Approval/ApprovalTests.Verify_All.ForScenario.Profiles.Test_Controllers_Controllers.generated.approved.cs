@@ -1673,6 +1673,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             specification.AdministrationEndDate = request.AdministrationEndDate;
             specification.AdministrationEnvironmentDescriptor = request.AdministrationEnvironmentDescriptor;
             specification.AdministrationLanguageDescriptor = request.AdministrationLanguageDescriptor;
+            specification.AssessedMinutes = request.AssessedMinutes;
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
             specification.EventCircumstanceDescriptor = request.EventCircumstanceDescriptor;
             specification.EventDescription = request.EventDescription;
@@ -1726,6 +1727,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             specification.AdministrationEndDate = request.AdministrationEndDate;
             specification.AdministrationEnvironmentDescriptor = request.AdministrationEnvironmentDescriptor;
             specification.AdministrationLanguageDescriptor = request.AdministrationLanguageDescriptor;
+            specification.AssessedMinutes = request.AssessedMinutes;
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
             specification.EventCircumstanceDescriptor = request.EventCircumstanceDescriptor;
             specification.EventDescription = request.EventDescription;
