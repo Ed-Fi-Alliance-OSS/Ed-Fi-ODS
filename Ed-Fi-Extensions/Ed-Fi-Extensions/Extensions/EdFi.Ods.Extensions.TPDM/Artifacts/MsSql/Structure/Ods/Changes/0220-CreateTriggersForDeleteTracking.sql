@@ -13,7 +13,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.AccreditationStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.AccreditationStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.AccreditationStatusDescriptorId = b.DescriptorId
@@ -34,7 +34,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.AidTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.AidTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.AidTypeDescriptorId = b.DescriptorId
@@ -97,7 +97,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.CertificationRouteDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.CertificationRouteDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.CertificationRouteDescriptorId = b.DescriptorId
@@ -118,7 +118,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.CoteachingStyleObservedDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.CoteachingStyleObservedDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.CoteachingStyleObservedDescriptorId = b.DescriptorId
@@ -139,7 +139,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.CredentialStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.CredentialStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.CredentialStatusDescriptorId = b.DescriptorId
@@ -182,7 +182,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EducatorRoleDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EducatorRoleDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EducatorRoleDescriptorId = b.DescriptorId
@@ -203,7 +203,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EnglishLanguageExamDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EnglishLanguageExamDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EnglishLanguageExamDescriptorId = b.DescriptorId
@@ -224,7 +224,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EPPProgramPathwayDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EPPProgramPathwayDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EPPProgramPathwayDescriptorId = b.DescriptorId
@@ -325,7 +325,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EvaluationElementRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EvaluationElementRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EvaluationElementRatingLevelDescriptorId = b.DescriptorId
@@ -400,7 +400,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EvaluationPeriodDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EvaluationPeriodDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EvaluationPeriodDescriptorId = b.DescriptorId
@@ -449,7 +449,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EvaluationRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EvaluationRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EvaluationRatingLevelDescriptorId = b.DescriptorId
@@ -470,7 +470,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EvaluationRatingStatusDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EvaluationRatingStatusDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EvaluationRatingStatusDescriptorId = b.DescriptorId
@@ -491,7 +491,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.EvaluationTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.EvaluationTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.EvaluationTypeDescriptorId = b.DescriptorId
@@ -536,7 +536,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.GenderDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.GenderDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.GenderDescriptorId = b.DescriptorId
@@ -557,7 +557,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.ObjectiveRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.ObjectiveRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.ObjectiveRatingLevelDescriptorId = b.DescriptorId
@@ -632,7 +632,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.PerformanceEvaluationRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.PerformanceEvaluationRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.PerformanceEvaluationRatingLevelDescriptorId = b.DescriptorId
@@ -653,7 +653,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.PerformanceEvaluationTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.PerformanceEvaluationTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.PerformanceEvaluationTypeDescriptorId = b.DescriptorId
@@ -700,7 +700,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_tpdm].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.RubricRatingLevelDescriptorId, b.CodeValue, b.Namespace, b.Id, 'tpdm.RubricRatingLevelDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.RubricRatingLevelDescriptorId = b.DescriptorId

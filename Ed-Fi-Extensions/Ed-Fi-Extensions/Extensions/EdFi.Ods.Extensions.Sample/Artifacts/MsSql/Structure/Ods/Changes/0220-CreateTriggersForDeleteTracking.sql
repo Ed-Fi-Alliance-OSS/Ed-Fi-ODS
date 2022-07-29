@@ -13,7 +13,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_sample].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.ArtMediumDescriptorId, b.CodeValue, b.Namespace, b.Id, 'sample.ArtMediumDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.ArtMediumDescriptorId = b.DescriptorId
@@ -74,7 +74,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_sample].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.FavoriteBookCategoryDescriptorId, b.CodeValue, b.Namespace, b.Id, 'sample.FavoriteBookCategoryDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.FavoriteBookCategoryDescriptorId = b.DescriptorId
@@ -95,7 +95,7 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_sample].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
     SELECT  d.MembershipTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'sample.MembershipTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN edfi.Descriptor b ON d.MembershipTypeDescriptorId = b.DescriptorId

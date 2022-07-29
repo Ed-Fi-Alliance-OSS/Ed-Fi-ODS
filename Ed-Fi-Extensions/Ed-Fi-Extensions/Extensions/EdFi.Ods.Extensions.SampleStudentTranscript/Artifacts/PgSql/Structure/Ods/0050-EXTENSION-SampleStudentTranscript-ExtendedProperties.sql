@@ -1,3 +1,8 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
 -- Extended Properties [samplestudenttranscript].[InstitutionControlDescriptor] --
 COMMENT ON TABLE samplestudenttranscript.InstitutionControlDescriptor IS 'The type of control for an institution (e.g., public or private).';
 COMMENT ON COLUMN samplestudenttranscript.InstitutionControlDescriptor.InstitutionControlDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
