@@ -98,6 +98,7 @@ namespace EdFi.Common.Inflection
             AddIrregularRule("sex", "sexes");
             AddIrregularRule("tax", "taxes");
             AddIrregularRule("move", "moves");
+            AddIrregularRule("leave", "leaves");
 
             AddUnknownCountRule("equipment");
             AddUnknownCountRule("information");

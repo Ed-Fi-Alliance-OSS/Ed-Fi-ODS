@@ -29,7 +29,7 @@
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.5" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />

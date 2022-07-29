@@ -20,7 +20,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="6.0.6" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.14" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.16" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />

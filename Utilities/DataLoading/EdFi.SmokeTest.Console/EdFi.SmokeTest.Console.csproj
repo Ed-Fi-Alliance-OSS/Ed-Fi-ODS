@@ -40,7 +40,7 @@
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.5" />
     <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
     <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
     <PackageReference Include="log4net" Version="2.0.13" />

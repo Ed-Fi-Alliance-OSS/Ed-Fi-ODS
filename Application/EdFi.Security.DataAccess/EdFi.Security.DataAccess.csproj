@@ -15,7 +15,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.5" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
