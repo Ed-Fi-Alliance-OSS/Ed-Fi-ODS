@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>EdFi.OdsApi.Sdk</id>
+    <id>EdFi.Suite3.OdsApi.Sdk</id>
     <version>$version$</version>
     <title>EdFi.OdsApi.Sdk</title>
     <authors>$authors$</authors>
