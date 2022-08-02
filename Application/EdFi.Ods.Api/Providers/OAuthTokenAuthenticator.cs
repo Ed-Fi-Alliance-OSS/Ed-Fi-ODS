@@ -55,7 +55,6 @@ namespace EdFi.Ods.Api.Providers
                 
                 if (!apiClientDetails.IsTokenValid)
                 {
-                    
                     return AuthenticateResult.Fail("Invalid token");
                 }
             }
