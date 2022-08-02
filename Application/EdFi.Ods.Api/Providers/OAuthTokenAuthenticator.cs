@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
@@ -54,8 +55,13 @@ namespace EdFi.Ods.Api.Providers
                 
                 if (!apiClientDetails.IsTokenValid)
                 {
+                    
                     return AuthenticateResult.Fail("Invalid token");
                 }
+            }
+            catch(DistributedCacheException)
+            {
+                throw;
             }
             catch (Exception e)
             {

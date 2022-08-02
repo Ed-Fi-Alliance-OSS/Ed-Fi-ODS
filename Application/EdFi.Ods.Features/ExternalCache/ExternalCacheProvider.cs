@@ -2,6 +2,7 @@
 
 using EdFi.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Exceptions;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ namespace EdFi.Ods.Features.ExternalCache
     {
         private const string GuidPrefix = "(Guid)";
         private const string IntPrefix = "(int)";
+        private const string DefaultExceptionMessage = "Unable to access distributed cache.";
 
         private readonly IDistributedCache _distributedCache;
         private readonly TimeSpan _absoluteExpiration;
@@ -41,39 +43,75 @@ namespace EdFi.Ods.Features.ExternalCache
         }
         bool ICacheProvider.TryGetCachedObject(string key, out object value)
         {
-            var cachedValue = _distributedCache.GetString(key);
-
-            if (!string.IsNullOrEmpty(cachedValue))
+            try
             {
-                value = Deserialize(cachedValue);
-                return true;
-            }
+                var cachedValue = _distributedCache.GetString(key);
 
-            value = null;
-            return false;
+                if (!string.IsNullOrEmpty(cachedValue))
+                {
+                    value = Deserialize(cachedValue);
+                    return true;
+                }
+
+                value = null;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage);
+            }
         }
 
         void ICacheProvider.SetCachedObject(string keyName, object obj)
         {
-            _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
+            try
             {
-                AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
-                SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
-            });
+                _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
+                    SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage);
+            }
         }
 
         void ICacheProvider.Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
 
-            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+            try
             {
-                AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
-                SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null
-            });
+                _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
+                    SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage);
+            }
         }
 
-        bool IExternalCacheProvider.KeyExists(string key) => _distributedCache.Get(key).Any();
+        bool IExternalCacheProvider.KeyExists(string key)
+        {
+            try
+            {
+                return _distributedCache.Get(key).Any();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage);
+
+            };
+        }
 
         private static string Serialize(object @object)
         {
@@ -92,25 +130,33 @@ namespace EdFi.Ods.Features.ExternalCache
 
         bool IExternalCacheProvider.TryGetCachedObject<T>(string key, out T value)
         {
-            var cachedValue = _distributedCache.GetString(key);
-
-            if (!string.IsNullOrEmpty(cachedValue))
+            try
             {
-                try
-                {
-                    value = JsonConvert.DeserializeObject<T>(cachedValue, _customContractSerializerSettings);
-                    return true;
-                }
-                catch (JsonException e)
-                {
-                    _logger.Warn($"Exception during deserialization of the string \"{cachedValue}\". Message: \"{e.Message}\"");
-                }
-            }
+                var cachedValue = _distributedCache.GetString(key);
 
-            value = default;
-            return false;
+                if (!string.IsNullOrEmpty(cachedValue))
+                {
+                    try
+                    {
+                        value = JsonConvert.DeserializeObject<T>(cachedValue, _customContractSerializerSettings);
+                        return true;
+                    }
+                    catch (JsonException e)
+                    {
+                        _logger.Warn($"Exception during deserialization of the string \"{cachedValue}\". Message: \"{e.Message}\"");
+                    }
+                }
+
+                value = default;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage);
+            }
         }
-        
+
         private object Deserialize(string @string)
         {
             if (@string.StartsWith(GuidPrefix, StringComparison.InvariantCulture) &&
