@@ -47,12 +47,22 @@ namespace EdFi.SmokeTest.Console.Application
                    Uri.IsWellFormedUriString(_configuration.NamespacePrefix, UriKind.Absolute);
         }
 
+        private bool ValidLocalEducationAgencyId
+        {
+            get => _configuration.TestSet != TestSet.DestructiveSdk || _configuration.LocalEducationAgencyId.HasValue;
+        }
+
+        private bool ValidCommunityProviderId
+        {
+            get => _configuration.TestSet != TestSet.DestructiveSdk || _configuration.CommunityProviderId.HasValue;
+        }
+
         public string ErrorText { get; private set; }
 
         public bool IsValid()
         {
             var isValid = ValidApiUrl && ValidOAuthUrl && ValidMetadataUrl && ValidSdkLibraryPath &&
-                          ValidNamespacePrefix;
+                          ValidNamespacePrefix && ValidLocalEducationAgencyId && ValidCommunityProviderId;
 
             if (_configuration.ApiMode == ApiMode.YearSpecific)
             {
@@ -94,6 +104,16 @@ namespace EdFi.SmokeTest.Console.Application
             if (!ValidNamespacePrefix)
             {
                 sb.AppendLine("n:namespace is not a valid URI");
+            }
+
+            if (!ValidLocalEducationAgencyId)
+            {
+                sb.AppendLine("e:localeducationagency is required and must be a valid number");
+            }
+
+            if (!ValidCommunityProviderId)
+            {
+                sb.AppendLine("c:communityprovider is required and must be a valid number");
             }
 
             if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
