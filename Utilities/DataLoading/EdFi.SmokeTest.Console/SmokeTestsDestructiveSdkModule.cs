@@ -96,7 +96,6 @@ namespace EdFi.SmokeTest.Console
                     // note these are in order of precedence
                     typeof(IgnorePropertyBuilder),
                     typeof(EducationOrganizationIdBuilder),
-                    typeof(UnifiedKeyPropertyBuilder),
                     typeof(SimplePropertyBuilder),
                     typeof(NamespacePropertyBuilder),
                     typeof(ListPropertyBuilder),
