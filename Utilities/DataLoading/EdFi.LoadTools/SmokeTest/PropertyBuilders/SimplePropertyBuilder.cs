@@ -23,8 +23,8 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
             : base(metadataLookup)
         {
             _unifiedKeyValue = new(
-                configuration.UnifiedProperties.Distinct().Select(up => new KeyValuePair<string, object>(up, null)),
-                StringComparer.OrdinalIgnoreCase);
+                configuration.UnifiedProperties.Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Select(up => new KeyValuePair<string, object>(up, null)), StringComparer.OrdinalIgnoreCase);
         }
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
