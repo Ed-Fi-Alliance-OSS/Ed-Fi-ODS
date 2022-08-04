@@ -3,7 +3,7 @@
   "schemaDefinition": {
     "logicalName": "Sample",
     "physicalName": "sample",
-    "description": "",
+    "description": "The Sample extension data model",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [

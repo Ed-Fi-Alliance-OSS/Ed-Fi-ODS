@@ -105,7 +105,7 @@ DECLARE
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.graduationplantypedescriptorid;
 
-    SELECT INTO dj1 * FROM sample.student j1 WHERE studentusi = old.studentusi;
+    SELECT INTO dj1 * FROM edfi.student j1 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_sample.studentgraduationplanassociation(
         oldeducationorganizationid, oldgraduationplantypedescriptorid, oldgraduationplantypedescriptornamespace, oldgraduationplantypedescriptorcodevalue, oldgraduationschoolyear, oldstudentusi, oldstudentuniqueid,

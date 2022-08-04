@@ -3,7 +3,7 @@
   "schemaDefinition": {
     "logicalName": "SampleStudentTransportation",
     "physicalName": "samplestudenttransportation",
-    "description": "",
+    "description": "The SampleStudentTransportation extension data model",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [

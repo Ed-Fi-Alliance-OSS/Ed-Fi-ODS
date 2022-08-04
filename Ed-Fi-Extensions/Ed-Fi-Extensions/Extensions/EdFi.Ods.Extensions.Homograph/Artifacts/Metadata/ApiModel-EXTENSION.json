@@ -3,7 +3,7 @@
   "schemaDefinition": {
     "logicalName": "Homograph",
     "physicalName": "homograph",
-    "description": "",
+    "description": "The homograph extension data model",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [

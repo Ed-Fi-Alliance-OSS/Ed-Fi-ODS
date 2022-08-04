@@ -11,7 +11,7 @@ $BODY$
 DECLARE
     dj0 edfi.student%ROWTYPE;
 BEGIN
-    SELECT INTO dj0 * FROM samplestudenttransportation.student j0 WHERE studentusi = old.studentusi;
+    SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_samplestudenttransportation.studenttransportation(
         oldambusnumber, oldpmbusnumber, oldschoolid, oldstudentusi, oldstudentuniqueid,

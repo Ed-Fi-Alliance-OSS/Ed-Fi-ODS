@@ -3,7 +3,7 @@
   "schemaDefinition": {
     "logicalName": "SampleStudentTranscript",
     "physicalName": "samplestudenttranscript",
-    "description": "",
+    "description": "The SampleStudentTranscript extension data model",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [

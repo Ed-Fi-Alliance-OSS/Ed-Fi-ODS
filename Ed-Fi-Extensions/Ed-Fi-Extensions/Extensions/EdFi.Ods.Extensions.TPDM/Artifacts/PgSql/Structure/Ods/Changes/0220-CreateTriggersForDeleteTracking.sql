@@ -492,7 +492,7 @@ DECLARE
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.aidtypedescriptorid;
 
-    SELECT INTO dj1 * FROM tpdm.student j1 WHERE studentusi = old.studentusi;
+    SELECT INTO dj1 * FROM edfi.student j1 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_tpdm.financialaid(
         oldaidtypedescriptorid, oldaidtypedescriptornamespace, oldaidtypedescriptorcodevalue, oldbegindate, oldstudentusi, oldstudentuniqueid,
