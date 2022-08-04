@@ -3912,6 +3912,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         short? SchoolYear { get; set; }
         string SectionIdentifier { get; set; }
         string SessionName { get; set; }
+        string SourceSectionIdentifier { get; set; }
         string Title { get; set; }
 
         // One-to-one relationships

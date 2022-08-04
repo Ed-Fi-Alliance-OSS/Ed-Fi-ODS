@@ -7711,8 +7711,9 @@
     <property name="PeriodSequence" column="PeriodSequence" type="int" />
     <property name="SchoolId" column="SchoolId" type="int" />
     <property name="SchoolYear" column="SchoolYear" type="short" />
-    <property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" not-null="true" />
+    <property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
     <property name="SessionName" column="SessionName" type="string" length="60" />
+    <property name="SourceSectionIdentifier" column="SourceSectionIdentifier" type="string" length="255" not-null="true" />
     <property name="Title" column="Title" type="string" length="100" not-null="true" />
 
     <!-- Aggregate references -->

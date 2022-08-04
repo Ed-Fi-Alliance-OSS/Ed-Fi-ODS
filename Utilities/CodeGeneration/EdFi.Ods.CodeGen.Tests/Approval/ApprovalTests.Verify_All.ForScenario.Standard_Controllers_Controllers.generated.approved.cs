@@ -3531,6 +3531,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
+            specification.SourceSectionIdentifier = request.SourceSectionIdentifier;
             specification.Title = request.Title;
         }
     }
