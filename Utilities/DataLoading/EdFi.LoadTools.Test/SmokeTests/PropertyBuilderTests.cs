@@ -284,10 +284,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsNull(obj.link);
         }
 
-        #endregion
+#endregion
 
-        #region SimplePropertyBuilder
-        
+#region SimplePropertyBuilder
+
         [Test]
         public void SimplePropertyBuilder_should_ignore_nullable_properties()
         {
