@@ -2073,6 +2073,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique numbe
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace URI for the source of the gradebook entry.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'SourceSectionIdentifier'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'GradebookEntry', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'

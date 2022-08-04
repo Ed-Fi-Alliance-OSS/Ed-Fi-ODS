@@ -1381,11 +1381,11 @@ BEGIN
     SELECT INTO dj0 * FROM edfi.student j0 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.disciplineaction(
-        olddisciplineactionidentifier, olddisciplinedate, oldstudentusi, oldstudentuniqueid,
-        id, oldresponsibilitySchoolid, discriminator, changeversion)
+        olddisciplineactionidentifier, olddisciplinedate, oldstudentusi, oldstudentuniqueid, oldresponsibilityschoolid,
+        id, discriminator, changeversion)
     VALUES (
-        OLD.disciplineactionidentifier, OLD.disciplinedate, OLD.studentusi, dj0.studentuniqueid, 
-        OLD.id, OLD.responsibilityschoolid, OLD.discriminator, nextval('changes.changeversionsequence'));    
+        OLD.disciplineactionidentifier, OLD.disciplinedate, OLD.studentusi, dj0.studentuniqueid, OLD.responsibilityschoolid, 
+        OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;
 END;
