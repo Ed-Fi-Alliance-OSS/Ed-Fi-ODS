@@ -86,17 +86,14 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         @where.Add(new AndExpression(Restrictions.IsNotNull(subjectEndpointName), namespacesDisjunction));
     }
 
-    private string GetMappedContextDataPropertyName(string candidatePropertyName)
+    private static PropertyMapping[] GetContextDataPropertyMappings(string resourceFullName, IEnumerable<string> availablePropertyNames)
     {
-        // Convention matches any column that ends with a Namespace (current implementation does not support this on an entity with multiple "Namespace" columns!)
-        if (candidatePropertyName.EndsWith("Namespace"))
+        return new PropertyMapping[]
         {
-            // This is mapped to the Namespace authorization context data property
-            return "Namespace";
-        }
-
-        // This property was ignored for Namespace-based authorization
-        return null;
+            new(
+                NamespaceAuthorizationConvention.GetNamespacePropertyName(resourceFullName, availablePropertyNames),
+                "Namespace")
+        };
     }
     
     private InstanceAuthorizationResult AuthorizeInstance(
@@ -107,7 +104,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         {
             var contextData =
                 _authorizationContextDataFactory.CreateContextData<NamespaceBasedAuthorizationContextData>(
-                    authorizationContext.Data, getContextDataPropertyName: GetMappedContextDataPropertyName);
+                    authorizationContext.Data, getContextDataPropertyMappings: GetContextDataPropertyMappings);
 
             if (contextData == null)
             {
