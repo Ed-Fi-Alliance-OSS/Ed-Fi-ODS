@@ -49,9 +49,9 @@ namespace EdFi.LoadTools.Engine
     {
         string NamespacePrefix { get; }
 
-        int? LocalEducationAgencyId { get; }
+        IReadOnlyDictionary<string, int> EducationOrganizationIdOverrides { get; }
 
-        int? CommunityProviderId { get; }
+        IEnumerable<string> UnifiedProperties { get; }
     }
 
     public interface IHashCacheConfiguration

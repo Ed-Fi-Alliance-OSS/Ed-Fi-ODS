@@ -59,7 +59,7 @@ namespace EdFi.SmokeTest.Console
             {
                 var configRoot = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
-                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                     .AddCommandLine(args, CommandLineOverrides.SwitchingMapping())
                     .Build();
 
