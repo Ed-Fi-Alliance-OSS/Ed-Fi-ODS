@@ -5,6 +5,6 @@
 
 IF  EXISTS (SELECT * FROM sys.schemas WHERE name = N'tpdm')
 BEGIN
-      ;THROW 50000, N'Upgrades are not supported at this time for database type ODS using the TPDM data model. This tool only supports feature scripts for this type. Please use other tooling such as Migration Utility to upgrade this database.', 1
+      ;THROW 50000, N'Upgrades are not supported at this time for database type ODS using the TPDM data model. This tool only supports feature scripts for this type.', 1
 END
 GO    
