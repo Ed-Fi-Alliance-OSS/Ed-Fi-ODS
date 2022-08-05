@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f318b565-d7cd-4712-9915-12b6a2adbbc1",
+		"_postman_id": "914a397b-f006-4420-bf2c-bbd11814dac3",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -2571,7 +2571,7 @@
 													"    pm.expect(pm.response.code).to.equal(200);",
 													"});",
 													"",
-													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
+													"pm.test(\"Should return some rows of gradebookentries\", () => {",
 													"    const responseItems = pm.response.json();",
 													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
 													"});"
