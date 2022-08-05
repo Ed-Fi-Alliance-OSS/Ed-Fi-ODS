@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
 using NUnit.Framework;
@@ -300,7 +301,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                                                    required = false
                                                });
 
-            var builder = new SimplePropertyBuilder(lookup);
+            var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsFalse(obj.nullableProperty1.HasValue);
         }
@@ -318,7 +319,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                                                    required = true
                                                });
 
-            var builder = new SimplePropertyBuilder(lookup);
+            var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreNotEqual(default(int), obj.nullableProperty1);
         }
@@ -336,7 +337,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                                                    required = false
                                                });
 
-            var builder = new SimplePropertyBuilder(lookup);
+            var builder = new SimplePropertyBuilder(lookup, Mock.Of<IDestructiveTestConfiguration>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.AreEqual(default(int?), obj.nullableProperty1);
         }

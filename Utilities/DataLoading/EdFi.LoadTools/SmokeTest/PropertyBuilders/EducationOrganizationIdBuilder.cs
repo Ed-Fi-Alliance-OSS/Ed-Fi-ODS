@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 using EdFi.LoadTools.Engine;
 
@@ -10,36 +12,26 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
     public class EducationOrganizationIdBuilder : BaseBuilder
     {
-        private readonly IDestructiveTestConfiguration _configuration;
+        private readonly IReadOnlyDictionary<string, int> _educationOrganizationIdOverrides;
 
         public EducationOrganizationIdBuilder(
             IPropertyInfoMetadataLookup metadataLookup,
             IDestructiveTestConfiguration configuration)
             : base(metadataLookup)
         {
-            _configuration = configuration;
+            _educationOrganizationIdOverrides = new Dictionary<string, int>(
+                configuration.EducationOrganizationIdOverrides, StringComparer.OrdinalIgnoreCase);
         }
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            int edOrgId;
-
-            switch (propertyInfo.Name)
+            if (!_educationOrganizationIdOverrides.ContainsKey(propertyInfo.Name))
             {
-                case nameof(_configuration.LocalEducationAgencyId):
-                    edOrgId = _configuration.LocalEducationAgencyId!.Value;
-                    break;
-
-                case nameof(_configuration.CommunityProviderId):
-                    edOrgId = _configuration.CommunityProviderId!.Value;
-                    break;
-
-                default:
-                    // EdOrg ids that aren't relevant for authorization are initialized in the SimplePropertyBuilder
-                    return false;
+                // EdOrg ids that aren't relevant for authorization are initialized in the SimplePropertyBuilder
+                return false;
             }
 
-            propertyInfo.SetValue(obj, edOrgId);
+            propertyInfo.SetValue(obj, _educationOrganizationIdOverrides[propertyInfo.Name]);
             return true;
         }
     }

@@ -31,16 +31,6 @@ namespace EdFi.SmokeTest.Console.Application
             HelpText = "Override the URI to use when generating namespace values (i.e. uri://ed-fi.org)")]
         public string Namespace { get; set; }
 
-        [Option(
-            'e', "localeducationagency", Required = false,
-            HelpText = "Id that will be used while creating the LEA, note that the given key and secret must have access to this id")]
-        public int? LocalEducationAgencyId { get; set; }
-
-        [Option(
-            'c', "communityprovider", Required = false,
-            HelpText = "Id that will be used while creating the Community Provider, note that the given key and secret must have access to this id")]
-        public int? CommunityProviderId { get; set; }
-
         [Option('o', "oauthurl", Required = false, HelpText = "(deprecated) The OAuth url (i.e. http://server/oauth)")]
         public string OAuthUrl { get; set; }
 
@@ -67,8 +57,6 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-l", "SdkLibraryPath"},
                 {"-m", "OdsApi:MetadataUrl"},
                 {"-n", "NamespacePrefix"},
-                {"-e", "LocalEducationAgencyId"},
-                {"-c", "CommunityProviderId"},
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-s", "OdsApi:Secret"},
                 {"-t", "TestSet"},
@@ -78,8 +66,6 @@ namespace EdFi.SmokeTest.Console.Application
                 {"--library", "SdkLibraryPath"},
                 {"--metadataurl", "OdsApi:MetadataUrl"},
                 {"--namespace", "NamespacePrefix"},
-                {"--localeducationagency", "LocalEducationAgencyId"},
-                {"--communityprovider", "CommunityProviderId"},
                 {"--oauthurl", "OdsApi:OAuthUrl"},
                 {"--secret", "OdsApi:Secret"},
                 {"--testset", "TestSet"},

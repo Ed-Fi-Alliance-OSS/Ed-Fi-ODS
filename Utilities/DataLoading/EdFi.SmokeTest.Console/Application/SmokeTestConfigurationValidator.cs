@@ -5,6 +5,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using EdFi.Common.Configuration;
 using EdFi.LoadTools.SmokeTest;
@@ -47,14 +48,18 @@ namespace EdFi.SmokeTest.Console.Application
                    Uri.IsWellFormedUriString(_configuration.NamespacePrefix, UriKind.Absolute);
         }
 
-        private bool ValidLocalEducationAgencyId
+        private bool ValidEducationOrganizationIdOverrides
         {
-            get => _configuration.TestSet != TestSet.DestructiveSdk || _configuration.LocalEducationAgencyId.HasValue;
+            get => _configuration.TestSet != TestSet.DestructiveSdk ||
+                   (_configuration.EducationOrganizationIdOverrides != null &&
+                    _configuration.EducationOrganizationIdOverrides.Any() && !_configuration.EducationOrganizationIdOverrides
+                        .GroupBy(kv => kv.Value).Any(g => g.Count() > 1));
         }
 
-        private bool ValidCommunityProviderId
+        private bool ValidUnifiedProperties
         {
-            get => _configuration.TestSet != TestSet.DestructiveSdk || _configuration.CommunityProviderId.HasValue;
+            get => _configuration.TestSet != TestSet.DestructiveSdk ||
+                   (_configuration.UnifiedProperties != null && _configuration.UnifiedProperties.Any());
         }
 
         public string ErrorText { get; private set; }
@@ -62,7 +67,7 @@ namespace EdFi.SmokeTest.Console.Application
         public bool IsValid()
         {
             var isValid = ValidApiUrl && ValidOAuthUrl && ValidMetadataUrl && ValidSdkLibraryPath &&
-                          ValidNamespacePrefix && ValidLocalEducationAgencyId && ValidCommunityProviderId;
+                          ValidNamespacePrefix && ValidEducationOrganizationIdOverrides && ValidUnifiedProperties;
 
             if (_configuration.ApiMode == ApiMode.YearSpecific)
             {
@@ -106,14 +111,14 @@ namespace EdFi.SmokeTest.Console.Application
                 sb.AppendLine("n:namespace is not a valid URI");
             }
 
-            if (!ValidLocalEducationAgencyId)
+            if (!ValidEducationOrganizationIdOverrides)
             {
-                sb.AppendLine("e:localeducationagency is required and must be a valid number");
+                sb.AppendLine("EducationOrganizationIdOverrides is required and all its ids must be distinct.");
             }
 
-            if (!ValidCommunityProviderId)
+            if (!ValidUnifiedProperties)
             {
-                sb.AppendLine("c:communityprovider is required and must be a valid number");
+                sb.AppendLine("UnifiedProperties is required");
             }
 
             if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
