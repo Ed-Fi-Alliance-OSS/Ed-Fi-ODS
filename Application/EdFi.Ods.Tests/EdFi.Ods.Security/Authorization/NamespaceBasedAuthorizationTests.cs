@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -221,7 +222,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
 
             [Test]
-            public void NoNamespacePresent_ShouldNotThrowAnException()
+            public void NoNamespacePropertyPresent_ShouldThrowAnException()
             {
                 var domainModel = new FluentDomainModelBuilder()
                     .WithSchemas(_ => _
@@ -257,11 +258,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 };
 
                 //Act
-                Should.Throw<EdFiSecurityException>(() => 
+                Should.Throw<Exception>(() => 
                         strategy.GetAuthorizationStrategyFiltering(
                             new List<Claim>(),
                             new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data)))
-                    .MessageShouldContain("Unable to definitively identify a Namespace-based property in the 'edfi.TestResource' resource to use for Namespace-based authorization.");
+                    .MessageShouldContain("There is no Namespace-based property in the 'edfi.TestResource' resource to use for Namespace-based authorization.");
 
                 //Assert
             }

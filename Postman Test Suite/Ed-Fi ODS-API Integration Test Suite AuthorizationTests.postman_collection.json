@@ -7010,589 +7010,1222 @@
 					]
 				},
 				{
-					"name": "GradebookEntry (Namespace with prefix)",
+					"name": "Namespace-Based",
 					"item": [
 						{
-							"name": "Setup",
+							"name": "Namespace with prefix (GradebookEntry)",
 							"item": [
 								{
-									"name": "Get Section (for reference)",
-									"event": [
+									"name": "Setup",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"  pm.expect(pm.response.code).equal(200);\r",
-													"});\r",
-													"\r",
-													"const responseItems = pm.response.json();\r",
-													"const responseItem = responseItems[0];\r",
-													"\r",
-													"const offering = responseItem.courseOfferingReference;\r",
-													"\r",
-													"pm.environment.set('known:sectionReference:localCourseCode', offering.localCourseCode);\r",
-													"pm.environment.set('known:sectionReference:schoolId', offering.schoolId);\r",
-													"pm.environment.set('known:sectionReference:schoolYear', offering.schoolYear);\r",
-													"pm.environment.set('known:sectionReference:sessionName', offering.sessionName);\r",
-													"pm.environment.set('known:sectionReference:sectionIdentifier', responseItem.sectionIdentifier);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections?limit=1",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"sections"
-											],
-											"query": [
+											"name": "Get Section (for reference)",
+											"event": [
 												{
-													"key": "limit",
-													"value": "1"
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"  pm.expect(pm.response.code).equal(200);\r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"const responseItem = responseItems[0];\r",
+															"\r",
+															"const offering = responseItem.courseOfferingReference;\r",
+															"\r",
+															"pm.environment.set('known:sectionReference:localCourseCode', offering.localCourseCode);\r",
+															"pm.environment.set('known:sectionReference:schoolId', offering.schoolId);\r",
+															"pm.environment.set('known:sectionReference:schoolYear', offering.schoolYear);\r",
+															"pm.environment.set('known:sectionReference:sessionName', offering.sessionName);\r",
+															"pm.environment.set('known:sectionReference:sectionIdentifier', responseItem.sectionIdentifier);"
+														],
+														"type": "text/javascript"
+													}
 												}
-											]
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections?limit=1",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"sections"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "1"
+														}
+													]
+												}
+											},
+											"response": []
 										}
-									},
-									"response": []
+									]
+								},
+								{
+									"name": "When working with a gradebook entry with namespace access",
+									"item": [
+										{
+											"name": "Create Gradebook Entry (Other namespace client)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 201\", () => {\r",
+															"  pm.expect(pm.response.code).equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:gradebookEntry:id:otherNamespace', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create Gradebook Entry (LEA client)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 201\", () => {\r",
+															"  pm.expect(pm.response.code).equal(201);\r",
+															"});\r",
+															"\r",
+															"pm.environment.set('known:gradebookEntry:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "When working with gradebook entry without namespace access",
+									"item": [
+										{
+											"name": "Attempt to create gradebook entry",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 403\", () => {\r",
+															"  pm.expect(pm.response.code).equal(403);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
+															"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Attempt to update existing gradebook entry",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 403\", () => {\r",
+															"  pm.expect(pm.response.code).equal(403);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
+															"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Attempt to delete gradebook entry",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 403\", () => {\r",
+															"  pm.expect(pm.response.code).equal(403);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
+															"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"sourceSystemNamespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id:otherNamespace}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries",
+														"{{known:gradebookEntry:id:otherNamespace}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "When getting gradebook entries",
+									"item": [
+										{
+											"name": "Other namespace client",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"  pm.expect(pm.response.code).equal(200);\r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a single gradebook entry\", () => {\r",
+															"  pm.expect(responseItems.length).equal(1);\r",
+															"});\r",
+															"\r",
+															"const responseItem = responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should return the gradebook entry with the other.org source system namespace value\", () => {\r",
+															"  pm.expect(responseItem.namespace).equal('uri://other.org/PostmanTesting');\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries?title=Source System Namespace Authorization Testing",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries"
+													],
+													"query": [
+														{
+															"key": "title",
+															"value": "Source System Namespace Authorization Testing"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "LEA client (ed-fi.org)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 200\", () => {\r",
+															"  pm.expect(pm.response.code).equal(200);\r",
+															"});\r",
+															"\r",
+															"const responseItems = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Should return a single gradebook entry\", () => {\r",
+															"  pm.expect(responseItems.length).equal(1);\r",
+															"});\r",
+															"\r",
+															"const responseItem = responseItems[0];\r",
+															"\r",
+															"pm.test(\"Should return the gradebook entry with the ed-fi.org source system namespace value\", () => {\r",
+															"  pm.expect(responseItem.namespace).equal('uri://ed-fi.org/PostmanTesting');\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries?title=Source System Namespace Authorization Testing",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries"
+													],
+													"query": [
+														{
+															"key": "title",
+															"value": "Source System Namespace Authorization Testing"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Teardown",
+									"item": [
+										{
+											"name": "Delete Gradebook Entry (Ed-Fi namespace)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 204\", () => {\r",
+															"  pm.expect(pm.response.code).equal(204);\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries",
+														"{{known:gradebookEntry:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Gradebook Entry (Other namespace)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Response is 204\", () => {\r",
+															"  pm.expect(pm.response.code).equal(204);\r",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id:otherNamespace}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"gradebookEntries",
+														"{{known:gradebookEntry:id:otherNamespace}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Clean up Environment Variables",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+															"_.chain(_.keys(pm.environment.toObject()))\r",
+															"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+															"  .each(k => pm.environment.unset(k)).value();\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
 								}
 							]
 						},
 						{
-							"name": "When working with a gradebook entry with namespace access",
+							"name": "Namespace alongside Namespace-suffixed properties",
 							"item": [
 								{
-									"name": "Create Gradebook Entry (Other namespace client)",
-									"event": [
+									"name": "DescriptorMapping (MappedNamespace)",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"  pm.expect(pm.response.code).equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:gradebookEntry:id:otherNamespace', pm.response.headers.one('Location').value.split(\"/\").pop());"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
+											"name": "Setup",
+											"item": []
+										},
+										{
+											"name": "When creating mappings",
+											"item": [
 												{
-													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
-													"type": "string"
+													"name": "From authorized namespace to unauthorized namespace",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 201\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(201);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set('known:descriptorMapping:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"mappedNamespace\": \"uri://other.org/SomeOtherDescriptor\",\r\n  \"mappedValue\": \"Mapped\",\r\n  \"namespace\": \"uri://ed-fi.org/SomeDescriptor\",\r\n  \"value\": \"Original\"\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/descriptorMappings",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"descriptorMappings"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "From unauthorized namespace to authorized namespace",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 403\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(403);\r",
+																	"});\r",
+																	"\r",
+																	"pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
+																	"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+																	"})\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"namespace\": \"uri://mapped.org/SomeOtherDescriptor\",\r\n  \"value\": \"Mapped\",\r\n  \"mappedNamespace\": \"uri://ed-fi.org/SomeDescriptor\",\r\n  \"mappedValue\": \"Original\"\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/descriptorMappings",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"descriptorMappings"
+															]
+														}
+													},
+													"response": []
 												}
 											]
 										},
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
+										{
+											"name": "When getting mappings",
+											"item": [
+												{
+													"name": "With LEA client",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItems = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Should return the mapping\", () => {\r",
+																	"  pm.expect(responseItems.length).equal(1);\r",
+																	"  pm.expect(responseItems[0].namespace).equal('uri://ed-fi.org/SomeDescriptor');\r",
+																	"  pm.expect(responseItems[0].value).equal('Original');\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/descriptorMappings?mappedNamespace=uri://other.org/SomeOtherDescriptor",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"descriptorMappings"
+															],
+															"query": [
+																{
+																	"key": "mappedNamespace",
+																	"value": "uri://other.org/SomeOtherDescriptor"
+																}
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "With Other namespace client",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 200\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItems = pm.response.json();\r",
+																	"\r",
+																	"pm.test(\"Should not return the mapping\", () => {\r",
+																	"  pm.expect(responseItems.length).equal(0);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_Other_Namespace}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/descriptorMappings?mappedNamespace=uri://other.org/SomeOtherDescriptor",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"descriptorMappings"
+															],
+															"query": [
+																{
+																	"key": "mappedNamespace",
+																	"value": "uri://other.org/SomeOtherDescriptor"
+																}
+															]
+														}
+													},
+													"response": []
 												}
-											}
+											]
 										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
+										{
+											"name": "Teardown",
+											"item": [
+												{
+													"name": "Delete the descriptor mapping",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/descriptorMappings/{{known:descriptorMapping:id}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"descriptorMappings",
+																"{{known:descriptorMapping:id}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Clean up Environment Variables",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																	"_.chain(_.keys(pm.environment.toObject()))\r",
+																	"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																	"  .each(k => pm.environment.unset(k)).value();\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															]
+														}
+													},
+													"response": []
+												}
 											]
 										}
-									},
-									"response": []
+									]
 								},
 								{
-									"name": "Create Gradebook Entry (LEA client)",
-									"event": [
+									"name": "LearningObjective (ParentNamespace)",
+									"item": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 201\", () => {\r",
-													"  pm.expect(pm.response.code).equal(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:gradebookEntry:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
+											"name": "Setup",
+											"item": [
 												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
+													"name": "Create a LearningObjective with Other namespace",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"pm.environment.set('supplied:learningObjectiveId:parent', pm.variables.replaceIn(\"{{$guid}}\"));"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 201\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(201);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set('known:learningObjective:id:parent', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_Other_Namespace}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"learningObjectiveId\": \"{{supplied:learningObjectiveId:parent}}\",\r\n  \"namespace\": \"uri://other.org/LearningObjective/LearningObjective.xml\",\r\n  \"objective\": \"Provide a parent learning objective to reference\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Reading\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n    }\r\n  ],\r\n  \"learningStandards\": []\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningObjectives",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"learningObjectives"
+															]
+														}
+													},
+													"response": []
 												}
 											]
 										},
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "When working with gradebook entry without namespace access",
-							"item": [
-								{
-									"name": "Attempt to create gradebook entry",
-									"event": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 403\", () => {\r",
-													"  pm.expect(pm.response.code).equal(403);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
-													"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
+											"name": "When creating LearningObjectives",
+											"item": [
 												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
+													"name": "Create a child LearningObjective with authorized namespace",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	""
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 201\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(201);\r",
+																	"});\r",
+																	"\r",
+																	"pm.environment.set('known:learningObjective:id:child', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"learningObjectiveId\": \"{{$guid}}\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningObjective/LearningObjective.xml\",\r\n  \"objective\": \"Provide a parent learning objective to reference\",\r\n  \"parentLearningObjectiveReference\": {\r\n    \"namespace\": \"uri://other.org/LearningObjective/LearningObjective.xml\",\r\n    \"learningObjectiveId\": \"{{supplied:learningObjectiveId:parent}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Reading\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n    }\r\n  ],\r\n  \"learningStandards\": []\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningObjectives",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"learningObjectives"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Create a child LearningObjective with unauthorized namespace",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"pm.environment.set('supplied:learningObjectiveId:child', pm.variables.replaceIn(\"{{$guid}}\"));"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 403\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(403);\r",
+																	"});\r",
+																	"\r",
+																	"pm.test(\"Error message indicates the API client doesn't have namespace permissions\", () => {\r",
+																	"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
+																	"})"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"learningObjectiveId\": \"{{$guid}}\",\r\n  \"namespace\": \"uri://other.org/LearningObjective/LearningObjective.xml\",\r\n  \"objective\": \"Provide a parent learning objective to reference\",\r\n  \"parentLearningObjectiveReference\": {\r\n    \"namespace\": \"uri://other.org/LearningObjective/LearningObjective.xml\",\r\n    \"learningObjectiveId\": \"{{supplied:learningObjectiveId:parent}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#Reading\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n    }\r\n  ],\r\n  \"learningStandards\": []\r\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningObjectives",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"learningObjectives"
+															]
+														}
+													},
+													"response": []
 												}
 											]
 										},
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Test\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Attempt to update existing gradebook entry",
-									"event": [
 										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 403\", () => {\r",
-													"  pm.expect(pm.response.code).equal(403);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
-													"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
+											"name": "Teardown",
+											"item": [
 												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Attempt to delete gradebook entry",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 403\", () => {\r",
-													"  pm.expect(pm.response.code).equal(403);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Should indicate the API client doesn't have access to the supplied namespace\", () => {\r",
-													"  pm.expect(pm.response.json().message).contains(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
+													"name": "Delete the child LearningObjective",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningObjectives/{{known:learningObjective:id:child}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"learningObjectives",
+																"{{known:learningObjective:id:child}}"
+															]
+														}
+													},
+													"response": []
+												},
 												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "DELETE",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"sourceSystemNamespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"1900-01-01\",\r\n  \"title\": \"Wrong Namespace\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id:otherNamespace}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"{{known:gradebookEntry:id:otherNamespace}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "When getting gradebook entries",
-							"item": [
-								{
-									"name": "Other namespace client",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"  pm.expect(pm.response.code).equal(200);\r",
-													"});\r",
-													"\r",
-													"const responseItems = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Should return a single gradebook entry\", () => {\r",
-													"  pm.expect(responseItems.length).equal(1);\r",
-													"});\r",
-													"\r",
-													"const responseItem = responseItems[0];\r",
-													"\r",
-													"pm.test(\"Should return the gradebook entry with the other.org source system namespace value\", () => {\r",
-													"  pm.expect(responseItem.namespace).equal('uri://other.org/PostmanTesting');\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
+													"name": "Delete the parent LearningObjective",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_Other_Namespace}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningObjectives/{{known:learningObjective:id:parent}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"learningObjectives",
+																"{{known:learningObjective:id:parent}}"
+															]
+														}
+													},
+													"response": []
+												},
 												{
-													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries?title=Source System Namespace Authorization Testing",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
-											],
-											"query": [
-												{
-													"key": "title",
-													"value": "Source System Namespace Authorization Testing"
-												}
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "LEA client (ed-fi.org)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 200\", () => {\r",
-													"  pm.expect(pm.response.code).equal(200);\r",
-													"});\r",
-													"\r",
-													"const responseItems = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Should return a single gradebook entry\", () => {\r",
-													"  pm.expect(responseItems.length).equal(1);\r",
-													"});\r",
-													"\r",
-													"const responseItem = responseItems[0];\r",
-													"\r",
-													"pm.test(\"Should return the gradebook entry with the ed-fi.org source system namespace value\", () => {\r",
-													"  pm.expect(responseItem.namespace).equal('uri://ed-fi.org/PostmanTesting');\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries?title=Source System Namespace Authorization Testing",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries"
-											],
-											"query": [
-												{
-													"key": "title",
-													"value": "Source System Namespace Authorization Testing"
+													"name": "Clean up Environment Variables",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+																	"_.chain(_.keys(pm.environment.toObject()))\r",
+																	"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+																	"  .each(k => pm.environment.unset(k)).value();\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															]
+														}
+													},
+													"response": []
 												}
 											]
 										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Teardown",
-							"item": [
-								{
-									"name": "Delete Gradebook Entry (Ed-Fi namespace)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"  pm.expect(pm.response.code).equal(204);\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"{{known:gradebookEntry:id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete Gradebook Entry (Other namespace)",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Response is 204\", () => {\r",
-													"  pm.expect(pm.response.code).equal(204);\r",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": [
-												{
-													"key": "token",
-													"value": "{{AccessToken_Other_Namespace}}",
-													"type": "string"
-												}
-											]
-										},
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookEntries/{{known:gradebookEntry:id:otherNamespace}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"gradebookEntries",
-												"{{known:gradebookEntry:id:otherNamespace}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Clean up Environment Variables",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-													"_.chain(_.keys(pm.environment.toObject()))\r",
-													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-													"  .each(k => pm.environment.unset(k)).value();\r",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											]
-										}
-									},
-									"response": []
+									]
 								}
 							]
 						}

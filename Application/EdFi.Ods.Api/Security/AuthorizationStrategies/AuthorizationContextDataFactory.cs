@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
+using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies
@@ -25,7 +26,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
         public TContextData CreateContextData<TContextData>(
             object entity,
             PropertyMapping[] propertyNameMap = null,
-            Func<string, string> getContextDataPropertyName = null)
+            Func<string, IEnumerable<string>, PropertyMapping[]> getContextDataPropertyMappings = null)
             where TContextData : class, new()
         {
             // Can't map anything if source is null
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
 
             var factoryDelegate = _factoryMethodByMethodName.GetOrAdd(
                 methodName,
-                mn => CreateDynamicExtractorMethod(mn, sourceType, contextDataType, propertyNameMap, getContextDataPropertyName));
+                mn => CreateDynamicExtractorMethod(mn, sourceType, contextDataType, propertyNameMap, getContextDataPropertyMappings));
 
             // If no properties were present to be mapped, return a null context
             if (factoryDelegate == null)
@@ -62,7 +63,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
         /// <param name="sourceType">The <see cref="Type" /> of the source object.</param>
         /// <param name="targetType">The <see cref="Type" /> of the target (authorization context data) object.</param>
         /// <param name="propertyNameMappings">Explicit property name mappings.</param>
-        /// <param name="getContextDataPropertyName">A function that given a source property, returns the target property name to which is should be assigned.</param>
+        /// <param name="getContextDataPropertyMappings">A function that given a source property, returns the target property name to which is should be assigned.</param>
         /// <returns>The dynamically created method/delegate.</returns>
         /// <exception cref="EdFiSecurityException">Occurs when the supplied mapping function creates multiple mappings to the same target property.</exception>
         private static ExtractDelegate CreateDynamicExtractorMethod(
@@ -70,17 +71,17 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
             Type sourceType,
             Type targetType,
             PropertyMapping[] propertyNameMappings = null,
-            Func<string, string> getContextDataPropertyName = null)
+            Func<string, IEnumerable<string>, PropertyMapping[]> getContextDataPropertyMappings = null)
         {
             var sourceProperties = sourceType.GetProperties().ToDictionary(x => x.Name, x => x);
 
             var targetProperties = targetType.GetProperties().ToDictionary(x => x.Name, x => x);
 
-            // If explicit propertyNameMappings are not supplied...
+            // If explicit propertyNameMappings are NOT supplied...
             if (propertyNameMappings == null)
             {
-                // If property name mapping delegate is not supplied...
-                if (getContextDataPropertyName == null)
+                // If property name mapping delegate is NOT supplied...
+                if (getContextDataPropertyMappings == null)
                 {
                     // ... autogenerate the mappings based on matching property names
                     propertyNameMappings =
@@ -92,23 +93,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
                 }
                 else
                 {
+                    // Build property mappings using supplied function
+                    string entityFullName = $"{sourceType.GetCustomAttribute<SchemaAttribute>()?.Schema ?? "(Unknown Schema)"}.{sourceType.Name}";
+                        
                     // Build the property mappings using the supplied lambda, eliminating any properties that aren't given a mapping
-                    var groupedPropertyMappings = sourceProperties
-                        .Select(kvp => new PropertyMapping(kvp.Key, getContextDataPropertyName(kvp.Key)))
-                        .Where(pm => pm.TargetPropertyName != null)
-                        .GroupBy(pm => pm.TargetPropertyName)
-                        .ToArray();
-
-                    // Look for any attempts to map multiple source properties to the same target property and throw an exception
-                    var multipleMappingsToTargetProperty = groupedPropertyMappings.Where(g => g.Count() > 1).ToArray();
-                    
-                    if (multipleMappingsToTargetProperty.Any())
-                    {
-                        throw new EdFiSecurityException(
-                            $"More than one source property was mapped to the same target property '{multipleMappingsToTargetProperty.First().Key}'.");
-                    }
-
-                    propertyNameMappings = groupedPropertyMappings.SelectMany(x => x).ToArray();
+                    propertyNameMappings = getContextDataPropertyMappings(entityFullName, sourceProperties.Keys);
                     
                     ValidatePropertyMappings(
                         propertyNameMappings,
@@ -208,41 +197,52 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
             Type targetType,
             Dictionary<string, PropertyInfo> targetProperties)
         {
-            var missingSourceProperties = propertyNameMappings
-                                         .Select(x => x.SourcePropertyName)
-                                         .Except(sourceProperties.Keys)
-                                         .ToList();
+            EnsureNoMultipleMappingsToSameTargetProperty();
+            EnsureNoMissingPropertiesInMappings();
 
-            var missingTargetProperties = propertyNameMappings
-                                         .Select(x => x.TargetPropertyName)
-                                         .Except(targetProperties.Keys)
-                                         .ToList();
-
-            var sb = new StringBuilder();
-
-            if (missingSourceProperties.Any())
+            void EnsureNoMultipleMappingsToSameTargetProperty()
             {
-                string errorText = string.Join(
-                    Environment.NewLine,
-                    missingSourceProperties.Select(x => "    " + x));
+                // Look for any attempts to map multiple source properties to the same target property
+                var propertyMappingsByTargetPropertyName = propertyNameMappings.GroupBy(pm => pm.TargetPropertyName).ToArray();
 
-                sb.AppendLine(
-                    $"The following properties were not found on the source type '{sourceType.FullName}':{Environment.NewLine}{errorText}");
+                var multipleMappingsToTargetProperty = propertyMappingsByTargetPropertyName.Where(g => g.Count() > 1).ToArray();
+
+                if (multipleMappingsToTargetProperty.Any())
+                {
+                    throw new EdFiSecurityException(
+                        $"More than one source property was mapped to the same target property '{multipleMappingsToTargetProperty.First().Key}'.");
+                }
             }
 
-            if (missingTargetProperties.Any())
+            void EnsureNoMissingPropertiesInMappings()
             {
-                string errorText = string.Join(
-                    Environment.NewLine,
-                    missingTargetProperties.Select(x => "    " + x));
+                // Look for missing members
+                var missingSourceProperties = propertyNameMappings.Select(x => x.SourcePropertyName).Except(sourceProperties.Keys).ToList();
 
-                sb.AppendLine(
-                    $"The following properties were not found on the target type '{targetType.FullName}':{Environment.NewLine}{errorText}");
-            }
+                var missingTargetProperties = propertyNameMappings.Select(x => x.TargetPropertyName).Except(targetProperties.Keys).ToList();
 
-            if (sb.Length > 0)
-            {
-                throw new MissingMemberException($"The supplied property mappings were invalid.{Environment.NewLine}{sb}");
+                var sb = new StringBuilder();
+
+                if (missingSourceProperties.Any())
+                {
+                    string errorText = string.Join(Environment.NewLine, missingSourceProperties.Select(x => "    " + x));
+
+                    sb.AppendLine(
+                        $"The following properties were not found on the source type '{sourceType.FullName}':{Environment.NewLine}{errorText}");
+                }
+
+                if (missingTargetProperties.Any())
+                {
+                    string errorText = string.Join(Environment.NewLine, missingTargetProperties.Select(x => "    " + x));
+
+                    sb.AppendLine(
+                        $"The following properties were not found on the target type '{targetType.FullName}':{Environment.NewLine}{errorText}");
+                }
+
+                if (sb.Length > 0)
+                {
+                    throw new MissingMemberException($"The supplied property mappings were invalid.{Environment.NewLine}{sb}");
+                }
             }
         }
 
