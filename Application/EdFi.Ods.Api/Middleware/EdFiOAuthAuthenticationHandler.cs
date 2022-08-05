@@ -10,6 +10,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -81,6 +82,10 @@ namespace EdFi.Ods.Api.Middleware
                 var result = await _oauthTokenAuthenticator.AuthenticateAsync(authHeader.Parameter, authHeader.Scheme);
 
                 return result;
+            }
+            catch (DistributedCacheException ex)
+            {
+                throw new SafeDistributedCacheException(ex.Message);
             }
             catch (Exception ex)
             {

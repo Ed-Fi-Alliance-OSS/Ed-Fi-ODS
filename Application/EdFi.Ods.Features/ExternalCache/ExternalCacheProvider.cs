@@ -1,7 +1,11 @@
-// Copyright (c) 2021 Instructure Inc.
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Exceptions;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
@@ -18,14 +22,12 @@ namespace EdFi.Ods.Features.ExternalCache
     {
         private const string GuidPrefix = "(Guid)";
         private const string IntPrefix = "(int)";
+        private const string DefaultExceptionMessage = "Unable to access distributed cache.";
 
         private readonly IDistributedCache _distributedCache;
         private readonly TimeSpan _absoluteExpiration;
         private readonly TimeSpan _slidingExpiration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
-
-        private static readonly JsonSerializerSettings _defaultSerializerSettings =
-            new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
         private static readonly JsonSerializerSettings _nonGenericSerializerSettings =
             new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
@@ -41,39 +43,72 @@ namespace EdFi.Ods.Features.ExternalCache
         }
         bool ICacheProvider.TryGetCachedObject(string key, out object value)
         {
-            var cachedValue = _distributedCache.GetString(key);
-
-            if (!string.IsNullOrEmpty(cachedValue))
+            try
             {
-                value = Deserialize(cachedValue);
-                return true;
-            }
+                var cachedValue = _distributedCache.GetString(key);
 
-            value = null;
-            return false;
+                if (!string.IsNullOrEmpty(cachedValue))
+                {
+                    value = Deserialize(cachedValue);
+                    return true;
+                }
+
+                value = null;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+            }
         }
 
         void ICacheProvider.SetCachedObject(string keyName, object obj)
         {
-            _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
+            try
             {
-                AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
-                SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
-            });
+                _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
+                    SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+            }
         }
 
         void ICacheProvider.Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
-            TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
-
-            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+            try
             {
-                AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
-                SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null
-            });
+                _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
+                    SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+            }
         }
 
-        bool IExternalCacheProvider.KeyExists(string key) => _distributedCache.Get(key).Any();
+        bool IExternalCacheProvider.KeyExists(string key)
+        {
+            try
+            {
+                return _distributedCache.Get(key).Any();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+            }
+        }
 
         private static string Serialize(object @object)
         {
@@ -92,25 +127,33 @@ namespace EdFi.Ods.Features.ExternalCache
 
         bool IExternalCacheProvider.TryGetCachedObject<T>(string key, out T value)
         {
-            var cachedValue = _distributedCache.GetString(key);
-
-            if (!string.IsNullOrEmpty(cachedValue))
+            try
             {
-                try
-                {
-                    value = JsonConvert.DeserializeObject<T>(cachedValue, _customContractSerializerSettings);
-                    return true;
-                }
-                catch (JsonException e)
-                {
-                    _logger.Warn($"Exception during deserialization of the string \"{cachedValue}\". Message: \"{e.Message}\"");
-                }
-            }
+                var cachedValue = _distributedCache.GetString(key);
 
-            value = default;
-            return false;
+                if (!string.IsNullOrEmpty(cachedValue))
+                {
+                    try
+                    {
+                        value = JsonConvert.DeserializeObject<T>(cachedValue, _customContractSerializerSettings);
+                        return true;
+                    }
+                    catch (JsonException e)
+                    {
+                        _logger.Warn($"Exception during deserialization of the string \"{cachedValue}\". Message: \"{e.Message}\"");
+                    }
+                }
+
+                value = default;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+            }
         }
-        
+
         private object Deserialize(string @string)
         {
             if (@string.StartsWith(GuidPrefix, StringComparison.InvariantCulture) &&
