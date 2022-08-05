@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "914a397b-f006-4420-bf2c-bbd11814dac3",
+		"_postman_id": "b1db9ed4-9da8-4c4d-ad97-9b9e068047cd",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -7105,7 +7105,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"Other-gradebookEntry\",\r\n  \"Namespace\": \"uri://other.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sourcesectionidentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -7159,7 +7159,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
+													"raw": "{\r\n  \"gradebookEntryIdentifier\": \"NS-with-prefix-test\",\r\n  \"Namespace\": \"uri://ed-fi.org/PostmanTesting\",\r\n  \"dateAssigned\": \"2021-08-23\",\r\n  \"title\": \"Source System Namespace Authorization Testing\",\r\n  \"learningStandards\": [],\r\n  \"sourcesectionidentifier\": \"{{known:sectionReference:sectionIdentifier}}\",  \r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:sectionReference:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:sectionReference:schoolId}}\",\r\n    \"schoolYear\": \"{{known:sectionReference:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:sectionReference:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:sectionReference:sessionName}}\"\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
