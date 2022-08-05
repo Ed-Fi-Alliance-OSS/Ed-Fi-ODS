@@ -1,4 +1,7 @@
-// Copyright (c) 2021 Instructure Inc.
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common;
 using EdFi.Ods.Common.Caching;
@@ -25,9 +28,6 @@ namespace EdFi.Ods.Features.ExternalCache
         private readonly TimeSpan _absoluteExpiration;
         private readonly TimeSpan _slidingExpiration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
-
-        private static readonly JsonSerializerSettings _defaultSerializerSettings =
-            new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
         private static readonly JsonSerializerSettings _nonGenericSerializerSettings =
             new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }
 
@@ -76,14 +76,12 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }
 
         void ICacheProvider.Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
-            TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
-
             try
             {
                 _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
@@ -95,7 +93,7 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }
 
@@ -108,9 +106,8 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage);
-
-            };
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
+            }
         }
 
         private static string Serialize(object @object)
@@ -153,7 +150,7 @@ namespace EdFi.Ods.Features.ExternalCache
             catch (Exception ex)
             {
                 _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage);
+                throw new DistributedCacheException(DefaultExceptionMessage, ex);
             }
         }
 
