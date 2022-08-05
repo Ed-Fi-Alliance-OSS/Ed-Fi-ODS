@@ -8702,6 +8702,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
         public virtual short? SchoolYear  { get; set; }
         public virtual string SectionIdentifier  { get; set; }
         public virtual string SessionName  { get; set; }
+        public virtual string SourceSectionIdentifier  { get; set; }
         public virtual string Title  { get; set; }
         // -------------------------------------------------------------
 

@@ -1921,7 +1921,8 @@ ALTER TABLE edfi.Grade ALTER COLUMN LastModifiedDate SET DEFAULT current_timesta
 CREATE TABLE edfi.GradebookEntry (
     GradebookEntryIdentifier VARCHAR(60) NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
+    SourceSectionIdentifier VARCHAR(255) NOT NULL,
+    SectionIdentifier VARCHAR(255) NULL,
     LocalCourseCode VARCHAR(60) NULL,
     SessionName VARCHAR(60) NULL,
     SchoolId INT NULL,

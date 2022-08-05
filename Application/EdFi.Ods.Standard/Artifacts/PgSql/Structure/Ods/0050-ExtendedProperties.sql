@@ -1216,6 +1216,7 @@ COMMENT ON COLUMN edfi.Grade.CurrentGradeAsOfDate IS 'As-Of date for a grade pos
 COMMENT ON TABLE edfi.GradebookEntry IS 'This entity represents an assignment, homework, or classroom assessment to be recorded in a gradebook.';
 COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
 COMMENT ON COLUMN edfi.GradebookEntry.Namespace IS 'Namespace URI for the source of the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntry.SourceSectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN edfi.GradebookEntry.SectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN edfi.GradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.GradebookEntry.SessionName IS 'The identifier for the calendar for the academic session.';

@@ -2874,7 +2874,8 @@ GO
 CREATE TABLE [edfi].[GradebookEntry] (
     [GradebookEntryIdentifier] [NVARCHAR](60) NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SourceSectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NULL,
     [LocalCourseCode] [NVARCHAR](60) NULL,
     [SessionName] [NVARCHAR](60) NULL,
     [SchoolId] [INT] NULL,

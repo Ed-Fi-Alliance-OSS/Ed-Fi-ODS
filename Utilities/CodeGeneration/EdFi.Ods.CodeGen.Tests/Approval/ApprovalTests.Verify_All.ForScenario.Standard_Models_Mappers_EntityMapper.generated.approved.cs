@@ -27796,6 +27796,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsSourceSectionIdentifierSupported)
+                && target.SourceSectionIdentifier != source.SourceSectionIdentifier)
+            {
+                target.SourceSectionIdentifier = source.SourceSectionIdentifier;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsTitleSupported)
                 && target.Title != source.Title)
             {
@@ -27906,6 +27913,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
             else
                 targetSynchSupport.IsSessionNameSupported = false;
 
+            if (sourceSynchSupport.IsSourceSectionIdentifierSupported)
+                target.SourceSectionIdentifier = source.SourceSectionIdentifier;
+            else
+                targetSynchSupport.IsSourceSectionIdentifierSupported = false;
+
             if (sourceSynchSupport.IsTitleSupported)
                 target.Title = source.Title;
             else
@@ -27984,6 +27996,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GradebookEntryAggregate
         bool IsSchoolYearSupported { get; set; }
         bool IsSectionIdentifierSupported { get; set; }
         bool IsSessionNameSupported { get; set; }
+        bool IsSourceSectionIdentifierSupported { get; set; }
         bool IsTitleSupported { get; set; }
         Func<IGradebookEntryLearningStandard, bool> IsGradebookEntryLearningStandardIncluded { get; set; }
     }

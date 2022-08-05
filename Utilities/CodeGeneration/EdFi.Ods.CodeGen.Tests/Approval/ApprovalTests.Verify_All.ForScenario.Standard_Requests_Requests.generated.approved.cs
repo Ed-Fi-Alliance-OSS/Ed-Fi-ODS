@@ -5060,6 +5060,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.GradebookEntries.EdFi
         public short SchoolYear { get; set; }
         public string SectionIdentifier { get; set; }
         public string SessionName { get; set; }
+        public string SourceSectionIdentifier { get; set; }
         public string Title { get; set; }
     }
 

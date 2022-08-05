@@ -98,21 +98,18 @@ Scenario: Composite includes collection with properties
     Then the queries generated should all match previously approved values
 
 #Collection -> Collection
-@ignore
 Scenario: Composite includes collection with collection
     Given the subject of the request is a StudentAssessment with ObjectAssessmentScoreResults
     When a GET (by id) request is submitted to the "StudentCollectionWithCollection" composite
     Then the queries generated should all match previously approved values
 
 # Collection -> Unflattened reference
-@ignore
 Scenario: Composite includes collection with unflattened reference
     Given the subject of the request is a StudentAssessment with StudentAssessmentStudentObjectiveAssessment
     When a GET (by id) request is submitted to the "StudentCollectionWithUnflattenedReference" composite
     Then the queries generated should all match previously approved values
 
 # Collection -> Flattened reference
-@ignore
 Scenario: Composite includes collection with flattened reference
     Given the subject of the request is a StudentAssessment with StudentAssessmentStudentObjectiveAssessment
     When a GET (by id) request is submitted to the "StudentCollectionWithFlattenedReference" composite
