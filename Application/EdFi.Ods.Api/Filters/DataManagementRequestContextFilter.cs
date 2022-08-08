@@ -5,7 +5,9 @@
 
 using System;
 using System.Linq;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
@@ -21,6 +23,7 @@ namespace EdFi.Ods.Api.Filters;
 public class DataManagementRequestContextFilter : IActionFilter
 {
     private readonly IDataManagementRequestContextProvider _contextProvider;
+    private readonly ApiSettings _apiSettings;
 
     private readonly string[] _knownSchemas;
 
@@ -29,7 +32,8 @@ public class DataManagementRequestContextFilter : IActionFilter
 
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
-        IDataManagementRequestContextProvider contextProvider)
+        IDataManagementRequestContextProvider contextProvider,
+        ApiSettings apiSettings)
     {
         _resourceModelProvider = resourceModelProvider;
 
@@ -39,6 +43,7 @@ public class DataManagementRequestContextFilter : IActionFilter
             .ToArray();
 
         _contextProvider = contextProvider;
+        _apiSettings = apiSettings;
     }
 
     public void OnActionExecuting(ActionExecutingContext context)
@@ -48,13 +53,14 @@ public class DataManagementRequestContextFilter : IActionFilter
         if (attributeRouteInfo != null)
         {
             string template = attributeRouteInfo.Template;
+            string templatePrefix = GetTemplatePrefix();
 
             // e.g. data/v3/ed-fi/gradebookEntries
 
             // Is this a data management route?
-            if (template?.StartsWith(RouteConstants.DataManagementRoutePrefix) ?? false)
+            if (template?.StartsWith(templatePrefix) ?? false)
             {
-                var parts = template.Substring(RouteConstants.DataManagementRoutePrefix.Length + 1).Split('/');
+                var parts = template.Substring(templatePrefix.Length).Split('/');
 
                 string schema, resourceCollection;
                 
@@ -100,4 +106,22 @@ public class DataManagementRequestContextFilter : IActionFilter
     }
 
     public void OnActionExecuted(ActionExecutedContext context) { }
+
+    private string GetTemplatePrefix()
+    {
+        string template = $"{RouteConstants.DataManagementRoutePrefix}/";
+
+        if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
+        {
+            template += RouteConstants.SchoolYearFromRoute;
+        }
+
+        if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+        {
+            template += RouteConstants.InstanceIdFromRoute;
+            template += RouteConstants.SchoolYearFromRoute;
+        }
+
+        return template;
+    }
 }
