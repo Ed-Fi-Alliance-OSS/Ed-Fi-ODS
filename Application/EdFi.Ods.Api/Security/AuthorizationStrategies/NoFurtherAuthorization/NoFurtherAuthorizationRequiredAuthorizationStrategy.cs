@@ -19,17 +19,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization
     public class NoFurtherAuthorizationRequiredAuthorizationStrategy : IAuthorizationStrategy
     {
         private const string AuthorizationStrategyName = "NoFurtherAuthorizationRequired";
-        
-        public Task AuthorizeSingleItemAsync(
-            IEnumerable<Claim> relevantClaims,
-            EdFiAuthorizationContext authorizationContext,
-            CancellationToken cancellationToken)
-        {
-            // Note: all claim checks are done in the implementation of the IEdFiAuthorizationProvider.
-            // Do nothing because the resource authorization metadata provider should have returned claims for the
-            // requested action and the EdFi authorization provider should have validated.
-            return Task.CompletedTask;
-        }
 
         /// <summary>
         /// Applies filtering to a multiple-item request.

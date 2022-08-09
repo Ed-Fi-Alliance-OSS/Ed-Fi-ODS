@@ -10,16 +10,18 @@ namespace EdFi.Ods.Tests._Extensions
 {
     public static class ExceptionAssertionExtensions
     {
-        public static void ShouldBeExceptionType<TExpected>(this Exception exception)
+        public static Exception ShouldBeExceptionType<TExpected>(this Exception exception)
         {
             if (exception == null)
             {
                 Assert.That(exception, Is.TypeOf<TExpected>());
+
+                return null;
             }
-            else
-            {
-                Assert.That(exception, Is.TypeOf<TExpected>(), GetActualExceptionOutputMessage(exception));
-            }
+
+            Assert.That(exception, Is.TypeOf<TExpected>(), GetActualExceptionOutputMessage(exception));
+
+            return exception;
         }
 
         private static string GetActualExceptionOutputMessage(Exception exception)
