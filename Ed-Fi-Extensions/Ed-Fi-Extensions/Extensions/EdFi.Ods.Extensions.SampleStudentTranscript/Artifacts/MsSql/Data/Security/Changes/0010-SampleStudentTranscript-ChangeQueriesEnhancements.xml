@@ -1,0 +1,37 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <Claims>
+        <Claim claimId="322" name="http://ed-fi.org/ods/identity/claims/sample-student-transcript/postSecondaryOrganization">
+          <DefaultAuthorization>
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+          </DefaultAuthorization>
+        </Claim>        
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
