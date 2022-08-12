@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+  EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
     - name: Dispatch to Implementation repo
       uses: peter-evans/repository-dispatch@11ba7d3f32dc7cc919d1c43f1fec1c05260c26b5 # v2
       with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
         event-type: triggered-from-ods-repo
         client-payload: '{"branch": "${{ GITHUB.HEAD_REF }}"}'
