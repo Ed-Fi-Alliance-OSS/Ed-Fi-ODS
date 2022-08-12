@@ -3,6 +3,12 @@ name: Trigger InitDev workflows in Implementation repo
 on:
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
 
 env:
   EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
