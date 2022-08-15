@@ -35,10 +35,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         {
             var model = BuildNewModel(ResourceApi.ModelType);
 
-            return new[]
-                   {
-                       model
-                   };
+            return new[] {model}
+                .Concat(methodInfo.BuildOptionalParameters())
+                .ToArray();
         }
 
         private object BuildNewModel(Type t, object obj = null)
@@ -113,7 +112,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var resourceUri = new Uri(location[0]);
 
             // Add the POSTed resource to the ResultsDictionary so that it can be referenced by subsequent POSTs
-            ResultsDictionary.Add(ResourceApi.ModelType.Name, new List<object> { requestParameters.Single() });
+            ResultsDictionary.Add(ResourceApi.ModelType.Name, new List<object> { requestParameters.First() });
             _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
 
             return true;

@@ -73,7 +73,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 try
                 {
                     var api = GetApiInstance();
-                    result = methodInfo.Invoke(api, @params.Append(Type.Missing).ToArray());
+                    result = methodInfo.Invoke(api, @params);
                 }
                 catch (Exception e)
                 {
@@ -122,12 +122,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var getByIdMethod = ResourceApi.GetByIdMethod;
             var id = Path.GetFileName(resourceUri.ToString());
 
-            var @params = new object[]
-            {
-                id,
-                Type.Missing,
-                Type.Missing
-            };
+            var @params = new object[] {id}
+                .Concat(getByIdMethod.BuildOptionalParameters())
+                .ToArray();
 
             try
             {
