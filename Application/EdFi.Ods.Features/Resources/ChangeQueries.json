@@ -167,15 +167,15 @@
   "definitions": {
     "availableChangeVersion": {
       "required": [
-        "OldestChangeVersion",
-        "NewestChangeVersion"
+        "oldestChangeVersion",
+        "newestChangeVersion"
       ],
       "properties": {
-        "OldestChangeVersion": {
+        "oldestChangeVersion": {
           "type": "integer",
           "format": "int64"
         },
-        "NewestChangeVersion": {
+        "newestChangeVersion": {
           "type": "integer",
           "format": "int64"
         }
