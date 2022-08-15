@@ -73,7 +73,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 try
                 {
                     var api = GetApiInstance();
-                    result = methodInfo.Invoke(api, @params);
+                    result = methodInfo.Invoke(api, @params.Append(Type.Missing).ToArray());
                 }
                 catch (Exception e)
                 {
