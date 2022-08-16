@@ -9,6 +9,6 @@ namespace EdFi.Ods.Features.ExternalCache
 {
     public interface IExternalCacheProvider : ICacheProvider
     {
-        bool KeyExists(string key);
+        //NOTE - Separate interfaces exist for IExternalCacheProvider and ICacheProvider so that both can be used if configured to do so
     }
 }

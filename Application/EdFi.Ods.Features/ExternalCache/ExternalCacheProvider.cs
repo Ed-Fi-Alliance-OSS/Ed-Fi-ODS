@@ -117,19 +117,6 @@ namespace EdFi.Ods.Features.ExternalCache
             }
         }
 
-        bool IExternalCacheProvider.KeyExists(string key)
-        {
-            try
-            {
-                return _distributedCache.Get(key).Any();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage, ex);
-            }
-        }
-
         private static string Serialize(object @object)
         {
             if (@object is Guid guid)
