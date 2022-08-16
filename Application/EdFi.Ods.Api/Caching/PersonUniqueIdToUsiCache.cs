@@ -430,7 +430,7 @@ namespace EdFi.Ods.Api.Caching
 
         private string GetUsiKeyTokenContext()
         {
-            return string.Format((string)"from_{0}", (object)_edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
+            return $"from_{_edFiOdsInstanceIdentificationProvider.GetInstanceIdentification()}";
         }
 
         private class IdentityValueMaps

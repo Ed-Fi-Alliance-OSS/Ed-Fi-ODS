@@ -800,14 +800,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
         internal class FakeEdFiOdsInstanceIdentificationProvider : IEdFiOdsInstanceIdentificationProvider
         {
-            private int value;
+            private ulong value;
 
-            public int GetInstanceIdentification()
+            public ulong GetInstanceIdentification()
             {
                 return value;
             }
 
-            public void SetInstanceIdentification(int value)
+            public void SetInstanceIdentification(ulong value)
             {
                 this.value = value;
             }

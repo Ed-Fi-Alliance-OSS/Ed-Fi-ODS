@@ -101,7 +101,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
                 A.Fake<IEdFiOdsInstanceIdentificationProvider>();
 
             A.CallTo(() => MockEdFiOdsInstanceIdentificationProvider.GetInstanceIdentification())
-                .Returns(1);
+                .Returns(1UL);
 
             descriptionCache = new DescriptorsCache(
                 MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider);

@@ -60,7 +60,7 @@ namespace EdFi.Ods.Api.Caching
             }
         }
 
-        private int InstanceId => _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification();
+        private ulong InstanceId => _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification();
 
         public string GetValue(string descriptorName, int id)
         {
