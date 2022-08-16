@@ -43,6 +43,7 @@
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
+    <PackageReference Include="Standart.Hash.xxHash" Version="4.0.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />

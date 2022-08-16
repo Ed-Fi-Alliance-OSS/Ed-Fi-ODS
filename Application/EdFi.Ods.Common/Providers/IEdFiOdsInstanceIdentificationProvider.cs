@@ -9,16 +9,15 @@ namespace EdFi.Ods.Common.Providers {
     /// delineate different ODS instances.
     /// </summary>
     /// <remarks>This interface and its implementations are used to facilitate caching of
-    /// values that are unique to a particular ODS.  For example, different sandbox ODSs may be
-    /// based on the "minimal" template or the "populated" template with different types and
-    /// descriptors values, and when there are year-specific ODSs, they will have different
-    /// USI values for people.</remarks>
+    /// values that map to specific surrogate Ids that are unique to a particular ODS. For example,
+    /// the same StudentUniqueId will be associated with a different surrogate Id (StudentUSI)
+    /// in each ODS.</remarks>
     public interface IEdFiOdsInstanceIdentificationProvider
     {
         /// <summary>
         /// Gets a unique identifying value for the ODS currently in context.
         /// </summary>
-        /// <returns>A unique integer value (likely the GetHashCode value for the connection string).</returns>
-        int GetInstanceIdentification();
+        /// <returns>A unique integer value for Ed-Fi ODS instance.</returns>
+        ulong GetInstanceIdentification();
     }
 }
