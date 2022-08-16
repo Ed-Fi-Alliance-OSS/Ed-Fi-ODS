@@ -10,7 +10,5 @@ namespace EdFi.Ods.Features.ExternalCache
     public interface IExternalCacheProvider : ICacheProvider
     {
         bool KeyExists(string key);
-
-        bool TryGetCachedObject<T>(string key, out T value);       
     }
 }

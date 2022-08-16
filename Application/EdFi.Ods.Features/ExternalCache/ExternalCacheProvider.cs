@@ -3,18 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Common;
+using EdFi.Ods.Api.Authentication;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Exceptions;
 using log4net;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
@@ -29,11 +27,9 @@ namespace EdFi.Ods.Features.ExternalCache
         private readonly TimeSpan _slidingExpiration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
 
-        private static readonly JsonSerializerSettings _nonGenericSerializerSettings =
-            new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
-
-        private static readonly JsonSerializerSettings _customContractSerializerSettings =
-            new JsonSerializerSettings { ContractResolver = new CustomContractResolver(), ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+        // TypeNameHandling.None for https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2326
+        private static readonly JsonSerializerSettings _defaultSerializerSettings =
+            new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
         public ExternalCacheProvider(IDistributedCache distributedCache, TimeSpan slidingExpiration, TimeSpan absoluteExpiration)
         {
@@ -49,7 +45,31 @@ namespace EdFi.Ods.Features.ExternalCache
 
                 if (!string.IsNullOrEmpty(cachedValue))
                 {
-                    value = Deserialize(cachedValue);
+                    if (key.StartsWith("IdentityValueMaps"))
+                    {
+                        var identityValueMaps = JsonConvert.DeserializeObject<PersonUniqueIdToUsiCache.IdentityValueMaps>(cachedValue); 
+                        
+                        if (identityValueMaps.UsiByUniqueId == null && identityValueMaps.UniqueIdByUsi == null)
+                        {
+                            // initialized but not set
+                            value = null;
+                        }
+                        else
+                        {
+                            value = identityValueMaps;
+                        }
+
+                    }
+                    else if (key.StartsWith("ApiClientDetails"))
+                    {
+                        value = JsonConvert.DeserializeObject<ApiClientDetails>(cachedValue);
+                    }
+                    else
+                    {
+                        // Simple cache like descriptors can be deserialized without explicit type names
+                        value = Deserialize(cachedValue);
+                    }
+
                     return true;
                 }
 
@@ -122,36 +142,7 @@ namespace EdFi.Ods.Features.ExternalCache
                 return $"{IntPrefix}{@int.ToString(CultureInfo.InvariantCulture)}";
             }
 
-            return JsonConvert.SerializeObject(@object, _nonGenericSerializerSettings);
-        }
-
-        bool IExternalCacheProvider.TryGetCachedObject<T>(string key, out T value)
-        {
-            try
-            {
-                var cachedValue = _distributedCache.GetString(key);
-
-                if (!string.IsNullOrEmpty(cachedValue))
-                {
-                    try
-                    {
-                        value = JsonConvert.DeserializeObject<T>(cachedValue, _customContractSerializerSettings);
-                        return true;
-                    }
-                    catch (JsonException e)
-                    {
-                        _logger.Warn($"Exception during deserialization of the string \"{cachedValue}\". Message: \"{e.Message}\"");
-                    }
-                }
-
-                value = default;
-                return false;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                throw new DistributedCacheException(DefaultExceptionMessage, ex);
-            }
+            return JsonConvert.SerializeObject(@object, _defaultSerializerSettings);
         }
 
         private object Deserialize(string @string)
@@ -170,7 +161,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
             try
             {
-                return JsonConvert.DeserializeObject(@string, _nonGenericSerializerSettings);
+                return JsonConvert.DeserializeObject(@string, _defaultSerializerSettings);
             }
             catch (JsonException e)
             {
@@ -191,65 +182,6 @@ namespace EdFi.Ods.Features.ExternalCache
             return timeUntilAbsolute < slidingExpiration
                 ? timeUntilAbsolute
                 : slidingExpiration;
-        }
-
-        /// <summary>
-        /// A contract resolver implementation that prefers the most specific constructor for a class being
-        /// deserialized.
-        /// </summary>
-        /// <remarks>
-        /// Source from: https://stackoverflow.com/questions/23017716/json-net-how-to-deserialize-without-using-the-default-constructor
-        /// </remarks>
-        private class CustomContractResolver : DefaultContractResolver
-        {
-            protected override JsonObjectContract CreateObjectContract(Type objectType)
-            {
-                var c = base.CreateObjectContract(objectType);
-
-                if (!IsCustomClass(objectType))
-                {
-                    return c;
-                }
-
-                IList<ConstructorInfo> constructors = objectType
-                    .GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    .OrderBy(e => e.GetParameters().Length).ToList();
-
-                var mostSpecificConstructor = constructors.LastOrDefault();
-
-                if (mostSpecificConstructor != null)
-                {
-                    c.OverrideCreator = CreateParameterizedConstructor(mostSpecificConstructor);
-
-                    foreach (JsonProperty constructorParameter in CreateConstructorParameters(
-                        mostSpecificConstructor, c.Properties))
-                    {
-                        c.CreatorParameters.Add(constructorParameter);
-                    }
-                }
-
-                return c;
-            }
-
-            private static bool IsCustomClass(Type objectType)
-                => !objectType.IsPrimitive &&
-                   !objectType.IsEnum &&
-                   !string.IsNullOrEmpty(objectType.Namespace) &&
-                   !objectType.Namespace.StartsWith("System.");
-
-            private static ObjectConstructor<object> CreateParameterizedConstructor(MethodBase method)
-            {
-                Preconditions.ThrowIfNull(method, nameof(method));
-
-                var c = method as ConstructorInfo;
-
-                if (c != null)
-                {
-                    return a => c.Invoke(a);
-                }
-
-                return a => method.Invoke(null, a);
-            }
         }
     }
 }

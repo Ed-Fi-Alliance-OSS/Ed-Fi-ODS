@@ -433,7 +433,7 @@ namespace EdFi.Ods.Api.Caching
             return $"from_{_edFiOdsInstanceIdentificationProvider.GetInstanceIdentification()}";
         }
 
-        private class IdentityValueMaps
+        public class IdentityValueMaps
         {
             private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
 
