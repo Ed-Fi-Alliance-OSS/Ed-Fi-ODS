@@ -13,6 +13,38 @@
 					"name": "Basic Resource",
 					"item": [
 						{
+							"name": "AlwaysFails",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Always fails\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(418);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changequeries/v1/snapshots",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changequeries",
+										"v1",
+										"snapshots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Snapshots",
 							"request": {
 								"method": "GET",
