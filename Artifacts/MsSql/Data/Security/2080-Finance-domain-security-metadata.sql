@@ -45,200 +45,7 @@ BEGIN
 
     BEGIN TRANSACTION
 
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/functionDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/functionDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/fundDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/fundDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/objectDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/objectDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/programDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/programDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/projectDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/projectDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-    --------------------------------------------------------------------------------------------------------
-    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/sourceDimension'
-    --------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/sourceDimension'
-    SET @claimId = NULL
-
-    SELECT @claimId = ResourceClaimId
-    FROM dbo.ResourceClaims 
-    WHERE ClaimName = @claimName
-
-    
-    IF @claimId IS NOT NULL
-        BEGIN
-                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
-                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
-                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId)
-                DELETE FROM dbo.ResourceClaimActions
-                WHERE ResourceClaimId =  @claimId
-                DELETE FROM dbo.ResourceClaims
-                WHERE ResourceClaimId =  @claimId
-
-        END
-
-    -------------------------------------------------------------------------------------------------
-    -- Cleaning up the Resource Claim Ends
-    -------------------------------------------------------------------------------------------------
-
+   
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
@@ -1488,6 +1295,200 @@ BEGIN
     -- Pop the stack
     DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
 
+
+        --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/balanceSheetDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/functionDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/functionDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/fundDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/fundDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/objectDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/objectDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/operationalUnitDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/programDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/programDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/projectDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/projectDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+    --------------------------------------------------------------------------------------------------------
+    -- Cleaning up the existing Resource Claim: 'http://ed-fi.org/ods/identity/claims/sourceDimension'
+    --------------------------------------------------------------------------------------------------------
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/sourceDimension'
+    SET @claimId = NULL
+
+    SELECT @claimId = ResourceClaimId
+    FROM dbo.ResourceClaims 
+    WHERE ClaimName = @claimName
+
+    
+    IF @claimId IS NOT NULL
+        BEGIN
+                PRINT 'Deleting existing Resource Claim  ''' + @claimName + '''.'
+                DELETE  FROM dbo.ResourceClaimActionAuthorizationStrategies
+                WHERE ResourceClaimActionId IN  ( SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId)
+                DELETE FROM dbo.ResourceClaimActions
+                WHERE ResourceClaimId =  @claimId
+                DELETE FROM dbo.ResourceClaims
+                WHERE ResourceClaimId =  @claimId
+
+        END
+        
+    -------------------------------------------------------------------------------------------------
+    -- Cleaning up the Resource Claim Ends
+    -------------------------------------------------------------------------------------------------
 
     COMMIT TRANSACTION
 
