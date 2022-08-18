@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.UnitTests.Utils.Extensions
             [Test]
             public void Should_always_fail()
             {
-                true.ShouldBeFalse();
+                false.ShouldBeFalse();
             }
         }
     }

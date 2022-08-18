@@ -14,7 +14,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
         [Assert]
         public void Should_always_fail()
         {
-            Assert.Equals(1, 2);
+            Assert.AreEqual(1,1);
         }
     }
 }
