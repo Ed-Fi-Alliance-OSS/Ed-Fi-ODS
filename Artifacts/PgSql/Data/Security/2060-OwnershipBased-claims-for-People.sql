@@ -41,7 +41,11 @@ BEGIN
     SELECT actionid INTO readchanges_action_id
     FROM dbo.actions WHERE ActionName = 'ReadChanges';
     
-
+    IF (NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE Application_ApplicationId = application_id AND AuthorizationStrategyName = 'OwnershipBased')) THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+        VALUES ('Ownership Based', 'OwnershipBased', application_id);
+    END IF;
+    
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 

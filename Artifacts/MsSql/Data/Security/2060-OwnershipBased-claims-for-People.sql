@@ -45,6 +45,12 @@ BEGIN
 
     BEGIN TRANSACTION
 
+    IF (NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE Application_ApplicationId = @applicationId AND AuthorizationStrategyName = 'OwnershipBased')) 
+    BEGIN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+        VALUES ('Ownership Based', 'OwnershipBased', @applicationId);
+    END
+    
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
