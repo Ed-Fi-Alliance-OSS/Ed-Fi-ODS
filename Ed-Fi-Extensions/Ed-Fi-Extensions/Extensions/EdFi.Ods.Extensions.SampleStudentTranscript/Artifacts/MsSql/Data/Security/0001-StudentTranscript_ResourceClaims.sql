@@ -101,7 +101,7 @@ FROM [dbo].[ResourceClaims]
 CROSS APPLY (
     SELECT ActionId
     FROM [dbo].[Actions]
-    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS a
+    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete','ReadChanges')) AS a
 WHERE ResourceClaimId = @ResourceClaimId
 
 INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies] (
@@ -114,7 +114,7 @@ INNER JOIN [dbo].[ResourceClaims] rc
     ON rca.[ResourceClaimId] = rc.[ResourceClaimId]
 INNER JOIN [dbo].[Actions] a
     ON rca.ActionId = a.Actionid
-        AND a.ActionName IN ('Create','Read','Update','Delete')
+        AND a.ActionName IN ('Create','Read','Update','Delete', 'ReadChanges')
 WHERE rc.ResourceClaimId = @ResourceClaimId
 
 --Add to SIS Vendor and Ed-Fi Sandbox claim sets

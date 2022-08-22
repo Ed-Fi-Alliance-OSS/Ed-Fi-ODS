@@ -113,7 +113,7 @@ FROM dbo.ResourceClaims
 INNER JOIN LATERAL (
     SELECT ActionId
     FROM dbo.Actions
-    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS a ON true
+    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete', 'ReadChanges')) AS a ON true
 WHERE ResourceClaimId = postSecondaryOrganizationResourceClaimId;
 
 INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies (
@@ -126,7 +126,7 @@ INNER JOIN dbo.ResourceClaims rc
     ON rca.ResourceClaimId = rc.ResourceClaimId
 INNER JOIN dbo.Actions a
     ON rca.ActionId = a.Actionid
-        AND a.ActionName IN ('Create','Read','Update','Delete')
+        AND a.ActionName IN ('Create','Read','Update','Delete','ReadChanges')
 WHERE rc.ResourceClaimId = postSecondaryOrganizationResourceClaimId;
 
 --Add to SIS Vendor and Ed-Fi Sandbox claim sets
