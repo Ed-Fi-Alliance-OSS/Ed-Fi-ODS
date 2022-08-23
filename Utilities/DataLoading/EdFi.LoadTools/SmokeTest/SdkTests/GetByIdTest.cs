@@ -30,9 +30,9 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 ? typeValue.Id.ToString()
                 : Guid.Empty.ToString("n");
 
-            object[] paramArray = Enumerable.Repeat<object>(string.Empty, methodInfo.GetParameters().Length).ToArray();
-            paramArray[0] = id;
-            return paramArray;
+            return new object[] {id}
+                .Concat(methodInfo.BuildOptionalParameters())
+                .ToArray();
         }
 
         protected override bool ShouldPerformTest()
