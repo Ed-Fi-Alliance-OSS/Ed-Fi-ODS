@@ -1,0 +1,28 @@
+name: Trigger InitDev workflows in Implementation repo
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+
+env:
+  EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dispatch to Implementation repo
+      uses: peter-evans/repository-dispatch@11ba7d3f32dc7cc919d1c43f1fec1c05260c26b5 # v2
+      with:
+        token: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+        event-type: triggered-from-ods-repo
+        client-payload: '{"branch": "${{ GITHUB.HEAD_REF }}"}'

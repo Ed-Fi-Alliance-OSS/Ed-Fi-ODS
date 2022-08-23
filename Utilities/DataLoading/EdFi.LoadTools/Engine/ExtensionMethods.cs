@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace EdFi.LoadTools.Engine
@@ -47,6 +48,19 @@ namespace EdFi.LoadTools.Engine
         public static bool IsPrimitiveType(this Type t)
         {
             return t.IsPrimitive || t.IsValueType || t == typeof(string);
+        }
+
+        /// <summary>
+        /// Returns an array with as many <see cref="Type.Missing"/> as optional parameters.
+        /// Useful while invoking methods by reflection.
+        /// </summary>
+        public static object[] BuildOptionalParameters(this MethodInfo methodInfo)
+        {
+            return methodInfo
+                .GetParameters()
+                .Where(p => p.HasDefaultValue)
+                .Select(_ => Type.Missing)
+                .ToArray();
         }
 
         /// <summary>
