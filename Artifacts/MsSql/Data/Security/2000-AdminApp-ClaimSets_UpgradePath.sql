@@ -65,8 +65,10 @@ IF NOT EXISTS (SELECT 1
 BEGIN				  
 	INSERT INTO dbo.ClaimSetResourceClaimActions
 		(ActionId, ClaimSetId, ResourceClaimId)
-	SELECT ActionId, @claimSetId, ResourceClaimId  FROM dbo.Actions a, @resourceClaimIds rc
-	WHERE NOT EXISTS (SELECT 1
+	SELECT ActionId, @claimSetId, ResourceClaimId  
+    FROM dbo.Actions a, @resourceClaimIds rc
+	WHERE actionname in ('Create','Read','Update','Delete')
+    AND NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSetResourceClaimActions
 				  WHERE ActionId = a.ActionId AND ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
 

@@ -207,4 +207,3 @@ SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaim
 INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
 INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
 WHERE RCA.ResourceClaimId = @resourceClaimId
-
