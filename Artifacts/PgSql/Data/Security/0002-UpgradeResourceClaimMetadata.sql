@@ -113,10 +113,10 @@ END IF;
 /*           Claimsets               */
 /* --------------------------------- */
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='SIS Vor' AND Application_ApplicationId = application_Id) THEN
+IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='SIS Vendor' AND Application_ApplicationId = application_Id) THEN
 
     INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    VALUES ('SIS Vor', application_Id);
+    VALUES ('SIS Vendor', application_Id);
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ed-Fi Sandbox' AND Application_ApplicationId = application_Id) THEN
@@ -125,16 +125,16 @@ IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ed-Fi Sandbox' AN
     VALUES ('Ed-Fi Sandbox', application_Id);
 END IF;
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Roster Vor' AND Application_ApplicationId = application_Id) THEN
+IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Roster Vendor' AND Application_ApplicationId = application_Id) THEN
 
     INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    VALUES ('Roster Vor', application_Id);
+    VALUES ('Roster Vendor', application_Id);
 END IF;
 
-IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Vor' AND Application_ApplicationId = application_Id) THEN
+IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Vendor' AND Application_ApplicationId = application_Id) THEN
 
     INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    VALUES ('Assessment Vor', application_Id);
+    VALUES ('Assessment Vendor', application_Id);
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Read' AND Application_ApplicationId = application_Id) THEN
@@ -2396,9 +2396,9 @@ END IF;
 /*     ClaimSetResourceClaimActions        */
 /* ---------------------------------------------------- */
 
-/* SIS Vors Claims */
+/* SIS Vendors Claims */
 
-SELECT ClaimSetId INTO claimSet_Id FROM dbo.ClaimSets WHERE ClaimSetName = 'SIS Vor';
+SELECT ClaimSetId INTO claimSet_Id FROM dbo.ClaimSets WHERE ClaimSetName = 'SIS Vendor';
 
 INSERT INTO dbo.ClaimSetResourceClaimActions
     (ActionId
@@ -2515,9 +2515,9 @@ WHERE ResourceName IN ('communityProviderLicense')
 ) result
 WHERE NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ActionId = result.ActionId AND ClaimSetId = result.ClaimSetId AND ResourceClaimId = result.ResourceClaimId);
 
-/* Roster Vor Claims */
+/* Roster Vendor Claims */
 
-SELECT ClaimSetId INTO claimSet_Id FROM dbo.ClaimSets WHERE ClaimSetName = 'Roster Vor';
+SELECT ClaimSetId INTO claimSet_Id FROM dbo.ClaimSets WHERE ClaimSetName = 'Roster Vendor';
 
 INSERT INTO dbo.ClaimSetResourceClaimActions
     (ActionId
@@ -2539,9 +2539,9 @@ WHERE ResourceName IN ('educationOrganizations', 'section', 'student', 'staff', 
 ) result
 WHERE NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ActionId = result.ActionId AND ClaimSetId = result.ClaimSetId AND ResourceClaimId = result.ResourceClaimId);
 
-/* Assessment Vor Claims */
+/* Assessment Vendor Claims */
 
-SELECT ClaimSetId INTO claimSet_Id FROM dbo.ClaimSets WHERE ClaimSetName = 'Assessment Vor';
+SELECT ClaimSetId INTO claimSet_Id FROM dbo.ClaimSets WHERE ClaimSetName = 'Assessment Vendor';
 
 INSERT INTO dbo.ClaimSetResourceClaimActions
     (ActionId
