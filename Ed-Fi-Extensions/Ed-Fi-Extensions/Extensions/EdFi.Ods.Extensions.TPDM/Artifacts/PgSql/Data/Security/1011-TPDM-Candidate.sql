@@ -7,6 +7,7 @@ DO $$
 
 DECLARE authorization_strategy_id INT;
 DECLARE resource_claim_id INT;
+DECLARE resource_claim_action_id INT;
 
 BEGIN
 
@@ -20,6 +21,21 @@ BEGIN
     FROM dbo.ResourceClaims
     WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/tpdm/candidate';
 
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = resource_claim_id) THEN
+
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = resource_claim_id
+    );
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = resource_claim_id;
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = resource_claim_id;
+
+    END IF;
     -- Create CRUD action claims for @resourceClaimName
 
     INSERT INTO dbo.ResourceClaimActions (

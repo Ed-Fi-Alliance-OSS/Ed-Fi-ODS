@@ -197,14 +197,16 @@ BEGIN
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
 
-    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = claim_id;
-
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
-   
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = claim_id
+    );
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = claim_id;
     DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
 
     END IF;
@@ -565,14 +567,16 @@ BEGIN
 
     IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
 
-    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = claim_id;
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = claim_id
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
-   
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = claim_id;
     DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
 
     END IF;
@@ -699,14 +703,16 @@ BEGIN
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
 
-    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = claim_id;
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = claim_id
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
-   
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = claim_id;
     DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
 
     END IF;
@@ -966,14 +972,16 @@ BEGIN
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
 
-    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = claim_id;
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = claim_id
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
-   
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = claim_id;
     DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
 
     END IF;

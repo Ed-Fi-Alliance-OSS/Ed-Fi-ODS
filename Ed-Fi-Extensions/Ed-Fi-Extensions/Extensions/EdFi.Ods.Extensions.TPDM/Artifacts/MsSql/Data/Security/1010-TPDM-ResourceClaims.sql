@@ -212,16 +212,17 @@ BEGIN
 
     BEGIN
 
-    SELECT @resourceClaimActionId = RCAAS.ResourceClaimActionId
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = @claimId
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = @claimId
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  
-    WHERE ResourceClaimActionId =@resourceClaimActionId
-   
-    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = @claimId;
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId;
 
     END
     
@@ -645,16 +646,17 @@ BEGIN
 
     BEGIN
 
-    SELECT @resourceClaimActionId = RCAAS.ResourceClaimActionId
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = @claimId
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = @claimId
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  
-    WHERE ResourceClaimActionId =@resourceClaimActionId
-   
-    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = @claimId;
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId;
 
     END
 
@@ -796,16 +798,17 @@ BEGIN
 
     BEGIN
 
-    SELECT @resourceClaimActionId = RCAAS.ResourceClaimActionId
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = @claimId
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = @claimId
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  
-    WHERE ResourceClaimActionId =@resourceClaimActionId
-   
-    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = @claimId;
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId;
 
     END
     
@@ -1105,16 +1108,17 @@ BEGIN
 
     BEGIN
 
-    SELECT @resourceClaimActionId = RCAAS.ResourceClaimActionId
-    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
-    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
-    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
-    WHERE   CSRCA.ResourceClaimId = @claimId
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = @claimId
+    );
 
-    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  
-    WHERE ResourceClaimActionId =@resourceClaimActionId
-   
-    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = @claimId;
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @claimId;
 
     END
     

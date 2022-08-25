@@ -13,6 +13,22 @@ SELECT @resourceClaimId = ResourceClaimId
 FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/tpdm/candidate'
 
+IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = @resourceClaimId)
+BEGIN
+    DELETE 
+    FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionAuthorizationStrategyId IN (
+        SELECT RCAAS.ResourceClaimActionAuthorizationStrategyId
+        FROM dbo.ResourceClaimActionAuthorizationStrategies  RCAAS
+        INNER JOIN dbo.ResourceClaimActions  RCA   ON RCA.ResourceClaimActionId = RCAAS.ResourceClaimActionId
+        WHERE RCA.ResourceClaimId = @resourceClaimId
+    );
+
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ResourceClaimId = @resourceClaimId;
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = @resourceClaimId;
+
+END
+    
 -- Create CRUD action claims for @resourceClaimName
 INSERT INTO dbo.ResourceClaimActions (
      ActionId

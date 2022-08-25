@@ -8,10 +8,14 @@ DECLARE claim_set_name VARCHAR(255) := 'Education Preparation Program';
 DECLARE claim_set_id int;
 
 BEGIN
-    --Create Claimset
-    INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset) VALUES(claim_set_name,1,'TRUE');
     SELECT ClaimSetId INTO claim_set_id FROM dbo.ClaimSets WHERE ClaimSetName = claim_set_name;
-
+    
+    IF (claim_set_id IS NULL) THEN
+        --Create Claimset
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset) VALUES(claim_set_name,1,'TRUE');
+        SELECT ClaimSetId INTO claim_set_id FROM dbo.ClaimSets WHERE ClaimSetName = claim_set_name;
+    END IF;
+    
     --Create CRUD action claims for all ClaimNames in @resourceClaimNames
     INSERT INTO dbo.ClaimSetResourceClaimActions (ActionId, ClaimSetId, ResourceClaimId)
     SELECT act.ActionId, claim_set_id, ResourceClaimId
@@ -31,12 +35,15 @@ BEGIN
         'http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation',
         'http://ed-fi.org/ods/identity/claims/domains/tpdm/survey',
         'http://ed-fi.org/ods/identity/claims/domains/surveyDomain',
-        'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations'
-    );
+        'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations',
+        'http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgram'
+    )
+    AND NOT EXISTS(SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ActionId = act.ActionId AND ClaimSetId = claim_set_id AND ResourceClaimId = RC.ResourceClaimID);
 
     --Create R action claim for systemDescriptors
     INSERT INTO dbo.ClaimSetResourceClaimActions (ActionId, ClaimSetId, ResourceClaimId)
     SELECT (SELECT ActionId FROM dbo.Actions WHERE ActionName = 'Read'), claim_set_id, ResourceClaimId
     FROM dbo.ResourceClaims RC
-    WHERE RC.ResourceName = 'systemDescriptors';
-END $$;
+    WHERE RC.ResourceName = 'systemDescriptors'
+	AND NOT EXISTS(SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ActionId = (SELECT ActionId FROM dbo.Actions WHERE ActionName = 'Read') AND ClaimSetId = claim_set_id AND ResourceClaimId = RC.ResourceClaimID);	
+	END $$;
