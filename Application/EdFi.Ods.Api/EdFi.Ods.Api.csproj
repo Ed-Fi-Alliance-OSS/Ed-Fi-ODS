@@ -23,6 +23,7 @@
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.1" />
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.0.12" />
     <PackageReference Include="EdFi.Suite3.Common" Version="6.0.5" />
+    <PackageReference Include="EdFi.Suite3.Ods.Common" Version="6.0.5" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.16" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentValidation" Version="10.4.0" />
@@ -51,9 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
     <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
