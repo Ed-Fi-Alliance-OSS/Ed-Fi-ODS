@@ -18,6 +18,10 @@ namespace EdFi.Security.DataAccess.Models
         [Required]
         public string ClaimSetName { get; set; }
 
+        public bool IsEdfiPreset  { get; set; }
+
+        public bool ForApplicationUseOnly   { get; set; }        
+
         [Required]
         public Application Application { get; set; }
     }
