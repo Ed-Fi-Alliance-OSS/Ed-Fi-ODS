@@ -48,7 +48,7 @@ jobs:
           }
     - name: update csproj file
       run: |
-         $csprojFile = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Common.csproj"
+         $csprojFile = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
          (Get-Content -path $csprojFile -Raw) | ForEach-Object {
             $_.replace("<PackageId>EdFi.Ods.Common</PackageId>","<PackageId>>EdFi.Suite3.Ods.Common</PackageId>")
          } | Set-Content -Path $csprojFile
