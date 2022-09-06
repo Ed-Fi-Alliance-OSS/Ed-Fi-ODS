@@ -62,11 +62,11 @@ jobs:
       shell: pwsh        
     - name: build
       run: |
-        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
       shell: pwsh
     - name: test
       run: |
-        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
       shell: pwsh
     - name: pack
       run: |
