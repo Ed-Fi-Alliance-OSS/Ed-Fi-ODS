@@ -7,8 +7,6 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
-  pull_request:
-    branches: [main]        
 
 env:
   INFORMATIONAL_VERSION: "6.0"
