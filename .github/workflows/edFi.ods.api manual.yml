@@ -52,6 +52,7 @@ jobs:
          (Get-Content -path $csprojFile -Raw) | ForEach-Object {
             $_.replace("<PackageId>EdFi.Ods.Common</PackageId>","<PackageId>>EdFi.Suite3.Ods.Common</PackageId>")
          } | Set-Content -Path $csprojFile
+         Get-Content -Path $csprojFile
       working-directory: ./Ed-Fi-ODS
       shell: pwsh        
     - name: build
