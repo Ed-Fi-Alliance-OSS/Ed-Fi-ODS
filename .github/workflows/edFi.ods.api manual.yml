@@ -46,7 +46,7 @@ jobs:
             git fetch origin ${{ env.CURRENT_BRANCH }}
             git checkout ${{ env.CURRENT_BRANCH }}
           }
-    - name: update csproj file        
+    - name: update csproj file
       run: |
          $csprojFile = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Common.csproj"
          (Get-Content -path $csprojFile -Raw) | ForEach-Object {
