@@ -20,7 +20,7 @@ namespace EdFi.Security.DataAccess.Models
 
         public bool IsEdfiPreset  { get; set; }
 
-        public bool ForApplicationUseOnly   { get; set; }        
+        public bool ForApplicationUseOnly   { get; set; }
 
         [Required]
         public Application Application { get; set; }
