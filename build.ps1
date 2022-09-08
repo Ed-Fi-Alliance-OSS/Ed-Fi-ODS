@@ -58,10 +58,6 @@ $version = "$InformationalVersion.$newRevision"
 $packageOutput = "$PSScriptRoot/NugetPackages"
 $packagePath = "$packageOutput/$PackageName.$version.nupkg"
 
-if ([string]::IsNullOrWhiteSpace($Solution)){
-    $Solution =$ProjectFile
-}
-
 function Invoke-Execute {
     param (
         [ScriptBlock]
