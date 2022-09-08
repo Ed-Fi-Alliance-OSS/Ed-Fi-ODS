@@ -10,7 +10,7 @@ on:
 
 env:
   INFORMATIONAL_VERSION: "6.0"
-  BUILD_INCREMENTER: "1"
+  BUILD_INCREMENTER: "17"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
@@ -46,3 +46,9 @@ jobs:
       run: |
         .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"  -PackageName "EdFi.Suite3.Ods.Common"
       shell: pwsh
+    - name: Upload EdFi.Ods.Common Artifacts
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/NugetPackages/*.*

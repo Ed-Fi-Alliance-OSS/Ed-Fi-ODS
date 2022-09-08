@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <PackageId>EdFi.Ods.Api</PackageId>
+    <PackageId>EdFi.Suite3.Ods.Api</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api</AssemblyName>
