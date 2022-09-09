@@ -62,7 +62,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             var configuration = c.Resolve<IConfiguration>();
 
                             int expirationPeriod =
-                                configuration.GetValue<int?>("Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
+                                configuration.GetValue<int?>("ApiSettings:Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
 
                             return new ExpiringConcurrentDictionaryCacheProvider(TimeSpan.FromSeconds(expirationPeriod));
                         }))
@@ -139,7 +139,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ??
+                            int period = configuration.GetValue<int?>("ApiSettings:Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ??
                                          14400;
 
                             return TimeSpan.FromSeconds(period);
@@ -151,7 +151,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ??
+                            int period = configuration.GetValue<int?>("ApiSettings:Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ??
                                          86400;
 
                             return TimeSpan.FromSeconds(period);
@@ -163,7 +163,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStudentCache") ?? false;
+                            return configuration.GetValue<bool?>("ApiSettings:Caching:PersonUniqueIdToUsi:SuppressStudentCache") ?? false;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -172,7 +172,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStaffCache") ?? false;
+                            return configuration.GetValue<bool?>("ApiSettings:PersonUniqueIdToUsi:SuppressStaffCache") ?? false;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -181,7 +181,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressParentCache") ?? false;
+                            return configuration.GetValue<bool?>("ApiSettings:Caching:PersonUniqueIdToUsi:SuppressParentCache") ?? false;
                         }))
                 .As<IPersonUniqueIdToUsiCache>()
                 .SingleInstance();
