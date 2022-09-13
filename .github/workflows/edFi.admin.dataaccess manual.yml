@@ -9,7 +9,7 @@ on:
         default: 'warning'
 
 env:
-  INFORMATIONAL_VERSION: "6.0"
+  INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
