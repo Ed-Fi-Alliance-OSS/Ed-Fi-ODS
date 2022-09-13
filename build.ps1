@@ -140,7 +140,7 @@ function Sign {
     $certificateBytes = [System.Convert]::FromBase64String($certificateString)
     
     $certificatePath = "certificate.pfx"
-    Set-Content $certificatePath -Value $certificateBytes -Encoding Byte
+    Set-Content $certificatePath -Value $certificateBytes -AsByteStream
 
     Try
     {
