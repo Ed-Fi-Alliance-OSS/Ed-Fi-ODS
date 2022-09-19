@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "6.0",
+  "odsApiVersion": "6.1",
   "schemaDefinition": {
     "logicalName": "SampleStudentTransportation",
     "physicalName": "samplestudenttransportation",
