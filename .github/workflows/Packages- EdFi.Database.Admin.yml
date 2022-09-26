@@ -74,7 +74,7 @@ jobs:
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
-          choco install postgresql13 --params '/Password:postgres /Port:5432'
+          choco install postgresql13
     - name: Create Admin Database 
       shell: pwsh
       run: |
