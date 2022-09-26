@@ -30,22 +30,6 @@ jobs:
 
     runs-on: windows-latest
 
-    services:
-      postgres:
-        image: postgres:13.8
-        env:
-          POSTGRES_DB: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_PORT: 5432
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
@@ -85,11 +69,12 @@ jobs:
             git fetch origin ${{ env.CURRENT_BRANCH }}
             git checkout ${{ env.CURRENT_BRANCH }}
           }
-    - name: Install sql-server-2019 & sqlpackage
+    - name: Install sql-server-2019, sqlpackage, and postgres13
       shell: pwsh
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
+          choco install postgresql13 --params '/Password:postgres /Port:5432'
     - name: Create Admin Database 
       shell: pwsh
       run: |
