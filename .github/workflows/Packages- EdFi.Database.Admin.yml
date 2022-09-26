@@ -26,17 +26,18 @@ env:
   CURRENT_BRANCH:  ${{ GITHUB.HEAD_REF }}
 
 jobs:
-  postgres:
-    runs-on: ubuntu-latest
-    container: node:latest
+  build:
+
+    runs-on: windows-latest
+
     services:
       postgres:
         image: postgres:13.8
         env:
           POSTGRES_DB: postgres
-          POSTGRES_PASSWORD: postgres_password
-          POSTGRES_PORT: 5432
+          POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
+          POSTGRES_PORT: 5432
         ports:
           - 5432:5432
         options: >-
@@ -44,10 +45,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-  build:
-
-    runs-on: windows-latest
 
     steps:
     - name: Setup .NET
