@@ -8,6 +8,8 @@ name: Packages- EdFi.Database.Admin
 on:
   pull_request:
     branches: [main]
+    paths:
+      - '**.sql'
   push:
     branches:
       - main
