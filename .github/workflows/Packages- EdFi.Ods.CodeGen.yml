@@ -85,10 +85,23 @@ jobs:
       run: |
         .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
-    - name: test
+    - name: test codegen
       run: |
-        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln" -TestFilter "LocalOnly"
-      shell: pwsh
+        $ErrorActionPreference = 'Stop'
+        & "Ed-Fi-ODS-Implementation\logistics\scripts\modules\load-path-resolver.ps1"
+
+        $project = "Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
+
+        $reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "\reports\"
+        if (Test-Path $reports) {
+            Remove-Item -Path $reports -Force -Recurse | Out-Null
+        }
+        New-Item -ItemType Directory -Force -Path $reports | Out-Null
+        $reportName = $reports + (Get-ChildItem $project | Select-Object -ExpandProperty Name) + ".xml"
+
+        Write-Host "& dotnet test $project --configuration  ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger 'trx;LogFileName=$reportName'"
+        & dotnet test $project --configuration ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
+      shell: pwsh      
     - name: pack codegen
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln" -ProjectFile "Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
