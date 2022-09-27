@@ -89,7 +89,7 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
 
-        $project = "Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
+        $project = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
         $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\reports\"
 
         if (Test-Path $reports) {
