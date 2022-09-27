@@ -89,7 +89,7 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
 
-        $project = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
+        $solution = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
         $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\reports\"
 
         if (Test-Path $reports) {
@@ -98,7 +98,7 @@ jobs:
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
         
-        dotnet test $project --configuration ${{ env.CONFIGURATION }} --filter TestCategory!~'LocalOnly'
+        & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
       shell: pwsh
       working-directory: ./Ed-Fi-ODS/    
     - name: pack codegen
