@@ -88,7 +88,7 @@ jobs:
     - name: test codegen
       run: |
         $ErrorActionPreference = 'Stop'
-        & "Ed-Fi-ODS-Implementation\logistics\scripts\modules\load-path-resolver.ps1"
+        & "\logistics\scripts\modules\load-path-resolver.ps1"
 
         $project = "Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
 
@@ -101,7 +101,8 @@ jobs:
 
         Write-Host "& dotnet test $project --configuration  ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger 'trx;LogFileName=$reportName'"
         & dotnet test $project --configuration ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
-      shell: pwsh      
+      shell: pwsh
+      working-directory: ./Ed-Fi-ODS-Implementation/    
     - name: pack codegen
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln" -ProjectFile "Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
