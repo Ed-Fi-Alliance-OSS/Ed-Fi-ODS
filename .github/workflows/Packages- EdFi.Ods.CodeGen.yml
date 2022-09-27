@@ -98,9 +98,9 @@ jobs:
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
         
-        dotnet test $project --configuration ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
+        dotnet test $project --configuration ${{ env.CONFIGURATION }} --filter TestCategory!~'LocalOnly'
       shell: pwsh
-      working-directory: ./Ed-Fi-ODS-Implementation/    
+      working-directory: ./Ed-Fi-ODS/    
     - name: pack codegen
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln" -ProjectFile "Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
