@@ -88,11 +88,10 @@ jobs:
     - name: test codegen
       run: |
         $ErrorActionPreference = 'Stop'
-        & "\logistics\scripts\modules\load-path-resolver.ps1"
 
         $project = "Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
+        $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\reports\"
 
-        $reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "\reports\"
         if (Test-Path $reports) {
             Remove-Item -Path $reports -Force -Recurse | Out-Null
         }
