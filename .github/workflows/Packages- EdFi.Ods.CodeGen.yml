@@ -96,7 +96,7 @@ jobs:
             Remove-Item -Path $reports -Force -Recurse | Out-Null
         }
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
-        $reportName = $reports + (Get-ChildItem $project | Select-Object -ExpandProperty Name) + ".xml"
+        $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
 
         Write-Host "& dotnet test $project --configuration  ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger 'trx;LogFileName=$reportName'"
         & dotnet test $project --configuration ${{ env.CONFIGURATION }} --no-build --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
