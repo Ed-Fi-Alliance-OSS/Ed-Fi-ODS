@@ -118,7 +118,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var generatedFileList = Path.Combine(
                 _odsRepository,
-                @$"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
+                @$"Utilities/CodeGeneration/EdFi.Ods.CodeGen.Tests/Approval/{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
 
             var files = File.ReadAllLines(generatedFileList)
                 .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot, x)))
