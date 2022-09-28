@@ -25,12 +25,9 @@ namespace EdFi.Ods.CodeGen.Helpers
                 throw new ArgumentNullException(nameof(codeRepositoryPath));
             }
 
-            var dirList = codeRepositoryPath.Split(Path.DirectorySeparatorChar)
-                .ToList();
+            int index = codeRepositoryPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsFolderName);
 
-            var root = string.Join(
-                Path.DirectorySeparatorChar,
-                dirList.TakeWhile(x => !x.EqualsIgnoreCase(CodeRepositoryConventions.EdFiOdsFolderName)));
+            var root = codeRepositoryPath.Substring(0, index);
 
             if (Directory.Exists(codeRepositoryPath))
             {
