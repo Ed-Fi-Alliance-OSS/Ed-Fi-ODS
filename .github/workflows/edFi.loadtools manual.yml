@@ -61,4 +61,10 @@ jobs:
     - name: publish smoke test console
       run: |
         .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName "EdFi.Suite3.SmokeTest.Console"
-      shell: pwsh      
+      shell: pwsh
+    - name: Upload EdFi.LoadTools Artifacts
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/NugetPackages/*.nupkg      
