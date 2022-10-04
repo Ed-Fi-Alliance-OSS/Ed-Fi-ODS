@@ -40,7 +40,6 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                     Path = "testFolder",
                     TemplateSet = "standard",
                     IsExtension = false,
-                    IsProfile = false,
                     SchemaName = EdFiConventions.ProperCaseName
                 };
 
@@ -91,7 +90,6 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                     Path = "testFolder",
                     TemplateSet = "standard",
                     IsExtension = false,
-                    IsProfile = true,
                     SchemaName = EdFiConventions.ProperCaseName
                 };
 

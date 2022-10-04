@@ -58,7 +58,6 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
             return new TemplateContext
             {
                 ProjectPath = assemblyData.Path,
-                IsProfiles = assemblyData.IsProfile,
                 IsExtension = assemblyData.IsExtension,
                 SchemaProperCaseName = schemaNameMap.ProperCaseName,
                 DomainModelProvider = domainModelProvider,
@@ -69,14 +68,6 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
         private IDomainModelProvider CreateDomainModelProvider(AssemblyData assemblyData)
         {
             List<IDomainModelDefinitionsProvider> domainModelDefinitionsToLoad = null;
-
-            // Profiles needs everything to be loaded
-            if (!assemblyData.IsProfile)
-            {
-                // Always include EdFi, only include the extension definition provider that matches the current context
-                // to avoid issues with templates not handling multiple models active
-                domainModelDefinitionsToLoad = GetDomainModelDefinitionProviders(assemblyData.SchemaName);
-            }
 
             return new DomainModelProvider(
                 domainModelDefinitionsToLoad ?? _domainModelDefinitionProviders.Value,

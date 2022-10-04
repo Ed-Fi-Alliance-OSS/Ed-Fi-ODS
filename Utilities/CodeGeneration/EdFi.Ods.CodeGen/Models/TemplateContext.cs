@@ -63,12 +63,6 @@ namespace EdFi.Ods.CodeGen.Models
         }
 
         /// <summary>
-        /// Checks if we are within a profile code generation context.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsProfiles { get; set; }
-
-        /// <summary>
         /// Checks if we are within an extension code generation context.
         /// </summary>
         /// <returns></returns>
@@ -80,7 +74,7 @@ namespace EdFi.Ods.CodeGen.Models
         /// <returns></returns>
         public bool IsEdFi
         {
-            get => !IsExtension && !IsProfiles;
+            get => !IsExtension;
         }
 
         /// <summary>
@@ -130,6 +124,6 @@ namespace EdFi.Ods.CodeGen.Models
         }
 
         // Profiles-enabled projects include all resources / entities for template rendering.
-        private bool ShouldRenderForSchema(string schema) => IsProfiles || schema == SchemaPhysicalName;
+        private bool ShouldRenderForSchema(string schema) => schema == SchemaPhysicalName;
     }
 }
