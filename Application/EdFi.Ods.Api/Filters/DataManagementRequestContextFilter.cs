@@ -5,14 +5,18 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.Api.Filters;
 
@@ -20,9 +24,9 @@ namespace EdFi.Ods.Api.Filters;
 /// An action filter that inspects the action descriptor's AttributeRouteInfo to locate
 /// the <see cref="Resource" /> associated with the current data management API request.
 /// </summary>
-public class DataManagementRequestContextFilter : IActionFilter
+public class DataManagementRequestContextFilter : IAsyncResourceFilter
 {
-    private readonly IDataManagementRequestContextProvider _contextProvider;
+    private readonly IContextProvider<DataManagementResourceContext> _contextProvider;
     private readonly ApiSettings _apiSettings;
 
     private readonly string[] _knownSchemas;
@@ -30,9 +34,11 @@ public class DataManagementRequestContextFilter : IActionFilter
     private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementRequestContextFilter));
     private readonly IResourceModelProvider _resourceModelProvider;
 
+    private static string _templatePrefix;
+    
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
-        IDataManagementRequestContextProvider contextProvider,
+        IContextProvider<DataManagementResourceContext> contextProvider,
         ApiSettings apiSettings)
     {
         _resourceModelProvider = resourceModelProvider;
@@ -46,30 +52,37 @@ public class DataManagementRequestContextFilter : IActionFilter
         _apiSettings = apiSettings;
     }
 
-    public void OnActionExecuting(ActionExecutingContext context)
+    public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
     {
         var attributeRouteInfo = context.ActionDescriptor.AttributeRouteInfo;
 
         if (attributeRouteInfo != null)
         {
+            _templatePrefix ??= GetTemplatePrefix();
+
             string template = attributeRouteInfo.Template;
-            string templatePrefix = GetTemplatePrefix();
 
             // e.g. data/v3/ed-fi/gradebookEntries
 
             // Is this a data management route?
-            if (template?.StartsWith(templatePrefix) ?? false)
+            if (template?.StartsWith(_templatePrefix) ?? false)
             {
-                var parts = template.Substring(templatePrefix.Length).Split('/');
-
-                string schema, resourceCollection;
+                var templateSegment = new StringSegment(template);
                 
+                var parts = templateSegment.Subsegment(_templatePrefix.Length).Split(new[]{'/'});
+                using var partsEnumerator = parts.GetEnumerator();
+                partsEnumerator.MoveNext();
+                
+                string schema, resourceCollection;
+
                 // If the schema segment is a templated route value...
-                if (parts[0] == "{schema}")
+                if (partsEnumerator.Current == "{schema}")
                 {
                     if (!context.RouteData.Values.TryGetValue("schema", out object schemaAsObject)
                         || !context.RouteData.Values.TryGetValue("resource", out object resourceAsObject))
                     {
+                        await next();
+
                         return;
                     }
 
@@ -79,22 +92,25 @@ public class DataManagementRequestContextFilter : IActionFilter
                 else
                 {
                     // If this is NOT a known schema...
-                    if (!_knownSchemas.Contains(parts[0]))
+                    if (!_knownSchemas.Contains(partsEnumerator.Current))
                     {
                         return;
                     }
 
-                    schema = parts[0];
-                    resourceCollection = parts[1];
-                }
+                    schema = partsEnumerator.Current.Value;
 
+                    partsEnumerator.MoveNext();
+                    resourceCollection = partsEnumerator.Current.Value;
+                }
+                
                 // Find and capture the associated resource to context
                 try
                 {
+                    // SPIKE NOTE: What about setting the Profile-specific resource model here?
                     var resource = _resourceModelProvider.GetResourceModel()
                         .GetResourceByApiCollectionName(schema, resourceCollection);
 
-                    _contextProvider.SetResource(resource);
+                    _contextProvider.Set(new DataManagementResourceContext(resource));
                 }
                 catch (Exception)
                 {
@@ -103,6 +119,8 @@ public class DataManagementRequestContextFilter : IActionFilter
                 }
             }
         }
+
+        await next();
     }
 
     public void OnActionExecuted(ActionExecutedContext context) { }

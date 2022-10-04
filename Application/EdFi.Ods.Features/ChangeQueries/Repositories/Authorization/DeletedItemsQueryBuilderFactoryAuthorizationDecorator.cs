@@ -5,6 +5,7 @@
 
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
@@ -30,7 +31,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             IAuthorizationFilteringProvider authorizationFilteringProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
                 apiKeyContextProvider,
@@ -39,7 +40,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 authorizationFilteringProvider,
                 authorizationBasisMetadataSelector,
                 authorizationFilterDefinitionProvider,
-                dataManagementRequestContextProvider)
+                dataManagementResourceContextProvider)
         {
             _next = next;
         }

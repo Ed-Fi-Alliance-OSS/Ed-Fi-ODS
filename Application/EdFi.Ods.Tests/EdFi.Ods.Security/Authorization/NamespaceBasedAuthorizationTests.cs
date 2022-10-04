@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
@@ -214,8 +215,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var domainModel = this.LoadDomainModel("NoNamespacePropertyPresent");
 
                 var resource = domainModel.ResourceModel.GetAllResources().Single();
-                var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
-                A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);
+                var requestContextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                A.CallTo(() => requestContextProvider.Get()).Returns(new DataManagementResourceContext(resource));
 
                 var strategy = new NamespaceBasedAuthorizationStrategy();
 

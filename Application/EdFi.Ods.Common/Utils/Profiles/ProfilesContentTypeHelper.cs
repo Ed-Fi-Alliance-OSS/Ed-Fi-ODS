@@ -6,6 +6,7 @@
 using System;
 using System.Text.RegularExpressions;
 using EdFi.Common.Inflection;
+using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.Common.Utils.Profiles
 {
@@ -30,56 +31,60 @@ namespace EdFi.Ods.Common.Utils.Profiles
                      .ToLower());
         }
 
-        public static ProfileContentTypeDetails GetContentTypeDetails(this string contentType)
-        {
-            ProfileContentTypeDetails details;
+        // SPIKE NOTE: This wasn't used after .NET Core conversion, in favor of generating content type attributes on the controller action methods.
+        // However, those controllers/action methods are no longer use. Do we need to reinstate this somewhere to ensure the correct content types are identified on the responses?
+        // If not, delete this. Otherwise, reinstate and use appropriately.
+        
+        // public static ProfileContentTypeDetails GetContentTypeDetails(this StringSegment contentType)
+        // {
+        //     ProfileContentTypeDetails details;
+        //
+        //     if (TryGetContentTypeDetails(contentType, out details))
+        //     {
+        //         return details;
+        //     }
+        //
+        //     return null;
+        // }
 
-            if (TryGetContentTypeDetails(contentType, out details))
-            {
-                return details;
-            }
-
-            return null;
-        }
-
-        public static bool IsEdFiContentType(this string contentType)
-        {
-            if (contentType.StartsWith("application/vnd.ed-fi."))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public static bool TryGetContentTypeDetails(this string contentType, out ProfileContentTypeDetails details)
-        {
-            details = null;
-
-            var match = ProfileRegex.Match(contentType);
-
-            if (!match.Success)
-            {
-                return false;
-            }
-
-            details = new ProfileContentTypeDetails
-                      {
-                          Implementation = match.Groups["Implementation"]
-                                                .Value,
-                          Resource = match.Groups["Resource"]
-                                          .Value,
-                          Profile = match.Groups["Profile"]
-                                         .Value,
-                          Usage =
-                              (ContentTypeUsage) Enum.Parse(
-                                  typeof(ContentTypeUsage),
-                                  match.Groups["Usage"]
-                                       .Value,
-                                  true)
-                      };
-
-            return true;
-        }
+        // public static bool IsEdFiContentType(this string contentType)
+        // {
+        //     if (contentType.StartsWith("application/vnd.ed-fi."))
+        //     {
+        //         return true;
+        //     }
+        //
+        //     return false;
+        // }
+        //
+        // private static bool TryGetContentTypeDetails(this string contentType, out ProfileContentTypeDetails details)
+        // {
+        //     details = null;
+        //
+        //     var match = ProfileRegex.Match(contentType);
+        //
+        //     if (!match.Success)
+        //     {
+        //         return false;
+        //     }
+        //
+        //     details = new ProfileContentTypeDetails
+        //               {
+        //                   Implementation = match.Groups["Implementation"]
+        //                                         .Value,
+        //                   Resource = match.Groups["Resource"]
+        //                                   .Value,
+        //                   Profile = match.Groups["Profile"]
+        //                                  .Value,
+        //                   Usage =
+        //                       (ContentTypeUsage) Enum.Parse(
+        //                           typeof(ContentTypeUsage),
+        //                           match.Groups["Usage"]
+        //                                .Value,
+        //                           true)
+        //               };
+        //
+        //     return true;
+        // }
     }
 }
