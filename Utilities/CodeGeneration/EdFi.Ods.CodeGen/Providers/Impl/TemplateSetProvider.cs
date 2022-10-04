@@ -33,7 +33,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             throw new ArgumentOutOfRangeException(
                 nameof(templateSetName),
-                $"Unable to find templates for templateSetName {templateSetName}.");
+                $"Unable to find templates for templateSetName '{templateSetName}'.");
         }
 
         private ConcurrentDictionary<string, IReadOnlyList<TemplateSet>> LazyInitializeTemplateSetData()

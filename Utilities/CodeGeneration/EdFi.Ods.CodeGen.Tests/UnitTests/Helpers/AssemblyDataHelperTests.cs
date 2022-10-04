@@ -58,7 +58,6 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                 _assemblyData.ShouldSatisfyAllConditions(
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Standard"),
                     () => _assemblyData.IsExtension.ShouldBe(false),
-                    () => _assemblyData.IsProfile.ShouldBe(false),
                     () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-ODS\\Application\\EdFi.Ods.Standard"),
                     () => _assemblyData.SchemaName.ShouldBe("EdFi"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Standard)
@@ -111,58 +110,9 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                 _assemblyData.ShouldSatisfyAllConditions(
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Extensions.TPDM"),
                     () => _assemblyData.IsExtension.ShouldBe(true),
-                    () => _assemblyData.IsProfile.ShouldBe(false),
                     () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Extensions.TPDM"),
                     () => _assemblyData.SchemaName.ShouldBe("TPDM"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Extension)
-                );
-            }
-        }
-
-        public class When_creating_assembly_data_for_a_profile : TestFixtureBase
-        {
-            private AssemblyDataHelper _assemblyDataHelper;
-            private AssemblyData _assemblyData;
-
-            protected override void Arrange()
-            {
-                var jsonFileProvider = A.Fake<IJsonFileProvider>();
-                var assemblyMetadata = new AssemblyMetadata { AssemblyModelType = TemplateSetConventions.Profile };
-                A.CallTo(() => jsonFileProvider.Load<AssemblyMetadata>(A<string>.Ignored)).Returns(assemblyMetadata);
-
-                var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
-                A.CallTo(() => domainModelDefinitionsProvider.GetDomainModelDefinitions()).MustNotHaveHappened();
-
-
-                var domainModelDefinitionsProviderProvider = A.Fake<IDomainModelDefinitionsProviderProvider>();
-
-                A.CallTo(
-                        ()
-                            => domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName())
-                    .Returns(new Dictionary<string, IDomainModelDefinitionsProvider>());
-
-                _assemblyDataHelper = new AssemblyDataHelper(jsonFileProvider, domainModelDefinitionsProviderProvider);
-            }
-
-            protected override void Act()
-            {
-                _assemblyData =
-                    _assemblyDataHelper.CreateAssemblyData(
-                        "Drive:/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/assemblymetadata.json");
-            }
-
-            [Test]
-            public void Should_create_expected_assembly_data()
-            {
-                _assemblyData.ShouldNotBeNull();
-
-                _assemblyData.ShouldSatisfyAllConditions(
-                    () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Profiles.Sample"),
-                    () => _assemblyData.IsExtension.ShouldBe(false),
-                    () => _assemblyData.IsProfile.ShouldBe(true),
-                    () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Profiles.Sample"),
-                    () => _assemblyData.SchemaName.ShouldBe("EdFi"),
-                    () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Profile)
                 );
             }
         }
