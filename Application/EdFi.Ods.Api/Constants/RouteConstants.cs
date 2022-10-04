@@ -7,24 +7,12 @@ namespace EdFi.Ods.Api.Constants
 {
     public static class RouteConstants
     {
-        public static string DataManagementRoutePrefix
-        {
-            get => $"data/v{ApiVersionConstants.Ods}";
-        }
+        public const string DataManagementRoutePrefix = $"data/v{ApiVersionConstants.Ods}";
 
-        public static string Dependencies
-        {
-            get => "AggregateDependencies";
-        }
+        public const string Dependencies = "AggregateDependencies";
+        
+        public const string SchoolYearFromRoute = @"{schoolYearFromRoute:regex(^\d{{4}}$)}/";
 
-        public static string SchoolYearFromRoute
-        {
-            get => @"{schoolYearFromRoute:regex(^\d{{4}}$)}/";
-        }
-
-        public static string InstanceIdFromRoute
-        {
-            get => @"{instanceIdFromRoute:regex(^[[A-Za-z0-9-]]+$)}/";
-        }
+        public const string InstanceIdFromRoute = @"{instanceIdFromRoute:regex(^[[A-Za-z0-9-]]+$)}/";
     }
 }

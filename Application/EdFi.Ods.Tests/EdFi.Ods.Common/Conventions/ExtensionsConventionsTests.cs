@@ -135,6 +135,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
         }
 
         // TODO Fix with ODS-4295
+        // SPIKE NOTE: Obsolete unit test. ExtensionsConventions.GetExtensionClassAssemblyQualifiedName contains Profile-based logic that needs to be removed.
+        // 
         // public class
         //     When_getting_extension_class_assembly_qualified_name_and_edFiStandardType_is_an_edfi_resource_within_a_profile_assembly : TestFixtureBase
         // {
@@ -162,6 +164,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
         //     }
         // }
         //
+        // SPIKE NOTE: Obsolete unit test. ExtensionsConventions.GetExtensionClassAssemblyQualifiedName contains Profile-based logic that needs to be removed.
         // public class
         //     When_getting_extension_class_assembly_qualified_name_and_edFiStandardType_is_an_edfi_child_resource_within_a_profile_assembly :
         //         TestFixtureBase

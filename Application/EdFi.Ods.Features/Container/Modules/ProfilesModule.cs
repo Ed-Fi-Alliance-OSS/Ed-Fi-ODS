@@ -5,6 +5,7 @@
 
 using Autofac;
 using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -12,6 +13,9 @@ using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.Profiles;
 using EdFi.Ods.Api.Security.Profiles;
+using EdFi.Ods.Api.Startup;
+using EdFi.Ods.Common.Profiles;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
@@ -39,6 +43,10 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ProfileNamePublisher>()
                 .As<IExternalTask>()
+                .SingleInstance();
+
+            builder.RegisterType<ProfileConfigurationActivity>()
+                .As<IApplicationConfigurationActivity>()
                 .SingleInstance();
         }
     }
