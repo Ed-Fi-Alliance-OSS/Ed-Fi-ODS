@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
 
 #pragma warning disable 108,114
 
@@ -11,9 +14,9 @@ namespace {{EntitiesBaseNamespace}}
 {{#Interfaces}}
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the {{Name}} model.
+    /// Defines available properties and methods for the abstraction of the {{ModelName}} model.
     /// </summary>
-    public interface I{{Name}}{{ImplementedInterfaces}}
+    public interface I{{ModelName}}{{ImplementedInterfaces}}
     {
         // Primary Key properties
     {{#ParentClassName}}
@@ -44,13 +47,13 @@ namespace {{EntitiesBaseNamespace}}
     {{#HasNavigableOneToOnes}}
         {{#NavigableOneToOnes}}
 
-        I{{Name}} {{Name}} { get; set; }
+        I{{ItemTypeName}} {{PropertyName}} { get; set; }
         {{/NavigableOneToOnes}}
     {{/HasNavigableOneToOnes}}
 
         // Lists
     {{#Lists}}
-        ICollection<I{{Name}}> {{PluralName}} { get; set; }
+        ICollection<I{{ItemTypeName}}> {{PropertyName}} { get; set; }
     {{/Lists}}
 
         // Resource reference data
@@ -60,6 +63,73 @@ namespace {{EntitiesBaseNamespace}}
         string {{AggregateReferenceName}}Discriminator { get; set; }
         {{/MappedReferenceDataHasDiscriminator}}
     {{/AggregateReferences}}
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class {{ModelName}}MappingContract : IMappingContract{{#IsExtendable}}, IExtensionsMappingContract{{/IsExtendable}}
+    {
+        public {{ModelName}}MappingContract(
+    {{#MappingContractMembers}}
+       {{^ItemTypeName}}
+            bool is{{PropertyName}}Supported{{^IsLast}},{{/IsLast}}
+       {{/ItemTypeName}}
+       {{#ItemTypeName}}
+            Func<I{{ItemTypeName}}, bool> is{{ItemTypeName}}Included{{^IsLast}},{{/IsLast}}
+       {{/ItemTypeName}}
+    {{/MappingContractMembers}}
+    {{#IsExtendable}}
+            IReadOnlyList<string> supportedExtensions
+    {{/IsExtendable}}
+            )
+        {
+    {{#MappingContractMembers}}
+        {{^ItemTypeName}}
+            Is{{PropertyName}}Supported = is{{PropertyName}}Supported;
+        {{/ItemTypeName}}
+        {{#ItemTypeName}}
+            Is{{ItemTypeName}}Included = is{{ItemTypeName}}Included;
+        {{/ItemTypeName}}
+    {{/MappingContractMembers}}
+    {{#IsExtendable}}
+            SupportedExtensions = supportedExtensions;
+    {{/IsExtendable}}
+        }
+
+    {{#MappingContractMembers}}
+        {{^ItemTypeName}}
+        public bool Is{{PropertyName}}Supported { get; }
+        {{/ItemTypeName}}
+        {{#ItemTypeName}}
+        public Func<I{{ItemTypeName}}, bool> Is{{ItemTypeName}}Included { get; }
+        {{/ItemTypeName}}
+    {{/MappingContractMembers}}
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+    {{#MappingContractMembers}}
+        {{^ItemTypeName}}
+                case "{{PropertyName}}":
+                    return Is{{PropertyName}}Supported;
+        {{/ItemTypeName}}
+    {{/MappingContractMembers}}
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    {{#IsExtendable}}
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    {{/IsExtendable}}
     }
 {{/Interfaces}}
 }

@@ -353,6 +353,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public class PutPostRequestValidator
         {
+            public string Schema { get; set; }
+
             public string EntityName { get; set; }
 
             public IEnumerable<PutPostRequestValidatorCollectionProperty> Collections { get; set; }
@@ -386,6 +388,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var resourceChildItem = resource as ResourceChildItem;
             return new PutPostRequestValidator
             {
+                Schema = resource.FullName.Schema,
                 EntityName = resource.Name,
                 Collections = resource.Collections
                     // TODO: Remove this filter with dynamic profiles

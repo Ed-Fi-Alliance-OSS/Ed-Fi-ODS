@@ -136,7 +136,7 @@ namespace {{AggregateNamespace}}
     [Serializable, Schema("{{SchemaName}}")]
     [ExcludeFromCodeCoverage]
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}},{{^IsAggregateRoot}} IChildEntity,{{/IsAggregateRoot}}{{#AllowsPrimaryKeyUpdates}} IHasCascadableKeyValues,{{/AllowsPrimaryKeyUpdates}}
-        {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{^IsAbstract}}, {{NamespacePrefix}}I{{ClassName}}SynchronizationSourceSupport{{/IsAbstract}}{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}
+        {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#IsExtendable}}{{^ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}{{/IsExtendable}}
     {
         {{^IsDerived}}
         public virtual void SuspendReferenceAssignmentCheck() { }
@@ -633,67 +633,6 @@ namespace {{AggregateNamespace}}
             {{EntityParentClassName}} = ({{EntityParentClassNamespacePrefix}}{{EntityParentClassName}}{{#IsConcreteEntityChildClassForBase}}Base{{/IsConcreteEntityChildClassForBase}}) value;
         }
         {{/HasParent}}
-        {{^IsAbstract}}
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        {{#SynchronizationSupport}}
-            {{#Properties}}
-        private bool _is{{PropertyName}}Supported = true;
-        bool {{NamespacePrefix}}I{{ClassName}}SynchronizationSourceSupport.Is{{PropertyName}}Supported
-        {
-            get { return _is{{PropertyName}}Supported; }
-            set { _is{{PropertyName}}Supported = value; }
-        }
-
-            {{/Properties}}
-            {{#CollectionClasses}}
-        private Func<{{ChildCollectionRelativeNamespace}}I{{ChildCollectionClassName}}, bool> _is{{ChildCollectionRoleName}}{{ChildCollectionClassName}}Included;
-        Func<{{ChildCollectionRelativeNamespace}}I{{ChildCollectionClassName}}, bool> {{NamespacePrefix}}I{{ClassName}}SynchronizationSourceSupport.Is{{ChildCollectionRoleName}}{{ChildCollectionClassName}}Included
-        {
-            get { return _is{{ChildCollectionClassName}}Included; }
-            set { _is{{ChildCollectionClassName}}Included = value; }
-        }
-
-            {{/CollectionClasses}}
-        {{/SynchronizationSupport}}
-        // -----------------------------------------
-        {{/IsAbstract}}
-        {{#IsExtendable}}
-        {{^ExtendableConcreteBase}}
-        private readonly HashSet<string> _excludedExtensions = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} bool IsExtensionSupported(string name)
-        {
-            return !_excludedExtensions.Contains(name);
-        }
-
-        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} void SetExtensionSupported(string name, bool isSupported)
-        {
-            if (isSupported)
-                _excludedExtensions.Remove(name);
-            else
-                _excludedExtensions.Add(name);
-        }
-
-        private readonly HashSet<string> _availableExtensions = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-        public bool IsExtensionAvailable(string name)
-        {
-            return _availableExtensions.Contains(name);
-        }
-
-        public void SetExtensionAvailable(string name, bool isAvailable)
-        {
-            if (isAvailable)
-                _availableExtensions.Add(name);
-            else
-                _availableExtensions.Remove(name);
-        }
-        {{/ExtendableConcreteBase}}
-        {{/IsExtendable}}
     }
         {{/IsImplicitExtension}}
     {{/Classes}}
