@@ -8,6 +8,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 {{#HasDerivedResources}}
 using EdFi.Ods.Entities.Common.EdFi;
 {{/HasDerivedResources}}
@@ -20,17 +22,27 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
     [ExcludeFromCodeCoverage]
     public static class {{ModelName}}Mapper
     {
+        private static readonly FullName _fullName_{{ModelSchema}}_{{ModelName}} = new FullName("{{ModelSchema}}", "{{ModelName}}");
+    
         public static bool SynchronizeTo(this I{{ModelName}} source, I{{ModelName}} target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as I{{ModelName}}SynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = ({{ModelName}}MappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_{{ModelSchema}}_{{ModelName}});
+            
             {{#IsEntityExtension}}
-
-            var sourceExtensionSupport = source.{{ModelParentName}} as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("{{ExtensionName}}"))
-                return false;
+            // ----------------------------------------------------------------------------------------------------------------------------
+            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
+            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
+            // the mapping contract approach.
+            // ----------------------------------------------------------------------------------------------------------------------------
+            // var extensionsSynchronizationContext = source.{{ModelParentName}} as IHasExtensionsSynchronizationContext;
+            //
+            // if (!extensionsSynchronizationContext.IsExtensionAvailable("{{ExtensionName}}"))
+            //    return false;
             {{/IsEntityExtension}}
             {{#AllowPrimaryKeyUpdates}}
 
@@ -67,7 +79,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             {{#BaseClassNonPkPropertyList}}
 
-            if ((sourceSupport == null || sourceSupport.Is{{BasePropertyName}}Supported)
+            if ((mappingContract?.Is{{BasePropertyName}}Supported != false)
                 && target.{{BasePropertyName}} != source.{{BasePropertyName}})
             {
                 target.{{BasePropertyName}} = source.{{BasePropertyName}};
@@ -79,7 +91,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Copy non-PK properties
             {{#NonPrimaryKeyList}}
 
-            if ((sourceSupport == null || sourceSupport.Is{{PropertyName}}Supported)
+            if ((mappingContract?.Is{{PropertyName}}Supported != false)
                 && target.{{CSharpSafePropertyName}} != source.{{CSharpSafePropertyName}})
             {
                 target.{{CSharpSafePropertyName}} = source.{{CSharpSafePropertyName}};
@@ -92,27 +104,27 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             //   Synch One-to-one relationships
             // ----------------------------------
             {{#OneToOneClassList}}
-            // {{OtherClassName}}
-            if (sourceSupport == null || sourceSupport.Is{{OtherClassName}}Supported)
+            // {{PropertyName}} ({{OtherClassName}})
+            if (mappingContract?.Is{{PropertyName}}Supported != false)
             {
-                if (source.{{OtherClassName}} == null)
+                if (source.{{PropertyName}} == null)
                 {
-                    if (target.{{OtherClassName}} != null)
+                    if (target.{{PropertyName}} != null)
                     {
-                        target.{{OtherClassName}} = null;
+                        target.{{PropertyName}} = null;
                         isModified = true;
                     }
                 }
                 else
                 {
-                    if (target.{{OtherClassName}} == null)
+                    if (target.{{PropertyName}} == null)
                     {
-                        var itemType = target.GetType().GetProperty("{{OtherClassName}}").PropertyType;
+                        var itemType = target.GetType().GetProperty("{{PropertyName}}").PropertyType;
                         var newItem = Activator.CreateInstance(itemType);
-                        target.{{OtherClassName}} = (I{{OtherClassName}}) newItem;
+                        target.{{PropertyName}} = (I{{OtherClassName}}) newItem;
                     }
 
-                    isModified |= source.{{OtherClassName}}.Synchronize(target.{{OtherClassName}});
+                    isModified |= source.{{PropertyName}}.Synchronize(target.{{PropertyName}});
                 }
             }
             {{/OneToOneClassList}}
@@ -123,16 +135,21 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             // Synch inherited lists
             {{#BaseNavigableChildrenList}}
-            if (sourceSupport == null || sourceSupport.Is{{OtherClassPlural}}Supported)
-                isModified |= source.{{OtherClassPlural}}.SynchronizeCollectionTo(target.{{OtherClassPlural}}, child => child.{{BaseClassName}} = target,
-                                sourceSupport == null ? null : sourceSupport.Is{{OtherClassSingular}}Included);
+            if (mappingContract?.Is{{OtherClassPlural}}Supported ?? true)
+            {
+                isModified |= 
+                    source.{{OtherClassPlural}}.SynchronizeCollectionTo(
+                        target.{{OtherClassPlural}}, 
+                        onChildAdded: child => child.{{BaseClassName}} = target,
+                        includeItem: item => mappingContract?.Is{{OtherClassSingular}}Included?.Invoke(item) ?? true);
+            }
 
             {{/BaseNavigableChildrenList}}
             {{/IsDerivedEntity}}
 
             // Sync lists
             {{#NavigableChildrenList}}
-            if (sourceSupport == null || sourceSupport.Is{{ChildClassPlural}}Supported)
+            if (mappingContract?.Is{{ChildClassPlural}}Supported ?? true)
             {
                 isModified |=
                     source.{{ChildClassPlural}}.SynchronizeCollectionTo(
@@ -146,15 +163,13 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                                 (child as IChildEntity)?.SetParent(target.{{ParentName}});
                 {{/IsExtensionClass}}
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.Is{{ChildClassSingular}}Included);
+                        includeItem: item => mappingContract?.Is{{ChildClassSingular}}Included?.Invoke(item) ?? true);
             }
 
             {{/NavigableChildrenList}}
             {{#IsExtendable}}
             // Sync extensions
-            isModified |= source.SynchronizeExtensionsTo(target);
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
             {{/IsExtendable}}
 
             return isModified;
@@ -169,9 +184,11 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
         public static void MapTo(this I{{ModelName}} source, I{{ModelName}} target, Action<I{{ModelName}}, I{{ModelName}}> onMapped)
         {{/IsBaseClassConcrete}}
         {
-            var sourceSynchSupport = source as I{{ModelName}}SynchronizationSourceSupport;
-            var targetSynchSupport = target as I{{ModelName}}SynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = ({{ModelName}}MappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_{{ModelSchema}}_{{ModelName}});
+    
             {{#IsBaseEntity}}
             // =======================================================================================
             // Detect and map derived types (compiler is unable to correctly link to appropriate
@@ -204,20 +221,16 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Copy inherited non-PK properties
             {{#BaseClassNonPkPropertyList}}
 
-            if (sourceSynchSupport.Is{{BasePropertyName}}Supported)
+            if (mappingContract?.Is{{BasePropertyName}}Supported != false)
                 target.{{BasePropertyName}} = source.{{BasePropertyName}};
-            else
-                targetSynchSupport.Is{{BasePropertyName}}Supported = false;
             {{/BaseClassNonPkPropertyList}}
             {{/IsDerivedEntity}}
 
             // Copy non-PK properties
             {{#NonPrimaryKeyList}}
 
-            if (sourceSynchSupport.Is{{PropertyName}}Supported)
+            if (mappingContract?.Is{{PropertyName}}Supported != false)
                 target.{{CSharpSafePropertyName}} = source.{{CSharpSafePropertyName}};
-            else
-                targetSynchSupport.Is{{PropertyName}}Supported = false;
             {{/NonPrimaryKeyList}}
 
             // Copy Aggregate Reference Data
@@ -241,32 +254,28 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // ----------------------------------
             {{#HasOneToOneRelationships}}
             {{#OneToOneClassList}}
-            // {{OtherClassName}} (Source)
-            if (sourceSynchSupport.Is{{OtherClassName}}Supported)
+            // {{PropertyName}} ({{OtherClassName}}) (Source)
+            if (mappingContract?.Is{{PropertyName}}Supported != false)
             {
-                var itemProperty = target.GetType().GetProperty("{{OtherClassName}}");
+                var itemProperty = target.GetType().GetProperty("{{PropertyName}}");
 
                 if (itemProperty != null)
                 {
-                    if (source.{{OtherClassName}} == null)
+                    if (source.{{PropertyName}} == null)
                     {
-                        target.{{OtherClassName}} = null;
+                        target.{{PropertyName}} = null;
                     }
                     else
                     {
                         var itemType = itemProperty.PropertyType;
                         object target{{OtherClassName}} = Activator.CreateInstance(itemType);
                         (target{{OtherClassName}} as IChildEntity)?.SetParent(target{{#IsEntityExtension}}.{{ModelParentName}}{{/IsEntityExtension}});
-                        source.{{OtherClassName}}.Map(target{{OtherClassName}});
+                        source.{{PropertyName}}.Map(target{{OtherClassName}});
 
                         // Update the target reference appropriately
-                        target.{{OtherClassName}} = (I{{OtherClassName}}) target{{OtherClassName}};
+                        target.{{PropertyName}} = (I{{OtherClassName}}) target{{OtherClassName}};
                     }
                 }
-            }
-            else
-            {
-                targetSynchSupport.Is{{OtherClassName}}Supported = false;
             }
             {{/OneToOneClassList}}
             // -------------------------------------------------------------
@@ -276,14 +285,9 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Map inherited lists
             {{#BaseNavigableChildrenList}}
 
-            if (sourceSynchSupport.Is{{OtherClassPlural}}Supported)
+            if (mappingContract?.Is{{OtherClassPlural}}Supported != false)
             {
-                targetSynchSupport.Is{{OtherClassSingular}}Included = sourceSynchSupport.Is{{OtherClassSingular}}Included;
                 source.{{OtherClassPlural}}.MapCollectionTo(target.{{OtherClassPlural}}, target);
-            }
-            else
-            {
-                targetSynchSupport.Is{{OtherClassPlural}}Supported = false;
             }
             {{/BaseNavigableChildrenList}}
             {{/IsDerivedEntity}}
@@ -291,20 +295,15 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // Map lists
             {{#NavigableChildrenList}}
 
-            if (sourceSynchSupport.Is{{ChildClassPlural}}Supported)
+            if (mappingContract?.Is{{ChildClassPlural}}Supported != false)
             {
-                targetSynchSupport.Is{{ChildClassSingular}}Included = sourceSynchSupport.Is{{ChildClassSingular}}Included;
                 source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionAggregateExtension}}target.{{ParentName}}{{/IsCollectionAggregateExtension}}{{^IsCollectionAggregateExtension}}target{{/IsCollectionAggregateExtension}});
-            }
-            else
-            {
-                targetSynchSupport.Is{{ChildClassPlural}}Supported = false;
             }
             {{/NavigableChildrenList}}
 
             {{#IsExtendable}}
             // Map extensions
-            source.MapExtensionsTo(target);
+            source.MapExtensionsTo(target, mappingContract);
             {{/IsExtendable}}
 
             // Convert source to an ETag, if appropriate
@@ -326,21 +325,6 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface I{{ModelName}}SynchronizationSourceSupport {{#IsExtendable}}: IExtensionsSynchronizationSourceSupport{{/IsExtendable}}
-    {
-        {{#SourceSupportPropertyList}}
-        bool Is{{PropertyName}}Supported { get; set; }
-        {{/SourceSupportPropertyList}}
-        {{#FilterDelegatePropertyList}}
-        Func<I{{PropertyName}}, bool> Is{{PropertyName}}Included { get; set; }
-        {{/FilterDelegatePropertyList}}
     }
 
 {{/Mappers}}

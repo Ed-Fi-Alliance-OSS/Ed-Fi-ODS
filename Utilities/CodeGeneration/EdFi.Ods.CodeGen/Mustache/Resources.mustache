@@ -268,7 +268,7 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}, {{NamespacePrefix}}I{{EntityName}}SynchronizationSourceSupport
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1073,15 +1073,19 @@ namespace {{ResourceClassesNamespace}}
             {
                 _{{PropertyFieldName}} = value;
 
-                var synchSourceSupport = (I{{ResourceName}}SynchronizationSourceSupport) this;
-
+                // SPIKE NOTE: Review the need for this
+                //var synchronizationContext = ((IHasSynchronizationContext<{{ResourceName}}SynchronizationContext>) this)
+                //    .SynchronizationContext;
+            
                 var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
                 covariantList.AddingItem += (s, e) =>
                 {
                     var item = ({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item;
 
-                    if (!synchSourceSupport.Is{{ItemType}}Included(item))
-                        e.Cancel = true;
+                    // SPIKE NOTE: Review the need for this filtering (on deserialization?)
+                    // Shouldn't this really be happening in the mapping process?
+                    //if (!synchronizationContext.Is{{ItemType}}Included(item))
+                    //    e.Cancel = true;
                 };
 
                 _{{PropertyFieldName}}Covariant = covariantList;
@@ -1170,25 +1174,31 @@ namespace {{ResourceClassesNamespace}}
             set
             {
                 if (value == null) return;
+            
+                // SPIKE NOTE: Review this list item handling for validity
+                //var synchronizationContext = ((IHasSynchronizationContext<{{BaseEntity}}SynchronizationContext>) this)
+                //    .SynchronizationContext;
+            
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<{{ItemType}}>(value,
-                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this,
-                    (s, e) => ((I{{BaseEntity}}SynchronizationSourceSupport) this)
-                                    .Is{{ItemType}}Included(({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item));
+                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this); //,
+                    //(s, e) => synchronizationContext.Is{{ItemType}}Included(({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item));
+
                 _{{PropertyFieldName}} = list;
 
                 // Initialize covariant list with notifying adapter with deferred wireup so only new items are processed (optimization)
                 var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{ItemType}}>(value);
                 covariantList.ItemAdded += (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this;
 
-                var synchSourceSupport = (I{{BaseEntity}}SynchronizationSourceSupport) this;
-
                 covariantList.AddingItem += (s, e) =>
                 {
                     var item = ({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item;
 
-                    if (!synchSourceSupport.Is{{ItemType}}Included(item))
-                        e.Cancel = true;
+                    // SPIKE NOTE: Review this list item handling for validity
+                    // Shouldn't this level of filtering be handled during mapping/synchronization?
+                    // If it's confirmed to not be needed here, can we simplify the list (eliminate covariantList class?)
+                    //if (!synchronizationContext.Is{{ItemType}}Included(item))
+                    //    e.Cancel = true;
                 };
                 _{{PropertyFieldName}}Covariant = covariantList;
             }
@@ -1280,54 +1290,6 @@ namespace {{ResourceClassesNamespace}}
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        {{#SynchronizationSourceSupport}}
-        bool {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.{{SourceSupport}} { get { return {{^IsExcluded}}true{{/IsExcluded}}{{#IsExcluded}}false{{/IsExcluded}}; } set { } }
-        {{/SynchronizationSourceSupport}}
-        {{#HasCollections}}
-
-        // Child collection item filter delegates
-        {{/HasCollections}}
-        {{#FilteredDelegates}}
-        {{#Standard}}
-        Func<{{ItemTypeNamespacePrefix}}I{{ItemType}}, bool> {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.Is{{ItemType}}Included
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Standard}}
-        {{#Filtered}}
-        Func<{{ItemTypeNamespacePrefix}}I{{ItemType}}, bool> {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.Is{{ItemType}}Included
-        {
-            get
-            {
-                return x =>
-                    {{#FilteredValues}}
-                    {{#NotFirst}}{{#IsIncluded}}||{{/IsIncluded}}{{^IsIncluded}}&&{{/IsIncluded}}{{/NotFirst}} {{^IsIncluded}}!{{/IsIncluded}}x.{{FilteredPropertyName}}.EqualsIgnoreCase("{{FilteredValue}}"){{#IsLast}};{{/IsLast}}
-                    {{/FilteredValues}}
-            }
-            set { } // Not supported for resources
-        }
-        {{/Filtered}}
-        {{/FilteredDelegates}}
-        // -------------------------------------------------------------
-
-        {{#IsExtendable}}
-        {{#IsProfileProject}}
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { {{#HasSupportedExtensions}}return new [] { {{#SupportedExtensions}}"{{ExtensionName}}", {{/SupportedExtensions}} }.Contains(name);{{/HasSupportedExtensions}}{{^HasSupportedExtensions}}return false;{{/HasSupportedExtensions}} }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        {{/IsProfileProject}}
-        {{^IsProfileProject}}
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        {{/IsProfileProject}}
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
-
-        {{/IsExtendable}}
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1388,11 +1350,14 @@ namespace {{ResourceClassesNamespace}}
             var failures = new List<ValidationFailure>();
 
             {{#HasProfileItemFilterValidations}}
-            var synchSupport = (instance as I{{EntityName}}SynchronizationSourceSupport);
+            // Get the current mapping contract
+            var mappingContract = new Lazy<{{EntityName}}MappingContract>(() => ({{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(new FullName("{{Schema}}", "{{EntityName}}")));
 
             // Profile-based collection item filter validation
             {{#ProfileItemFilterValidations}}
-            var invalid{{PropertyName}} = instance.{{PropertyName}}.Where(x => !synchSupport.Is{{ValidatorName}}Included(x)).Select(x => x.{{ValidatorPropertyName}}).ToList();
+            var invalid{{PropertyName}} = instance.{{PropertyName}}.Where(x => !mappingContract.Value.Is{{ValidatorName}}Included(x)).Select(x => x.{{ValidatorPropertyName}}).ToList();
 
             if (invalid{{PropertyName}}.Any())
                 failures.Add(new ValidationFailure("{{ValidatorPropertyName}}",

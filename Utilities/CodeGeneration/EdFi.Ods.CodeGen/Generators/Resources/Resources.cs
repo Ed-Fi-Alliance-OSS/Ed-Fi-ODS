@@ -375,10 +375,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ReferenceIdentifiers =
                             _resourcePropertyRenderer.AssembleIdentifiers(profileData, resourceClass),
                         Href = AssembleHref(profileData, resourceClass),
-                        HasDiscriminator = resourceClass.HasDiscriminator()
+                        HasDiscriminator = resourceClass.Entity.HasDiscriminator()
                     },
                     ShouldRenderClass = false,
-                    HasDiscriminator = resourceClass.HasDiscriminator()
+                    HasDiscriminator = resourceClass.Entity.HasDiscriminator()
                 };
             }
 
@@ -471,13 +471,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
                 IsExtendable = resourceClass.IsExtendable(),
-                IsProfileProject = TemplateContext.IsProfiles,
                 HasSupportedExtensions = profileData.SuppliedResource.Extensions.Any(),
                 SupportedExtensions = profileData.SuppliedResource.Extensions
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),
                 IsEdFiResource = resourceClass.IsEdFiResource(),
                 NamespacePrefix = resourceClass.GetNamespacePrefix(),
-                HasDiscriminator = resourceClass.HasDiscriminator(),
+                HasDiscriminator = resourceClass.Entity.HasDiscriminator(),
 
                 // Foreign Key Discriminators should not have any profile applied to this, as this data is required for links
                 ResourceReferences = CreateResourceReferences(resourceClass)
