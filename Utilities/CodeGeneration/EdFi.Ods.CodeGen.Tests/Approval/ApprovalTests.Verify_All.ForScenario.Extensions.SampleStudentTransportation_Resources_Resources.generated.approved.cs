@@ -17,6 +17,10 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
+using EdFi.Ods.Entities.Common.Sample;
+using EdFi.Ods.Entities.Common.TPDM;
+using EdFi.Ods.Entities.Common.Homograph;
+using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
 using FluentValidation.Results;
 
@@ -118,7 +122,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport
+    public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -430,13 +434,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
             Entities.Common.SampleStudentTransportation.StudentTransportationMapper.MapTo(this, (Entities.Common.SampleStudentTransportation.IStudentTransportation)target, null);
         }
         // -------------------------------------------------------------
-
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport.IsEstimatedMilesFromSchoolSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
 
         // =================================================================
         //                    Resource Reference Data

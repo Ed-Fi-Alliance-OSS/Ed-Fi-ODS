@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
 
 #pragma warning disable 108,114
 
@@ -35,5 +38,33 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation
         Guid? SchoolResourceId { get; set; }
         Guid? StudentResourceId { get; set; }
         string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentTransportationMappingContract : IMappingContract
+    {
+        public StudentTransportationMappingContract(
+            bool isEstimatedMilesFromSchoolSupported
+            )
+        {
+            IsEstimatedMilesFromSchoolSupported = isEstimatedMilesFromSchoolSupported;
+        }
+
+        public bool IsEstimatedMilesFromSchoolSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "EstimatedMilesFromSchool":
+                    return IsEstimatedMilesFromSchoolSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
     }
 }

@@ -110,7 +110,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Name : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.INameSynchronizationSourceSupport
+        Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -249,12 +249,6 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
             this.MapTo((Entities.Common.Homograph.IName) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Parent
@@ -348,7 +342,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Parent : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IParent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentSynchronizationSourceSupport
+        Entities.Common.Homograph.IParent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -607,40 +601,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             this.MapTo((Entities.Common.Homograph.IParent) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isParentAddressesSupported = true;
-        bool Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressesSupported
-        {
-            get { return _isParentAddressesSupported; }
-            set { _isParentAddressesSupported = value; }
-        }
-
-        private bool _isParentStudentSchoolAssociationsSupported = true;
-        bool Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationsSupported
-        {
-            get { return _isParentStudentSchoolAssociationsSupported; }
-            set { _isParentStudentSchoolAssociationsSupported = value; }
-        }
-
-        private Func<Entities.Common.Homograph.IParentAddress, bool> _isParentAddressIncluded;
-        Func<Entities.Common.Homograph.IParentAddress, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressIncluded
-        {
-            get { return _isParentAddressIncluded; }
-            set { _isParentAddressIncluded = value; }
-        }
-
-        private Func<Entities.Common.Homograph.IParentStudentSchoolAssociation, bool> _isParentStudentSchoolAssociationIncluded;
-        Func<Entities.Common.Homograph.IParentStudentSchoolAssociation, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationIncluded
-        {
-            get { return _isParentStudentSchoolAssociationIncluded; }
-            set { _isParentStudentSchoolAssociationIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -651,7 +611,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class ParentAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IParentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.IParentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -800,12 +760,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         {
             Parent = (Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -816,7 +770,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class ParentStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IParentStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentStudentSchoolAssociationSynchronizationSourceSupport
+        Entities.Common.Homograph.IParentStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -991,12 +945,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         {
             Parent = (Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: School
@@ -1088,7 +1036,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class School : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
+        Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1306,26 +1254,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             this.MapTo((Entities.Common.Homograph.ISchool) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isSchoolAddressSupported = true;
-        bool Entities.Common.Homograph.ISchoolSynchronizationSourceSupport.IsSchoolAddressSupported
-        {
-            get { return _isSchoolAddressSupported; }
-            set { _isSchoolAddressSupported = value; }
-        }
-
-        private bool _isSchoolYearSupported = true;
-        bool Entities.Common.Homograph.ISchoolSynchronizationSourceSupport.IsSchoolYearSupported
-        {
-            get { return _isSchoolYearSupported; }
-            set { _isSchoolYearSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -1336,7 +1264,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class SchoolAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1484,19 +1412,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         {
             School = (School) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCitySupported = true;
-        bool Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport.IsCitySupported
-        {
-            get { return _isCitySupported; }
-            set { _isCitySupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: SchoolYearType
@@ -1588,7 +1503,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class SchoolYearType : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
+        Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1724,12 +1639,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
             this.MapTo((Entities.Common.Homograph.ISchoolYearType) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Staff
@@ -1823,7 +1732,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Staff : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
+        Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2080,40 +1989,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             this.MapTo((Entities.Common.Homograph.IStaff) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isStaffAddressesSupported = true;
-        bool Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressesSupported
-        {
-            get { return _isStaffAddressesSupported; }
-            set { _isStaffAddressesSupported = value; }
-        }
-
-        private bool _isStaffStudentSchoolAssociationsSupported = true;
-        bool Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationsSupported
-        {
-            get { return _isStaffStudentSchoolAssociationsSupported; }
-            set { _isStaffStudentSchoolAssociationsSupported = value; }
-        }
-
-        private Func<Entities.Common.Homograph.IStaffAddress, bool> _isStaffAddressIncluded;
-        Func<Entities.Common.Homograph.IStaffAddress, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressIncluded
-        {
-            get { return _isStaffAddressIncluded; }
-            set { _isStaffAddressIncluded = value; }
-        }
-
-        private Func<Entities.Common.Homograph.IStaffStudentSchoolAssociation, bool> _isStaffStudentSchoolAssociationIncluded;
-        Func<Entities.Common.Homograph.IStaffStudentSchoolAssociation, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationIncluded
-        {
-            get { return _isStaffStudentSchoolAssociationIncluded; }
-            set { _isStaffStudentSchoolAssociationIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -2124,7 +1999,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StaffAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2273,12 +2148,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         {
             Staff = (Staff) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -2289,7 +2158,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StaffStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffStudentSchoolAssociationSynchronizationSourceSupport
+        Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2464,12 +2333,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         {
             Staff = (Staff) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Student
@@ -2563,7 +2426,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Student : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
+        Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2793,33 +2656,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             this.MapTo((Entities.Common.Homograph.IStudent) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isSchoolYearSupported = true;
-        bool Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsSchoolYearSupported
-        {
-            get { return _isSchoolYearSupported; }
-            set { _isSchoolYearSupported = value; }
-        }
-
-        private bool _isStudentAddressesSupported = true;
-        bool Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressesSupported
-        {
-            get { return _isStudentAddressesSupported; }
-            set { _isStudentAddressesSupported = value; }
-        }
-
-        private Func<Entities.Common.Homograph.IStudentAddress, bool> _isStudentAddressIncluded;
-        Func<Entities.Common.Homograph.IStudentAddress, bool> Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressIncluded
-        {
-            get { return _isStudentAddressIncluded; }
-            set { _isStudentAddressIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -2830,7 +2666,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StudentAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2979,12 +2815,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         {
             Student = (Student) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentSchoolAssociation
@@ -3080,7 +2910,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociation : AggregateRootWithCompositeKey, IHasCascadableKeyValues,
-        Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
+        Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3268,11 +3098,5 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             this.MapTo((Entities.Common.Homograph.IStudentSchoolAssociation) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }

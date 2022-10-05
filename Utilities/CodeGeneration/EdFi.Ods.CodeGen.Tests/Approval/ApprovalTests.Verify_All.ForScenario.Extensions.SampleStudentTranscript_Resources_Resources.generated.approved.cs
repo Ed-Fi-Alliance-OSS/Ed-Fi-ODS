@@ -17,6 +17,9 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
+using EdFi.Ods.Entities.Common.Sample;
+using EdFi.Ods.Entities.Common.TPDM;
+using EdFi.Ods.Entities.Common.Homograph;
 using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
 using FluentValidation.Results;
@@ -30,7 +33,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport
+    public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -244,19 +247,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -314,7 +304,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport
+    public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -528,19 +518,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -678,7 +655,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport
+    public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -858,15 +835,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport.IsAcceptanceIndicatorSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport.IsInstitutionControlDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport.IsInstitutionLevelDescriptorSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -924,7 +892,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport
+    public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1138,19 +1106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1208,7 +1163,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtensionSynchronizationSourceSupport
+    public class StudentAcademicRecordClassRankingExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1369,13 +1324,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtensionSynchronizationSourceSupport.IsSpecialEducationGraduationStatusDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1428,7 +1376,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport
+    public class StudentAcademicRecordExtension : Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1649,14 +1597,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport.IsNameOfInstitutionSupported                  { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport.IsSubmissionCertificationDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1728,7 +1668,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport
+    public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1941,19 +1881,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
             Entities.Common.SampleStudentTranscript.SubmissionCertificationDescriptorMapper.MapTo(this, (Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor)target, null);
         }
         // -------------------------------------------------------------
-
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
 
         // =================================================================
         //                    Resource Reference Data

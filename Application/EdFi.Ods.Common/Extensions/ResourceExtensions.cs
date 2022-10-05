@@ -196,14 +196,15 @@ namespace EdFi.Ods.Common.Extensions
                                                                         .UriSegment;
 
         /// <summary>
-        /// Indicates whether the supplied <see cref="ResourceClassBase"/> has a discriminator.
+        /// Indicates whether the underlying entity for the <see cref="ResourceClassBase"/> has a discriminator (does not evaluate the base entity in cases where the resource is derived).
         /// </summary>
-        /// <param name="resourceClass">The resource class that is being inspected.</param>
-        /// <returns><b>true</b> if the resource class has a discriminator; otherwise <b>false</b>.</returns>
-        [Obsolete("This extension method doesn't make sense in the context of a resource that is derived and combines multiple entities. The Discriminator is an Entity-specific concept. Be explicit, and use the Entity's HasDiscriminator extension method instead.")]
+        /// <param name="resourceClass">The resource class whose underlying entity is being inspected.</param>
+        /// <returns><b>true</b> if the resource class' underlying entity has a discriminator; otherwise <b>false</b>.</returns>
+        /// <remarks>This method only evaluates the underlying entity (not the resource class' base entity). Thus, it will return <b>false</b> for a resource that is derived (e.g. School) even though the base entity has a discriminator.</remarks>
+        [Obsolete("This extension method is somewhat ambiguous in the context of a derived resource because there is an underlying entity, as well as a base entity. Additionally, the Discriminator is an Entity-specific concept. Be explicit, and use the Entity's HasDiscriminator extension method instead.")]
         public static bool HasDiscriminator(this ResourceClassBase resourceClass)
         {
-            // NOTE: This returns unexpected values for resources that are derived.
+            // NOTE: This intentionally does not evaluate the base entity for a derived resource.
             return resourceClass.Entity?.HasDiscriminator() == true;
         }
 
