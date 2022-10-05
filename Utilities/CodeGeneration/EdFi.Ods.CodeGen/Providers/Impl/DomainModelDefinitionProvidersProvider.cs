@@ -19,19 +19,21 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private static readonly string _standardModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel.json");
         private static readonly string _extensionModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel-EXTENSION.json");
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
+        private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
+        private readonly string _extensionsPath;
+        private readonly IIncludePluginsProvider _includePluginsProvider;
 
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
-        private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
-        private readonly IIncludePluginsProvider _includePluginsProvider;
-        private readonly string _extensionsPath;
 
         public DomainModelDefinitionProvidersProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IExtensionPluginsProvider extensionPluginsProviderProvider,
             IIncludePluginsProvider includePluginsProvider)
         {
-            _solutionPath = Path.Combine(codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation), "Application");
+            _solutionPath = Path.Combine(
+                codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation),
+                "Application");
 
             _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.ExtensionsRepositoryName,
@@ -71,8 +73,9 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             int index = _solutionPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsImplementationFolderName);
 
-            string edFiOdsApplicationPath = _solutionPath.Remove(index, CodeRepositoryConventions.EdFiOdsImplementationFolderName.Length)
-                                            .Insert(index, CodeRepositoryConventions.EdFiOdsFolderName);
+            string edFiOdsApplicationPath = _solutionPath
+                .Remove(index, CodeRepositoryConventions.EdFiOdsImplementationFolderName.Length)
+                .Insert(index, CodeRepositoryConventions.EdFiOdsFolderName);
 
             directoriesToEvaluate = GetProjectDirectoriesToEvaluate(edFiOdsImplementationApplicationPath)
                 .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
@@ -80,29 +83,26 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             var extensionPaths = _extensionPluginsProviderProvider.GetExtensionLocationPlugins();
 
-            extensionPaths.ToList().ForEach(
-                x =>
-                {
-                    if (!Directory.Exists(x))
+            extensionPaths.ToList()
+                .ForEach(
+                    x =>
                     {
-                        throw new Exception(
-                            $"Unable to find extension Location project path  at location {x}.");
-                    }
+                        if (!Directory.Exists(x))
+                        {
+                            throw new Exception($"Unable to find extension Location project path  at location {x}.");
+                        }
 
-                    directoriesToEvaluate = directoriesToEvaluate
-                        .Concat(GetProjectDirectoriesToEvaluate(x))
-                        .Append(new DirectoryInfo(x)).ToArray();
-                });
+                        directoriesToEvaluate = directoriesToEvaluate.Concat(GetProjectDirectoriesToEvaluate(x))
+                            .Append(new DirectoryInfo(x))
+                            .ToArray();
+                    });
 
             if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
             {
-                directoriesToEvaluate = directoriesToEvaluate
-                    .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))
-                    .ToArray();
+                directoriesToEvaluate = directoriesToEvaluate.Concat(GetProjectDirectoriesToEvaluate(_extensionsPath)).ToArray();
             }
 
-            var modelProjects = directoriesToEvaluate
-                .Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());
+            var modelProjects = directoriesToEvaluate.Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());
 
             foreach (var modelProject in modelProjects)
             {
