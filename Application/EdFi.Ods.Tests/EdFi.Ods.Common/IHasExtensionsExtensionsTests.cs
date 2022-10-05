@@ -30,6 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             private ISynchronizable _suppliedTargetEntityExtension;
 
             private bool _actualIsModified;
+            private FakeExtensionsMappingContract _extensionsMappingContract;
 
             protected override void Arrange()
             {
@@ -64,11 +65,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
+
+                _extensionsMappingContract = new FakeExtensionsMappingContract("Extension1");
             }
 
             protected override void Act()
             {
-                _actualIsModified = _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity);
+                _actualIsModified = _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity, _extensionsMappingContract);
             }
 
             [Assert]
@@ -95,6 +98,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             private ISynchronizable _suppliedTargetEntityExtension;
 
             private bool _actualIsModified;
+            private FakeExtensionsMappingContract _extensionsMappingContract;
 
             protected override void Arrange()
             {
@@ -131,11 +135,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
+                _extensionsMappingContract = new FakeExtensionsMappingContract("Extension1");
             }
 
             protected override void Act()
             {
-                _actualIsModified = _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity);
+                _actualIsModified = _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity, _extensionsMappingContract);
             }
 
             [Assert]
@@ -165,6 +170,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             private ISynchronizable _suppliedTargetEntityExtension2;
 
             private bool _actualIsModified;
+            private FakeExtensionsMappingContract _extensionsMappingContract;
 
             protected override void Arrange()
             {
@@ -217,11 +223,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
+                _extensionsMappingContract = new FakeExtensionsMappingContract("Extension1");
             }
 
             protected override void Act()
             {
-                _actualIsModified = _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity);
+                _actualIsModified = _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity, _extensionsMappingContract);
             }
 
             [Assert]
@@ -323,6 +330,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
             private ISynchronizable _suppliedSourceEntityExtension1;
             private ISynchronizable _suppliedTargetEntityExtension1;
+            private FakeExtensionsMappingContract _extensionsMappingContract;
 
             protected override void Arrange()
             {
@@ -348,11 +356,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
+                _extensionsMappingContract = new FakeExtensionsMappingContract("Extension1");
             }
 
             protected override void Act()
             {
-                _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity);
+                _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity, _extensionsMappingContract);
             }
 
             [Assert]
@@ -376,6 +385,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             private ISynchronizable _suppliedSourceEntityExtension1;
             private ISynchronizable _suppliedSourceEntityExtension2;
             private ISynchronizable _suppliedTargetEntityExtension1;
+            private FakeExtensionsMappingContract _extensionsMappingContract;
 
             protected override void Arrange()
             {
@@ -417,11 +427,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
+                _extensionsMappingContract = new FakeExtensionsMappingContract("Extension1");
             }
 
             protected override void Act()
             {
-                _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity);
+                _suppliedSourceEntity.SynchronizeExtensionsTo(_suppliedTargetEntity, _extensionsMappingContract);
             }
 
             [Assert]
@@ -995,5 +1006,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         
         // SPIKE NOTE: After removing or fixing the commented out tests above, remove this if it is still not used.
         public IExtensionsMappingContract MappingContract { get; }
+    }
+    
+    internal class FakeExtensionsMappingContract : IExtensionsMappingContract
+    {
+        private readonly string[] _extensions;
+
+        public FakeExtensionsMappingContract(params string[] extensions)
+        {
+            _extensions = extensions;
+        }
+        
+        public bool IsExtensionSupported(string name)
+        {
+            return _extensions.Contains(name);
+        }
     }
 }
