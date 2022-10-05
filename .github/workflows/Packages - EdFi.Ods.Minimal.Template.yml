@@ -77,7 +77,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -RepositoryRoot '../'
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy
       shell: powershell
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
