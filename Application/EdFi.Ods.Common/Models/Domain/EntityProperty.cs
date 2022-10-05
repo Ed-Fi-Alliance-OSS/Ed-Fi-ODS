@@ -97,7 +97,7 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             get
             {
-                return DescriptorEntity != null && !IncomingAssociations.Any(a => a.IsSelfReferencing);
+                return DescriptorEntity != null;
             }
         }
 
