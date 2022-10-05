@@ -53,8 +53,8 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: powershell
       run: |
            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
