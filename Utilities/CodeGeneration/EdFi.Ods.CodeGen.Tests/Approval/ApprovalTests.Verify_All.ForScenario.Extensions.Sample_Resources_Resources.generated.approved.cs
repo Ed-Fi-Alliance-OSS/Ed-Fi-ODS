@@ -18,6 +18,9 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.Sample;
+using EdFi.Ods.Entities.Common.TPDM;
+using EdFi.Ods.Entities.Common.Homograph;
+using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
 using FluentValidation.Results;
 
@@ -30,7 +33,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport
+    public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -244,19 +247,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -394,7 +384,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Bus : Entities.Common.Sample.IBus, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IBusSynchronizationSourceSupport
+    public class Bus : Entities.Common.Sample.IBus, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -553,12 +543,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -699,7 +683,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IBusRouteSynchronizationSourceSupport
+    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1265,58 +1249,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBeginDateSupported                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteBusYearsSupported                { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteDirectionSupported               { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteDurationSupported                { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteProgramsSupported                { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteServiceAreaPostalCodesSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteStartTimesSupported              { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteTelephonesSupported              { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsDailySupported                           { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsDisabilityDescriptorSupported            { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsEducationOrganizationIdSupported         { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsExpectedTransitTimeSupported             { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsHoursPerWeekSupported                    { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsOperatingCostSupported                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsOptimalCapacitySupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsStaffClassificationDescriptorSupported   { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsStaffUniqueIdSupported                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsStartDateSupported                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsWeeklyMileageSupported                   { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IBusRouteBusYear, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteBusYearIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IBusRouteProgram, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteProgramIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IBusRouteServiceAreaPostalCode, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteServiceAreaPostalCodeIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IBusRouteStartTime, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteStartTimeIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IBusRouteTelephone, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteTelephoneIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1433,7 +1365,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRouteBusYear : Entities.Common.Sample.IBusRouteBusYear, Entities.Common.Sample.IBusRouteBusYearSynchronizationSourceSupport
+    public class BusRouteBusYear : Entities.Common.Sample.IBusRouteBusYear
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1603,12 +1535,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1661,7 +1587,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRouteProgram : Entities.Common.Sample.IBusRouteProgram, Entities.Common.Sample.IBusRouteProgramSynchronizationSourceSupport
+    public class BusRouteProgram : Entities.Common.Sample.IBusRouteProgram
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1944,12 +1870,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2016,7 +1936,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRouteServiceAreaPostalCode : Entities.Common.Sample.IBusRouteServiceAreaPostalCode, Entities.Common.Sample.IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport
+    public class BusRouteServiceAreaPostalCode : Entities.Common.Sample.IBusRouteServiceAreaPostalCode
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2186,12 +2106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2244,7 +2158,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRouteStartTime : Entities.Common.Sample.IBusRouteStartTime, Entities.Common.Sample.IBusRouteStartTimeSynchronizationSourceSupport
+    public class BusRouteStartTime : Entities.Common.Sample.IBusRouteStartTime
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2414,12 +2328,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2472,7 +2380,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRouteTelephone : Entities.Common.Sample.IBusRouteTelephone, Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport
+    public class BusRouteTelephone : Entities.Common.Sample.IBusRouteTelephone
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2679,15 +2587,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2745,7 +2644,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport
+    public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2959,19 +2858,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3029,7 +2915,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport
+    public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3243,19 +3129,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3313,7 +3186,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension, Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport
+    public class ParentAddressExtension : Entities.Common.Sample.IParentAddressExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3560,28 +3433,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsComplexSupported                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsOnBusRouteSupported                    { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressSchoolDistrictsSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressTermsSupported            { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IParentAddressSchoolDistrict, bool> Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressSchoolDistrictIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IParentAddressTerm, bool> Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressTermIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3654,7 +3505,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAddressSchoolDistrict : Entities.Common.Sample.IParentAddressSchoolDistrict, Entities.Common.Sample.IParentAddressSchoolDistrictSynchronizationSourceSupport
+    public class ParentAddressSchoolDistrict : Entities.Common.Sample.IParentAddressSchoolDistrict
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3824,12 +3675,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3882,7 +3727,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAddressTerm : Entities.Common.Sample.IParentAddressTerm, Entities.Common.Sample.IParentAddressTermSynchronizationSourceSupport
+    public class ParentAddressTerm : Entities.Common.Sample.IParentAddressTerm
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4052,12 +3897,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4110,7 +3949,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAuthor : Entities.Common.Sample.IParentAuthor, Entities.Common.Sample.IParentAuthorSynchronizationSourceSupport
+    public class ParentAuthor : Entities.Common.Sample.IParentAuthor
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4280,12 +4119,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4338,7 +4171,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentCeilingHeight : Entities.Common.Sample.IParentCeilingHeight, Entities.Common.Sample.IParentCeilingHeightSynchronizationSourceSupport
+    public class ParentCeilingHeight : Entities.Common.Sample.IParentCeilingHeight
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4508,12 +4341,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4566,7 +4393,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentCTEProgram : Entities.Common.Sample.IParentCTEProgram, Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport
+    public class ParentCTEProgram : Entities.Common.Sample.IParentCTEProgram
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4748,16 +4575,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsCareerPathwayDescriptorSupported        { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsCIPCodeSupported                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsCTEProgramCompletionIndicatorSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsPrimaryCTEProgramIndicatorSupported     { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4810,7 +4627,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentEducationContent : Entities.Common.Sample.IParentEducationContent, Entities.Common.Sample.IParentEducationContentSynchronizationSourceSupport
+    public class ParentEducationContent : Entities.Common.Sample.IParentEducationContent
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5030,12 +4847,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -5102,7 +4913,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentExtension : Entities.Common.Sample.IParentExtension, Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport
+    public class ParentExtension : Entities.Common.Sample.IParentExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5541,57 +5352,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsAverageCarLineWaitSupported                { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsBecameParentSupported                      { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsCoffeeSpendSupported                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsCredentialFieldDescriptorSupported         { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsDurationSupported                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsGPASupported                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsGraduationDateSupported                    { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsIsSportsFanSupported                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsLuckyNumberSupported                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentAuthorsSupported                     { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCeilingHeightsSupported              { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCTEProgramSupported                  { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentEducationContentsSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentFavoriteBookTitlesSupported          { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentStudentProgramAssociationsSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentTeacherConferenceSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsPreferredWakeUpTimeSupported               { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsRainCertaintySupported                     { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IParentAuthor, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentAuthorIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IParentCeilingHeight, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCeilingHeightIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IParentEducationContent, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentEducationContentIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IParentFavoriteBookTitle, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentFavoriteBookTitleIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IParentStudentProgramAssociation, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentStudentProgramAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -5694,7 +5454,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentFavoriteBookTitle : Entities.Common.Sample.IParentFavoriteBookTitle, Entities.Common.Sample.IParentFavoriteBookTitleSynchronizationSourceSupport
+    public class ParentFavoriteBookTitle : Entities.Common.Sample.IParentFavoriteBookTitle
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5864,12 +5624,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -5922,7 +5676,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentStudentProgramAssociation : Entities.Common.Sample.IParentStudentProgramAssociation, Entities.Common.Sample.IParentStudentProgramAssociationSynchronizationSourceSupport
+    public class ParentStudentProgramAssociation : Entities.Common.Sample.IParentStudentProgramAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6304,12 +6058,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -6369,7 +6117,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentTeacherConference : Entities.Common.Sample.IParentTeacherConference, Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport
+    public class ParentTeacherConference : Entities.Common.Sample.IParentTeacherConference
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6544,15 +6292,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport.IsDayOfWeekSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport.IsEndTimeSupported    { get { return true; } set { } }
-        bool Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport.IsStartTimeSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -6610,7 +6349,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolCTEProgram : Entities.Common.Sample.ISchoolCTEProgram, Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport
+    public class SchoolCTEProgram : Entities.Common.Sample.ISchoolCTEProgram
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6792,16 +6531,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsCareerPathwayDescriptorSupported        { get { return true; } set { } }
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsCIPCodeSupported                        { get { return true; } set { } }
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsCTEProgramCompletionIndicatorSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsPrimaryCTEProgramIndicatorSupported     { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -6854,7 +6583,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolDirectlyOwnedBus : Entities.Common.Sample.ISchoolDirectlyOwnedBus, Entities.Common.Sample.ISchoolDirectlyOwnedBusSynchronizationSourceSupport
+    public class SchoolDirectlyOwnedBus : Entities.Common.Sample.ISchoolDirectlyOwnedBus
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7074,12 +6803,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7146,7 +6869,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolExtension : Entities.Common.Sample.ISchoolExtension, Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport
+    public class SchoolExtension : Entities.Common.Sample.ISchoolExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7363,22 +7086,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsIsExemplarySupported               { get { return true; } set { } }
-        bool Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolCTEProgramSupported          { get { return true; } set { } }
-        bool Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolDirectlyOwnedBusesSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.ISchoolDirectlyOwnedBus, bool> Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolDirectlyOwnedBusIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7446,7 +7153,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffExtension : Entities.Common.Sample.IStaffExtension, Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport
+    public class StaffExtension : Entities.Common.Sample.IStaffExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7663,22 +7370,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsFirstPetOwnedDateSupported   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetPreferenceSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetsSupported           { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStaffPet, bool> Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7741,7 +7432,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffPet : Entities.Common.Sample.IStaffPet, Entities.Common.Sample.IStaffPetSynchronizationSourceSupport
+    public class StaffPet : Entities.Common.Sample.IStaffPet
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7918,13 +7609,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStaffPetSynchronizationSourceSupport.IsIsFixedSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7977,7 +7661,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference, Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport
+    public class StaffPetPreference : Entities.Common.Sample.IStaffPetPreference
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8145,14 +7829,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport.IsMaximumWeightSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport.IsMinimumWeightSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -8210,7 +7886,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet, Entities.Common.Sample.IStudentAquaticPetSynchronizationSourceSupport
+    public class StudentAquaticPet : Entities.Common.Sample.IStudentAquaticPet
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8403,13 +8079,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentAquaticPetSynchronizationSourceSupport.IsIsFixedSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -8462,7 +8131,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentExtension : Entities.Common.Sample.IStudentExtension, Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport
+    public class StudentExtension : Entities.Common.Sample.IStudentExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8742,33 +8411,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentAquaticPetsSupported    { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentFavoriteBooksSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentPetPreferenceSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentPetsSupported           { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentAquaticPet, bool> Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentAquaticPetIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentFavoriteBook, bool> Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentFavoriteBookIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentPet, bool> Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentPetIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -8851,7 +8493,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentFavoriteBook : Entities.Common.Sample.IStudentFavoriteBook, Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport
+    public class StudentFavoriteBook : Entities.Common.Sample.IStudentFavoriteBook
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9072,21 +8714,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsBookTitleSupported                    { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsStudentFavoriteBookArtMediaSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentFavoriteBookArtMedium, bool> Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsStudentFavoriteBookArtMediumIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -9149,7 +8776,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentFavoriteBookArtMedium : Entities.Common.Sample.IStudentFavoriteBookArtMedium, Entities.Common.Sample.IStudentFavoriteBookArtMediumSynchronizationSourceSupport
+    public class StudentFavoriteBookArtMedium : Entities.Common.Sample.IStudentFavoriteBookArtMedium
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9326,13 +8953,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentFavoriteBookArtMediumSynchronizationSourceSupport.IsArtPiecesSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -9385,7 +9005,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentPet : Entities.Common.Sample.IStudentPet, Entities.Common.Sample.IStudentPetSynchronizationSourceSupport
+    public class StudentPet : Entities.Common.Sample.IStudentPet
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9562,13 +9182,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentPetSynchronizationSourceSupport.IsIsFixedSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -9621,7 +9234,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference, Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport
+    public class StudentPetPreference : Entities.Common.Sample.IStudentPetPreference
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9789,14 +9402,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport.IsMaximumWeightSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport.IsMinimumWeightSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -9924,7 +9529,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport
+    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10625,59 +10230,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsArtPiecesSupported                                                     { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsEndDateSupported                                                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsExhibitDateSupported                                                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsHoursPerDaySupported                                                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsIdentificationCodeSupported                                            { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationSupported                                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationLengthSupported                                         { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsMasteredMediumsSupported                                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsNumberOfDaysInAttendanceSupported                                      { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPortfolioPiecesSupported                                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPrivateArtProgramSupported                                             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsProgramFeesSupported                                                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported                                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsServedOutsideOfRegularSessionSupported                                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediaSupported                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsSupported                    { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServicesSupported                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStylesSupported                            { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediumIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationService, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServiceIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationStyle, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStyleIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -10822,7 +10374,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociationArtMedium : Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, Entities.Common.Sample.IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport
+    public class StudentArtProgramAssociationArtMedium : Entities.Common.Sample.IStudentArtProgramAssociationArtMedium
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10992,12 +10544,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -11050,7 +10596,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport
+    public class StudentArtProgramAssociationPortfolioYears : Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11220,12 +10766,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -11278,7 +10818,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociationService : Entities.Common.Sample.IStudentArtProgramAssociationService, Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport
+    public class StudentArtProgramAssociationService : Entities.Common.Sample.IStudentArtProgramAssociationService
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11469,15 +11009,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport.IsPrimaryIndicatorSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport.IsServiceBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport.IsServiceEndDateSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -11530,7 +11061,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociationStyle : Entities.Common.Sample.IStudentArtProgramAssociationStyle, Entities.Common.Sample.IStudentArtProgramAssociationStyleSynchronizationSourceSupport
+    public class StudentArtProgramAssociationStyle : Entities.Common.Sample.IStudentArtProgramAssociationStyle
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11700,12 +11231,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -11763,7 +11288,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentCTEProgramAssociationExtension : Entities.Common.Sample.IStudentCTEProgramAssociationExtension, Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport
+    public class StudentCTEProgramAssociationExtension : Entities.Common.Sample.IStudentCTEProgramAssociationExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11931,14 +11456,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport.IsAnalysisCompletedSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport.IsAnalysisDateSupported       { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -11996,7 +11513,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport
+    public class StudentEducationOrganizationAssociationAddressExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12243,28 +11760,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsComplexSupported                                                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsOnBusRouteSupported                                                     { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported            { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -12337,7 +11832,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAddressSchoolDistrict : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport
+    public class StudentEducationOrganizationAssociationAddressSchoolDistrict : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12507,12 +12002,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -12565,7 +12054,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationAddressTerm : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport
+    public class StudentEducationOrganizationAssociationAddressTerm : Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12735,12 +12224,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -12793,7 +12276,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension, Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport
+    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12991,20 +12474,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -13067,7 +12536,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport
+    public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13251,14 +12720,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport.IsEndDateSupported                      { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport.IsPrimaryStudentNeedIndicatorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -13405,7 +12866,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14123,66 +13584,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsCommencementTimeSupported                                           { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsEffectiveDateSupported                                              { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsGraduationFeeSupported                                              { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsHighSchoolDurationSupported                                         { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsHoursPerWeekSupported                                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsIsActivePlanSupported                                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsRequiredAttendanceSupported                                         { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStaffUniqueIdSupported                                              { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported         { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCTEProgramSupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDescriptionsSupported               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsTargetGPASupported                                                  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDescriptionIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -14347,7 +13748,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationAcademicSubject : Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationAcademicSubject : Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14517,12 +13918,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -14575,7 +13970,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationCareerPathwayCode : Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14745,12 +14140,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -14803,7 +14192,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationCTEProgram : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationCTEProgram : Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14985,16 +14374,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsCareerPathwayDescriptorSupported        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsCIPCodeSupported                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsCTEProgramCompletionIndicatorSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsPrimaryCTEProgramIndicatorSupported     { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -15047,7 +14426,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationDescription : Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, Entities.Common.Sample.IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationDescription : Entities.Common.Sample.IStudentGraduationPlanAssociationDescription
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15217,12 +14596,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -15275,7 +14648,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationDesignatedBy : Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationDesignatedBy : Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15445,12 +14818,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -15503,7 +14870,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationIndustryCredential : Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationIndustryCredential : Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15673,12 +15040,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -15844,7 +15205,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationStudentParentAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationStudentParentAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16079,12 +15440,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -16173,7 +15528,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociationYearsAttended : Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16343,12 +15698,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -16406,7 +15755,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationDiscipline : Entities.Common.Sample.IStudentParentAssociationDiscipline, Entities.Common.Sample.IStudentParentAssociationDisciplineSynchronizationSourceSupport
+    public class StudentParentAssociationDiscipline : Entities.Common.Sample.IStudentParentAssociationDiscipline
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16576,12 +15925,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -16634,7 +15977,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension, Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport
+    public class StudentParentAssociationExtension : Entities.Common.Sample.IStudentParentAssociationExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17148,58 +16491,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBedtimeReaderSupported                                                             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBedtimeReadingRateSupported                                                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBookBudgetSupported                                                                { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBooksBorrowedSupported                                                             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsEducationOrganizationIdSupported                                                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsInterventionStudyIdentificationCodeSupported                                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsLibraryDurationSupported                                                           { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsLibraryTimeSupported                                                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsLibraryVisitsSupported                                                             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsPriorContactRestrictionsSupported                                                  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsReadGreenEggsAndHamDateSupported                                                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsReadingTimeSpentSupported                                                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationDisciplinesSupported                                       { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationFavoriteBookTitlesSupported                                { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationHoursPerWeeksSupported                                     { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationPagesReadsSupported                                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationTelephoneSupported                                         { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentReadSupported                                                               { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentParentAssociationDiscipline, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationDisciplineIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationFavoriteBookTitleIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationHoursPerWeekIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentParentAssociationPagesRead, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationPagesReadIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -17316,7 +16607,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationFavoriteBookTitle : Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport
+    public class StudentParentAssociationFavoriteBookTitle : Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17486,12 +16777,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -17544,7 +16829,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationHoursPerWeek : Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, Entities.Common.Sample.IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport
+    public class StudentParentAssociationHoursPerWeek : Entities.Common.Sample.IStudentParentAssociationHoursPerWeek
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17714,12 +16999,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -17772,7 +17051,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationPagesRead : Entities.Common.Sample.IStudentParentAssociationPagesRead, Entities.Common.Sample.IStudentParentAssociationPagesReadSynchronizationSourceSupport
+    public class StudentParentAssociationPagesRead : Entities.Common.Sample.IStudentParentAssociationPagesRead
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17942,12 +17221,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18000,7 +17273,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport
+    public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18316,12 +17589,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18388,7 +17655,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentParentAssociationTelephone : Entities.Common.Sample.IStudentParentAssociationTelephone, Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport
+    public class StudentParentAssociationTelephone : Entities.Common.Sample.IStudentParentAssociationTelephone
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18577,17 +17844,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsTelephoneNumberSupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsTelephoneNumberTypeDescriptorSupported   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18645,7 +17901,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociationExtension : Entities.Common.Sample.IStudentSchoolAssociationExtension, Entities.Common.Sample.IStudentSchoolAssociationExtensionSynchronizationSourceSupport
+    public class StudentSchoolAssociationExtension : Entities.Common.Sample.IStudentSchoolAssociationExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18806,13 +18062,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentSchoolAssociationExtensionSynchronizationSourceSupport.IsMembershipTypeDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18870,7 +18119,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension, Entities.Common.Sample.IStudentSectionAssociationExtensionSynchronizationSourceSupport
+    public class StudentSectionAssociationExtension : Entities.Common.Sample.IStudentSectionAssociationExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19068,20 +18317,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> Entities.Common.Sample.IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -19273,7 +18508,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport
+    public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19636,12 +18871,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             Entities.Common.Sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociationMapper.MapTo(this, (Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation)target, null);
         }
         // -------------------------------------------------------------
-
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
 
         // =================================================================
         //                    Resource Reference Data

@@ -476,7 +476,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),
                 IsEdFiResource = resourceClass.IsEdFiResource(),
                 NamespacePrefix = resourceClass.GetNamespacePrefix(),
-                HasDiscriminator = resourceClass.Entity.HasDiscriminator(),
+                HasDiscriminator = resourceClass.HasDiscriminator(),
 
                 // Foreign Key Discriminators should not have any profile applied to this, as this data is required for links
                 ResourceReferences = CreateResourceReferences(resourceClass)

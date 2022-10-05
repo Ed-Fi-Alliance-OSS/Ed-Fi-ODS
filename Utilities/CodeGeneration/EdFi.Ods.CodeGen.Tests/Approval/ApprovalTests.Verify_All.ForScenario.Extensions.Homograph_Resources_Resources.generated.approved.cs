@@ -17,7 +17,10 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
+using EdFi.Ods.Entities.Common.Sample;
+using EdFi.Ods.Entities.Common.TPDM;
 using EdFi.Ods.Entities.Common.Homograph;
+using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
 using FluentValidation.Results;
 
@@ -113,7 +116,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.INameSynchronizationSourceSupport
+    public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -288,12 +291,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -434,7 +431,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Parent : Entities.Common.Homograph.IParent, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IParentSynchronizationSourceSupport
+    public class Parent : Entities.Common.Homograph.IParent, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -755,26 +752,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressesSupported                  { get { return true; } set { } }
-        bool Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Homograph.IParentAddress, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Homograph.IParentStudentSchoolAssociation, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -861,7 +838,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAddress : Entities.Common.Homograph.IParentAddress, Entities.Common.Homograph.IParentAddressSynchronizationSourceSupport
+    public class ParentAddress : Entities.Common.Homograph.IParentAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1031,12 +1008,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1089,7 +1060,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentStudentSchoolAssociation : Entities.Common.Homograph.IParentStudentSchoolAssociation, Entities.Common.Homograph.IParentStudentSchoolAssociationSynchronizationSourceSupport
+    public class ParentStudentSchoolAssociation : Entities.Common.Homograph.IParentStudentSchoolAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1375,12 +1346,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1532,7 +1497,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1763,14 +1728,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.ISchoolSynchronizationSourceSupport.IsSchoolAddressSupported  { get { return true; } set { } }
-        bool Entities.Common.Homograph.ISchoolSynchronizationSourceSupport.IsSchoolYearSupported     { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1837,7 +1794,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress, Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport
+    public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1998,13 +1955,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport.IsCitySupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2142,7 +2092,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
+    public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2301,12 +2251,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2447,7 +2391,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
+    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2768,26 +2712,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressesSupported                  { get { return true; } set { } }
-        bool Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Homograph.IStaffAddress, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Homograph.IStaffStudentSchoolAssociation, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2874,7 +2798,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffAddress : Entities.Common.Homograph.IStaffAddress, Entities.Common.Homograph.IStaffAddressSynchronizationSourceSupport
+    public class StaffAddress : Entities.Common.Homograph.IStaffAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3044,12 +2968,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3102,7 +3020,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation, Entities.Common.Homograph.IStaffStudentSchoolAssociationSynchronizationSourceSupport
+    public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3388,12 +3306,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3548,7 +3460,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
+    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3893,21 +3805,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsSchoolYearSupported        { get { return true; } set { } }
-        bool Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressesSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Homograph.IStudentAddress, bool> Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3998,7 +3895,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAddress : Entities.Common.Homograph.IStudentAddress, Entities.Common.Homograph.IStudentAddressSynchronizationSourceSupport
+    public class StudentAddress : Entities.Common.Homograph.IStudentAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4168,12 +4065,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4317,7 +4208,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
+    public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4623,12 +4514,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
             Entities.Common.Homograph.StudentSchoolAssociationMapper.MapTo(this, (Entities.Common.Homograph.IStudentSchoolAssociation)target, null);
         }
         // -------------------------------------------------------------
-
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
 
         // =================================================================
         //                    Resource Reference Data

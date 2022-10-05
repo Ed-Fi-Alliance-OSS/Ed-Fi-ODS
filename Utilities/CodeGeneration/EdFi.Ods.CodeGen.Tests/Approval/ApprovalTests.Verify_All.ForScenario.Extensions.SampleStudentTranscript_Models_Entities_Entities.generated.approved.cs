@@ -33,7 +33,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class InstitutionControlDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -202,61 +202,6 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
             this.MapTo((Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: InstitutionLevelDescriptor
@@ -272,7 +217,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class InstitutionLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -441,61 +386,6 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
             this.MapTo((Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: PostSecondaryOrganization
@@ -587,7 +477,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class PostSecondaryOrganization : AggregateRootWithCompositeKey,
-        Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport
+        Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -796,33 +686,6 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             this.MapTo((Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAcceptanceIndicatorSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport.IsAcceptanceIndicatorSupported
-        {
-            get { return _isAcceptanceIndicatorSupported; }
-            set { _isAcceptanceIndicatorSupported = value; }
-        }
-
-        private bool _isInstitutionControlDescriptorSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport.IsInstitutionControlDescriptorSupported
-        {
-            get { return _isInstitutionControlDescriptorSupported; }
-            set { _isInstitutionControlDescriptorSupported = value; }
-        }
-
-        private bool _isInstitutionLevelDescriptorSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport.IsInstitutionLevelDescriptorSupported
-        {
-            get { return _isInstitutionLevelDescriptorSupported; }
-            set { _isInstitutionLevelDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: SpecialEducationGraduationStatusDescriptor
@@ -838,7 +701,7 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class SpecialEducationGraduationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -1007,61 +870,6 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
             this.MapTo((Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentAcademicRecord
@@ -1077,7 +885,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class StudentAcademicRecordExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport
+        Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1280,26 +1088,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         {
             StudentAcademicRecord = (EdFi.StudentAcademicRecord) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isNameOfInstitutionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport.IsNameOfInstitutionSupported
-        {
-            get { return _isNameOfInstitutionSupported; }
-            set { _isNameOfInstitutionSupported = value; }
-        }
-
-        private bool _isSubmissionCertificationDescriptorSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport.IsSubmissionCertificationDescriptorSupported
-        {
-            get { return _isSubmissionCertificationDescriptorSupported; }
-            set { _isSubmissionCertificationDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -1310,7 +1098,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class StudentAcademicRecordClassRankingExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtensionSynchronizationSourceSupport
+        Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1492,19 +1280,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         {
             StudentAcademicRecordClassRanking = (EdFi.StudentAcademicRecordClassRanking) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isSpecialEducationGraduationStatusDescriptorSupported = true;
-        bool Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtensionSynchronizationSourceSupport.IsSpecialEducationGraduationStatusDescriptorSupported
-        {
-            get { return _isSpecialEducationGraduationStatusDescriptorSupported; }
-            set { _isSpecialEducationGraduationStatusDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: SubmissionCertificationDescriptor
@@ -1520,7 +1295,7 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
     [Serializable, Schema("samplestudenttranscript")]
     [ExcludeFromCodeCoverage]
     public class SubmissionCertificationDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -1689,60 +1464,5 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
             this.MapTo((Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }

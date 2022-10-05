@@ -145,7 +145,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                         PropertyName = c.PropertyName
                                     })
                                 .ToList(),
-                            HasDiscriminator = r.Entity.HasDiscriminator(),
+                            HasDiscriminator = r.Entity?.HasDiscriminator() ?? false,
                             AggregateReferences =
                                 r.Entity?.GetAssociationsToReferenceableAggregateRoots()
                                     .OrderBy(a => a.Name)

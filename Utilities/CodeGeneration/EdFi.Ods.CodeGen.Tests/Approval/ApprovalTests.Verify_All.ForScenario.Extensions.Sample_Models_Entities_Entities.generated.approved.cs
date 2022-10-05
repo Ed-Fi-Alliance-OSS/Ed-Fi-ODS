@@ -33,7 +33,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ArtMediumDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.Sample.IArtMediumDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Sample.IArtMediumDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -202,61 +202,6 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
             this.MapTo((Entities.Common.Sample.IArtMediumDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Bus
@@ -348,7 +293,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class Bus : AggregateRootWithCompositeKey,
-        Entities.Common.Sample.IBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusSynchronizationSourceSupport
+        Entities.Common.Sample.IBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -484,12 +429,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
             this.MapTo((Entities.Common.Sample.IBus) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: BusRoute
@@ -583,7 +522,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRoute : AggregateRootWithCompositeKey,
-        Entities.Common.Sample.IBusRoute, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRoute, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1151,180 +1090,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             this.MapTo((Entities.Common.Sample.IBusRoute) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isBeginDateSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBeginDateSupported
-        {
-            get { return _isBeginDateSupported; }
-            set { _isBeginDateSupported = value; }
-        }
-
-        private bool _isBusRouteBusYearsSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteBusYearsSupported
-        {
-            get { return _isBusRouteBusYearsSupported; }
-            set { _isBusRouteBusYearsSupported = value; }
-        }
-
-        private bool _isBusRouteDirectionSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteDirectionSupported
-        {
-            get { return _isBusRouteDirectionSupported; }
-            set { _isBusRouteDirectionSupported = value; }
-        }
-
-        private bool _isBusRouteDurationSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteDurationSupported
-        {
-            get { return _isBusRouteDurationSupported; }
-            set { _isBusRouteDurationSupported = value; }
-        }
-
-        private bool _isBusRouteProgramsSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteProgramsSupported
-        {
-            get { return _isBusRouteProgramsSupported; }
-            set { _isBusRouteProgramsSupported = value; }
-        }
-
-        private bool _isBusRouteServiceAreaPostalCodesSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteServiceAreaPostalCodesSupported
-        {
-            get { return _isBusRouteServiceAreaPostalCodesSupported; }
-            set { _isBusRouteServiceAreaPostalCodesSupported = value; }
-        }
-
-        private bool _isBusRouteStartTimesSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteStartTimesSupported
-        {
-            get { return _isBusRouteStartTimesSupported; }
-            set { _isBusRouteStartTimesSupported = value; }
-        }
-
-        private bool _isBusRouteTelephonesSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteTelephonesSupported
-        {
-            get { return _isBusRouteTelephonesSupported; }
-            set { _isBusRouteTelephonesSupported = value; }
-        }
-
-        private bool _isDailySupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsDailySupported
-        {
-            get { return _isDailySupported; }
-            set { _isDailySupported = value; }
-        }
-
-        private bool _isDisabilityDescriptorSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsDisabilityDescriptorSupported
-        {
-            get { return _isDisabilityDescriptorSupported; }
-            set { _isDisabilityDescriptorSupported = value; }
-        }
-
-        private bool _isEducationOrganizationIdSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsEducationOrganizationIdSupported
-        {
-            get { return _isEducationOrganizationIdSupported; }
-            set { _isEducationOrganizationIdSupported = value; }
-        }
-
-        private bool _isExpectedTransitTimeSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsExpectedTransitTimeSupported
-        {
-            get { return _isExpectedTransitTimeSupported; }
-            set { _isExpectedTransitTimeSupported = value; }
-        }
-
-        private bool _isHoursPerWeekSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsHoursPerWeekSupported
-        {
-            get { return _isHoursPerWeekSupported; }
-            set { _isHoursPerWeekSupported = value; }
-        }
-
-        private bool _isOperatingCostSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsOperatingCostSupported
-        {
-            get { return _isOperatingCostSupported; }
-            set { _isOperatingCostSupported = value; }
-        }
-
-        private bool _isOptimalCapacitySupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsOptimalCapacitySupported
-        {
-            get { return _isOptimalCapacitySupported; }
-            set { _isOptimalCapacitySupported = value; }
-        }
-
-        private bool _isStaffClassificationDescriptorSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsStaffClassificationDescriptorSupported
-        {
-            get { return _isStaffClassificationDescriptorSupported; }
-            set { _isStaffClassificationDescriptorSupported = value; }
-        }
-
-        private bool _isStaffUniqueIdSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsStaffUniqueIdSupported
-        {
-            get { return _isStaffUniqueIdSupported; }
-            set { _isStaffUniqueIdSupported = value; }
-        }
-
-        private bool _isStartDateSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsStartDateSupported
-        {
-            get { return _isStartDateSupported; }
-            set { _isStartDateSupported = value; }
-        }
-
-        private bool _isWeeklyMileageSupported = true;
-        bool Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsWeeklyMileageSupported
-        {
-            get { return _isWeeklyMileageSupported; }
-            set { _isWeeklyMileageSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IBusRouteBusYear, bool> _isBusRouteBusYearIncluded;
-        Func<Entities.Common.Sample.IBusRouteBusYear, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteBusYearIncluded
-        {
-            get { return _isBusRouteBusYearIncluded; }
-            set { _isBusRouteBusYearIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IBusRouteProgram, bool> _isBusRouteProgramIncluded;
-        Func<Entities.Common.Sample.IBusRouteProgram, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteProgramIncluded
-        {
-            get { return _isBusRouteProgramIncluded; }
-            set { _isBusRouteProgramIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IBusRouteServiceAreaPostalCode, bool> _isBusRouteServiceAreaPostalCodeIncluded;
-        Func<Entities.Common.Sample.IBusRouteServiceAreaPostalCode, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteServiceAreaPostalCodeIncluded
-        {
-            get { return _isBusRouteServiceAreaPostalCodeIncluded; }
-            set { _isBusRouteServiceAreaPostalCodeIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IBusRouteStartTime, bool> _isBusRouteStartTimeIncluded;
-        Func<Entities.Common.Sample.IBusRouteStartTime, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteStartTimeIncluded
-        {
-            get { return _isBusRouteStartTimeIncluded; }
-            set { _isBusRouteStartTimeIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IBusRouteTelephone, bool> _isBusRouteTelephoneIncluded;
-        Func<Entities.Common.Sample.IBusRouteTelephone, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteTelephoneIncluded
-        {
-            get { return _isBusRouteTelephoneIncluded; }
-            set { _isBusRouteTelephoneIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -1335,7 +1100,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteBusYear : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteBusYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteBusYearSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteBusYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1484,12 +1249,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             BusRoute = (BusRoute) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -1500,7 +1259,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteProgramSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1709,12 +1468,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             BusRoute = (BusRoute) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -1725,7 +1478,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteServiceAreaPostalCode : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteServiceAreaPostalCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteServiceAreaPostalCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1874,12 +1627,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             BusRoute = (BusRoute) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -1890,7 +1637,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteStartTime : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteStartTime, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteStartTimeSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteStartTime, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2039,12 +1786,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             BusRoute = (BusRoute) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -2055,7 +1796,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteTelephone : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2244,33 +1985,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             BusRoute = (BusRoute) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isDoNotPublishIndicatorSupported = true;
-        bool Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
-        {
-            get { return _isDoNotPublishIndicatorSupported; }
-            set { _isDoNotPublishIndicatorSupported = value; }
-        }
-
-        private bool _isOrderOfPrioritySupported = true;
-        bool Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported
-        {
-            get { return _isOrderOfPrioritySupported; }
-            set { _isOrderOfPrioritySupported = value; }
-        }
-
-        private bool _isTextMessageCapabilityIndicatorSupported = true;
-        bool Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported
-        {
-            get { return _isTextMessageCapabilityIndicatorSupported; }
-            set { _isTextMessageCapabilityIndicatorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: FavoriteBookCategoryDescriptor
@@ -2286,7 +2000,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.Sample.IFavoriteBookCategoryDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Sample.IFavoriteBookCategoryDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -2455,61 +2169,6 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
             this.MapTo((Entities.Common.Sample.IFavoriteBookCategoryDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: MembershipTypeDescriptor
@@ -2525,7 +2184,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.Sample.IMembershipTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Sample.IMembershipTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, IEdFiDescriptor
     {
 
         // =============================================================
@@ -2694,61 +2353,6 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
             this.MapTo((Entities.Common.Sample.IMembershipTypeDescriptor) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCodeValueSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported
-        {
-            get { return _isCodeValueSupported; }
-            set { _isCodeValueSupported = value; }
-        }
-
-        private bool _isDescriptionSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported
-        {
-            get { return _isDescriptionSupported; }
-            set { _isDescriptionSupported = value; }
-        }
-
-        private bool _isEffectiveBeginDateSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
-        {
-            get { return _isEffectiveBeginDateSupported; }
-            set { _isEffectiveBeginDateSupported = value; }
-        }
-
-        private bool _isEffectiveEndDateSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
-        {
-            get { return _isEffectiveEndDateSupported; }
-            set { _isEffectiveEndDateSupported = value; }
-        }
-
-        private bool _isNamespaceSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported
-        {
-            get { return _isNamespaceSupported; }
-            set { _isNamespaceSupported = value; }
-        }
-
-        private bool _isPriorDescriptorIdSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
-        {
-            get { return _isPriorDescriptorIdSupported; }
-            set { _isPriorDescriptorIdSupported = value; }
-        }
-
-        private bool _isShortDescriptionSupported = true;
-        bool Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
-        {
-            get { return _isShortDescriptionSupported; }
-            set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Parent
@@ -2764,7 +2368,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressSchoolDistrictSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2915,12 +2519,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             ParentAddress = (EdFi.ParentAddress) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -2931,7 +2529,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAddressTerm : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressTermSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3116,12 +2714,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             ParentAddress = (EdFi.ParentAddress) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -3132,7 +2724,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAuthor : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAuthor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAuthorSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAuthor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3281,12 +2873,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -3297,7 +2883,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentCeilingHeight : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentCeilingHeight, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentCeilingHeightSynchronizationSourceSupport
+        Entities.Common.Sample.IParentCeilingHeight, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3446,12 +3032,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -3462,7 +3042,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport
+        Entities.Common.Sample.IParentCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3648,40 +3228,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCareerPathwayDescriptorSupported = true;
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsCareerPathwayDescriptorSupported
-        {
-            get { return _isCareerPathwayDescriptorSupported; }
-            set { _isCareerPathwayDescriptorSupported = value; }
-        }
-
-        private bool _isCIPCodeSupported = true;
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsCIPCodeSupported
-        {
-            get { return _isCIPCodeSupported; }
-            set { _isCIPCodeSupported = value; }
-        }
-
-        private bool _isCTEProgramCompletionIndicatorSupported = true;
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsCTEProgramCompletionIndicatorSupported
-        {
-            get { return _isCTEProgramCompletionIndicatorSupported; }
-            set { _isCTEProgramCompletionIndicatorSupported = value; }
-        }
-
-        private bool _isPrimaryCTEProgramIndicatorSupported = true;
-        bool Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport.IsPrimaryCTEProgramIndicatorSupported
-        {
-            get { return _isPrimaryCTEProgramIndicatorSupported; }
-            set { _isPrimaryCTEProgramIndicatorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -3692,7 +3238,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentEducationContent : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentEducationContent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentEducationContentSynchronizationSourceSupport
+        Entities.Common.Sample.IParentEducationContent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3861,12 +3407,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -3877,7 +3417,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentFavoriteBookTitleSynchronizationSourceSupport
+        Entities.Common.Sample.IParentFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4026,12 +3566,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -4042,7 +3576,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentStudentProgramAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IParentStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4295,12 +3829,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -4311,7 +3839,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentTeacherConference : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentTeacherConference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport
+        Entities.Common.Sample.IParentTeacherConference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4463,33 +3991,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isDayOfWeekSupported = true;
-        bool Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport.IsDayOfWeekSupported
-        {
-            get { return _isDayOfWeekSupported; }
-            set { _isDayOfWeekSupported = value; }
-        }
-
-        private bool _isEndTimeSupported = true;
-        bool Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport.IsEndTimeSupported
-        {
-            get { return _isEndTimeSupported; }
-            set { _isEndTimeSupported = value; }
-        }
-
-        private bool _isStartTimeSupported = true;
-        bool Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport.IsStartTimeSupported
-        {
-            get { return _isStartTimeSupported; }
-            set { _isStartTimeSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -4500,7 +4001,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IParentExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4915,173 +4416,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             Parent = (EdFi.Parent) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAverageCarLineWaitSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsAverageCarLineWaitSupported
-        {
-            get { return _isAverageCarLineWaitSupported; }
-            set { _isAverageCarLineWaitSupported = value; }
-        }
-
-        private bool _isBecameParentSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsBecameParentSupported
-        {
-            get { return _isBecameParentSupported; }
-            set { _isBecameParentSupported = value; }
-        }
-
-        private bool _isCoffeeSpendSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsCoffeeSpendSupported
-        {
-            get { return _isCoffeeSpendSupported; }
-            set { _isCoffeeSpendSupported = value; }
-        }
-
-        private bool _isCredentialFieldDescriptorSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsCredentialFieldDescriptorSupported
-        {
-            get { return _isCredentialFieldDescriptorSupported; }
-            set { _isCredentialFieldDescriptorSupported = value; }
-        }
-
-        private bool _isDurationSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsDurationSupported
-        {
-            get { return _isDurationSupported; }
-            set { _isDurationSupported = value; }
-        }
-
-        private bool _isGPASupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsGPASupported
-        {
-            get { return _isGPASupported; }
-            set { _isGPASupported = value; }
-        }
-
-        private bool _isGraduationDateSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsGraduationDateSupported
-        {
-            get { return _isGraduationDateSupported; }
-            set { _isGraduationDateSupported = value; }
-        }
-
-        private bool _isIsSportsFanSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsIsSportsFanSupported
-        {
-            get { return _isIsSportsFanSupported; }
-            set { _isIsSportsFanSupported = value; }
-        }
-
-        private bool _isLuckyNumberSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsLuckyNumberSupported
-        {
-            get { return _isLuckyNumberSupported; }
-            set { _isLuckyNumberSupported = value; }
-        }
-
-        private bool _isParentAuthorsSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentAuthorsSupported
-        {
-            get { return _isParentAuthorsSupported; }
-            set { _isParentAuthorsSupported = value; }
-        }
-
-        private bool _isParentCeilingHeightsSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCeilingHeightsSupported
-        {
-            get { return _isParentCeilingHeightsSupported; }
-            set { _isParentCeilingHeightsSupported = value; }
-        }
-
-        private bool _isParentCTEProgramSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCTEProgramSupported
-        {
-            get { return _isParentCTEProgramSupported; }
-            set { _isParentCTEProgramSupported = value; }
-        }
-
-        private bool _isParentEducationContentsSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentEducationContentsSupported
-        {
-            get { return _isParentEducationContentsSupported; }
-            set { _isParentEducationContentsSupported = value; }
-        }
-
-        private bool _isParentFavoriteBookTitlesSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentFavoriteBookTitlesSupported
-        {
-            get { return _isParentFavoriteBookTitlesSupported; }
-            set { _isParentFavoriteBookTitlesSupported = value; }
-        }
-
-        private bool _isParentStudentProgramAssociationsSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentStudentProgramAssociationsSupported
-        {
-            get { return _isParentStudentProgramAssociationsSupported; }
-            set { _isParentStudentProgramAssociationsSupported = value; }
-        }
-
-        private bool _isParentTeacherConferenceSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentTeacherConferenceSupported
-        {
-            get { return _isParentTeacherConferenceSupported; }
-            set { _isParentTeacherConferenceSupported = value; }
-        }
-
-        private bool _isPreferredWakeUpTimeSupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsPreferredWakeUpTimeSupported
-        {
-            get { return _isPreferredWakeUpTimeSupported; }
-            set { _isPreferredWakeUpTimeSupported = value; }
-        }
-
-        private bool _isRainCertaintySupported = true;
-        bool Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsRainCertaintySupported
-        {
-            get { return _isRainCertaintySupported; }
-            set { _isRainCertaintySupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentAuthor, bool> _isParentAuthorIncluded;
-        Func<Entities.Common.Sample.IParentAuthor, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentAuthorIncluded
-        {
-            get { return _isParentAuthorIncluded; }
-            set { _isParentAuthorIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentCeilingHeight, bool> _isParentCeilingHeightIncluded;
-        Func<Entities.Common.Sample.IParentCeilingHeight, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCeilingHeightIncluded
-        {
-            get { return _isParentCeilingHeightIncluded; }
-            set { _isParentCeilingHeightIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentEducationContent, bool> _isParentEducationContentIncluded;
-        Func<Entities.Common.Sample.IParentEducationContent, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentEducationContentIncluded
-        {
-            get { return _isParentEducationContentIncluded; }
-            set { _isParentEducationContentIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentFavoriteBookTitle, bool> _isParentFavoriteBookTitleIncluded;
-        Func<Entities.Common.Sample.IParentFavoriteBookTitle, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentFavoriteBookTitleIncluded
-        {
-            get { return _isParentFavoriteBookTitleIncluded; }
-            set { _isParentFavoriteBookTitleIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentStudentProgramAssociation, bool> _isParentStudentProgramAssociationIncluded;
-        Func<Entities.Common.Sample.IParentStudentProgramAssociation, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentStudentProgramAssociationIncluded
-        {
-            get { return _isParentStudentProgramAssociationIncluded; }
-            set { _isParentStudentProgramAssociationIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -5092,7 +4426,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAddressExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5293,54 +4627,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             ParentAddress = (EdFi.ParentAddress) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isComplexSupported = true;
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsComplexSupported
-        {
-            get { return _isComplexSupported; }
-            set { _isComplexSupported = value; }
-        }
-
-        private bool _isOnBusRouteSupported = true;
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsOnBusRouteSupported
-        {
-            get { return _isOnBusRouteSupported; }
-            set { _isOnBusRouteSupported = value; }
-        }
-
-        private bool _isParentAddressSchoolDistrictsSupported = true;
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressSchoolDistrictsSupported
-        {
-            get { return _isParentAddressSchoolDistrictsSupported; }
-            set { _isParentAddressSchoolDistrictsSupported = value; }
-        }
-
-        private bool _isParentAddressTermsSupported = true;
-        bool Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressTermsSupported
-        {
-            get { return _isParentAddressTermsSupported; }
-            set { _isParentAddressTermsSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentAddressSchoolDistrict, bool> _isParentAddressSchoolDistrictIncluded;
-        Func<Entities.Common.Sample.IParentAddressSchoolDistrict, bool> Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressSchoolDistrictIncluded
-        {
-            get { return _isParentAddressSchoolDistrictIncluded; }
-            set { _isParentAddressSchoolDistrictIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IParentAddressTerm, bool> _isParentAddressTermIncluded;
-        Func<Entities.Common.Sample.IParentAddressTerm, bool> Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressTermIncluded
-        {
-            get { return _isParentAddressTermIncluded; }
-            set { _isParentAddressTermIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: School
@@ -5356,7 +4642,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport
+        Entities.Common.Sample.ISchoolCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5542,40 +4828,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             School = (EdFi.School) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCareerPathwayDescriptorSupported = true;
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsCareerPathwayDescriptorSupported
-        {
-            get { return _isCareerPathwayDescriptorSupported; }
-            set { _isCareerPathwayDescriptorSupported = value; }
-        }
-
-        private bool _isCIPCodeSupported = true;
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsCIPCodeSupported
-        {
-            get { return _isCIPCodeSupported; }
-            set { _isCIPCodeSupported = value; }
-        }
-
-        private bool _isCTEProgramCompletionIndicatorSupported = true;
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsCTEProgramCompletionIndicatorSupported
-        {
-            get { return _isCTEProgramCompletionIndicatorSupported; }
-            set { _isCTEProgramCompletionIndicatorSupported = value; }
-        }
-
-        private bool _isPrimaryCTEProgramIndicatorSupported = true;
-        bool Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport.IsPrimaryCTEProgramIndicatorSupported
-        {
-            get { return _isPrimaryCTEProgramIndicatorSupported; }
-            set { _isPrimaryCTEProgramIndicatorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -5586,7 +4838,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolDirectlyOwnedBus : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolDirectlyOwnedBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolDirectlyOwnedBusSynchronizationSourceSupport
+        Entities.Common.Sample.ISchoolDirectlyOwnedBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5755,12 +5007,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             School = (EdFi.School) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -5771,7 +5017,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5979,40 +5225,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             School = (EdFi.School) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isIsExemplarySupported = true;
-        bool Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsIsExemplarySupported
-        {
-            get { return _isIsExemplarySupported; }
-            set { _isIsExemplarySupported = value; }
-        }
-
-        private bool _isSchoolCTEProgramSupported = true;
-        bool Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolCTEProgramSupported
-        {
-            get { return _isSchoolCTEProgramSupported; }
-            set { _isSchoolCTEProgramSupported = value; }
-        }
-
-        private bool _isSchoolDirectlyOwnedBusesSupported = true;
-        bool Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolDirectlyOwnedBusesSupported
-        {
-            get { return _isSchoolDirectlyOwnedBusesSupported; }
-            set { _isSchoolDirectlyOwnedBusesSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.ISchoolDirectlyOwnedBus, bool> _isSchoolDirectlyOwnedBusIncluded;
-        Func<Entities.Common.Sample.ISchoolDirectlyOwnedBus, bool> Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolDirectlyOwnedBusIncluded
-        {
-            get { return _isSchoolDirectlyOwnedBusIncluded; }
-            set { _isSchoolDirectlyOwnedBusIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Staff
@@ -6028,7 +5240,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffPet : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStaffPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffPetSynchronizationSourceSupport
+        Entities.Common.Sample.IStaffPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6178,19 +5390,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             Staff = (EdFi.Staff) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isIsFixedSupported = true;
-        bool Entities.Common.Sample.IStaffPetSynchronizationSourceSupport.IsIsFixedSupported
-        {
-            get { return _isIsFixedSupported; }
-            set { _isIsFixedSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -6201,7 +5400,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffPetPreference : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStaffPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport
+        Entities.Common.Sample.IStaffPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6349,26 +5548,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             Staff = (EdFi.Staff) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isMaximumWeightSupported = true;
-        bool Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport.IsMaximumWeightSupported
-        {
-            get { return _isMaximumWeightSupported; }
-            set { _isMaximumWeightSupported = value; }
-        }
-
-        private bool _isMinimumWeightSupported = true;
-        bool Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport.IsMinimumWeightSupported
-        {
-            get { return _isMinimumWeightSupported; }
-            set { _isMinimumWeightSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -6379,7 +5558,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStaffExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStaffExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6606,40 +5785,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             Staff = (EdFi.Staff) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isFirstPetOwnedDateSupported = true;
-        bool Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsFirstPetOwnedDateSupported
-        {
-            get { return _isFirstPetOwnedDateSupported; }
-            set { _isFirstPetOwnedDateSupported = value; }
-        }
-
-        private bool _isStaffPetPreferenceSupported = true;
-        bool Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetPreferenceSupported
-        {
-            get { return _isStaffPetPreferenceSupported; }
-            set { _isStaffPetPreferenceSupported = value; }
-        }
-
-        private bool _isStaffPetsSupported = true;
-        bool Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetsSupported
-        {
-            get { return _isStaffPetsSupported; }
-            set { _isStaffPetsSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStaffPet, bool> _isStaffPetIncluded;
-        Func<Entities.Common.Sample.IStaffPet, bool> Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetIncluded
-        {
-            get { return _isStaffPetIncluded; }
-            set { _isStaffPetIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: Student
@@ -6655,7 +5800,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentAquaticPet : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentAquaticPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentAquaticPetSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentAquaticPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6808,19 +5953,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             Student = (EdFi.Student) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isIsFixedSupported = true;
-        bool Entities.Common.Sample.IStudentAquaticPetSynchronizationSourceSupport.IsIsFixedSupported
-        {
-            get { return _isIsFixedSupported; }
-            set { _isIsFixedSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -6831,7 +5963,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBook : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentFavoriteBook, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentFavoriteBook, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7065,33 +6197,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             Student = (EdFi.Student) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isBookTitleSupported = true;
-        bool Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsBookTitleSupported
-        {
-            get { return _isBookTitleSupported; }
-            set { _isBookTitleSupported = value; }
-        }
-
-        private bool _isStudentFavoriteBookArtMediaSupported = true;
-        bool Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsStudentFavoriteBookArtMediaSupported
-        {
-            get { return _isStudentFavoriteBookArtMediaSupported; }
-            set { _isStudentFavoriteBookArtMediaSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentFavoriteBookArtMedium, bool> _isStudentFavoriteBookArtMediumIncluded;
-        Func<Entities.Common.Sample.IStudentFavoriteBookArtMedium, bool> Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsStudentFavoriteBookArtMediumIncluded
-        {
-            get { return _isStudentFavoriteBookArtMediumIncluded; }
-            set { _isStudentFavoriteBookArtMediumIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -7102,7 +6207,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBookArtMedium : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentFavoriteBookArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentFavoriteBookArtMediumSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentFavoriteBookArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7287,19 +6392,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             StudentFavoriteBook = (StudentFavoriteBook) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isArtPiecesSupported = true;
-        bool Entities.Common.Sample.IStudentFavoriteBookArtMediumSynchronizationSourceSupport.IsArtPiecesSupported
-        {
-            get { return _isArtPiecesSupported; }
-            set { _isArtPiecesSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -7310,7 +6402,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentPet : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentPetSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7460,19 +6552,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             Student = (EdFi.Student) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isIsFixedSupported = true;
-        bool Entities.Common.Sample.IStudentPetSynchronizationSourceSupport.IsIsFixedSupported
-        {
-            get { return _isIsFixedSupported; }
-            set { _isIsFixedSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -7483,7 +6562,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentPetPreference : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7631,26 +6710,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             Student = (EdFi.Student) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isMaximumWeightSupported = true;
-        bool Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport.IsMaximumWeightSupported
-        {
-            get { return _isMaximumWeightSupported; }
-            set { _isMaximumWeightSupported = value; }
-        }
-
-        private bool _isMinimumWeightSupported = true;
-        bool Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport.IsMinimumWeightSupported
-        {
-            get { return _isMinimumWeightSupported; }
-            set { _isMinimumWeightSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 
     /// <summary>
@@ -7845,7 +6904,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociation : GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociation,
-        Entities.Common.Sample.IStudentArtProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public StudentArtProgramAssociation()
         {
@@ -8312,187 +7371,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             this.MapDerivedTo((Entities.Common.Sample.IStudentArtProgramAssociation) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isArtPiecesSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsArtPiecesSupported
-        {
-            get { return _isArtPiecesSupported; }
-            set { _isArtPiecesSupported = value; }
-        }
-
-        private bool _isEndDateSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsEndDateSupported
-        {
-            get { return _isEndDateSupported; }
-            set { _isEndDateSupported = value; }
-        }
-
-        private bool _isExhibitDateSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsExhibitDateSupported
-        {
-            get { return _isExhibitDateSupported; }
-            set { _isExhibitDateSupported = value; }
-        }
-
-        private bool _isGeneralStudentProgramAssociationParticipationStatusSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported
-        {
-            get { return _isGeneralStudentProgramAssociationParticipationStatusSupported; }
-            set { _isGeneralStudentProgramAssociationParticipationStatusSupported = value; }
-        }
-
-        private bool _isGeneralStudentProgramAssociationProgramParticipationStatusesSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported
-        {
-            get { return _isGeneralStudentProgramAssociationProgramParticipationStatusesSupported; }
-            set { _isGeneralStudentProgramAssociationProgramParticipationStatusesSupported = value; }
-        }
-
-        private bool _isHoursPerDaySupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsHoursPerDaySupported
-        {
-            get { return _isHoursPerDaySupported; }
-            set { _isHoursPerDaySupported = value; }
-        }
-
-        private bool _isIdentificationCodeSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsIdentificationCodeSupported
-        {
-            get { return _isIdentificationCodeSupported; }
-            set { _isIdentificationCodeSupported = value; }
-        }
-
-        private bool _isKilnReservationSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationSupported
-        {
-            get { return _isKilnReservationSupported; }
-            set { _isKilnReservationSupported = value; }
-        }
-
-        private bool _isKilnReservationLengthSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationLengthSupported
-        {
-            get { return _isKilnReservationLengthSupported; }
-            set { _isKilnReservationLengthSupported = value; }
-        }
-
-        private bool _isMasteredMediumsSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsMasteredMediumsSupported
-        {
-            get { return _isMasteredMediumsSupported; }
-            set { _isMasteredMediumsSupported = value; }
-        }
-
-        private bool _isNumberOfDaysInAttendanceSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsNumberOfDaysInAttendanceSupported
-        {
-            get { return _isNumberOfDaysInAttendanceSupported; }
-            set { _isNumberOfDaysInAttendanceSupported = value; }
-        }
-
-        private bool _isPortfolioPiecesSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPortfolioPiecesSupported
-        {
-            get { return _isPortfolioPiecesSupported; }
-            set { _isPortfolioPiecesSupported = value; }
-        }
-
-        private bool _isPrivateArtProgramSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPrivateArtProgramSupported
-        {
-            get { return _isPrivateArtProgramSupported; }
-            set { _isPrivateArtProgramSupported = value; }
-        }
-
-        private bool _isProgramFeesSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsProgramFeesSupported
-        {
-            get { return _isProgramFeesSupported; }
-            set { _isProgramFeesSupported = value; }
-        }
-
-        private bool _isReasonExitedDescriptorSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported
-        {
-            get { return _isReasonExitedDescriptorSupported; }
-            set { _isReasonExitedDescriptorSupported = value; }
-        }
-
-        private bool _isServedOutsideOfRegularSessionSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsServedOutsideOfRegularSessionSupported
-        {
-            get { return _isServedOutsideOfRegularSessionSupported; }
-            set { _isServedOutsideOfRegularSessionSupported = value; }
-        }
-
-        private bool _isStudentArtProgramAssociationArtMediaSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediaSupported
-        {
-            get { return _isStudentArtProgramAssociationArtMediaSupported; }
-            set { _isStudentArtProgramAssociationArtMediaSupported = value; }
-        }
-
-        private bool _isStudentArtProgramAssociationPortfolioYearsSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsSupported
-        {
-            get { return _isStudentArtProgramAssociationPortfolioYearsSupported; }
-            set { _isStudentArtProgramAssociationPortfolioYearsSupported = value; }
-        }
-
-        private bool _isStudentArtProgramAssociationServicesSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServicesSupported
-        {
-            get { return _isStudentArtProgramAssociationServicesSupported; }
-            set { _isStudentArtProgramAssociationServicesSupported = value; }
-        }
-
-        private bool _isStudentArtProgramAssociationStylesSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStylesSupported
-        {
-            get { return _isStudentArtProgramAssociationStylesSupported; }
-            set { _isStudentArtProgramAssociationStylesSupported = value; }
-        }
-
-        private Func<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, bool> _isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
-        Func<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded
-        {
-            get { return _isGeneralStudentProgramAssociationProgramParticipationStatusIncluded; }
-            set { _isGeneralStudentProgramAssociationProgramParticipationStatusIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, bool> _isStudentArtProgramAssociationArtMediumIncluded;
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediumIncluded
-        {
-            get { return _isStudentArtProgramAssociationArtMediumIncluded; }
-            set { _isStudentArtProgramAssociationArtMediumIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, bool> _isStudentArtProgramAssociationPortfolioYearsIncluded;
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded
-        {
-            get { return _isStudentArtProgramAssociationPortfolioYearsIncluded; }
-            set { _isStudentArtProgramAssociationPortfolioYearsIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentArtProgramAssociationService, bool> _isStudentArtProgramAssociationServiceIncluded;
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationService, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServiceIncluded
-        {
-            get { return _isStudentArtProgramAssociationServiceIncluded; }
-            set { _isStudentArtProgramAssociationServiceIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentArtProgramAssociationStyle, bool> _isStudentArtProgramAssociationStyleIncluded;
-        Func<Entities.Common.Sample.IStudentArtProgramAssociationStyle, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStyleIncluded
-        {
-            get { return _isStudentArtProgramAssociationStyleIncluded; }
-            set { _isStudentArtProgramAssociationStyleIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -8503,7 +7381,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationArtMedium : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -8687,12 +7565,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             StudentArtProgramAssociation = (StudentArtProgramAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -8703,7 +7575,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationPortfolioYears : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -8853,12 +7725,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             StudentArtProgramAssociation = (StudentArtProgramAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -8869,7 +7735,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationService : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9094,33 +7960,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             StudentArtProgramAssociation = (StudentArtProgramAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isPrimaryIndicatorSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport.IsPrimaryIndicatorSupported
-        {
-            get { return _isPrimaryIndicatorSupported; }
-            set { _isPrimaryIndicatorSupported = value; }
-        }
-
-        private bool _isServiceBeginDateSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport.IsServiceBeginDateSupported
-        {
-            get { return _isServiceBeginDateSupported; }
-            set { _isServiceBeginDateSupported = value; }
-        }
-
-        private bool _isServiceEndDateSupported = true;
-        bool Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport.IsServiceEndDateSupported
-        {
-            get { return _isServiceEndDateSupported; }
-            set { _isServiceEndDateSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -9131,7 +7970,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationStyle : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationStyle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationStyleSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationStyle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9281,12 +8120,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             StudentArtProgramAssociation = (StudentArtProgramAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentCTEProgramAssociation
@@ -9302,7 +8135,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentCTEProgramAssociationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9468,26 +8301,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         {
             StudentCTEProgramAssociation = (EdFi.StudentCTEProgramAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAnalysisCompletedSupported = true;
-        bool Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport.IsAnalysisCompletedSupported
-        {
-            get { return _isAnalysisCompletedSupported; }
-            set { _isAnalysisCompletedSupported = value; }
-        }
-
-        private bool _isAnalysisDateSupported = true;
-        bool Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport.IsAnalysisDateSupported
-        {
-            get { return _isAnalysisDateSupported; }
-            set { _isAnalysisDateSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentEducationOrganizationAssociation
@@ -9503,7 +8316,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9654,12 +8467,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             StudentEducationOrganizationAssociationAddress = (EdFi.StudentEducationOrganizationAssociationAddress) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -9670,7 +8477,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressTerm : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9855,12 +8662,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             StudentEducationOrganizationAssociationAddress = (EdFi.StudentEducationOrganizationAssociationAddress) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -9871,7 +8672,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10050,26 +8851,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             StudentEducationOrganizationAssociationStudentCharacteristic = (EdFi.StudentEducationOrganizationAssociationStudentCharacteristic) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isEndDateSupported = true;
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport.IsEndDateSupported
-        {
-            get { return _isEndDateSupported; }
-            set { _isEndDateSupported = value; }
-        }
-
-        private bool _isPrimaryStudentNeedIndicatorSupported = true;
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport.IsPrimaryStudentNeedIndicatorSupported
-        {
-            get { return _isPrimaryStudentNeedIndicatorSupported; }
-            set { _isPrimaryStudentNeedIndicatorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -10080,7 +8861,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10281,54 +9062,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             StudentEducationOrganizationAssociationAddress = (EdFi.StudentEducationOrganizationAssociationAddress) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isComplexSupported = true;
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsComplexSupported
-        {
-            get { return _isComplexSupported; }
-            set { _isComplexSupported = value; }
-        }
-
-        private bool _isOnBusRouteSupported = true;
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsOnBusRouteSupported
-        {
-            get { return _isOnBusRouteSupported; }
-            set { _isOnBusRouteSupported = value; }
-        }
-
-        private bool _isStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported = true;
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported
-        {
-            get { return _isStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported; }
-            set { _isStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported = value; }
-        }
-
-        private bool _isStudentEducationOrganizationAssociationAddressTermsSupported = true;
-        bool Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported
-        {
-            get { return _isStudentEducationOrganizationAssociationAddressTermsSupported; }
-            set { _isStudentEducationOrganizationAssociationAddressTermsSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> _isStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded;
-        Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded
-        {
-            get { return _isStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded; }
-            set { _isStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, bool> _isStudentEducationOrganizationAssociationAddressTermIncluded;
-        Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded
-        {
-            get { return _isStudentEducationOrganizationAssociationAddressTermIncluded; }
-            set { _isStudentEducationOrganizationAssociationAddressTermIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 
     /// <summary>
@@ -10517,7 +9250,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11256,180 +9989,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             this.MapTo((Entities.Common.Sample.IStudentGraduationPlanAssociation) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCommencementTimeSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsCommencementTimeSupported
-        {
-            get { return _isCommencementTimeSupported; }
-            set { _isCommencementTimeSupported = value; }
-        }
-
-        private bool _isEffectiveDateSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsEffectiveDateSupported
-        {
-            get { return _isEffectiveDateSupported; }
-            set { _isEffectiveDateSupported = value; }
-        }
-
-        private bool _isGraduationFeeSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsGraduationFeeSupported
-        {
-            get { return _isGraduationFeeSupported; }
-            set { _isGraduationFeeSupported = value; }
-        }
-
-        private bool _isHighSchoolDurationSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsHighSchoolDurationSupported
-        {
-            get { return _isHighSchoolDurationSupported; }
-            set { _isHighSchoolDurationSupported = value; }
-        }
-
-        private bool _isHoursPerWeekSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsHoursPerWeekSupported
-        {
-            get { return _isHoursPerWeekSupported; }
-            set { _isHoursPerWeekSupported = value; }
-        }
-
-        private bool _isIsActivePlanSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsIsActivePlanSupported
-        {
-            get { return _isIsActivePlanSupported; }
-            set { _isIsActivePlanSupported = value; }
-        }
-
-        private bool _isRequiredAttendanceSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsRequiredAttendanceSupported
-        {
-            get { return _isRequiredAttendanceSupported; }
-            set { _isRequiredAttendanceSupported = value; }
-        }
-
-        private bool _isStaffUniqueIdSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStaffUniqueIdSupported
-        {
-            get { return _isStaffUniqueIdSupported; }
-            set { _isStaffUniqueIdSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationAcademicSubjectsSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported
-        {
-            get { return _isStudentGraduationPlanAssociationAcademicSubjectsSupported; }
-            set { _isStudentGraduationPlanAssociationAcademicSubjectsSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationCareerPathwayCodesSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported
-        {
-            get { return _isStudentGraduationPlanAssociationCareerPathwayCodesSupported; }
-            set { _isStudentGraduationPlanAssociationCareerPathwayCodesSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationCTEProgramSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCTEProgramSupported
-        {
-            get { return _isStudentGraduationPlanAssociationCTEProgramSupported; }
-            set { _isStudentGraduationPlanAssociationCTEProgramSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationDescriptionsSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDescriptionsSupported
-        {
-            get { return _isStudentGraduationPlanAssociationDescriptionsSupported; }
-            set { _isStudentGraduationPlanAssociationDescriptionsSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationDesignatedBiesSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported
-        {
-            get { return _isStudentGraduationPlanAssociationDesignatedBiesSupported; }
-            set { _isStudentGraduationPlanAssociationDesignatedBiesSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationIndustryCredentialsSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported
-        {
-            get { return _isStudentGraduationPlanAssociationIndustryCredentialsSupported; }
-            set { _isStudentGraduationPlanAssociationIndustryCredentialsSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationStudentParentAssociationsSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported
-        {
-            get { return _isStudentGraduationPlanAssociationStudentParentAssociationsSupported; }
-            set { _isStudentGraduationPlanAssociationStudentParentAssociationsSupported = value; }
-        }
-
-        private bool _isStudentGraduationPlanAssociationYearsAttendedsSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported
-        {
-            get { return _isStudentGraduationPlanAssociationYearsAttendedsSupported; }
-            set { _isStudentGraduationPlanAssociationYearsAttendedsSupported = value; }
-        }
-
-        private bool _isTargetGPASupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsTargetGPASupported
-        {
-            get { return _isTargetGPASupported; }
-            set { _isTargetGPASupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, bool> _isStudentGraduationPlanAssociationAcademicSubjectIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationAcademicSubjectIncluded; }
-            set { _isStudentGraduationPlanAssociationAcademicSubjectIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, bool> _isStudentGraduationPlanAssociationCareerPathwayCodeIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationCareerPathwayCodeIncluded; }
-            set { _isStudentGraduationPlanAssociationCareerPathwayCodeIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, bool> _isStudentGraduationPlanAssociationDescriptionIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDescriptionIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationDescriptionIncluded; }
-            set { _isStudentGraduationPlanAssociationDescriptionIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, bool> _isStudentGraduationPlanAssociationDesignatedByIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationDesignatedByIncluded; }
-            set { _isStudentGraduationPlanAssociationDesignatedByIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, bool> _isStudentGraduationPlanAssociationIndustryCredentialIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationIndustryCredentialIncluded; }
-            set { _isStudentGraduationPlanAssociationIndustryCredentialIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, bool> _isStudentGraduationPlanAssociationStudentParentAssociationIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationStudentParentAssociationIncluded; }
-            set { _isStudentGraduationPlanAssociationStudentParentAssociationIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, bool> _isStudentGraduationPlanAssociationYearsAttendedIncluded;
-        Func<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded
-        {
-            get { return _isStudentGraduationPlanAssociationYearsAttendedIncluded; }
-            set { _isStudentGraduationPlanAssociationYearsAttendedIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -11440,7 +9999,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationAcademicSubject : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11624,12 +10183,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -11640,7 +10193,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCareerPathwayCode : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11790,12 +10343,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -11806,7 +10353,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11993,40 +10540,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCareerPathwayDescriptorSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsCareerPathwayDescriptorSupported
-        {
-            get { return _isCareerPathwayDescriptorSupported; }
-            set { _isCareerPathwayDescriptorSupported = value; }
-        }
-
-        private bool _isCIPCodeSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsCIPCodeSupported
-        {
-            get { return _isCIPCodeSupported; }
-            set { _isCIPCodeSupported = value; }
-        }
-
-        private bool _isCTEProgramCompletionIndicatorSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsCTEProgramCompletionIndicatorSupported
-        {
-            get { return _isCTEProgramCompletionIndicatorSupported; }
-            set { _isCTEProgramCompletionIndicatorSupported = value; }
-        }
-
-        private bool _isPrimaryCTEProgramIndicatorSupported = true;
-        bool Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport.IsPrimaryCTEProgramIndicatorSupported
-        {
-            get { return _isPrimaryCTEProgramIndicatorSupported; }
-            set { _isPrimaryCTEProgramIndicatorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -12037,7 +10550,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDescription : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12187,12 +10700,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -12203,7 +10710,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDesignatedBy : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12353,12 +10860,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -12369,7 +10870,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationIndustryCredential : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12519,12 +11020,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -12535,7 +11030,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationStudentParentAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12741,12 +11236,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -12757,7 +11246,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationYearsAttended : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12907,12 +11396,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentParentAssociation
@@ -12928,7 +11411,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationDiscipline : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationDiscipline, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationDisciplineSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationDiscipline, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13111,12 +11594,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -13127,7 +11604,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13276,12 +11753,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -13292,7 +11763,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationHoursPerWeek : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13441,12 +11912,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -13457,7 +11922,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationPagesRead : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationPagesReadSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13606,12 +12071,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -13622,7 +12081,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13878,12 +12337,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -13894,7 +12347,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationTelephone : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14081,47 +12534,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isDoNotPublishIndicatorSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported
-        {
-            get { return _isDoNotPublishIndicatorSupported; }
-            set { _isDoNotPublishIndicatorSupported = value; }
-        }
-
-        private bool _isOrderOfPrioritySupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported
-        {
-            get { return _isOrderOfPrioritySupported; }
-            set { _isOrderOfPrioritySupported = value; }
-        }
-
-        private bool _isTelephoneNumberSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsTelephoneNumberSupported
-        {
-            get { return _isTelephoneNumberSupported; }
-            set { _isTelephoneNumberSupported = value; }
-        }
-
-        private bool _isTelephoneNumberTypeDescriptorSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsTelephoneNumberTypeDescriptorSupported
-        {
-            get { return _isTelephoneNumberTypeDescriptorSupported; }
-            set { _isTelephoneNumberTypeDescriptorSupported = value; }
-        }
-
-        private bool _isTextMessageCapabilityIndicatorSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported
-        {
-            get { return _isTextMessageCapabilityIndicatorSupported; }
-            set { _isTextMessageCapabilityIndicatorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 // disable warnings for inheritance from classes marked Obsolete within this generated code only
 #pragma warning disable 612, 618
@@ -14132,7 +12544,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14501,180 +12913,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             StudentParentAssociation = (EdFi.StudentParentAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isBedtimeReaderSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBedtimeReaderSupported
-        {
-            get { return _isBedtimeReaderSupported; }
-            set { _isBedtimeReaderSupported = value; }
-        }
-
-        private bool _isBedtimeReadingRateSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBedtimeReadingRateSupported
-        {
-            get { return _isBedtimeReadingRateSupported; }
-            set { _isBedtimeReadingRateSupported = value; }
-        }
-
-        private bool _isBookBudgetSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBookBudgetSupported
-        {
-            get { return _isBookBudgetSupported; }
-            set { _isBookBudgetSupported = value; }
-        }
-
-        private bool _isBooksBorrowedSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsBooksBorrowedSupported
-        {
-            get { return _isBooksBorrowedSupported; }
-            set { _isBooksBorrowedSupported = value; }
-        }
-
-        private bool _isEducationOrganizationIdSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsEducationOrganizationIdSupported
-        {
-            get { return _isEducationOrganizationIdSupported; }
-            set { _isEducationOrganizationIdSupported = value; }
-        }
-
-        private bool _isInterventionStudyIdentificationCodeSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsInterventionStudyIdentificationCodeSupported
-        {
-            get { return _isInterventionStudyIdentificationCodeSupported; }
-            set { _isInterventionStudyIdentificationCodeSupported = value; }
-        }
-
-        private bool _isLibraryDurationSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsLibraryDurationSupported
-        {
-            get { return _isLibraryDurationSupported; }
-            set { _isLibraryDurationSupported = value; }
-        }
-
-        private bool _isLibraryTimeSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsLibraryTimeSupported
-        {
-            get { return _isLibraryTimeSupported; }
-            set { _isLibraryTimeSupported = value; }
-        }
-
-        private bool _isLibraryVisitsSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsLibraryVisitsSupported
-        {
-            get { return _isLibraryVisitsSupported; }
-            set { _isLibraryVisitsSupported = value; }
-        }
-
-        private bool _isPriorContactRestrictionsSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsPriorContactRestrictionsSupported
-        {
-            get { return _isPriorContactRestrictionsSupported; }
-            set { _isPriorContactRestrictionsSupported = value; }
-        }
-
-        private bool _isReadGreenEggsAndHamDateSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsReadGreenEggsAndHamDateSupported
-        {
-            get { return _isReadGreenEggsAndHamDateSupported; }
-            set { _isReadGreenEggsAndHamDateSupported = value; }
-        }
-
-        private bool _isReadingTimeSpentSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsReadingTimeSpentSupported
-        {
-            get { return _isReadingTimeSpentSupported; }
-            set { _isReadingTimeSpentSupported = value; }
-        }
-
-        private bool _isStudentParentAssociationDisciplinesSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationDisciplinesSupported
-        {
-            get { return _isStudentParentAssociationDisciplinesSupported; }
-            set { _isStudentParentAssociationDisciplinesSupported = value; }
-        }
-
-        private bool _isStudentParentAssociationFavoriteBookTitlesSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationFavoriteBookTitlesSupported
-        {
-            get { return _isStudentParentAssociationFavoriteBookTitlesSupported; }
-            set { _isStudentParentAssociationFavoriteBookTitlesSupported = value; }
-        }
-
-        private bool _isStudentParentAssociationHoursPerWeeksSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationHoursPerWeeksSupported
-        {
-            get { return _isStudentParentAssociationHoursPerWeeksSupported; }
-            set { _isStudentParentAssociationHoursPerWeeksSupported = value; }
-        }
-
-        private bool _isStudentParentAssociationPagesReadsSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationPagesReadsSupported
-        {
-            get { return _isStudentParentAssociationPagesReadsSupported; }
-            set { _isStudentParentAssociationPagesReadsSupported = value; }
-        }
-
-        private bool _isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported
-        {
-            get { return _isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported; }
-            set { _isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported = value; }
-        }
-
-        private bool _isStudentParentAssociationTelephoneSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationTelephoneSupported
-        {
-            get { return _isStudentParentAssociationTelephoneSupported; }
-            set { _isStudentParentAssociationTelephoneSupported = value; }
-        }
-
-        private bool _isStudentReadSupported = true;
-        bool Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentReadSupported
-        {
-            get { return _isStudentReadSupported; }
-            set { _isStudentReadSupported = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentParentAssociationDiscipline, bool> _isStudentParentAssociationDisciplineIncluded;
-        Func<Entities.Common.Sample.IStudentParentAssociationDiscipline, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationDisciplineIncluded
-        {
-            get { return _isStudentParentAssociationDisciplineIncluded; }
-            set { _isStudentParentAssociationDisciplineIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, bool> _isStudentParentAssociationFavoriteBookTitleIncluded;
-        Func<Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationFavoriteBookTitleIncluded
-        {
-            get { return _isStudentParentAssociationFavoriteBookTitleIncluded; }
-            set { _isStudentParentAssociationFavoriteBookTitleIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, bool> _isStudentParentAssociationHoursPerWeekIncluded;
-        Func<Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationHoursPerWeekIncluded
-        {
-            get { return _isStudentParentAssociationHoursPerWeekIncluded; }
-            set { _isStudentParentAssociationHoursPerWeekIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentParentAssociationPagesRead, bool> _isStudentParentAssociationPagesReadIncluded;
-        Func<Entities.Common.Sample.IStudentParentAssociationPagesRead, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationPagesReadIncluded
-        {
-            get { return _isStudentParentAssociationPagesReadIncluded; }
-            set { _isStudentParentAssociationPagesReadIncluded = value; }
-        }
-
-        private Func<Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> _isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded;
-        Func<Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded
-        {
-            get { return _isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded; }
-            set { _isStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentSchoolAssociation
@@ -14690,7 +12928,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentSchoolAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentSchoolAssociationExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentSchoolAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14871,19 +13109,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
         {
             StudentSchoolAssociation = (EdFi.StudentSchoolAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isMembershipTypeDescriptorSupported = true;
-        bool Entities.Common.Sample.IStudentSchoolAssociationExtensionSynchronizationSourceSupport.IsMembershipTypeDescriptorSupported
-        {
-            get { return _isMembershipTypeDescriptorSupported; }
-            set { _isMembershipTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }
 // Aggregate: StudentSectionAssociation
@@ -14899,7 +13124,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -15122,12 +13347,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         {
             StudentSectionAssociation = (EdFi.StudentSectionAssociation) value;
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
     }
 
     /// <summary>
