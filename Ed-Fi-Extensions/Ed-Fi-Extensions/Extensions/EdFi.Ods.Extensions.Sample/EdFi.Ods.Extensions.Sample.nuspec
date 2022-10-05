@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>EdFi.Ods.Extensions.Sample</id>
+    <id>EdFi.Suite3.Ods.Extensions.Sample</id>
     <version>0.0.0</version>
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
@@ -12,7 +12,7 @@
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
-    <file src="../../../LICENSE.txt" />
+    <file src="../../LICENSE.txt" />
     <file src="bin\$configuration$\net6.0\EdFi.Ods.Extensions.Sample.dll" target="."/>
     <file src="Artifacts/**/*.sql" target="."/>
     <file src="Artifacts/**/*.json" target="."/> 
