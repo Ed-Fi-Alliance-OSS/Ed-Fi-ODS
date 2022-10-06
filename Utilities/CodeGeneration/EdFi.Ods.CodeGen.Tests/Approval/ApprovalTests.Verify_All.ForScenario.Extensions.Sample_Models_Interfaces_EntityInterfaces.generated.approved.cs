@@ -6,6 +6,7 @@ using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Entities.Common.EdFi;
 
 #pragma warning disable 108,114
 
