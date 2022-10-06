@@ -46,6 +46,12 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+    - name: Checkout Ed-Fi-ODS-Standard
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
+          path: Ed-Fi-Standard/
+          ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: powershell
