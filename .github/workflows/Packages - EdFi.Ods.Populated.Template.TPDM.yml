@@ -115,7 +115,6 @@ jobs:
       with:
         name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts
         path: |
-         ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.*
-         ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Consol/\bin/**/logfile*.*
+         ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core*.nupkg
+         ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*
          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog*.*
-         ${{ github.workspace }}/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.TPDM.bak
