@@ -51,7 +51,7 @@ jobs:
       shell: powershell
       run: |
            $current_branch = '${{env.REF_NAME}}'
-           if ($current_branch -contains "merge"){
+           if ($current_branch -like "*/merge"){
             $current_branch = '${{env.HEAD_REF}}'
            }
            
