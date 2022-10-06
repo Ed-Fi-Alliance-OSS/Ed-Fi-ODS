@@ -56,12 +56,12 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         [OneTimeSetUp]
         protected async Task SetUp()
         {
-            // await Program.Main(
-            //     new[]
-            //     {
-            //         "--ExtensionPaths",
-            //         _extensionRepository
-            //     });
+            await Program.Main(
+                new[]
+                {
+                    "--ExtensionPaths",
+                    _extensionRepository
+                });
         }
 
         /// <summary>
