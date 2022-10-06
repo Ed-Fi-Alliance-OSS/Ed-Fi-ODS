@@ -60,8 +60,9 @@ jobs:
            if ($current_branch -contains "merge"){
             $current_branch = {{env.HEAD_REF}}
            }
+           Write-Host "Current Branch: $current_branch"
            
-           $patternName = 'refs/heads/' +  '$current_branch'
+           $patternName = 'refs/heads/' +  $current_branch
            $is_pull_request_branch = 'False'
            $is_pull_request_branch = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
            $odsBranch = '${{ env.ODS_CURRENT_BRANCH }}'
