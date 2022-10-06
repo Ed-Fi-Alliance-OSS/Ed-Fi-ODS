@@ -14597,13 +14597,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         // -------------------------------------------------------------
 
         // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        public virtual ParentCTEProgramQ ParentCTEProgram { get; set; }
-        public virtual ParentTeacherConferenceQ ParentTeacherConference { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
         //                          Collections
         // -------------------------------------------------------------
         public virtual ICollection<ParentAddressQ> ParentAddresses { get; set; }
@@ -17966,12 +17959,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
         // -------------------------------------------------------------
 
         // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        public virtual SchoolCTEProgramQ SchoolCTEProgram { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
         //                          Collections
         // -------------------------------------------------------------
         public virtual ICollection<SchoolCategoryQ> SchoolCategories { get; set; }
@@ -19440,12 +19427,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         public virtual string StaffUniqueId  { get; set; }
         public virtual decimal? YearsOfPriorProfessionalExperience  { get; set; }
         public virtual decimal? YearsOfPriorTeachingExperience  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        public virtual StaffPetPreferenceQ StaffPetPreference { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -21581,12 +21562,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         public virtual string PersonId  { get; set; }
         public virtual int? SourceSystemDescriptorId  { get; set; }
         public virtual string StudentUniqueId  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        public virtual StudentPetPreferenceQ StudentPetPreference { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -25583,12 +25558,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentParentAssociationAggre
         public virtual bool? LivesWith  { get; set; }
         public virtual bool? PrimaryContactStatus  { get; set; }
         public virtual int? RelationDescriptorId  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        public virtual StudentParentAssociationTelephoneQ StudentParentAssociationTelephone { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================

@@ -7737,7 +7737,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isNamespaceSupported,
             bool isTeachingCredentialBasisDescriptorSupported,
             bool isTeachingCredentialDescriptorSupported,
-            bool isTPDMSupported,
             Func<ICredentialAcademicSubject, bool> isCredentialAcademicSubjectIncluded,
             Func<ICredentialEndorsement, bool> isCredentialEndorsementIncluded,
             Func<ICredentialGradeLevel, bool> isCredentialGradeLevelIncluded,
@@ -7755,7 +7754,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsNamespaceSupported = isNamespaceSupported;
             IsTeachingCredentialBasisDescriptorSupported = isTeachingCredentialBasisDescriptorSupported;
             IsTeachingCredentialDescriptorSupported = isTeachingCredentialDescriptorSupported;
-            IsTPDMSupported = isTPDMSupported;
             IsCredentialAcademicSubjectIncluded = isCredentialAcademicSubjectIncluded;
             IsCredentialEndorsementIncluded = isCredentialEndorsementIncluded;
             IsCredentialGradeLevelIncluded = isCredentialGradeLevelIncluded;
@@ -7773,7 +7771,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsNamespaceSupported { get; }
         public bool IsTeachingCredentialBasisDescriptorSupported { get; }
         public bool IsTeachingCredentialDescriptorSupported { get; }
-        public bool IsTPDMSupported { get; }
         public Func<ICredentialAcademicSubject, bool> IsCredentialAcademicSubjectIncluded { get; }
         public Func<ICredentialEndorsement, bool> IsCredentialEndorsementIncluded { get; }
         public Func<ICredentialGradeLevel, bool> IsCredentialGradeLevelIncluded { get; }
@@ -7804,8 +7801,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsTeachingCredentialBasisDescriptorSupported;
                 case "TeachingCredentialDescriptor":
                     return IsTeachingCredentialDescriptorSupported;
-                case "TPDM":
-                    return IsTPDMSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -22387,7 +22382,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isParentUniqueIdSupported,
             bool isPersonalTitlePrefixSupported,
             bool isPersonIdSupported,
-            bool isSampleSupported,
             bool isSexDescriptorSupported,
             bool isSourceSystemDescriptorSupported,
             Func<IParentAddress, bool> isParentAddressIncluded,
@@ -22417,7 +22411,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsParentUniqueIdSupported = isParentUniqueIdSupported;
             IsPersonalTitlePrefixSupported = isPersonalTitlePrefixSupported;
             IsPersonIdSupported = isPersonIdSupported;
-            IsSampleSupported = isSampleSupported;
             IsSexDescriptorSupported = isSexDescriptorSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
             IsParentAddressIncluded = isParentAddressIncluded;
@@ -22447,7 +22440,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsParentUniqueIdSupported { get; }
         public bool IsPersonalTitlePrefixSupported { get; }
         public bool IsPersonIdSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsSexDescriptorSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
         public Func<IParentAddress, bool> IsParentAddressIncluded { get; }
@@ -22496,8 +22488,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPersonalTitlePrefixSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "SexDescriptor":
                     return IsSexDescriptorSupported;
                 case "SourceSystemDescriptor":
@@ -22570,7 +22560,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
             bool isParentAddressPeriodsSupported,
-            bool isSampleSupported,
             Func<IParentAddressPeriod, bool> isParentAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
             )
@@ -22585,7 +22574,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
             IsParentAddressPeriodsSupported = isParentAddressPeriodsSupported;
-            IsSampleSupported = isSampleSupported;
             IsParentAddressPeriodIncluded = isParentAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
         }
@@ -22600,7 +22588,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
         public bool IsParentAddressPeriodsSupported { get; }
-        public bool IsSampleSupported { get; }
         public Func<IParentAddressPeriod, bool> IsParentAddressPeriodIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -22627,8 +22614,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNameOfCountySupported;
                 case "ParentAddressPeriods":
                     return IsParentAddressPeriodsSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -27706,13 +27691,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isMagnetSpecialProgramEmphasisSchoolDescriptorSupported,
             bool isNameOfInstitutionSupported,
             bool isOperationalStatusDescriptorSupported,
-            bool isSampleSupported,
             bool isSchoolCategoriesSupported,
             bool isSchoolGradeLevelsSupported,
             bool isSchoolTypeDescriptorSupported,
             bool isShortNameOfInstitutionSupported,
             bool isTitleIPartASchoolDesignationDescriptorSupported,
-            bool isTPDMSupported,
             bool isWebSiteSupported,
             Func<IEducationOrganizationAddress, bool> isEducationOrganizationAddressIncluded,
             Func<IEducationOrganizationCategory, bool> isEducationOrganizationCategoryIncluded,
@@ -27740,13 +27723,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsMagnetSpecialProgramEmphasisSchoolDescriptorSupported = isMagnetSpecialProgramEmphasisSchoolDescriptorSupported;
             IsNameOfInstitutionSupported = isNameOfInstitutionSupported;
             IsOperationalStatusDescriptorSupported = isOperationalStatusDescriptorSupported;
-            IsSampleSupported = isSampleSupported;
             IsSchoolCategoriesSupported = isSchoolCategoriesSupported;
             IsSchoolGradeLevelsSupported = isSchoolGradeLevelsSupported;
             IsSchoolTypeDescriptorSupported = isSchoolTypeDescriptorSupported;
             IsShortNameOfInstitutionSupported = isShortNameOfInstitutionSupported;
             IsTitleIPartASchoolDesignationDescriptorSupported = isTitleIPartASchoolDesignationDescriptorSupported;
-            IsTPDMSupported = isTPDMSupported;
             IsWebSiteSupported = isWebSiteSupported;
             IsEducationOrganizationAddressIncluded = isEducationOrganizationAddressIncluded;
             IsEducationOrganizationCategoryIncluded = isEducationOrganizationCategoryIncluded;
@@ -27774,13 +27755,11 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsMagnetSpecialProgramEmphasisSchoolDescriptorSupported { get; }
         public bool IsNameOfInstitutionSupported { get; }
         public bool IsOperationalStatusDescriptorSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsSchoolCategoriesSupported { get; }
         public bool IsSchoolGradeLevelsSupported { get; }
         public bool IsSchoolTypeDescriptorSupported { get; }
         public bool IsShortNameOfInstitutionSupported { get; }
         public bool IsTitleIPartASchoolDesignationDescriptorSupported { get; }
-        public bool IsTPDMSupported { get; }
         public bool IsWebSiteSupported { get; }
         public Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; }
         public Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; }
@@ -27825,8 +27804,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsNameOfInstitutionSupported;
                 case "OperationalStatusDescriptor":
                     return IsOperationalStatusDescriptorSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "SchoolCategories":
                     return IsSchoolCategoriesSupported;
                 case "SchoolGradeLevels":
@@ -27837,8 +27814,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsShortNameOfInstitutionSupported;
                 case "TitleIPartASchoolDesignationDescriptor":
                     return IsTitleIPartASchoolDesignationDescriptorSupported;
-                case "TPDM":
-                    return IsTPDMSupported;
                 case "WebSite":
                     return IsWebSiteSupported;
                 default:
@@ -29846,7 +29821,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isOldEthnicityDescriptorSupported,
             bool isPersonalTitlePrefixSupported,
             bool isPersonIdSupported,
-            bool isSampleSupported,
             bool isSexDescriptorSupported,
             bool isSourceSystemDescriptorSupported,
             bool isStaffAddressesSupported,
@@ -29899,7 +29873,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsOldEthnicityDescriptorSupported = isOldEthnicityDescriptorSupported;
             IsPersonalTitlePrefixSupported = isPersonalTitlePrefixSupported;
             IsPersonIdSupported = isPersonIdSupported;
-            IsSampleSupported = isSampleSupported;
             IsSexDescriptorSupported = isSexDescriptorSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
             IsStaffAddressesSupported = isStaffAddressesSupported;
@@ -29952,7 +29925,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsOldEthnicityDescriptorSupported { get; }
         public bool IsPersonalTitlePrefixSupported { get; }
         public bool IsPersonIdSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsSexDescriptorSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
         public bool IsStaffAddressesSupported { get; }
@@ -30021,8 +29993,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPersonalTitlePrefixSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "SexDescriptor":
                     return IsSexDescriptorSupported;
                 case "SourceSystemDescriptor":
@@ -33195,7 +33165,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isMultipleBirthStatusSupported,
             bool isPersonalTitlePrefixSupported,
             bool isPersonIdSupported,
-            bool isSampleSupported,
             bool isSourceSystemDescriptorSupported,
             bool isStudentIdentificationDocumentsSupported,
             bool isStudentOtherNamesSupported,
@@ -33225,7 +33194,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsMultipleBirthStatusSupported = isMultipleBirthStatusSupported;
             IsPersonalTitlePrefixSupported = isPersonalTitlePrefixSupported;
             IsPersonIdSupported = isPersonIdSupported;
-            IsSampleSupported = isSampleSupported;
             IsSourceSystemDescriptorSupported = isSourceSystemDescriptorSupported;
             IsStudentIdentificationDocumentsSupported = isStudentIdentificationDocumentsSupported;
             IsStudentOtherNamesSupported = isStudentOtherNamesSupported;
@@ -33255,7 +33223,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsMultipleBirthStatusSupported { get; }
         public bool IsPersonalTitlePrefixSupported { get; }
         public bool IsPersonIdSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsSourceSystemDescriptorSupported { get; }
         public bool IsStudentIdentificationDocumentsSupported { get; }
         public bool IsStudentOtherNamesSupported { get; }
@@ -33303,8 +33270,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPersonalTitlePrefixSupported;
                 case "PersonId":
                     return IsPersonIdSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "SourceSystemDescriptor":
                     return IsSourceSystemDescriptorSupported;
                 case "StudentIdentificationDocuments":
@@ -33401,7 +33366,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isCumulativeGradePointsEarnedSupported,
             bool isGradeValueQualifierSupported,
             bool isProjectedGraduationDateSupported,
-            bool isSampleStudentTranscriptSupported,
             bool isSessionAttemptedCreditConversionSupported,
             bool isSessionAttemptedCreditsSupported,
             bool isSessionAttemptedCreditTypeDescriptorSupported,
@@ -33434,7 +33398,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsCumulativeGradePointsEarnedSupported = isCumulativeGradePointsEarnedSupported;
             IsGradeValueQualifierSupported = isGradeValueQualifierSupported;
             IsProjectedGraduationDateSupported = isProjectedGraduationDateSupported;
-            IsSampleStudentTranscriptSupported = isSampleStudentTranscriptSupported;
             IsSessionAttemptedCreditConversionSupported = isSessionAttemptedCreditConversionSupported;
             IsSessionAttemptedCreditsSupported = isSessionAttemptedCreditsSupported;
             IsSessionAttemptedCreditTypeDescriptorSupported = isSessionAttemptedCreditTypeDescriptorSupported;
@@ -33467,7 +33430,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsCumulativeGradePointsEarnedSupported { get; }
         public bool IsGradeValueQualifierSupported { get; }
         public bool IsProjectedGraduationDateSupported { get; }
-        public bool IsSampleStudentTranscriptSupported { get; }
         public bool IsSessionAttemptedCreditConversionSupported { get; }
         public bool IsSessionAttemptedCreditsSupported { get; }
         public bool IsSessionAttemptedCreditTypeDescriptorSupported { get; }
@@ -33512,8 +33474,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsGradeValueQualifierSupported;
                 case "ProjectedGraduationDate":
                     return IsProjectedGraduationDateSupported;
-                case "SampleStudentTranscript":
-                    return IsSampleStudentTranscriptSupported;
                 case "SessionAttemptedCreditConversion":
                     return IsSessionAttemptedCreditConversionSupported;
                 case "SessionAttemptedCredits":
@@ -33706,7 +33666,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isClassRankSupported,
             bool isClassRankingDateSupported,
             bool isPercentageRankingSupported,
-            bool isSampleStudentTranscriptSupported,
             bool isTotalNumberInClassSupported,
             IReadOnlyList<string> supportedExtensions
             )
@@ -33714,7 +33673,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsClassRankSupported = isClassRankSupported;
             IsClassRankingDateSupported = isClassRankingDateSupported;
             IsPercentageRankingSupported = isPercentageRankingSupported;
-            IsSampleStudentTranscriptSupported = isSampleStudentTranscriptSupported;
             IsTotalNumberInClassSupported = isTotalNumberInClassSupported;
             SupportedExtensions = supportedExtensions;
         }
@@ -33722,7 +33680,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsClassRankSupported { get; }
         public bool IsClassRankingDateSupported { get; }
         public bool IsPercentageRankingSupported { get; }
-        public bool IsSampleStudentTranscriptSupported { get; }
         public bool IsTotalNumberInClassSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -33735,8 +33692,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsClassRankingDateSupported;
                 case "PercentageRanking":
                     return IsPercentageRankingSupported;
-                case "SampleStudentTranscript":
-                    return IsSampleStudentTranscriptSupported;
                 case "TotalNumberInClass":
                     return IsTotalNumberInClassSupported;
                 default:
@@ -35376,7 +35331,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isNonTraditionalGenderStatusSupported,
             bool isPrivateCTEProgramSupported,
             bool isReasonExitedDescriptorSupported,
-            bool isSampleSupported,
             bool isServedOutsideOfRegularSessionSupported,
             bool isStudentCTEProgramAssociationCTEProgramsSupported,
             bool isStudentCTEProgramAssociationCTEProgramServicesSupported,
@@ -35395,7 +35349,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsNonTraditionalGenderStatusSupported = isNonTraditionalGenderStatusSupported;
             IsPrivateCTEProgramSupported = isPrivateCTEProgramSupported;
             IsReasonExitedDescriptorSupported = isReasonExitedDescriptorSupported;
-            IsSampleSupported = isSampleSupported;
             IsServedOutsideOfRegularSessionSupported = isServedOutsideOfRegularSessionSupported;
             IsStudentCTEProgramAssociationCTEProgramsSupported = isStudentCTEProgramAssociationCTEProgramsSupported;
             IsStudentCTEProgramAssociationCTEProgramServicesSupported = isStudentCTEProgramAssociationCTEProgramServicesSupported;
@@ -35414,7 +35367,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsNonTraditionalGenderStatusSupported { get; }
         public bool IsPrivateCTEProgramSupported { get; }
         public bool IsReasonExitedDescriptorSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsServedOutsideOfRegularSessionSupported { get; }
         public bool IsStudentCTEProgramAssociationCTEProgramsSupported { get; }
         public bool IsStudentCTEProgramAssociationCTEProgramServicesSupported { get; }
@@ -35441,8 +35393,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPrivateCTEProgramSupported;
                 case "ReasonExitedDescriptor":
                     return IsReasonExitedDescriptorSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "ServedOutsideOfRegularSession":
                     return IsServedOutsideOfRegularSessionSupported;
                 case "StudentCTEProgramAssociationCTEPrograms":
@@ -36363,7 +36313,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLocaleDescriptorSupported,
             bool isLongitudeSupported,
             bool isNameOfCountySupported,
-            bool isSampleSupported,
             bool isStudentEducationOrganizationAssociationAddressPeriodsSupported,
             Func<IStudentEducationOrganizationAssociationAddressPeriod, bool> isStudentEducationOrganizationAssociationAddressPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
@@ -36378,7 +36327,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLocaleDescriptorSupported = isLocaleDescriptorSupported;
             IsLongitudeSupported = isLongitudeSupported;
             IsNameOfCountySupported = isNameOfCountySupported;
-            IsSampleSupported = isSampleSupported;
             IsStudentEducationOrganizationAssociationAddressPeriodsSupported = isStudentEducationOrganizationAssociationAddressPeriodsSupported;
             IsStudentEducationOrganizationAssociationAddressPeriodIncluded = isStudentEducationOrganizationAssociationAddressPeriodIncluded;
             SupportedExtensions = supportedExtensions;
@@ -36393,7 +36341,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLocaleDescriptorSupported { get; }
         public bool IsLongitudeSupported { get; }
         public bool IsNameOfCountySupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsStudentEducationOrganizationAssociationAddressPeriodsSupported { get; }
         public Func<IStudentEducationOrganizationAssociationAddressPeriod, bool> IsStudentEducationOrganizationAssociationAddressPeriodIncluded { get; }
 
@@ -36419,8 +36366,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsLongitudeSupported;
                 case "NameOfCounty":
                     return IsNameOfCountySupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "StudentEducationOrganizationAssociationAddressPeriods":
                     return IsStudentEducationOrganizationAssociationAddressPeriodsSupported;
                 default:
@@ -37224,21 +37169,18 @@ namespace EdFi.Ods.Entities.Common.EdFi
     {
         public StudentEducationOrganizationAssociationStudentCharacteristicMappingContract(
             bool isDesignatedBySupported,
-            bool isSampleSupported,
             bool isStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported,
             Func<IStudentEducationOrganizationAssociationStudentCharacteristicPeriod, bool> isStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded,
             IReadOnlyList<string> supportedExtensions
             )
         {
             IsDesignatedBySupported = isDesignatedBySupported;
-            IsSampleSupported = isSampleSupported;
             IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported = isStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported;
             IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded = isStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded;
             SupportedExtensions = supportedExtensions;
         }
 
         public bool IsDesignatedBySupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported { get; }
         public Func<IStudentEducationOrganizationAssociationStudentCharacteristicPeriod, bool> IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodIncluded { get; }
 
@@ -37248,8 +37190,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             {
                 case "DesignatedBy":
                     return IsDesignatedBySupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "StudentEducationOrganizationAssociationStudentCharacteristicPeriods":
                     return IsStudentEducationOrganizationAssociationStudentCharacteristicPeriodsSupported;
                 default:
@@ -39363,7 +39303,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isLivesWithSupported,
             bool isPrimaryContactStatusSupported,
             bool isRelationDescriptorSupported,
-            bool isSampleSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
@@ -39374,7 +39313,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsLivesWithSupported = isLivesWithSupported;
             IsPrimaryContactStatusSupported = isPrimaryContactStatusSupported;
             IsRelationDescriptorSupported = isRelationDescriptorSupported;
-            IsSampleSupported = isSampleSupported;
             SupportedExtensions = supportedExtensions;
         }
 
@@ -39385,7 +39323,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsLivesWithSupported { get; }
         public bool IsPrimaryContactStatusSupported { get; }
         public bool IsRelationDescriptorSupported { get; }
-        public bool IsSampleSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
@@ -39405,8 +39342,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPrimaryContactStatusSupported;
                 case "RelationDescriptor":
                     return IsRelationDescriptorSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
@@ -39896,7 +39831,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isPrimarySchoolSupported,
             bool isRepeatGradeIndicatorSupported,
             bool isResidencyStatusDescriptorSupported,
-            bool isSampleSupported,
             bool isSchoolChoiceTransferSupported,
             bool isSchoolYearSupported,
             bool isStudentSchoolAssociationAlternativeGraduationPlansSupported,
@@ -39922,7 +39856,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsPrimarySchoolSupported = isPrimarySchoolSupported;
             IsRepeatGradeIndicatorSupported = isRepeatGradeIndicatorSupported;
             IsResidencyStatusDescriptorSupported = isResidencyStatusDescriptorSupported;
-            IsSampleSupported = isSampleSupported;
             IsSchoolChoiceTransferSupported = isSchoolChoiceTransferSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
             IsStudentSchoolAssociationAlternativeGraduationPlansSupported = isStudentSchoolAssociationAlternativeGraduationPlansSupported;
@@ -39948,7 +39881,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsPrimarySchoolSupported { get; }
         public bool IsRepeatGradeIndicatorSupported { get; }
         public bool IsResidencyStatusDescriptorSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsSchoolChoiceTransferSupported { get; }
         public bool IsSchoolYearSupported { get; }
         public bool IsStudentSchoolAssociationAlternativeGraduationPlansSupported { get; }
@@ -39991,8 +39923,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsRepeatGradeIndicatorSupported;
                 case "ResidencyStatusDescriptor":
                     return IsResidencyStatusDescriptorSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "SchoolChoiceTransfer":
                     return IsSchoolChoiceTransferSupported;
                 case "SchoolYear":
@@ -40433,7 +40363,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isEndDateSupported,
             bool isHomeroomIndicatorSupported,
             bool isRepeatIdentifierDescriptorSupported,
-            bool isSampleSupported,
             bool isTeacherStudentDataLinkExclusionSupported,
             IReadOnlyList<string> supportedExtensions
             )
@@ -40442,7 +40371,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEndDateSupported = isEndDateSupported;
             IsHomeroomIndicatorSupported = isHomeroomIndicatorSupported;
             IsRepeatIdentifierDescriptorSupported = isRepeatIdentifierDescriptorSupported;
-            IsSampleSupported = isSampleSupported;
             IsTeacherStudentDataLinkExclusionSupported = isTeacherStudentDataLinkExclusionSupported;
             SupportedExtensions = supportedExtensions;
         }
@@ -40451,7 +40379,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsEndDateSupported { get; }
         public bool IsHomeroomIndicatorSupported { get; }
         public bool IsRepeatIdentifierDescriptorSupported { get; }
-        public bool IsSampleSupported { get; }
         public bool IsTeacherStudentDataLinkExclusionSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -40466,8 +40393,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsHomeroomIndicatorSupported;
                 case "RepeatIdentifierDescriptor":
                     return IsRepeatIdentifierDescriptorSupported;
-                case "Sample":
-                    return IsSampleSupported;
                 case "TeacherStudentDataLinkExclusion":
                     return IsTeacherStudentDataLinkExclusionSupported;
                 default:
@@ -42376,7 +42301,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isStaffUniqueIdSupported,
             bool isStudentUniqueIdSupported,
             bool isSurveyResponseSurveyLevelsSupported,
-            bool isTPDMSupported,
             Func<ISurveyResponseSurveyLevel, bool> isSurveyResponseSurveyLevelIncluded,
             IReadOnlyList<string> supportedExtensions
             )
@@ -42390,7 +42314,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsStaffUniqueIdSupported = isStaffUniqueIdSupported;
             IsStudentUniqueIdSupported = isStudentUniqueIdSupported;
             IsSurveyResponseSurveyLevelsSupported = isSurveyResponseSurveyLevelsSupported;
-            IsTPDMSupported = isTPDMSupported;
             IsSurveyResponseSurveyLevelIncluded = isSurveyResponseSurveyLevelIncluded;
             SupportedExtensions = supportedExtensions;
         }
@@ -42404,7 +42327,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsStaffUniqueIdSupported { get; }
         public bool IsStudentUniqueIdSupported { get; }
         public bool IsSurveyResponseSurveyLevelsSupported { get; }
-        public bool IsTPDMSupported { get; }
         public Func<ISurveyResponseSurveyLevel, bool> IsSurveyResponseSurveyLevelIncluded { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
@@ -42429,8 +42351,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsStudentUniqueIdSupported;
                 case "SurveyResponseSurveyLevels":
                     return IsSurveyResponseSurveyLevelsSupported;
-                case "TPDM":
-                    return IsTPDMSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
