@@ -3,18 +3,19 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Reflection;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
+using NHibernate.Cfg;
 using NUnit.Framework;
-using System.Reflection;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -24,16 +25,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         protected IContainer Container;
 
         protected ISessionFactory SessionFactory { get; set; }
-
-        public string BaseDatabase
-        {
-            get => GlobalDatabaseSetupFixture.PopulatedDatabaseName;
-        }
-
-        public string DatabaseName
-        {
-            get => GlobalDatabaseSetupFixture.TestPopulatedDatabaseName;
-        }
 
         [OneTimeSetUp]
         public void BaseSetUp()
@@ -54,19 +45,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             Assembly.Load("EdFi.Ods.Standard");
 
             var builder = new ContainerBuilder();
-
-            var databaseEngine = DbHelper.GetDatabaseEngine();
-
-            var config = DbHelper.GetDatabaseEngineSpecificConfiguration(databaseEngine);
-            
-            config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value =
-                config.GetConnectionString("EdFi_Ods")
-                    .Replace(GlobalDatabaseSetupFixture.PopulatedDatabaseName, GlobalDatabaseSetupFixture.TestPopulatedDatabaseName);
-            builder.RegisterInstance(config).As<IConfiguration>();
+            builder.RegisterInstance(OneTimeGlobalDatabaseSetup.Instance.Configuration).As<IConfiguration>();
 
             var apiSettings = new ApiSettings
             {
-                Engine = databaseEngine == DatabaseEngine.SqlServer ?  ApiConfigurationConstants.SqlServer : ApiConfigurationConstants.PostgreSQL, 
+                Engine = OneTimeGlobalDatabaseSetup.Instance.DatabaseEngine.Value,
                 Mode = ApiConfigurationConstants.Sandbox
             };
             builder.RegisterInstance(apiSettings).As<ApiSettings>()
@@ -85,6 +68,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new ContextStorageModule());
             builder.RegisterModule(new ContextProviderModule());
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
+            builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
             builder.RegisterModule(new PostgresSpecificModule(apiSettings));
             builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
 
