@@ -21,7 +21,6 @@ env:
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   CONFIGURATION: "Release"
-  EVENT:  ${{ GITHUB.EVENT }}
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
 
@@ -35,17 +34,10 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: powershell
       run: |
-           $current_branch = ''
-           if (env.EVENT == 'push'){
-            $current_branch = '${{env.REF_NAME}}''
-           }
-           else if (env.EVENT == 'pull_request'){
+           $current_branch = '${{env.REF_NAME}}'
+           if ($current_branch.ToLower() -like "merge*"){
             $current_branch = '${{env.HEAD_REF}}''
            }
-           else if (env.EVENT == 'workflow_dispatch'){
-            $current_branch = '${{env.REF_NAME}}''
-           }
-
            Write-Host "Current Branch: $current_branch"
 
            $patternName = 'refs/heads/' +  $current_branch
