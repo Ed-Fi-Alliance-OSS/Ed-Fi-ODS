@@ -23878,14 +23878,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
             // Detect and map derived types (compiler is unable to correctly link to appropriate
             //      mapping methods when there are base/derived interfaces and a concrete base class)
             // ---------------------------------------------------------------------------------------
-            // Map derived type StudentArtProgramAssociation
-            var sourceStudentArtProgramAssociation = source as IStudentArtProgramAssociation;
-
-            if (sourceStudentArtProgramAssociation != null)
-            {
-                sourceStudentArtProgramAssociation.MapDerivedTo((IStudentArtProgramAssociation) target, onMapped);
-                return;
-            }
             // Map derived type StudentCTEProgramAssociation
             var sourceStudentCTEProgramAssociation = source as IStudentCTEProgramAssociation;
 

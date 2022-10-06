@@ -17,10 +17,7 @@ using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Entities.Common.Sample;
 using EdFi.Ods.Entities.Common.TPDM;
-using EdFi.Ods.Entities.Common.Homograph;
-using EdFi.Ods.Entities.Common.SampleStudentTranscript;
 using Newtonsoft.Json;
 using FluentValidation.Results;
 
