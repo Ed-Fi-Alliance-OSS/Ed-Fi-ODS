@@ -1298,6 +1298,10 @@ namespace {{ResourceClassesNamespace}}
     [ExcludeFromCodeCoverage]
     public class {{EntityName}}PutPostRequestValidator : FluentValidation.AbstractValidator<{{EntityName}}>
     {
+        {{#HasProfileItemFilterValidations}}
+        private static readonly FullName _fullName_{{Schema}}_{{EntityName}} = new FullName("{{Schema}}", "{{EntityName}}");
+
+        {{/HasProfileItemFilterValidations}}
         protected override bool PreValidate(FluentValidation.ValidationContext<{{EntityName}}> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -1315,7 +1319,7 @@ namespace {{ResourceClassesNamespace}}
             // Get the current mapping contract
             var mappingContract = new Lazy<{{EntityName}}MappingContract>(() => ({{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
-                .GetMappingContract(new FullName("{{Schema}}", "{{EntityName}}")));
+                .GetMappingContract(_fullName_{{Schema}}_{{EntityName}}));
 
             // Profile-based collection item filter validation
             {{#ProfileItemFilterValidations}}
