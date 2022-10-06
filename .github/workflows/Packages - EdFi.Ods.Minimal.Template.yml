@@ -8,6 +8,9 @@ name: Packages - EdFi.Ods.Minimal.Template
 on:
   pull_request:
     branches: [main]
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
@@ -18,7 +21,7 @@ env:
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   CONFIGURATION: "Release"
-  CURRENT_BRANCH:  ${{ GITHUB.HEAD_REF }}
+  CURRENT_BRANCH:  ${{ GITHUB.REF_NAME }}
 
 jobs:
   build:
@@ -74,7 +77,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', 'Release')
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', ${{ env.CONFIGURATION }})
 
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
@@ -91,7 +94,7 @@ jobs:
       working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
-        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', 'Release')
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', ${{ env.CONFIGURATION }})
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"      
         Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/' -noExtensions
       shell: powershell
@@ -106,7 +109,7 @@ jobs:
     - name: publish 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -NuspecFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template"
+        .\build.githubactions.ps1 publish -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template"
       shell: powershell      
     - name: Upload EdFi.Ods.Minimal.Template Artifacts
       if: success()
