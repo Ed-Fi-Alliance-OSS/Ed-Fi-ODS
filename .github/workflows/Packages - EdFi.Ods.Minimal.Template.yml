@@ -58,16 +58,58 @@ jobs:
            Write-Host "Current Branch: $current_branch"
 
            $patternName = 'refs/heads/' +  $current_branch
-           $is_pull_request_branch = 'False'
-           $is_pull_request_branch = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
-           $odsBranch = '${{ env.ODS_CURRENT_BRANCH }}'
-           if($odsBranch -ne ''){
-              git fetch origin $odsBranch
-              git checkout $odsBranch
-           } else {
-              if ($is_pull_request_branch -eq $true) {
-                git fetch origin $current_branch
-                git checkout $current_branch
-              }
+           $branch_exists = 'False'
+           $branch_exists = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
+           if ($branch_exists -eq $true) {
+            git fetch origin $current_branch
+            git checkout $current_branch
            }
-    
+    - name: Install sql-server-2019 & sqlpackage
+      shell: powershell
+      run: |
+          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
+          choco install sqlpackage
+    - name: Initialize-DevelopmentEnvironment
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
+
+        $PSVersionTable
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy
+      shell: powershell
+    - name: Remove Plug-Ins
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        rm -R "./Plugin/EdFi.*"
+      shell: powershell 
+    - name: Create Database Template (no extensions)
+      working-directory: ./
+      run: |
+        $ErrorActionPreference = 'Stop'
+        [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
+        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"      
+        Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/' -noExtensions
+      shell: powershell
+    - name: pack
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.nuspec" -PackageName  "EdFi.Suite3.Ods.Minimal.Template" 
+      shell: powershell
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: powershell
+    - name: publish 
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        .\build.githubactions.ps1 publish -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template"
+      shell: powershell      
+    - name: Upload EdFi.Ods.Minimal.Template Artifacts
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.*
