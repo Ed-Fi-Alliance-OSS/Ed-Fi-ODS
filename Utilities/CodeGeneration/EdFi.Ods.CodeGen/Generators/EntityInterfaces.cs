@@ -38,6 +38,10 @@ namespace EdFi.Ods.CodeGen.Generators
                     EdFiConventions.BuildNamespace(
                         Namespaces.Entities.Common.BaseNamespace,
                         TemplateContext.SchemaProperCaseName),
+                HasExtensionDerivedFromEdFiBaseEntity = resourceClassesToRender
+                    .Where(TemplateContext.ShouldRenderResourceClass)
+                    .Select(a => a.Entity)
+                    .Any(e => !e.IsEdFiStandardEntity && e.IsDerived && e.BaseEntity.IsEdFiStandardEntity),
                 Interfaces = resourceClassesToRender
                     .Where(TemplateContext.ShouldRenderResourceClass)
                     .Select(
