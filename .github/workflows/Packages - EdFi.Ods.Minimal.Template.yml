@@ -51,9 +51,10 @@ jobs:
       shell: powershell
       run: |
            $current_branch = '${{env.REF_NAME}}'
-           if ($current_branch.ToLower() -like "merge*"){
+           if ($current_branch -contains "merge"){
             $current_branch = '${{env.HEAD_REF}}''
            }
+           
            Write-Host "Current Branch: $current_branch"
 
            $patternName = 'refs/heads/' +  $current_branch
