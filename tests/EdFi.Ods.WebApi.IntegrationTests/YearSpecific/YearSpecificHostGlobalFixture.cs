@@ -49,7 +49,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
                     {
                         configBuilder.SetBasePath(executableAbsoluteDirectory);
                         configBuilder.AddConfiguration(Configuration);
-                        configBuilder.AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.YearSpecific.json"));
+                        configBuilder.AddJsonFile(Path.Combine(executableAbsoluteDirectory, "appsettings.yearspecific.json"));
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
