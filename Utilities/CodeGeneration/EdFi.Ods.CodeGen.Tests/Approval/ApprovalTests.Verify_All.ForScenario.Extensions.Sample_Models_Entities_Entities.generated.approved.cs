@@ -6716,7 +6716,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the Student entity's aggregate extensions.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class StudentExtension : IStudentExtension, IStudentExtensionSynchronizationSourceSupport, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    public class StudentExtension : IStudentExtension, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
@@ -6876,17 +6876,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             return (_student as IHasPrimaryKeyValues).GetPrimaryKeyValues();
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-        bool IStudentExtensionSynchronizationSourceSupport.IsStudentPetPreferenceSupported { get; set; } = true;
-        bool IStudentExtensionSynchronizationSourceSupport.IsStudentAquaticPetsSupported { get; set; } = true;
-        bool IStudentExtensionSynchronizationSourceSupport.IsStudentFavoriteBooksSupported { get; set; } = true;
-        bool IStudentExtensionSynchronizationSourceSupport.IsStudentPetsSupported { get; set; } = true;
-        Func<IStudentAquaticPet, bool> IStudentExtensionSynchronizationSourceSupport.IsStudentAquaticPetIncluded { get; set; }
-        Func<IStudentFavoriteBook, bool> IStudentExtensionSynchronizationSourceSupport.IsStudentFavoriteBookIncluded { get; set; }
-        Func<IStudentPet, bool> IStudentExtensionSynchronizationSourceSupport.IsStudentPetIncluded { get; set; }
 
         void IGetByExample.SuspendReferenceAssignmentCheck() { }
     }
@@ -9068,7 +9057,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the StudentEducationOrganizationAssociationStudentCharacteristic entity's aggregate extensions.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    public class StudentEducationOrganizationAssociationStudentCharacteristicExtension : IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
@@ -9145,12 +9134,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             return (_studentEducationOrganizationAssociationStudentCharacteristic as IHasPrimaryKeyValues).GetPrimaryKeyValues();
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-        bool IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported { get; set; } = true;
-        Func<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded { get; set; }
 
         void IGetByExample.SuspendReferenceAssignmentCheck() { }
     }
@@ -13353,7 +13336,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
     /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the StudentSectionAssociation entity's aggregate extensions.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class StudentSectionAssociationExtension : IStudentSectionAssociationExtension, IStudentSectionAssociationExtensionSynchronizationSourceSupport, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    public class StudentSectionAssociationExtension : IStudentSectionAssociationExtension, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
@@ -13430,12 +13413,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         {
             return (_studentSectionAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-        bool IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported { get; set; } = true;
-        Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded { get; set; }
 
         void IGetByExample.SuspendReferenceAssignmentCheck() { }
     }
