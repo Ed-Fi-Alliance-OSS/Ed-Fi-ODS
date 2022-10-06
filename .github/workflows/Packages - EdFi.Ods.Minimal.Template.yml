@@ -86,7 +86,7 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         rm -R "./Plugin/EdFi.*"
-      shell: powershell- 
+      shell: powershell 
     - name: Create Database Template (no extensions)
       working-directory: ./
       run: |
