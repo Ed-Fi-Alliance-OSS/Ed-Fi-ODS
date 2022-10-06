@@ -107,15 +107,15 @@ jobs:
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM"        
+        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core"
       shell: powershell      
-    - name: Upload EdFi.Ods.Populated.Template.TPDM Artifacts
+    - name: Upload EdFi.Ods.Populated.Template.TPDM.Core Artifacts
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
-        name: NugetPackages.Artifacts
+        name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts
         path: |
-         ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.*
+         ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.*
          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Consol/\bin/**/logfile*.*
          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog*.*
          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.TPDM.bak
