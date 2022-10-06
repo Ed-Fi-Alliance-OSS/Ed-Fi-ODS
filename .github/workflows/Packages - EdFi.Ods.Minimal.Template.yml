@@ -52,7 +52,7 @@ jobs:
       run: |
            $current_branch = '${{env.REF_NAME}}'
            if ($current_branch -contains "merge"){
-            $current_branch = '${{env.HEAD_REF}}''
+            $current_branch = '${{env.HEAD_REF}}'
            }
            
            Write-Host "Current Branch: $current_branch"
