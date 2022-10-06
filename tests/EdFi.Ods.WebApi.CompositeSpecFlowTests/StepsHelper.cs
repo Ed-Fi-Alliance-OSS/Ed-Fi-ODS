@@ -4,11 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
@@ -34,21 +32,19 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             return client;
         }
 
-        public static async Task<T> GetAsync<T>(string connectionString, string query, CancellationToken cancellationToken)
+        public static async Task<T> GetAsync<T>(string query, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            using var conn = DbHelper.GetConnection(connectionString);
+            using var conn = CompositesSpecFlowTestFixture.Instance.BuildOdsConnection();
 
-            conn.Open();
             return await conn.QuerySingleOrDefaultAsync<T>(query, cancellationToken);
         }
 
         public static string GetQueryString(string correlationId)
             => $"?{SpecialQueryStringParameters.CorrelationId}={correlationId}";
 
-        public static async Task<Guid> GetResourceIdAsync(string connectionString, string tableName, object keyValues,
-            CancellationToken cancellationToken)
+        public static async Task<Guid> GetResourceIdAsync(string tableName, object keyValues, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -60,15 +56,11 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                         ? kvp.Value.ToString().SingleQuoted()
                         : kvp.Value)));
 
+            using var conn = CompositesSpecFlowTestFixture.Instance.BuildOdsConnection();
 
-            var databaseEngine = DbHelper.GetDatabaseEngine();
-            using var conn = DbHelper.GetConnection(databaseEngine, connectionString);
-
-            conn.Open();
-
-            string query = String.Empty;
+            string query;
             
-            if (databaseEngine == DatabaseEngine.SqlServer)
+            if (CompositesSpecFlowTestFixture.Instance.DatabaseEngine == DatabaseEngine.SqlServer)
             {
                 query = $@"
                 SELECT Id

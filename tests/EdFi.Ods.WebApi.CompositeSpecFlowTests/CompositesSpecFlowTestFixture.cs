@@ -8,7 +8,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Common.Configuration;
 using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
@@ -20,33 +19,33 @@ using Test.Common;
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
     [SetUpFixture]
-    public class CompositesSpecFlowTestFixture
+    public class CompositesSpecFlowTestFixture : OneTimeGlobalDatabaseSetupBase
     {
-        public const string DatabasePrefix = "EdFi_Specflow_Test_";
+        public static CompositesSpecFlowTestFixture Instance { get; private set; }
 
-        public static IHost Host { get; private set; }
+        public CompositesSpecFlowTestFixture()
+        {
+            Instance = this;
+        }
 
-        public static IDatabaseHelper DatabaseHelper { get; private set; }
+        public IServiceProvider ServiceProvider { get; private set; }
 
-        public static IServiceProvider ServiceProvider { get; private set; }
-
-        public static string SpecFlowDatabaseName { get; private set; }
+        private IHost _host;
 
         [OneTimeSetUp]
-        public async Task OneTimeSetUpAsync()
+        public override async Task OneTimeSetUpAsync()
         {
-            SpecFlowDatabaseName = DatabasePrefix + Guid.NewGuid().ToString("N");
+            await base.OneTimeSetUpAsync();
 
             var executableAbsoluteDirectory = AppContext.BaseDirectory;
             ConfigureLogging(executableAbsoluteDirectory);
 
-            var databaseEngine = DbHelper.GetDatabaseEngine();
-            
             // Create and start up the host
-            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-                .ConfigureAppConfiguration(configurationBuilder => {
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration(configurationBuilder =>
+                {
+                    configurationBuilder.AddConfiguration(Configuration);
                     configurationBuilder.SetBasePath(TestContext.CurrentContext.TestDirectory);
-                    configurationBuilder.AddJsonFile($"appsettings.{(databaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true);
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
@@ -57,50 +56,32 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     })
                 .Build();
 
-            ServiceProvider = Host.Services;
-            
-            var configuration = (IConfigurationRoot) ServiceProvider.GetService(typeof(IConfiguration));
+            ServiceProvider = _host.Services;
 
-            var populatedTemplateDatabaseName = configuration.GetSection("TestDatabaseTemplateName").Value;
-
-            if (string.IsNullOrWhiteSpace(populatedTemplateDatabaseName))
-            {
-                throw new ApplicationException(
-                    "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
-            }
-
-            
-            
-            if (databaseEngine == DatabaseEngine.SqlServer)
-            {
-                DatabaseHelper = new MsSqlDatabaseHelper(configuration);
-            }
-            else
-            {
-                DatabaseHelper = new PgSqlDatabaseHelper(configuration);
-            }
-            
-            DatabaseHelper.CopyDatabase(populatedTemplateDatabaseName, SpecFlowDatabaseName);
-
-            await Host.StartAsync();
+            await _host.StartAsync();
         }
 
         [OneTimeTearDown]
-        public async Task OneTimeTearDownAsync()
+        public override async Task OneTimeTearDownAsync()
         {
-            await Host?.StopAsync();
-            Host?.Dispose();
+            await base.OneTimeTearDownAsync();
 
-            DatabaseHelper?.DropMatchingDatabases(DatabasePrefix + "%");
+            await _host?.StopAsync();
+            _host?.Dispose();
         }
 
-        private static void ConfigureLogging(string executableAbsoluteDirectory)
+        private void ConfigureLogging(string executableAbsoluteDirectory)
         {
             var assembly = typeof(CompositesSpecFlowTestFixture).GetTypeInfo().Assembly;
 
             string configPath = Path.Combine(executableAbsoluteDirectory, "log4net.config");
 
             XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
+        }
+
+        protected override string DatabaseCopyPrefix
+        {
+            get => "EdFiOdsWebApiCompositeSpecFlowTests";
         }
     }
 }
