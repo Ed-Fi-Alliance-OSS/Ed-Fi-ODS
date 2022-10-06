@@ -436,9 +436,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         : ResourceRenderer.DoNotRenderProperty,
                 NavigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(profileData, resourceClass),
                 InheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(profileData, resourceClass),
-                SynchronizationSourceSupport =
-                    _resourceCollectionRenderer
-                        .SynchronizationSourceSupport(profileData, resourceClass, TemplateContext),
                 Versioning = resourceClass.IsAggregateRoot()
                     ? ResourceRenderer.DoRenderProperty
                     : ResourceRenderer.DoNotRenderProperty,
