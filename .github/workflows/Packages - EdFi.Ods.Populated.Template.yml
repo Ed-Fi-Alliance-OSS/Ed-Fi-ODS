@@ -12,7 +12,8 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+  repository_dispatch:
+    types: [triggered-from-implementation-repo]
 env:
   EDFI_STANDARD_REFERENCE: "4.0.0-a"
   INFORMATIONAL_VERSION: "6.1"
