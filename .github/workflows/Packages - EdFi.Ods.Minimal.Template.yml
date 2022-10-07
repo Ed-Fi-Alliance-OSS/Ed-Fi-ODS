@@ -73,11 +73,11 @@ jobs:
           }
         } else {
             Write-Host "ref_name: ${{env.REF_NAME}}"
-            $current_branch = ${{env.REF_NAME}}
+            $current_branch = '${{env.REF_NAME}}''
             
             if ($current_branch -like "*/merge"){
               Write-Host "ref_name is PR, so using head_ref: ${{env.HEAD_REF}}"
-              $current_branch = ${{env.HEAD_REF}}
+              $current_branch = '${{env.HEAD_REF}}''
             }
           
             $patternName = "refs/heads/$current_branch"
