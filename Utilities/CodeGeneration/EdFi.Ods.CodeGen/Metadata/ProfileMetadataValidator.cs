@@ -119,9 +119,7 @@ namespace EdFi.Ods.CodeGen.Metadata
 
                 if (IsReferenceProperty(propertyName))
                 {
-                    if (!domainResource.References.Any(
-                        reference => reference.PropertyName == propertyName &&
-                                     reference.ParentFullName.Name == GetContainingTable(propertyElement, resource)))
+                    if (!domainResource.ReferenceByName.ContainsKey(propertyName))
                     {
                         throw new IncomingReferenceException(propertyName, profile, domainResource.Name);
                     }
