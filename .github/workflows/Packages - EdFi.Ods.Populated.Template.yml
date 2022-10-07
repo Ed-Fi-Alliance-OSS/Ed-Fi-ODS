@@ -22,9 +22,9 @@ env:
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   CONFIGURATION: "Release"
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
-
 jobs:
   build:
 
@@ -57,20 +57,33 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: powershell
       run: |
-           $current_branch = '${{env.REF_NAME}}'
-           if ($current_branch -like "*/merge"){
+        $repositoryDispatchBranch = '${{ env.REPOSITORY_DISPATCH_BRANCH }}'
+        Write-Host "Repository Dispatch Branch: $repositoryDispatchBranch"
+        
+        if($repositoryDispatchBranch -ne ''){
+          $patternName = "refs/heads/$repositoryDispatchBranch"
+          $does_corresponding_branch_exist = $false
+          $does_corresponding_branch_exist = git ls-remote --heads origin $repositoryDispatchBranch | Select-String -Pattern $patternName -SimpleMatch -Quiet
+          if ($does_corresponding_branch_exist -eq $true) {
+            git fetch origin triggerBranch
+            git checkout triggerBranch
+          }
+        } else {
+          Write-Host "ref_name: ${{env.REF_NAME}}"
+          $current_branch = '${{env.REF_NAME}}'
+          if ($current_branch -like "*/merge"){
+            Write-Host "ref_name is PR, so using head_ref: ${{env.HEAD_REF}}"
             $current_branch = '${{env.HEAD_REF}}'
-           }
-           
-           Write-Host "Current Branch: $current_branch"
-
-           $patternName = 'refs/heads/' +  $current_branch
-           $branch_exists = 'False'
-           $branch_exists = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
-           if ($branch_exists -eq $true) {
-            git fetch origin $current_branch
-            git checkout $current_branch
-           }
+          }
+          $patternName = "refs/heads/$current_branch"
+          Write-Host "Pattern Name is " $patternName -fore GREEN
+          $is_pull_request_branch = $false
+          $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+          if ($is_pull_request_branch -eq $true) {
+            git fetch origin ${{ env.CURRENT_BRANCH }}
+            git checkout ${{ env.CURRENT_BRANCH }}
+          }
+        }
     - name: Install sql-server-2019 & sqlpackage
       shell: powershell
       run: |
