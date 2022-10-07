@@ -84,10 +84,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
       shell: pwsh
-    - name: Use NuGet
-      uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
-      with:
-        nuget-version: '5.x'
     - name: pack using nuget nuspec file
       working-directory: ./Ed-Fi-Extensions/   
       shell: pwsh
