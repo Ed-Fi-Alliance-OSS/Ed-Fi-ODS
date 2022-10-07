@@ -12,6 +12,7 @@ on:
   push:
     branches:
       - main
+  workflow-dispatch:
 env:
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "1"
