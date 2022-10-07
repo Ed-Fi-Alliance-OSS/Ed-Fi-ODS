@@ -1965,6 +1965,85 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Test_Profile_Some_References_With_Unified_Keys_Included
+{
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationsNullWriteRequest : NullRequestBase { }
+
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [ProfileContentType("application/vnd.ed-fi.studentschoolassociation.test-profile-some-references-with-unified-keys-included")]
+    [Route("ed-fi/studentSchoolAssociations")]
+    public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Test_Profile_Some_References_With_Unified_Keys_Included_Readable.StudentSchoolAssociation,
+        StudentSchoolAssociationsNullWriteRequest,
+        Entities.Common.EdFi.IStudentSchoolAssociation,
+        Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation,
+        StudentSchoolAssociationsNullWriteRequest,
+        StudentSchoolAssociationsNullWriteRequest,
+        Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.Test_Profile_Some_References_With_Unified_Keys_Included.StudentSchoolAssociationDelete,
+        Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.Test_Profile_Some_References_With_Unified_Keys_Included.StudentSchoolAssociationGetByExample>
+    {
+        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.Test_Profile_Some_References_With_Unified_Keys_Included.StudentSchoolAssociationGetByExample request, Entities.Common.EdFi.IStudentSchoolAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CalendarCode = request.CalendarCode;
+            specification.ClassOfSchoolYear = request.ClassOfSchoolYear;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EmployedWhileEnrolled = request.EmployedWhileEnrolled;
+            specification.EntryDate = request.EntryDate;
+            specification.EntryGradeLevelDescriptor = request.EntryGradeLevelDescriptor;
+            specification.EntryGradeLevelReasonDescriptor = request.EntryGradeLevelReasonDescriptor;
+            specification.EntryTypeDescriptor = request.EntryTypeDescriptor;
+            specification.ExitWithdrawDate = request.ExitWithdrawDate;
+            specification.ExitWithdrawTypeDescriptor = request.ExitWithdrawTypeDescriptor;
+            specification.FullTimeEquivalency = request.FullTimeEquivalency;
+            specification.GraduationPlanTypeDescriptor = request.GraduationPlanTypeDescriptor;
+            specification.GraduationSchoolYear = request.GraduationSchoolYear;
+            specification.Id = request.Id;
+            specification.PrimarySchool = request.PrimarySchool;
+            specification.RepeatGradeIndicator = request.RepeatGradeIndicator;
+            specification.ResidencyStatusDescriptor = request.ResidencyStatusDescriptor;
+            specification.SchoolChoiceTransfer = request.SchoolChoiceTransfer;
+            specification.SchoolId = request.SchoolId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.StudentUniqueId = request.StudentUniqueId;
+            specification.TermCompletionIndicator = request.TermCompletionIndicator;
+        }
+
+        protected override string GetReadContentType()
+        {
+            return "application/vnd.ed-fi.studentschoolassociation.test-profile-some-references-with-unified-keys-included.readable+json";
+        }
+
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public override Task<IActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Some-References-With-Unified-Keys-Included' profile are GET, DELETE and OPTIONS.")));
+        }
+
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public override Task<IActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Some-References-With-Unified-Keys-Included' profile are GET, DELETE and OPTIONS.")));
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
