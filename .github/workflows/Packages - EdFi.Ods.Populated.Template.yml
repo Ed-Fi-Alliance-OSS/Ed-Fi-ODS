@@ -54,44 +54,10 @@ jobs:
           path: Ed-Fi-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
-        $odsBranch = '${{ env.REPOSITORY_DISPATCH_BRANCH }}'
-        Write-Host "OdsBranch: $odsBranch"
-        if($odsBranch -ne ''){
-          $patternName = "refs/heads/$odsBranch"
-          $does_corresponding_branch_exist = $false
-          $does_corresponding_branch_exist = git ls-remote --heads origin $odsBranch | Select-String -Pattern $patternName -SimpleMatch -Quiet
-          if ($does_corresponding_branch_exist -eq $true) {
-          Write-Host "Corresponding branch for $odsBranch exists in Implementation repo, so checking it out"
-          git fetch origin $odsBranch
-          git checkout $odsBranch
-          } else {
-          WriteHost "Corresponding branch for $odsBranch does not exist in Implementation repo, so not changing branch checked out"
-          }
-        } else {
-            Write-Host "ref_name: ${{env.REF_NAME}}"
-            $current_branch = '${{env.REF_NAME}}'
-            
-            if ($current_branch -like "*/merge"){
-              Write-Host "ref_name is PR, so using head_ref: ${{env.HEAD_REF}}"
-              $current_branch = '${{env.HEAD_REF}}'
-            }
-          
-            $patternName = "refs/heads/$current_branch"
-            Write-Host "Pattern Name is " $patternName -fore GREEN
-            $branch_exists = $false
-            $branch_exists = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
-            
-            if ($branch_exists -eq $true) {
-              Write-Host "Current branch exists, so setting to $current_branch"
-              git fetch origin $current_branch
-              git checkout $current_branch
-            } else {
-              Write-Host "did not match on any results for changing ODS checkout branch"
-          }
-        }
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: Install sql-server-2019 & sqlpackage
       shell: powershell
       run: |
