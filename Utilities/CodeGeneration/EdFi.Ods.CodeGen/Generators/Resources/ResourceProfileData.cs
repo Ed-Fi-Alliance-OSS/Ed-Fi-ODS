@@ -172,6 +172,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public bool IsIncluded(ResourceClassBase resource, Reference reference)
         {
+            return IsIncluded(resource, reference, out var ignored);
+        }
+        
+        public bool IsIncluded(ResourceClassBase resource, Reference reference, out bool implicitOnly)
+        {
+            implicitOnly = false;
+
             if (resource == null)
             {
                 throw new ArgumentNullException(nameof(resource));
@@ -188,7 +195,31 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return true;
             }
 
-            return IsIncluded(resource, reference as ResourceMemberBase);
+            // Is this reference included outright?
+            if (IsIncluded(resource, reference as ResourceMemberBase))
+            {
+                return true;
+            }
+            
+            // Does this reference have unified key properties shared with an included reference?
+            var unifiedKeyProperties = reference.Properties.Where(p => p.IsUnified()).ToArray();
+            
+            if (unifiedKeyProperties.Any())
+            {
+                // Get all the property names of other references that are included
+                var allOtherIncludedReferencesProperties = resource.References
+                    .Where(r => IsIncluded(resource, r as ResourceMemberBase))
+                    .Except(new[] { reference })
+                    .SelectMany(r => r.Properties);
+
+                if (unifiedKeyProperties.Intersect(allOtherIncludedReferencesProperties, ModelComparers.ResourcePropertyNameOnly)
+                    .Any())
+                {
+                    implicitOnly = true;
+                }
+            }
+
+            return false;
         }
 
         public bool IsIncluded(ResourceClassBase resource, Collection collection)

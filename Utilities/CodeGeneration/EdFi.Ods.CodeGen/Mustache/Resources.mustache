@@ -333,7 +333,7 @@ namespace {{ResourceClassesNamespace}}
                 return _{{PropertyFieldName}};
             }
         }
-
+        {{^ImplicitOnly}}
         [DataMember(Name="{{JsonPropertyName}}")]{{#IsIdentifying}}[NaturalKeyMember]{{/IsIdentifying}}
         public {{ReferenceTypeName}} {{PropertyName}}
         {
@@ -352,6 +352,7 @@ namespace {{ResourceClassesNamespace}}
                 _{{PropertyFieldName}} = value;
             }
         }
+        {{/ImplicitOnly}}
         {{/Reference}}
         {{/Standard}}
         {{#Backref}}

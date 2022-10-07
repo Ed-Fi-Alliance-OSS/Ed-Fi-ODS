@@ -669,4 +669,14 @@
     </Resource>
   </Profile>
 
+  <!-- SchoolYear is not included, but its code-generated implicit reference artifacts are needed for the CalendarReference to prevent compilation failure -->
+  <Profile name="Test-Profile-Some-References-With-Unified-Keys-Included">
+    <Resource name="StudentSchoolAssociation">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="SchoolReference" />
+        <Property name="CalendarReference" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
 </Profiles>

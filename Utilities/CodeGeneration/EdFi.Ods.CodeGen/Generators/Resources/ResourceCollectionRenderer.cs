@@ -489,7 +489,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var references = activeResource.References
                 .ToList();
 
-            if (!references.Any(x => profileData.IsIncluded(resource, x)))
+            if (!references.Any(r => profileData.IsIncluded(resource, r, out var implicitOnly) || implicitOnly))
             {
                 return ResourceRenderer.DoNotRenderProperty;
             }
@@ -499,7 +499,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return new
                 {
                     Collections = references
-                        .Where(x => profileData.IsIncluded(resource, x))
+                        .Where(r => profileData.IsIncluded(resource, r, out var implicitOnly) || implicitOnly)
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x =>
@@ -515,6 +515,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     ? x.ReferenceTypeName
                                     : $"{x.ReferencedResourceName}.{x.ReferencedResource.Entity.SchemaProperCaseName()}.{x.ReferenceTypeName}";
 
+                                profileData.IsIncluded(resource, x, out var implicitOnly);
+                                
                                 return new
                                 {
                                     Reference = new
@@ -537,7 +539,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                         PropertyName = x.PropertyName,
                                         PropertyFieldName = x.PropertyName.ToCamelCase(),
                                         IsRequired = x.IsRequired,
-                                        IsIdentifying = x.Association.IsIdentifying
+                                        IsIdentifying = x.Association.IsIdentifying,
+                                        ImplicitOnly = implicitOnly
                                     },
                                     Standard = ResourceRenderer.DoRenderProperty
                                 };
