@@ -334,6 +334,7 @@ namespace {{ResourceClassesNamespace}}
             }
         }
         {{^ImplicitOnly}}
+
         [DataMember(Name="{{JsonPropertyName}}")]{{#IsIdentifying}}[NaturalKeyMember]{{/IsIdentifying}}
         public {{ReferenceTypeName}} {{PropertyName}}
         {
