@@ -2283,3 +2283,47 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.Tes
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi.Profile_Validation_Regression_References
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentCTEProgramAssociationGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public bool NonTraditionalGenderStatus { get; set; }
+        public bool PrivateCTEProgram { get; set; }
+        public int ProgramEducationOrganizationId { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+        public string StudentUniqueId { get; set; }
+        public string TechnicalSkillsAssessmentDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentCTEProgramAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentCTEProgramAssociationGetByIds() { }
+
+        public StudentCTEProgramAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentCTEProgramAssociationDelete : IHasIdentifier
+    {
+        public StudentCTEProgramAssociationDelete() { }
+
+        public StudentCTEProgramAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
