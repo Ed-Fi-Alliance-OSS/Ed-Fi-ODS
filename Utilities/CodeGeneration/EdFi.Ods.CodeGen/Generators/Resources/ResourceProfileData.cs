@@ -172,13 +172,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public bool IsIncluded(ResourceClassBase resource, Reference reference)
         {
-            return IsIncluded(resource, reference, out var ignored);
-        }
-        
-        public bool IsIncluded(ResourceClassBase resource, Reference reference, out bool implicitOnly)
-        {
-            implicitOnly = false;
-
             if (resource == null)
             {
                 throw new ArgumentNullException(nameof(resource));
@@ -200,20 +193,41 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 return true;
             }
+
+            return false;
+        }
+        
+        public bool IsIncluded(ResourceClassBase resource, Reference reference, out bool implicitOnly)
+        {
+            implicitOnly = false;
+
+            if (IsIncluded(resource, reference))
+            {
+                return true;
+            }
             
-            // Does this reference have unified key properties shared with an included reference?
+            // Does this un-included reference have unified key properties (properties shared with another included reference)?
             var unifiedKeyProperties = reference.Properties.Where(p => p.IsUnified()).ToArray();
             
             if (unifiedKeyProperties.Any())
             {
-                // Get all the property names of other references that are included
-                var allOtherIncludedReferencesProperties = resource.References
-                    .Where(r => IsIncluded(resource, r as ResourceMemberBase))
-                    .Except(new[] { reference })
-                    .SelectMany(r => r.Properties);
+                bool isSubsetOfAnotherIncludedReference = 
+                    // All references (except the current reference)
+                    resource.References.Except(new[] { reference })
 
-                if (unifiedKeyProperties.Intersect(allOtherIncludedReferencesProperties, ModelComparers.ResourcePropertyNameOnly)
-                    .Any())
+                    // Inspect other included references
+                    .Where(r => IsIncluded(resource, r))
+
+                    // Exclude the current reference
+                    
+
+                    // Determine if all of the current reference's unified key properties are found in the unified key properties of the other included reference
+                    .Any(
+                        r => unifiedKeyProperties.All(
+                                ukp => r.Properties.Where(p => p.IsUnified())
+                                    .Contains(ukp, ModelComparers.ResourcePropertyNameOnly)));
+
+                if (isSubsetOfAnotherIncludedReference)
                 {
                     implicitOnly = true;
                 }
