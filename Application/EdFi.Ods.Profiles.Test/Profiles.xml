@@ -669,4 +669,29 @@
     </Resource>
   </Profile>
 
+  <!-- SchoolYear is not included, but its code-generated implicit reference artifacts are needed for the CalendarReference to prevent compilation failure -->
+  <Profile name="Test-Profile-Some-References-With-Unified-Keys-Included">
+    <Resource name="StudentSchoolAssociation">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="SchoolReference" />
+        <Property name="CalendarReference" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Covers an invalid profile validation error which resulted in code generation failure, consider removal if validation logic is rewritten --> 
+  <Profile name="Profile-Validation-Regression-References">
+    <Resource name="StudentCTEProgramAssociation">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="BeginDate" />
+        <Property name="EndDate" />
+        <Property name="StudentReference" /> <!-- Incorrect validation failure here -->
+        <Collection name="StudentCTEProgramAssociationCTEProgramServices" memberSelection="IncludeOnly">
+          <Property name="CTEProgramServiceDescriptor" />
+          <Property name="ServiceBeginDate" />
+          <Property name="ServiceEndDate" />
+        </Collection>
+      </ReadContentType>
+    </Resource>
+  </Profile>
 </Profiles>

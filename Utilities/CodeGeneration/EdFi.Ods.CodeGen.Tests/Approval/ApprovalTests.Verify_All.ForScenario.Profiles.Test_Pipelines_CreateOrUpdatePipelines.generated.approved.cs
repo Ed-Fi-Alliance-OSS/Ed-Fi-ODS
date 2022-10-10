@@ -329,3 +329,11 @@ namespace EdFi.Ods.Api.Pipelines.MinimalStudentSchoolAssociation_IncludeOnly
 namespace EdFi.Ods.Api.Pipelines.MinimalStudentSchoolAssociation_ExcludeOnly
 {
 }
+
+namespace EdFi.Ods.Api.Pipelines.Test_Profile_Some_References_With_Unified_Keys_Included
+{
+}
+
+namespace EdFi.Ods.Api.Pipelines.Profile_Validation_Regression_References
+{
+}

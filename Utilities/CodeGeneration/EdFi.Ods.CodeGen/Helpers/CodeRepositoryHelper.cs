@@ -6,10 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Conventions;
-using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.CodeGen.Helpers
 {
@@ -25,28 +22,44 @@ namespace EdFi.Ods.CodeGen.Helpers
                 throw new ArgumentNullException(nameof(codeRepositoryPath));
             }
 
-            int index = codeRepositoryPath.LastIndexOf(CodeRepositoryConventions.EdFiOdsFolderName);
-
-            var root = codeRepositoryPath.Substring(0, index);
-
-            if (Directory.Exists(codeRepositoryPath))
-            {
-                bool IsEdFiOdsFolderExist = Directory.GetDirectories(codeRepositoryPath).Where(s => s.Equals(codeRepositoryPath + CodeRepositoryConventions.EdFiOdsFolderName)).Any();
-
-                if (IsEdFiOdsFolderExist)
-                {
-                    root = codeRepositoryPath;
-                }
-            }
+            string resolveSharedRootPath = ResolveSharedRootPath();
             
-            _repositoryByName.Add(CodeRepositoryConventions.Root, root);
-            _repositoryByName.Add(CodeRepositoryConventions.Ods, Path.Combine(root, CodeRepositoryConventions.EdFiOdsFolderName));
+            _repositoryByName.Add(CodeRepositoryConventions.Root, resolveSharedRootPath);
+            
+            _repositoryByName.Add(CodeRepositoryConventions.Ods, 
+                Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.EdFiOdsFolderName));
 
-            _repositoryByName.Add(
-                CodeRepositoryConventions.Implementation,
-                Path.Combine(root, CodeRepositoryConventions.EdFiOdsImplementationFolderName));
+            _repositoryByName.Add(CodeRepositoryConventions.Implementation,
+                Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.EdFiOdsImplementationFolderName));
 
-            _repositoryByName.Add(CodeRepositoryConventions.ExtensionsRepositoryName, Path.Combine(root, CodeRepositoryConventions.ExtensionsRepositoryName));
+            _repositoryByName.Add(CodeRepositoryConventions.ExtensionsRepositoryName, 
+                Path.Combine(resolveSharedRootPath, CodeRepositoryConventions.ExtensionsRepositoryName));
+
+            string ResolveSharedRootPath()
+            {
+                string[] repositoryFolderNames =
+                {
+                    CodeRepositoryConventions.EdFiOdsFolderName,
+                    CodeRepositoryConventions.EdFiOdsImplementationFolderName,
+                    CodeRepositoryConventions.ExtensionsRepositoryName
+                };
+
+                string probePath = codeRepositoryPath.TrimEnd(Path.DirectorySeparatorChar);
+
+                while (probePath != null && !Directory.Exists(Path.Combine(probePath, CodeRepositoryConventions.EdFiOdsFolderName)))
+                {
+                    // Probe higher up the directory tree
+                    probePath = Path.GetDirectoryName(probePath);
+                }
+
+                if (probePath == null)
+                {
+                    throw new Exception(
+                        $"Unable to determine the path to the shared root folder for the repositories (i.e. '{string.Join("', '", repositoryFolderNames)}') from the supplied code repository path '{codeRepositoryPath}'.");
+                }
+                
+                return probePath;
+            }
         }
 
         public string this[string key]

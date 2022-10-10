@@ -188,7 +188,52 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return true;
             }
 
-            return IsIncluded(resource, reference as ResourceMemberBase);
+            // Is this reference included outright?
+            if (IsIncluded(resource, reference as ResourceMemberBase))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        public bool IsIncluded(ResourceClassBase resource, Reference reference, out bool implicitOnly)
+        {
+            implicitOnly = false;
+
+            if (IsIncluded(resource, reference))
+            {
+                return true;
+            }
+            
+            // Does this un-included reference have unified key properties (properties shared with another included reference)?
+            var unifiedKeyProperties = reference.Properties.Where(p => p.IsUnified()).ToArray();
+            
+            if (unifiedKeyProperties.Any())
+            {
+                bool isSubsetOfAnotherIncludedReference = 
+                    // All references (except the current reference)
+                    resource.References.Except(new[] { reference })
+
+                    // Inspect other included references
+                    .Where(r => IsIncluded(resource, r))
+
+                    // Exclude the current reference
+                    
+
+                    // Determine if all of the current reference's unified key properties are found in the unified key properties of the other included reference
+                    .Any(
+                        r => unifiedKeyProperties.All(
+                                ukp => r.Properties.Where(p => p.IsUnified())
+                                    .Contains(ukp, ModelComparers.ResourcePropertyNameOnly)));
+
+                if (isSubsetOfAnotherIncludedReference)
+                {
+                    implicitOnly = true;
+                }
+            }
+
+            return false;
         }
 
         public bool IsIncluded(ResourceClassBase resource, Collection collection)

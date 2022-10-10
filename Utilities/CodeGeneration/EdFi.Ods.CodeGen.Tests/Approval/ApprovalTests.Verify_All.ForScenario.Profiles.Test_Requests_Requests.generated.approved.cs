@@ -2226,3 +2226,104 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.Min
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.Test_Profile_Some_References_With_Unified_Keys_Included
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationGetByExample
+    {
+        public string CalendarCode { get; set; }
+        public short ClassOfSchoolYear { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public bool EmployedWhileEnrolled { get; set; }
+        public DateTime EntryDate { get; set; }
+        public string EntryGradeLevelDescriptor { get; set; }
+        public string EntryGradeLevelReasonDescriptor { get; set; }
+        public string EntryTypeDescriptor { get; set; }
+        public DateTime ExitWithdrawDate { get; set; }
+        public string ExitWithdrawTypeDescriptor { get; set; }
+        public decimal FullTimeEquivalency { get; set; }
+        public string GraduationPlanTypeDescriptor { get; set; }
+        public short GraduationSchoolYear { get; set; }
+        public Guid Id { get; set; }
+        public bool PrimarySchool { get; set; }
+        public bool RepeatGradeIndicator { get; set; }
+        public string ResidencyStatusDescriptor { get; set; }
+        public bool SchoolChoiceTransfer { get; set; }
+        public int SchoolId { get; set; }
+        public short SchoolYear { get; set; }
+        public string StudentUniqueId { get; set; }
+        public bool TermCompletionIndicator { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentSchoolAssociationGetByIds() { }
+
+        public StudentSchoolAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationDelete : IHasIdentifier
+    {
+        public StudentSchoolAssociationDelete() { }
+
+        public StudentSchoolAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi.Profile_Validation_Regression_References
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentCTEProgramAssociationGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public bool NonTraditionalGenderStatus { get; set; }
+        public bool PrivateCTEProgram { get; set; }
+        public int ProgramEducationOrganizationId { get; set; }
+        public string ProgramName { get; set; }
+        public string ProgramTypeDescriptor { get; set; }
+        public string StudentUniqueId { get; set; }
+        public string TechnicalSkillsAssessmentDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentCTEProgramAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentCTEProgramAssociationGetByIds() { }
+
+        public StudentCTEProgramAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentCTEProgramAssociationDelete : IHasIdentifier
+    {
+        public StudentCTEProgramAssociationDelete() { }
+
+        public StudentCTEProgramAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
