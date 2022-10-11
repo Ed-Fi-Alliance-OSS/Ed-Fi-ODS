@@ -5,7 +5,6 @@
 
 using Dapper;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Database;
 using NUnit.Framework;
 using Shouldly;
 using System.Net;
@@ -21,20 +20,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Test]
         public async Task ShouldBuildDbAndSetupWebServer()
         {
-            var databaseEngine = DbHelper.GetDatabaseEngine();
-
-            var connectionStringProvider = (IOdsDatabaseConnectionStringProvider)
-                CompositesSpecFlowTestFixture.ServiceProvider.GetService(typeof(IOdsDatabaseConnectionStringProvider));
-
-            connectionStringProvider.ShouldNotBeNull();
-            connectionStringProvider.GetConnectionString().ShouldContain(CompositesSpecFlowTestFixture.SpecFlowDatabaseName);
-
             var cancellationToken = new CancellationToken();
-            using var conn = DbHelper.GetConnection(databaseEngine, connectionStringProvider.GetConnectionString());
-            conn.Open();
+            using var conn = CompositesSpecFlowTestFixture.Instance.BuildOdsConnection();
 
-            int count = 0;
-            if (databaseEngine == DatabaseEngine.SqlServer)
+            int count;
+
+            if (CompositesSpecFlowTestFixture.Instance.DatabaseEngine == DatabaseEngine.SqlServer)
             {
                 count = await conn.QuerySingleAsync<int>("select count(*) from dbo.DeployJournal;", cancellationToken);
             }
@@ -42,7 +33,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             {
                 count = await conn.QuerySingleAsync<int>("select count(*) from public.\"DeployJournal\";", cancellationToken);
             }
-
 
             count.ShouldNotBe(0);
 
@@ -54,7 +44,5 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
             json.ShouldNotBeNullOrWhiteSpace();
         }
-
-        
     }
 }

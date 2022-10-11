@@ -6,7 +6,6 @@
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
@@ -28,21 +27,16 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         public void OneTimeSetUp()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-            var engineConfig = new ConfigurationBuilder()
-                .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile("appsettings.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
 
-            var engine = engineConfig.GetValue<string>("Engine");
-
-
-            TestDatabaseEngine = DatabaseEngine.TryParseEngine(engine);
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile($"appsettings.{(TestDatabaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
+                .AddJsonFile("appsettings.json", false)
+                .AddJsonFile("appsettings.Development.json", true)
                 .AddEnvironmentVariables()
                 .Build();
+
+            var engine = config.GetSection("ApiSettings").GetValue<string>("Engine");
+            TestDatabaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
 

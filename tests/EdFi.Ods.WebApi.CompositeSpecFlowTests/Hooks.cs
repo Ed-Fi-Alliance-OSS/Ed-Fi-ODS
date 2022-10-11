@@ -20,7 +20,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [BeforeFeature]
         public static void BeforeApiFeature(FeatureContext featureContext)
         {
-            featureContext.Set(CompositesSpecFlowTestFixture.ServiceProvider);
+            featureContext.Set(CompositesSpecFlowTestFixture.Instance.ServiceProvider);
             featureContext.Set(new CancellationToken());
 
             Hierarchy hierarchy = LogManager.GetRepository(typeof(CompositesSpecFlowTestFixture).Assembly) as Hierarchy;

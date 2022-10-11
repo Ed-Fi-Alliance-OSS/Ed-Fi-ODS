@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -15,7 +14,6 @@ using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using EdFi.Ods.WebApi.IntegrationTests.Helpers;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
@@ -26,7 +24,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
     [TestFixture]
     public class YearSpecificStudentTests
     {
-        private string _connectionStringTemplate;
         private CancellationToken _cancellationToken;
         private EdFiTestUriHelper _uriHelper;
         private HttpClient _httpClient;
@@ -34,10 +31,9 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            _connectionStringTemplate = YearSpecificHostGlobalFixture.Configuration.GetConnectionString("EdFi_Ods");
-            _cancellationToken = GlobalWebApiIntegrationTestFixture.CancellationToken;
+            _cancellationToken = GlobalWebApiIntegrationTestFixture.Instance.CancellationToken;
             _uriHelper = new EdFiTestUriHelper(TestConstants.YearSpecificBaseUrl);
-            _httpClient = YearSpecificHostGlobalFixture.HttpClient;
+            _httpClient = YearSpecificHostGlobalFixture.Instance.HttpClient;
         }
 
         [OneTimeTearDown]
@@ -121,12 +117,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
 
         private async Task<int?> StudentExistsAsync(int schoolYear, string uniqueId)
         {
-            string connectionString = string.Format(
-                _connectionStringTemplate, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}_{schoolYear}");
-
-            using var conn = DbHelper.GetConnection(connectionString);
-
-            conn.Open();
+            using var conn = YearSpecificHostGlobalFixture.Instance.BuildOdsConnection(schoolYear.ToString());
 
             return await conn.QuerySingleOrDefaultAsync<int?>(
                 $"SELECT 1 FROM edfi.Student WHERE StudentUniqueId = '{uniqueId}'", _cancellationToken);

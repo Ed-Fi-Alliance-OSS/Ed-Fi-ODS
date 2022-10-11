@@ -3,11 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
 using log4net;
 using log4net.Config;
 using NUnit.Framework;
@@ -17,17 +15,18 @@ namespace EdFi.Ods.WebApi.IntegrationTests
     [SetUpFixture]
     public class GlobalWebApiIntegrationTestFixture
     {
-        private readonly string _databasePrefix = "EdFi_IntegrationTests_";
+        public static GlobalWebApiIntegrationTestFixture Instance { get; private set; }
 
-        public static string DatabaseName { get; set; }
+        public GlobalWebApiIntegrationTestFixture()
+        {
+            Instance = this;
+        }
 
-        public static CancellationToken CancellationToken { get; private set; }
+        public CancellationToken CancellationToken { get; private set; }
 
         [OneTimeSetUp]
-        public void Setup()
+        public void OneTimeSetUp()
         {
-            DatabaseName = _databasePrefix + Guid.NewGuid().ToString("N");
-
             CancellationToken = new CancellationToken();
 
             var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(GlobalWebApiIntegrationTestFixture).Assembly.Location);

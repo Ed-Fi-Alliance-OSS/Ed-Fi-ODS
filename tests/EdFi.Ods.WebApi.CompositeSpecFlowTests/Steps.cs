@@ -14,8 +14,6 @@ using ApprovalTests;
 using ApprovalTests.Reporters;
 using EdFi.Common.Configuration;
 using EdFi.Common.Inflection;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.WebApi.CompositeSpecFlowTests.Dtos;
 using log4net;
 using log4net.Appender;
@@ -31,7 +29,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
     [IgnoreLineEndings(true)]
     public class Steps
     {
-        private readonly Lazy<IOdsDatabaseConnectionStringProvider> _connectionStringProvider;
         private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly Lazy<CancellationToken> _cancellationToken;
@@ -44,19 +41,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
             _cancellationToken = new Lazy<CancellationToken>(() => _featureContext.Get<CancellationToken>());
 
-            _connectionStringProvider = new Lazy<IOdsDatabaseConnectionStringProvider>(
-                () =>
-                {
-                    var provider = (IOdsDatabaseConnectionStringProvider) _featureContext.Get<IServiceProvider>()
-                        .GetService(typeof(IOdsDatabaseConnectionStringProvider));
-
-                    provider.ShouldNotBeNull();
-
-                    return provider;
-                });
-
             _edFiTestUriHelper = new EdFiTestUriHelper(CompositesTestConstants.BaseUrl);
-            _databaseEngine = DbHelper.GetDatabaseEngine();
+            _databaseEngine = CompositesSpecFlowTestFixture.Instance.DatabaseEngine;
         }
 
         [Given(@"the subject of the request is a StudentEducationOrganizationAssociation")]
@@ -467,7 +453,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "School by Id":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901001},
                         _cancellationToken.Value);
@@ -478,7 +463,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Schools by Local Education Agency (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901},
                         _cancellationToken.Value);
@@ -489,7 +473,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Schools by Section (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Section",
                         new {SectionIdentifier = "25590100101Trad120ENG112011"},
                         _cancellationToken.Value);
@@ -500,7 +483,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Schools by Staff (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Staff",
                         new {StaffUniqueId = "207268"},
                         _cancellationToken.Value);
@@ -511,7 +493,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Section by Id":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Section",
                         new {SectionIdentifier = "25590100101Trad120ENG112011"},
                         _cancellationToken.Value);
@@ -522,7 +503,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Sections by Local Education Agency (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901},
                         _cancellationToken.Value);
@@ -533,7 +513,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Sections by School (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901001},
                         _cancellationToken.Value);
@@ -544,7 +523,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Sections by Staff (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Staff",
                         new {StaffUniqueId = "207268"},
                         _cancellationToken.Value);
@@ -555,7 +533,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Staff by Id":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Staff",
                         new {StaffUniqueId = "207268"},
                         _cancellationToken.Value);
@@ -566,7 +543,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Staffs by Local Education Agency (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901},
                         _cancellationToken.Value);
@@ -577,7 +553,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Staffs by School (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901001},
                         _cancellationToken.Value);
@@ -588,7 +563,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Staffs by Section (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Section",
                         new {SectionIdentifier = "25590100101Trad120ENG112011"},
                         _cancellationToken.Value);
@@ -599,7 +573,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Student by Id":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Student",
                         new {StudentUniqueId = "605042"},
                         _cancellationToken.Value);
@@ -610,7 +583,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Students by Local Education Agency (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901},
                         _cancellationToken.Value);
@@ -621,7 +593,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Students by School (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "EducationOrganization",
                         new {EducationOrganizationId = 255901001},
                         _cancellationToken.Value);
@@ -632,7 +603,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Students by Section (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Section",
                         new {SectionIdentifier = "25590100101Trad120ENG112011"},
                         _cancellationToken.Value);
@@ -643,7 +613,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 case "Students by Staff (Id)":
 
                     resourceId = await StepsHelper.GetResourceIdAsync(
-                        _connectionStringProvider.Value.GetConnectionString(),
                         "Staff",
                         new {StaffUniqueId = "207268"},
                         _cancellationToken.Value);
@@ -720,8 +689,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         private async Task SetStudentSchoolAssociationKeyInformationAsync(string query)
         {
-            var dto = await StepsHelper.GetAsync<StudentSchoolKeyInformation>(
-                _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
+            var dto = await StepsHelper.GetAsync<StudentSchoolKeyInformation>(query, _cancellationToken.Value);
 
             dto.ShouldNotBeNull();
 
@@ -739,8 +707,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         private async Task SetAssessmentKeyInformationAsync(string query)
         {
-            var dto = await StepsHelper.GetAsync<StudentAssessmentKeyInformation>(
-                _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
+            var dto = await StepsHelper.GetAsync<StudentAssessmentKeyInformation>(query, _cancellationToken.Value);
 
             dto.ShouldNotBeNull();
 
@@ -759,8 +726,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         private async Task SetIdAsync(string query)
         {
-            var id = await StepsHelper.GetAsync<Guid>(
-                _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
+            var id = await StepsHelper.GetAsync<Guid>(query, _cancellationToken.Value);
 
             id.ShouldNotBe(default(Guid));
 

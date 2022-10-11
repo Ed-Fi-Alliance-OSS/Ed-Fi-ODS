@@ -18,6 +18,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         }
 
         public string GetConnectionString()
-            => string.Format(_configuration.GetConnectionString("EdFi_Ods"), CompositesSpecFlowTestFixture.SpecFlowDatabaseName);
+            => _configuration.GetConnectionString("EdFi_Ods");
     }
 }

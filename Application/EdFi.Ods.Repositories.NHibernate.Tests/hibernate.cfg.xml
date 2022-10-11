@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
   <session-factory>
-    <property name="dialect">NHibernate.Dialect.MsSql2012Dialect</property>
+    <property name="connection.isolation">ReadCommitted</property>
     <property name="default_schema">edfi</property>
     <property name="current_session_context_class">async_local</property>
     <property name="adonet.batch_size">100</property>

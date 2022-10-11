@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -13,7 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Ods.WebApi.IntegrationTests.Helpers;
-using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -26,15 +24,11 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            var configuration = SandboxHostGlobalFixture.Configuration;
-
-            _connectionStringTemplate = configuration.GetConnectionString("EdFi_Ods");
-            _cancellationToken = new CancellationToken();
+            _cancellationToken = GlobalWebApiIntegrationTestFixture.Instance.CancellationToken;
             _uriHelper = new EdFiTestUriHelper(TestConstants.SandboxBaseUrl);
-            _httpClient = SandboxHostGlobalFixture.HttpClient;
+            _httpClient = SandboxHostGlobalFixture.Instance.HttpClient;
         }
 
-        private string _connectionStringTemplate;
         private CancellationToken _cancellationToken;
         private EdFiTestUriHelper _uriHelper;
         private HttpClient _httpClient;
@@ -85,13 +79,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
 
         private async Task<int?> StudentExistsAsync(string uniqueId)
         {
-            string connectionString = string.Format(
-                _connectionStringTemplate, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}");
-
-            using var conn = DbHelper.GetConnection(connectionString);
-
-            conn.Open();
-
+            using var conn = SandboxHostGlobalFixture.Instance.BuildOdsConnection();
+            
             return await conn.QuerySingleOrDefaultAsync<int?>(
                 $"SELECT 1 FROM edfi.Student WHERE StudentUniqueId = '{uniqueId}'", _cancellationToken);
         }

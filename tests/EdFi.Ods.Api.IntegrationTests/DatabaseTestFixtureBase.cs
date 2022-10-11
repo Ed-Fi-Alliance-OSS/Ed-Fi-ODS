@@ -30,6 +30,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             Connection?.Dispose();
         }
 
-        protected virtual IDbConnection BuildTestConnection() => OneTimeGlobalDatabaseSetup.BuildConnection();
+        protected virtual IDbConnection BuildTestConnection() => OneTimeGlobalDatabaseSetup.Instance.BuildOdsConnection();
     }
 }
