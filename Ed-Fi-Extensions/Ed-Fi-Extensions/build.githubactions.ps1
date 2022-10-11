@@ -126,7 +126,7 @@ function Clean {
 function Compile {
     Invoke-Execute {
         dotnet --info
-        dotnet build $Solution -c $Configuration -p:AssemblyVersion=$version -p:FileVersion=$version -p:InformationalVersion=$InformationalVersion
+        dotnet build $Solution -c $Configuration --version-suffix $version
     }
 }
 
