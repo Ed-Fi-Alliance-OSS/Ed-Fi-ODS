@@ -3,23 +3,33 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DECLARE @claimSetId INT;
-DECLARE @applicationId INT;
+DECLARE @currentDatabase AS nvarchar(max);
+SELECT @currentDatabase =DB_NAME()
 
-SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API');
+PRINT 'current database name : ' + @currentDatabase;
 
-IF  EXISTS(SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId)
+IF @currentDatabase = 'EdFi_Security'
 BEGIN
+        DECLARE @claimSetId INT;
+        DECLARE @applicationId INT;
 
-SELECT @claimSetId = claimsetid FROM [dbo].[ClaimSets] 
-WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId
+        SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API');
 
-DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides WHERE ClaimSetResourceClaimActionId 
-IN (SELECT ClaimSetResourceClaimActionId FROM dbo.claimsetresourceclaimactions WHERE claimsetid =@claimSetId)
+        IF  EXISTS(SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId)
+        BEGIN
+        PRINT 'Deleting ''Ownership Based Test'' claimset data from  ' + @currentDatabase + 'database';
+        SELECT @claimSetId = claimsetid FROM [dbo].[ClaimSets] 
+        WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId
 
-DELETE FROM dbo.ClaimSetResourceClaimActions where claimsetid =@claimSetId
+        DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides WHERE ClaimSetResourceClaimActionId 
+        IN (SELECT ClaimSetResourceClaimActionId FROM dbo.claimsetresourceclaimactions WHERE claimsetid =@claimSetId)
 
-DELETE FROM [dbo].[ClaimSets]  WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId
+        DELETE FROM dbo.ClaimSetResourceClaimActions where claimsetid =@claimSetId
 
+        DELETE FROM [dbo].[ClaimSets]  WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId
+
+        END
 END
+
+
 

@@ -7,11 +7,20 @@ DO $$
 DECLARE
     application_id INTEGER;
     claim_set_id INTEGER;
+    currentDatabase VARCHAR(255);
+
+SELECT current_database() INTO currentDatabase;
+
+RAISE NOTICE 'current database name : %', currentDatabase;
+
+IF currentDatabase = 'EdFi_Security'
+
 BEGIN
     SELECT applicationid INTO application_id  FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
     IF  EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id) THEN
 
+        RAISE NOTICE 'Deleting ''Ownership Based Test'' claimset data from  % database', currentDatabase ;        
         SELECT claimsetid INTO claim_set_id FROM dbo.ClaimSets 
         WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id;
 
@@ -23,4 +32,5 @@ BEGIN
         DELETE FROM dbo.ClaimSets  WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id;
     END IF;
 
+END IF;
 END $$;
