@@ -1,10 +1,7 @@
 name: EdFi.Common Manually triggered build
 
 on:
-  pull_request:
-    branches: [main]
   workflow_dispatch:
-
 
 env:
   INFORMATIONAL_VERSION: "6.1"

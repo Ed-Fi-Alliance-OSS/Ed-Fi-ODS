@@ -1,8 +1,6 @@
 name: EdFi.Ods.Common Manually triggered build
 
 on:
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 env:
