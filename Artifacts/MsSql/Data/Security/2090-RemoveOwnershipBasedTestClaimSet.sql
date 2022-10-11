@@ -3,12 +3,8 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DECLARE @currentDatabase AS nvarchar(max);
-SELECT @currentDatabase =DB_NAME()
 
-PRINT 'current database name : ' + @currentDatabase;
-
-IF @currentDatabase = 'EdFi_Security'
+IF DB_NAME() = 'EdFi_Security'
 BEGIN
         DECLARE @claimSetId INT;
         DECLARE @applicationId INT;
@@ -17,7 +13,7 @@ BEGIN
 
         IF  EXISTS(SELECT 1 FROM [dbo].[ClaimSets] WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId)
         BEGIN
-        PRINT 'Deleting ''Ownership Based Test'' claimset data from  ' + @currentDatabase + 'database';
+        PRINT 'Deleting ''Ownership Based Test'' claimset data from  ''EdFi_Security'' database';
         SELECT @claimSetId = claimsetid FROM [dbo].[ClaimSets] 
         WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId
 
