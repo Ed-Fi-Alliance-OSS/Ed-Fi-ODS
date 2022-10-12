@@ -33,8 +33,13 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
 using EdFi.Ods.Api.Container.Modules;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using Npgsql;
 using Test.Common.DataConstants;
+using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -80,6 +85,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             {
                 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
                 RegisterDependencies();
+                
+                Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(_container);
+
                 IDescriptorsCache cache = null;
                 DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>();
 
@@ -410,6 +418,13 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
 
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
+
+                // Stub out the mapping contract provider to return null every time
+                var mappingContractProvider = A.Fake<IMappingContractProvider>();
+                A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);
+
+                builder.RegisterInstance(mappingContractProvider).As<IMappingContractProvider>();
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => mappingContractProvider); 
 
                 _container = builder.Build();
             }
