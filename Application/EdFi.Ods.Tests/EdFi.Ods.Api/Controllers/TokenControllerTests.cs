@@ -1012,7 +1012,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_return_a_single_valued_response_with_an_error_indicating_invalid_client()
             {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                _tokenError.Error.ShouldBe("test");
             }
         }
 
