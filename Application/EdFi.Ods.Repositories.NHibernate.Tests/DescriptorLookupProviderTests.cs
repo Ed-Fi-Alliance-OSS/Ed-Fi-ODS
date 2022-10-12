@@ -193,7 +193,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         {
             var descriptorsLookup = DescriptorLookupProvider.GetDescriptorLookupsByDescriptorName(AssessmentPeriodDescriptorName);
 
-            descriptorsLookup.All(dl => dl.DescriptorName == AssessmentPeriodDescriptorName)
+            descriptorsLookup.All(dl => dl.DescriptorName == "Abcd1234")
                 .ShouldBeTrue();
         }
 
