@@ -16,7 +16,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Api.Middleware;
 
-// SPIKE NOTE: Needs unit tests!
+// SPIKE NOTE: This class could really use some unit tests.
 
 /// <summary>
 /// Implements middleware that inspects the content type of a request (Accept for GET request, Content-Type for PUT/POST requests),
@@ -76,6 +76,14 @@ public class ProfileContentTypeContextMiddleware
                     throw new BadRequestException($"The format of the profile-based '{headerName}' header was invalid.");
                 }
 
+                // SPIKE NOTE: Probably will want to remove this in favor of the same check elsewhere before final merge. Just need to make sure that a check is performed that the resource in the profile content matches the resource in the request
+                // TODO: Ensure that the resource name of the profile request context matches the name of the resource from the DataManagementResourceContext - paying attention to the order of the middleware 
+                // if (!profileRequestContext.ResourceName.EqualsIgnoreCase(resourceClassFullName.Name))
+                // {
+                //     throw new BadRequestException(
+                //         "The resource specified in the profile-based content type did not match the resource targeted by the request.");
+                // }
+                
                 profileContentTypeContextProvider.Set(
                     new ProfileContentTypeContext(
                         profileContentTypeFacets[ProfileNameFacet].Value,

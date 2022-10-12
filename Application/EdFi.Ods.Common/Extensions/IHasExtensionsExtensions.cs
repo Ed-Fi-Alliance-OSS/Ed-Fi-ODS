@@ -19,8 +19,7 @@ namespace EdFi.Ods.Common.Extensions
     /// </summary>
     public static class IHasExtensionsExtensions
     {
-        private static readonly ConcurrentDictionary<ExtensionKey, Type> _extensionTypeByExtensionKey
-            = new ConcurrentDictionary<ExtensionKey, Type>();
+        private static readonly ConcurrentDictionary<ExtensionKey, Type> _extensionTypeByExtensionKey = new();
 
         public static Func<Type, string, object> CreateTargetExtensionObject = DoCreateTargetExtensionObject;
 
@@ -150,7 +149,10 @@ namespace EdFi.Ods.Common.Extensions
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <param name="extensionsMappingContract"></param>
-        public static void MapExtensionsTo<TSource, TTarget>(this TSource source, TTarget target, IExtensionsMappingContract extensionsMappingContract)
+        public static void MapExtensionsTo<TSource, TTarget>(
+            this TSource source,
+            TTarget target,
+            IExtensionsMappingContract extensionsMappingContract)
             where TSource : IMappable, IHasExtensions
             where TTarget : IHasExtensions
         {

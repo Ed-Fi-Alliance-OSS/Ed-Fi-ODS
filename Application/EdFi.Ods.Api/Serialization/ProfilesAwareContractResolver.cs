@@ -9,9 +9,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.Common;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.Extensions.Primitives;
@@ -25,8 +27,7 @@ namespace EdFi.Ods.Api.Serialization;
 
 public class ProfilesAwareContractResolver : DefaultContractResolver
 {
-    // SPIKE NOTE: This namespace should probably be defined in a conventions class, if not already
-    private const string EdFiOdsApiModelsResourcesNamespacePrefix = "EdFi.Ods.Api.Common.Models.Resources.";
+    private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
 
     private readonly ConcurrentDictionary<MappingContractKey, JsonContract> _contractByKey = new();
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
@@ -35,27 +36,30 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
 
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
+    private readonly ISchemaNameMapProvider _schemaNameMapProvider;
 
     public ProfilesAwareContractResolver(
-        IContextProvider<ProfileContentTypeContext> profileRequestContextProvider,
+        IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-        IProfileResourceModelProvider profileResourceModelProvider)
+        IProfileResourceModelProvider profileResourceModelProvider,
+        ISchemaNameMapProvider schemaNameMapProvider)
     {
-        _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        _dataManagementResourceContextProvider = dataManagementResourceContextProvider
+            ?? throw new ArgumentNullException(nameof(dataManagementResourceContextProvider));
 
-        _profileResourceModelProvider = Preconditions.ThrowIfNull(
-            profileResourceModelProvider,
-            nameof(profileResourceModelProvider));
+        _profileResourceModelProvider = profileResourceModelProvider
+            ?? throw new ArgumentNullException(nameof(profileResourceModelProvider));
 
-        _profileContentTypeContextProvider = Preconditions.ThrowIfNull(
-            profileRequestContextProvider,
-            nameof(profileRequestContextProvider));
+        _schemaNameMapProvider = schemaNameMapProvider ?? throw new ArgumentNullException(nameof(schemaNameMapProvider));
+
+        _profileContentTypeContextProvider = profileContentTypeContextProvider
+            ?? throw new ArgumentNullException(nameof(profileContentTypeContextProvider));
     }
 
     public override JsonContract ResolveContract(Type type)
     {
         // Use default behavior for everything but resource classes
-        if (type.FullName?.StartsWith(EdFiOdsApiModelsResourcesNamespacePrefix) != true)
+        if (type.FullName?.StartsWith(_resourcesNamespacePrefix) != true)
         {
             return base.ResolveContract(type);
         }
@@ -69,14 +73,6 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
         }
 
         var resourceClassFullName = GetFullNameFromResourceTypeNamespace(type);
-
-        // SPIKE NOTE: Review this check somewhere on top-level resource classes -- but isn't probably valid here (e.g. on child types)
-        // // Ensure that the resource name of the profile request context matches the type being serialized
-        // if (!profileRequestContext.ResourceName.EqualsIgnoreCase(resourceClassFullName.Name))
-        // {
-        //     throw new BadRequestException(
-        //         "The resource specified in the profile-based content type did not match the resource targeted by the request.");
-        // }
 
         var mappingContractKey = new MappingContractKey(
             resourceClassFullName,
@@ -98,15 +94,16 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
                 // Create a string segment for the pertinent part of the full name
                 var resourceTypeNamespace = new StringSegment(
                     type.FullName,
-                    EdFiOdsApiModelsResourcesNamespacePrefix.Length,
-                    type.FullName.Length - EdFiOdsApiModelsResourcesNamespacePrefix.Length);
+                    _resourcesNamespacePrefix.Length,
+                    type.FullName.Length - _resourcesNamespacePrefix.Length);
 
                 var namePartsTokenizer = resourceTypeNamespace.Split(new[] { '.' });
 
-                // SPIKE NOTE: Do we need to convert the schema name from ProperCaseName to the PhysicalName. Will they ever be different, other than in casing?
                 var (schema, name) = GetSchemaAndResourceNameFromTokenizedString(namePartsTokenizer);
 
-                return new FullName(schema, name);
+                string physicalSchemaName = _schemaNameMapProvider.GetSchemaMapByProperCaseName(schema).PhysicalName;
+                
+                return new FullName(physicalSchemaName, name);
             });
 
         (string, string) GetSchemaAndResourceNameFromTokenizedString(StringTokenizer tokenizer)
@@ -133,7 +130,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
         string typeFullName = objectType.FullName;
 
         // Use default serialization behavior if this is not a resource class
-        if (typeFullName?.StartsWith(EdFiOdsApiModelsResourcesNamespacePrefix) != true)
+        if (typeFullName?.StartsWith(_resourcesNamespacePrefix) != true)
         {
             return serializableMembers;
         }

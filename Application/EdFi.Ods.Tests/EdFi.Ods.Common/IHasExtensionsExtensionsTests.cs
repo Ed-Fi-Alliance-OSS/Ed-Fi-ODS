@@ -17,6 +17,8 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 {
+    // SPIKE NOTE: These unit tests deserve code coverage analysis and an attempt to bring up the coverage level of the extension methods.
+
     [TestFixture]
     public class Feature_Synchronizing_extensions
     {
@@ -238,7 +240,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             }
         }
 
-        // SPIKE NOTE: Test seems to be obsolete, but needs to be rewritten to cover use of synchronization context appropriately.
+        // SPIKE NOTE: Test is obsolete, but needs to be rewritten to cover use of the mapping contract appropriately.
         // [TestFixture]
         // public class When_synchronizing_entity_extensions_where_the_source_entity_is_not_a_synchronization_source_for_some_of_the_extensions
         //     : TestFixtureBase
@@ -513,7 +515,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
             protected override void Act()
             {
-                // SPIKE NOTE: Fix this test (just passed in a null)
                 _suppliedSourceObject.MapExtensionsTo(_suppliedTargetObject, null);
             }
 
@@ -622,7 +623,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
             protected override void Act()
             {
-                // SPIKE NOTE: Fix this test (just passed in an additional null)
                 _suppliedSourceObject.MapExtensionsTo(_suppliedTargetObject, null);
             }
 
@@ -896,7 +896,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         //
         //     protected override void Act()
         //     {
-        //         // SPIKE NOTE: Fix this test properly (just passed in null)
         //         _suppliedSourceObject.MapExtensionsTo(_suppliedTargetObject, null);
         //     }
         //
@@ -971,7 +970,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
             protected override void Act()
             {
-                // SPIKE NOTE: Fix this test properly (just passed in null)
                 _suppliedSourceObject.MapExtensionsTo(_suppliedTargetObject, null);
             }
 

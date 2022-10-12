@@ -29,12 +29,11 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
     private readonly IContextProvider<DataManagementResourceContext> _contextProvider;
     private readonly ApiSettings _apiSettings;
 
-    private readonly string[] _knownSchemas;
-
     private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementRequestContextFilter));
     private readonly IResourceModelProvider _resourceModelProvider;
 
-    private static string _templatePrefix;
+    private readonly Lazy<string> _templatePrefix;
+    private readonly Lazy<string[]> _knownSchemaUriSegments;
     
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
@@ -42,14 +41,16 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
         ApiSettings apiSettings)
     {
         _resourceModelProvider = resourceModelProvider;
-
-        _knownSchemas = _resourceModelProvider.GetResourceModel()
-            .SchemaNameMapProvider.GetSchemaNameMaps()
-            .Select(m => m.UriSegment)
-            .ToArray();
-
         _contextProvider = contextProvider;
+
+        _knownSchemaUriSegments = new Lazy<string[]>(
+            () => _resourceModelProvider.GetResourceModel()
+                .SchemaNameMapProvider.GetSchemaNameMaps()
+                .Select(m => m.UriSegment)
+                .ToArray());
+
         _apiSettings = apiSettings;
+        _templatePrefix = new Lazy<string>(() => GetTemplatePrefix());
     }
 
     public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
@@ -58,18 +59,16 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
 
         if (attributeRouteInfo != null)
         {
-            _templatePrefix ??= GetTemplatePrefix();
-
             string template = attributeRouteInfo.Template;
 
             // e.g. data/v3/ed-fi/gradebookEntries
 
             // Is this a data management route?
-            if (template?.StartsWith(_templatePrefix) ?? false)
+            if (template?.StartsWith(_templatePrefix.Value) ?? false)
             {
                 var templateSegment = new StringSegment(template);
                 
-                var parts = templateSegment.Subsegment(_templatePrefix.Length).Split(new[]{'/'});
+                var parts = templateSegment.Subsegment(_templatePrefix.Value.Length).Split(new[]{'/'});
                 using var partsEnumerator = parts.GetEnumerator();
                 partsEnumerator.MoveNext();
                 
@@ -91,8 +90,8 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 }
                 else
                 {
-                    // If this is NOT a known schema...
-                    if (!_knownSchemas.Contains(partsEnumerator.Current))
+                    // If this is NOT a known schema URI segment...
+                    if (!_knownSchemaUriSegments.Value.Contains(partsEnumerator.Current))
                     {
                         return;
                     }
@@ -106,7 +105,6 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 // Find and capture the associated resource to context
                 try
                 {
-                    // SPIKE NOTE: What about setting the Profile-specific resource model here?
                     var resource = _resourceModelProvider.GetResourceModel()
                         .GetResourceByApiCollectionName(schema, resourceCollection);
 
