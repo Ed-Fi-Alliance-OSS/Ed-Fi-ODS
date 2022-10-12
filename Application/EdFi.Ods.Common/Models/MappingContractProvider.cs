@@ -24,6 +24,7 @@ public class MappingContractProvider : IMappingContractProvider
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
+    private readonly ISchemaNameMapProvider _schemaNameMapProvider;
 
     private readonly ConcurrentDictionary<MappingContractKey, IMappingContract>
         _mappingContractByKey = new();
@@ -31,7 +32,8 @@ public class MappingContractProvider : IMappingContractProvider
     public MappingContractProvider(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-        IProfileResourceModelProvider profileResourceModelProvider)
+        IProfileResourceModelProvider profileResourceModelProvider,
+        ISchemaNameMapProvider schemaNameMapProvider)
     {
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider
             ?? throw new ArgumentNullException(nameof(dataManagementResourceContextProvider));
@@ -41,6 +43,8 @@ public class MappingContractProvider : IMappingContractProvider
 
         _profileResourceModelProvider = profileResourceModelProvider
             ?? throw new ArgumentNullException(nameof(profileResourceModelProvider));
+
+        _schemaNameMapProvider = schemaNameMapProvider ?? throw new ArgumentNullException(nameof(schemaNameMapProvider));
     }
 
     public IMappingContract GetMappingContract(FullName resourceClassFullName)
@@ -55,8 +59,7 @@ public class MappingContractProvider : IMappingContractProvider
 
         var dataManagementResourceContext = _dataManagementResourceContextProvider.Get();
 
-        // SPIKE NOTE: This is probably misplaced -- probably should be a component layered into ASP.NET architecture as a filter
-        // of some sort by the Profiles feature.
+        // SPIKE NOTE: This check might be better located in middleware or a filter
         // Need to verify that the resource in the profile content type matches the current request resource
         if (!dataManagementResourceContext.Resource.Name.EqualsIgnoreCase(profileContentTypeContext.ResourceName))
         {
@@ -123,17 +126,23 @@ public class MappingContractProvider : IMappingContractProvider
                 }
 
                 // Find the mapping contract for the specific class
-                // SPIKE NOTE: (Old note, still relevant?) Really need to convert the physical schema name (which is what it should be) to ProperCaseName
-                // SPIKE NOTE: These embedded conventions should probably be moved somewhere more sensible (conventions/namespace class).
-                string typeName =
-                    $"EdFi.Ods.Entities.Common.{profileResourceClass.FullName.Schema}.{profileResourceClass.FullName.Name}MappingContract";
+                
+                // Need to convert the physical schema name (which is what it should be) to ProperCaseName
+                string properCaseSchemaName = _schemaNameMapProvider
+                    .GetSchemaMapByPhysicalName(profileResourceClass.FullName.Schema)
+                    .ProperCaseName;
+                
+                // SPIKE NOTE: This embedded convention should probably be located somewhere more sensible (like the Namespaces class).
+                string mappingContractTypeName =
+                    $"EdFi.Ods.Entities.Common.{properCaseSchemaName}.{profileResourceClass.FullName.Name}MappingContract";
 
+                // SPIKE NOTE: These embedded conventions should probably be located (or used from) somewhere more sensible (like the Namespaces class).
                 string assemblyName = key.ResourceClassName.Schema.EqualsIgnoreCase(EdFiConventions.PhysicalSchemaName)
                     ? "EdFi.Ods.Standard"
                     : $"EdFi.Ods.Extensions.{profileResourceClass.FullName.Schema}";
 
                 var mappingContractType = Type.GetType(
-                    $"{typeName}, {assemblyName}",
+                    $"{mappingContractTypeName}, {assemblyName}",
                     throwOnError: true,
                     ignoreCase: true);
 
@@ -146,13 +155,11 @@ public class MappingContractProvider : IMappingContractProvider
                         {
                             if (parameterInfo.Name == "supportedExtensions")
                             {
-                                //string memberName = "SupportedExtensions";
-
                                 // SPIKE NOTE: Is this the correct name to use for the extension?
                                 return profileResource.Extensions.Select(x => x.PropertyName).ToArray();
                             }
 
-                            if (!parameterInfo.Name.StartsWith("is"))
+                            if (parameterInfo.Name?.StartsWith("is") != true)
                             {
                                 throw new Exception(
                                     $"Constructor argument '{parameterInfo.Name}' of '{mappingContractType.FullName}' did not conform to expected naming convention of isXxxxSupported or isXxxxIncluded.");

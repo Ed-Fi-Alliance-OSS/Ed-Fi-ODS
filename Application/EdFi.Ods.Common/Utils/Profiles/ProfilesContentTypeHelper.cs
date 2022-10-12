@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using EdFi.Common.Inflection;
 using Microsoft.Extensions.Primitives;
@@ -12,79 +13,36 @@ namespace EdFi.Ods.Common.Utils.Profiles
 {
     public static class ProfilesContentTypeHelper
     {
-        private static readonly Regex ProfileRegex = new Regex(
-            @"^application/vnd\.ed-fi(\.(?<Implementation>[\w\-]+))?\.(?<Resource>\w+)\.(?<Profile>[\w\-]+)\.(?<Usage>(readable|writable))\+json$",
-            RegexOptions.Compiled);
+        private static readonly ConcurrentDictionary<ContentTypeKey, string> _contentTypeByKey = new();
 
         public static string CreateContentType(
-            string resourceCollectionName,
+            string resourceName,
             string profileName,
             ContentTypeUsage usage)
         {
-            return string.Format(
-                "application/vnd.ed-fi{0}.{1}.{2}.{3}+json",
-                string.Empty,
-                CompositeTermInflector.MakeSingular(resourceCollectionName)
-                                      .ToLower(),
-                profileName.ToLower(),
-                usage.ToString()
-                     .ToLower());
+            return _contentTypeByKey.GetOrAdd(
+                new ContentTypeKey(resourceName, profileName, usage),
+                key => string.Format(
+                    "application/vnd.ed-fi.{0}.{1}.{2}+json",
+                    resourceName.ToLower(),
+                    profileName.ToLower(),
+                    usage.ToString().ToLower()));
         }
 
-        // SPIKE NOTE: This wasn't used after .NET Core conversion, in favor of generating content type attributes on the controller action methods.
-        // However, those controllers/action methods are no longer use. Do we need to reinstate this somewhere to ensure the correct content types are identified on the responses?
-        // If not, delete this. Otherwise, reinstate and use appropriately.
-        
-        // public static ProfileContentTypeDetails GetContentTypeDetails(this StringSegment contentType)
-        // {
-        //     ProfileContentTypeDetails details;
-        //
-        //     if (TryGetContentTypeDetails(contentType, out details))
-        //     {
-        //         return details;
-        //     }
-        //
-        //     return null;
-        // }
+        private struct ContentTypeKey
+        {
+            public ContentTypeKey(string resourceName, string profileName, ContentTypeUsage contentTypeUsage)
+            {
+                ResourceName = resourceName;
+                ProfileName = profileName;
+                ContentTypeUsage = contentTypeUsage;
+            }
 
-        // public static bool IsEdFiContentType(this string contentType)
-        // {
-        //     if (contentType.StartsWith("application/vnd.ed-fi."))
-        //     {
-        //         return true;
-        //     }
-        //
-        //     return false;
-        // }
-        //
-        // private static bool TryGetContentTypeDetails(this string contentType, out ProfileContentTypeDetails details)
-        // {
-        //     details = null;
-        //
-        //     var match = ProfileRegex.Match(contentType);
-        //
-        //     if (!match.Success)
-        //     {
-        //         return false;
-        //     }
-        //
-        //     details = new ProfileContentTypeDetails
-        //               {
-        //                   Implementation = match.Groups["Implementation"]
-        //                                         .Value,
-        //                   Resource = match.Groups["Resource"]
-        //                                   .Value,
-        //                   Profile = match.Groups["Profile"]
-        //                                  .Value,
-        //                   Usage =
-        //                       (ContentTypeUsage) Enum.Parse(
-        //                           typeof(ContentTypeUsage),
-        //                           match.Groups["Usage"]
-        //                                .Value,
-        //                           true)
-        //               };
-        //
-        //     return true;
-        // }
+            public string ResourceName { get; }
+
+            public string ProfileName { get; private set; }
+
+            public ContentTypeUsage ContentTypeUsage { get; private set; }
+        }
     }
 }

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.Serialization;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
@@ -15,20 +16,27 @@ using Newtonsoft.Json.Serialization;
 
 namespace EdFi.Ods.Api.Startup;
 
+/// <summary>
+/// Initializes JSON.NET with the custom <see cref="ProfilesAwareContractResolver" /> that is Profiles-aware, rather than the
+/// general-purpose <see cref="CamelCasePropertyNamesContractResolver" />.
+/// </summary>
 public class NewtonsoftJsonOptionConfigurator : IConfigureOptions<MvcNewtonsoftJsonOptions>
 {
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
+    private readonly ISchemaNameMapProvider _schemaNameMapProvider;
 
     public NewtonsoftJsonOptionConfigurator(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-        IProfileResourceModelProvider profileResourceModelProvider)
+        IProfileResourceModelProvider profileResourceModelProvider,
+        ISchemaNameMapProvider schemaNameMapProvider)
     {
         _profileContentTypeContextProvider = profileContentTypeContextProvider;
         _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         _profileResourceModelProvider = profileResourceModelProvider;
+        _schemaNameMapProvider = schemaNameMapProvider;
     }
 
     public void Configure(MvcNewtonsoftJsonOptions options)
@@ -41,7 +49,8 @@ public class NewtonsoftJsonOptionConfigurator : IConfigureOptions<MvcNewtonsoftJ
             = new ProfilesAwareContractResolver(
                 _profileContentTypeContextProvider, 
                 _dataManagementResourceContextProvider, 
-                _profileResourceModelProvider)
+                _profileResourceModelProvider,
+                _schemaNameMapProvider)
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
