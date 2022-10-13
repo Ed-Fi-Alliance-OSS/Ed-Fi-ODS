@@ -6,8 +6,6 @@
 name: Packages - EdFi.Ods.Minimal.Template.PostgreSQL
 
 on:
-  pull_request:
-    branches: [main]
   push:
     branches:
       - main
