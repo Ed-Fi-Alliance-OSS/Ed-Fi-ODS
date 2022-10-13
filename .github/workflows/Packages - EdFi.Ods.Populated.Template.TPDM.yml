@@ -6,9 +6,9 @@
 name: Packages - EdFi.Ods.Populated.Template.TPDM
 
 on:
-  pull_request:
-    branches: [main]
-    
+  push:
+    branches:
+      - main
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-implementation-repo]
