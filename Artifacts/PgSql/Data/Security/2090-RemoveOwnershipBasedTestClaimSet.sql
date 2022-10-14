@@ -9,8 +9,6 @@ DECLARE
     claim_set_id INTEGER;
 BEGIN
 
-IF (SELECT current_database()='EdFi_Security') THEN
-
     SELECT applicationid INTO application_id  FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
     IF  EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id) THEN
@@ -27,5 +25,4 @@ IF (SELECT current_database()='EdFi_Security') THEN
         DELETE FROM dbo.ClaimSets  WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id;
     END IF;
 
-END IF;
 END $$;

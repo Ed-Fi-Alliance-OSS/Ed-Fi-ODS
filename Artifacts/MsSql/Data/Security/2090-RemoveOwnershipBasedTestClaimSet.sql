@@ -3,9 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-
-IF DB_NAME() = 'EdFi_Security'
-BEGIN
         DECLARE @claimSetId INT;
         DECLARE @applicationId INT;
 
@@ -25,7 +22,3 @@ BEGIN
         DELETE FROM [dbo].[ClaimSets]  WHERE [ClaimSetName] ='Ownership Based Test' AND Application_ApplicationId = @applicationId
 
         END
-END
-
-
-
