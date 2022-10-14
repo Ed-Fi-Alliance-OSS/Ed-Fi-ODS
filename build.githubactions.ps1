@@ -133,6 +133,10 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
+        Write-Host  "PackageName  " $PackageName
+        Write-Host  "packageOutput  " $packageOutput
+        Write-Host  "NuspecFilePath " $NuspecFilePath
+       Get-Content -Path $NuspecFilePath
        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
