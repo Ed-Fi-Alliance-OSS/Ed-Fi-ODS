@@ -26,7 +26,7 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj"
       shell: pwsh
-    - name: test
+    - name: Run Unit tests
       run: |
         .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj"
       shell: pwsh

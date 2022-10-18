@@ -83,7 +83,7 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
-    - name: Running Test for  codegen Project 
+    - name: Run Unit tests for  codegen Project 
       working-directory: ./Ed-Fi-ODS/    
       run: |
         $ErrorActionPreference = 'Stop'
