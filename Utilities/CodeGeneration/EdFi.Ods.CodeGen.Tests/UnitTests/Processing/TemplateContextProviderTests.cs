@@ -25,59 +25,6 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
         {
             private IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
             private TemplateContext _result;
-            private CodeRepositoryHelper _codeRepositoryHelper;
-            private TemplateContextProvider _templateContextProvider;
-            private AssemblyData _assemblyData;
-            private IEnumerable<IDomainModelDefinitionsProvider> _domainModelDefinitionsProviders;
-
-            protected override void Arrange()
-            {
-                _codeRepositoryHelper = new CodeRepositoryHelper(Environment.CurrentDirectory);
-
-                _assemblyData = new AssemblyData
-                {
-                    AssemblyName = "testAssembly",
-                    Path = "testFolder",
-                    TemplateSet = "standard",
-                    IsExtension = false,
-                    SchemaName = EdFiConventions.ProperCaseName
-                };
-
-                var domainModelDefinition = new DomainModelDefinitions {SchemaDefinition = new SchemaDefinition("Ed-Fi", "edfi")};
-
-                var domainModelDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
-
-                A.CallTo(() => domainModelDefinitionsProvider.GetDomainModelDefinitions())
-                    .Returns(domainModelDefinition);
-
-                _domainModelDefinitionsProviders = new[] {domainModelDefinitionsProvider};
-
-                _domainModelDefinitionsProviderProvider = Stub<IDomainModelDefinitionsProviderProvider>();
-
-                A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
-                    .Returns(_domainModelDefinitionsProviders);
-
-                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider);
-            }
-
-            protected override void Act()
-            {
-                _result = _templateContextProvider.Create(_assemblyData);
-            }
-
-            [Test]
-            public void Should_call_domain_model_definition_provider_once()
-                => A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
-                    .MustHaveHappenedOnceExactly();
-
-            [Test]
-            public void Should_not_return_null() => _result.ShouldNotBeNull();
-        }
-
-        public class When_getting_the_template_context_for_profile : TestFixtureBase
-        {
-            private IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
-            private TemplateContext _result;
             private TemplateContextProvider _templateContextProvider;
             private AssemblyData _assemblyData;
             private IEnumerable<IDomainModelDefinitionsProvider> _domainModelDefinitionsProviders;
@@ -114,8 +61,6 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             {
                 _result = _templateContextProvider.Create(_assemblyData);
             }
-
-            public override void RunOnceAfterAll() { }
 
             [Test]
             public void Should_call_domain_model_definition_provider_once()

@@ -93,6 +93,8 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                     // If this is NOT a known schema URI segment...
                     if (!_knownSchemaUriSegments.Value.Contains(partsEnumerator.Current))
                     {
+                        await next();
+                        
                         return;
                     }
 
