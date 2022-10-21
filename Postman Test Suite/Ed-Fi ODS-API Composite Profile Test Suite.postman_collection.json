@@ -128,7 +128,7 @@
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200 or 201\", () => {",
 									"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 									"    });",
@@ -206,7 +206,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -282,7 +282,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -334,7 +334,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -451,7 +451,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -528,7 +528,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -580,7 +580,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -700,7 +700,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -774,7 +774,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -826,7 +826,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -944,7 +944,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1021,7 +1021,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1073,7 +1073,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
 											"});",
@@ -1191,7 +1191,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1268,7 +1268,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1320,7 +1320,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -1438,7 +1438,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1498,7 +1498,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -1588,7 +1588,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -1665,7 +1665,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -1783,7 +1783,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1860,7 +1860,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -1912,7 +1912,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 405\", () => {",
 											"        pm.expect(pm.response.code).to.equal(405);",
 											"    });",
@@ -2029,7 +2029,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2106,7 +2106,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2158,7 +2158,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -2281,7 +2281,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2358,7 +2358,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2410,7 +2410,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -2533,7 +2533,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2610,7 +2610,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2662,7 +2662,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -2785,7 +2785,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -2845,7 +2845,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -2940,7 +2940,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3044,7 +3044,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -3106,7 +3106,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -3188,7 +3188,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -3275,7 +3275,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -3344,7 +3344,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3425,7 +3425,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3508,7 +3508,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3621,7 +3621,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
 											"});",
@@ -3703,7 +3703,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3798,7 +3798,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3860,7 +3860,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -4000,7 +4000,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -4060,7 +4060,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4150,7 +4150,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4253,7 +4253,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -4315,7 +4315,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -4397,7 +4397,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -4484,7 +4484,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -4553,7 +4553,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4634,7 +4634,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4717,7 +4717,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4830,7 +4830,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4912,7 +4912,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -5008,7 +5008,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -5069,7 +5069,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5208,7 +5208,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -5286,7 +5286,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -5338,7 +5338,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5451,7 +5451,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -5529,7 +5529,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -5581,7 +5581,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5710,7 +5710,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -5770,7 +5770,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -5861,7 +5861,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -5966,7 +5966,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -6028,7 +6028,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -6110,7 +6110,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -6197,7 +6197,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -6266,7 +6266,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6347,7 +6347,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6430,7 +6430,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6543,7 +6543,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6625,7 +6625,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6717,7 +6717,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6778,7 +6778,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -6954,7 +6954,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -7014,7 +7014,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7104,7 +7104,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7209,7 +7209,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -7271,7 +7271,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -7353,7 +7353,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -7440,7 +7440,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -7509,7 +7509,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7590,7 +7590,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7672,7 +7672,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7785,7 +7785,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7867,7 +7867,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7962,7 +7962,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -8022,7 +8022,7 @@
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
