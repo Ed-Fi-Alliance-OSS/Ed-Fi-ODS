@@ -68,44 +68,4 @@ public static class ResourceItemPredicateBuilder
         // Compile and return the expression delegate
         return Expression.Lambda(finalExpression, itemExpression).Compile();
     }
-
-    public static Func<TItem, bool> Build<TItem>(CollectionItemValueFilter[] valueFilters)
-    {
-        var itemExpression = Expression.Parameter(typeof(TItem), "x");
-
-        if (valueFilters.Length == 0)
-        {
-            return null;
-        }
-
-        var filterExpressions = valueFilters.Select(
-                filter =>
-                {
-                    var property = Expression.Property(itemExpression, filter.PropertyName);
-
-                    var valueArray = Expression.NewArrayInit(typeof(string), filter.Values.Select(Expression.Constant));
-
-                    var contains = Expression.Call(_containsMethodInfo, valueArray, property);
-
-                    Expression filterExpression;
-
-                    if (filter.FilterMode == ItemFilterMode.IncludeOnly)
-                    {
-                        filterExpression = contains;
-                    }
-                    else // ExcludeOnly
-                    {
-                        filterExpression = Expression.Not(contains);
-                    }
-
-                    return filterExpression;
-                })
-            .ToList();
-
-        // Combine multiple filters using logical "And"
-        Expression finalExpression = filterExpressions.Skip(1).Aggregate(filterExpressions.First(), Expression.AndAlso);
-
-        // Compile and return the expression delegate
-        return Expression.Lambda<Func<TItem, bool>>(finalExpression, itemExpression).Compile();
-    }
 }

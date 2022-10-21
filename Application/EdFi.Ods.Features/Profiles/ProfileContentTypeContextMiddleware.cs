@@ -100,7 +100,8 @@ public class ProfileContentTypeContextMiddleware
             {
                 return ContentTypeUsage.Readable;
             }
-            else if (usageSegment.Equals("writable", StringComparison.OrdinalIgnoreCase))
+            
+            if (usageSegment.Equals("writable", StringComparison.OrdinalIgnoreCase))
             {
                 return ContentTypeUsage.Writable;
             }
