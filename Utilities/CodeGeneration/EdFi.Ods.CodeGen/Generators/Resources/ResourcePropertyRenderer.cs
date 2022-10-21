@@ -71,7 +71,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             PropertyName =
                                 resourceClass.GetResourceInterfaceName(
                                     templateContext.GetSchemaProperCaseNameForResource(resourceClass),
-                                    templateContext.IsProfiles,
                                     templateContext.IsExtension),
                             ReferencesWithUnifiedKey =
                                 resourceClass.References

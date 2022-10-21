@@ -68,7 +68,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                             TemplateSet = TemplateSetConventions.Extension,
                             AssemblyName = assemblyName,
                             IsExtension = true,
-                            IsProfile = false,
                             SchemaName = schemaName
                         };
                     }).ToList();

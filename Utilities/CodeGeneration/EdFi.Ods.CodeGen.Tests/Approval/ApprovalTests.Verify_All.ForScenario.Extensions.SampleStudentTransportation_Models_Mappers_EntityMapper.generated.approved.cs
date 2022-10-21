@@ -8,6 +8,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: StudentTransportation
 
@@ -16,11 +18,17 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
     [ExcludeFromCodeCoverage]
     public static class StudentTransportationMapper
     {
+        private static readonly FullName _fullName_samplestudenttransportation_StudentTransportation = new FullName("samplestudenttransportation", "StudentTransportation");
+    
         public static bool SynchronizeTo(this IStudentTransportation source, IStudentTransportation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentTransportationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentTransportationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_samplestudenttransportation_StudentTransportation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AMBusNumber != target.AMBusNumber)
@@ -42,7 +50,7 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEstimatedMilesFromSchoolSupported)
+            if ((mappingContract?.IsEstimatedMilesFromSchoolSupported != false)
                 && target.EstimatedMilesFromSchool != source.EstimatedMilesFromSchool)
             {
                 target.EstimatedMilesFromSchool = source.EstimatedMilesFromSchool;
@@ -59,9 +67,11 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
 
         public static void MapTo(this IStudentTransportation source, IStudentTransportation target, Action<IStudentTransportation, IStudentTransportation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentTransportationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentTransportationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentTransportationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_samplestudenttransportation_StudentTransportation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -73,10 +83,8 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEstimatedMilesFromSchoolSupported)
+            if (mappingContract?.IsEstimatedMilesFromSchoolSupported != false)
                 target.EstimatedMilesFromSchool = source.EstimatedMilesFromSchool;
-            else
-                targetSynchSupport.IsEstimatedMilesFromSchoolSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -115,16 +123,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTransportation //.StudentTranspo
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentTransportationSynchronizationSourceSupport 
-    {
-        bool IsEstimatedMilesFromSchoolSupported { get; set; }
     }
 
 }

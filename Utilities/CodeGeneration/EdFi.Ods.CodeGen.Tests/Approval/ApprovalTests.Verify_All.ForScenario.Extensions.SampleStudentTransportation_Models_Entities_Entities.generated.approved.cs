@@ -114,7 +114,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
     [Serializable, Schema("samplestudenttransportation")]
     [ExcludeFromCodeCoverage]
     public class StudentTransportation : AggregateRootWithCompositeKey,
-        Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport
+        Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -328,18 +328,5 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
             this.MapTo((Entities.Common.SampleStudentTransportation.IStudentTransportation) target, null);
         }
 
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isEstimatedMilesFromSchoolSupported = true;
-        bool Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport.IsEstimatedMilesFromSchoolSupported
-        {
-            get { return _isEstimatedMilesFromSchoolSupported; }
-            set { _isEstimatedMilesFromSchoolSupported = value; }
-        }
-
-        // -----------------------------------------
     }
 }

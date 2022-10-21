@@ -11,9 +11,7 @@ using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -22,19 +20,17 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
     public class TemplateContextProvider : ITemplateContextProvider
     {
         private readonly Lazy<List<IDomainModelDefinitionsProvider>> _domainModelDefinitionProviders;
-        private readonly IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
-        private readonly ConcurrentDictionary<string, TemplateContext> _templateContextByAssemblyName =
-            new ConcurrentDictionary<string, TemplateContext>();
+        private readonly ConcurrentDictionary<string, TemplateContext> _templateContextByAssemblyName = new();
 
         public TemplateContextProvider(IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider)
         {
-            _domainModelDefinitionsProviderProvider = Preconditions.ThrowIfNull(
+            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider1 = Preconditions.ThrowIfNull(
                 domainModelDefinitionsProviderProvider,
                 nameof(domainModelDefinitionsProviderProvider));
 
             _domainModelDefinitionProviders =
                 new Lazy<List<IDomainModelDefinitionsProvider>>(
-                    () => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders()
+                    () => domainModelDefinitionsProviderProvider1.DomainModelDefinitionProviders()
                         .ToList());
         }
 
@@ -58,7 +54,6 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
             return new TemplateContext
             {
                 ProjectPath = assemblyData.Path,
-                IsProfiles = assemblyData.IsProfile,
                 IsExtension = assemblyData.IsExtension,
                 SchemaProperCaseName = schemaNameMap.ProperCaseName,
                 DomainModelProvider = domainModelProvider,
@@ -68,34 +63,25 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
 
         private IDomainModelProvider CreateDomainModelProvider(AssemblyData assemblyData)
         {
-            List<IDomainModelDefinitionsProvider> domainModelDefinitionsToLoad = null;
-
-            // Profiles needs everything to be loaded
-            if (!assemblyData.IsProfile)
-            {
-                // Always include EdFi, only include the extension definition provider that matches the current context
-                // to avoid issues with templates not handling multiple models active
-                domainModelDefinitionsToLoad = GetDomainModelDefinitionProviders(assemblyData.SchemaName);
-            }
-
+            // Always include EdFi, and only include the extension definition provider if we are generating in an extension schema context
             return new DomainModelProvider(
-                domainModelDefinitionsToLoad ?? _domainModelDefinitionProviders.Value,
+                GetDomainModelDefinitionProviders(assemblyData.SchemaName),
                 Array.Empty<IDomainModelDefinitionsTransformer>());
         }
 
         private List<IDomainModelDefinitionsProvider> GetDomainModelDefinitionProviders(string schemaName)
         {
-            return _domainModelDefinitionProviders
-                .Value
-                .Where(
-                    x => schemaName
-                             .EqualsIgnoreCase(
-                                 ExtensionsConventions.GetProperCaseNameForLogicalName(
-                                     x.GetDomainModelDefinitions()
-                                         .SchemaDefinition.LogicalName))
-                         || x.GetDomainModelDefinitions()
-                             .SchemaDefinition.LogicalName.EqualsIgnoreCase(EdFiConventions.LogicalName))
+            return _domainModelDefinitionProviders.Value
+                .Where(p => IsProviderMatchingSchema(p) || IsProviderContainingEdFiSchemaDefinitions(p))
                 .ToList();
+
+            bool IsProviderContainingEdFiSchemaDefinitions(IDomainModelDefinitionsProvider x)
+                => x.GetDomainModelDefinitions().SchemaDefinition.LogicalName.EqualsIgnoreCase(EdFiConventions.LogicalName);
+
+            bool IsProviderMatchingSchema(IDomainModelDefinitionsProvider x)
+                => schemaName.EqualsIgnoreCase(
+                    ExtensionsConventions.GetProperCaseNameForLogicalName(
+                        x.GetDomainModelDefinitions().SchemaDefinition.LogicalName));
         }
     }
 }

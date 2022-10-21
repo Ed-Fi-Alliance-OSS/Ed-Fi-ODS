@@ -17,10 +17,12 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IAuthorizationContextProvider> _authorizationContextProvider;
         private static Lazy<IResourceModelProvider> _resourceModelProvider;
         private static Lazy<IETagProvider> _etagProvider;
+        private static Lazy<IMappingContractProvider> _mappingContractProvider;
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
         public static IResourceModelProvider ResourceModelProvider => _resourceModelProvider?.Value;
         public static IETagProvider ETagProvider => _etagProvider?.Value;
+        public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
 
         /// <summary>
         /// Provides a mechanism for providing resolution of container managed components (intended for use only
@@ -41,6 +43,11 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IETagProvider> resolver)
             {
                 _etagProvider = new Lazy<IETagProvider>(resolver);
+            }
+            
+            public static void Set(Func<IMappingContractProvider> resolver)
+            {
+                _mappingContractProvider = new Lazy<IMappingContractProvider>(resolver);
             }
         }
     }

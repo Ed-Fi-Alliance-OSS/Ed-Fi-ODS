@@ -13,7 +13,8 @@ namespace EdFi.Ods.Common.Utils.Profiles
         /// <summary>
         /// Indicates that the content type is to be used for reading data.
         /// </summary>
-        Readable, /// <summary>
+        Readable = 1,
+        /// <summary>
         /// Indicates that the content type is to be used for writing data.
         /// </summary>
         Writable

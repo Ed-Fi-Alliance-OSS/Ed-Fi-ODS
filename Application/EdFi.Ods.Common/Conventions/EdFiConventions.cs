@@ -195,10 +195,9 @@ namespace EdFi.Ods.Common.Conventions
         public static string GetResourceInterfaceName(
             this ResourceClassBase resourceClassBase,
             string schemaProperCaseName,
-            bool isProfilesContext,
             bool isExtension)
         {
-            return isProfilesContext || isExtension
+            return isExtension
                 ? $"{Namespaces.Entities.Common.RelativeNamespace}.{schemaProperCaseName}.I{resourceClassBase.Name}"
                 : $"I{resourceClassBase.Name}";
         }

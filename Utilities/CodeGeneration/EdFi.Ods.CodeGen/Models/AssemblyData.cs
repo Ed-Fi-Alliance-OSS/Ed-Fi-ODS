@@ -15,8 +15,6 @@ namespace EdFi.Ods.CodeGen.Models
 
         public string TemplateSet { get; set; }
 
-        public bool IsProfile { get; set; }
-
         public bool IsExtension { get; set; }
 
         public string SchemaName { get; set; }

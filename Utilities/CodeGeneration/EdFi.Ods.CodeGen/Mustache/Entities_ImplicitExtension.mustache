@@ -2,7 +2,7 @@
     /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the {{EntityParentClassName}} entity's aggregate extensions.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class {{ClassName}} : I{{ClassName}}, I{{ClassName}}SynchronizationSourceSupport, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    public class {{ClassName}} : I{{ClassName}}, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
     {
         // =============================================================
         //                         Primary Key
@@ -126,18 +126,6 @@
         {
             return ({{EntityParentFieldName}} as IHasPrimaryKeyValues).GetPrimaryKeyValues();
         }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-        {{#SynchronizationSupport}}
-            {{#Properties}}
-        bool I{{ClassName}}SynchronizationSourceSupport.Is{{PropertyName}}Supported { get; set; } = true;
-            {{/Properties}}
-            {{#CollectionClasses}}
-        Func<I{{ChildCollectionClassName}}, bool> I{{ClassName}}SynchronizationSourceSupport.Is{{ChildCollectionRoleName}}{{ChildCollectionClassName}}Included { get; set; }
-            {{/CollectionClasses}}
-        {{/SynchronizationSupport}}
 
         void IGetByExample.SuspendReferenceAssignmentCheck() { }
     }

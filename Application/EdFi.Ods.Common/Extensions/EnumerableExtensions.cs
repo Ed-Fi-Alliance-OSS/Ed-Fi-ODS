@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
+using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.Common.Extensions
 {
@@ -18,6 +20,23 @@ namespace EdFi.Ods.Common.Extensions
             }
 
             return source;
+        }
+        
+        public static bool Contains(this IEnumerable<string> source, StringSegment value) => Contains(source, value, StringComparison.Ordinal);
+
+        public static bool Contains(this IEnumerable<string> source, StringSegment value, StringComparison stringComparison)
+        {
+            ArgumentNullException.ThrowIfNull(source);
+
+            foreach (var element in source)
+            {
+                if (value.Equals(element, stringComparison))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

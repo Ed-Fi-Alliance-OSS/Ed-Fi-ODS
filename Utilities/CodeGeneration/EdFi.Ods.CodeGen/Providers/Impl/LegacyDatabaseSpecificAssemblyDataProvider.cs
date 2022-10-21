@@ -33,7 +33,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                     CodeRepositoryConventions.Ods,
                     CodeRepositoryConventions.Database),
                 TemplateSet = TemplateSetConventions.Database,
-                IsProfile = false,
                 IsExtension = false,
                 SchemaName = EdFiConventions.ProperCaseName
             };

@@ -59,7 +59,6 @@ namespace EdFi.Ods.CodeGen.Helpers
                 AssemblyName = assemblyName,
                 Path = Path.GetDirectoryName(assemblyMetadataPath),
                 TemplateSet = assemblyMetadata.AssemblyModelType,
-                IsProfile = assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Profile),
                 SchemaName = schemaName,
                 IsExtension = isExtension
             };

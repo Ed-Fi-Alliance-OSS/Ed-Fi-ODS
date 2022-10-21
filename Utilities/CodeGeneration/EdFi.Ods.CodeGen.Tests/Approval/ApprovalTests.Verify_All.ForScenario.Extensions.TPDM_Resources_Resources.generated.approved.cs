@@ -30,7 +30,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport
+    public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -244,19 +244,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -314,7 +301,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport
+    public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -528,19 +515,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -678,7 +652,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICandidateSynchronizationSourceSupport
+    public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1363,86 +1337,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthCitySupported                                 { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthCountryDescriptorSupported                    { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthDateSupported                                 { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthInternationalProvinceSupported                { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthSexDescriptorSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsBirthStateAbbreviationDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateAddressesSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateDisabilitiesSupported                     { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailsSupported                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateLanguagesSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateOtherNamesSupported                       { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateRacesSupported                            { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateTelephonesSupported                       { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsDateEnteredUSSupported                             { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsDisplacementStatusSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsEconomicDisadvantagedSupported                     { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsEnglishLanguageExamDescriptorSupported             { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsFirstGenerationStudentSupported                    { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsFirstNameSupported                                 { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsGenderDescriptorSupported                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsGenerationCodeSuffixSupported                      { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsHispanicLatinoEthnicitySupported                   { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsLastSurnameSupported                               { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsLimitedEnglishProficiencyDescriptorSupported       { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMaidenNameSupported                                { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMiddleNameSupported                                { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsMultipleBirthStatusSupported                       { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsPersonalTitlePrefixSupported                       { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsPersonIdSupported                                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsSexDescriptorSupported                             { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsSourceSystemDescriptorSupported                    { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.ICandidateAddress, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateDisability, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateDisabilityIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateElectronicMail, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateElectronicMailIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateLanguage, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateLanguageIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateOtherName, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateOtherNameIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidatePersonalIdentificationDocumentIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateRace, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateRaceIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateTelephone, bool> Entities.Common.TPDM.ICandidateSynchronizationSourceSupport.IsCandidateTelephoneIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1589,7 +1483,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateAddress : Entities.Common.TPDM.ICandidateAddress, Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport
+    public class CandidateAddress : Entities.Common.TPDM.ICandidateAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1930,29 +1824,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsApartmentRoomSuiteNumberSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsBuildingSiteNumberSupported        { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodsSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCongressionalDistrictSupported     { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCountyFIPSCodeSupported            { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported     { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLatitudeSupported                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLocaleDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsLongitudeSupported                 { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsNameOfCountySupported              { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.ICandidateAddressPeriod, bool> Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport.IsCandidateAddressPeriodIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2015,7 +1886,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateAddressPeriod : Entities.Common.TPDM.ICandidateAddressPeriod, Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport
+    public class CandidateAddressPeriod : Entities.Common.TPDM.ICandidateAddressPeriod
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2192,13 +2063,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2251,7 +2115,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateDisability : Entities.Common.TPDM.ICandidateDisability, Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport
+    public class CandidateDisability : Entities.Common.TPDM.ICandidateDisability
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2486,23 +2350,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationsSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsDisabilityDiagnosisSupported                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsOrderOfDisabilitySupported                            { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.ICandidateDisabilityDesignation, bool> Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport.IsCandidateDisabilityDesignationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2565,7 +2412,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateDisabilityDesignation : Entities.Common.TPDM.ICandidateDisabilityDesignation, Entities.Common.TPDM.ICandidateDisabilityDesignationSynchronizationSourceSupport
+    public class CandidateDisabilityDesignation : Entities.Common.TPDM.ICandidateDisabilityDesignation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2735,12 +2582,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2793,7 +2634,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateElectronicMail : Entities.Common.TPDM.ICandidateElectronicMail, Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport
+    public class CandidateElectronicMail : Entities.Common.TPDM.ICandidateElectronicMail
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2993,14 +2834,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport.IsPrimaryEmailAddressIndicatorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3053,7 +2886,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateLanguage : Entities.Common.TPDM.ICandidateLanguage, Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport
+    public class CandidateLanguage : Entities.Common.TPDM.ICandidateLanguage
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3267,20 +3100,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUsesSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.ICandidateLanguageUse, bool> Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport.IsCandidateLanguageUseIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3343,7 +3162,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateLanguageUse : Entities.Common.TPDM.ICandidateLanguageUse, Entities.Common.TPDM.ICandidateLanguageUseSynchronizationSourceSupport
+    public class CandidateLanguageUse : Entities.Common.TPDM.ICandidateLanguageUse
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3513,12 +3332,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3571,7 +3384,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateOtherName : Entities.Common.TPDM.ICandidateOtherName, Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport
+    public class CandidateOtherName : Entities.Common.TPDM.ICandidateOtherName
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3776,17 +3589,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsFirstNameSupported             { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsGenerationCodeSuffixSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsLastSurnameSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsMiddleNameSupported            { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport.IsPersonalTitlePrefixSupported   { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3839,7 +3641,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidatePersonalIdentificationDocument : Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport
+    public class CandidatePersonalIdentificationDocument : Entities.Common.TPDM.ICandidatePersonalIdentificationDocument
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4060,17 +3862,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentExpirationDateSupported            { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsDocumentTitleSupported                     { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerCountryDescriptorSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerDocumentIdentificationCodeSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport.IsIssuerNameSupported                        { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4123,7 +3914,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateRace : Entities.Common.TPDM.ICandidateRace, Entities.Common.TPDM.ICandidateRaceSynchronizationSourceSupport
+    public class CandidateRace : Entities.Common.TPDM.ICandidateRace
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4293,12 +4084,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4351,7 +4136,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateTelephone : Entities.Common.TPDM.ICandidateTelephone, Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport
+    public class CandidateTelephone : Entities.Common.TPDM.ICandidateTelephone
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4558,15 +4343,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsDoNotPublishIndicatorSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsOrderOfPrioritySupported                 { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport.IsTextMessageCapabilityIndicatorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4716,7 +4492,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5169,29 +4945,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported            { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEndDateSupported                                                              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsEPPProgramPathwayDescriptorSupported                                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported                                               { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, bool> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -5292,7 +5045,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociationCohortYear : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5535,13 +5288,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport.IsTermDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -5601,7 +5347,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5785,14 +5531,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsEndDateSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport.IsMinorSpecializationSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -5850,7 +5588,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport
+    public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6064,19 +5802,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -6134,7 +5859,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport
+    public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6348,19 +6073,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -6418,7 +6130,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension, Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport
+    public class CredentialExtension : Entities.Common.TPDM.ICredentialExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6741,28 +6453,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsBoardCertificationIndicatorSupported       { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCertificationRouteDescriptorSupported      { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCertificationTitleSupported                { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDateSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStatusDescriptorSupported        { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsEducatorRoleDescriptorSupported            { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsPersonIdSupported                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported            { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.ICredentialStudentAcademicRecord, bool> Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsCredentialStudentAcademicRecordIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -6839,7 +6529,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialStudentAcademicRecord : Entities.Common.TPDM.ICredentialStudentAcademicRecord, Entities.Common.TPDM.ICredentialStudentAcademicRecordSynchronizationSourceSupport
+    public class CredentialStudentAcademicRecord : Entities.Common.TPDM.ICredentialStudentAcademicRecord
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7155,12 +6845,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7232,7 +6916,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport
+    public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7446,19 +7130,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7602,7 +7273,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport
+    public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7901,22 +7572,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsProgramIdSupported                              { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, bool> Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport.IsEducatorPreparationProgramGradeLevelIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -7993,7 +7648,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgramGradeLevel : Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, Entities.Common.TPDM.IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport
+    public class EducatorPreparationProgramGradeLevel : Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8163,12 +7818,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -8226,7 +7875,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport
+    public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8440,19 +8089,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -8510,7 +8146,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport
+    public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8724,19 +8360,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -8794,7 +8417,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport
+    public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9008,19 +8631,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -9176,7 +8786,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport
+    public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9636,25 +9246,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationDescriptionSupported       { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelsSupported      { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsMaxRatingSupported                   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsMinRatingSupported                   { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEvaluationRatingLevel, bool> Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport.IsEvaluationRatingLevelIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -9731,7 +9322,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevel : Entities.Common.TPDM.IEvaluationRatingLevel, Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport
+    public class EvaluationRatingLevel : Entities.Common.TPDM.IEvaluationRatingLevel
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9915,14 +9506,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -10084,7 +9667,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport
+    public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10603,24 +10186,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported       { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsMaxRatingSupported                      { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsMinRatingSupported                      { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsSortOrderSupported                      { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEvaluationElementRatingLevel, bool> Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport.IsEvaluationElementRatingLevelIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -10697,7 +10262,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevel : Entities.Common.TPDM.IEvaluationElementRatingLevel, Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport
+    public class EvaluationElementRatingLevel : Entities.Common.TPDM.IEvaluationElementRatingLevel
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10881,14 +10446,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -11059,7 +10616,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport
+    public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11753,25 +11310,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfRefinementSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsAreaOfReinforcementSupported                     { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsCommentsSupported                                { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingLevelDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultsSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsFeedbackSupported                                { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEvaluationElementRatingResult, bool> Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport.IsEvaluationElementRatingResultIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -12078,7 +11616,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult, Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport
+    public class EvaluationElementRatingResult : Entities.Common.TPDM.IEvaluationElementRatingResult
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12271,13 +11809,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -12335,7 +11866,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport
+    public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12549,19 +12080,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -12720,7 +12238,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport
+    public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13213,25 +12731,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveDescriptionSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationTypeDescriptorSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsMaxRatingSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsMinRatingSupported                        { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsSortOrderSupported                        { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, bool> Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport.IsEvaluationObjectiveRatingLevelIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -13308,7 +12807,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingLevel : Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport
+    public class EvaluationObjectiveRatingLevel : Entities.Common.TPDM.IEvaluationObjectiveRatingLevel
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13492,14 +12991,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -13667,7 +13158,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport
+    public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14303,22 +13794,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsCommentsSupported                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultsSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsObjectiveRatingLevelDescriptorSupported    { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEvaluationObjectiveRatingResult, bool> Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport.IsEvaluationObjectiveRatingResultIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -14598,7 +14073,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult, Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport
+    public class EvaluationObjectiveRatingResult : Entities.Common.TPDM.IEvaluationObjectiveRatingResult
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14791,13 +14266,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -14855,7 +14323,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport
+    public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15069,19 +14537,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -15246,7 +14701,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport
+    public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16007,32 +15462,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported                   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported                 { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported                       { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IEvaluationRatingResult, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.IEvaluationRatingReviewer, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewerIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -16317,7 +15746,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult, Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport
+    public class EvaluationRatingResult : Entities.Common.TPDM.IEvaluationRatingResult
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16510,13 +15939,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -16569,7 +15991,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingReviewer : Entities.Common.TPDM.IEvaluationRatingReviewer, Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport
+    public class EvaluationRatingReviewer : Entities.Common.TPDM.IEvaluationRatingReviewer
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -16850,15 +16272,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsEvaluationRatingReviewerReceivedTrainingSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported                          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported            { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -16925,7 +16338,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining, Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
+    public class EvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17093,14 +16506,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported        { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -17158,7 +16563,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport
+    public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17372,19 +16777,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -17442,7 +16834,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport
+    public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17656,19 +17048,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -17726,7 +17105,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport
+    public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17940,19 +17319,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18096,7 +17462,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport
+    public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18365,16 +17731,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsAidAmountSupported                { get { return true; } set { } }
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsAidConditionDescriptionSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsEndDateSupported                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport.IsPellGrantRecipientSupported       { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18446,7 +17802,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport
+    public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18660,19 +18016,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -18730,7 +18073,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport
+    public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18944,19 +18287,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -19109,7 +18439,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport
+    public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19540,28 +18870,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsAcademicSubjectDescriptorSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationDescriptionSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelsSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, bool> Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, bool> Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -19655,7 +18963,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationGradeLevel : Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, Entities.Common.TPDM.IPerformanceEvaluationGradeLevelSynchronizationSourceSupport
+    public class PerformanceEvaluationGradeLevel : Entities.Common.TPDM.IPerformanceEvaluationGradeLevel
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19825,12 +19133,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -19883,7 +19185,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevel : Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingLevel : Entities.Common.TPDM.IPerformanceEvaluationRatingLevel
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -20067,14 +19369,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMaxRatingSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport.IsMinRatingSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -20233,7 +19527,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport
+    public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -20828,34 +20122,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDateSupported                                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualDurationSupported                              { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsActualTimeSupported                                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsAnnouncedSupported                                   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCommentsSupported                                    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsCoteachingStyleObservedDescriptorSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultsSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewersSupported        { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsScheduleDateSupported                                { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingResult, bool> Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingResultIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, bool> Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -20956,7 +20222,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult, Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingResult : Entities.Common.TPDM.IPerformanceEvaluationRatingResult
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21149,13 +20415,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -21208,7 +20467,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingReviewer : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingReviewer : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21489,15 +20748,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported                                     { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported                       { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -21564,7 +20814,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingReviewerReceivedTraining : Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21732,14 +20982,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsInterRaterReliabilityScoreSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport.IsReceivedTrainingDateSupported        { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -21797,7 +21039,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22011,19 +21253,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -22081,7 +21310,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport
+    public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22295,19 +21524,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -22472,7 +21688,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport
+    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22973,15 +22189,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsCriterionDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsDimensionOrderSupported               { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport.IsRubricRatingLevelDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -23053,7 +22260,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport
+    public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23267,19 +22474,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
-        bool Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -23337,7 +22531,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23551,13 +22745,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -23622,7 +22809,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension, Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport
+    public class SurveyResponseExtension : Entities.Common.TPDM.ISurveyResponseExtension
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23859,14 +23046,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsPersonIdSupported                { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsSourceSystemDescriptorSupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -24030,7 +23209,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
+    public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -24400,12 +23579,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -24586,7 +23759,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
+    public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -24988,12 +24161,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
             Entities.Common.TPDM.SurveySectionResponsePersonTargetAssociationMapper.MapTo(this, (Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation)target, null);
         }
         // -------------------------------------------------------------
-
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
 
         // =================================================================
         //                    Resource Reference Data

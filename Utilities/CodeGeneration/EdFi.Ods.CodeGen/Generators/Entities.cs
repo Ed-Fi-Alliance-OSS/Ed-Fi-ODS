@@ -42,39 +42,29 @@ namespace EdFi.Ods.CodeGen.Generators
                            .OrderBy(x => x.FullName.Name)
                            .ToList();
 
-            return
-                new
-                {
-                    Aggregates =
-                        orderedAggregates
-                           .Select(
-                                aggregate => new
-                                             {
-                                                 AggregateName = aggregate.Name, AggregateNamespace =
-                                                     aggregate.AggregateRoot.AggregateNamespace(TemplateContext.SchemaProperCaseName),
-                                                 Classes = aggregate.Members
-                                                                    .Where(entity => _shouldRenderEntityForSchema(entity))
+            return new
+            {
+                Aggregates = orderedAggregates.Select(
+                    aggregate => new
+                    {
+                        AggregateName = aggregate.Name,
+                        AggregateNamespace = aggregate.AggregateRoot.AggregateNamespace(TemplateContext.SchemaProperCaseName),
+                        Classes = aggregate.Members.Where(entity => _shouldRenderEntityForSchema(entity))
 
-                                                                     // Add the explicit entity extensions
-                                                                    .Concat(
-                                                                         aggregate.Members
-                                                                                  .SelectMany(m => m.Extensions)
-                                                                                  .Where(ex => _shouldRenderEntityForSchema(ex)))
-                                                                    .SelectMany(entity => GetClasses(aggregate, entity))
+                            // Add the explicit entity extensions
+                            .Concat(aggregate.Members.SelectMany(m => m.Extensions).Where(ex => _shouldRenderEntityForSchema(ex)))
+                            .SelectMany(entity => GetClasses(aggregate, entity))
 
-                                                                     // Add the implicit entity extensions
-                                                                    .Concat(
-                                                                         aggregate.Members
-                                                                                  .Where(RequiresImplicitExtension)
-                                                                                  .Select(e => GetImplicitExtension(aggregate, e))),
-                                                 HasDiscriminator = aggregate.AggregateRoot.HasDiscriminator()
-                                             }),
-                    TemplateContext.SchemaProperCaseName, HasExtensionDerivedFromEdFiBaseEntity = orderedAggregates
-                                                                                                 .SelectMany(a => a.Members)
-                                                                                                 .Any(
-                                                                                                      m => !m.IsEdFiStandardEntity && m.IsDerived &&
-                                                                                                           m.BaseEntity.IsEdFiStandardEntity)
-                };
+                            // Add the implicit entity extensions
+                            .Concat(
+                                aggregate.Members.Where(RequiresImplicitExtension)
+                                    .Select(e => GetImplicitExtension(aggregate, e))),
+                        HasDiscriminator = aggregate.AggregateRoot.HasDiscriminator()
+                    }),
+                TemplateContext.SchemaProperCaseName,
+                HasExtensionDerivedFromEdFiBaseEntity = orderedAggregates.SelectMany(a => a.Members)
+                    .Any(m => !m.IsEdFiStandardEntity && m.IsDerived && m.BaseEntity.IsEdFiStandardEntity)
+            };
         }
 
         private bool RequiresImplicitExtension(Entity entity)

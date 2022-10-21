@@ -40,7 +40,6 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             {
                 var expected = new List<string>
                 {
-                    "EdFi.Ods.Profiles.Test",
                     "EdFi.Ods.Standard",
                     "ODS Database Specific",
                 };
@@ -80,8 +79,6 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     "EdFi.Ods.Extensions.Homograph",
                     "EdFi.Ods.Extensions.Sample",
                     "EdFi.Ods.Extensions.TPDM",
-                    "EdFi.Ods.Profiles.Sample",
-                    "EdFi.Ods.Profiles.Test",
                     "EdFi.Ods.Standard",
                     "ODS Database Specific",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
@@ -112,7 +109,6 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             {
                 var expected = new List<string>
                 {
-                    "EdFi.Ods.Profiles.Test",
                     "EdFi.Ods.Standard",
                 };
 
@@ -152,8 +148,6 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                     "EdFi.Ods.Extensions.Homograph",
                     "EdFi.Ods.Extensions.Sample",
                     "EdFi.Ods.Extensions.TPDM",
-                    "EdFi.Ods.Profiles.Sample",
-                    "EdFi.Ods.Profiles.Test",
                     "EdFi.Ods.Standard",
                     "EdFi.Ods.Extensions.SampleStudentTranscript",
                     "EdFi.Ods.Extensions.SampleStudentTransportation"
