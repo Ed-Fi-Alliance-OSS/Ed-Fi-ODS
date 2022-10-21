@@ -291,8 +291,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
 
             return SuppliedResource != null
-                ? SuppliedResource.AllContainedItemTypes.FirstOrDefault(
-                    x => ModelComparers.Entity.Equals(x.Entity, resource.Entity))
+                ? SuppliedResource.AllContainedItemTypes.SingleOrDefault(
+                    x => ModelComparers.Resource.Equals(x, resource))
                 : null;
         }
 
