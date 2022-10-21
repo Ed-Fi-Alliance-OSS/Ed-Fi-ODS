@@ -9,11 +9,13 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main]      
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-implementation-repo]
 env:
-  EDFI_STANDARD_REFERENCE: "4.0.0-a"
+
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "20"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -50,7 +52,6 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
-          ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Checkout Ed-Fi-TPDM-Artifacts
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
