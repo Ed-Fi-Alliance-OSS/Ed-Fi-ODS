@@ -103,12 +103,18 @@ jobs:
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL"
       shell: powershell
+    - name: Move NugetPackages.Artifacts Content
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        New-Item -ItemType Directory -Path ${{ github.workspace }}/NugetPackages.Artifacts
+        Copy "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL*.nupkg" "${{ github.workspace }}/NugetPackages.Artifacts/"
+        Copy "${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/Release/logfile*.*" "${{ github.workspace }}/NugetPackages.Artifacts/"
+        Copy "${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/Release/TestHarnessLog*.*" "${{ github.workspace }}/NugetPackages.Artifacts/"
+      shell: powershell      
     - name: Upload EdFi.Ods.Minimal.Template.TPDM.PostgreSQL Artifacts
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
         path: |
-         ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL*.nupkg
-         ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*
-         ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog*.*
+         ${{ github.workspace }}/NugetPackages.Artifacts/*.*
