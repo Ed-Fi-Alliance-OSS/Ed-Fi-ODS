@@ -117,4 +117,4 @@ jobs:
       with:
         name: NugetPackages.Artifacts
         path: |
-         ${{ github.workspace }}/NugetPackages.Artifacts/*.*
+         ${{ github.workspace }}/NugetPackages.Artifacts/
