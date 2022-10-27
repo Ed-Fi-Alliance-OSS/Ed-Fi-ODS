@@ -208,6 +208,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
         [JsonProperty("x-Ed-Fi-isIdentity")]
         public bool? isIdentity;
 
+        [JsonProperty("x-nullable")]
+        public bool nullable;
+
         public Schema items;
 
         public int? maximum;
