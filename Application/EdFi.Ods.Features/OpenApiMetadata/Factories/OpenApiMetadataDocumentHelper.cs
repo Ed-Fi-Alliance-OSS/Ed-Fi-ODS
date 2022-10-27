@@ -152,7 +152,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                            {
                                                IsRequired = x.IsIdentifying || reference.IsRequired,
                                                PropertyName = x.JsonPropertyName,
-                                               Schema = CreateNewSchemaFromResourceProperty(x)
+                                               Schema = CreatePropertySchema(x)
                                            })
                                       .OrderBy(x => x.PropertyName)
                                       .ToList();
@@ -174,25 +174,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     .ToList(),
                 properties = propertyDict
             };
-        }
-
-        private static Schema CreateNewSchemaFromResourceProperty(ResourceProperty x)
-        {
-            var schema = new Schema
-            {
-                type = PropertyType(x),
-                format = PropertyFormat(x),
-                description = PropertyDescription(x),
-                maxLength = GetMaxLength(x),
-                isIdentity = GetIsIdentity(x)
-            };
-
-            if (x.PropertyType.IsNullable)
-            {
-                schema.nullable = true;
-            }
-
-            return schema;
         }
 
         public static Dictionary<string, Response> GetReadOperationResponses(string resourceName, bool isArray, bool isChangeQueryDeletes = false, bool isChangeQueryKeyChanges = false)
