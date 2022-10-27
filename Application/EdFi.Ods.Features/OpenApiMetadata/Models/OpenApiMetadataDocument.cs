@@ -209,7 +209,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
         public bool? isIdentity;
 
         [JsonProperty("x-nullable")]
-        public bool nullable;
+        public bool? nullable;
 
         public Schema items;
 
