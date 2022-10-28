@@ -19451,7 +19451,7 @@
 
     <!-- Properties -->
     <property name="AssessmentItemResultDescriptorId" column="AssessmentItemResultDescriptorId" type="int" not-null="true" />
-    <property name="AssessmentResponse" column="AssessmentResponse" type="string" length="60" />
+    <property name="AssessmentResponse" column="AssessmentResponse" type="string" length="255" />
     <property name="DescriptiveFeedback" column="DescriptiveFeedback" type="string" length="1024" />
     <property name="ItemNumber" column="ItemNumber" type="int" />
     <property name="RawScoreResult" column="RawScoreResult" type="decimal" />
