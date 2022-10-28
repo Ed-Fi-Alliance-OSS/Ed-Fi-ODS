@@ -5042,7 +5042,7 @@ CREATE TABLE edfi.StudentAssessmentItem (
     Namespace VARCHAR(255) NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
-    AssessmentResponse VARCHAR(60) NULL,
+    AssessmentResponse VARCHAR(255) NULL,
     DescriptiveFeedback VARCHAR(1024) NULL,
     ResponseIndicatorDescriptorId INT NULL,
     AssessmentItemResultDescriptorId INT NOT NULL,

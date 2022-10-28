@@ -3233,7 +3233,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique ident
 GO
 
 -- Extended Properties [edfi].[ModelEntityDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ModelEntityDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The class of a domain entity in the Ed-Fi data model.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ModelEntityDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ModelEntityDescriptor', @level2type=N'COLUMN', @level2name=N'ModelEntityDescriptorId'
 GO

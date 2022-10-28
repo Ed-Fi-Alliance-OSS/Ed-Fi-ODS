@@ -7524,7 +7524,7 @@ CREATE TABLE [edfi].[StudentAssessmentItem] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [StudentAssessmentIdentifier] [NVARCHAR](60) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [AssessmentResponse] [NVARCHAR](60) NULL,
+    [AssessmentResponse] [NVARCHAR](255) NULL,
     [DescriptiveFeedback] [NVARCHAR](1024) NULL,
     [ResponseIndicatorDescriptorId] [INT] NULL,
     [AssessmentItemResultDescriptorId] [INT] NOT NULL,

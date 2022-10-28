@@ -1898,7 +1898,7 @@ COMMENT ON TABLE edfi.MigrantEducationProgramServiceDescriptor IS 'This descript
 COMMENT ON COLUMN edfi.MigrantEducationProgramServiceDescriptor.MigrantEducationProgramServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ModelEntityDescriptor] --
-COMMENT ON TABLE edfi.ModelEntityDescriptor IS 'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.';
+COMMENT ON TABLE edfi.ModelEntityDescriptor IS 'The class of a domain entity in the Ed-Fi data model.';
 COMMENT ON COLUMN edfi.ModelEntityDescriptor.ModelEntityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[MonitoredDescriptor] --
