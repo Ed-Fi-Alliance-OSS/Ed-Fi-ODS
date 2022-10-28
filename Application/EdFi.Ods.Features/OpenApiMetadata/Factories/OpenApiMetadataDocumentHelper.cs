@@ -67,7 +67,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         public static Schema CreatePropertySchema(ResourceProperty resourceProperty)
         {
-            return new Schema
+            var schema =  new Schema
             {
                 type = PropertyType(resourceProperty),
                 format = resourceProperty.PropertyType.ToOpenApiFormat(),
@@ -77,6 +77,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 isDeprecated = GetIsDeprecated(resourceProperty),
                 deprecatedReasons = GetDeprecatedReasons(resourceProperty)
             };
+
+            if (resourceProperty.PropertyType.IsNullable)
+            {
+                schema.nullable = true;
+            }
+
+            return schema;
         }
 
         public static bool? GetIsIdentity(ResourceProperty resourceProperty)
@@ -145,15 +152,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                            {
                                                IsRequired = x.IsIdentifying || reference.IsRequired,
                                                PropertyName = x.JsonPropertyName,
-                                               Schema =
-                                                        new Schema
-                                                        {
-                                                            type = PropertyType(x),
-                                                            format = PropertyFormat(x),
-                                                            description = PropertyDescription(x),
-                                                            maxLength = GetMaxLength(x),
-                                                            isIdentity = GetIsIdentity(x)
-                                                        }
+                                               Schema = CreatePropertySchema(x)
                                            })
                                       .OrderBy(x => x.PropertyName)
                                       .ToList();
