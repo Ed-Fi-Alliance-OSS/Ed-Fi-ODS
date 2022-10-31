@@ -4,6 +4,6 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 UPDATE [dbo].[ClaimSets]
-SET [IsEdfiPreset] = 1  
+SET [IsEdfiPreset] = 1   
 WHERE [ClaimSetName] in ('Ed-Fi API Publisher - Reader','Ed-Fi API Publisher - Writer','Finance Vendor')
 GO
