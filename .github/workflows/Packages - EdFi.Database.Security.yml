@@ -16,11 +16,7 @@ on:
     paths:
       - '**.sql'
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
+
 env:
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "19"
