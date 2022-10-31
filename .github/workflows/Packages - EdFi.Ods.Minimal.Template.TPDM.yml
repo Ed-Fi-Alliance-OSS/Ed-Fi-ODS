@@ -57,11 +57,6 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
           path: Ed-Fi-TPDM-Artifacts/
-    - name: Is pull request branch exists in Ed-Fi-Standard
-      working-directory: ./Ed-Fi-ODS/
-      shell: powershell
-      run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"          
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: powershell
