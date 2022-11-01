@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3c36318e-42f6-4a36-ab26-343484d46eac",
+		"_postman_id": "86a369cf-a102-4188-8261-89d86151c926",
 		"name": "Ed-Fi ODS/API Composite Profile Test Suite",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
@@ -14,7 +15,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "112271e1-3ff0-4379-8cab-170739feb315",
 								"exec": [
 									""
 								],
@@ -24,7 +24,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "944aaba2-acfc-4474-9141-b367686109a6",
 								"exec": [
 									"pm.environment.set('known:stateEducationAgencyId',31);\r",
 									"\r",
@@ -107,7 +106,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 								"exec": [
 									"const uuid = require('uuid');\r",
 									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -124,15 +122,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 								"exec": [
-									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
-									"    pm.test(\"Status code is 200 or 201\", () => {",
-									"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-									"    });",
-									"}"
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -168,8 +161,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature: Composites are constrained by Profiles",
@@ -183,7 +175,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -202,15 +193,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -252,7 +238,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -278,17 +263,15 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -330,23 +313,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, schoolId, nameOfInstitution, operationalStatusDescriptor, type, administrativeFundingControlDescriptor, addresses, schoolCategories]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"            pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'operationalStatusDescriptor', 'type', 'administrativeFundingControlDescriptor', 'addresses', 'schoolCategories']);",
-											"         ",
-											"    });",
-											"}"
+											"pm.test(\"Should the item return with  specific members [id, schoolId, nameOfInstitution, operationalStatusDescriptor, type, administrativeFundingControlDescriptor, addresses, schoolCategories]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'operationalStatusDescriptor', 'type', 'administrativeFundingControlDescriptor', 'addresses', 'schoolCategories']);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -354,7 +331,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -399,7 +375,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -409,16 +384,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains School which is constrained by an exclude-only Profile",
@@ -429,7 +401,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -447,15 +418,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -497,7 +463,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -524,17 +489,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -576,25 +538,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"            pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
-											"         ",
-											"    });",
-											"}",
+											"pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\", () => {",
 											"",
-											""
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -602,7 +556,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -647,7 +600,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -657,16 +609,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains School which is constrained by an include-only references Profile",
@@ -677,7 +626,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -696,15 +644,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -746,7 +689,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -770,17 +712,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -822,23 +761,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"         pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference']);",
-											"         ",
-											"    });",
-											"}"
+											"pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference']);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -846,7 +779,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -891,7 +823,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -901,16 +832,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains School which is constrained by an exclude-only references Profile",
@@ -921,7 +849,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -940,15 +867,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -990,7 +912,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -1017,17 +938,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -1069,23 +987,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
 											"});",
 											"",
 											"pm.test(\"Should the item return with  specific members [id, schoolId, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
-											"    ",
-											"     const responseItem = pm.response.json();",
-											"     const properties = Object.keys(responseItem); ",
-											"        pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
-											"     ",
-											"});",
-											"}"
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1093,7 +1005,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -1138,7 +1049,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1148,16 +1058,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains School which is constrained by an include-all Profile",
@@ -1168,7 +1075,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1187,15 +1093,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1237,7 +1138,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -1264,17 +1164,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -1316,23 +1213,18 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, schoolId,localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"            pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels','localEducationAgencyReference']);",
-											"         ",
-											"    });",
-											"}"
+											"pm.test(\"Should the item return with  specific members [id, schoolId,localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels', 'localEducationAgencyReference']);",
+											"",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1340,7 +1232,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -1385,7 +1276,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1395,16 +1285,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains Staff which is constrained by an include-all Profile",
@@ -1415,7 +1302,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1434,15 +1320,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1494,20 +1375,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffUniqueId', pm.environment.get('supplied:' + scenarioId + ':staffUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -1515,7 +1392,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1584,16 +1460,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1601,7 +1471,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -1661,23 +1530,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, staffUniqueId, personalTitlePrefix, firstName, lastSurname, sexDescriptor, birthDate, hispanicLatinoEthnicity, loginId, addresses, electronicMails, identificationCodes, languages, races, telephones, classifications]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"            pm.expect(properties).to.have.members(['id', 'staffUniqueId', 'personalTitlePrefix', 'firstName', 'lastSurname', 'sexDescriptor', 'birthDate', 'hispanicLatinoEthnicity', 'loginId', 'addresses', 'electronicMails', 'identificationCodes', 'languages', 'races', 'telephones', 'classifications']);",
-											"         ",
-											"    });",
-											"}"
+											"pm.test(\"Should the item return with  specific members [id, staffUniqueId, personalTitlePrefix, firstName, lastSurname, sexDescriptor, birthDate, hispanicLatinoEthnicity, loginId, addresses, electronicMails, identificationCodes, languages, races, telephones, classifications]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'staffUniqueId', 'personalTitlePrefix', 'firstName', 'lastSurname', 'sexDescriptor', 'birthDate', 'hispanicLatinoEthnicity', 'loginId', 'addresses', 'electronicMails', 'identificationCodes', 'languages', 'races', 'telephones', 'classifications']);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1685,7 +1548,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -1730,7 +1592,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1740,16 +1601,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource's base resource is constrained by a write-only Profile",
@@ -1760,7 +1618,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1779,15 +1636,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1829,7 +1681,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -1856,17 +1707,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -1908,22 +1756,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 405\", () => {",
+											"    pm.expect(pm.response.code).to.equal(405);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 405\", () => {",
-											"        pm.expect(pm.response.code).to.equal(405);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with message There is no Readable content type available to the caller for the requested resource\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.equal(\"There is no Readable content type available to the caller for the requested resource.\");",
-											"         ",
-											"    });",
-											"}"
+											"pm.test(\"Should the item return with message There is no Readable content type available to the caller for the requested resource\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    pm.expect(responseItem.message).to.equal(\"There is no Readable content type available to the caller for the requested resource.\");",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -1931,7 +1773,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -1976,7 +1817,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1986,16 +1826,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource is constrained by a Profile with an include all on a child collection",
@@ -2006,7 +1843,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2025,15 +1861,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2075,7 +1906,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -2102,17 +1932,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -2154,28 +1981,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with addresses[0] should only have specific members [addressTypeDescriptor, streetNumberName, city, stateAbbreviationDescriptor, postalCode, nameOfCounty]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const __ = require('lodash');",
+											"",
+											"    __.each(responseItem.addresses, address => {",
+											"        let properties = Object.keys(address);",
+											"        pm.expect(properties).to.have.members(['addressTypeDescriptor', 'streetNumberName', 'city', 'stateAbbreviationDescriptor', 'postalCode', 'nameOfCounty']);",
+											"",
 											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with addresses[0] should only have specific members [addressTypeDescriptor, streetNumberName, city, stateAbbreviationDescriptor, postalCode, nameOfCounty]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const __ = require('lodash');",
-											"       ",
-											"         \t__.each(responseItem.addresses, address => {",
-											"    \t\t\tlet properties = Object.keys(address);",
-											"    \t    \tpm.expect(properties).to.have.members(['addressTypeDescriptor', 'streetNumberName', 'city', 'stateAbbreviationDescriptor', 'postalCode', 'nameOfCounty']);",
-											"         ",
-											"         \t});",
-											"    });",
-											"}",
-											"     "
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2183,7 +2004,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -2228,7 +2048,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2238,16 +2057,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource is constrained by a Profile with an include only on a child collection",
@@ -2258,7 +2074,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2277,15 +2092,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2327,7 +2137,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -2354,17 +2163,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -2406,28 +2212,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with addresses[0] should only have specific members [addressTypeDescriptor, city, stateAbbreviationDescriptor, postalCode, streetNumberName]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const __ = require('lodash');",
+											"",
+											"    __.each(responseItem.addresses, address => {",
+											"        let properties = Object.keys(address);",
+											"        pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'stateAbbreviationDescriptor', 'postalCode', 'streetNumberName']);",
+											"",
 											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with addresses[0] should only have specific members [addressTypeDescriptor, city, stateAbbreviationDescriptor, postalCode, streetNumberName]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const __ = require('lodash');",
-											"       ",
-											"         \t__.each(responseItem.addresses, address => {",
-											"    \t\t\tlet properties = Object.keys(address);",
-											"    \t    \tpm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'stateAbbreviationDescriptor', 'postalCode', 'streetNumberName']);",
-											"         ",
-											"         \t});",
-											"    });",
-											"}",
-											"     "
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2435,7 +2235,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -2480,7 +2279,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2490,16 +2288,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource is constrained by a Profile with an exclude only on a child collection",
@@ -2510,7 +2305,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2529,15 +2323,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2579,7 +2368,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -2606,17 +2394,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -2658,28 +2443,21 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with addresses[0] should only have specific members [addressTypeDescriptor, city, nameOfCounty, postalCode, stateAbbreviationDescriptor, streetNumberName]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const __ = require('lodash');",
+											"",
+											"    __.each(responseItem.addresses, address => {",
+											"        let properties = Object.keys(address);",
+											"        pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'nameOfCounty', 'postalCode', 'stateAbbreviationDescriptor', 'streetNumberName']);",
 											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with addresses[0] should only have specific members [addressTypeDescriptor, city, nameOfCounty, postalCode, stateAbbreviationDescriptor, streetNumberName]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const __ = require('lodash');",
-											"       ",
-											"         \t__.each(responseItem.addresses, address => {",
-											"    \t\t\tlet properties = Object.keys(address);",
-											"    \t    \tpm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'nameOfCounty', 'postalCode', 'stateAbbreviationDescriptor', 'streetNumberName']);",
-											"         ",
-											"         \t});",
-											"    });",
-											"}",
-											"     "
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2687,7 +2465,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -2732,7 +2509,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2742,16 +2518,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource is constrained by a Profile with an inclusive collection value filter on a child collection",
@@ -2762,7 +2535,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2781,15 +2553,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2841,20 +2608,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffUniqueId', pm.environment.get('supplied:' + scenarioId + ':staffUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -2862,7 +2625,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2936,16 +2698,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2953,7 +2709,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -3013,7 +2768,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -3040,17 +2794,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -3102,15 +2853,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3118,7 +2864,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -3184,17 +2929,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}",
-											"",
-											""
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3202,7 +2940,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const __ = require('lodash');",
@@ -3271,15 +3008,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3287,7 +3019,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3340,17 +3071,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':sectionGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':sectionGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -3358,7 +3086,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -3421,16 +3148,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3438,7 +3159,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -3504,23 +3224,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
-											"}",
+											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
+											"pm.environment.set('known:' + scenarioId + ':studentGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
 											"",
-											"    "
+											"pm.environment.set('known:' + scenarioId + ':studentUniqueId', pm.environment.get('supplied:' + scenarioId + ':studentUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -3528,7 +3241,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3600,7 +3312,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -3617,16 +3328,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
-											"});",
-											"}",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3678,7 +3383,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -3699,16 +3403,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3760,7 +3458,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -3794,16 +3491,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3856,45 +3547,36 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
+											"",
+											"    let dataVerified = false;",
+											"    let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical', 'uri://ed-fi.org/AddressTypeDescriptor#Home'];",
+											"    const responseItem = pm.response.json();",
+											"    const __ = require('lodash');",
+											"",
+											"",
+											"    __.each(responseItem.students, student => {",
+											"",
+											"        if (student.educationOrganizations !== null) {",
+											"            __.each(student.educationOrganizations, educationOrganization => {",
+											"",
+											"                if (educationOrganization.addresses !== null) {",
+											"",
+											"                    const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
+											"                    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
+											"                    dataVerified = true;",
+											"                }",
+											"            });",
+											"        }",
+											"",
 											"    });",
-											"    ",
-											"    ",
-											"    pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
-											"        ",
-											"        let dataVerified = false;",
-											"        let expectedAddressTypes=['uri://ed-fi.org/AddressTypeDescriptor#Physical','uri://ed-fi.org/AddressTypeDescriptor#Home'];",
-											"         const responseItem = pm.response.json();",
-											"         const __ = require('lodash');",
-											"           ",
-											"            ",
-											"         __.each(responseItem.students, student => {",
-											"         \t    ",
-											"         \t     if(student.educationOrganizations!==null)",
-											"         \t     {",
-											"         \t    \t__.each(student.educationOrganizations, educationOrganization => {",
-											"         \t    \t ",
-											"         \t    \t   if(educationOrganization.addresses!==null)",
-											"         \t            {",
-											"    ",
-											"         \t                const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
-											"                            pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
-											"                            dataVerified = true;",
-											"         \t            }",
-											"         \t    \t});",
-											"         \t    }",
-											"         ",
-											"         \t});",
-											"        pm.expect(Boolean(dataVerified),'educationOrganization.addresses is empty').to.eql(true); ",
-											"    });",
-											"}",
-											"     "
+											"    pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -3902,7 +3584,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -3947,7 +3628,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3957,16 +3637,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource is constrained by a Profile with an exclusive collection value filter on a child collection",
@@ -3977,7 +3654,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3996,15 +3672,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4056,20 +3727,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffUniqueId', pm.environment.get('supplied:' + scenarioId + ':staffUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -4077,7 +3744,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4146,15 +3812,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4162,7 +3823,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -4222,7 +3882,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -4249,17 +3908,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -4311,15 +3967,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4327,7 +3978,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -4393,17 +4043,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}",
-											"",
-											""
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4411,7 +4054,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const __ = require('lodash');",
@@ -4480,15 +4122,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4496,7 +4133,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -4549,17 +4185,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':sectionGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':sectionGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -4567,7 +4200,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -4630,16 +4262,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4647,7 +4273,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -4713,23 +4338,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
-											"}",
+											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
+											"pm.environment.set('known:' + scenarioId + ':studentGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
 											"",
-											"    "
+											"pm.environment.set('known:' + scenarioId + ':studentUniqueId', pm.environment.get('supplied:' + scenarioId + ':studentUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -4737,7 +4355,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4809,7 +4426,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -4826,16 +4442,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4887,7 +4497,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -4908,16 +4517,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -4969,7 +4572,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -5004,16 +4606,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5065,43 +4661,35 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of Physical\", () => {",
+											"",
+											"    let dataVerified = false;",
+											"    let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical'];",
+											"    const responseItem = pm.response.json();",
+											"    const __ = require('lodash');",
+											"",
+											"    __.each(responseItem.students, student => {",
+											"",
+											"        if (student.educationOrganizations !== null) {",
+											"            __.each(student.educationOrganizations, educationOrganization => {",
+											"",
+											"                if (educationOrganization.addresses !== null) {",
+											"",
+											"                    const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
+											"                    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
+											"                    dataVerified = true;",
+											"                }",
+											"            });",
+											"        }",
+											"",
 											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of Physical\", () => {",
-											"        ",
-											"        let dataVerified = false;",
-											"        let expectedAddressTypes=['uri://ed-fi.org/AddressTypeDescriptor#Physical']; ",
-											"         const responseItem = pm.response.json();",
-											"         const __ = require('lodash');",
-											"           ",
-											"            ",
-											"         __.each(responseItem.students, student => {",
-											"         \t    ",
-											"         \t     if(student.educationOrganizations!==null)",
-											"         \t     {",
-											"         \t    \t__.each(student.educationOrganizations, educationOrganization => {",
-											"         \t    \t ",
-											"         \t    \t   if(educationOrganization.addresses!==null)",
-											"         \t            {",
-											"    ",
-											"         \t                const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
-											"                            pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
-											"                            dataVerified = true;",
-											"         \t            }",
-											"         \t    \t});",
-											"         \t    }",
-											"         ",
-											"         \t});",
-											"        pm.expect(Boolean(dataVerified),'educationOrganization.addresses is empty').to.eql(true); ",
-											"    });",
-											"}"
+											"    pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5109,7 +4697,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -5154,7 +4741,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5164,19 +4750,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Composites are constrained by multiple Profiles",
@@ -5190,7 +4772,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'LEA-100002');",
@@ -5204,15 +4785,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5254,7 +4830,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200201');",
@@ -5282,17 +4857,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -5334,23 +4906,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"         pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
-											"         ",
-											"    });",
-											"}"
+											"pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, nameOfInstitution, shortNameOfInstitution, webSite, operationalStatusDescriptor, type, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, administrativeFundingControlDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, schoolCategories, gradeLevels]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'nameOfInstitution', 'shortNameOfInstitution', 'webSite', 'operationalStatusDescriptor', 'type', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'administrativeFundingControlDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'schoolCategories', 'gradeLevels']);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5358,7 +4924,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -5403,7 +4968,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5413,16 +4977,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains School which is constrained by one profile that excludes a child collection and another that includes some properties of the child collection",
@@ -5433,7 +4994,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'LEA-100002');",
@@ -5447,15 +5007,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5497,7 +5052,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200201');",
@@ -5525,17 +5079,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -5577,34 +5128,29 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
+											"",
+											"});",
+											"",
+											"",
+											"pm.test(\"Should the item return addresses[0] should only have the specific members [addressTypeDescriptor, city, stateAbbreviationDescriptor, postalCode, streetNumberName]\", () => {",
+											"    const __ = require('lodash');",
+											"    const responseItem = pm.response.json();",
+											"    __.each(responseItem.addresses, address => {",
+											"        const properties = Object.keys(address);",
+											"        pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'stateAbbreviationDescriptor', 'postalCode', 'streetNumberName']);",
 											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, schoolId, localEducationAgencyReference, shortNameOfInstitution, webSite, charterStatusDescriptor, titleIPartASchoolDesignationDescriptor, addresses, educationOrganizationCategories, identificationCodes, institutionTelephones, internationalAddresses, gradeLevels]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"         pm.expect(properties).to.have.members(['id', 'schoolId', 'localEducationAgencyReference', 'shortNameOfInstitution', 'webSite', 'charterStatusDescriptor', 'titleIPartASchoolDesignationDescriptor', 'addresses', 'educationOrganizationCategories', 'identificationCodes', 'institutionTelephones', 'internationalAddresses', 'gradeLevels']);",
-											"         ",
-											"    });",
-											"    ",
-											"    ",
-											"    pm.test(\"Should the item return addresses[0] should only have the specific members [addressTypeDescriptor, city, stateAbbreviationDescriptor, postalCode, streetNumberName]\", () => {",
-											"         const __ = require('lodash');",
-											"         const responseItem = pm.response.json();",
-											"         \t__.each(responseItem.addresses, address => {",
-											"         \t      const properties = Object.keys(address); ",
-											"                    pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'stateAbbreviationDescriptor', 'postalCode', 'streetNumberName']);",
-											"         \t});",
-											"         ",
-											"    });",
-											"}"
+											"",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5612,7 +5158,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -5657,7 +5202,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5667,16 +5211,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains child elements composing Staff and Student which are constrained by two different profiles",
@@ -5687,7 +5228,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -5706,15 +5246,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5766,20 +5301,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffUniqueId', pm.environment.get('supplied:' + scenarioId + ':staffUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -5787,7 +5318,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -5857,15 +5387,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    }",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											""
 										],
 										"type": "text/javascript"
@@ -5874,7 +5399,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -5934,7 +5458,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -5962,17 +5485,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -6024,15 +5544,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6040,7 +5555,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -6106,17 +5620,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}",
-											"",
-											""
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6124,7 +5631,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const __ = require('lodash');",
@@ -6193,15 +5699,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6209,7 +5710,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -6262,17 +5762,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':sectionGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':sectionGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -6280,7 +5777,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -6343,16 +5839,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6360,7 +5850,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -6426,23 +5915,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
-											"}",
+											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
+											"pm.environment.set('known:' + scenarioId + ':studentGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
 											"",
-											"    "
+											"pm.environment.set('known:' + scenarioId + ':studentUniqueId', pm.environment.get('supplied:' + scenarioId + ':studentUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -6450,7 +5932,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6522,7 +6003,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -6539,16 +6019,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6600,7 +6074,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -6621,16 +6094,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6682,7 +6149,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -6713,16 +6179,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6774,81 +6234,69 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
-											"    });",
-											"    ",
-											"    const __ = require('lodash');",
-											"        ",
-											"    ",
-											"    pm.test(\"Should the item return students[0]/educationOrganizations[0]/addresses[0] should only have the specific members [addressTypeDescriptor, city, postalCode, stateAbbreviationDescriptor, streetNumberName]\", () => {",
-											"        ",
-											"         let dataVerified = false;",
-											"         const responseItem = pm.response.json();",
-											"       ",
-											"         __.each(responseItem.students, student => {",
-											"         \t    ",
-											"         \t     if(student.educationOrganizations!==null)",
-											"         \t     {",
-											"         \t    \t__.each(student.educationOrganizations, educationOrganization => {",
-											"         \t    \t   ",
-											"         \t    \t   if(educationOrganization.addresses!==null)",
-											"         \t            {",
-											"    \t                 ",
-											"         \t    \t    \t__.each(educationOrganization.addresses, address => {",
-											"         \t    \t    \t    ",
-											"         \t    \t    \t    if(address!==null)",
-											"                 \t            {",
-											"                 \t                 const properties = Object.keys(address); ",
-											"                                     pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'postalCode', 'stateAbbreviationDescriptor', 'streetNumberName']);",
-											"                 \t            }",
-											"         \t    \t    \t});",
-											"         \t            }",
-											"         \t    \t});",
-											"         \t    }",
-											"         ",
-											"         \t});",
-											"         \t",
-											"    });",
-											"    ",
-											"    ",
-											"    pm.test(\"Should the item return with  specific members [id, sectionIdentifier, sequenceOfCourse, educationalEnvironmentDescriptor, availableCredits, staff, students, academicSubjectDescriptor, sessionReference, classPeriods, courseOfferingReference, locationReference, locationSchoolReference]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"         const properties = Object.keys(responseItem); ",
-											"         pm.expect(properties).to.have.members(['id', 'sectionIdentifier', 'sequenceOfCourse', 'educationalEnvironmentDescriptor', 'availableCredits', 'staff', 'students', 'academicSubjectDescriptor', 'sessionReference', 'classPeriods', 'courseOfferingReference', 'locationReference', 'locationSchoolReference']);",
-											"         ",
-											"    });",
-											"    ",
-											"    ",
-											"    pm.test(\"Should the item return staff[0] should not have the specific members [sexType, birthDate, hispanicLatinoEthnicity]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"           __.each(responseItem.staff, staff => {",
-											"                    const properties = Object.keys(staff); ",
-											"                    pm.expect(properties).to.not.include('sexType').and.not.include('birthDate').and.not.include('hispanicLatinoEthnicity');",
-											"           });",
-											"         ",
-											"    });",
-											"    ",
-											"    ",
-											"    pm.test(\"Should the item return students[0] should only have the specific members [id, studentSectionAssociation_id, studentUniqueId, firstName, lastSurname, educationOrganizations, schools]\", () => {",
-											"        ",
-											"         const responseItem = pm.response.json();",
-											"           __.each(responseItem.students, student => {",
-											"                        const properties = Object.keys(student); ",
-											"                        pm.expect(properties).to.have.members(['id', 'studentSectionAssociation_id', 'studentUniqueId', 'firstName', 'lastSurname', 'educationOrganizations', 'schools']);",
-											"           });",
-											"         ",
-											"    });",
-											"}",
+											"const __ = require('lodash');",
 											"",
-											"     "
+											"pm.test(\"Should the item return students[0]/educationOrganizations[0]/addresses[0] should only have the specific members [addressTypeDescriptor, city, postalCode, stateAbbreviationDescriptor, streetNumberName]\", () => {",
+											"",
+											"    let dataVerified = false;",
+											"    const responseItem = pm.response.json();",
+											"",
+											"    __.each(responseItem.students, student => {",
+											"",
+											"        if (student.educationOrganizations !== null) {",
+											"            __.each(student.educationOrganizations, educationOrganization => {",
+											"",
+											"                if (educationOrganization.addresses !== null) {",
+											"",
+											"                    __.each(educationOrganization.addresses, address => {",
+											"",
+											"                        if (address !== null) {",
+											"                            const properties = Object.keys(address);",
+											"                            pm.expect(properties).to.have.members(['addressTypeDescriptor', 'city', 'postalCode', 'stateAbbreviationDescriptor', 'streetNumberName']);",
+											"                        }",
+											"                    });",
+											"                }",
+											"            });",
+											"        }",
+											"",
+											"    });",
+											"",
+											"});",
+											"",
+											"",
+											"pm.test(\"Should the item return with  specific members [id, sectionIdentifier, sequenceOfCourse, educationalEnvironmentDescriptor, availableCredits, staff, students, academicSubjectDescriptor, sessionReference, classPeriods, courseOfferingReference, locationReference, locationSchoolReference]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    const properties = Object.keys(responseItem);",
+											"    pm.expect(properties).to.have.members(['id', 'sectionIdentifier', 'sequenceOfCourse', 'educationalEnvironmentDescriptor', 'availableCredits', 'staff', 'students', 'academicSubjectDescriptor', 'sessionReference', 'classPeriods', 'courseOfferingReference', 'locationReference', 'locationSchoolReference']);",
+											"",
+											"});",
+											"",
+											"",
+											"pm.test(\"Should the item return staff[0] should not have the specific members [sexType, birthDate, hispanicLatinoEthnicity]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    __.each(responseItem.staff, staff => {",
+											"        const properties = Object.keys(staff);",
+											"        pm.expect(properties).to.not.include('sexType').and.not.include('birthDate').and.not.include('hispanicLatinoEthnicity');",
+											"    });",
+											"",
+											"});",
+											"",
+											"",
+											"pm.test(\"Should the item return students[0] should only have the specific members [id, studentSectionAssociation_id, studentUniqueId, firstName, lastSurname, educationOrganizations, schools]\", () => {",
+											"",
+											"    const responseItem = pm.response.json();",
+											"    __.each(responseItem.students, student => {",
+											"        const properties = Object.keys(student);",
+											"        pm.expect(properties).to.have.members(['id', 'studentSectionAssociation_id', 'studentUniqueId', 'firstName', 'lastSurname', 'educationOrganizations', 'schools']);",
+											"    });",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -6856,7 +6304,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -6901,7 +6348,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6911,16 +6357,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Composite resource contains child collection which have value filters applied by two different profiles",
@@ -6931,7 +6374,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6950,15 +6392,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7010,20 +6447,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':staffUniqueId', pm.environment.get('supplied:' + scenarioId + ':staffUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -7031,7 +6464,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -7100,16 +6532,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7117,7 +6543,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -7177,7 +6602,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -7205,17 +6629,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':schoolGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -7267,15 +6688,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7283,7 +6699,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -7349,17 +6764,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}",
-											"",
-											""
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7367,7 +6775,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const __ = require('lodash');",
@@ -7436,15 +6843,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200 or 201\", () => {",
-											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7452,7 +6854,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -7505,17 +6906,14 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':sectionGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"}"
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('known:' + scenarioId + ':sectionGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -7523,7 +6921,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -7586,15 +6983,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7602,7 +6994,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -7668,23 +7059,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"    ",
-											"    ",
-											"    const scenarioId = pm.environment.get('scenarioId');",
-											"    pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
-											"    pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
-											"}",
+											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
+											"pm.environment.set('known:' + scenarioId + ':studentGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
 											"",
-											"    "
+											"pm.environment.set('known:' + scenarioId + ':studentUniqueId', pm.environment.get('supplied:' + scenarioId + ':studentUniqueId'));"
 										],
 										"type": "text/javascript"
 									}
@@ -7692,7 +7076,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -7764,7 +7147,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -7781,16 +7163,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7842,7 +7218,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -7863,16 +7238,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}",
-											""
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -7924,7 +7293,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
@@ -7958,15 +7326,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
-											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 201\", () => {",
-											"        pm.expect(pm.response.code).to.equal(201);",
-											"    });",
-											"}"
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -8018,43 +7381,36 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "dc563e90-19fd-491d-8173-443d23db5604",
 										"exec": [
-											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 200\", () => {",
-											"        pm.expect(pm.response.code).to.equal(200);",
+											"pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
+											"",
+											"    let dataVerified = false;",
+											"    let expectedAddressTypes = ['uri://ed-fi.org/AddressTypeDescriptor#Physical', 'uri://ed-fi.org/AddressTypeDescriptor#Home'];",
+											"    const responseItem = pm.response.json();",
+											"    const __ = require('lodash');",
+											"",
+											"",
+											"    __.each(responseItem.students, student => {",
+											"",
+											"        if (student.educationOrganizations !== null) {",
+											"            __.each(student.educationOrganizations, educationOrganization => {",
+											"",
+											"                if (educationOrganization.addresses !== null) {",
+											"",
+											"                    const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
+											"                    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
+											"                    dataVerified = true;",
+											"                }",
+											"            });",
+											"        }",
+											"",
 											"    });",
-											"    ",
-											"    pm.test(\"Should the item return with all addresses should have addressTypeDescriptor values of either Physical or Home\", () => {",
-											"        ",
-											"        let dataVerified = false;",
-											"        let expectedAddressTypes=['uri://ed-fi.org/AddressTypeDescriptor#Physical','uri://ed-fi.org/AddressTypeDescriptor#Home'];",
-											"         const responseItem = pm.response.json();",
-											"         const __ = require('lodash');",
-											"           ",
-											"            ",
-											"         __.each(responseItem.students, student => {",
-											"         \t    ",
-											"         \t     if(student.educationOrganizations!==null)",
-											"         \t     {",
-											"         \t    \t__.each(student.educationOrganizations, educationOrganization => {",
-											"         \t    \t ",
-											"         \t    \t   if(educationOrganization.addresses!==null)",
-											"         \t            {",
-											"    ",
-											"         \t                const actualAddressTypeDescriptors = __.map(educationOrganization.addresses, address => address.addressTypeDescriptor);",
-											"                            pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypes);",
-											"                            dataVerified = true;",
-											"         \t            }",
-											"         \t    \t});",
-											"         \t    }",
-											"         ",
-											"         \t});",
-											"        pm.expect(Boolean(dataVerified),'educationOrganization.addresses is empty').to.eql(true); ",
-											"    });",
-											"}"
+											"    pm.expect(Boolean(dataVerified), 'educationOrganization.addresses is empty').to.eql(true);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -8062,7 +7418,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a51824d0-46be-411f-b24b-e8d3eeadd921",
 										"exec": [
 											""
 										],
@@ -8107,7 +7462,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "698df003-7822-47af-b0a3-fe5557867ddd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -8117,19 +7471,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b7fa4852-0bb9-4ffe-84b7-d267d83cd50a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Clean Up Test Data",
@@ -8140,7 +7490,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "112271e1-3ff0-4379-8cab-170739feb315",
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
@@ -8170,8 +7519,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
@@ -8188,7 +7536,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "1968cd71-f440-42fc-9a12-ae5ce85610f9",
 				"type": "text/javascript",
 				"exec": [
 					"",
@@ -8300,13 +7647,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "1db543c6-134e-4523-8eae-9a427147544b",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
