@@ -50,7 +50,10 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('w', "working", Required = false, HelpText = "Path to a writable folder containing the working files")]
         public string WorkingFolder { get; set; }
 
-        [Option('x', "xsdmetadataurl", Required = false, HelpText = "(deprecated) The XSD metadata url (i.e. http://server/metadata)")]
+        [Option('x', "xsd", Required = false, HelpText = "(deprecated) Path to a folder containing the Ed-Fi Xsd Schema files")]
+        public string XsdFolder { get; set; }
+
+        [Option('z', "xsdmetadataurl", Required = false, HelpText = "The XSD metadata url (i.e. http://server/metadata)")]
         public string XsdMetadataUrl { get; set; }
 
         [Option(
@@ -88,10 +91,11 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"-k", "OdsApi:Key"},
                 {"-s", "OdsApi:Secret"},
                 {"-m", "OdsApi:MetadataUrl"},
-                {"-x", "OdsApi:XsdMetadataUrl"},
+                {"-z", "OdsApi:XsdMetadataUrl"},
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-p", "OdsApi:Profile"},
                 {"-w", "Folders:Working"},
+                {"-x", "Folders:Xsd"},
                 {"-c", "Concurrency:ConnectionLimit"},
                 {"-t", "Concurrency:TaskCapacity"},
                 {"-l", "Concurrency:MaxSimultaneousApiRequests"},

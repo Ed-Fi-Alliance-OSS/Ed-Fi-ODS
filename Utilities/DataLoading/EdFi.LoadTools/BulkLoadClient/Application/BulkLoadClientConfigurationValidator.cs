@@ -35,6 +35,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 && Directory.Exists(_configuration.DataFolder)
                 && Uri.IsWellFormedUriString(_configuration.ApiUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute)
+                && Uri.IsWellFormedUriString(_configuration.XsdMetadataUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.OauthUrl, UriKind.Absolute);
 
             if (_configuration.ApiMode == ApiMode.YearSpecific)

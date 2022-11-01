@@ -47,8 +47,8 @@ namespace EdFi.Ods.Api.Providers
                     "The instance-year-specific ODS database name replacement token cannot be derived because the school year was not set in the current context.");
             }
 
-            var InstanceYearStr = $"Ods_{instanceId}_{schoolYear}";
-            var instanceYearDeterministicHashCode = InstanceYearStr.GetXxHash3Code();
+            var instanceYearStr = $"Ods_{instanceId}_{schoolYear}";
+            var instanceYearDeterministicHashCode = instanceYearStr.GetXxHash3Code();
             return instanceYearDeterministicHashCode;
         }
     }

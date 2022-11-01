@@ -20,6 +20,9 @@ namespace EdFi.XmlLookup.Console.Application
         [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
         public int? SchoolYear { get; set; }
 
+        [Option('i', "instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
+        public string InstanceId { get; set; }
+
         [Option('d', "data", Required = false, HelpText = "Path to folder containing the data files to be submitted")]
         public string DataFolder { get; set; }
 
@@ -47,8 +50,8 @@ namespace EdFi.XmlLookup.Console.Application
         [Option('x', "xsd", Required = false, HelpText = "(deprecated) Path to a folder containing the Ed-Fi Xsd Schema files")]
         public string XsdFolder { get; set; }
 
-        [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
-        public string InstanceId { get; set; }
+        [Option('z', "xsdmetadataurl", Required = false, HelpText = "The XSD metadata url (i.e. http://server/metadata)")]
+        public string XsdMetadataUrl { get; set; }
 
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -56,11 +59,13 @@ namespace EdFi.XmlLookup.Console.Application
                 {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
                 {"-y", "OdsApi:SchoolYear"},
+                {"-i", "OdsApi:InstanceId"},
                 {"-d", "Folders:Data"},
                 {"-k", "OdsApi:Key"},
                 {"-f", "ForceMetadata"},
                 {"-s", "OdsApi:Secret"},
                 {"-m", "OdsApi:MetadataUrl"},
+                {"-z", "OdsApi:XsdMetadataUrl"},
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-p", "OdsApi:Profile"},
                 {"-w", "Folders:Working"},
@@ -71,6 +76,7 @@ namespace EdFi.XmlLookup.Console.Application
                 {"--key", "OdsApi:Key"},
                 {"--secret", "OdsApi:Secret"},
                 {"--metadataurl", "OdsApi:MetadataUrl"},
+                {"--xsdmetadataurl", "OdsApi:XsdMetadataUrl"},
                 {"--oauthurl", "OdsApi:OAuthUrl"},
                 {"--profile", "OdsApi:Profile"},
                 {"--working", "Folders:Working"},

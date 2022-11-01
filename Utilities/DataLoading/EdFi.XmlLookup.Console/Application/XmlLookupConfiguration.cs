@@ -30,7 +30,7 @@ namespace EdFi.XmlLookup.Console.Application
 
         public string Extension { get; }
 
-        public string XsdMetadataUrl { get; }
+        public string XsdMetadataUrl { get; set; }
 
         public string DataFolder
         {
@@ -68,6 +68,8 @@ namespace EdFi.XmlLookup.Console.Application
         public int MaxSimultaneousRequests { get; set; }
 
         public int? SchoolYear { get; set; }
+
+        public string InstanceId { get; set; }
 
         public string Profile { get; set; }
 
@@ -149,18 +151,25 @@ namespace EdFi.XmlLookup.Console.Application
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
                 SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
+                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
                 WorkingFolder = configuration.GetValue("Folders:Working", currentDirectory),
                 XsdFolder = configuration.GetValue("Folders:Xsd", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
-                OAuthUrl = configuration.GetValue<string>("OdsApi:OAuthUrl"),
+                XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
+                OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 ApiMode = apiMode
             };
 
             string ResolvedUrl(string url)
             {
+				if (url == null)
+                {
+                    return null;
+                }
+				
                 if (apiMode == ApiMode.YearSpecific)
                 {
                     // https://regex101.com/r/KywmUK/1
