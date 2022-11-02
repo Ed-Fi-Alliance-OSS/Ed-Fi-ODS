@@ -478,6 +478,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentAssessmentEducationOrganizationAssociation') AND name = N'UX_StudentAssessmentEducationOrganizationAssociation_ChangeVersion')
+    CREATE INDEX [UX_StudentAssessmentEducationOrganizationAssociation_ChangeVersion] ON [edfi].[StudentAssessmentEducationOrganizationAssociation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentCohortAssociation') AND name = N'UX_StudentCohortAssociation_ChangeVersion')
     CREATE INDEX [UX_StudentCohortAssociation_ChangeVersion] ON [edfi].[StudentCohortAssociation] ([ChangeVersion] ASC)
     GO

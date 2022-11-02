@@ -1494,6 +1494,35 @@ CREATE TABLE tracked_changes_edfi.studentassessment
 );
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentassessmenteducationorganizationassociation') THEN
+CREATE TABLE tracked_changes_edfi.studentassessmenteducationorganizationassociation
+(
+       oldassessmentidentifier VARCHAR(60) NOT NULL,
+       oldeducationorganizationassociationtypedescriptorid INT NOT NULL,
+       oldeducationorganizationassociationtypedescriptornamespace VARCHAR(255) NOT NULL,
+       oldeducationorganizationassociationtypedescriptorcodevalue VARCHAR(50) NOT NULL,
+       oldeducationorganizationid INT NOT NULL,
+       oldnamespace VARCHAR(255) NOT NULL,
+       oldstudentassessmentidentifier VARCHAR(60) NOT NULL,
+       oldstudentusi INT NOT NULL,
+       oldstudentuniqueid VARCHAR(32) NOT NULL,
+       newassessmentidentifier VARCHAR(60) NULL,
+       neweducationorganizationassociationtypedescriptorid INT NULL,
+       neweducationorganizationassociationtypedescriptornamespace VARCHAR(255) NULL,
+       neweducationorganizationassociationtypedescriptorcodevalue VARCHAR(50) NULL,
+       neweducationorganizationid INT NULL,
+       newnamespace VARCHAR(255) NULL,
+       newstudentassessmentidentifier VARCHAR(60) NULL,
+       newstudentusi INT NULL,
+       newstudentuniqueid VARCHAR(32) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT studentassessmenteducationorganizationassociation_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentcohortassociation') THEN
 CREATE TABLE tracked_changes_edfi.studentcohortassociation
 (

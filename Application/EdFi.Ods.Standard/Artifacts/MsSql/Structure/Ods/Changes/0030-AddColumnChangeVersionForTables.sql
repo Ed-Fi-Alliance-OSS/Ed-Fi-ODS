@@ -637,6 +637,14 @@ ALTER TABLE [edfi].[StudentAssessment] ADD CONSTRAINT StudentAssessment_DF_Chang
 END
 
 
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentAssessmentEducationOrganizationAssociation]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentAssessmentEducationOrganizationAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] DROP CONSTRAINT StudentAssessmentEducationOrganizationAssociation_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ADD CONSTRAINT StudentAssessmentEducationOrganizationAssociation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentCohortAssociation]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[StudentCohortAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentCohortAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;

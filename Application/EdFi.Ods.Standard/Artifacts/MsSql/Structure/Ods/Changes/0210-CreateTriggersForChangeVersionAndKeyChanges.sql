@@ -1208,6 +1208,19 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentAssessmentEducationOrganizationAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentAssessmentEducationOrganizationAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentAssessmentEducationOrganizationAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_StudentCohortAssociation_TR_UpdateChangeVersion]
 GO
 

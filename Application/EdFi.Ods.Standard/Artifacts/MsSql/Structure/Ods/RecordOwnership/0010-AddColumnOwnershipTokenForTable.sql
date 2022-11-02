@@ -161,6 +161,8 @@ ALTER TABLE [edfi].[StudentAcademicRecord] ADD [CreatedByOwnershipTokenId] SMALL
 
 ALTER TABLE [edfi].[StudentAssessment] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[StudentCohortAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentCompetencyObjective] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
