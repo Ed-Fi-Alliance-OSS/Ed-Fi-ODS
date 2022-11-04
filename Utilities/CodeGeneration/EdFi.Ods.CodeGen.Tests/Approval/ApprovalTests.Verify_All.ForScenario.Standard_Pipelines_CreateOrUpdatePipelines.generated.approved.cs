@@ -515,6 +515,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class EducationOrganizationAssociationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor, Entities.NHibernate.EducationOrganizationAssociationTypeDescriptorAggregate.EdFi.EducationOrganizationAssociationTypeDescriptor>
+    {
+        public EducationOrganizationAssociationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class EducationOrganizationCategoryDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducationOrganizationCategoryDescriptor.EdFi.EducationOrganizationCategoryDescriptor, Entities.NHibernate.EducationOrganizationCategoryDescriptorAggregate.EdFi.EducationOrganizationCategoryDescriptor>
     {
         public EducationOrganizationCategoryDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1538,6 +1544,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentAssessmentCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentAssessment.EdFi.StudentAssessment, Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessment>
     {
         public StudentAssessmentCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentEducationOrganizationAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation, Entities.NHibernate.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociation>
+    {
+        public StudentAssessmentEducationOrganizationAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

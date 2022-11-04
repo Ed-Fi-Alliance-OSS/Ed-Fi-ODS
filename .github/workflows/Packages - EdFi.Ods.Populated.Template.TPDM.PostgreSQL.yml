@@ -14,7 +14,7 @@ on:
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
 env:
-  EDFI_STANDARD_REFERENCE: "4.0.0-a"
+  EDFI_STANDARD_REFERENCE: "main"
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "50"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"

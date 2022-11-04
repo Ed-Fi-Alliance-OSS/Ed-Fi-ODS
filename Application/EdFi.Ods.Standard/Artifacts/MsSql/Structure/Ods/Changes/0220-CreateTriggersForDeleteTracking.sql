@@ -1756,6 +1756,27 @@ ALTER TABLE [edfi].[EducationOrganization] ENABLE TRIGGER [edfi_EducationOrganiz
 GO
 
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationAssociationTypeDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_EducationOrganizationAssociationTypeDescriptor_TR_DeleteTracking] ON [edfi].[EducationOrganizationAssociationTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.EducationOrganizationAssociationTypeDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.EducationOrganizationAssociationTypeDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EducationOrganizationAssociationTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[EducationOrganizationAssociationTypeDescriptor] ENABLE TRIGGER [edfi_EducationOrganizationAssociationTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_EducationOrganizationCategoryDescriptor_TR_DeleteTracking]
 GO
 
@@ -5233,6 +5254,30 @@ END
 GO
 
 ALTER TABLE [edfi].[StudentAssessment] ENABLE TRIGGER [edfi_StudentAssessment_TR_DeleteTracking]
+GO
+
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentAssessmentEducationOrganizationAssociation_TR_DeleteTracking] ON [edfi].[StudentAssessmentEducationOrganizationAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[StudentAssessmentEducationOrganizationAssociation](OldAssessmentIdentifier, OldEducationOrganizationAssociationTypeDescriptorId, OldEducationOrganizationAssociationTypeDescriptorNamespace, OldEducationOrganizationAssociationTypeDescriptorCodeValue, OldEducationOrganizationId, OldNamespace, OldStudentAssessmentIdentifier, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.AssessmentIdentifier, d.EducationOrganizationAssociationTypeDescriptorId, j0.Namespace, j0.CodeValue, d.EducationOrganizationId, d.Namespace, d.StudentAssessmentIdentifier, d.StudentUSI, j1.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+        INNER JOIN edfi.Descriptor j0
+            ON d.EducationOrganizationAssociationTypeDescriptorId = j0.DescriptorId
+        INNER JOIN edfi.Student j1
+            ON d.StudentUSI = j1.StudentUSI
+END
+GO
+
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] ENABLE TRIGGER [edfi_StudentAssessmentEducationOrganizationAssociation_TR_DeleteTracking]
 GO
 
 

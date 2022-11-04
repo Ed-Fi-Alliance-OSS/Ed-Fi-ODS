@@ -1005,6 +1005,10 @@ COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.StateAbbreviationDescr
 COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
 
+-- Extended Properties [edfi].[EducationOrganizationAssociationTypeDescriptor] --
+COMMENT ON TABLE edfi.EducationOrganizationAssociationTypeDescriptor IS 'The type of education organization association being represented.';
+COMMENT ON COLUMN edfi.EducationOrganizationAssociationTypeDescriptor.EducationOrganizationAssociationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[EducationOrganizationCategory] --
 COMMENT ON TABLE edfi.EducationOrganizationCategory IS 'The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.';
 COMMENT ON COLUMN edfi.EducationOrganizationCategory.EducationOrganizationCategoryDescriptorId IS 'The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.';
@@ -1898,7 +1902,7 @@ COMMENT ON TABLE edfi.MigrantEducationProgramServiceDescriptor IS 'This descript
 COMMENT ON COLUMN edfi.MigrantEducationProgramServiceDescriptor.MigrantEducationProgramServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ModelEntityDescriptor] --
-COMMENT ON TABLE edfi.ModelEntityDescriptor IS 'The resources for which the descriptor mapping applies. If empty, the mapping is assumed to be applicable to all resources in which the descriptor appears.';
+COMMENT ON TABLE edfi.ModelEntityDescriptor IS 'The class of a domain entity in the Ed-Fi data model.';
 COMMENT ON COLUMN edfi.ModelEntityDescriptor.ModelEntityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[MonitoredDescriptor] --
@@ -3210,6 +3214,8 @@ COMMENT ON COLUMN edfi.StudentAssessment.EventDescription IS 'Describes special 
 COMMENT ON COLUMN edfi.StudentAssessment.SchoolYear IS 'The school year for which the assessment was administered to a student. Among other uses, handles cases in which a student takes a prior-year exam in a subsequent school year during an exam re-test.';
 COMMENT ON COLUMN edfi.StudentAssessment.PlatformTypeDescriptorId IS 'The platform with which the assessment was delivered to the student during the assessment session.';
 COMMENT ON COLUMN edfi.StudentAssessment.AssessedMinutes IS 'Reported time student was assessed in minutes.';
+COMMENT ON COLUMN edfi.StudentAssessment.ReportedSchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.StudentAssessment.ReportedSchoolIdentifier IS 'A reported school identifier for the school the enrollment at the time of the assessment used when the assigned SchoolId is not known by the assessment vendor.';
 
 -- Extended Properties [edfi].[StudentAssessmentAccommodation] --
 COMMENT ON TABLE edfi.StudentAssessmentAccommodation IS 'The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria.';
@@ -3218,6 +3224,16 @@ COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.AssessmentIdentifier IS 'A
 COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.Namespace IS 'Namespace for the assessment.';
 COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentAccommodation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [edfi].[StudentAssessmentEducationOrganizationAssociation] --
+COMMENT ON TABLE edfi.StudentAssessmentEducationOrganizationAssociation IS 'The association of individual StudentAssessments with EducationOrganizations indicating administration, enrollment, or attribution.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.EducationOrganizationAssociationTypeDescriptorId IS 'The type of association being represented.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.Namespace IS 'Namespace for the assessment.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentAssessmentEducationOrganizationAssociation.SchoolYear IS 'The school year associated with the association..';
 
 -- Extended Properties [edfi].[StudentAssessmentItem] --
 COMMENT ON TABLE edfi.StudentAssessmentItem IS 'The student''s response to an assessment item and the item-level scores such as correct, incorrect, or met standard.';

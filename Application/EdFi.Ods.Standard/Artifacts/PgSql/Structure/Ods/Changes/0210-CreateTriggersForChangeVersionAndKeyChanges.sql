@@ -716,6 +716,11 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessment
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentassessmenteducationorganizationassociation') THEN
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentassessmenteducationorganizationassociation
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentcohortassociation') THEN
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.studentcohortassociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();

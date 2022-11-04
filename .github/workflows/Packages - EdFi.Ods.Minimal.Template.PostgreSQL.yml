@@ -13,7 +13,7 @@ on:
   repository_dispatch:
     types: [triggered-from-implementation-repo]
 env:
-  EDFI_STANDARD_REFERENCE: "4.0.0-a"
+  EDFI_STANDARD_REFERENCE: "main"
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "26"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -52,6 +52,11 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
+    - name: Is pull request branch exists in Ed-Fi-Standard
+      working-directory: ./Ed-Fi-ODS/
+      shell: powershell
+      run: |
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"          
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
@@ -103,7 +108,7 @@ jobs:
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template.PostgreSQL"
       shell: powershell
     - name: Upload EdFi.Ods.Minimal.Template Artifacts
-      if: success()
+      if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts

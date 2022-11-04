@@ -2859,6 +2859,37 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationAssociationTypeDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/educationOrganizationAssociationTypeDescriptors")]
+    public partial class EducationOrganizationAssociationTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor,
+        Api.Common.Models.Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor,
+        Entities.Common.EdFi.IEducationOrganizationAssociationTypeDescriptor,
+        Entities.NHibernate.EducationOrganizationAssociationTypeDescriptorAggregate.EdFi.EducationOrganizationAssociationTypeDescriptor,
+        Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi.EducationOrganizationAssociationTypeDescriptorPut,
+        Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi.EducationOrganizationAssociationTypeDescriptorPost,
+        Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi.EducationOrganizationAssociationTypeDescriptorDelete,
+        Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi.EducationOrganizationAssociationTypeDescriptorGetByExample>
+    {
+        public EducationOrganizationAssociationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi.EducationOrganizationAssociationTypeDescriptorGetByExample request, Entities.Common.EdFi.IEducationOrganizationAssociationTypeDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationAssociationTypeDescriptorId = request.EducationOrganizationAssociationTypeDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -8587,12 +8618,52 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             specification.Namespace = request.Namespace;
             specification.PlatformTypeDescriptor = request.PlatformTypeDescriptor;
             specification.ReasonNotTestedDescriptor = request.ReasonNotTestedDescriptor;
+            specification.ReportedSchoolId = request.ReportedSchoolId;
+            specification.ReportedSchoolIdentifier = request.ReportedSchoolIdentifier;
             specification.RetestIndicatorDescriptor = request.RetestIndicatorDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.SerialNumber = request.SerialNumber;
             specification.StudentAssessmentIdentifier = request.StudentAssessmentIdentifier;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.WhenAssessedGradeLevelDescriptor = request.WhenAssessedGradeLevelDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentAssessmentEducationOrganizationAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/studentAssessmentEducationOrganizationAssociations")]
+    public partial class StudentAssessmentEducationOrganizationAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation,
+        Api.Common.Models.Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation,
+        Entities.Common.EdFi.IStudentAssessmentEducationOrganizationAssociation,
+        Entities.NHibernate.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociation,
+        Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi.StudentAssessmentEducationOrganizationAssociationPut,
+        Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi.StudentAssessmentEducationOrganizationAssociationPost,
+        Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi.StudentAssessmentEducationOrganizationAssociationDelete,
+        Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi.StudentAssessmentEducationOrganizationAssociationGetByExample>
+    {
+        public StudentAssessmentEducationOrganizationAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi.StudentAssessmentEducationOrganizationAssociationGetByExample request, Entities.Common.EdFi.IStudentAssessmentEducationOrganizationAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssessmentIdentifier = request.AssessmentIdentifier;
+            specification.EducationOrganizationAssociationTypeDescriptor = request.EducationOrganizationAssociationTypeDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.SchoolYear = request.SchoolYear;
+            specification.StudentAssessmentIdentifier = request.StudentAssessmentIdentifier;
+            specification.StudentUniqueId = request.StudentUniqueId;
         }
     }
 }

@@ -161,6 +161,8 @@ CREATE INDEX IF NOT EXISTS UX_0ff8d6_ChangeVersion ON edfi.StudentAcademicRecord
 
 CREATE INDEX IF NOT EXISTS UX_ee3b2a_ChangeVersion ON edfi.StudentAssessment(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_afb8b8_ChangeVersion ON edfi.StudentAssessmentEducationOrganizationAssociation(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_369ddc_ChangeVersion ON edfi.StudentCohortAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_395c07_ChangeVersion ON edfi.StudentCompetencyObjective(ChangeVersion);

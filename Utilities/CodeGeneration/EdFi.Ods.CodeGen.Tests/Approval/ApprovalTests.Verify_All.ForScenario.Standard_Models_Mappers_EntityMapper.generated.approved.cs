@@ -23433,6 +23433,189 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
     }
 
 }
+// Aggregate: EducationOrganizationAssociationTypeDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class EducationOrganizationAssociationTypeDescriptorMapper
+    {
+        public static bool SynchronizeTo(this IEducationOrganizationAssociationTypeDescriptor source, IEducationOrganizationAssociationTypeDescriptor target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.EducationOrganizationAssociationTypeDescriptorId != target.EducationOrganizationAssociationTypeDescriptorId)
+            {
+                source.EducationOrganizationAssociationTypeDescriptorId = target.EducationOrganizationAssociationTypeDescriptorId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IEducationOrganizationAssociationTypeDescriptor source, IEducationOrganizationAssociationTypeDescriptor target, Action<IEducationOrganizationAssociationTypeDescriptor, IEducationOrganizationAssociationTypeDescriptor> onMapped)
+        {
+            var sourceSynchSupport = source as IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport;
+            var targetSynchSupport = target as IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EducationOrganizationAssociationTypeDescriptorId = source.EducationOrganizationAssociationTypeDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsCodeValueSupported)
+                target.CodeValue = source.CodeValue;
+            else
+                targetSynchSupport.IsCodeValueSupported = false;
+
+            if (sourceSynchSupport.IsDescriptionSupported)
+                target.Description = source.Description;
+            else
+                targetSynchSupport.IsDescriptionSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+            else
+                targetSynchSupport.IsEffectiveBeginDateSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+            else
+                targetSynchSupport.IsEffectiveEndDateSupported = false;
+
+            if (sourceSynchSupport.IsNamespaceSupported)
+                target.Namespace = source.Namespace;
+            else
+                targetSynchSupport.IsNamespaceSupported = false;
+
+            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+            else
+                targetSynchSupport.IsPriorDescriptorIdSupported = false;
+
+            if (sourceSynchSupport.IsShortDescriptionSupported)
+                target.ShortDescription = source.ShortDescription;
+            else
+                targetSynchSupport.IsShortDescriptionSupported = false;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport 
+    {
+        bool IsCodeValueSupported { get; set; }
+        bool IsDescriptionSupported { get; set; }
+        bool IsEffectiveBeginDateSupported { get; set; }
+        bool IsEffectiveEndDateSupported { get; set; }
+        bool IsNamespaceSupported { get; set; }
+        bool IsPriorDescriptorIdSupported { get; set; }
+        bool IsShortDescriptionSupported { get; set; }
+    }
+
+}
 // Aggregate: EducationOrganizationCategoryDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationCategoryDescriptorAggregate
@@ -71700,6 +71883,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsReportedSchoolIdSupported)
+                && target.ReportedSchoolId != source.ReportedSchoolId)
+            {
+                target.ReportedSchoolId = source.ReportedSchoolId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsReportedSchoolIdentifierSupported)
+                && target.ReportedSchoolIdentifier != source.ReportedSchoolIdentifier)
+            {
+                target.ReportedSchoolIdentifier = source.ReportedSchoolIdentifier;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsRetestIndicatorDescriptorSupported)
                 && target.RetestIndicatorDescriptor != source.RetestIndicatorDescriptor)
             {
@@ -71897,6 +72094,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             else
                 targetSynchSupport.IsReasonNotTestedDescriptorSupported = false;
 
+            if (sourceSynchSupport.IsReportedSchoolIdSupported)
+                target.ReportedSchoolId = source.ReportedSchoolId;
+            else
+                targetSynchSupport.IsReportedSchoolIdSupported = false;
+
+            if (sourceSynchSupport.IsReportedSchoolIdentifierSupported)
+                target.ReportedSchoolIdentifier = source.ReportedSchoolIdentifier;
+            else
+                targetSynchSupport.IsReportedSchoolIdentifierSupported = false;
+
             if (sourceSynchSupport.IsRetestIndicatorDescriptorSupported)
                 target.RetestIndicatorDescriptor = source.RetestIndicatorDescriptor;
             else
@@ -71923,6 +72130,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
             {
                 target.AssessmentResourceId = source.AssessmentResourceId;
                 target.AssessmentDiscriminator = source.AssessmentDiscriminator;
+                target.ReportedSchoolResourceId = source.ReportedSchoolResourceId;
                 target.SchoolYearTypeResourceId = source.SchoolYearTypeResourceId;
                 target.StudentResourceId = source.StudentResourceId;
                 target.StudentDiscriminator = source.StudentDiscriminator;
@@ -72054,6 +72262,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
         bool IsEventDescriptionSupported { get; set; }
         bool IsPlatformTypeDescriptorSupported { get; set; }
         bool IsReasonNotTestedDescriptorSupported { get; set; }
+        bool IsReportedSchoolIdSupported { get; set; }
+        bool IsReportedSchoolIdentifierSupported { get; set; }
         bool IsRetestIndicatorDescriptorSupported { get; set; }
         bool IsSchoolYearSupported { get; set; }
         bool IsSerialNumberSupported { get; set; }
@@ -73019,6 +73229,141 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
     {
         bool IsResultSupported { get; set; }
         bool IsResultDatatypeTypeDescriptorSupported { get; set; }
+    }
+
+}
+// Aggregate: StudentAssessmentEducationOrganizationAssociation
+
+namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizationAssociationAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class StudentAssessmentEducationOrganizationAssociationMapper
+    {
+        public static bool SynchronizeTo(this IStudentAssessmentEducationOrganizationAssociation source, IStudentAssessmentEducationOrganizationAssociation target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.AssessmentIdentifier != target.AssessmentIdentifier)
+            {
+                source.AssessmentIdentifier = target.AssessmentIdentifier;
+            }
+            if (source.EducationOrganizationAssociationTypeDescriptor != target.EducationOrganizationAssociationTypeDescriptor)
+            {
+                source.EducationOrganizationAssociationTypeDescriptor = target.EducationOrganizationAssociationTypeDescriptor;
+            }
+            if (source.EducationOrganizationId != target.EducationOrganizationId)
+            {
+                source.EducationOrganizationId = target.EducationOrganizationId;
+            }
+            if (source.Namespace != target.Namespace)
+            {
+                source.Namespace = target.Namespace;
+            }
+            if (source.StudentAssessmentIdentifier != target.StudentAssessmentIdentifier)
+            {
+                source.StudentAssessmentIdentifier = target.StudentAssessmentIdentifier;
+            }
+            if (source.StudentUniqueId != target.StudentUniqueId)
+            {
+                source.StudentUniqueId = target.StudentUniqueId;
+            }
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsSchoolYearSupported)
+                && target.SchoolYear != source.SchoolYear)
+            {
+                target.SchoolYear = source.SchoolYear;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IStudentAssessmentEducationOrganizationAssociation source, IStudentAssessmentEducationOrganizationAssociation target, Action<IStudentAssessmentEducationOrganizationAssociation, IStudentAssessmentEducationOrganizationAssociation> onMapped)
+        {
+            var sourceSynchSupport = source as IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport;
+            var targetSynchSupport = target as IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.AssessmentIdentifier = source.AssessmentIdentifier;
+            target.EducationOrganizationAssociationTypeDescriptor = source.EducationOrganizationAssociationTypeDescriptor;
+            target.EducationOrganizationId = source.EducationOrganizationId;
+            target.Namespace = source.Namespace;
+            target.StudentAssessmentIdentifier = source.StudentAssessmentIdentifier;
+            target.StudentUniqueId = source.StudentUniqueId;
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsSchoolYearSupported)
+                target.SchoolYear = source.SchoolYear;
+            else
+                targetSynchSupport.IsSchoolYearSupported = false;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
+                target.EducationOrganizationDiscriminator = source.EducationOrganizationDiscriminator;
+                target.SchoolYearTypeResourceId = source.SchoolYearTypeResourceId;
+                target.StudentAssessmentResourceId = source.StudentAssessmentResourceId;
+                target.StudentAssessmentDiscriminator = source.StudentAssessmentDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
+
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+        bool IsSchoolYearSupported { get; set; }
     }
 
 }
