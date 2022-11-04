@@ -400,6 +400,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'educationContent', N'educationContent', N'http://ed-fi.org/ods/identity/claims/educationContent', NULL, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'educationOrganizationAssociationTypeDescriptor', N'educationOrganizationAssociationTypeDescriptor', N'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'educationOrganizationCategoryDescriptor', N'educationOrganizationCategoryDescriptor', N'http://ed-fi.org/ods/identity/claims/educationOrganizationCategoryDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -911,6 +914,9 @@ VALUES (N'studentAcademicRecord', N'studentAcademicRecord', N'http://ed-fi.org/o
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'studentAssessment', N'studentAssessment', N'http://ed-fi.org/ods/identity/claims/studentAssessment', @assessmentMetadataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'studentAssessmentEducationOrganizationAssociation', N'studentAssessmentEducationOrganizationAssociation', N'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'studentCharacteristicDescriptor', N'studentCharacteristicDescriptor', N'http://ed-fi.org/ods/identity/claims/studentCharacteristicDescriptor', @systemDescriptorsResourceClaimId, @applicationId);

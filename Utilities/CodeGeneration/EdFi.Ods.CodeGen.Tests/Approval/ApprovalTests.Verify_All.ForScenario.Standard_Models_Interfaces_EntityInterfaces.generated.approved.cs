@@ -3210,6 +3210,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducationOrganizationAssociationTypeDescriptor model.
+    /// </summary>
+    public interface IEducationOrganizationAssociationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int EducationOrganizationAssociationTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationCategory model.
     /// </summary>
     public interface IEducationOrganizationCategory : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -10075,6 +10093,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string EventDescription { get; set; }
         string PlatformTypeDescriptor { get; set; }
         string ReasonNotTestedDescriptor { get; set; }
+        int? ReportedSchoolId { get; set; }
+        string ReportedSchoolIdentifier { get; set; }
         string RetestIndicatorDescriptor { get; set; }
         short? SchoolYear { get; set; }
         string SerialNumber { get; set; }
@@ -10094,6 +10114,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Resource reference data
         Guid? AssessmentResourceId { get; set; }
         string AssessmentDiscriminator { get; set; }
+        Guid? ReportedSchoolResourceId { get; set; }
         Guid? SchoolYearTypeResourceId { get; set; }
         Guid? StudentResourceId { get; set; }
         string StudentDiscriminator { get; set; }
@@ -10117,6 +10138,40 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Lists
 
         // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentAssessmentEducationOrganizationAssociation model.
+    /// </summary>
+    public interface IStudentAssessmentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AssessmentIdentifier { get; set; }
+        [NaturalKeyMember]
+        string EducationOrganizationAssociationTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string Namespace { get; set; }
+        [NaturalKeyMember]
+        string StudentAssessmentIdentifier { get; set; }
+        [NaturalKeyMember]
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        short? SchoolYear { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+        Guid? SchoolYearTypeResourceId { get; set; }
+        Guid? StudentAssessmentResourceId { get; set; }
+        string StudentAssessmentDiscriminator { get; set; }
     }
 
     /// <summary>

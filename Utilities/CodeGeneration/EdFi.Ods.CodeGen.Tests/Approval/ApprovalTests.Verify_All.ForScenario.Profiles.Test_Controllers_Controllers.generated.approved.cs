@@ -1747,6 +1747,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             specification.Namespace = request.Namespace;
             specification.PlatformTypeDescriptor = request.PlatformTypeDescriptor;
             specification.ReasonNotTestedDescriptor = request.ReasonNotTestedDescriptor;
+            specification.ReportedSchoolId = request.ReportedSchoolId;
+            specification.ReportedSchoolIdentifier = request.ReportedSchoolIdentifier;
             specification.RetestIndicatorDescriptor = request.RetestIndicatorDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.SerialNumber = request.SerialNumber;
@@ -1801,6 +1803,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             specification.Namespace = request.Namespace;
             specification.PlatformTypeDescriptor = request.PlatformTypeDescriptor;
             specification.ReasonNotTestedDescriptor = request.ReasonNotTestedDescriptor;
+            specification.ReportedSchoolId = request.ReportedSchoolId;
+            specification.ReportedSchoolIdentifier = request.ReportedSchoolIdentifier;
             specification.RetestIndicatorDescriptor = request.RetestIndicatorDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.SerialNumber = request.SerialNumber;

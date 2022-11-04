@@ -408,6 +408,9 @@ begin
     values ('educationContent', 'educationContent', 'http://ed-fi.org/ods/identity/claims/educationContent', null, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('educationOrganizationAssociationTypeDescriptor', 'educationOrganizationAssociationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('educationOrganizationCategoryDescriptor', 'educationOrganizationCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationCategoryDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -919,6 +922,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('studentAssessment', 'studentAssessment', 'http://ed-fi.org/ods/identity/claims/studentAssessment', assessmentMetadataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('studentAssessmentEducationOrganizationAssociation', 'studentAssessmentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('studentCharacteristicDescriptor', 'studentCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/studentCharacteristicDescriptor', systemDescriptorsResourceClaimId, application_id);
