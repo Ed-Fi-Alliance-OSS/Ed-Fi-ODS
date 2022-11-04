@@ -13,7 +13,7 @@ on:
   repository_dispatch:
     types: [triggered-from-implementation-repo]
 env:
-
+  EDFI_STANDARD_REFERENCE: "main"
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "28"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -51,6 +51,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
+          ref: ${{ env.EDFI_STANDARD_REFERENCE }}          
     - name: Is pull request branch exists in Ed-Fi-Standard
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
