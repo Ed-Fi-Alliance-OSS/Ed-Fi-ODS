@@ -501,7 +501,7 @@
   <Profile name="Assessment-Readable-Excludes-Embedded-Object">
     <Resource name="Assessment">
       <ReadContentType memberSelection="ExcludeOnly">
-        <Object name="AssessmentContentStandard" />
+        <Object name="AssessmentContentStandard" memberSelection="IncludeAll" />
       </ReadContentType>
     </Resource>
   </Profile>
