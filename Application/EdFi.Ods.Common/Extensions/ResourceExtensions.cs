@@ -93,13 +93,14 @@ namespace EdFi.Ods.Common.Extensions
         /// <returns></returns>
         public static IEnumerable<ResourceProperty> UnifiedKeyAllProperties(this ResourceClassBase resourceClassBase)
         {
-            return resourceClassBase.AllProperties
+            return resourceClassBase.Properties
                                     .Union(
                                          resourceClassBase.IdentifyingProperties
                                                           .Where(x => x.IsUnified()),
                                          ModelComparers.ResourcePropertyNameOnly)
                                     .Where(
                                          p => !resourceClassBase.References
+                                                                .Where(r => r.IsRequired)
                                                                 .SelectMany(r => r.Properties)
                                                                 .Select(r => r.PropertyName)
                                                                 .Contains(p.PropertyName));
