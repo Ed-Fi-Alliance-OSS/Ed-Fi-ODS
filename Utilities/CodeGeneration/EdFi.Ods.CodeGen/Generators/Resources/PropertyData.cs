@@ -101,25 +101,25 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ? null
                 : $"{Namespaces.Entities.Common.RelativeNamespace}.{Property.ProperCaseSchemaName()}.";
 
+            var propertyName = IsReferencedProperty
+                    ? string.Format(
+                        "backReference.{0} != null && backReference.{0}.{1}",
+                        Property.EntityProperty.Entity.Aggregate.Name,
+                        Property.PropertyName)
+                    : Property.PropertyName;
+
             return new
             {
                 Description = desc,
                 Misc = this[ResourceRenderer.MiscellaneousComment],
                 JsonPropertyName = Property.JsonPropertyName,
-                PropertyName = IsReferencedProperty
-                    ? string.Format(
-                        "backReference.{0} != null && backReference.{0}.{1}",
-                        Property.EntityProperty.Entity.Aggregate.Name,
-                        Property.PropertyName)
-                    : Property.PropertyName,
+                PropertyName = propertyName,
                 CSharpSafePropertyName = Property.PropertyName.MakeSafeForCSharpClass(Property.ParentFullName.Name),
                 ParentName =
                     Property.EntityProperty.IsFromParent
                         ? Property.EntityProperty.Entity.Parent.Name
                         : Property.EntityProperty.Entity.Name,
-                PropertyFieldName = Property.EntityProperty.Entity
-                    .ResolvedEdFiEntityName()
-                    .ToCamelCase(),
+                PropertyFieldName = propertyName.ToCamelCase(),
                 PropertyType = Property.PropertyType.ToCSharp(true),
                 IsFirstProperty = IsFirstProperty,
                 IsLastProperty = IsLastProperty,
@@ -150,7 +150,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 NullPropertyPrefix = Property.EntityProperty.Entity.IsEntityExtension
                     ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
                     : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}.",
-                IsNullable = Property.PropertyType.IsNullable
+                IsNullable = Property.PropertyType.IsNullable,
+                AllIncomingAssociationsAreOptional = !Property.EntityProperty.IncomingAssociations.Any(a => a.IsRequired)
             };
         }
 

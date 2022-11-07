@@ -481,22 +481,36 @@ namespace {{ResourceClassesNamespace}}
         {{#Referenced}}
         {{#Property}}
 
+        {{#AllIncomingAssociationsAreOptional}}
+        private {{PropertyType}} _{{PropertyFieldName}};
+        {{/AllIncomingAssociationsAreOptional}}
         /// <summary>
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
+        {{#AllIncomingAssociationsAreOptional}}
+        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]
+        {{/AllIncomingAssociationsAreOptional}}
         {{PropertyType}} {{PropertyNamespacePrefix}}I{{ParentName}}.{{PropertyName}}
         {
             get
             {
+                {{#AllIncomingAssociationsAreOptional}}
+                return _{{PropertyFieldName}};
+                {{/AllIncomingAssociationsAreOptional}}
+                {{^AllIncomingAssociationsAreOptional}}
                 if (Implicit{{ImplicitPropertyName}}Reference != null
                     && (_SuspendReferenceAssignmentCheck || Implicit{{ImplicitPropertyName}}Reference.IsReferenceFullyDefined()))
                     return Implicit{{ImplicitPropertyName}}Reference.{{ParentPropertyName}};
 
                 return default({{PropertyType}});
+                {{/AllIncomingAssociationsAreOptional}}
             }
             set
             {
+                {{#AllIncomingAssociationsAreOptional}}
+                _{{PropertyFieldName}} = value;
+                {{/AllIncomingAssociationsAreOptional}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
                 // All ExplicitlyAssigned are reset to false in advanced
                 {{#UnifiedKeys}}
