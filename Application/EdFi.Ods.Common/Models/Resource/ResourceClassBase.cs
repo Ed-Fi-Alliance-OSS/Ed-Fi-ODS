@@ -226,7 +226,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// <summary>
         /// Gets the proper-case name of the associated schema, if applicable.
         /// </summary>
-        public string SchemaProperCaseName => ResourceModel?.SchemaNameMapProvider?.GetSchemaMapByPhysicalName(FullName.Schema)
+        public virtual string SchemaProperCaseName => ResourceModel?.SchemaNameMapProvider?.GetSchemaMapByPhysicalName(FullName.Schema)
                                                             .ProperCaseName;
 
         /// <summary>

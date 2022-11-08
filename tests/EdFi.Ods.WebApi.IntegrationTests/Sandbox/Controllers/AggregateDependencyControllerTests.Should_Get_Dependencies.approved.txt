@@ -488,6 +488,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/educationOrganizationAssociationTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/educationOrganizationCategoryDescriptors",
     "order": 1,
     "operations": [
@@ -2403,6 +2411,14 @@
   },
   {
     "resource": "/ed-fi/grades",
+    "order": 16,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentAssessmentEducationOrganizationAssociations",
     "order": 16,
     "operations": [
       "Create",

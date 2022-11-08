@@ -1574,6 +1574,12 @@ CREATE TABLE edfi.EducationOrganizationAddressPeriod (
 ); 
 ALTER TABLE edfi.EducationOrganizationAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.EducationOrganizationAssociationTypeDescriptor --
+CREATE TABLE edfi.EducationOrganizationAssociationTypeDescriptor (
+    EducationOrganizationAssociationTypeDescriptorId INT NOT NULL,
+    CONSTRAINT EducationOrganizationAssociationTypeDescriptor_PK PRIMARY KEY (EducationOrganizationAssociationTypeDescriptorId)
+); 
+
 -- Table edfi.EducationOrganizationCategory --
 CREATE TABLE edfi.EducationOrganizationCategory (
     EducationOrganizationCategoryDescriptorId INT NOT NULL,
@@ -5013,6 +5019,8 @@ CREATE TABLE edfi.StudentAssessment (
     SchoolYear SMALLINT NULL,
     PlatformTypeDescriptorId INT NULL,
     AssessedMinutes INT NULL,
+    ReportedSchoolId INT NULL,
+    ReportedSchoolIdentifier VARCHAR(60) NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -5035,6 +5043,25 @@ CREATE TABLE edfi.StudentAssessmentAccommodation (
 ); 
 ALTER TABLE edfi.StudentAssessmentAccommodation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.StudentAssessmentEducationOrganizationAssociation --
+CREATE TABLE edfi.StudentAssessmentEducationOrganizationAssociation (
+    AssessmentIdentifier VARCHAR(60) NOT NULL,
+    EducationOrganizationAssociationTypeDescriptorId INT NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
+    StudentUSI INT NOT NULL,
+    SchoolYear SMALLINT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentAssessmentEducationOrganizationAssociation_PK PRIMARY KEY (AssessmentIdentifier, EducationOrganizationAssociationTypeDescriptorId, EducationOrganizationId, Namespace, StudentAssessmentIdentifier, StudentUSI)
+); 
+ALTER TABLE edfi.StudentAssessmentEducationOrganizationAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.StudentAssessmentEducationOrganizationAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.StudentAssessmentEducationOrganizationAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table edfi.StudentAssessmentItem --
 CREATE TABLE edfi.StudentAssessmentItem (
     AssessmentIdentifier VARCHAR(60) NOT NULL,
@@ -5042,7 +5069,7 @@ CREATE TABLE edfi.StudentAssessmentItem (
     Namespace VARCHAR(255) NOT NULL,
     StudentAssessmentIdentifier VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
-    AssessmentResponse VARCHAR(60) NULL,
+    AssessmentResponse VARCHAR(255) NULL,
     DescriptiveFeedback VARCHAR(1024) NULL,
     ResponseIndicatorDescriptorId INT NULL,
     AssessmentItemResultDescriptorId INT NOT NULL,

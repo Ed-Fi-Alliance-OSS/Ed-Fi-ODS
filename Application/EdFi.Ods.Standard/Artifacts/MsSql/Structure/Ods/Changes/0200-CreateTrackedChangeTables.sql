@@ -1333,6 +1333,33 @@ CREATE TABLE [tracked_changes_edfi].[StudentAssessment]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentAssessment PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentAssessmentEducationOrganizationAssociation]'))
+CREATE TABLE [tracked_changes_edfi].[StudentAssessmentEducationOrganizationAssociation]
+(
+       OldAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldEducationOrganizationAssociationTypeDescriptorId [INT] NOT NULL,
+       OldEducationOrganizationAssociationTypeDescriptorNamespace [NVARCHAR](255) NOT NULL,
+       OldEducationOrganizationAssociationTypeDescriptorCodeValue [NVARCHAR](50) NOT NULL,
+       OldEducationOrganizationId [INT] NOT NULL,
+       OldNamespace [NVARCHAR](255) NOT NULL,
+       OldStudentAssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewEducationOrganizationAssociationTypeDescriptorId [INT] NULL,
+       NewEducationOrganizationAssociationTypeDescriptorNamespace [NVARCHAR](255) NULL,
+       NewEducationOrganizationAssociationTypeDescriptorCodeValue [NVARCHAR](50) NULL,
+       NewEducationOrganizationId [INT] NULL,
+       NewNamespace [NVARCHAR](255) NULL,
+       NewStudentAssessmentIdentifier [NVARCHAR](60) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentAssessmentEducationOrganizationAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentCohortAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentCohortAssociation]
 (

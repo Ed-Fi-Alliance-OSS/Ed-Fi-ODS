@@ -1891,6 +1891,11 @@ CREATE NONCLUSTERED INDEX [FK_EducationOrganizationAddressPeriod_EducationOrgani
 ON [edfi].[EducationOrganizationAddressPeriod] ([AddressTypeDescriptorId] ASC, [City] ASC, [EducationOrganizationId] ASC, [PostalCode] ASC, [StateAbbreviationDescriptorId] ASC, [StreetNumberName] ASC)
 GO
 
+ALTER TABLE [edfi].[EducationOrganizationAssociationTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationAssociationTypeDescriptor_Descriptor] FOREIGN KEY ([EducationOrganizationAssociationTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [edfi].[EducationOrganizationCategory] WITH CHECK ADD CONSTRAINT [FK_EducationOrganizationCategory_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 ON DELETE CASCADE
@@ -6239,6 +6244,14 @@ CREATE NONCLUSTERED INDEX [FK_StudentAssessment_RetestIndicatorDescriptor]
 ON [edfi].[StudentAssessment] ([RetestIndicatorDescriptorId] ASC)
 GO
 
+ALTER TABLE [edfi].[StudentAssessment] WITH CHECK ADD CONSTRAINT [FK_StudentAssessment_School] FOREIGN KEY ([ReportedSchoolId])
+REFERENCES [edfi].[School] ([SchoolId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentAssessment_School]
+ON [edfi].[StudentAssessment] ([ReportedSchoolId] ASC)
+GO
+
 ALTER TABLE [edfi].[StudentAssessment] WITH CHECK ADD CONSTRAINT [FK_StudentAssessment_SchoolYearType] FOREIGN KEY ([SchoolYear])
 REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
 GO
@@ -6270,6 +6283,38 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentAssessmentAccommodation_StudentAssessment]
 ON [edfi].[StudentAssessmentAccommodation] ([AssessmentIdentifier] ASC, [Namespace] ASC, [StudentAssessmentIdentifier] ASC, [StudentUSI] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentEducationOrganizationAssociation_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
+REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentAssessmentEducationOrganizationAssociation_EducationOrganization]
+ON [edfi].[StudentAssessmentEducationOrganizationAssociation] ([EducationOrganizationId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentEducationOrganizationAssociation_EducationOrganizationAssociationTypeDescriptor] FOREIGN KEY ([EducationOrganizationAssociationTypeDescriptorId])
+REFERENCES [edfi].[EducationOrganizationAssociationTypeDescriptor] ([EducationOrganizationAssociationTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentAssessmentEducationOrganizationAssociation_EducationOrganizationAssociationTypeDescriptor]
+ON [edfi].[StudentAssessmentEducationOrganizationAssociation] ([EducationOrganizationAssociationTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentEducationOrganizationAssociation_SchoolYearType] FOREIGN KEY ([SchoolYear])
+REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentAssessmentEducationOrganizationAssociation_SchoolYearType]
+ON [edfi].[StudentAssessmentEducationOrganizationAssociation] ([SchoolYear] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentAssessmentEducationOrganizationAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentEducationOrganizationAssociation_StudentAssessment] FOREIGN KEY ([AssessmentIdentifier], [Namespace], [StudentAssessmentIdentifier], [StudentUSI])
+REFERENCES [edfi].[StudentAssessment] ([AssessmentIdentifier], [Namespace], [StudentAssessmentIdentifier], [StudentUSI])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentAssessmentEducationOrganizationAssociation_StudentAssessment]
+ON [edfi].[StudentAssessmentEducationOrganizationAssociation] ([AssessmentIdentifier] ASC, [Namespace] ASC, [StudentAssessmentIdentifier] ASC, [StudentUSI] ASC)
 GO
 
 ALTER TABLE [edfi].[StudentAssessmentItem] WITH CHECK ADD CONSTRAINT [FK_StudentAssessmentItem_AssessmentItem] FOREIGN KEY ([AssessmentIdentifier], [IdentificationCode], [Namespace])

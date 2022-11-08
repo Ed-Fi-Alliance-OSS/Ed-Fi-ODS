@@ -910,6 +910,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profi
         public string Namespace { get; set; }
         public string PlatformTypeDescriptor { get; set; }
         public string ReasonNotTestedDescriptor { get; set; }
+        public int ReportedSchoolId { get; set; }
+        public string ReportedSchoolIdentifier { get; set; }
         public string RetestIndicatorDescriptor { get; set; }
         public short SchoolYear { get; set; }
         public string SerialNumber { get; set; }
@@ -975,6 +977,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profi
         public string Namespace { get; set; }
         public string PlatformTypeDescriptor { get; set; }
         public string ReasonNotTestedDescriptor { get; set; }
+        public int ReportedSchoolId { get; set; }
+        public string ReportedSchoolIdentifier { get; set; }
         public string RetestIndicatorDescriptor { get; set; }
         public short SchoolYear { get; set; }
         public string SerialNumber { get; set; }

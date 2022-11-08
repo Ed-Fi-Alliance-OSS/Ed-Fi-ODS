@@ -68,7 +68,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                              resource.SchemaProperCaseName,
                              CompositeTermInflector.MakeSingular(resource.Name),
                              resourceContext.OperationNamingContext)
-                        .ToCamelCase()
                 : string.Format(
                     @"{0}_{1}_{2}_{3}",
                     resource.SchemaProperCaseName,

@@ -401,6 +401,11 @@ ALTER TABLE edfi.StudentAssessment ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL
 ALTER TABLE edfi.StudentAssessment ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
+IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentassessmenteducationorganizationassociation' AND column_name='changeversion') THEN
+ALTER TABLE edfi.StudentAssessmentEducationOrganizationAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
+ALTER TABLE edfi.StudentAssessmentEducationOrganizationAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
+END IF;
+
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentcohortassociation' AND column_name='changeversion') THEN
 ALTER TABLE edfi.StudentCohortAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.StudentCohortAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');

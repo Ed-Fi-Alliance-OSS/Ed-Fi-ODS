@@ -4123,6 +4123,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.EducationContents.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationAssociationTypeDescriptorGetByExample
+    {
+        public int EducationOrganizationAssociationTypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationAssociationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EducationOrganizationAssociationTypeDescriptorGetByIds() { }
+
+        public EducationOrganizationAssociationTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationAssociationTypeDescriptorPost : Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationAssociationTypeDescriptorPut : Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationAssociationTypeDescriptorDelete : IHasIdentifier
+    {
+        public EducationOrganizationAssociationTypeDescriptorDelete() { }
+
+        public EducationOrganizationAssociationTypeDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.EducationOrganizationCategoryDescriptors.EdFi
 {
 
@@ -12381,6 +12427,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi
         public string Namespace { get; set; }
         public string PlatformTypeDescriptor { get; set; }
         public string ReasonNotTestedDescriptor { get; set; }
+        public int ReportedSchoolId { get; set; }
+        public string ReportedSchoolIdentifier { get; set; }
         public string RetestIndicatorDescriptor { get; set; }
         public short SchoolYear { get; set; }
         public string SerialNumber { get; set; }
@@ -12418,6 +12466,59 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi
         public StudentAssessmentDelete() { }
 
         public StudentAssessmentDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentEducationOrganizationAssociationGetByExample
+    {
+        public string AssessmentIdentifier { get; set; }
+        public string EducationOrganizationAssociationTypeDescriptor { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public short SchoolYear { get; set; }
+        public string StudentAssessmentIdentifier { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentEducationOrganizationAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentAssessmentEducationOrganizationAssociationGetByIds() { }
+
+        public StudentAssessmentEducationOrganizationAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentEducationOrganizationAssociationPost : Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentEducationOrganizationAssociationPut : Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentAssessmentEducationOrganizationAssociationDelete : IHasIdentifier
+    {
+        public StudentAssessmentEducationOrganizationAssociationDelete() { }
+
+        public StudentAssessmentEducationOrganizationAssociationDelete(Guid id)
         {
             Id = id;
         }

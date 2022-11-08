@@ -161,6 +161,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_0ff8d6_Id ON edfi.StudentAcademicRecord(Id)
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_ee3b2a_Id ON edfi.StudentAssessment(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_afb8b8_Id ON edfi.StudentAssessmentEducationOrganizationAssociation(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_369ddc_Id ON edfi.StudentCohortAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_395c07_Id ON edfi.StudentCompetencyObjective(Id);
