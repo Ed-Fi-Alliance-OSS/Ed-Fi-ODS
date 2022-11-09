@@ -52,6 +52,9 @@ namespace EdFi.Ods.Common.Models.Resource
         private Lazy<IReadOnlyDictionary<string, Reference>> _referenceByName;
         private IEnumerable<ResourceProperty> _allPropertiesRaw;
         
+        /// <summary>
+        /// Gets a lazy-initialized dictionary containing collections of <see cref="ResourceProperty"/> instances that represent values that must be unified, keyed by the property name.
+        /// </summary>
         internal Lazy<IDictionary<string, IReadOnlyList<ResourceProperty>>> UnifiedPropertiesByPropertyName;
 
         protected internal ResourceClassBase(IResourceModel resourceModel, Entity entity)
@@ -572,12 +575,12 @@ namespace EdFi.Ods.Common.Models.Resource
                         // Add inherited identifying properties
                         (entity.BaseEntity != null
                             ? entity.BaseAssociation.ThisProperties
-                            : new EntityProperty[0])
+                            : Array.Empty<EntityProperty>())
                         // Add inherited non-identifying properties
                        .Concat(
                             entity.BaseEntity != null
                                 ? entity.BaseEntity.NonIdentifyingProperties
-                                : new EntityProperty[0])
+                                : Array.Empty<EntityProperty>())
                        .Concat(
                             entity.Properties
                                   .Where(p => p.IsLocallyDefined || p.IsDirectDescriptorUsage))
