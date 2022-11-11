@@ -5,43 +5,25 @@
 
 DO language plpgsql $$
 DECLARE
-authorizationStrategy_Id INT;
+parent_resource_claim_id INT;
 resourceClaim_Id INT;
 
 BEGIN
+   	
+    SELECT ResourceClaimId INTO resourceClaim_Id  FROM dbo.ResourceClaims  
+	WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation';
 
-    SELECT authorizationstrategyId INTO authorizationStrategy_Id   FROM dbo.AuthorizationStrategies  WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-	
-    SELECT ResourceClaimId INTO resourceClaim_Id  FROM dbo.ResourceClaims  WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor';
+    SELECT ResourceClaimId INTO parent_resource_claim_id  FROM dbo.ResourceClaims  
+    WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData';
 
-    -- Create CRUD action claims for educationOrganizationAssociationTypeDescriptor
-	INSERT INTO dbo.ResourceClaimActions (ActionId ,ResourceClaimId ,ValidationRuleSetName)
-	SELECT a.ActionId ,ResourceClaimId ,NULL FROM dbo.ResourceClaims RC
-	CROSS JOIN dbo.Actions a
-	WHERE ResourceClaimId = resourceClaim_Id;
-	
-	--- 'NoFurtherAuthorizationRequired' AuthorizationStrategyName added for  educationOrganizationAssociationTypeDescriptor resource
-	INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-	SELECT RCA.ResourceClaimActionId,authorizationStrategy_Id FROM dbo.ResourceClaimActionS RCA 
-	INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-	INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-	WHERE RCA.ResourceClaimId = resourceClaim_Id;
-	
-	SELECT ResourceClaimId INTO resourceClaim_Id  FROM dbo.ResourceClaims  WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation';
+	-- UPDATE relationshipBasedData AS parentresource for studentAssessmentEducationOrganizationAssociation
+	IF resourceClaim_Id IS NOT NULL THEN
+        RAISE NOTICE 'UPDATE relationshipBasedData AS parentresource for studentAssessmentEducationOrganizationAssociation';
 
-    -- Create CRUD action claims for studentAssessmentEducationOrganizationAssociation
-	INSERT INTO dbo.ResourceClaimActions (ActionId ,ResourceClaimId ,ValidationRuleSetName)
-	SELECT a.ActionId ,ResourceClaimId ,NULL FROM dbo.ResourceClaims RC
-	CROSS JOIN dbo.Actions a
-	WHERE ResourceClaimId = resourceClaim_Id;
-	
-	--- 'NoFurtherAuthorizationRequired' AuthorizationStrategyName added for  studentAssessmentEducationOrganizationAssociation resource
-	INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
-	SELECT RCA.ResourceClaimActionId,authorizationStrategy_Id FROM dbo.ResourceClaimActionS RCA 
-	INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
-	INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
-	WHERE RCA.ResourceClaimId = resourceClaim_Id;
-	
-	
+        UPDATE dbo.ResourceClaims 
+		SET ParentResourceClaimId = parent_resource_claim_id
+        WHERE ResourceClaimId = resourceClaim_Id;
+
+    END IF;
 
 END $$; 
