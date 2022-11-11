@@ -5,24 +5,42 @@
 
 DO language plpgsql $$
 DECLARE
-parent_resource_claim_id INT;
+application_Id INT;
+systemDescriptorsResourceClaim_Id INT;
+relationshipBasedDataResourceClaim_Id INT;
 resourceClaim_Id INT;
 
 BEGIN
    	
+    SELECT applicationid INTO application_Id FROM  dbo.Applications  WHERE ApplicationName  = 'Ed-Fi ODS API';
+
+    SELECT ResourceClaimId INTO resourceClaim_Id  FROM dbo.ResourceClaims  
+	WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor';
+
+    SELECT ResourceClaimId INTO systemDescriptorsResourceClaim_Id  FROM dbo.ResourceClaims  
+    WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors';
+
+	-- Creating new claim:educationOrganizationAssociationTypeDescriptor
+	IF resourceClaim_Id IS NULL THEN
+        RAISE NOTICE 'Creating new claim:educationOrganizationAssociationTypeDescriptor';
+
+        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+        VALUES ('educationOrganizationAssociationTypeDescriptor', 'educationOrganizationAssociationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor', systemDescriptorsResourceClaim_Id, application_Id);
+
+    END IF;
+
     SELECT ResourceClaimId INTO resourceClaim_Id  FROM dbo.ResourceClaims  
 	WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation';
 
-    SELECT ResourceClaimId INTO parent_resource_claim_id  FROM dbo.ResourceClaims  
+    SELECT ResourceClaimId INTO relationshipBasedDataResourceClaim_Id  FROM dbo.ResourceClaims  
     WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData';
 
-	-- UPDATE relationshipBasedData AS parentresource for studentAssessmentEducationOrganizationAssociation
-	IF resourceClaim_Id IS NOT NULL THEN
-        RAISE NOTICE 'UPDATE relationshipBasedData AS parentresource for studentAssessmentEducationOrganizationAssociation';
+	-- Creating new claim:studentAssessmentEducationOrganizationAssociation
+	IF resourceClaim_Id IS NULL THEN
+        RAISE NOTICE 'Creating new claim:studentAssessmentEducationOrganizationAssociation';
 
-        UPDATE dbo.ResourceClaims 
-		SET ParentResourceClaimId = parent_resource_claim_id
-        WHERE ResourceClaimId = resourceClaim_Id;
+        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+        VALUES ('educationOrganizationAssociationTypeDescriptor', 'educationOrganizationAssociationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor', relationshipBasedDataResourceClaim_Id, application_Id);
 
     END IF;
 
