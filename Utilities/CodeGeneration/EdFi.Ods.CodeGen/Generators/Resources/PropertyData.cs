@@ -151,7 +151,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
                     : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}.",
                 IsNullable = Property.PropertyType.IsNullable,
-                AllIncomingAssociationsAreOptional = !Property.EntityProperty.IncomingAssociations.Any(a => a.IsRequired)
+                PropertyIsUnifiedAndLocallyDefined = Property.IsUnified() && Property.IsLocallyDefined
             };
         }
 

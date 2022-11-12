@@ -337,6 +337,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             public bool UnifiedPropertyIsFromParent { get; set; }
 
+            public bool UnifiedPropertyIsLocallyDefined { get; set; }
+
             public string UnifiedPropertyParentPath { get; set; }
 
             public IEnumerable<UnifiedReferenceProperty> References { get; set; }
@@ -424,6 +426,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             UnifiedCSharpPropertyType = rp.PropertyType.ToCSharp(),
                             UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations
                                 .Any(a => a.IsNavigable),
+                            UnifiedPropertyIsLocallyDefined = rp.IsLocallyDefined,
                             UnifiedPropertyParentPath = resourceChildItem != null && resourceChildItem.IsResourceExtension
                                 ? string.Join(
                                     string.Empty,
