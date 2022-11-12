@@ -87,23 +87,19 @@ namespace EdFi.Ods.Common.Extensions
         }
 
         /// <summary>
-        /// Contains all the properties for the resource including a unified key property if one exists.
+        /// Contains all the properties for the resource excluding referenced properties (unless they are locally defined).
         /// </summary>
         /// <param name="resourceClassBase">Resource object</param>
         /// <returns></returns>
-        public static IEnumerable<ResourceProperty> UnifiedKeyAllProperties(this ResourceClassBase resourceClassBase)
+        public static IEnumerable<ResourceProperty> NonReferencedProperties(this ResourceClassBase resourceClassBase)
         {
-            return resourceClassBase.Properties
-                                    .Union(
-                                         resourceClassBase.IdentifyingProperties
-                                                          .Where(x => x.IsUnified()),
-                                         ModelComparers.ResourcePropertyNameOnly)
-                                    .Where(
-                                         p => !resourceClassBase.References
-                                                                .Where(r => r.IsRequired)
-                                                                .SelectMany(r => r.Properties)
-                                                                .Select(r => r.PropertyName)
-                                                                .Contains(p.PropertyName));
+            var propertiesOfReferences = resourceClassBase.References
+                                    .SelectMany(r => r.Properties)
+                                    .Select(r => r.PropertyName)
+                                    .ToHashSet();
+
+            return resourceClassBase.AllProperties
+                                    .Where(p => p.IsLocallyDefined || !propertiesOfReferences.Contains(p.PropertyName));
         }
 
         /// <summary>

@@ -307,7 +307,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var resource = openApiMetadataResource.Resource;
 
-            var properties = resource.UnifiedKeyAllProperties()
+            var properties = resource.NonReferencedProperties()
                 .Select(
                     x => new PropertySchemaInfo
                     {
