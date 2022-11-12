@@ -4889,13 +4889,13 @@
 			]
 		},
 		{
-			"name": "Optional Incoming Associations",
+			"name": "Key unification on locally defined properties",
 			"item": [
 				{
 					"name": "Setup",
 					"item": [
 						{
-							"name": "Create FunctionDimension",
+							"name": "Create FunctionDimension 2022",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4914,7 +4914,7 @@
 											"  pm.expect(pm.response.code).to.equal(201);\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:functionDimension:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.environment.set('known:functionDimension:2022:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -4936,6 +4936,69 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\r\n  \"code\": \"Test 2022\",\r\n  \"fiscalYear\": 2022\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/functionDimensions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"functionDimensions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create FunctionDimension 2019",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:functionDimension:2019:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"Test 2019\",\r\n  \"fiscalYear\": 2019\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5026,7 +5089,7 @@
 							"response": []
 						},
 						{
-							"name": "Change ChartOfAccount",
+							"name": "Set valid dimension to ChartOfAccount",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5043,9 +5106,7 @@
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {\r",
 											"  pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('known:chartOfAccount:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -5145,6 +5206,74 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Set invalid dimension to ChartOfAccount",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating the FunctionDimension's FiscalYear doesn't match ChartOfAccount's.\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'ChartOfAccount' are not consistent: fiscalYear = 2022, functionDimensionReference.fiscalYear = 2019\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test identifier\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2019\",\r\n    \"fiscalYear\": 2019\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts",
+										"{{known:chartOfAccount:id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -5205,7 +5334,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete FunctionDimension",
+							"name": "Delete FunctionDimension 2022",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5242,7 +5371,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/functionDimensions/{{known:functionDimension:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/functionDimensions/{{known:functionDimension:2022:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5251,7 +5380,60 @@
 										"v3",
 										"ed-fi",
 										"functionDimensions",
-										"{{known:functionDimension:id}}"
+										"{{known:functionDimension:2022:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete FunctionDimension 2019",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/functionDimensions/{{known:functionDimension:2019:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"functionDimensions",
+										"{{known:functionDimension:2019:id}}"
 									]
 								}
 							},
