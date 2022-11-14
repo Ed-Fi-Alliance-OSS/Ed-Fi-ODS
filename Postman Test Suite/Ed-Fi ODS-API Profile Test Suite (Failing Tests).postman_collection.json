@@ -1,0 +1,3189 @@
+{
+	"info": {
+		"_postman_id": "37bcaf12-6f11-41dd-a68f-5d35b4821d26",
+		"name": "Ed-Fi ODS/API Profile Test Suite (Failing Tests)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
+	},
+	"item": [
+		{
+			"name": "Test Suite Setup",
+			"item": [
+				{
+					"name": "Create Test Descriptor Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"// const codeValues = ['A1', 'A2', 'A3', 'A4'];",
+									"// const descriptorName = 'AddressTypeDescriptor';",
+									"// const descriptorCollectionName = 'addressTypeDescriptors';",
+									"",
+									"const allDescriptorData = [",
+									"    { descriptorName: 'AddressTypeDescriptor', descriptorCollectionName: 'addressTypeDescriptors', codeValues: ['A1', 'A2', 'A3', 'A4'] },",
+									"    { descriptorName: 'AssessmentReportingMethodDescriptor', descriptorCollectionName: 'assessmentReportingMethodDescriptors', codeValues: ['A1', 'A2', 'A3', 'A4'] },",
+									"    { descriptorName: 'StateAbbreviationDescriptor', descriptorCollectionName: 'stateAbbreviationDescriptors', codeValues: ['S1', 'S2', 'S3', 'S4'] },",
+									"    { descriptorName: 'SchoolCategoryDescriptor', descriptorCollectionName: 'schoolCategoryDescriptors', codeValues: ['S1', 'S2', 'S3', 'S4'] },",
+									"    { descriptorName: 'GradeLevelDescriptor', descriptorCollectionName: 'gradeLevelDescriptors', codeValues: ['G1', 'G2', 'G3', 'G4'] },",
+									"    { descriptorName: 'CountryDescriptor', descriptorCollectionName: 'countryDescriptors', codeValues: ['C1', 'C2', 'C3', 'C4'] },",
+									"    { descriptorName: 'PerformanceLevelDescriptor', descriptorCollectionName: 'performanceLevelDescriptors', codeValues: ['P1', 'P2', 'P3', 'P4'] },",
+									"    { descriptorName: 'ResultDatatypeTypeDescriptor', descriptorCollectionName: 'resultDatatypeTypeDescriptors', codeValues: ['A1', 'A2', 'A3', 'A4'] },",
+									"];",
+									"",
+									"_.each(allDescriptorData, descriptorData => {",
+									"    const codeValues = descriptorData.codeValues;",
+									"    const descriptorName = descriptorData.descriptorName;",
+									"    const descriptorCollectionName = descriptorData.descriptorCollectionName;",
+									"",
+									"    _.each(codeValues, codeValue => {",
+									"",
+									"        let payload = {",
+									"            codeValue: codeValue,",
+									"            description: codeValue,",
+									"            namespace: `uri://ed-fi.org/${descriptorName}`,",
+									"            shortDescription: codeValue",
+									"        };",
+									"",
+									"        let descriptorPostRequest = {",
+									"            url: pm.environment.get(\"ApiBaseUrl\") + `/data/v3/ed-fi/${descriptorCollectionName}`,",
+									"            method: 'POST',",
+									"            header: {",
+									"                \"Authorization\": 'bearer ' + pm.environment.get(\"AccessToken_255901\"),",
+									"                \"Content-Type\": \"application/json\"",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify(payload)",
+									"            }",
+									"        };",
+									"",
+									"        pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"            if (err) {",
+									"                console.log(err);",
+									"            } else {",
+									"                console.log(descriptor);",
+									"            }",
+									"        });",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Use of profile-specific content types",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Identify Test Subject (Student)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItems = pm.response.json();",
+											"const responseItem = responseItems[0];",
+											"",
+											"pm.environment.set('known:student:id', responseItem.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Read Requests",
+					"item": [
+						{
+							"name": "Profile includes requested resource",
+							"item": [
+								{
+									"name": "Get Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
+												"description": "test-profile-studentonly-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: GET Request contains an accept header with a content type using a profile that includes the targeted resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: GET Request contains an accept header with a content type using a profile that includes the targeted resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Profile does not include requested resource",
+							"item": [
+								{
+									"name": "Get Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\",",
+													"    () => {",
+													"        const responseItem = pm.response.json();",
+													"        ",
+													"        pm.expect(responseItem.message).to.include(\"resource is not accessible through the \\'test-profile-staffonly-resource-includeall\\' profile specified by the content type\");",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.readable+json",
+												"description": "test-profile-staffonly-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: GET Request contains an accept header with a content type using a profile that does not include the targeted resource\r\n    Given the caller is using the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: GET Request contains an accept header with a content type using a profile that does not include the targeted resource\r\n    Given the caller is using the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Resource in content type doesn't match requested resource",
+							"item": [
+								{
+									"name": "Get Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\",",
+													"    () => {",
+													"        const responseItem = pm.response.json();",
+													"",
+													"        pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.readable+json",
+												"description": "test-profile-studentonly-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: GET Request contains a content type header with a resource that does not match the requested resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.readable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: GET Request contains a content type header with a resource that does not match the requested resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.readable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Writable content type used",
+							"item": [
+								{
+									"name": "Get Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\",",
+													"    () => {",
+													"        const responseItem = pm.response.json();",
+													"",
+													"        pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
+												"description": "test-profile-studentonly-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: GET Request contains a content type header with a read/write content that does not match the requested resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: GET Request contains a content type header with a read/write content that does not match the requested resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Invalid content type usage option",
+							"item": [
+								{
+									"name": "Get Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"  pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The profile usage segment in the profile-based 'Accept' header was not recognized.\",",
+													"  () => {",
+													"    const responseItem = pm.response.json();",
+													"",
+													"    pm.expect(responseItem.message).to.equal(\"The profile usage segment in the profile-based 'Accept' header was not recognized.\");",
+													"  });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.wrong+json",
+												"description": "test-profile-studentonly-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: GET Request contains a content type header with a read/write content that does not match the requested resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Write Requests",
+					"item": [
+						{
+							"name": "Profile includes requested resource",
+							"item": [
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: POST Request contains a content type header using a profile that includes the targeted resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: POST Request contains a content type header using a profile that includes the targeted resource\r\n    Given the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Profile does not include requested resource",
+							"item": [
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The 'student' resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\",",
+													"    () => {",
+													"        const responseItem = pm.response.json();",
+													"",
+													"        pm.expect(responseItem.message).to.include(\"The 'student' resource is not accessible through the \\'test-profile-staffonly-resource-includeall\\' profile specified by the content type\");",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-staffonly-resource-includeall.writable+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: POST Request contains a content type header using a profile that does not include the targeted resource\r\n    Given the caller is using the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: POST Request contains a content type header using a profile that does not include the targeted resource\r\n    Given the caller is using the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Resource in content type doesn't match requested resource",
+							"item": [
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\",",
+													"    () => {",
+													"        const responseItem = pm.response.json();",
+													"",
+													"        pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: POST Request contains a content type header with a resource that does not match the requested resource\r\n\tGiven the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of \"application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: POST Request contains a content type header with a resource that does not match the requested resource\r\n\tGiven the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of \"application/vnd.ed-fi.school.test-profile-studentonly-resource-includeall.writable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Readable content type used",
+							"item": [
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"    pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\",",
+													"    () => {",
+													"        const responseItem = pm.response.json();",
+													"",
+													"        pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+													"    });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
+												"description": "test-profile-studentonly-resource-includeall"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: POST\t Request contains a content type header with a read/write content that does not match the requested resource\r\n\tGiven the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of \"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							],
+							"description": "Scenario: POST\t Request contains a content type header with a read/write content that does not match the requested resource\r\n\tGiven the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of \"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Invalid content type usage option",
+							"item": [
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {",
+													"  pm.expect(pm.response.code).to.equal(400);",
+													"});",
+													"",
+													"pm.test(\"Should return error message 'The profile usage segment in the profile-based 'Content-Type' header was not recognized.'\",",
+													"  () => {",
+													"    const responseItem = pm.response.json();",
+													"",
+													"    pm.expect(responseItem.message).to.equal(\"The profile usage segment in the profile-based 'Content-Type' header was not recognized.\");",
+													"  });"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.wrong+json",
+												"description": "test-profile-studentonly-resource-includeall"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: POST\t Request contains a content type header with a read/write content that does not match the requested resource\r\n\tGiven the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of \"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\"\r\n    Then the response should contain a 400 Bad Request failure indicating that \"the resource is not accessible through the profile specified by the content type\"\r\n"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Use of undefined profiles",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Create School",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    pm.test(\"Status code is 201\", () => {",
+											"        pm.expect(pm.response.code).to.equal(201);",
+											"    });",
+											"    ",
+											"    pm.environment.set('known:school:id',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Read Requests",
+					"item": [
+						{
+							"name": "Get School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 406\", () => {",
+											"    pm.expect(pm.response.code).to.equal(406);",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host\",",
+											"    () => {",
+											"        const responseItem = pm.response.json();",
+											"",
+											"        pm.expect(responseItem.message).to.include(\"the profile specified by the content type is not supported by this host\");",
+											"    });",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/vnd.ed-fi.school.non-existing.readable+json",
+										"description": "non-existing"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id}}"
+									]
+								},
+								"description": "Scenario: The caller attempts to read a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"the profile specified by the content type is not supported by this host\"\r\n"
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario: The caller attempts to read a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 406 Not Acceptable failure indicating that \"the profile specified by the content type is not supported by this host\"\r\n",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Write Requests",
+					"item": [
+						{
+							"name": "Update School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 415\", () => {",
+											"    pm.expect(pm.response.code).to.equal(415);",
+											"});",
+											"",
+											"pm.test(\"Should return error message the profile specified by the content type is not supported by this host\",",
+											"    () => {",
+											"        const responseItem = pm.response.json();",
+											"",
+											"        pm.expect(responseItem.message).to.include(\"the profile specified by the content type is not supported by this host\");",
+											"    });"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/vnd.ed-fi.school.non-existing.writable+json",
+										"description": "non-existing"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"charterApprovalSchoolYearTypeReference\": {\r\n        \"schoolYear\": \"2001\"\r\n    },\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								},
+								"description": "Scenario: The caller attempts to update a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 415 Unsupported Media Type failure indicating that \"the profile specified by the content type is not supported by this host\""
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario: The caller attempts to update a resource using a non-existing profile\r\n    Given the caller is using the \"Non-Existing\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 415 Unsupported Media Type failure indicating that \"the profile specified by the content type is not supported by this host\"",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Delete School",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    pm.test(\"Status code is 204\", () => {",
+											"        pm.expect(pm.response.code).to.equal(204);",
+											"    });",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Response content types",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Identify Test Subject (Student)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItems = pm.response.json();",
+											"const responseItem = responseItems[0];",
+											"",
+											"pm.environment.set('known:student:id', responseItem.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Read Requests",
+					"item": [
+						{
+							"name": "Get Students",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const __ = require(\"lodash\");",
+											"",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Response Content-Type is profile-specific\", () => {",
+											"    const responseContentType = __.trim(__.split(pm.response.headers.get('Content-Type'), ';')[0]);",
+											"",
+											"    pm.expect(responseContentType).to.equal(\"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
+										"type": "text",
+										"description": "test-profile-studentonly-resource-includeall"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								},
+								"description": "Scenario: The caller requests a resource not covered by their assigned profiles using a valid but unassigned profile-specific content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const __ = require(\"lodash\");",
+											"",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"pm.test(\"Response Content-Type is profile-specific\", () => {",
+											"    const responseContentType = __.trim(__.split(pm.response.headers.get('Content-Type'), ';')[0]);",
+											"",
+											"    pm.expect(responseContentType).to.equal(\"application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\")",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
+										"type": "text",
+										"description": "test-profile-studentonly-resource-includeall"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"{{known:student:id}}"
+									]
+								},
+								"description": "Scenario: The caller requests a resource not covered by their assigned profiles using a valid but unassigned profile-specific content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Assigned profiles",
+			"item": [
+				{
+					"name": "Assigned profiles must be used for covered resources",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:student:studentUniqueId', pm.variables.replaceIn(\"S{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2022-10-29\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								},
+								{
+									"name": "Create StudentSchoolAssociation",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"entryDate\": \"2022-10-29\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\"\r\n  },\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Read Requests",
+							"item": [
+								{
+									"name": "Covered resource with assigned Profile's content type",
+									"item": [
+										{
+											"name": "Get School",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_IncludeOnly}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"type": "text",
+														"value": "application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json",
+														"description": "test-profile-resource-includeonly"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"schools",
+														"{{known:school:id}}"
+													]
+												},
+												"description": "Scenario: The caller is assigned a profile and requests a covered resource using the correct content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeOnly\" profile\r\n    And the caller is using the \"Test-Profile-Resource-IncludeOnly\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller is assigned a profile and requests a covered resource using the correct content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeOnly\" profile\r\n    And the caller is using the \"Test-Profile-Resource-IncludeOnly\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Covered resource with different Profile's content type",
+									"item": [
+										{
+											"name": "Get Student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"    pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"pm.test(\"Should return error message 'One of the following profile-specific content types is required when requesting this resource: application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\",",
+															"    () => {",
+															"        const responseItem = pm.response.json();",
+															"        pm.expect(responseItem.message).to.include(\"One of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\\'\");",
+															"    });"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"type": "text",
+														"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json",
+														"description": "test-profile-studentonly2-resource-includeall"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:student:id}}"
+													]
+												},
+												"description": "Scenario: The caller is assigned a profile and requests a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"one of the following profile-specific content types is required when requesting this resource\"\r\n"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller is assigned a profile and requests a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"one of the following profile-specific content types is required when requesting this resource\"\r\n",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Covered resource with standard content type",
+									"item": [
+										{
+											"name": "Get School",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"    pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"pm.test(\"Should return error message 'One of the following profile-specific content types is required when requesting this resource: application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\",",
+															"    () => {",
+															"        const responseItem = pm.response.json();",
+															"",
+															"        pm.expect(responseItem.message).to.include(\"One of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\\'\");",
+															"    });"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_IncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"name": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"schools",
+														"{{known:school:id}}"
+													]
+												},
+												"description": "Scenario: The caller is assigned a profile and requests a covered resource using the standard content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of \"application/json\"\r\n    Then the response should contain a 403 Forbidden failure indicating that \"one of the following profile-specific content types is required when requesting this resource\""
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller is assigned a profile and requests a covered resource using the standard content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of \"application/json\"\r\n    Then the response should contain a 403 Forbidden failure indicating that \"one of the following profile-specific content types is required when requesting this resource\"",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Write Requests",
+							"item": [
+								{
+									"name": "Covered resource with assigned Profile's content type",
+									"item": [
+										{
+											"name": "Update School",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_IncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
+														"type": "text",
+														"description": "test-profile-resource-includeall"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"schools"
+													]
+												},
+												"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using the correct content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using the correct content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Covered resource with different Profile's content type",
+									"item": [
+										{
+											"name": "Update Student",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"    pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"pm.test(\"Should return error message 'Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\", () => {",
+															"",
+															"    const responseItem = pm.response.json();",
+															"    pm.expect(responseItem.message).to.include(\"Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\\'\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
+														"type": "text",
+														"description": "test-profile-studentonly2-resource-includeall"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2022-10-29\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												},
+												"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Covered resource using standard content type",
+									"item": [
+										{
+											"name": "Update School",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"    pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"pm.test(\"Should return error message 'Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\",",
+															"    () => {",
+															"        const responseItem = pm.response.json();",
+															"",
+															"        pm.expect(responseItem.message).to.include(\"Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json\\'\");",
+															"    });"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_IncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": " {\r\n \t\"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n   \r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n      \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n      }\r\n    ]\r\n  }\r\n",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"schools"
+													]
+												},
+												"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using the standard content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of \"application/json\"\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using the standard content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of \"application/json\"\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:school:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete StudentSchoolAssociation",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
+												"type": "text",
+												"description": "test-profile-studentonly2-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations",
+												"{{known:studentSchoolAssociation:id}}"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Student",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
+												"type": "text",
+												"description": "test-profile-studentonly2-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Resources not covered by an assigned profile",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create Student",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set('supplied:student:studentUniqueId', pm.variables.replaceIn(\"S{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2022-10-29\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								},
+								{
+									"name": "Create StudentSchoolAssociation",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"entryDate\": \"2022-10-29\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\"\r\n  },\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Read Requests",
+							"item": [
+								{
+									"name": "Using the standard content type",
+									"item": [
+										{
+											"name": "Get Student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_IncludeAll_StaffOnlyIncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:student:id}}"
+													]
+												},
+												"description": "Scenario: The caller requests a resource not covered by any of their assigned profiles using the standard content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/json\"\r\n    Then the response should indicate success"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller requests a resource not covered by any of their assigned profiles using the standard content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/json\"\r\n    Then the response should indicate success",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Using unassigned profile",
+									"item": [
+										{
+											"name": "Get Student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_StaffOnlyStudentOnlyIncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
+														"type": "text",
+														"description": "test-profile-studentonly-resource-includeall"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:student:id}}"
+													]
+												},
+												"description": "Scenario: The caller requests a resource not covered by their assigned profiles using a valid but unassigned profile-specific content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller updates a resource not covered by any of their assigned profiles using a valid but unassigned profile-specific content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Write Requests",
+							"item": [
+								{
+									"name": "Using the standard content type",
+									"item": [
+										{
+											"name": "Update Student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_IncludeAll_StaffOnlyIncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												},
+												"description": "Scenario: The caller requests a resource not covered by any of their assigned profiles using the standard content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/json\"\r\n    Then the response should indicate success"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller updates a resource not covered by any of their assigned profiles using the standard content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of \"application/json\"\r\n    Then the response should indicate success",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Using unassigned profile",
+									"item": [
+										{
+											"name": "Update Student",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_ProfileTest_StaffOnlyStudentOnlyIncludeAll}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"value": "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json",
+														"type": "text",
+														"description": "test-profile-studentonly-resource-includeall"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												},
+												"description": "Scenario: The caller updates a resource not covered by any of their assigned profiles using a valid but unassigned profile-specific content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n"
+											},
+											"response": []
+										}
+									],
+									"description": "Scenario: The caller updates a resource not covered by any of their assigned profiles using a valid but unassigned profile-specific content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete StudentSchoolAssociation",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
+												"type": "text",
+												"description": "test-profile-studentonly2-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSchoolAssociations",
+												"{{known:studentSchoolAssociation:id}}"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Student",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
+												"type": "text",
+												"description": "test-profile-studentonly2-resource-includeall"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:student:id}}"
+											]
+										},
+										"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Test Suite Teardown",
+			"item": [
+				{
+					"name": "Clean up Access Tokens and Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Remove all environment variables related to Access Tokens\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'AccessToken_') || _.startsWith(x, 'TokenExpiry_'))\r",
+									"  .each(k => pm.environment.unset(k)).value();\r",
+									"\r",
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
