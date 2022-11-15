@@ -4958,6 +4958,69 @@
 							"response": []
 						},
 						{
+							"name": "Create BalanceSheetDimension 2022",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:balanceSheetDimension:2022:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"code\": \"Test 2022\",\r\n  \"fiscalYear\": 2022\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/balanceSheetDimensions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"balanceSheetDimensions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Create FunctionDimension 2019",
 							"event": [
 								{
@@ -5026,7 +5089,7 @@
 					"name": "ChartOfAccounts",
 					"item": [
 						{
-							"name": "Create ChartOfAccount",
+							"name": "Property supplied, no references supplied",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5045,7 +5108,7 @@
 											"  pm.expect(pm.response.code).to.equal(201);\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:chartOfAccount:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.environment.set('known:chartOfAccount:1:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -5066,7 +5129,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"accountIdentifier\": \"Test identifier\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 1\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5089,7 +5152,7 @@
 							"response": []
 						},
 						{
-							"name": "Set valid dimension to ChartOfAccount",
+							"name": "Property supplied, one reference supplied with matching value",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5104,9 +5167,11 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 204\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(204);\r",
-											"});"
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:chartOfAccount:2:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -5123,11 +5188,11 @@
 										}
 									]
 								},
-								"method": "PUT",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"accountIdentifier\": \"Test identifier\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 2\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5135,7 +5200,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5143,8 +5208,70 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"chartOfAccounts",
-										"{{known:chartOfAccount:id}}"
+										"chartOfAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property supplied, both references supplied with matching values",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:chartOfAccount:3:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 3\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"balanceSheetDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts"
 									]
 								}
 							},
@@ -5170,8 +5297,9 @@
 											"  pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"FunctionDimensionReference is initialized\", () => {\r",
+											"pm.test(\"FunctionDimensionReference and BalanceSheetDimensionReference are initialized\", () => {\r",
 											"  pm.expect(pm.response.json().functionDimensionReference.fiscalYear).to.equal(2022);\r",
+											"  pm.expect(pm.response.json().balanceSheetDimensionReference.fiscalYear).to.equal(2022);\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -5192,7 +5320,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:3:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5201,14 +5329,14 @@
 										"v3",
 										"ed-fi",
 										"chartOfAccounts",
-										"{{known:chartOfAccount:id}}"
+										"{{known:chartOfAccount:3:id}}"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Set invalid dimension to ChartOfAccount",
+							"name": "Property supplied, one reference supplied with mismatched value to property",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5227,7 +5355,7 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should return a message indicating the FunctionDimension's FiscalYear doesn't match ChartOfAccount's.\", () => {\r",
+											"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
 											"\r",
 											"  const responseItem = pm.response.json();\r",
 											"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'ChartOfAccount' are not consistent: fiscalYear = 2022, functionDimensionReference.fiscalYear = 2019\");\r",
@@ -5248,11 +5376,11 @@
 										}
 									]
 								},
-								"method": "PUT",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"accountIdentifier\": \"Test identifier\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2019\",\r\n    \"fiscalYear\": 2019\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 4\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2019\",\r\n    \"fiscalYear\": 2019\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5260,7 +5388,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5268,8 +5396,602 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"chartOfAccounts",
-										"{{known:chartOfAccount:id}}"
+										"chartOfAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property supplied, both references supplied with one mismatched value",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'ChartOfAccount' are not consistent: fiscalYear = 2022, balanceSheetDimensionReference.fiscalYear = 2022, functionDimensionReference.fiscalYear = 2019\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 5\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2019\",\r\n    \"fiscalYear\": 2019\r\n  },\r\n  \"balanceSheetDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property not supplied, no references supplied",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 6\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property not supplied, one reference supplied",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 7\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property not supplied, both references supplied with values matching each other",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 8\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"255901\"\r\n  },\r\n  \"functionDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"balanceSheetDimensionReference\": {\r\n    \"code\": \"Test 2022\",\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"accountTypeDescriptor\": \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LocalAccount",
+					"item": [
+						{
+							"name": "Property supplied, no references supplied",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"ChartOfAccountEducationOrganizationId is required\");\r",
+											"  pm.expect(responseItem.message).to.include(\"ChartOfAccountIdentifier is required\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 1\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property supplied, required reference supplied with matching value",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:localAccount:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 2\",\r\n  \"fiscalYear\": 2022,\r\n  \"chartOfAccountReference\": {\r\n    \"accountIdentifier\": \"Test 3\",\r\n    \"educationOrganizationId\": 255901,\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get LocalAccount",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ChartOfAccount reference is initialized\", () => {\r",
+											"  pm.expect(pm.response.json().chartOfAccountReference.fiscalYear).to.equal(2022);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localAccounts/{{known:localAccount:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localAccounts",
+										"{{known:localAccount:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property supplied, required reference supplied with non-matching value",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that unified keys don't match.\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"Supplied values for unified key property 'fiscalYear' on 'LocalAccount' are not consistent: fiscalYear = 2019, chartOfAccountReference.fiscalYear = 2022\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 3\",\r\n  \"fiscalYear\": 2019,\r\n  \"chartOfAccountReference\": {\r\n    \"accountIdentifier\": \"Test 3\",\r\n    \"educationOrganizationId\": 255901,\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localAccounts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Property not supplied, required reference supplied (error, unified values mismatch)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
+											"\r",
+											"  const responseItem = pm.response.json();\r",
+											"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"accountIdentifier\": \"Test 3\",\r\n  \"chartOfAccountReference\": {\r\n    \"accountIdentifier\": \"Test 3\",\r\n    \"educationOrganizationId\": 255901,\r\n    \"fiscalYear\": 2022\r\n  },\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localAccounts",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localAccounts"
 									]
 								}
 							},
@@ -5281,7 +6003,7 @@
 					"name": "Teardown",
 					"item": [
 						{
-							"name": "Delete ChartOfAccount",
+							"name": "Delete ChartOfAccount 1",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5318,7 +6040,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:1:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5327,7 +6049,166 @@
 										"v3",
 										"ed-fi",
 										"chartOfAccounts",
-										"{{known:chartOfAccount:id}}"
+										"{{known:chartOfAccount:1:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete ChartOfAccount 2",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:2:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts",
+										"{{known:chartOfAccount:2:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete LocalAccount",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localAccounts/{{known:localAccount:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localAccounts",
+										"{{known:localAccount:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete ChartOfAccount 3",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:chartOfAccount:3:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"chartOfAccounts",
+										"{{known:chartOfAccount:3:id}}"
 									]
 								}
 							},
@@ -5434,6 +6315,59 @@
 										"ed-fi",
 										"functionDimensions",
 										"{{known:functionDimension:2019:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete BalanceSheetDimension 2022",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/balanceSheetDimensions/{{known:balanceSheetDimension:2022:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"balanceSheetDimensions",
+										"{{known:balanceSheetDimension:2022:id}}"
 									]
 								}
 							},
