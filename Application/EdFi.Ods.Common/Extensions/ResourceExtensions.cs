@@ -87,7 +87,7 @@ namespace EdFi.Ods.Common.Extensions
         }
 
         /// <summary>
-        /// Contains all the properties for the resource excluding referenced properties (unless they are locally defined).
+        /// Contains all the properties for the resource excluding referenced properties (unless they are unified and locally defined).
         /// </summary>
         /// <param name="resourceClassBase">Resource object</param>
         /// <returns></returns>
@@ -99,7 +99,7 @@ namespace EdFi.Ods.Common.Extensions
                                     .ToHashSet();
 
             return resourceClassBase.AllProperties
-                                    .Where(p => p.IsLocallyDefined || !propertiesOfReferences.Contains(p.PropertyName));
+                                    .Where(p => (p.IsUnified() && p.IsLocallyDefined) || !propertiesOfReferences.Contains(p.PropertyName));
         }
 
         /// <summary>
