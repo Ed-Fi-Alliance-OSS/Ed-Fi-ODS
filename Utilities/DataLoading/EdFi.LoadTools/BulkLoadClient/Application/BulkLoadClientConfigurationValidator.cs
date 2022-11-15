@@ -28,17 +28,24 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                   || string.IsNullOrEmpty(_configuration.WorkingFolder)
                   || string.IsNullOrEmpty(_configuration.DataFolder)
                   || string.IsNullOrEmpty(_configuration.MetadataUrl)
+                  || string.IsNullOrEmpty(_configuration.XsdMetadataUrl)
                   || string.IsNullOrEmpty(_configuration.OAuthKey)
                   || string.IsNullOrEmpty(_configuration.OAuthSecret)
                   || string.IsNullOrEmpty(_configuration.OauthUrl))
                 && Directory.Exists(_configuration.DataFolder)
                 && Uri.IsWellFormedUriString(_configuration.ApiUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute)
+                && Uri.IsWellFormedUriString(_configuration.XsdMetadataUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.OauthUrl, UriKind.Absolute);
 
             if (_configuration.ApiMode == ApiMode.YearSpecific)
             {
                 result = result && _configuration.SchoolYear.HasValue;
+            }
+
+            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific)
+            {
+                result = result && _configuration.SchoolYear.HasValue && !string.IsNullOrEmpty(_configuration.InstanceId);
             }
 
             if (!result)
@@ -80,6 +87,12 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 sb.AppendLine($"Option 'metadataurl' parse error. '{_configuration.MetadataUrl}' is not a url.");
             }
 
+            if (string.IsNullOrEmpty(_configuration.XsdMetadataUrl) ||
+                !Uri.IsWellFormedUriString(_configuration.XsdMetadataUrl, UriKind.Absolute))
+            {
+                sb.AppendLine($"Option 'xsdmetadataurl' parse error. '{_configuration.XsdMetadataUrl}' is not a url.");
+            }
+
             if (string.IsNullOrEmpty(_configuration.OauthUrl) ||
                 !Uri.IsWellFormedUriString(_configuration.OauthUrl, UriKind.Absolute))
             {
@@ -94,6 +107,16 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
             if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
             {
                 sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
+            }
+
+            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && !_configuration.SchoolYear.HasValue)
+            {
+                sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
+            }
+
+            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && string.IsNullOrEmpty(_configuration.InstanceId))
+            {
+                sb.AppendLine($"Instance Id is required for '{_configuration.ApiMode.DisplayName}' Mode");
             }
 
             return sb.ToString();

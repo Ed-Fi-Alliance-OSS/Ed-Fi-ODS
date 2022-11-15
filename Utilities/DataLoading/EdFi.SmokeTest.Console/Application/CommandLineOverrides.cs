@@ -45,8 +45,11 @@ namespace EdFi.SmokeTest.Console.Application
         [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
         public int? SchoolYear { get; set; }
 
-        [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
+        [Option('i', "instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
         public string InstanceId { get; set; }
+
+        [Option('z', "xsdmetadataurl", Required = false, HelpText = "The XSD metadata url (i.e. http://server/metadata)")]
+        public string XsdMetadataUrl { get; set; }
 
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -56,15 +59,18 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-k", "OdsApi:Key"},
                 {"-l", "SdkLibraryPath"},
                 {"-m", "OdsApi:MetadataUrl"},
+                {"-z", "OdsApi:XsdMetadataUrl"},
                 {"-n", "NamespacePrefix"},
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-s", "OdsApi:Secret"},
                 {"-t", "TestSet"},
                 {"-y", "OdsApi:SchoolYear"},
+                {"-i", "OdsApi:InstanceId"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--key", "OdsApi:Key"},
                 {"--library", "SdkLibraryPath"},
                 {"--metadataurl", "OdsApi:MetadataUrl"},
+                {"--xsdmetadataurl", "OdsApi:XsdMetadataUrl"},
                 {"--namespace", "NamespacePrefix"},
                 {"--oauthurl", "OdsApi:OAuthUrl"},
                 {"--secret", "OdsApi:Secret"},

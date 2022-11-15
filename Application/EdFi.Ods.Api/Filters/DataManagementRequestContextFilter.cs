@@ -118,7 +118,7 @@ public class DataManagementRequestContextFilter : IActionFilter
 
         if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
         {
-            template += RouteConstants.InstanceIdFromRoute;
+            template += RouteConstants.InstanceIdFromRouteForFilter;
             template += RouteConstants.SchoolYearFromRoute;
         }
 

@@ -361,7 +361,7 @@ namespace EdFi.Ods.Api.Controllers
                     Request.Scheme(this._reverseProxySettings),
                     Request.Host(this._reverseProxySettings),
                     Request.Port(this._reverseProxySettings),
-                    Request.Path);
+                    Request.PathBase.Add(Request.Path));
 
                 return uriBuilder.Uri.ToString().TrimEnd('/');
             }
