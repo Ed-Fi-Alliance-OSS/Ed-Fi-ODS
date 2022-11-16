@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 <metadata>
-<id>EdFi.Ods.Profiles.Sample</id>
+<id>EdFi.Suite3.Ods.Profiles.Sample</id>
 <version>5.1.0</version>
 <authors>Ed-Fi Alliance</authors>
 <owners>Ed-Fi Alliance</owners>
@@ -12,7 +12,7 @@
 <license type="file">LICENSE.txt</license>
 </metadata>
 <files>
- <file src="../../../LICENSE.txt" />
+ <file src="../../LICENSE.txt" />
  <file src="bin\$configuration$\net6.0\EdFi.Ods.Profiles.Sample.dll" target="."/>
 </files>
 </package>
