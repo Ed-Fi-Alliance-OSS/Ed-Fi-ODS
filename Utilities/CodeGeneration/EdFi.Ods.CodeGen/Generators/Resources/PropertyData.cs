@@ -101,12 +101,23 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ? null
                 : $"{Namespaces.Entities.Common.RelativeNamespace}.{Property.ProperCaseSchemaName()}.";
 
+            var parentName =
+                Property.EntityProperty.IsFromParent
+                    ? Property.EntityProperty.Entity.Parent.Name
+                    : Property.EntityProperty.Entity.Name;
+
             var propertyName = IsReferencedProperty
                     ? string.Format(
                         "backReference.{0} != null && backReference.{0}.{1}",
                         Property.EntityProperty.Entity.Aggregate.Name,
                         Property.PropertyName)
                     : Property.PropertyName;
+
+            if (Property.IsLocallyDefined && Property.IsUnified() && Property.PropertyType.IsNullable)
+            {
+                throw new Exception(
+                    $"A locally defined property that participates in key unification (through references) cannot be optional (as it implies the use of the property to allow for capturing partially defined references). Review the model (Resource: '{parentName}', Property: '{propertyName}') and either make the property required or change the name of the property to prevent unification.");
+            }
 
             return new
             {
@@ -115,10 +126,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 JsonPropertyName = Property.JsonPropertyName,
                 PropertyName = propertyName,
                 CSharpSafePropertyName = Property.PropertyName.MakeSafeForCSharpClass(Property.ParentFullName.Name),
-                ParentName =
-                    Property.EntityProperty.IsFromParent
-                        ? Property.EntityProperty.Entity.Parent.Name
-                        : Property.EntityProperty.Entity.Name,
+                ParentName = parentName,
                 PropertyFieldName = propertyName.ToCamelCase(),
                 PropertyType = Property.PropertyType.ToCSharp(true),
                 IsFirstProperty = IsFirstProperty,

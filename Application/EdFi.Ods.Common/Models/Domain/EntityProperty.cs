@@ -68,7 +68,7 @@ namespace EdFi.Ods.Common.Models.Domain
             _isUnified = new Lazy<bool>(
                 () =>
                     // If locally-defined AND has any incoming associations
-                    (IsLocallyDefined && IncomingAssociations.Any() && !PropertyType.IsNullable)
+                    (IsLocallyDefined && IncomingAssociations.Any())
                     // ... or has multiple incoming associations
                         || IncomingAssociations.Count > 1);
 

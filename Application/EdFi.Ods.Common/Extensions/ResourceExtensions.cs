@@ -99,7 +99,7 @@ namespace EdFi.Ods.Common.Extensions
                                     .ToHashSet();
 
             return resourceClassBase.AllProperties
-                                    .Where(p => (p.IsUnified() && p.IsLocallyDefined) || !propertiesOfReferences.Contains(p.PropertyName));
+                                    .Where(p => (p.IsUnified() && p.IsLocallyDefined && !p.PropertyType.IsNullable) || !propertiesOfReferences.Contains(p.PropertyName));
         }
 
         /// <summary>
