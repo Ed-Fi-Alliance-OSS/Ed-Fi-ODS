@@ -172,12 +172,12 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -223,12 +223,12 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -280,12 +280,12 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -331,12 +331,12 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.include(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.include(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -1529,12 +1529,12 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the property does not exist or is not available string\", () => {",
-													"     const responseItem = pm.response.json();",
-													"     pm.expect(responseItem).to.include(\"The property \\'NonExistingDate\\' does not exist or is not available\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.include(\"The property \\'NonExistingDate\\' does not exist or is not available\");",
 													"});",
 													""
 												],
@@ -2412,13 +2412,12 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating an invalid limit specified\", () => {",
-													"     ",
-													"     const responseItem = pm.response.json();",
-													"     pm.expect(responseItem).to.equal(\"Invalid limit specified.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"Invalid limit specified.\");",
 													"});",
 													""
 												],
@@ -2458,16 +2457,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "830c8aa8-b774-483b-b14f-32766eb6461b",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should a message indicating an invalid offset specified\", () => {",
-													"     ",
-													"     const responseItem = pm.response.json();",
-													"     pm.expect(responseItem).to.equal(\"Invalid offset specified.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"Invalid offset specified.\");",
 													"});",
 													""
 												],
@@ -3216,14 +3213,13 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
+															"  pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
 															"",
 															"pm.test(\"Should return a message indicating that the property does not exist or is not available.\", () => {",
-															"     ",
-															"     const responseItem = pm.response.json();",
-															"     pm.expect(responseItem).to.equal(\"The property \\'Nonexistent\\' does not exist or is not available.\");",
+															"  const responseItem = pm.response.json();",
+															"  pm.expect(responseItem.message).to.equal(\"The property \\'Nonexistent\\' does not exist or is not available.\");",
 															"});",
 															""
 														],
@@ -3274,16 +3270,14 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
+															"  pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
 															"pm.test(\"Should return a message indicating that an invalid query string parameter value was provided.\", () => {",
-															"     ",
-															"     const responseItem = pm.response.json();",
-															"     ",
-															"     // Use regular expression to perform a \"startsWith\" expectation",
-															"     pm.expect(responseItem).to.match(/^Invalid query string parameter value provided./);",
-															"      ",
+															"  const responseItem = pm.response.json();",
+															"",
+															"  // Use regular expression to perform a \"startsWith\" expectation",
+															"  pm.expect(responseItem.message).to.match(/^Invalid query string parameter value provided./);",
 															"});",
 															""
 														],
