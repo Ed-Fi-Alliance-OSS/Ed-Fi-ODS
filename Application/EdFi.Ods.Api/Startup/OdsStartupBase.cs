@@ -259,6 +259,11 @@ namespace EdFi.Ods.Api.Startup
 
             Container = app.ApplicationServices.GetAutofacRoot();
 
+            if (ApiSettings.UseReverseProxyHeaders.HasValue && ApiSettings.UseReverseProxyHeaders.Value)
+            {
+                app.UseForwardedHeaders();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
