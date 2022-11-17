@@ -15,11 +15,12 @@ env:
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "4"
   CONFIGURATION: "Release"
-  CURRENT_BRANCH:  ${{ GITHUB.REF_NAME }}
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
 
 jobs:
   build:
@@ -44,32 +45,20 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
+      working-directory: ./Ed-Fi-Extensions/
+      shell: powershell
       run: |
-          $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-          $is_pull_request_branch = 'False'
-          $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-          if ($is_pull_request_branch -eq $true) {
-            git fetch origin ${{ env.CURRENT_BRANCH }}
-            git checkout ${{ env.CURRENT_BRANCH }}
-          }
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
+      working-directory: ./Ed-Fi-Extensions/
+      shell: powershell
       run: |
-          $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-          $is_pull_request_branch = 'False'
-          $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-          if ($is_pull_request_branch -eq $true) {
-            git fetch origin ${{ env.CURRENT_BRANCH }}
-            git checkout ${{ env.CURRENT_BRANCH }}
-          }
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"    
     - name: Run CodeGen
       run: |
           $ErrorActionPreference = 'Stop'
