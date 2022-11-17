@@ -24,7 +24,7 @@
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.13" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.20" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="ApprovalTests" Version="5.7.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
