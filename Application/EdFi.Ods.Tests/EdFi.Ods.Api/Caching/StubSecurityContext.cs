@@ -25,10 +25,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             // The underlying SecurityRepository implementation expects this application, so force it to be there in the fake
             securityContext.Applications = GetFakeDbSet<Application>().SetupData(new List<Application> { new Application { ApplicationId = 1, ApplicationName = "Ed-Fi ODS API" } });
             securityContext.Actions = GetFakeDbSet<Action>().SetupData();
-            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
             securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().SetupData();
-            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>().SetupData();
             securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>().SetupData();
+            securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
+            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>().SetupData();
+            securityContext.ResourceClaimActionAuthorizationStrategies = GetFakeDbSet<ResourceClaimActionAuthorizationStrategies>().SetupData();
             securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>().SetupData();
 
             return securityContext;

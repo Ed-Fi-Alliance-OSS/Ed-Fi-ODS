@@ -10,10 +10,12 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.Database;
 using EdFi.Ods.Api.Filters;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Providers;
 using EdFi.Security.DataAccess.Caching;
 using EdFi.Security.DataAccess.Providers;
 using EdFi.Security.DataAccess.Repositories;
@@ -42,6 +44,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<InstanceIdContextProvider>()
                 .As<IInstanceIdContextProvider>()
                 .As<IHttpContextStorageTransferKeys>()
+                .SingleInstance();
+
+            builder.RegisterType<EdFiOdsInstanceYearSpecificIdentificationProvider>()
+                .As<IEdFiOdsInstanceIdentificationProvider>()
                 .SingleInstance();
 
             builder.RegisterType<InstanceYearSpecificAdminDatabaseNameReplacementTokenProvider>()

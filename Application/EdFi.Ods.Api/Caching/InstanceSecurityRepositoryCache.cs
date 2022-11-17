@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using EdFi.Common;
 using EdFi.Common.Utils;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Security.DataAccess.Caching;
@@ -140,20 +141,36 @@ namespace EdFi.Ods.Api.Caching
                     .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
                     .ToList();
 
-                var claimSetResourceClaims = context.ClaimSetResourceClaimActions
+                var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions
                     .Include(csrc => csrc.Action)
                     .Include(csrc => csrc.ClaimSet)
+                    .Include(csrc => csrc.ClaimSet.Application)
                     .Include(csrc => csrc.ResourceClaim)
-                    .Include(csrc => csrc.AuthorizationStrategyOverrides)
+                    .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                     .ToList();
 
-                var resourceClaimAuthorizationMetadata = context.ResourceClaimActions
-                    .Include(rca => rca.Action)
-                    .Include(rca => rca.AuthorizationStrategies)
-                    .Include(rca => rca.ResourceClaim)
-                    .Where(rca => rca.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
+                // Replace empty lists with null since some consumers expect it that way
+                claimSetResourceClaimActions
+                    .Where(csrc => csrc.AuthorizationStrategyOverrides.Count == 0)
+                    .ForEach(csrc => csrc.AuthorizationStrategyOverrides = null);
+
+                var resourceClaimActionAuthorizationStrategies = context.ResourceClaimActionAuthorizationStrategies
+                    .Include(rcaas => rcaas.AuthorizationStrategy)
+                    .Include(rcaas => rcaas.ResourceClaimAction)
                     .ToList();
+
+                var resourceClaimActionAuthorizations = context.ResourceClaimActions
+                    .Include(rcas => rcas.Action)
+                    .Include(rcas => rcas.ResourceClaim)
+                    .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
+                    .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
+                    .ToList();
+
+                foreach (var a in resourceClaimActionAuthorizations)
+                {
+                    a.AuthorizationStrategies = resourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimAction.ResourceClaimActionId == a.ResourceClaimActionId).ToList();
+                }
 
                 var repo = new InstanceSecurityRepositoryCacheObject(
                     application,
@@ -161,8 +178,8 @@ namespace EdFi.Ods.Api.Caching
                     claimSets,
                     resourceClaims,
                     authorizationStrategies,
-                    claimSetResourceClaims,
-                    resourceClaimAuthorizationMetadata);
+                    claimSetResourceClaimActions,
+                    resourceClaimActionAuthorizations);
 
                 _cacheProvider.SetCachedObject(instanceId, repo);
             }
