@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.IO;
 using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.CodeGen.Models;
@@ -59,7 +60,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Standard"),
                     () => _assemblyData.IsExtension.ShouldBe(false),
                     () => _assemblyData.IsProfile.ShouldBe(false),
-                    () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-ODS\\Application\\EdFi.Ods.Standard"),
+                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-ODS", "Application", "EdFi.Ods.Standard")),
                     () => _assemblyData.SchemaName.ShouldBe("EdFi"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Standard)
                 );
@@ -112,7 +113,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Extensions.TPDM"),
                     () => _assemblyData.IsExtension.ShouldBe(true),
                     () => _assemblyData.IsProfile.ShouldBe(false),
-                    () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Extensions.TPDM"),
+                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-Extensions", "Extensions", "EdFi.Ods.Extensions.TPDM")),
                     () => _assemblyData.SchemaName.ShouldBe("TPDM"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Extension)
                 );
@@ -160,7 +161,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Profiles.Sample"),
                     () => _assemblyData.IsExtension.ShouldBe(false),
                     () => _assemblyData.IsProfile.ShouldBe(true),
-                    () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Profiles.Sample"),
+                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-Extensions", "Extensions", "EdFi.Ods.Profiles.Sample")),
                     () => _assemblyData.SchemaName.ShouldBe("EdFi"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Profile)
                 );

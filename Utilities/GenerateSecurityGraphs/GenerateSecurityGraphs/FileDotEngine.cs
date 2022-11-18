@@ -56,7 +56,7 @@ namespace GenerateSecurityGraphs
                 var unflattenArgs = string.Format(@"-o ""{0}.unflattened"" -l{1} ""{0}""", outputFileName, _unflattenToDepth);
 
                 Process.Start(
-                    new ProcessStartInfo(Path.Combine(_graphvizFolder, @"bin\unflatten.exe"), unflattenArgs)
+                    new ProcessStartInfo(Path.Combine(_graphvizFolder, @"bin/unflatten.exe"), unflattenArgs)
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,
@@ -84,7 +84,7 @@ namespace GenerateSecurityGraphs
                     outputType);
 
                 Process.Start(
-                    new ProcessStartInfo(Path.Combine(_graphvizFolder, @"bin\dot.exe"), args)
+                    new ProcessStartInfo(Path.Combine(_graphvizFolder, @"bin/dot.exe"), args)
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,

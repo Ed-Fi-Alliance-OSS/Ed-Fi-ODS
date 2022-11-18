@@ -49,7 +49,7 @@ namespace Test.Common
             var psScript = @"
                 $ErrorActionPreference = 'Stop'
 
-                .\Initialize-PowershellForDevelopment.ps1
+                ./Initialize-PowershellForDevelopment.ps1
 
                 $settings = @{ 
                     ApiSettings = @{ Engine = 'SQLServer' } 

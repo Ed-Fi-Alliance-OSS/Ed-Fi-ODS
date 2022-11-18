@@ -19,7 +19,7 @@ namespace Test.Common
             {
                 StartInfo =
                 {
-                    FileName = programfiles + "\\IIS Express\\iisexpress.exe",
+                    FileName = programfiles + "/IIS Express/iisexpress.exe",
                     Arguments = string.Format("/path:\"{0}\" /port:{1}", path, port),
                     UseShellExecute = true
                 }

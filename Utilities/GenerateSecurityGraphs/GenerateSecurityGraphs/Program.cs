@@ -64,7 +64,7 @@ namespace GenerateSecurityGraphs
         public string Password { get; set; }
 
         [Option(
-            'g', "graphviz", Default = @"C:\Program Files\Graphviz\", HelpText =
+            'g', "graphviz", Default = @"C:/Program Files/Graphviz/", HelpText =
                 "Graphviz installation path.")]
         public string GraphvizPath { get; set; }
 
