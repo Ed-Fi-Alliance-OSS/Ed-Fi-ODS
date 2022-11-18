@@ -101,25 +101,33 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ? null
                 : $"{Namespaces.Entities.Common.RelativeNamespace}.{Property.ProperCaseSchemaName()}.";
 
+            var parentName =
+                Property.EntityProperty.IsFromParent
+                    ? Property.EntityProperty.Entity.Parent.Name
+                    : Property.EntityProperty.Entity.Name;
+
+            var propertyName = IsReferencedProperty
+                    ? string.Format(
+                        "backReference.{0} != null && backReference.{0}.{1}",
+                        Property.EntityProperty.Entity.Aggregate.Name,
+                        Property.PropertyName)
+                    : Property.PropertyName;
+
+            if (Property.IsLocallyDefined && Property.IsUnified() && Property.PropertyType.IsNullable)
+            {
+                throw new Exception(
+                    $"A locally defined property that participates in key unification (through references) cannot be optional (as it implies the use of the property to allow for capturing partially defined references). Review the model (Resource: '{parentName}', Property: '{propertyName}') and either make the property required or change the name of the property to prevent unification.");
+            }
+
             return new
             {
                 Description = desc,
                 Misc = this[ResourceRenderer.MiscellaneousComment],
                 JsonPropertyName = Property.JsonPropertyName,
-                PropertyName = IsReferencedProperty
-                    ? string.Format(
-                        "backReference.{0} != null && backReference.{0}.{1}",
-                        Property.EntityProperty.Entity.Aggregate.Name,
-                        Property.PropertyName)
-                    : Property.PropertyName,
+                PropertyName = propertyName,
                 CSharpSafePropertyName = Property.PropertyName.MakeSafeForCSharpClass(Property.ParentFullName.Name),
-                ParentName =
-                    Property.EntityProperty.IsFromParent
-                        ? Property.EntityProperty.Entity.Parent.Name
-                        : Property.EntityProperty.Entity.Name,
-                PropertyFieldName = Property.EntityProperty.Entity
-                    .ResolvedEdFiEntityName()
-                    .ToCamelCase(),
+                ParentName = parentName,
+                PropertyFieldName = propertyName.ToCamelCase(),
                 PropertyType = Property.PropertyType.ToCSharp(true),
                 IsFirstProperty = IsFirstProperty,
                 IsLastProperty = IsLastProperty,
@@ -150,7 +158,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 NullPropertyPrefix = Property.EntityProperty.Entity.IsEntityExtension
                     ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
                     : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}.",
-                IsNullable = Property.PropertyType.IsNullable
+                IsNullable = Property.PropertyType.IsNullable,
+                PropertyIsUnifiedAndLocallyDefined = Property.IsUnified() && Property.IsLocallyDefined
             };
         }
 

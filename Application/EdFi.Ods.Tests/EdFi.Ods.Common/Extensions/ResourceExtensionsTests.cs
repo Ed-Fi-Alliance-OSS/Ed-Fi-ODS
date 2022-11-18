@@ -167,7 +167,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
 
             protected override void Act()
             {
-                _actualResourceProperties = _resource.UnifiedKeyAllProperties();
+                _actualResourceProperties = _resource.NonReferencedProperties();
             }
 
             [Test]

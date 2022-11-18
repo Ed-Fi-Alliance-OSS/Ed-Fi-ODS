@@ -84,6 +84,9 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </returns>
         public override string ToString() => PropertyName;
 
+        /// <summary>
+        /// Gets the JSON Path value representing the location of the current member in the JSON representation of the full Resource.
+        /// </summary>
         public virtual string JsonPath
         {
             get => $"{Parent.JsonPath}.{JsonPropertyName}";

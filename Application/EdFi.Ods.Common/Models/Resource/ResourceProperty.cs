@@ -50,7 +50,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
     public class ResourceProperty : ResourceMemberBase
     {
-        private ResourceMemberBase _containingMember;
+        private readonly ResourceMemberBase _containingMember;
         private Lazy<IReadOnlyList<ResourceProperty>> _unifiedProperties;
         private Lazy<Resource> _descriptorResource;
 
@@ -129,7 +129,7 @@ namespace EdFi.Ods.Common.Models.Resource
                         return unifiedProperties.Except(new[] {this}).ToArray();
                     }
 
-                    return new ResourceProperty[0];
+                    return Array.Empty<ResourceProperty>();
                 });
 
             _descriptorResource = new Lazy<Resource>(
@@ -275,6 +275,7 @@ namespace EdFi.Ods.Common.Models.Resource
                    && UniqueIdSpecification.TryGetUniqueIdPersonType(PropertyName, out notUsed);
         }
 
+        /// <inheritdoc cref="ResourceMemberBase.JsonPath" />
         public override string JsonPath
         {
             get
