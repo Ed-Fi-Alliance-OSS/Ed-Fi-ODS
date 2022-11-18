@@ -250,20 +250,6 @@ namespace EdFi.Ods.Api.Pipelines.Assessment_Writable_Excludes_Embedded_Object
 
 }
 
-namespace EdFi.Ods.Api.Pipelines.Academic_Week_Readable_Excludes_Optional_References
-{
-}
-
-namespace EdFi.Ods.Api.Pipelines.Academic_Week_Writable_Excludes_Optional_References
-{
-    [ExcludeFromCodeCoverage]
-    public class AcademicWeekCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AcademicWeek.EdFi.Academic_Week_Writable_Excludes_Optional_References_Writable.AcademicWeek, Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek>
-    {
-        public AcademicWeekCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-}
-
 namespace EdFi.Ods.Api.Pipelines.Test_Profile_For_Composites_With_Multiple_Resources
 {
 }
