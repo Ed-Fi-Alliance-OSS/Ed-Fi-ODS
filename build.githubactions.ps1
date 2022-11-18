@@ -180,7 +180,7 @@ function CheckoutBranch {
         $does_corresponding_branch_exist = $false
         $does_corresponding_branch_exist = git ls-remote --heads origin $odsBranch | Select-String -Pattern $patternName -SimpleMatch -Quiet
         if ($does_corresponding_branch_exist -eq $true) {
-            Write-Output "Corresponding branch for $odsBranch exists in Implementation repo, so checking it out"
+            Write-Output "Corresponding branch for $odsBranch exists in $RelativeRepoPath repo, so checking it out"
             git fetch origin $odsBranch
             git checkout $odsBranch
         } else {
