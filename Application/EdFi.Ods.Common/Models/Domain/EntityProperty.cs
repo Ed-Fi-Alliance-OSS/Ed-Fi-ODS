@@ -64,9 +64,13 @@ namespace EdFi.Ods.Common.Models.Domain
 
         private void InitializeLazyMembers()
         { 
-            // A property that is part of a "unified key" has multiple incoming associations
+            // A property that is part of a "unified key" has multiple "sources" for a value that must all align, including a local property definition and incoming associations
             _isUnified = new Lazy<bool>(
-                () => IncomingAssociations.Count > 1);
+                () =>
+                    // If locally-defined AND has any incoming associations
+                    (IsLocallyDefined && IncomingAssociations.Any())
+                    // ... or has multiple incoming associations
+                        || IncomingAssociations.Count > 1);
 
             _definingProperty = new Lazy<EntityProperty>(() => GetDefiningProperty(restrictToConcreteEntity: false));
             

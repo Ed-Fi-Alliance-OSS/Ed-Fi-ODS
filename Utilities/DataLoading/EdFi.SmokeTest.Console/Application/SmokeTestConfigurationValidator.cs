@@ -37,6 +37,12 @@ namespace EdFi.SmokeTest.Console.Application
                    Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute);
         }
 
+        private bool ValidXsdMetadataUrl
+        {
+            get => _configuration.TestSet == TestSet.NonDestructiveSdk ||
+                   Uri.IsWellFormedUriString(_configuration.XsdMetadataUrl, UriKind.Absolute);
+        }
+
         private bool ValidSdkLibraryPath
         {
             get => _configuration.TestSet == TestSet.NonDestructiveApi || File.Exists(_configuration.SdkLibraryPath);
@@ -66,12 +72,17 @@ namespace EdFi.SmokeTest.Console.Application
 
         public bool IsValid()
         {
-            var isValid = ValidApiUrl && ValidOAuthUrl && ValidMetadataUrl && ValidSdkLibraryPath &&
+            var isValid = ValidApiUrl && ValidOAuthUrl && ValidMetadataUrl && ValidXsdMetadataUrl && ValidSdkLibraryPath &&
                           ValidNamespacePrefix && ValidEducationOrganizationIdOverrides && ValidUnifiedProperties;
 
             if (_configuration.ApiMode == ApiMode.YearSpecific)
             {
                 isValid = isValid && _configuration.SchoolYear.HasValue;
+            }
+
+            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific)
+            {
+                isValid = isValid && _configuration.SchoolYear.HasValue && !string.IsNullOrEmpty(_configuration.InstanceId);
             }
 
             if (!isValid)
@@ -101,6 +112,11 @@ namespace EdFi.SmokeTest.Console.Application
                 sb.AppendLine("m:metadataurl is not a valid URL");
             }
 
+            if (!ValidXsdMetadataUrl)
+            {
+                sb.AppendLine("x:xsdmetadataurl is not a valid URL");
+            }
+
             if (!ValidSdkLibraryPath)
             {
                 sb.AppendLine("l:library is not a valid file path");
@@ -124,6 +140,16 @@ namespace EdFi.SmokeTest.Console.Application
             if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
             {
                 sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
+            }
+
+            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && !_configuration.SchoolYear.HasValue)
+            {
+                sb.AppendLine($"School year is required for '{_configuration.ApiMode.DisplayName}' Mode");
+            }
+
+            if (_configuration.ApiMode == ApiMode.InstanceYearSpecific && string.IsNullOrEmpty(_configuration.InstanceId))
+            {
+                sb.AppendLine($"Instance Id is required for '{_configuration.ApiMode.DisplayName}' Mode");
             }
 
             return sb.ToString();

@@ -31,7 +31,11 @@ namespace EdFi.SmokeTest.Console.Application
 
         public int? SchoolYear { get; set; }
 
+        public string InstanceId { get; set; }
+
         public string MetadataUrl { get; set; }
+
+        public string XsdMetadataUrl { get; set; }
 
         public string SdkLibraryPath { get; set; }
 
@@ -132,11 +136,13 @@ namespace EdFi.SmokeTest.Console.Application
             {
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
+                XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
-                OAuthUrl = configuration.GetValue<string>("OdsApi:OAuthUrl"),
+                OAuthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
                 SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
+                InstanceId = configuration.GetValue<string>("OdsApi:Instanceid"),
                 NamespacePrefix = configuration.GetValue<string>("NamespacePrefix"),
                 EducationOrganizationIdOverrides =
                     configuration.GetSection("EducationOrganizationIdOverrides").Get<IReadOnlyDictionary<string, int>>(),
@@ -148,12 +154,30 @@ namespace EdFi.SmokeTest.Console.Application
 
             string ResolvedUrl(string url)
             {
-                return apiMode == ApiMode.YearSpecific
-                    ? Regex.Replace(
+                if (url == null)
+                {
+                    return null;
+                }
 
-                        // https://regex101.com/r/KywmUK/1
-                        url, @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None)
-                    : url;
+                if (apiMode == ApiMode.YearSpecific)
+                {
+                    // https://regex101.com/r/KywmUK/1
+                    return Regex.Replace(
+                        url,
+                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
+                    );
+                }
+                else if (apiMode == ApiMode.InstanceYearSpecific)
+                {
+                    url = Regex.Replace(
+                        url,
+                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
+                    );
+
+                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
+                }
+                else
+                    return url;
             }
         }
     }

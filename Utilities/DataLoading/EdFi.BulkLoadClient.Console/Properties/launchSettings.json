@@ -2,7 +2,7 @@
   "profiles": {
     "EdFi.BulkLoadClient.Console": {
       "commandName": "Project",
-      "commandLineArgs": "--retries 0 --data \"../../../../../../../Ed-Fi-Standard\" --baseUrl \"http://localhost:54746/\"  --working \"C:/tmp/data/Output/\"  --key JSEedVFAr85ILGholWZpc --secret gIebksQ5UZK16aLxft8Tq --maxRequests 1  --include-stats --force --novalidation"
+      "commandLineArgs": "--retries 0 --data \"../../../../../../../Ed-Fi-Standard\" --baseUrl \"http://localhost:54746/\"  --working \"C:/tmp/data/Output/\" --key JSEedVFAr85ILGholWZpc --secret gIebksQ5UZK16aLxft8Tq --maxRequests 1  --include-stats --force --novalidation"
     }
   }
 }

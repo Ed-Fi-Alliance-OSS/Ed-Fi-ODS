@@ -20,6 +20,9 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
         public int? SchoolYear { get; set; }
 
+        [Option('i', "instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
+        public string InstanceId { get; set; }
+
         [Option('r', "retries", Required = false, HelpText = "The number of times to retry submitting a resource")]
         public int? MaxRetries { get; set; }
 
@@ -50,6 +53,9 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('x', "xsd", Required = false, HelpText = "(deprecated) Path to a folder containing the Ed-Fi Xsd Schema files")]
         public string XsdFolder { get; set; }
 
+        [Option('z', "xsdmetadataurl", Required = false, HelpText = "The XSD metadata url (i.e. http://server/metadata)")]
+        public string XsdMetadataUrl { get; set; }
+
         [Option(
             'n', "novalidation", Required = false, Default = false,
             HelpText = "Do not validate incoming XML documents against the XSD Schema")]
@@ -70,9 +76,6 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option("include-stats", Required = false, Default = false, HelpText = "Include timing stats")]
         public bool IncludeStats { get; set; }
 
-        [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
-        public string InstanceId { get; set; }
-
         [Option('e', "extension", Required = false, HelpText = "The extension name to download Xsd Schema files for")]
         public string Extension { get; set; }
 
@@ -82,11 +85,13 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
                 {"-y", "OdsApi:SchoolYear"},
+                {"-i", "OdsApi:InstanceId"},
                 {"-r", "Concurrency:MaxRetries"},
                 {"-d", "Folders:Data"},
                 {"-k", "OdsApi:Key"},
                 {"-s", "OdsApi:Secret"},
                 {"-m", "OdsApi:MetadataUrl"},
+                {"-z", "OdsApi:XsdMetadataUrl"},
                 {"-o", "OdsApi:OAuthUrl"},
                 {"-p", "OdsApi:Profile"},
                 {"-w", "Folders:Working"},
@@ -103,6 +108,7 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"--key", "OdsApi:Key"},
                 {"--secret", "OdsApi:Secret"},
                 {"--metadataurl", "OdsApi:MetadataUrl"},
+                {"--xsdmetadataurl", "OdsApi:XsdMetadataUrl"},
                 {"--oauthurl", "OdsApi:OAuthUrl"},
                 {"--profile", "OdsApi:Profile"},
                 {"--working", "Folders:Working"},

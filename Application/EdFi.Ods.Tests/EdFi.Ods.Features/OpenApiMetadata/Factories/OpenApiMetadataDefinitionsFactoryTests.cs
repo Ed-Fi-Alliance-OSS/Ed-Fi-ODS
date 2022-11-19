@@ -293,7 +293,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 d => new
                 {
                     DefinitionName = namingStrategy.GetResourceName(d, new OpenApiMetadataResource(d)),
-                    Properties = d.UnifiedKeyAllProperties().Select(p => p.JsonPropertyName).Concat(
+                    Properties = d.NonReferencedProperties().Select(p => p.JsonPropertyName).Concat(
                             d.Collections.Select(
                                 c => c.IsDerivedEntityATypeEntity() && c.IsInherited
                                     ? c.Association.OtherEntity.PluralName.ToCamelCase()

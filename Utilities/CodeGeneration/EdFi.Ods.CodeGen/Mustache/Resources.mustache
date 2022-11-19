@@ -481,22 +481,41 @@ namespace {{ResourceClassesNamespace}}
         {{#Referenced}}
         {{#Property}}
 
+        {{#PropertyIsUnifiedAndLocallyDefined}}
+        private {{PropertyType}} _{{PropertyFieldName}};
+
+        {{/PropertyIsUnifiedAndLocallyDefined}}
         /// <summary>
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
+        {{#PropertyIsUnifiedAndLocallyDefined}}
+        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]
+        public {{PropertyType}} {{PropertyName}}
+        {{/PropertyIsUnifiedAndLocallyDefined}}
+        {{^PropertyIsUnifiedAndLocallyDefined}}
         {{PropertyType}} {{PropertyNamespacePrefix}}I{{ParentName}}.{{PropertyName}}
+        {{/PropertyIsUnifiedAndLocallyDefined}}
         {
             get
             {
+                {{#PropertyIsUnifiedAndLocallyDefined}}
+                return _{{PropertyFieldName}};
+                {{/PropertyIsUnifiedAndLocallyDefined}}
+                {{^PropertyIsUnifiedAndLocallyDefined}}
                 if (Implicit{{ImplicitPropertyName}}Reference != null
                     && (_SuspendReferenceAssignmentCheck || Implicit{{ImplicitPropertyName}}Reference.IsReferenceFullyDefined()))
                     return Implicit{{ImplicitPropertyName}}Reference.{{ParentPropertyName}};
 
                 return default({{PropertyType}});
+                {{/PropertyIsUnifiedAndLocallyDefined}}
             }
             set
             {
+                {{#PropertyIsUnifiedAndLocallyDefined}}
+                _{{PropertyFieldName}} = value;
+
+                {{/PropertyIsUnifiedAndLocallyDefined}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
                 // All ExplicitlyAssigned are reset to false in advanced
                 {{#UnifiedKeys}}
@@ -813,14 +832,28 @@ namespace {{ResourceClassesNamespace}}
         {{#Referenced}}
         {{#Property}}
 
+        {{#PropertyIsUnifiedAndLocallyDefined}}
+        private {{PropertyType}} _{{PropertyFieldName}};
+
+        {{/PropertyIsUnifiedAndLocallyDefined}}
         /// <summary>
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
+        {{#PropertyIsUnifiedAndLocallyDefined}}
+        [DataMember(Name="{{JsonPropertyName}}")]
+        public {{PropertyType}} {{PropertyName}}
+        {{/PropertyIsUnifiedAndLocallyDefined}}
+        {{^PropertyIsUnifiedAndLocallyDefined}}
         {{PropertyType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
+        {{/PropertyIsUnifiedAndLocallyDefined}}
         {
             get
             {
+                {{#PropertyIsUnifiedAndLocallyDefined}}
+                return _{{PropertyFieldName}};
+                {{/PropertyIsUnifiedAndLocallyDefined}}
+                {{^PropertyIsUnifiedAndLocallyDefined}}
                 {{#UnifiedKeys}}
                 if (Implicit{{ReferenceName}}Reference != null
                     && (_SuspendReferenceAssignmentCheck || Implicit{{ReferenceName}}Reference.IsReferenceFullyDefined()))
@@ -838,9 +871,14 @@ namespace {{ResourceClassesNamespace}}
 
                 {{/UnifiedExtensions}}
                 return default({{PropertyType}});
+                {{/PropertyIsUnifiedAndLocallyDefined}}
             }
             set
             {
+                {{#PropertyIsUnifiedAndLocallyDefined}}
+                _{{PropertyFieldName}} = value;
+                
+                {{/PropertyIsUnifiedAndLocallyDefined}}
                 // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
                 // All ExplicitlyAssigned are reset to false in advanced
                 {{#UnifiedKeys}}
@@ -1380,6 +1418,11 @@ namespace {{ResourceClassesNamespace}}
 
             IEnumerable<Tuple<string, {{UnifiedCSharpPropertyType}}>> Get{{UnifiedPropertyName}}Sources()
             {
+                {{#UnifiedPropertyIsLocallyDefined}}
+                // Obtain value from the locally defined property
+                yield return Tuple.Create("{{UnifiedJsonPropertyName}}", instance.{{UnifiedPropertyName}});
+                
+                {{/UnifiedPropertyIsLocallyDefined}}
                 {{#UnifiedPropertyIsFromParent}}
                 // Obtain value from the parent
                 yield return Tuple.Create("{{UnifiedJsonPropertyName}} (from parent context)", (instance as {{NamespacePrefix}}I{{ResourceClassName}}).{{ParentResourceClassName}}{{UnifiedPropertyParentPath}}.{{UnifiedPropertyName}});
