@@ -60,8 +60,8 @@ param(
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
 $version = "$InformationalVersion.$newRevision"
-$packageOutput = "$PSScriptRoot\NugetPackages"
-$packagePath = "$packageOutput\$PackageName.$version.nupkg"
+$packageOutput = "$PSScriptRoot/NugetPackages"
+$packagePath = "$packageOutput/$PackageName.$version.nupkg"
 
 if ([string]::IsNullOrWhiteSpace($Solution)){
     $Solution =$ProjectFile
