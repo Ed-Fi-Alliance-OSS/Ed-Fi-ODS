@@ -19,7 +19,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 {
     public class ProfileTestDataHelper
     {
-        private const string ProjectDirectory = @"IntegrationTests\Profiles\Xml\";
+        private const string ProjectDirectory = @"IntegrationTests/Profiles/Xml/";
         private readonly DomainModel _domainModel;
 
         public ProfileTestDataHelper(string fileName)

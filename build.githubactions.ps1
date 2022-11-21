@@ -184,7 +184,7 @@ function CheckoutBranch {
             git fetch origin $odsBranch
             git checkout $odsBranch
         } else {
-            WriteHost "Corresponding branch for $odsBranch does not exist in Implementation repo, so not changing branch checked out"
+            Write-Output "Corresponding branch for $odsBranch does not exist in Implementation repo, so not changing branch checked out"
         }
     } else {
         Write-Output "ref_name: $Env:REF_NAME"

@@ -45,7 +45,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 _templateSet = new TemplateSet
                 {
                                    Name = "Entities.mustache", Driver = "Entities",
-                                   OutputPath = "Models\\Entities\\Entities.generated.cs"
+                                   OutputPath = "Models/Entities/Entities.generated.cs"
                 };
 
                 var templates = new List<TemplateSet> {_templateSet};
@@ -62,7 +62,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 _generatorProvider = Stub<IGeneratorProvider>();
 
                 A.CallTo(() => _codeRepositoryProvider.GetResolvedCodeRepositoryByName(A<string>._, A<string>._))
-                    .Returns("testRepo\\testFolder");
+                    .Returns("testRepo/testFolder");
 
                 A.CallTo(() => _templateSetProvider.GetTemplatesByName(A<string>._))
                     .Returns(templates);

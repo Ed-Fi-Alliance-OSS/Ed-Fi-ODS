@@ -382,8 +382,8 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // in a developer environment the plugin folder is relative to the WebApi project
-            // "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\bin\Debug\net6.0\..\..\..\" => "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi"
-            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "..\\..\\..\\"));
+            // "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/Debug/net6.0/../../../" => "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi"
+            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "../../../"));
             var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, Plugin.Folder));
 
             if (Directory.Exists(relativeToProject))
@@ -392,7 +392,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // in a deployment environment the plugin folder is relative to the executable
-            // "C:\inetpub\Ed-Fi\WebApi"
+            // "C:/inetpub/Ed-Fi/WebApi"
             var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, Plugin.Folder));
 
             if (Directory.Exists(relativeToExecutable))
@@ -427,7 +427,7 @@ namespace EdFi.Ods.Api.Startup
                 _logger.Warn($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
 
                 _logger.Warn(
-                    $"To configure plugins update the '{pluginFolderSettingsName}' setting with either an absolute path, a path relative to the 'Ed-Fi-ODS-Implementation\\Application\\EdFi.Ods.WebApi\', or a path relative to the deployed EdFi.Ods.WebApi executable.");
+                    $"To configure plugins update the '{pluginFolderSettingsName}' setting with either an absolute path, a path relative to the 'Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/', or a path relative to the deployed EdFi.Ods.WebApi executable.");
 
                 return new PluginInfo[0];
             }
