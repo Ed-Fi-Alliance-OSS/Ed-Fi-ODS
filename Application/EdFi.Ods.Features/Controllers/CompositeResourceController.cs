@@ -241,7 +241,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 return string.IsNullOrWhiteSpace(restError.Message)
                     ? (IActionResult) StatusCode(restError.Code)
-                    : StatusCode(restError.Code, restError.Message);
+                    : StatusCode(restError.Code, ErrorTranslator.GetErrorMessage(restError.Message));
             }
 
             return Ok(json);

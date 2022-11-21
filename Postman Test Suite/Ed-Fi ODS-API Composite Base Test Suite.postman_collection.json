@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "d031e96b-57d7-4669-960b-a7b36e72eedc",
+		"_postman_id": "aadcd47f-d843-49a9-b063-6ce74aad53ac",
 		"name": "Ed-Fi ODS/API Composite Base Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
@@ -15,7 +16,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "688eb7b9-9804-47b4-8567-c47973eda0d0",
 								"exec": [
 									"const __ = require('lodash');",
 									"",
@@ -56,8 +56,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Composites",
@@ -74,7 +73,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "8932f223-aff1-45e3-81dd-c21b3fb515bc",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -120,7 +118,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d3175f55-3604-46e3-ba23-899559add7b4",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -162,9 +159,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite GetById request uses an invalid resource identifier",
@@ -175,15 +170,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "199142f7-d49a-4fec-9451-972015380876",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -193,7 +187,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b3a91a64-afc0-4464-8a24-bb222be6bb34",
 												"exec": [
 													""
 												],
@@ -228,15 +221,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d95fc07b-3b7f-4fdb-8ad9-0c7c04028997",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -246,7 +238,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "01a8b10a-25d2-4261-b746-2c6cb90c982f",
 												"exec": [
 													""
 												],
@@ -287,15 +278,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f9988f3c-8e33-47a4-8a28-d343c08140a5",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.equal(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -305,7 +295,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "a67cf291-be06-4aeb-92c8-99d1fecd5833",
 												"exec": [
 													""
 												],
@@ -340,15 +329,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9f360bb8-858d-4932-8591-9b3946242e65",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the supplied resource identifier is invalid.\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.include(\"The supplied resource identifier is invalid.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.include(\"The supplied resource identifier is invalid.\");",
 													"});",
 													""
 												],
@@ -358,7 +346,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "78235493-ea46-441a-849d-56c5f90b7c7f",
 												"exec": [
 													""
 												],
@@ -387,9 +374,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite GetById request uses a valid resource identifier",
@@ -400,7 +385,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "126edc6b-68b0-439e-9342-2ec9035933e4",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -420,7 +404,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "196481ff-abb5-4000-a89f-f5eaab18b250",
 												"exec": [
 													""
 												],
@@ -461,7 +444,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "86fa0e9e-e1eb-463f-9775-702e69b50f4f",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -481,7 +463,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "54351a63-8e03-4f81-843f-d243504f4084",
 												"exec": [
 													""
 												],
@@ -516,9 +497,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites support GetAll pattern requests",
@@ -529,7 +508,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3cfb0241-a69a-4c37-b9fe-f9fa395ffd89",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -568,7 +546,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "2f080e1f-e5b2-48f1-91ed-ca3281a8afd7",
 												"exec": [
 													""
 												],
@@ -596,9 +573,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites support GetById pattern requests",
@@ -609,7 +584,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f0c3d760-e76a-4c27-92c8-e8a70f311389",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -629,7 +603,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "48870465-a0f3-475c-8bf1-eb64fe330e8f",
 												"exec": [
 													""
 												],
@@ -658,9 +631,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": " Composites support GetByKey pattern requests",
@@ -671,7 +642,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5365ee54-a346-494e-9ad9-6a2d1bb4980f",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -692,7 +662,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "65a4e7a0-ca9d-448b-9607-30f4aee1fc69",
 												"exec": [
 													""
 												],
@@ -732,9 +701,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites support GetByExample pattern requests",
@@ -745,7 +712,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "617e2d2f-0f27-42dd-b9cc-57e5fd1f6b04",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -777,7 +743,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "ef911cc7-396e-4de7-a9f8-3c348b34786e",
 												"exec": [
 													"pm.variables.set(\"supplied:personalTitlePrefix\", \"Mrs\");",
 													"pm.variables.set(\"supplied:hispanicLatinoEthnicity\", true);"
@@ -816,16 +781,13 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
 					],
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "10580f20-0467-4e47-a09f-aa7b4a48bdf0",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -835,16 +797,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "98b29ea7-d2db-4615-b73a-6b0fdd8c340e",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature: Composite requests support URL-based range criteria",
@@ -858,7 +817,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e87ce597-65e5-48fa-aca1-56c3ba5f00e8",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -912,7 +870,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f2ecf1f8-fc59-4fba-92fe-d80053a0ad63",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -959,9 +916,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Date Range Scenarios",
@@ -972,7 +927,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f2eda496-c50a-4b3c-83b6-66c020cc3fba",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1013,7 +967,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "52293c08-f275-4e48-a89e-546ff2913607",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1070,7 +1023,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f1aeccdc-88f6-41e4-b322-3b853d1ee067",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1110,7 +1062,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "645fab75-6777-4f07-9ef3-dcf67b13ba29",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1167,7 +1118,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9db3956c-1ed7-494f-a480-851f84599f3f",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1207,7 +1157,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "fbe10f91-9356-472c-b14b-87ac8c548e06",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1264,7 +1213,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "8b97f193-745d-4781-a961-4d1b3b337951",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1304,7 +1252,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "7ceb9a31-e46a-40b2-8ed6-cc29d9b0a438",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1361,7 +1308,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "fd5ff2bd-5ca9-4542-b91b-79b248ca63bf",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1401,7 +1347,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "a94cbf90-e5d3-4317-843c-b630e8dd28e9",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1457,7 +1402,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "ac26903d-6b74-4d7c-966b-876b3821ab93",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1511,7 +1455,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b5ebe474-af15-4f08-a697-4488c4ba521b",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1584,15 +1527,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5f178a88-1106-496d-9847-a66bd8ed6ce7",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating the property does not exist or is not available string\", () => {",
-													"     const responseItem = pm.response.json();",
-													"     pm.expect(responseItem).to.include(\"The property \\'NonExistingDate\\' does not exist or is not available\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.include(\"The property \\'NonExistingDate\\' does not exist or is not available\");",
 													"});",
 													""
 												],
@@ -1602,7 +1544,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "7aad5eb2-b0a9-48f4-a8a2-0b1588e089ab",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1669,9 +1610,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Numeric Range Scenarios",
@@ -1682,7 +1621,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "9ecb49b4-3d69-49eb-8bb8-680444162942",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -1708,7 +1646,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e7871c66-cac2-4667-871d-7cb064faa6d4",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1770,7 +1707,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0fe7d3b6-379d-47ec-a424-df0856eb15ec",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1817,7 +1753,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "5441d5fd-e249-4f94-bdcb-ac73a5df9b70",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -1886,13 +1821,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature: Composites support URL based pagination",
@@ -1906,7 +1837,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "533421ca-c57f-40a6-8430-58be54f3dc26",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -1963,9 +1893,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Valid Paging Scenarios",
@@ -1976,7 +1904,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7554207b-a9e6-42db-8e37-6daa936bceea",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2006,7 +1933,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f8261356-617f-435f-8211-83e8b10b5463",
 												"exec": [
 													""
 												],
@@ -2040,7 +1966,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c3fb7c71-2f32-4d31-97eb-87bcecde10bb",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2070,7 +1995,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "24a781c9-31be-4d65-ad49-5e7c8bb6ad94",
 												"exec": [
 													"pm.variables.set(\"supplied:limit\", 2);",
 													""
@@ -2111,7 +2035,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1982b6ba-30ff-408d-9df5-e4d5d09f24e5",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2142,7 +2065,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "ec85b454-7679-4e17-b32f-6bf02f38651e",
 												"exec": [
 													"pm.variables.set(\"supplied:limit\", 2);",
 													""
@@ -2183,7 +2105,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "6e89eab0-517d-45a1-9cf5-c2f100c1f487",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2218,7 +2139,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "a841a748-c210-473c-b58b-336783332325",
 												"exec": [
 													"pm.variables.set(\"supplied:limit\", 3);",
 													"pm.variables.set(\"supplied:offset\", 2);",
@@ -2264,7 +2184,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "8b87cc19-79fb-4379-bdf7-95ca69a59498",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -2313,7 +2232,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "e11eb592-e362-47cc-8f17-a308d3aeeea2",
 												"exec": [
 													"// Changing this offset to a higher number requires a corresponding increase of the \"known\" student data",
 													"pm.variables.set(\"supplied:offset\", 2);",
@@ -2325,7 +2243,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "fa81a0eb-ff1e-4e1b-80f8-33b3f548ae4e",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2382,9 +2299,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Invalid Paging Scenarios",
@@ -2395,7 +2310,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "8c198c16-94be-4bde-af50-3f6fd3b34de8",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
 													"    pm.expect(pm.response.code).to.equal(400);",
@@ -2443,7 +2357,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "34e06878-e507-4f81-9b5b-5e8caba08d4c",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
 													"    pm.expect(pm.response.code).to.equal(400);",
@@ -2486,9 +2399,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Non-Numeric Paging Scenarios",
@@ -2499,16 +2410,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "fdaa2a67-2b9a-49e8-a066-174d10d5caa3",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should return a message indicating an invalid limit specified\", () => {",
-													"     ",
-													"     const responseItem = pm.response.json();",
-													"     pm.expect(responseItem).to.equal(\"Invalid limit specified.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"Invalid limit specified.\");",
 													"});",
 													""
 												],
@@ -2548,16 +2457,14 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "830c8aa8-b774-483b-b14f-32766eb6461b",
 												"exec": [
 													"pm.test(\"Status code is 400\", () => {",
-													"    pm.expect(pm.response.code).to.equal(400);",
+													"  pm.expect(pm.response.code).to.equal(400);",
 													"});",
 													"",
 													"pm.test(\"Should a message indicating an invalid offset specified\", () => {",
-													"     ",
-													"     const responseItem = pm.response.json();",
-													"     pm.expect(responseItem).to.equal(\"Invalid offset specified.\");",
+													"  const responseItem = pm.response.json();",
+													"  pm.expect(responseItem.message).to.equal(\"Invalid offset specified.\");",
 													"});",
 													""
 												],
@@ -2591,13 +2498,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature: Composites support url based field selection",
@@ -2611,7 +2514,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b061269b-f4b6-436b-bfff-be6ea718ce97",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2653,7 +2555,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1ba02671-62b9-4ef9-897e-0b645c093d2d",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2701,9 +2602,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Field Selector Scenarios",
@@ -2714,7 +2613,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4989f73f-7ace-4180-b1af-8910669f1647",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2745,7 +2643,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b4a183a1-45de-4b49-a29f-4db4aca4112b",
 												"exec": [
 													""
 												],
@@ -2785,7 +2682,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2621adc1-e24b-4de1-b037-ee77ef6322d7",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2814,7 +2710,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b8d9dd66-d93b-41e7-9dae-077e327a5626",
 												"exec": [
 													""
 												],
@@ -2854,7 +2749,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "bf2e6567-5575-448e-8179-c66445d5a782",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -2882,7 +2776,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "bf875ba0-724b-48d1-bb04-831b292d0728",
 												"exec": [
 													""
 												],
@@ -2922,7 +2815,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b67060a4-b1c0-4dde-8258-3e27d5f3d947",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -2965,7 +2857,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "bf160ed6-9486-48da-95e5-80cf3f1a91a9",
 												"exec": [
 													""
 												],
@@ -3005,7 +2896,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "631603be-b6db-4fa2-a6e8-068105805d79",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3049,7 +2939,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "4ee500db-45a9-40b4-86de-572f4cfaddfd",
 												"exec": [
 													""
 												],
@@ -3089,7 +2978,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c573cf24-5483-4607-a31d-0dc4d3da2938",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3133,7 +3021,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "2b9c523c-34f9-42ca-8873-ae86b32bdffa",
 												"exec": [
 													""
 												],
@@ -3167,13 +3054,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature: Composite can be filtered by url query string",
@@ -3187,7 +3070,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5d907a73-7fb9-4d54-940d-07840fb2481f",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3240,7 +3122,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "89b5cbcc-43c5-4c39-982a-7154b345d838",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3280,7 +3161,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3ed31ba5-0357-483d-a81e-c1fff8ebdac0",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3317,9 +3197,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite can be filtered by url query string",
@@ -3333,17 +3211,15 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "b95fc5d4-1ebd-471c-b365-31febdb88998",
 														"exec": [
 															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
+															"  pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
 															"",
 															"pm.test(\"Should return a message indicating that the property does not exist or is not available.\", () => {",
-															"     ",
-															"     const responseItem = pm.response.json();",
-															"     pm.expect(responseItem).to.equal(\"The property \\'Nonexistent\\' does not exist or is not available.\");",
+															"  const responseItem = pm.response.json();",
+															"  pm.expect(responseItem.message).to.equal(\"The property \\'Nonexistent\\' does not exist or is not available.\");",
 															"});",
 															""
 														],
@@ -3353,7 +3229,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "792a03da-149d-4211-a223-78be67541924",
 														"exec": [
 															""
 														],
@@ -3393,19 +3268,16 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "49c40a81-9116-4415-8879-65c7e0bdeb3a",
 														"exec": [
 															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
+															"  pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
 															"pm.test(\"Should return a message indicating that an invalid query string parameter value was provided.\", () => {",
-															"     ",
-															"     const responseItem = pm.response.json();",
-															"     ",
-															"     // Use regular expression to perform a \"startsWith\" expectation",
-															"     pm.expect(responseItem).to.match(/^Invalid query string parameter value provided./);",
-															"      ",
+															"  const responseItem = pm.response.json();",
+															"",
+															"  // Use regular expression to perform a \"startsWith\" expectation",
+															"  pm.expect(responseItem.message).to.match(/^Invalid query string parameter value provided./);",
 															"});",
 															""
 														],
@@ -3415,7 +3287,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "9d915a91-c892-41a3-8203-7298eba9af80",
 														"exec": [
 															""
 														],
@@ -3449,13 +3320,9 @@
 											},
 											"response": []
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Exact Match Scenarios",
@@ -3466,7 +3333,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "55de79ff-7976-4cea-822a-e4e6c0f5a0e7",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -3489,7 +3355,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c596639d-191a-407d-ac2d-a9ab6b756c13",
 												"exec": [
 													""
 												],
@@ -3529,7 +3394,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "cda8d6be-15e2-4266-85de-dcedf43902cc",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -3558,7 +3422,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "cdc1a9a6-31b1-4d64-a9ec-492eae15b3a9",
 												"exec": [
 													""
 												],
@@ -3598,7 +3461,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "da26acd6-70f0-42e9-8ef0-d8b163e71719",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3628,7 +3490,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "fe316364-6459-42b5-9017-c41363b74feb",
 												"exec": [
 													""
 												],
@@ -3668,7 +3529,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "acc502f3-0929-4538-abbb-0d6ad649834e",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3699,7 +3559,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "87f66357-2ad8-4189-abc1-1c9dd9dfa5ff",
 												"exec": [
 													""
 												],
@@ -3743,7 +3602,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9186a357-9d95-47fa-be6d-e869b5775fb2",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3772,7 +3630,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "093cc5ac-c384-4e76-ae34-42e07f49eaae",
 												"exec": [
 													""
 												],
@@ -3812,7 +3669,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d0cc0543-d637-4173-80c8-e10aa0871888",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3841,7 +3697,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b9e788f3-f881-47fb-b4f7-7b97f4d5bde0",
 												"exec": [
 													""
 												],
@@ -3881,7 +3736,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "73d061a8-6eda-47e3-be45-22a6067dc391",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3911,7 +3765,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "13fcb22d-414c-4215-b388-a039e07036d6",
 												"exec": [
 													""
 												],
@@ -3951,7 +3804,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1298bee4-42d7-41f7-816c-17b4b5c4473e",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -3981,7 +3833,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3bbd9363-9018-443f-b4a1-16dff4457438",
 												"exec": [
 													""
 												],
@@ -4021,7 +3872,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1cbd26a7-6c6b-4d71-9e24-535f4304ba7f",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4059,7 +3909,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "ba60ec6c-1b73-4d5e-8ae6-61ac296dd7b7",
 												"exec": [
 													""
 												],
@@ -4093,13 +3942,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature: Composite resource model",
@@ -4113,7 +3958,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "bcf3a0b1-4c9b-47e5-980a-a9891db88a34",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4158,9 +4002,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite base resource contains no properties Scenario",
@@ -4171,7 +4013,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c40b1931-d6e4-4b65-addd-70b8a5acd9a7",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4204,7 +4045,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "174b3072-0c62-4dfd-bb77-564b67e4fb24",
 												"exec": [
 													""
 												],
@@ -4232,9 +4072,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Display names applied to all members Scenario",
@@ -4245,7 +4083,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3a27141d-9b8c-407b-b7d0-57cc609a0834",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4278,7 +4115,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "79b8789c-366a-4ea3-b46a-897b402577fa",
 												"exec": [
 													""
 												],
@@ -4312,7 +4148,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "427d259b-4aef-4a94-8068-5aae0b8eff38",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4346,7 +4181,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "bac1a760-5f3a-4a1d-bc9f-4507ca124b88",
 												"exec": [
 													""
 												],
@@ -4374,9 +4208,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes specific collections Scenario",
@@ -4387,7 +4219,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d9c29a74-f452-410f-8591-d4f89c08b75b",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4422,7 +4253,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "436c64d2-99b8-4bf8-8b6c-6c7f3849cd45",
 												"exec": [
 													""
 												],
@@ -4450,9 +4280,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes specific collections Scenario",
@@ -4463,7 +4291,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "52bf8afa-4d2d-4611-b1ad-5cb9d219f9ea",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4497,7 +4324,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "9ccba325-02e4-4080-9d4b-68cdafffc7cc",
 												"exec": [
 													""
 												],
@@ -4525,9 +4351,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes specific properties Scenario",
@@ -4538,7 +4362,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e2e8dc75-1dbd-41c9-b978-5465a32b4726",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4571,7 +4394,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "5e79c666-be88-43bf-bf7b-73b8782fe181",
 												"exec": [
 													""
 												],
@@ -4599,9 +4421,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes unflattened reference Scenario",
@@ -4612,7 +4432,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "904dc643-5177-446d-9ce1-319804ac6453",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4665,7 +4484,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "a03c1130-f008-479d-b9e7-f2c554208a44",
 												"exec": [
 													""
 												],
@@ -4693,9 +4511,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes flattened reference Scenario",
@@ -4706,7 +4522,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "62382ef1-008a-4b82-93fd-d5a1a4bc701a",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4744,7 +4559,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "e1f5b8e5-9907-4ea4-a2be-852a97ed30a8",
 												"exec": [
 													""
 												],
@@ -4772,9 +4586,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes specific references with flattened properties Scenario",
@@ -4785,7 +4597,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "50cfcb48-fe9b-471c-b4bf-1b6c0c193d18",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4820,7 +4631,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "516a2803-2987-4162-84ab-e658b31c3cb4",
 												"exec": [
 													""
 												],
@@ -4848,9 +4658,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes specific references with properties Scenario",
@@ -4861,7 +4669,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "28c30642-eefc-4a7b-bbe5-301e89e55160",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -4913,7 +4720,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "557d52ce-549e-4dfc-96b2-b72ea1e0db26",
 												"exec": [
 													""
 												],
@@ -4941,9 +4747,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Include flattened references with flattened references Scenario",
@@ -4954,7 +4758,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "55438990-e755-4534-8686-5c8b83daa681",
 												"exec": [
 													"",
 													"",
@@ -4992,7 +4795,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "2c8c4ac0-dbe5-45b1-ab74-31b4b92eb2f1",
 												"exec": [
 													""
 												],
@@ -5020,9 +4822,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes linked collection containing a linked collection Scenario",
@@ -5033,7 +4833,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5feee885-95f5-4e08-a20d-a9c1b840c6a0",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5091,7 +4890,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "54a22872-7714-4dbb-8989-4e76ba5e28f3",
 												"exec": [
 													""
 												],
@@ -5119,9 +4917,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes linked collection containing flattened reference Scenario",
@@ -5132,7 +4928,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e7e5095a-9504-4e83-8924-43507505f5c8",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5192,7 +4987,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "9adc72e1-9a8c-45e6-922b-0087c51dd4a1",
 												"exec": [
 													""
 												],
@@ -5220,9 +5014,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes linked collection containing unflattened reference Scenario",
@@ -5233,7 +5025,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "729e1a82-c336-496c-ba58-0f4b51ec869f",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5292,7 +5083,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c4f48942-bc9e-46c9-b9a1-edb5f4ce3cbd",
 												"exec": [
 													""
 												],
@@ -5320,9 +5110,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes flattened reference with linked collection Scenario",
@@ -5333,7 +5121,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "13f6bac5-a0bd-4c65-a8a6-757e1ddc9e71",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5386,7 +5173,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3ee928bf-785c-4093-9e28-7e7254862b40",
 												"exec": [
 													""
 												],
@@ -5414,9 +5200,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes unflattened reference with unflattened reference Scenario",
@@ -5427,7 +5211,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "84bfc509-1a9c-45ef-b660-8a73e49f6273",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5484,7 +5267,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "8a772d07-53bd-40b4-a208-2284669d6213",
 												"exec": [
 													""
 												],
@@ -5512,9 +5294,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes collection with properties Scenario",
@@ -5525,7 +5305,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "6ef22c35-8f0c-4b3b-a65c-b329cada7770",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5584,7 +5363,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "67de9e2c-0043-48a0-8819-76aa61cc47db",
 												"exec": [
 													""
 												],
@@ -5612,9 +5390,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes collection with collection Scenario",
@@ -5625,7 +5401,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1e9cddbe-f427-405c-8a62-06db5b3f507b",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5660,7 +5435,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "e3ece5c2-a1b6-43ae-ab8c-0231d42c3c0e",
 												"exec": [
 													""
 												],
@@ -5688,9 +5462,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes collection with unflattened reference Scenario",
@@ -5701,7 +5473,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "f9bc3bce-6427-45b1-ba2b-977cfc7f4ef6",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5739,7 +5510,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "d6ab3b05-ccf8-4bcb-a4f0-5e74fac60737",
 												"exec": [
 													""
 												],
@@ -5767,9 +5537,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes collection with flattened reference Scenario",
@@ -5780,7 +5548,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "07f83227-04e6-440e-bd02-44bdab3ead45",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5818,7 +5585,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "416576eb-bc81-455a-a0be-f10594829dc8",
 												"exec": [
 													""
 												],
@@ -5846,9 +5612,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes unflattened reference with flattened reference",
@@ -5859,7 +5623,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4a6ea4a4-1bef-4d35-b195-4363b2b176f2",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5897,7 +5660,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "ffde8e3e-5613-44bc-8895-034cb3a48390",
 												"exec": [
 													""
 												],
@@ -5925,9 +5687,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes unflattened reference with collection Scenario",
@@ -5938,7 +5698,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "90d1a0f9-36fc-4c58-bc3c-e3861c524678",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -5991,7 +5750,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b37dd839-1b52-41be-98f5-599f2556872a",
 												"exec": [
 													""
 												],
@@ -6019,9 +5777,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes linked collection with properties Scenario",
@@ -6032,7 +5788,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "01edc30a-d29a-4821-bcb6-cd9f6b8f8082",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6088,7 +5843,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "17d48bf9-b28e-4b43-9677-58da8f9cf327",
 												"exec": [
 													""
 												],
@@ -6116,9 +5870,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Includes linked collection with collection Scenario",
@@ -6129,7 +5881,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "1b08e7f3-d021-43c2-9aaf-c2197036f70d",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6184,7 +5935,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c97b9b44-ec27-43ee-bac9-3d8e0facd6fc",
 												"exec": [
 													""
 												],
@@ -6212,9 +5962,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Include flattened references with unflattened references",
@@ -6225,7 +5973,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "80111329-bccc-4ad8-9fd8-49ed72bb4f95",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6278,7 +6025,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "d1ff5e2c-0f78-4359-aa7c-20fc8e60d4e1",
 												"exec": [
 													""
 												],
@@ -6306,9 +6052,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Include flattened references with linked collection Scenario",
@@ -6319,7 +6063,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4044e086-fc52-4779-8b3c-1f22fba82850",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6355,7 +6098,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "981c80d9-aecd-4cd3-84de-799789578a7c",
 												"exec": [
 													""
 												],
@@ -6383,9 +6125,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Include flattened references with collection Scenario",
@@ -6396,7 +6136,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3cef4602-6151-4f42-a9d1-ae528ffe6017",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6449,7 +6188,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "cb03f5fb-02b5-4507-b1df-47f69e7929fd",
 												"exec": [
 													""
 												],
@@ -6477,13 +6215,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature:Composite resources can be defined through xml",
@@ -6497,7 +6231,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "db9bbeb9-a418-4880-888e-7ff123b710a5",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\tconst responseItems = pm.response.json();\r",
@@ -6557,9 +6290,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Specification does not define a parameter needed to properly filter the incoming request URL",
@@ -6570,7 +6301,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "47bf053e-2c5f-4a74-89fb-ab9bb1077a48",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6586,7 +6316,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f8d7f729-6f9e-41db-8c18-f9ac998f68e8",
 												"exec": [
 													"const uuid = require('uuid');",
 													"pm.variables.set(\"supplied:subjectId\", uuid.v4());",
@@ -6618,9 +6347,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite base resource contains no properties Scenario",
@@ -6631,7 +6358,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "291c7bc4-eba8-4f56-9e37-a7c469307b6a",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6659,7 +6385,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "416570f2-9724-4cd3-9d41-d431e6913899",
 												"exec": [
 													""
 												],
@@ -6687,9 +6412,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite members include display names Scenario",
@@ -6700,7 +6423,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d840f573-7e6b-4638-8fed-b586d7f9c396",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6728,7 +6450,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f7ee27be-3707-4d7e-a613-9327113466ac",
 												"exec": [
 													""
 												],
@@ -6757,9 +6478,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes specific collections Scenario",
@@ -6770,7 +6489,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "a5b54297-aec3-4eee-a8d0-806a99ac73ff",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6798,7 +6516,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "7be76e88-d6aa-4138-b0e7-cfb4252bc8a3",
 												"exec": [
 													""
 												],
@@ -6826,9 +6543,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes specific linked collections Scenario",
@@ -6839,7 +6554,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "d219ba35-7927-4eb2-8157-7ad7edb54ba8",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6868,7 +6582,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "fa248278-c2e6-4478-bc9f-cf023412fe88",
 												"exec": [
 													""
 												],
@@ -6896,9 +6609,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes specific properties Scenario",
@@ -6909,7 +6620,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "e1583746-a22f-45c3-ad7a-dd29b5f68f69",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -6938,7 +6648,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "173a6cfa-9e5d-4ad0-a3c8-a096caa19894",
 												"exec": [
 													""
 												],
@@ -6966,9 +6675,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes unflattened reference Scenario",
@@ -6979,7 +6686,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "81d372c9-73b3-4ee3-a374-050f1737245b",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7016,7 +6722,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "55d8949a-bba1-41e8-b223-5d8d69b2458b",
 												"exec": [
 													""
 												],
@@ -7044,9 +6749,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes flattened reference Scenario",
@@ -7057,7 +6760,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7c3c57cb-5c9a-45c2-bc38-0436ba080ade",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7088,7 +6790,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "dd4f58bd-99f0-4b21-a6c4-da5e29af986e",
 												"exec": [
 													""
 												],
@@ -7117,9 +6818,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes specific references with flattened properties Scenario",
@@ -7130,7 +6829,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c7137f07-e90b-4df7-99aa-556c8519e04a",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7158,7 +6856,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "eddb0fd2-f974-405b-b2d5-52a36339b210",
 												"exec": [
 													""
 												],
@@ -7187,9 +6884,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes specific references with properties scenario",
@@ -7200,7 +6895,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "6a6efe94-56f4-484f-970a-5164bfec559b",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7236,7 +6930,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "8a89c8de-8bff-4860-af01-9c8df698c4bf",
 												"exec": [
 													""
 												],
@@ -7265,9 +6958,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites include flattened references with flattened references Scenario",
@@ -7278,7 +6969,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "37575773-46ed-48ad-833c-20cdb22b6a47",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -7306,7 +6996,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c07a6a38-e284-4c8d-a611-476676e57e69",
 												"exec": [
 													""
 												],
@@ -7335,9 +7024,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes linked collection containing a linked collection Scenario",
@@ -7348,7 +7035,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "86cbd626-9ab1-44a7-9393-132c1adee0df",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7385,7 +7071,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "1077984a-0377-484c-90d7-88bbd2246c86",
 												"exec": [
 													""
 												],
@@ -7414,9 +7099,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes linked collection containing flattened reference Scenario",
@@ -7427,7 +7110,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3db7a707-7c5a-4ed8-b7fe-75df6c50d15b",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7461,7 +7143,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "7da7b40e-2808-4bc8-bed5-a402feaf9f26",
 												"exec": [
 													""
 												],
@@ -7490,9 +7171,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes linked collection containing unflattened reference Scenario",
@@ -7503,7 +7182,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "be60959c-2306-4c0d-a133-8cb22d3cab98",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7544,7 +7222,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "6b8af435-0404-462f-a6f2-f478bf22371d",
 												"exec": [
 													""
 												],
@@ -7573,9 +7250,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes flattened reference with linked collection Scenario",
@@ -7586,7 +7261,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "26d0a633-b712-454b-b8fb-9fd9c727818f",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7622,7 +7296,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "97bff062-c4d8-4488-9fa1-baf3f4408b76",
 												"exec": [
 													""
 												],
@@ -7650,9 +7323,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes unflattened reference with unflattened reference Scenario",
@@ -7663,7 +7334,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7530e19e-836d-4fb7-ba6f-d47e4b40d74e",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7703,7 +7373,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "0aeb0046-6241-491f-a45e-6455bbf470d9",
 												"exec": [
 													""
 												],
@@ -7731,9 +7400,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes collection with properties Scenario",
@@ -7744,7 +7411,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "42047996-ed97-41a3-853a-4db600e92710",
 												"exec": [
 													"const __ = require('lodash');",
 													"",
@@ -7780,7 +7446,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3828bad1-fea2-412b-b212-267b1c022b4a",
 												"exec": [
 													""
 												],
@@ -7809,9 +7474,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes collection with collection scenario",
@@ -7822,7 +7485,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "923e4d23-1859-428f-9478-bee44e3bc16c",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -7861,7 +7523,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "bea50b9a-fac6-466a-b029-f151f0a866a8",
 												"exec": [
 													"const parentId = pm.environment.get(\"known:parentId\");\r",
 													"pm.variables.set(\"supplied:parentId\", parentId);"
@@ -7891,9 +7552,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes collection with unflattened reference scenario",
@@ -7904,7 +7563,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "cf6dd0c0-6de2-459f-8aba-0ec6e8ef9ed9",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -7943,7 +7601,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "3818d2d5-627a-482c-83ce-515c1faaf104",
 												"exec": [
 													""
 												],
@@ -7972,9 +7629,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes collection with flattened reference Scenario",
@@ -7985,7 +7640,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9466ba1e-bee8-4de7-ae09-87578e6a6153",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -8021,7 +7675,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c5856b3c-ec03-4380-85bd-39e6d4de805b",
 												"exec": [
 													""
 												],
@@ -8049,9 +7702,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes unflattened reference with flattened reference Scenario",
@@ -8062,7 +7713,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "7fb1b707-1166-4bf9-a5ce-36a1eff25df5",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -8096,7 +7746,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "a438375d-ebaa-4884-b066-2a410770d219",
 												"exec": [
 													""
 												],
@@ -8125,9 +7774,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes unflattened reference with collection Scenario",
@@ -8138,7 +7785,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "795d405e-55e6-44f9-bf7d-6452636895ad",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -8173,7 +7819,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "137849cf-6a4a-4caf-8fe6-d647227a137b",
 												"exec": [
 													""
 												],
@@ -8202,9 +7847,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes linked collection with properties Scenario",
@@ -8215,7 +7858,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "244bd59d-94ce-442c-94ed-33a18b6f085e",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -8249,7 +7891,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "58e6e6b2-7da1-4844-9245-7a442937f0b6",
 												"exec": [
 													""
 												],
@@ -8278,9 +7919,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes linked collection with collection Scenario",
@@ -8291,7 +7930,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "6eb8d769-a2dc-4937-a9c2-c26a0c61a30d",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8326,7 +7964,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "9e17ecde-92e6-453e-9da0-56e3c56c9a75",
 												"exec": [
 													""
 												],
@@ -8354,9 +7991,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites include flattened references with unflattened references Scenario",
@@ -8367,7 +8002,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "3581afc7-4fb3-42da-b81f-431d1686f29d",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"pm.test(\"Status code is 200\", () => {\r",
@@ -8401,7 +8035,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "b0643255-0d0b-48f5-b65e-0ad1ebdb5e06",
 												"exec": [
 													""
 												],
@@ -8430,9 +8063,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites include flattened references with linked collection Scenario",
@@ -8443,7 +8074,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "9690911b-4ac8-4b4c-a8d8-a017c80640a4",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8478,7 +8108,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "aa4f128d-f2eb-4a37-beb7-2367405a1e64",
 												"exec": [
 													""
 												],
@@ -8507,9 +8136,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites include flattened references with collection Scenario",
@@ -8520,7 +8147,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "c710cb34-d98f-4114-a5b5-b792f0e0d2f1",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8561,7 +8187,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "1a5350f9-c365-4744-bcb7-425fe5f90a59",
 												"exec": [
 													""
 												],
@@ -8590,9 +8215,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites include unflattened embedded objects Scenario",
@@ -8603,7 +8226,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5e455a32-8dfe-48ad-ae5d-acbb8a840067",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8637,7 +8259,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "06d4c8fa-706e-4907-b4c4-42be7b166af3",
 												"exec": [
 													""
 												],
@@ -8666,9 +8287,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composites include flattened embedded objects Scenario",
@@ -8679,7 +8298,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "b89bc9eb-ee1b-4d6e-90d0-16294442abe9",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8707,7 +8325,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "c0727803-0306-4ffa-a03b-e3fc86146993",
 												"exec": [
 													""
 												],
@@ -8736,9 +8353,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes unflattened object with properties Scenario",
@@ -8749,7 +8364,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "90959396-e8ea-41b1-a684-b3a8a37ad6e6",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8783,7 +8397,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "7e4b7bde-ea46-4da6-a1ac-9ba9e0c1d82e",
 												"exec": [
 													""
 												],
@@ -8812,9 +8425,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite includes flattened object with properties Scenario",
@@ -8825,7 +8436,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4c30054e-5779-4a18-bfed-0db079d30eb2",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8853,7 +8463,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "296b1889-8773-4b76-b83c-65b459ad0fa3",
 												"exec": [
 													""
 												],
@@ -8882,9 +8491,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Composite is requested for a Student to check the order of the response properties Scenario",
@@ -8895,7 +8502,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "5f4e428b-992c-41c7-9fdd-59da03a892ae",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -8929,7 +8535,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "e213738f-3762-4007-af34-9ccc3c504ffb",
 												"exec": [
 													""
 												],
@@ -8958,13 +8563,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Feature: Composites support short description",
@@ -8978,7 +8579,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "4152f828-5294-40b9-869b-002e97de9b89",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -9014,9 +8614,7 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "Edfi types use short description Scenario",
@@ -9027,7 +8625,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "af106ef0-601c-477c-8533-55acdbe45d5f",
 												"exec": [
 													""
 												],
@@ -9037,7 +8634,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "0eceda37-b40f-4156-b445-e46561823a4d",
 												"exec": [
 													"const __ = require('lodash');\r",
 													"\r",
@@ -9098,16 +8694,11 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Descriptor sub-properties in Composites",
@@ -9118,7 +8709,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6dbb5fc5-cb77-4bba-a6c2-2aeb055a29d7",
 								"exec": [
 									"const __ = require('lodash');",
 									"",
@@ -9219,8 +8809,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
@@ -9237,7 +8826,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "b85261a7-2663-4b67-93c0-2afdb3e60c1a",
 				"type": "text/javascript",
 				"exec": [
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
@@ -9300,13 +8888,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "512092c6-9102-4b2a-a127-90a1cda513a1",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

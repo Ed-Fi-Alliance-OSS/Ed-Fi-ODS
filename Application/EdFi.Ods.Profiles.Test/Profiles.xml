@@ -500,8 +500,8 @@
 
   <Profile name="Assessment-Readable-Excludes-Embedded-Object">
     <Resource name="Assessment">
-      <ReadContentType memberSelection="IncludeOnly">
-        <Property name="AssessmentCategoryDescriptor" />
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Object name="AssessmentContentStandard" memberSelection="IncludeAll" />
       </ReadContentType>
     </Resource>
   </Profile>
@@ -519,23 +519,6 @@
     <Resource name="Assessment">
       <WriteContentType memberSelection="IncludeOnly">
         <Property name="AssessmentCategoryDescriptor" />
-      </WriteContentType>
-    </Resource>
-  </Profile>
-
-  <Profile name="Academic-Week-Readable-Excludes-Optional-References">
-    <Resource name="AcademicWeek">
-      <ReadContentType memberSelection="IncludeOnly">
-        <Property name="EndDate" />
-      </ReadContentType>
-    </Resource>
-  </Profile>
-
-  <Profile name="Academic-Week-Writable-Excludes-Optional-References">
-    <Resource name="AcademicWeek">
-      <WriteContentType memberSelection="IncludeOnly">
-        <Property name="TotalInstructionalDays" />
-        <Property name="EndDate" />
       </WriteContentType>
     </Resource>
   </Profile>

@@ -16,30 +16,30 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-excludeonly")]
+    [ProfileContentType("application/vnd.ed-fi.school.sample-profile-resource-excludeonly")]
     [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School,
-        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School,
+        Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ExcludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolPut,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolPost,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolDelete,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ExcludeOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -57,35 +57,35 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.school.test-profile-resource-excludeonly.readable+json";
+            return "application/vnd.ed-fi.school.sample-profile-resource-excludeonly.readable+json";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Sample_Profile_Resource_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-includeonly")]
+    [ProfileContentType("application/vnd.ed-fi.school.sample-profile-resource-includeonly")]
     [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School,
-        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School,
+        Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_IncludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_IncludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolPut,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolPost,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolDelete,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_IncludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_IncludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_IncludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_IncludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_IncludeOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -103,12 +103,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json";
+            return "application/vnd.ed-fi.school.sample-profile-resource-includeonly.readable+json";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Sample_Profile_Resource_ReadOnly
 {
     [ExcludeFromCodeCoverage]
     public class SchoolsNullWriteRequest : NullRequestBase { }
@@ -117,24 +117,24 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-readonly")]
+    [ProfileContentType("application/vnd.ed-fi.school.sample-profile-resource-readonly")]
     [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_ReadOnly_Readable.School,
         SchoolsNullWriteRequest,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
         SchoolsNullWriteRequest,
         SchoolsNullWriteRequest,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolDelete,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ReadOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ReadOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_ReadOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -152,7 +152,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json";
+            return "application/vnd.ed-fi.school.sample-profile-resource-readonly.readable+json";
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return Task.FromResult<IActionResult>(
                 StatusCode(StatusCodes.Status405MethodNotAllowed,
                 ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.")));
+                    .GetErrorMessage("The allowed methods for this resource with the 'Sample-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.")));
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
@@ -170,12 +170,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return Task.FromResult<IActionResult>(
                 StatusCode(StatusCodes.Status405MethodNotAllowed,
                 ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.")));
+                    .GetErrorMessage("The allowed methods for this resource with the 'Sample-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.")));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Sample_Profile_Resource_WriteOnly
 {
     [ExcludeFromCodeCoverage]
     public class SchoolsNullReadRequest : NullRequestBase { }
@@ -184,16 +184,16 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly")]
+    [ProfileContentType("application/vnd.ed-fi.school.sample-profile-resource-writeonly")]
     [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         SchoolsNullReadRequest,
-        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School,
+        Api.Common.Models.Resources.School.EdFi.Sample_Profile_Resource_WriteOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolPut,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolPost,
-        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_WriteOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_WriteOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Sample_Profile_Resource_WriteOnly.SchoolDelete,
         SchoolsNullReadRequest>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
@@ -208,7 +208,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json";
+            return "application/vnd.ed-fi.school.sample-profile-resource-writeonly.readable+json";
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
@@ -217,7 +217,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
             return Task.FromResult<IActionResult>(
                 StatusCode(StatusCodes.Status405MethodNotAllowed,
                 ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.")));
+                    .GetErrorMessage("The allowed methods for this resource with the 'Sample-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.")));
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
@@ -226,7 +226,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
             return Task.FromResult<IActionResult>(
                 StatusCode(StatusCodes.Status405MethodNotAllowed,
                 ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.")));
+                    .GetErrorMessage("The allowed methods for this resource with the 'Sample-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.")));
         }
     }
 }
