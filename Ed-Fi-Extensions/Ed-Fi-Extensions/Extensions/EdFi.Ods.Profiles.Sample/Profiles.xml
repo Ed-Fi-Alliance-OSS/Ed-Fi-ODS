@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Profiles>
-  <Profile name="Test-Profile-Resource-ExcludeOnly">
+  <Profile name="Sample-Profile-Resource-ExcludeOnly">
     <Resource name="School">
       <ReadContentType memberSelection="ExcludeOnly">
         <!-- Inherited property -->
@@ -37,7 +37,7 @@
       </WriteContentType>
     </Resource>
   </Profile>
-  <Profile name="Test-Profile-Resource-IncludeOnly">
+  <Profile name="Sample-Profile-Resource-IncludeOnly">
     <Resource name="School">
       <ReadContentType memberSelection="IncludeOnly">
         <!-- Inherited property -->
@@ -73,12 +73,12 @@
       </WriteContentType>
     </Resource>
   </Profile>
-  <Profile name="Test-Profile-Resource-ReadOnly">
+  <Profile name="Sample-Profile-Resource-ReadOnly">
     <Resource name="School">
       <ReadContentType memberSelection="IncludeAll" />
     </Resource>
   </Profile>
-  <Profile name="Test-Profile-Resource-WriteOnly">
+  <Profile name="Sample-Profile-Resource-WriteOnly">
     <Resource name="School">
       <WriteContentType memberSelection="IncludeAll" />
     </Resource>
