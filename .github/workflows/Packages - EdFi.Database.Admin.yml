@@ -91,7 +91,7 @@ jobs:
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
     - name: Publish Nuget package
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS/
       run: |
         ./build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Database.Admin"
         ./build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Database.Admin.BACPAC"

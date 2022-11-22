@@ -11,7 +11,8 @@ on:
       - main
   workflow_dispatch:
   repository_dispatch:
-    types: [triggered-from-implementation-repo]
+    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo]
+
 env:
   EDFI_STANDARD_REFERENCE: "main"
   INFORMATIONAL_VERSION: "6.1"

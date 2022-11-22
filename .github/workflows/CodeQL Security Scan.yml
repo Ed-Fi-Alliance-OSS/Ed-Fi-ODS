@@ -72,7 +72,7 @@ jobs:
             Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE/
       - name: build
         shell: pwsh
-        working-directory: ./Ed-Fi-ODS-Implementation/
+        working-directory: ./Ed-Fi-ODS/
         run: |
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
       - name: Perform CodeQL Analysis

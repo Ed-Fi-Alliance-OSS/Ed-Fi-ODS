@@ -11,7 +11,8 @@ on:
       - main
   workflow_dispatch:
   repository_dispatch:
-    types: [triggered-from-implementation-repo]
+    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
+
 env:
   EDFI_STANDARD_REFERENCE: "main"
   INFORMATIONAL_VERSION: "6.1"
@@ -61,8 +62,13 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
           path: Ed-Fi-TPDM-Artifacts/
+    - name: Is pull request branch exists in Ed-Fi-TPDM-Artifacts
+      working-directory: ./Ed-Fi-ODS/
+      shell: powershell
+      run: |
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-TPDM-Artifacts"                    
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
