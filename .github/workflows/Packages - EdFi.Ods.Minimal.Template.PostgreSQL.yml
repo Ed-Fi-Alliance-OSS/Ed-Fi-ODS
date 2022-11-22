@@ -74,10 +74,8 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
-
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-
         Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -Engine PostgreSQL
       shell: powershell
     - name: Remove Plug-Ins
