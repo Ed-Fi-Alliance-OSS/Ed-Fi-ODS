@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace EdFi.Admin.DataAccess.Authentication
+namespace EdFi.Common.Security
 {
     /// <summary>
     /// Provides details about an API client after OAuth bearer token validation.

@@ -10,56 +10,33 @@ namespace EdFi.Common.Security
 {
     public class ApiClientAuthenticator : IApiClientAuthenticator
     {
-        private readonly IApiClientIdentityProvider _apiClientIdentityProvider;
+        private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly IApiClientSecretProvider _apiClientSecretProvider;
         private readonly ISecretVerifier _secretVerifier;
 
         public ApiClientAuthenticator(
-            IApiClientIdentityProvider apiClientIdentityProvider,
+            IApiClientDetailsProvider apiClientDetailsProvider,
             IApiClientSecretProvider apiClientSecretProvider,
             ISecretVerifier secretVerifier)
         {
-            _apiClientIdentityProvider = apiClientIdentityProvider;
+            _apiClientDetailsProvider = apiClientDetailsProvider;
             _apiClientSecretProvider = apiClientSecretProvider;
             _secretVerifier = secretVerifier;
-        }
-
-        public bool TryAuthenticate(string key, string secret, out ApiClientIdentity authenticatedApiClientIdentity)
-        {
-            authenticatedApiClientIdentity = null;
-            ApiClientSecret apiClientSecret;
-
-            try
-            {
-                apiClientSecret = _apiClientSecretProvider.GetSecret(key);
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-
-            if (!_secretVerifier.VerifySecret(key, secret, apiClientSecret))
-            {
-                return false;
-            }
-
-            authenticatedApiClientIdentity = _apiClientIdentityProvider.GetApiClientIdentity(key);
-            return true;
         }
 
         public async Task<AuthenticationResult> TryAuthenticateAsync(string key, string secret)
         {
             ApiClientSecret apiClientSecret;
-            ApiClientIdentity apiClientIdentity;
+            ApiClientDetails apiClientDetails;
 
             try
             {
-                apiClientIdentity = await _apiClientIdentityProvider.GetApiClientIdentityAsync(key);
+                apiClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key);
 
                 apiClientSecret = new ApiClientSecret
                 {
-                    Secret = apiClientIdentity.Secret,
-                    IsHashed = apiClientIdentity.IsHashed
+                    Secret = apiClientDetails.Secret,
+                    IsHashed = apiClientDetails.SecretIsHashed
                 };
 
             }
@@ -76,7 +53,7 @@ namespace EdFi.Common.Security
             return new AuthenticationResult
             {
                 IsAuthenticated = true,
-                ApiClientIdentity = apiClientIdentity
+                ApiClientDetails = apiClientDetails
             };
         }
 
@@ -84,7 +61,7 @@ namespace EdFi.Common.Security
         {
             public bool IsAuthenticated { get; set; }
 
-            public ApiClientIdentity ApiClientIdentity { get; set; }
+            public ApiClientDetails ApiClientDetails { get; set; }
         }
     }
 }

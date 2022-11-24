@@ -5,7 +5,7 @@
 
 using System.Threading.Tasks;
 
-namespace EdFi.Admin.DataAccess.Authentication
+namespace EdFi.Common.Security
 {
     /// <summary>
     /// Defines a method for obtaining the API client's details from their OAuth bearer access token.

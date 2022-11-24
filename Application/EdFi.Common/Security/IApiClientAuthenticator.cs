@@ -9,8 +9,6 @@ namespace EdFi.Common.Security
 {
     public interface IApiClientAuthenticator
     {
-        bool TryAuthenticate(string key, string secret, out ApiClientIdentity authenticatedApiClientIdentity);
-
         Task<ApiClientAuthenticator.AuthenticationResult> TryAuthenticateAsync(string key, string secret);
     }
 }
