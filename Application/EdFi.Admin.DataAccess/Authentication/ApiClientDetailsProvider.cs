@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Common.Security;
 using EdFi.Common.Security.Authentication;
 
 namespace EdFi.Admin.DataAccess.Authentication
