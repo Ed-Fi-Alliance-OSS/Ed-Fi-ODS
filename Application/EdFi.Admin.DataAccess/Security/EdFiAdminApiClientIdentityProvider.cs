@@ -6,74 +6,71 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
+using EdFi.Common.Security.Authentication;
 
 namespace EdFi.Admin.DataAccess.Security
 {
     public class EdFiAdminApiClientIdentityProvider : IApiClientSecretProvider, IApiClientIdentityProvider
     {
+        private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly IClientAppRepo _clientAppRepo;
 
-        public EdFiAdminApiClientIdentityProvider(IClientAppRepo clientAppRepo)
+        public EdFiAdminApiClientIdentityProvider(
+            IApiClientDetailsProvider apiClientDetailsProvider,
+            IClientAppRepo clientAppRepo)
         {
+            _apiClientDetailsProvider = apiClientDetailsProvider;
             _clientAppRepo = clientAppRepo;
         }
 
         public ApiClientIdentity GetApiClientIdentity(string key)
         {
-            var client = GetClient(key);
-
-            var edOrgs = client.ApplicationEducationOrganizations.Select(aeo => aeo.EducationOrganizationId)
-                               .ToList();
-
-            var profiles = client.Application.Profiles.Select(p => p.ProfileName)
-                                 .ToList();
-
-            var namespacePrefixes = client.Application.Vendor.VendorNamespacePrefixes.Select(vnp => vnp.NamespacePrefix)
-                                          .ToList();
+            var apiClientDetails = _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
 
             return new ApiClientIdentity
                    {
-                       ClaimSetName = client.Application.ClaimSetName, EducationOrganizationIds = edOrgs, Key = key,
-                       NamespacePrefixes = namespacePrefixes, Profiles = profiles
+                       ClaimSetName = apiClientDetails.ClaimSetName,
+                       EducationOrganizationIds = apiClientDetails.EducationOrganizationIds,
+                       Key = apiClientDetails.ApiKey,
+                       NamespacePrefixes = apiClientDetails.NamespacePrefixes,
+                       Profiles = apiClientDetails.Profiles
                    };
         }
 
         public async Task<ApiClientIdentity> GetApiClientIdentityAsync(string key)
         {
-            var client = await GetClientAsync(key);
-
-            var edOrgs = client.ApplicationEducationOrganizations.Select(aeo => aeo.EducationOrganizationId)
-                .ToList();
-
-            var profiles = client.Application.Profiles.Select(p => p.ProfileName)
-                .ToList();
-
-            var namespacePrefixes = client.Application.Vendor.VendorNamespacePrefixes.Select(vnp => vnp.NamespacePrefix)
-                .ToList();
-
+            var apiClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key);
+            
             return new ApiClientIdentity
             {
-                ClaimSetName = client.Application.ClaimSetName,
-                EducationOrganizationIds = edOrgs,
-                Key = key,
-                NamespacePrefixes = namespacePrefixes,
-                Profiles = profiles,
-                ApiClientId = client.ApiClientId,
-                Secret = client.Secret,
-                IsHashed = client.SecretIsHashed
+                ClaimSetName = apiClientDetails.ClaimSetName,
+                EducationOrganizationIds = apiClientDetails.EducationOrganizationIds,
+                Key = apiClientDetails.ApiKey,
+                NamespacePrefixes = apiClientDetails.NamespacePrefixes,
+                Profiles = apiClientDetails.Profiles,
+                ApiClientId = apiClientDetails.ApiClientId,
+                Secret = apiClientDetails.Secret,
+                IsHashed = apiClientDetails.SecretIsHashed
             };
         }
 
         public ApiClientSecret GetSecret(string key)
         {
-            var client = GetClient(key);
+            var apiClientDetails = _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();;
 
             return new ApiClientSecret
                    {
-                       Secret = client.Secret, IsHashed = client.SecretIsHashed
+                       Secret = apiClientDetails.Secret, IsHashed = apiClientDetails.SecretIsHashed
                    };
         }
 
@@ -84,30 +81,6 @@ namespace EdFi.Admin.DataAccess.Security
             client.Secret = secret.Secret;
             client.SecretIsHashed = secret.IsHashed;
             _clientAppRepo.UpdateClient(client);
-        }
-
-        private ApiClient GetClient(string key)
-        {
-            var client = _clientAppRepo.GetClient(key);
-
-            if (client == null)
-            {
-                throw new ArgumentException($"Invalid key:'{key}'");
-            }
-
-            return client;
-        }
-
-        private async Task<ApiClient> GetClientAsync(string key)
-        {
-            var client = await _clientAppRepo.GetClientAsync(key);
-
-            if (client == null)
-            {
-                throw new ArgumentException($"Invalid key:'{key}'");
-            }
-
-            return client;
         }
 
         private ApiClient GetClientByKey(string key)
