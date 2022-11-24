@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common;
 using log4net;
@@ -10,24 +11,24 @@ namespace EdFi.Ods.Api.ScheduledJobs.Jobs
     public class DeleteExpiredTokensScheduledJob : IJob
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(DeleteExpiredTokensScheduledJob));
-        private readonly IAccessTokenClientRepo _accessTokenClientRepo;
+        private readonly IExpiredAccessTokenDeleter _expiredAccessTokenDeleter;
 
-        public DeleteExpiredTokensScheduledJob(IAccessTokenClientRepo accessTokenClientRepo)
+        public DeleteExpiredTokensScheduledJob(IExpiredAccessTokenDeleter expiredAccessTokenDeleter)
         {
-            _accessTokenClientRepo = Preconditions.ThrowIfNull(accessTokenClientRepo, nameof(accessTokenClientRepo));
+            _expiredAccessTokenDeleter = Preconditions.ThrowIfNull(expiredAccessTokenDeleter, nameof(expiredAccessTokenDeleter));
         }
 
         public async Task Execute(IJobExecutionContext context) 
         {
             try
             {
-                await _accessTokenClientRepo.DeleteExpiredTokensAsync();
-                _logger.Debug("Expired client access tokens have been deleted");
-
+                _logger.Debug("Removing expired client access tokens...");
+                
+                await _expiredAccessTokenDeleter.DeleteExpiredTokensAsync();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                _logger.Error(e);
+                _logger.Error(ex);
             }
         }    
     }

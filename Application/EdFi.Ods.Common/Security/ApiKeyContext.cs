@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Security
             IEnumerable<string> profiles,
             string studentIdentificationSystemDescriptor,
             short? creatorOwnershipTokenId,
-            IEnumerable<short?> ownershipTokenIds,
+            IEnumerable<short> ownershipTokenIds,
             int apiClientId)
         {
             ApiKey = apiKey;
@@ -39,11 +39,11 @@ namespace EdFi.Ods.Common.Security
             StudentIdentificationSystemDescriptor = studentIdentificationSystemDescriptor;
             Profiles = profiles ?? new List<string>();
             CreatorOwnershipTokenId = creatorOwnershipTokenId;
-            OwnershipTokenIds = ownershipTokenIds ?? new List<short?>();
+            OwnershipTokenIds = ownershipTokenIds ?? Array.Empty<short>();
             ApiClientId = apiClientId;
         }
 
-        public IEnumerable<short?> OwnershipTokenIds { get; }
+        public IEnumerable<short> OwnershipTokenIds { get; }
 
         public short? CreatorOwnershipTokenId { get; }
 

@@ -3,9 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Models.ClientCredentials;
@@ -17,14 +16,14 @@ namespace EdFi.Ods.Api.Providers
         : ITokenRequestProvider
     {
         private readonly IApiClientAuthenticator _apiClientAuthenticator;
-        private readonly IAccessTokenClientRepo _accessTokenClientRepo;
+        private readonly IAccessTokenFactory _accessTokenFactory;
 
         public ClientCredentialsTokenRequestProvider(
             IApiClientAuthenticator apiClientAuthenticator,
-            IAccessTokenClientRepo accessTokenClientRepo)
+            IAccessTokenFactory accessTokenFactory)
         {
             _apiClientAuthenticator = apiClientAuthenticator;
-            _accessTokenClientRepo = accessTokenClientRepo;
+            _accessTokenFactory = accessTokenFactory;
         }
 
         public async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
@@ -69,7 +68,7 @@ namespace EdFi.Ods.Api.Providers
                     };
                 }
 
-                if (!authenticationResult.ApiClientIdentity.EducationOrganizationIds
+                if (!authenticationResult.ApiClientDetails.EducationOrganizationIds
                     .Contains(educationOrganizationScope))
                 {
                     return new AuthenticationResponse
@@ -82,7 +81,7 @@ namespace EdFi.Ods.Api.Providers
             }
 
             // create a new token
-            var token = await _accessTokenClientRepo.AddClientAccessTokenAsync(authenticationResult.ApiClientIdentity.ApiClientId, tokenRequestScope);
+            var token = await _accessTokenFactory.CreateAccessToken(authenticationResult.ApiClientDetails.ApiClientId);
 
             var tokenResponse = new TokenResponse();
             tokenResponse.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);

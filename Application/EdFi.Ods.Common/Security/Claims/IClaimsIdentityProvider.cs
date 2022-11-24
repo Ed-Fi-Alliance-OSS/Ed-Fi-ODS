@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Security.Claims
             string claimSetName,
             IEnumerable<string> vendorNamespacePrefixes,
             IReadOnlyList<string> assignedProfileNames,
-            IReadOnlyList<short?> ownershipTokenIds);
+            IReadOnlyList<short> ownershipTokenIds);
     }
 
     /// <summary>

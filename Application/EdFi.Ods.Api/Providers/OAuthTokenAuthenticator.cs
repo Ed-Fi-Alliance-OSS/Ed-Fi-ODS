@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Exceptions;
@@ -51,7 +52,7 @@ namespace EdFi.Ods.Api.Providers
             try
             {
                 // If there are credentials that the filter understands, try to validate them.
-                apiClientDetails = await _apiClientDetailsProvider.GetClientDetailsForTokenAsync(token);
+                apiClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(token);
                 
                 if (!apiClientDetails.IsTokenValid)
                 {
@@ -83,7 +84,7 @@ namespace EdFi.Ods.Api.Providers
                 apiClientDetails.ClaimSetName,
                 apiClientDetails.NamespacePrefixes,
                 apiClientDetails.Profiles.ToList(),
-                apiClientDetails.OwnershipTokenIds.ToList());
+                apiClientDetails.OwnershipTokenIds.ToArray());
 
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authorizationScheme);
@@ -98,7 +99,7 @@ namespace EdFi.Ods.Api.Providers
                         new ApiKeyContext(
                             apiClientDetails.ApiKey,
                             apiClientDetails.ClaimSetName,
-                            apiClientDetails.EducationOrganizationIds,
+                            apiClientDetails.EducationOrganizationIds.ToArray(),
                             apiClientDetails.NamespacePrefixes,
                             apiClientDetails.Profiles,
                             apiClientDetails.StudentIdentificationSystemDescriptor,

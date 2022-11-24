@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using System.Linq;
+using EdFi.Common.Security;
 
 namespace EdFi.Ods.Features.ExternalCache
 {

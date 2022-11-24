@@ -15,6 +15,7 @@ using EdFi.Ods.Features.ChangeQueries.Providers;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using System;
+using EdFi.Common.Security;
 
 namespace EdFi.Ods.Features.ExternalCache
 {

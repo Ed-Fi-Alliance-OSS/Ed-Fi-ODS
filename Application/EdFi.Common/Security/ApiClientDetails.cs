@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace EdFi.Common.Security
 {
     /// <summary>
-    /// Provides details about an API client after OAuth bearer token validation.
+    /// Provides details about an API client.
     /// </summary>
     public class ApiClientDetails
     {
@@ -63,6 +63,9 @@ namespace EdFi.Common.Security
         /// </summary>
         public bool SecretIsHashed { get; set; }
         
+        /// <summary>
+        /// Gets or sets the UTC expiration time of the token.
+        /// </summary>
         public DateTime ExpiresUtc { get; set; }
 
         /// <summary>

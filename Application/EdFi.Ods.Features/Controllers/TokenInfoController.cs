@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -28,16 +29,19 @@ namespace EdFi.Ods.Features.Controllers
     public class TokenInfoController : ControllerBase
     {
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
-        private readonly IAccessTokenClientRepo _tokenClientRepo;
         private readonly ITokenInfoProvider _tokenInfoProvider;
+        private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly bool _isEnabled;
 
-        public TokenInfoController(ITokenInfoProvider tokenInfoProvider, IApiKeyContextProvider apiKeyContextProvider,
-            IAccessTokenClientRepo tokenClientRepo, ApiSettings apiSettings)
+        public TokenInfoController(
+            ITokenInfoProvider tokenInfoProvider,
+            IApiClientDetailsProvider apiClientDetailsProvider,
+            IApiKeyContextProvider apiKeyContextProvider,
+            ApiSettings apiSettings)
         {
             _tokenInfoProvider = tokenInfoProvider;
+            _apiClientDetailsProvider = apiClientDetailsProvider;
             _apiKeyContextProvider = apiKeyContextProvider;
-            _tokenClientRepo = tokenClientRepo;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.TokenInfo.GetConfigKeyName());
         }
 
@@ -63,9 +67,9 @@ namespace EdFi.Ods.Features.Controllers
                 return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token"));
             }
 
-            var oAuthTokenClient = (await _tokenClientRepo.GetClientForTokenAsync(accessToken)).FirstOrDefault();
+            var oAuthTokenClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(accessToken.ToString("N"));
 
-            if (oAuthTokenClient == null)
+            if (oAuthTokenClientDetails == null)
             {
                 return NotFound();
             }
@@ -73,7 +77,7 @@ namespace EdFi.Ods.Features.Controllers
             ApiKeyContext apiContext = _apiKeyContextProvider.GetApiKeyContext();
 
             // must be able to see my specific items ie vendor a cannot look at vendor b
-            if (oAuthTokenClient.Key != apiContext.ApiKey)
+            if (oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)
             {
                 return Unauthorized();
             }

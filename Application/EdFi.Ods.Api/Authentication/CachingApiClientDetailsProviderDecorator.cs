@@ -5,12 +5,14 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Security;
 using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Api.Authentication
 {
     /// <summary>
-    /// Caches the API client details associated with a particular API client's bearer token.
+    /// Caches the API client details associated with a particular API client's bearer token, but does not cache the details
+    /// associated with an API client's key (which is called for initial key/secret authentication).
     /// </summary>
     public class CachingApiClientDetailsProviderDecorator : IApiClientDetailsProvider
     {
@@ -40,7 +42,7 @@ namespace EdFi.Ods.Api.Authentication
         /// </summary>
         /// <param name="token">The OAuth security token.</param>
         /// <returns>The <see cref="ApiClientDetails"/> associated with the token.</returns>
-        public async Task<ApiClientDetails> GetClientDetailsForTokenAsync(string token)
+        public async Task<ApiClientDetails> GetApiClientDetailsForTokenAsync(string token)
         {
             string cacheKey = _apiClientDetailsCacheKeyProvider.GetCacheKey(token);
 
@@ -51,7 +53,7 @@ namespace EdFi.Ods.Api.Authentication
             }
 
             // No entry present, so pass call through to implementation to get the API client details
-            var apiClientDetails = await _next.GetClientDetailsForTokenAsync(token);
+            var apiClientDetails = await _next.GetApiClientDetailsForTokenAsync(token);
 
             // Insert API client details returned into the cache, for at least 15 minutes to avoid unnecessary roundtrips to underlying store
             var absoluteExpiration = apiClientDetails.ExpiresUtc < DateTime.UtcNow
@@ -61,6 +63,11 @@ namespace EdFi.Ods.Api.Authentication
             _cacheProvider.Insert(cacheKey, apiClientDetails, absoluteExpiration, TimeSpan.Zero);
 
             return apiClientDetails;
+        }
+
+        public Task<ApiClientDetails> GetApiClientDetailsForKeyAsync(string key)
+        {
+            return _next.GetApiClientDetailsForKeyAsync(key);
         }
     }
 }
