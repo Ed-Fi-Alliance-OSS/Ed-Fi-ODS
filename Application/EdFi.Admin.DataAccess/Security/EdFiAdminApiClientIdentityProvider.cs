@@ -4,61 +4,24 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Linq;
-using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
-using EdFi.Common.Security.Authentication;
 
 namespace EdFi.Admin.DataAccess.Security
 {
-    public class EdFiAdminApiClientIdentityProvider : IApiClientSecretProvider, IApiClientIdentityProvider
+    public class EdFiAdminApiClientSecretProvider : IApiClientSecretProvider
     {
         private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly IClientAppRepo _clientAppRepo;
 
-        public EdFiAdminApiClientIdentityProvider(
+        public EdFiAdminApiClientSecretProvider(
             IApiClientDetailsProvider apiClientDetailsProvider,
             IClientAppRepo clientAppRepo)
         {
             _apiClientDetailsProvider = apiClientDetailsProvider;
             _clientAppRepo = clientAppRepo;
-        }
-
-        public ApiClientIdentity GetApiClientIdentity(string key)
-        {
-            var apiClientDetails = _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-
-            return new ApiClientIdentity
-                   {
-                       ClaimSetName = apiClientDetails.ClaimSetName,
-                       EducationOrganizationIds = apiClientDetails.EducationOrganizationIds,
-                       Key = apiClientDetails.ApiKey,
-                       NamespacePrefixes = apiClientDetails.NamespacePrefixes,
-                       Profiles = apiClientDetails.Profiles
-                   };
-        }
-
-        public async Task<ApiClientIdentity> GetApiClientIdentityAsync(string key)
-        {
-            var apiClientDetails = await _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key);
-            
-            return new ApiClientIdentity
-            {
-                ClaimSetName = apiClientDetails.ClaimSetName,
-                EducationOrganizationIds = apiClientDetails.EducationOrganizationIds,
-                Key = apiClientDetails.ApiKey,
-                NamespacePrefixes = apiClientDetails.NamespacePrefixes,
-                Profiles = apiClientDetails.Profiles,
-                ApiClientId = apiClientDetails.ApiClientId,
-                Secret = apiClientDetails.Secret,
-                IsHashed = apiClientDetails.SecretIsHashed
-            };
         }
 
         public ApiClientSecret GetSecret(string key)
