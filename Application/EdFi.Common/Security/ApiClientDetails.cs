@@ -13,6 +13,33 @@ namespace EdFi.Common.Security
     /// </summary>
     public class ApiClientDetails
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiClientDetails"/> class with default values and empty lists.
+        /// </summary>
+        public ApiClientDetails()
+        {
+            EducationOrganizationIds = new List<int>();
+            NamespacePrefixes = new List<string>();
+            Profiles = new List<string>();
+            OwnershipTokenIds = new List<short>();
+        }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ApiClientDetails"/> class using the supplied values.
+        /// </summary>
+        /// <param name="apiClientId"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="secret"></param>
+        /// <param name="secretIsHashed"></param>
+        /// <param name="claimSetName"></param>
+        /// <param name="educationOrganizationIds"></param>
+        /// <param name="namespacePrefixes"></param>
+        /// <param name="profiles"></param>
+        /// <param name="isSandboxClient"></param>
+        /// <param name="studentIdentificationSystemDescriptor"></param>
+        /// <param name="creatorOwnershipTokenId"></param>
+        /// <param name="ownershipTokenIds"></param>
+        /// <param name="expiresUtc"></param>
         public ApiClientDetails(
             int apiClientId,
             string apiKey,
