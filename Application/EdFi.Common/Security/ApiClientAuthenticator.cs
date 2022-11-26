@@ -11,16 +11,13 @@ namespace EdFi.Common.Security
     public class ApiClientAuthenticator : IApiClientAuthenticator
     {
         private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
-        private readonly IApiClientSecretProvider _apiClientSecretProvider;
         private readonly ISecretVerifier _secretVerifier;
 
         public ApiClientAuthenticator(
             IApiClientDetailsProvider apiClientDetailsProvider,
-            IApiClientSecretProvider apiClientSecretProvider,
             ISecretVerifier secretVerifier)
         {
             _apiClientDetailsProvider = apiClientDetailsProvider;
-            _apiClientSecretProvider = apiClientSecretProvider;
             _secretVerifier = secretVerifier;
         }
 
