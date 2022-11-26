@@ -10,30 +10,17 @@ using EdFi.Common.Security;
 
 namespace EdFi.Admin.DataAccess.Security
 {
-    public class EdFiAdminApiClientSecretProvider : IApiClientSecretProvider
+    public class EdFiAdminApiClientSecretWriter : IApiClientSecretWriter
     {
         private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly IClientAppRepo _clientAppRepo;
 
-        public EdFiAdminApiClientSecretProvider(
+        public EdFiAdminApiClientSecretWriter(
             IApiClientDetailsProvider apiClientDetailsProvider,
             IClientAppRepo clientAppRepo)
         {
             _apiClientDetailsProvider = apiClientDetailsProvider;
             _clientAppRepo = clientAppRepo;
-        }
-
-        public ApiClientSecret GetSecret(string key)
-        {
-            var apiClientDetails = _apiClientDetailsProvider.GetApiClientDetailsForKeyAsync(key)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();;
-
-            return new ApiClientSecret
-                   {
-                       Secret = apiClientDetails.Secret, IsHashed = apiClientDetails.SecretIsHashed
-                   };
         }
 
         public void SetSecret(string key, ApiClientSecret secret)
