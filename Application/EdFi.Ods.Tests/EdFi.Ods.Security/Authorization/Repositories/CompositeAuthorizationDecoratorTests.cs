@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
@@ -151,11 +152,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 {
                     ApiKey = Guid.NewGuid()
                         .ToString("n"),
-                    ApplicationId = 999,
                     ClaimSetName = "SomeClaimSet",
                     NamespacePrefixes = new List<string> {"Namespace"},
                     EducationOrganizationIds = new[] { 123, 234 },
-                    OwnershipTokenIds = new List<short?> { 1 }
+                    OwnershipTokenIds = new List<short> { 1 }
                 };
 
                 var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(

@@ -12,6 +12,7 @@ using EdFi.Common.Security;
 using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Security.Authentication;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
@@ -30,7 +31,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             : TestFixtureBase
         {
             private TokenRequest _tokenRequest;
-            private IAccessTokenClientRepo _accessTokenClientRepo;
+            private IAccessTokenFactory _accessTokenFactory;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private ClientCredentialsTokenRequestProvider _clientCredentialsTokenRequestProvider;
             private AuthenticationResponse _actionResult;
@@ -39,11 +40,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             {
                 var apiClient = new ApiClient { ApiClientId = 0 };
 
-                _accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
+                _accessTokenFactory = A.Fake<IAccessTokenFactory>();
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-                A.CallTo(() => _accessTokenClientRepo.AddClientAccessToken(A<int>._, A<string>._))
-                    .Returns(new ClientAccessToken { ApiClient = new ApiClient() });
+                A.CallTo(() => _accessTokenFactory.CreateAccessTokenAsync(A<int>._, A<string>._))
+                    .Returns(Task.FromResult(new AccessToken(default, default, default)));
 
                 _tokenRequest = new TokenRequest
                 {
@@ -64,9 +65,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                             new ApiClientAuthenticator.AuthenticationResult
                             {
                                 IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity
+                                ApiClientDetails = new ApiClientDetails()
                                 {
-                                    Key = ClientId,
+                                    ApiKey = ClientId,
                                     EducationOrganizationIds = new List<int>() { 997, 998, 999 }
                                 }
                             }));
@@ -75,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Act()
             {
                 _clientCredentialsTokenRequestProvider =
-                    new ClientCredentialsTokenRequestProvider( _apiClientAuthenticator, _accessTokenClientRepo);
+                    new ClientCredentialsTokenRequestProvider( _apiClientAuthenticator, _accessTokenFactory);
 
                 _actionResult = _clientCredentialsTokenRequestProvider.HandleAsync(_tokenRequest).GetResultSafely();
             }
@@ -104,7 +105,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             : TestFixtureBase
         {
             private IClientAppRepo _clientAppRepo;
-            private IAccessTokenClientRepo _accessTokenClientRepo;
+            private IAccessTokenFactory _accessTokenFactory;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenRequest _tokenRequest;
             private ClientCredentialsTokenRequestProvider _clientCredentialsTokenRequestHandler;
@@ -113,7 +114,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Arrange()
             {
                 _clientAppRepo = A.Fake<IClientAppRepo>();
-                _accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
+                _accessTokenFactory = A.Fake<IAccessTokenFactory>();
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
                 _tokenRequest = new TokenRequest
@@ -131,9 +132,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                             new ApiClientAuthenticator.AuthenticationResult
                             {
                                 IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity
+                                ApiClientDetails = new ApiClientDetails
                                 {
-                                    Key = ClientId,
+                                    ApiKey = ClientId,
                                 }
                             }));
             }
@@ -141,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Act()
             {
                 _clientCredentialsTokenRequestHandler =
-                    new ClientCredentialsTokenRequestProvider(_apiClientAuthenticator, _accessTokenClientRepo);
+                    new ClientCredentialsTokenRequestProvider(_apiClientAuthenticator, _accessTokenFactory);
 
                 _actionResult = _clientCredentialsTokenRequestHandler.HandleAsync(_tokenRequest).Result;
             }

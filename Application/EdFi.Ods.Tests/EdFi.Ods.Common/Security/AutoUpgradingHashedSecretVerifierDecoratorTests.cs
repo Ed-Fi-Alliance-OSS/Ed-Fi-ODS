@@ -23,7 +23,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
         public class When_using_valid_secret_that_is_hashed_with_current_config : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -35,7 +35,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                     IsHashed = true, Secret = Secret
                 };
 
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var next = Stub<ISecretVerifier>();
 
@@ -70,7 +70,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
                 _autoUpgradingHashedSecretVerifierDecorator =
                     new AutoUpgradingHashedSecretVerifierDecorator(
-                        _apiClientSecretProvider, next, packedHashConverter, null, configProvider);
+                        _apiClientSecretWriter, next, packedHashConverter, null, configProvider);
             }
 
             protected override void Act()
@@ -82,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public virtual void Should_not_save_new_password()
             {
-                A.CallTo(() => _apiClientSecretProvider.SetSecret(Key, _apiClientSecret)).MustNotHaveHappened();
+                A.CallTo(() => _apiClientSecretWriter.SetSecret(Key, _apiClientSecret)).MustNotHaveHappened();
             }
 
             [Test]
@@ -94,7 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
         public class When_using_invalid_secret : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             {
                 _apiClientSecret = new ApiClientSecret();
 
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var next = Stub<ISecretVerifier>();
 
@@ -142,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
-                    _apiClientSecretProvider,
+                    _apiClientSecretWriter,
                     next,
                     packedHashConverter,
                     securePackedHashProvider,
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public virtual void Should_not_save()
             {
-                A.CallTo(() => _apiClientSecretProvider.SetSecret(Key, _apiClientSecret)).MustNotHaveHappened();
+                A.CallTo(() => _apiClientSecretWriter.SetSecret(Key, _apiClientSecret)).MustNotHaveHappened();
             }
 
             [Test]
@@ -169,7 +169,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
         public class When_using_valid_secret_that_is_not_hashed : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -177,7 +177,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             protected override void Arrange()
             {
                 _apiClientSecret = new ApiClientSecret();
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var next = Stub<ISecretVerifier>();
 
@@ -204,7 +204,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
-                    _apiClientSecretProvider,
+                    _apiClientSecretWriter,
                     next,
                     packedHashConverter,
                     securePackedHashProvider,
@@ -226,13 +226,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public virtual void Should_save_new_secret()
             {
-                A.CallTo(() => _apiClientSecretProvider.SetSecret(Key, _apiClientSecret)).MustHaveHappenedOnceExactly();
+                A.CallTo(() => _apiClientSecretWriter.SetSecret(Key, _apiClientSecret)).MustHaveHappenedOnceExactly();
             }
         }
 
         public class When_using_valid_secret_that_is_hashed_with_different_iterations : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -240,7 +240,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             protected override void Arrange()
             {
                 _apiClientSecret = new ApiClientSecret();
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var next = Stub<ISecretVerifier>();
 
@@ -279,7 +279,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
-                    _apiClientSecretProvider,
+                    _apiClientSecretWriter,
                     next,
                     packedHashConverter,
                     securePackedHashProvider,
@@ -301,13 +301,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public virtual void Should_save_new_secret()
             {
-                A.CallTo(() => _apiClientSecretProvider.SetSecret(Key, _apiClientSecret)).MustHaveHappened();
+                A.CallTo(() => _apiClientSecretWriter.SetSecret(Key, _apiClientSecret)).MustHaveHappened();
             }
         }
 
         public class When_using_valid_secret_that_is_hashed_with_different_hash_algorithm : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -315,7 +315,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             protected override void Arrange()
             {
                 _apiClientSecret = new ApiClientSecret();
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var next = Stub<ISecretVerifier>();
 
@@ -354,7 +354,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
-                    _apiClientSecretProvider,
+                    _apiClientSecretWriter,
                     next,
                     packedHashConverter,
                     securePackedHashProvider,
@@ -376,13 +376,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public virtual void Should_save_new_secret()
             {
-                A.CallTo(() => _apiClientSecretProvider.SetSecret(Key, _apiClientSecret)).MustHaveHappenedOnceExactly();
+                A.CallTo(() => _apiClientSecretWriter.SetSecret(Key, _apiClientSecret)).MustHaveHappenedOnceExactly();
             }
         }
 
         public class When_using_valid_secret_that_is_hashed_with_different_salt_size : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -390,7 +390,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             protected override void Arrange()
             {
                 _apiClientSecret = new ApiClientSecret();
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var next = Stub<ISecretVerifier>();
 
@@ -429,7 +429,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
-                    _apiClientSecretProvider,
+                    _apiClientSecretWriter,
                     next,
                     packedHashConverter,
                     securePackedHashProvider,
@@ -451,13 +451,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public virtual void Should_save_new_secret()
             {
-                A.CallTo(() => _apiClientSecretProvider.SetSecret(Key, _apiClientSecret)).MustHaveHappened();
+                A.CallTo(() => _apiClientSecretWriter.SetSecret(Key, _apiClientSecret)).MustHaveHappened();
             }
         }
 
         public class When_upgrading_a_valid_secret_that_was_hashed_with_GetHashCode_that_is_valid : TestFixtureBase
         {
-            private IApiClientSecretProvider _apiClientSecretProvider;
+            private IApiClientSecretWriter _apiClientSecretWriter;
             private AutoUpgradingHashedSecretVerifierDecorator _autoUpgradingHashedSecretVerifierDecorator;
             private ApiClientSecret _apiClientSecret;
             private bool _expectedResults;
@@ -494,7 +494,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                     Secret = "ANO2IFlkAAAACAAAAAUIBAIDBgwi9sZUOS5XRUAkWcMqmmfUcYaBAB07JCbUQyBDcWBnFoE="
                 };
 
-                _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
+                _apiClientSecretWriter = Stub<IApiClientSecretWriter>();
 
                 var secureHasher = new Pbkdf2HmacSha1SecureHasher();
                 var originalHasher = A.Fake<ISecureHasher>();
@@ -512,7 +512,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 _securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
-                    _apiClientSecretProvider, next, packedHashConverter, _securePackedHashProvider, _configProvider);
+                    _apiClientSecretWriter, next, packedHashConverter, _securePackedHashProvider, _configProvider);
             }
 
             protected override void Act()
@@ -532,7 +532,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             [Test]
             public void Should_persist_the_packedhash()
             {
-                A.CallTo(()=> _apiClientSecretProvider.SetSecret(A<string>.That.IsNotNull(), A<ApiClientSecret>.That.IsEqualTo(_apiClientSecret)));
+                A.CallTo(()=> _apiClientSecretWriter.SetSecret(A<string>.That.IsNotNull(), A<ApiClientSecret>.That.IsEqualTo(_apiClientSecret)));
             }
 
             [Test]

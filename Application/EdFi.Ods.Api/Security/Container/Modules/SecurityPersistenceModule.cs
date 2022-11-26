@@ -9,6 +9,7 @@ using Autofac;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;

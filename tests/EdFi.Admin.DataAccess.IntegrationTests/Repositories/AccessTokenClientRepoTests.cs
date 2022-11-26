@@ -7,7 +7,6 @@ using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
-using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
@@ -17,8 +16,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Transactions;
 using EdFi.Admin.DataAccess.DbConfigurations;
+using EdFi.Common.Security.Authentication;
+using EdFi.Ods.Api.Security.Authentication;
+using Microsoft.Data.SqlClient;
+using Npgsql;
+using Respawn;
+using Respawn.Graph;
 
 // ReSharper disable InconsistentNaming
 
@@ -33,15 +37,19 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         // interaction. Create transaction scope before opening either connection,
         // so that both are enrolled in the same transaction.
 
-        private TransactionScope _transaction;
         private DatabaseEngine _databaseEngine;
         protected IUsersContext TestFixtureContext;
-        protected AccessTokenClientRepo SystemUnderTest;
+
+        private AdminDatabaseConnectionStringProvider _connectionStringProvider;
+        private Respawner _respawner;
+
+        // This original class under test was refactored into 2 classes, tests have not been rewritten
+        protected ExpiredAccessTokenDeleter ExpiredAccessTokenDeleter;
+        protected EdFiAdminRawApiClientDetailsProvider RawApiClientDetailsProvider;
 
         protected override void Arrange()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-            _transaction = new TransactionScope();
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -53,18 +61,54 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             var engine = config.GetSection("ApiSettings").GetValue<string>("Engine");
             _databaseEngine = DatabaseEngine.TryParseEngine(engine);
 
-            var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
+            _connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
             DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
-            var userContextFactory = new UsersContextFactory(connectionStringProvider, _databaseEngine);
+            var userContextFactory = new UsersContextFactory(_connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
-            SystemUnderTest = new AccessTokenClientRepo(userContextFactory, config);
-        }
 
+            IDbAdapter respawnerDbAdapter;
+
+            if (_databaseEngine == DatabaseEngine.Postgres)
+            {
+                ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(NpgsqlFactory.Instance, _connectionStringProvider);
+                RawApiClientDetailsProvider = new EdFiAdminRawApiClientDetailsProvider(NpgsqlFactory.Instance, _connectionStringProvider);
+
+                respawnerDbAdapter = DbAdapter.Postgres;
+            }
+            else if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(SqlClientFactory.Instance, _connectionStringProvider);
+                RawApiClientDetailsProvider = new EdFiAdminRawApiClientDetailsProvider(SqlClientFactory.Instance, _connectionStringProvider);
+                
+                respawnerDbAdapter = DbAdapter.SqlServer;
+            }
+            else
+            {
+                throw new NotSupportedException("Database engine not supported.");
+            }
+
+            string connectionString = _connectionStringProvider.GetConnectionString();
+
+            _respawner = Respawner.CreateAsync(connectionString, new RespawnerOptions
+                {
+                    TablesToIgnore = new Table[]
+                    {
+                        new Table("dbo", "DeployJournal")
+                    },
+                    DbAdapter = respawnerDbAdapter
+                })
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+            _respawner.ResetAsync(connectionString).ConfigureAwait(false).GetAwaiter().GetResult();
+        }
+        
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            // Dispose without commit is an implicit rollback
-            _transaction?.Dispose();
+            // Ensure cleanup also occurs after test execution to return database to an empty state
+            _respawner.ResetAsync(_connectionStringProvider.GetConnectionString());
         }
 
         protected ApiClient LoadAnApiClient(Application application, int apiClientId)
@@ -172,7 +216,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                 protected override void Act()
                 {
-                    SystemUnderTest.DeleteExpiredTokensAsync().Wait();
+                    ExpiredAccessTokenDeleter.DeleteExpiredTokensAsync().Wait();
                 }
 
                 protected override void Arrange()
@@ -214,7 +258,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                 protected override void Act()
                 {
-                    SystemUnderTest.DeleteExpiredTokensAsync().Wait();
+                    ExpiredAccessTokenDeleter.DeleteExpiredTokensAsync().Wait();
                 }
 
                 [Test]
@@ -229,7 +273,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             [TestFixture]
             public class And_client_has_all_optional_data : Given_an_unexpired_token
             {
-                protected IReadOnlyList<OAuthTokenClient> Result;
+                protected IReadOnlyList<RawApiClientDetailsDataRow> Result;
 
                 protected const string claimSetName = "Claim set name";
                 protected const string namespacePrefix1 = "one";
@@ -262,7 +306,10 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                 protected override void Act()
                 {
-                    Result = SystemUnderTest.GetClientForTokenAsync(AccessToken.Id).Result;
+                    Result = RawApiClientDetailsProvider.GetRawClientDetailsDataAsync(AccessToken.Id)
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();
                 }
 
                 [TestFixture]
@@ -347,7 +394,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             [TestFixture]
             public class And_client_has_only_minimal_data : Given_an_unexpired_token
             {
-                protected IReadOnlyList<OAuthTokenClient> Result;
+                protected IReadOnlyList<RawApiClientDetailsDataRow> Result;
 
                 protected override void Arrange()
                 {
@@ -360,7 +407,10 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                 protected override void Act()
                 {
-                    Result = SystemUnderTest.GetClientForTokenAsync(AccessToken.Id).Result;
+                    Result = RawApiClientDetailsProvider.GetRawClientDetailsDataAsync(AccessToken.Id)
+                        .ConfigureAwait(false)
+                        .GetAwaiter()
+                        .GetResult();;
                 }
 
                 [TestFixture]

@@ -21,6 +21,7 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
@@ -209,8 +210,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IApiClientAuthenticator>()
                 .SingleInstance();
 
-            builder.RegisterType<EdFiAdminApiClientSecretProvider>()
-                .As<IApiClientSecretProvider>()
+            builder.RegisterType<EdFiAdminApiClientSecretWriter>()
+                .As<IApiClientSecretWriter>()
                 .SingleInstance();
 
             builder.RegisterType<EdFiAdminRawApiClientDetailsProvider>()

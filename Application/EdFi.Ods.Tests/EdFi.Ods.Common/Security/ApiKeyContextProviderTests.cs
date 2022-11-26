@@ -37,7 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
             private readonly short _suppliedCreatorOwnershipTokenId = 1;
 
-            private readonly short?[] _suppliedOwnershipTokenIds =
+            private readonly short[] _suppliedOwnershipTokenIds =
             {
                 1,
                 2
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             private string _actualStudentIdentificationSystemDescriptor;
             private HashtableContextStorage _contextStorage;
             private short? _actualCreatorOwnershipTokenId;
-            private IEnumerable<short?> _actualOwnershipTokenIds;
+            private IEnumerable<short> _actualOwnershipTokenIds;
             private int _actualApiClientId;
 
             protected override void Act()
