@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace EdFi.Common.Security
 {
-    public interface IApiClientSecretProvider
+    public interface IApiClientSecretWriter
     {
-        ApiClientSecret GetSecret(string key);
-
         void SetSecret(string key, ApiClientSecret secret);
     }
 }

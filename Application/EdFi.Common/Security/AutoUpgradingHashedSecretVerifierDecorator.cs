@@ -9,7 +9,7 @@ namespace EdFi.Common.Security
 {
     public class AutoUpgradingHashedSecretVerifierDecorator : ISecretVerifier
     {
-        private readonly IApiClientSecretProvider _apiClientSecretProvider;
+        private readonly IApiClientSecretWriter _apiClientSecretWriter;
         private readonly HashConfiguration _hashConfiguration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(AutoUpgradingHashedSecretVerifierDecorator));
         private readonly ISecretVerifier _next;
@@ -17,13 +17,13 @@ namespace EdFi.Common.Security
         private readonly ISecurePackedHashProvider _securePackedHashProvider;
 
         public AutoUpgradingHashedSecretVerifierDecorator(
-            IApiClientSecretProvider apiClientSecretProvider,
+            IApiClientSecretWriter apiClientSecretWriter,
             ISecretVerifier next,
             IPackedHashConverter packedHashConverter,
             ISecurePackedHashProvider securePackedHashProvider,
             IHashConfigurationProvider hashConfigurationProvider)
         {
-            _apiClientSecretProvider = apiClientSecretProvider;
+            _apiClientSecretWriter = apiClientSecretWriter;
             _next = next;
             _packedHashConverter = packedHashConverter;
             _securePackedHashProvider = securePackedHashProvider;
@@ -62,7 +62,7 @@ namespace EdFi.Common.Security
 
             actualSecret.IsHashed = true;
 
-            _apiClientSecretProvider.SetSecret(key, actualSecret);
+            _apiClientSecretWriter.SetSecret(key, actualSecret);
 
             return true;
         }
