@@ -14,12 +14,13 @@ using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Common.Security.Authentication;
 using EdFi.Ods.Api.Security.Authentication;
-using Microsoft.Data.SqlClient;
 using Npgsql;
 using Respawn;
 using Respawn.Graph;
@@ -46,6 +47,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         // This original class under test was refactored into 2 classes, tests have not been rewritten
         protected ExpiredAccessTokenDeleter ExpiredAccessTokenDeleter;
         protected EdFiAdminRawApiClientDetailsProvider RawApiClientDetailsProvider;
+        private DbProviderFactory _dbFactory;
 
         protected override void Arrange()
         {
@@ -66,49 +68,67 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             var userContextFactory = new UsersContextFactory(_connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
 
-            IDbAdapter respawnerDbAdapter;
+            RespawnerOptions respawnerOptions;
 
             if (_databaseEngine == DatabaseEngine.Postgres)
             {
                 ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(NpgsqlFactory.Instance, _connectionStringProvider);
                 RawApiClientDetailsProvider = new EdFiAdminRawApiClientDetailsProvider(NpgsqlFactory.Instance, _connectionStringProvider);
 
-                respawnerDbAdapter = DbAdapter.Postgres;
+                respawnerOptions = new RespawnerOptions
+                {
+                    SchemasToExclude = new [] { "public"},
+                    DbAdapter = DbAdapter.Postgres
+                };
+
+                _dbFactory = NpgsqlFactory.Instance;
             }
             else if (_databaseEngine == DatabaseEngine.SqlServer)
             {
                 ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(SqlClientFactory.Instance, _connectionStringProvider);
                 RawApiClientDetailsProvider = new EdFiAdminRawApiClientDetailsProvider(SqlClientFactory.Instance, _connectionStringProvider);
                 
-                respawnerDbAdapter = DbAdapter.SqlServer;
+                respawnerOptions = new RespawnerOptions
+                {
+                    TablesToIgnore = new Table[]
+                    {
+                        new("dbo", "DeployJournal")
+                    },
+                    DbAdapter = DbAdapter.SqlServer
+                };
+
+                _dbFactory = SqlClientFactory.Instance;
             }
             else
             {
                 throw new NotSupportedException("Database engine not supported.");
             }
 
-            string connectionString = _connectionStringProvider.GetConnectionString();
+            using var connection = GetAdminConnection();
 
-            _respawner = Respawner.CreateAsync(connectionString, new RespawnerOptions
-                {
-                    TablesToIgnore = new Table[]
-                    {
-                        new Table("dbo", "DeployJournal")
-                    },
-                    DbAdapter = respawnerDbAdapter
-                })
+            _respawner = Respawner.CreateAsync(connection, respawnerOptions)
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
 
-            _respawner.ResetAsync(connectionString).ConfigureAwait(false).GetAwaiter().GetResult();
+            _respawner.ResetAsync(connection).ConfigureAwait(false).GetAwaiter().GetResult();
         }
-        
+
+        private DbConnection GetAdminConnection()
+        {
+            var connection = _dbFactory.CreateConnection();
+            connection.ConnectionString = _connectionStringProvider.GetConnectionString();
+            connection.Open();
+
+            return connection;
+        }
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
             // Ensure cleanup also occurs after test execution to return database to an empty state
-            _respawner.ResetAsync(_connectionStringProvider.GetConnectionString());
+            using var connection = GetAdminConnection();
+            _respawner.ResetAsync(connection).ConfigureAwait(false).GetAwaiter().GetResult();
         }
 
         protected ApiClient LoadAnApiClient(Application application, int apiClientId)
