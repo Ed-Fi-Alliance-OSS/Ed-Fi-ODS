@@ -20,7 +20,8 @@ namespace EdFi.Ods.Api.Security.Authentication
         private readonly DbProviderFactory _dbProviderFactory;
         private readonly IAdminDatabaseConnectionStringProvider _adminConnectionStringProvider;
 
-        private const string GetClientDetailsCommonSelect = "SELECT ApiClientId, \"Key\", UseSandbox, StudentIdentificationSystemDescriptor, EducationOrganizationId, ClaimSetName, NamespacePrefix, ProfileName, CreatorOwnershipTokenId, OwnershipTokenId";
+        // NOTE: Lower case "key" in quotes required -- In SQL Server, key is a reserved word and requires quotes, but once quoted is must be lower-case to match when executed in PostgreSQL
+        private const string GetClientDetailsCommonSelect = "SELECT ApiClientId, \"key\", UseSandbox, StudentIdentificationSystemDescriptor, EducationOrganizationId, ClaimSetName, NamespacePrefix, ProfileName, CreatorOwnershipTokenId, OwnershipTokenId";
         private const string GetClientDetailsForKeySql = GetClientDetailsCommonSelect + ", Secret, SecretIsHashed FROM dbo.GetClientForKey(@ApiKey);";
         private const string GetClientDetailsForTokenSql = GetClientDetailsCommonSelect + ", Expiration FROM dbo.GetClientForToken(@Token);";
 
