@@ -50,7 +50,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private Lazy<IReadOnlyDictionary<string, ResourceProperty>> _propertyByName;
         private Lazy<IReadOnlyDictionary<string, Reference>> _referenceByName;
-        private IEnumerable<ResourceProperty> _allPropertiesRaw;
+        private Lazy<IReadOnlyList<ResourceProperty>> _allPropertiesRaw;
         
         /// <summary>
         /// Gets a lazy-initialized dictionary containing collections of <see cref="ResourceProperty"/> instances that represent values that must be unified, keyed by the property name.
@@ -595,7 +595,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private void LazyInitializeDerivedCollections()
         {
-            _allPropertiesRaw = 
+            _allPropertiesRaw = new Lazy<IReadOnlyList<ResourceProperty>>(() =>
                 // Add locally defined identifying properties first
                 Properties.Where(p => p.IsIdentifying)
 
@@ -609,10 +609,10 @@ namespace EdFi.Ods.Common.Models.Resource
 
                     // Add non-identifying properties
                     .Concat(Properties.Where(p => !p.IsIdentifying))
-                    .ToArray();
+                    .ToArray());
 
             _allProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
-                () => _allPropertiesRaw
+                () => _allPropertiesRaw.Value
                     .Distinct(ModelComparers.ResourcePropertyNameOnly)
                     .ToList());
             
@@ -621,7 +621,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     AllProperties.ToDictionary(x => x.PropertyName, x => x, StringComparer.InvariantCultureIgnoreCase));
 
             UnifiedPropertiesByPropertyName = new Lazy<IDictionary<string, IReadOnlyList<ResourceProperty>>>(
-                () => _allPropertiesRaw.GroupBy(rp => rp.PropertyName)
+                () => _allPropertiesRaw.Value.GroupBy(rp => rp.PropertyName)
                     .Where(g => g.Count() > 1)
                     .ToDictionary(
                         g => g.Key,
