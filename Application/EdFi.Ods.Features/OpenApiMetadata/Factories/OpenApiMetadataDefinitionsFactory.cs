@@ -60,35 +60,31 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x.Resource))
                 .SelectMany(
                     r => new[]
-                    {
-                        new
                         {
-                            key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
-                            schema = CreateResourceSchema(r)
-                        },
-                        isChangeQueriesEnabled
-                            ? new
-                            {
-                                key = GetTrackedChangesResourceKeyName(r.Resource, r),
-                                schema = CreateTrackedChangesKeySchema(r)
-                            }
-                            : null,
-                        isChangeQueriesEnabled
-                            ? new
-                            {
-                                key = GetTrackedChangesResourceDeleteName(r.Resource, r),
-                                schema = CreateTrackedChangesDeletesSchema(r)
-                            }
-                            : null,
-                        isChangeQueriesEnabled
-                            ? new
-                            {
-                                key = GetTrackedChangesResourceKeyChangeName(r.Resource, r),
-                                schema = CreateTrackedChangesKeyChangesSchema(r)
-                            }
-                            : null
-                    })
-                .Where(d => d != null)
+                            (
+                                key: _openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
+                                schema: CreateResourceSchema(r)
+                            )
+                        }
+                        .Concat(
+                            isChangeQueriesEnabled && !r.IsCompositeResource
+                                ? new[]
+                                {
+                                    (
+                                        key: GetTrackedChangesResourceKeyName(r.Resource, r),
+                                        schema: CreateTrackedChangesKeySchema(r)
+                                    ),
+                                    (
+                                        key: GetTrackedChangesResourceDeleteName(r.Resource, r),
+                                        schema: CreateTrackedChangesDeletesSchema(r)
+                                    ),
+                                    (
+                                        key: GetTrackedChangesResourceKeyChangeName(r.Resource, r),
+                                        schema: CreateTrackedChangesKeyChangesSchema(r)
+                                    )
+                                }
+                                : Enumerable.Empty<(string key, Schema schema)>())
+                )
                 .GroupBy(d => d.key).Select(g => g.First())
                 .ForEach(d => definitions.Add(d.key, d.schema));
 
@@ -223,7 +219,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             var identifierProperties = identifierProjections
                 .SelectMany(
                     p => p.IsDescriptorUsage
-                        ? new[] {p.JsonPropertyName}
+                        ? new[] { p.JsonPropertyName }
                         : p.SelectColumns.Select(i => i.JsonPropertyName))
                 .Distinct()
                 .Select(
