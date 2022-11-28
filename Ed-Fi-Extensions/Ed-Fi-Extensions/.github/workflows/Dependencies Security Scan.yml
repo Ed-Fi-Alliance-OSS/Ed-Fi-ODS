@@ -9,7 +9,9 @@ on:
   pull_request:
     branches: [main]
 env:
-  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
 
 jobs:
   scan-actions:
@@ -39,12 +41,6 @@ jobs:
         working-directory: ./Ed-Fi-Extensions/
         shell: pwsh
         run: |
-            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-            $is_pull_request_branch = 'False'
-            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-            if ($is_pull_request_branch -eq $true) {
-              git fetch origin ${{ env.CURRENT_BRANCH }}
-              git checkout ${{ env.CURRENT_BRANCH }}
-            }
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "." 
       - name: Dependency Review ("Dependabot on PR")
         uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
