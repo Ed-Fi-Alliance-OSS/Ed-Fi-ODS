@@ -18,11 +18,10 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Transactions;
 using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Api.Security.Authentication;
 using Npgsql;
-using Respawn;
-using Respawn.Graph;
 
 // ReSharper disable InconsistentNaming
 
@@ -37,11 +36,11 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         // interaction. Create transaction scope before opening either connection,
         // so that both are enrolled in the same transaction.
 
+        private TransactionScope _transaction;
         private DatabaseEngine _databaseEngine;
         protected IUsersContext TestFixtureContext;
 
         private AdminDatabaseConnectionStringProvider _connectionStringProvider;
-        private Respawner _respawner;
 
         // This original class under test was refactored into 2 classes, tests have not been rewritten
         protected ExpiredAccessTokenDeleter ExpiredAccessTokenDeleter;
@@ -51,7 +50,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         protected override void Arrange()
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
+            _transaction = new TransactionScope();
+            
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", false)
@@ -67,18 +67,10 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             var userContextFactory = new UsersContextFactory(_connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
 
-            RespawnerOptions respawnerOptions;
-
             if (_databaseEngine == DatabaseEngine.Postgres)
             {
                 ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(NpgsqlFactory.Instance, _connectionStringProvider);
                 RawApiClientDetailsProvider = new EdFiAdminRawApiClientDetailsProvider(NpgsqlFactory.Instance, _connectionStringProvider);
-
-                respawnerOptions = new RespawnerOptions
-                {
-                    SchemasToExclude = new [] { "public"},
-                    DbAdapter = DbAdapter.Postgres
-                };
 
                 _dbFactory = NpgsqlFactory.Instance;
             }
@@ -86,15 +78,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             {
                 ExpiredAccessTokenDeleter = new ExpiredAccessTokenDeleter(SqlClientFactory.Instance, _connectionStringProvider);
                 RawApiClientDetailsProvider = new EdFiAdminRawApiClientDetailsProvider(SqlClientFactory.Instance, _connectionStringProvider);
-                
-                respawnerOptions = new RespawnerOptions
-                {
-                    TablesToIgnore = new Table[]
-                    {
-                        new("dbo", "DeployJournal")
-                    },
-                    DbAdapter = DbAdapter.SqlServer
-                };
 
                 _dbFactory = SqlClientFactory.Instance;
             }
@@ -102,32 +85,13 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             {
                 throw new NotSupportedException("Database engine not supported.");
             }
-
-            using var connection = GetAdminConnection();
-
-            _respawner = Respawner.CreateAsync(connection, respawnerOptions)
-                .ConfigureAwait(false)
-                .GetAwaiter()
-                .GetResult();
-
-            _respawner.ResetAsync(connection).ConfigureAwait(false).GetAwaiter().GetResult();
-        }
-
-        private DbConnection GetAdminConnection()
-        {
-            var connection = _dbFactory.CreateConnection();
-            connection.ConnectionString = _connectionStringProvider.GetConnectionString();
-            connection.Open();
-
-            return connection;
         }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            // Ensure cleanup also occurs after test execution to return database to an empty state
-            using var connection = GetAdminConnection();
-            _respawner.ResetAsync(connection).ConfigureAwait(false).GetAwaiter().GetResult();
+            // Dispose without commit is an implicit rollback
+            _transaction?.Dispose();
         }
 
         protected ApiClient LoadAnApiClient(Application application, int apiClientId)
