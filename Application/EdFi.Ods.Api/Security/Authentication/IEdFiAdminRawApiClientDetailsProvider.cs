@@ -6,9 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EdFi.Common.Security.Authentication;
 
-namespace EdFi.Admin.DataAccess.Authentication
+namespace EdFi.Ods.Api.Security.Authentication
 {
     public interface IEdFiAdminRawApiClientDetailsProvider
     {

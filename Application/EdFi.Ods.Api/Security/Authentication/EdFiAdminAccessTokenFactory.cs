@@ -7,15 +7,12 @@ using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 using Dapper;
-using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Providers;
 
 namespace EdFi.Ods.Api.Security.Authentication;
 
 public class EdFiAdminAccessTokenFactory : IAccessTokenFactory
 {
-    private const int DefaultBearerTokenDurationMinutes = 60;
-    
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
     private readonly int _tokenDurationMinutes;

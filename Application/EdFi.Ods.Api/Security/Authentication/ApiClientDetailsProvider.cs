@@ -7,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Common.Security;
-using EdFi.Common.Security.Authentication;
 
 namespace EdFi.Ods.Api.Security.Authentication
 {
@@ -91,7 +89,6 @@ namespace EdFi.Ods.Api.Security.Authentication
 
             return apiClientDetails;
 
-           
             IEnumerable<int> GetEducationOrganizationIds()
             {
                 return apiClientRawDataRows

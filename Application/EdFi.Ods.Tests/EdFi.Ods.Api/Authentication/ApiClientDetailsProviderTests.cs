@@ -6,9 +6,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Common.Extensions;
-using EdFi.Common.Security.Authentication;
 using EdFi.Ods.Api.Security.Authentication;
 using FakeItEasy;
 using NUnit.Framework;

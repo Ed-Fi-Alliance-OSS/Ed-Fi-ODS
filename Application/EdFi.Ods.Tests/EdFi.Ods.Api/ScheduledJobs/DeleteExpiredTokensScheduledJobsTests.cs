@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
-using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.Api.ScheduledJobs.Jobs;
-using EdFi.Ods.Api.Security.Authentication;
 using FakeItEasy;
 using NUnit.Framework;
 using Quartz;

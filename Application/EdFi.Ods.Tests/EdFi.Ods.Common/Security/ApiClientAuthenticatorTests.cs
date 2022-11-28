@@ -73,9 +73,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 var apiClientDetailsProvider = Stub<IApiClientDetailsProvider>();
 
-                // var apiClientSecretProvider = Stub<IApiClientSecretProvider>();
-                // A.CallTo(() => apiClientSecretProvider.GetSecret("MyInvalidKey")).Throws(new ArgumentException());
-
                 var secretVerifier = Stub<ISecretVerifier>();
                 _apiClientAuthenticator = new ApiClientAuthenticator(apiClientDetailsProvider, secretVerifier);
             }

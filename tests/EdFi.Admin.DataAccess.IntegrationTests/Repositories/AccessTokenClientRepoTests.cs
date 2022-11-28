@@ -19,7 +19,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using EdFi.Admin.DataAccess.DbConfigurations;
-using EdFi.Common.Security.Authentication;
 using EdFi.Ods.Api.Security.Authentication;
 using Npgsql;
 using Respawn;

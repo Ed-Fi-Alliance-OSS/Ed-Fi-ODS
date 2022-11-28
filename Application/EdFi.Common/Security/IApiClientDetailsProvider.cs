@@ -25,7 +25,7 @@ namespace EdFi.Common.Security
         /// </summary>
         /// <param name="key">The key of the API client for which details should be retrieved.</param>
         /// <returns>A <see cref="ApiClientDetails"/> instance if a matching key is found; otherwise <b>null</b>.</returns>
-        /// <remarks>This method is used during API client authentication after the key and secret have been validated but before the token has been issued.</remarks>
+        /// <remarks>This method is used during API client authentication, returning the secret for verification.</remarks>
         Task<ApiClientDetails> GetApiClientDetailsForKeyAsync(string key);
     }
 }

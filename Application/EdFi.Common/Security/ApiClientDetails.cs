@@ -108,11 +108,6 @@ namespace EdFi.Common.Security
         /// </summary>
         public IList<int> EducationOrganizationIds { get; set; }
 
-        // /// <summary>
-        // /// Gets or sets the ApplicationId for the client.
-        // /// </summary>
-        // public int ApplicationId { get; set; }
-
         /// <summary>
         /// Gets or sets the Claim Set name associated with the application for the client.
         /// </summary>

@@ -9,9 +9,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Providers;
-using EdFi.Common.Security.Authentication;
 
 namespace EdFi.Ods.Api.Security.Authentication
 {

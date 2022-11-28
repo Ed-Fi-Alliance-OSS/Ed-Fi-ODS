@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
-using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common;
 using log4net;
 using Quartz;

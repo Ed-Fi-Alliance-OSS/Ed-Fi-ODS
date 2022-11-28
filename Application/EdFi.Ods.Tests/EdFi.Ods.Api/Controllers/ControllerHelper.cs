@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Text;
-using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Security.Authentication;
 

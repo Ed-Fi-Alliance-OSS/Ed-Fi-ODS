@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Common.Security.Authentication
+namespace EdFi.Ods.Api.Security.Authentication
 {
     public class RawApiClientDetailsDataRow
     {

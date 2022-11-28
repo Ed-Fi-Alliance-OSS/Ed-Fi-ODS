@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
-using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Security;
 using EdFi.Common.Configuration;
 using EdFi.Common.Security;
