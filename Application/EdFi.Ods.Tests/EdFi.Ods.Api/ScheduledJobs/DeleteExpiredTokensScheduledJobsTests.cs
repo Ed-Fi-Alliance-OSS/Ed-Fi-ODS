@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Ods.Api.ScheduledJobs.Jobs;
 using FakeItEasy;
 using NUnit.Framework;
@@ -23,13 +23,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
         [Test]
         public async Task Should_call_delete_expired_tokens_async_once()
         {
-            var accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
+            var expiredAccessTokenDeleter = A.Fake<IExpiredAccessTokenDeleter>();
             var jobExecutionContext = A.Fake<IJobExecutionContext>();
 
-            DeleteExpiredTokensScheduledJob job = new DeleteExpiredTokensScheduledJob(accessTokenClientRepo);
+            DeleteExpiredTokensScheduledJob job = new DeleteExpiredTokensScheduledJob(expiredAccessTokenDeleter);
             await job.Execute(jobExecutionContext);
 
-            A.CallTo(() => accessTokenClientRepo.DeleteExpiredTokensAsync())
+            A.CallTo(() => expiredAccessTokenDeleter.DeleteExpiredTokensAsync())
                 .MustHaveHappenedOnceExactly();
         }
     }

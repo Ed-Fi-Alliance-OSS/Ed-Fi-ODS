@@ -5,6 +5,7 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Caching;
 using FakeItEasy;
@@ -37,14 +38,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 
             // Act
             CachingApiClientDetailsProviderDecorator decorator = new(apiClientDetailsProvider, cacheProvider, cacheKeyProvider);
-            var actualApiClientDetails = await decorator.GetClientDetailsForTokenAsync(suppliedTokenString);
+            var actualApiClientDetails = await decorator.GetApiClientDetailsForTokenAsync(suppliedTokenString);
 
             // Assert
             decorator.ShouldSatisfyAllConditions(
                 () => actualApiClientDetails.ShouldBeSameAs(suppliedApiClientDetails, "Cached item was not returned."),
                 
                 // Should not call through to underlying store
-                () => A.CallTo(() => apiClientDetailsProvider.GetClientDetailsForTokenAsync(suppliedTokenString))
+                () => A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(suppliedTokenString))
                     .MustNotHaveHappened(),
 
                 // Should not try to insert a new cache entry
@@ -57,8 +58,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
         public async Task When_requesting_API_client_details_that_are_NOT_already_cached_for_a_token_retrieve_and_cache_the_details()
         {
             // Arrange
+            var suppliedToken = Guid.NewGuid();
             var suppliedTokenString = Guid.NewGuid().ToString("n");
-            var suppliedApiClientDetails = new ApiClientDetails() { ExpiresUtc = DateTime.UtcNow.AddMinutes(30) };
+            var suppliedApiClientDetails = new ApiClientDetails { ExpiresUtc = DateTime.UtcNow.AddMinutes(30) };
             
             var cacheKeyProvider = A.Fake<IApiClientDetailsCacheKeyProvider>();
             A.CallTo(() => cacheKeyProvider.GetCacheKey(suppliedTokenString)).Returns("theCacheKey");
@@ -70,19 +72,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 .Returns(false);
 
             var apiClientDetailsProvider = A.Fake<IApiClientDetailsProvider>();
-            A.CallTo(() => apiClientDetailsProvider.GetClientDetailsForTokenAsync(suppliedTokenString))
+            A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(suppliedTokenString))
                 .Returns(suppliedApiClientDetails);
 
             // Act
             CachingApiClientDetailsProviderDecorator decorator = new(apiClientDetailsProvider, cacheProvider, cacheKeyProvider);
-            var actualApiClientDetails = await decorator.GetClientDetailsForTokenAsync(suppliedTokenString);
+            var actualApiClientDetails = await decorator.GetApiClientDetailsForTokenAsync(suppliedTokenString);
 
             // Assert
             decorator.ShouldSatisfyAllConditions(
                 () => actualApiClientDetails.ShouldBeSameAs(suppliedApiClientDetails),
                 
                 // Should call through to underlying store
-                () => A.CallTo(() => apiClientDetailsProvider.GetClientDetailsForTokenAsync(suppliedTokenString))
+                () => A.CallTo(() => apiClientDetailsProvider.GetApiClientDetailsForTokenAsync(suppliedTokenString))
                     .MustHaveHappened(),
 
                 // Should insert a new cache entry with expiration date 15 minutes after the expiration of the token

@@ -6,9 +6,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Models;
-using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Ods.Api.Authentication;
+using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Security.Authentication;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -20,59 +19,35 @@ public class ApiClientDetailsProviderTests
 {
     [Test]
     public async Task
-        When_Admin_database_returns_an_empty_set_of_raw_API_client_token_data_should_return_an_instance_of_ApiClientDetails_with_default_values()
+        When_Admin_database_returns_an_empty_set_of_raw_API_client_token_data_should_return_a_null_ApiClientDetails_reference()
     {
         // Arrange
-        var accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
+        var rawApiClientDetailsProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
         var suppliedToken = Guid.NewGuid();
 
-        A.CallTo(() => accessTokenClientRepo.GetClientForTokenAsync(suppliedToken)).Returns(Array.Empty<OAuthTokenClient>());
+        A.CallTo(() => rawApiClientDetailsProvider.GetRawClientDetailsDataAsync(suppliedToken))
+            .Returns(Task.FromResult(Array.Empty<RawApiClientDetailsDataRow>().ToReadOnlyList()));
+        
+        ApiClientDetailsProvider provider = new(rawApiClientDetailsProvider);
 
-        ApiClientDetailsProvider provider = new(accessTokenClientRepo);
+        var actual = await provider.GetApiClientDetailsForTokenAsync(suppliedToken.ToString("N"));
 
-        var actual = await provider.GetClientDetailsForTokenAsync(suppliedToken.ToString("n"));
-
-        actual.ShouldSatisfyAllConditions(
-            () => actual.ApiKey.ShouldBe(default),
-            () => actual.ExpiresUtc.ShouldBe(default),
-            () => actual.EducationOrganizationIds.ShouldBeEmpty(),
-            () => actual.ApplicationId.ShouldBe(default),
-            () => actual.ClaimSetName.ShouldBe(default),
-            () => actual.NamespacePrefixes.ShouldBeEmpty(),
-            () => actual.Profiles.ShouldBeEmpty(),
-            () => actual.IsSandboxClient.ShouldBe(default),
-            () => actual.StudentIdentificationSystemDescriptor.ShouldBe(default),
-            () => actual.CreatorOwnershipTokenId.ShouldBe(default),
-            () => actual.OwnershipTokenIds.ShouldBeEmpty(),
-            () => actual.ApiClientId.ShouldBe(default));
+        actual.ShouldBeNull();
     }
     
     [Test]
     public async Task
-        When_token_is_not_parseable_as_a_GUID_should_return_an_instance_of_ApiClientDetails_with_default_values()
+        When_token_is_not_parseable_as_a_GUID_should_return_a_null_ApiClientDetails_reference()
     {
         // Arrange
-        var accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
+        var rawApiClientDetailsProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
         var suppliedToken = Guid.NewGuid();
 
-        ApiClientDetailsProvider provider = new(accessTokenClientRepo);
+        ApiClientDetailsProvider provider = new(rawApiClientDetailsProvider);
 
-        var actual = await provider.GetClientDetailsForTokenAsync("not-a-guid");
+        var actual = await provider.GetApiClientDetailsForTokenAsync("not-a-guid");
 
-        actual.ShouldSatisfyAllConditions(
-            () => A.CallTo(() => accessTokenClientRepo.GetClientForTokenAsync(A<Guid>.Ignored)).MustNotHaveHappened(),
-            () => actual.ApiKey.ShouldBe(default),
-            () => actual.ExpiresUtc.ShouldBe(default),
-            () => actual.EducationOrganizationIds.ShouldBeEmpty(),
-            () => actual.ApplicationId.ShouldBe(default),
-            () => actual.ClaimSetName.ShouldBe(default),
-            () => actual.NamespacePrefixes.ShouldBeEmpty(),
-            () => actual.Profiles.ShouldBeEmpty(),
-            () => actual.IsSandboxClient.ShouldBe(default),
-            () => actual.StudentIdentificationSystemDescriptor.ShouldBe(default),
-            () => actual.CreatorOwnershipTokenId.ShouldBe(default),
-            () => actual.OwnershipTokenIds.ShouldBeEmpty(),
-            () => actual.ApiClientId.ShouldBe(default));
+        actual.ShouldBeNull();
     }
 
     [Test]
@@ -80,34 +55,35 @@ public class ApiClientDetailsProviderTests
         When_Admin_database_returns_a_set_of_raw_API_client_token_data_should_return_the_unflattened_representation_of_the_data_in_the_ApiClientDetails()
     {
         // Arrange
-        var accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
+        var rawApiClientDetailsProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
         var suppliedToken = Guid.NewGuid();
+        string suppliedTokenAsString = suppliedToken.ToString("N");
         var suppliedExpirationUtc = DateTime.UtcNow;
 
-        var suppliedOAuthTokenClients = new[]
+        var suppliedRawData = new[]
         {
-            CreateOAuthTokenClient(educationOrganizationId: 1000),
-            CreateOAuthTokenClient(educationOrganizationId: 1001),
-            CreateOAuthTokenClient(namespacePrefix: "uri://namespace.one"),
-            CreateOAuthTokenClient(namespacePrefix: "uri://namespace.two"),
-            CreateOAuthTokenClient(profileName: "ProfileOne"),
-            CreateOAuthTokenClient(profileName: "ProfileTwo"),
-            CreateOAuthTokenClient(ownershipTokenId: 50),
-            CreateOAuthTokenClient(ownershipTokenId: 51),
+            CreateRawApiClientDetailsRow(educationOrganizationId: 1000),
+            CreateRawApiClientDetailsRow(educationOrganizationId: 1001),
+            CreateRawApiClientDetailsRow(namespacePrefix: "uri://namespace.one"),
+            CreateRawApiClientDetailsRow(namespacePrefix: "uri://namespace.two"),
+            CreateRawApiClientDetailsRow(profileName: "ProfileOne"),
+            CreateRawApiClientDetailsRow(profileName: "ProfileTwo"),
+            CreateRawApiClientDetailsRow(ownershipTokenId: 50),
+            CreateRawApiClientDetailsRow(ownershipTokenId: 51),
         };
 
-        A.CallTo(() => accessTokenClientRepo.GetClientForTokenAsync(suppliedToken)).Returns(suppliedOAuthTokenClients);
+        A.CallTo(() => rawApiClientDetailsProvider.GetRawClientDetailsDataAsync(suppliedToken))
+            .Returns(Task.FromResult(suppliedRawData.ToReadOnlyList()));
 
-        ApiClientDetailsProvider provider = new(accessTokenClientRepo);
+        ApiClientDetailsProvider provider = new(rawApiClientDetailsProvider);
 
-        var actual = await provider.GetClientDetailsForTokenAsync(suppliedToken.ToString("n"));
+        var actual = await provider.GetApiClientDetailsForTokenAsync(suppliedTokenAsString);
 
         actual.ShouldSatisfyAllConditions(
 
             // Property assertions
             () => actual.ApiKey.ShouldBe("theApiKey"),
             () => actual.ExpiresUtc.ShouldBe(suppliedExpirationUtc),
-            () => actual.ApplicationId.ShouldBe(default), // Should ApplicationId be removed?
             () => actual.ClaimSetName.ShouldBe("claimSetOne"),
             () => actual.IsSandboxClient.ShouldBe(true),
             () => actual.StudentIdentificationSystemDescriptor.ShouldBe("uri://test.org/system"),
@@ -134,19 +110,19 @@ public class ApiClientDetailsProviderTests
                     "ProfileTwo"
                 }),
             () => actual.OwnershipTokenIds.ToArray().ShouldBeEquivalentTo(
-                new short?[]
+                new short[]
                 {
                     50,
                     51
                 }));
 
-        OAuthTokenClient CreateOAuthTokenClient(
+        RawApiClientDetailsDataRow CreateRawApiClientDetailsRow(
             int? educationOrganizationId = null,
             string namespacePrefix = null,
             string profileName = null,
             short? ownershipTokenId = null)
         {
-            return new OAuthTokenClient
+            return new RawApiClientDetailsDataRow()
             {
                 // Base property values (repeated in every raw record due to joins in query)
                 Key = "theApiKey",

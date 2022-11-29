@@ -6,8 +6,10 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
+using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
@@ -62,8 +64,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IClientAppRepo>()
                 .SingleInstance();
 
-            builder.RegisterType<AccessTokenClientRepo>()
-                .As<IAccessTokenClientRepo>()
+            builder.RegisterType<ExpiredAccessTokenDeleter>()
+                .As<IExpiredAccessTokenDeleter>()
                 .SingleInstance();
 
             builder.RegisterType<UsersContextFactory>()

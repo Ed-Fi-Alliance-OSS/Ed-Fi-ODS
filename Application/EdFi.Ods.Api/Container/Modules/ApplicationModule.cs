@@ -20,6 +20,7 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
@@ -40,6 +41,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
 
@@ -47,6 +49,8 @@ namespace EdFi.Ods.Api.Container.Modules
 {
     public class ApplicationModule : Module
     {
+        private const int DefaultBearerTokenDurationMinutes = 60;
+            
         protected override void Load(ContainerBuilder builder)
         {
             RegisterMiddleware();
@@ -205,9 +209,37 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IApiClientAuthenticator>()
                 .SingleInstance();
 
-            builder.RegisterType<EdFiAdminApiClientIdentityProvider>()
-                .As<IApiClientIdentityProvider>()
-                .As<IApiClientSecretProvider>()
+            builder.RegisterType<EdFiAdminApiClientSecretWriter>()
+                .As<IApiClientSecretWriter>()
+                .SingleInstance();
+
+            builder.RegisterType<EdFiAdminRawApiClientDetailsProvider>()
+                .As<IEdFiAdminRawApiClientDetailsProvider>()
+                .SingleInstance();
+            
+            builder.RegisterType<ApiClientDetailsProvider>()
+                .As<IApiClientDetailsProvider>()
+                .SingleInstance();
+            
+            builder.RegisterType<EdFiAdminAccessTokenFactory>()
+                .As<IAccessTokenFactory>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name == "tokenDurationMinutes",
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+
+                            // Get the config value, defaulting to 1 hour
+                            if (!int.TryParse(
+                                    configuration.GetSection("BearerTokenTimeoutMinutes").Value,
+                                    out int tokenDurationMinutes))
+                            {
+                                tokenDurationMinutes = DefaultBearerTokenDurationMinutes;
+                            }
+
+                            return tokenDurationMinutes;
+                        }))
                 .SingleInstance();
 
             builder.RegisterType<PackedHashConverter>()

@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Text;
-using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Security.Authentication;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
@@ -20,9 +20,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
     {
         public static TokenController CreateTokenController(
             IApiClientAuthenticator apiClientAuthenticator,
-            IAccessTokenClientRepo accessTokenClientRepo)
+            IAccessTokenFactory accessTokenFactory)
         {
-            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(apiClientAuthenticator, accessTokenClientRepo);
+            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(apiClientAuthenticator, accessTokenFactory);
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";

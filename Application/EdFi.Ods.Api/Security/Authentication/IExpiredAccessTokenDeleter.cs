@@ -5,10 +5,10 @@
 
 using System.Threading.Tasks;
 
-namespace EdFi.Common.Security
+namespace EdFi.Admin.DataAccess.Authentication
 {
-    public interface IApiClientAuthenticator
+    public interface IExpiredAccessTokenDeleter
     {
-        Task<ApiClientAuthenticator.AuthenticationResult> TryAuthenticateAsync(string key, string secret);
+        Task DeleteExpiredTokensAsync();
     }
 }

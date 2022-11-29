@@ -13,13 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.20" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.35" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="ApprovalTests" Version="5.7.2" />
     <PackageReference Include="ApprovalUtilities" Version="5.7.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="6.1.16" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="6.1.19" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.2" />

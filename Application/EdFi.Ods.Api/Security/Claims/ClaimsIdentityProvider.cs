@@ -48,7 +48,7 @@ namespace EdFi.Ods.Api.Security.Claims
             string claimSetName,
             IEnumerable<string> namespacePrefixes,
             IReadOnlyList<string> assignedProfileNames,
-            IReadOnlyList<short?> ownershipTokenIds)
+            IReadOnlyList<short> ownershipTokenIds)
         {
             var nonEmptyNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
 
