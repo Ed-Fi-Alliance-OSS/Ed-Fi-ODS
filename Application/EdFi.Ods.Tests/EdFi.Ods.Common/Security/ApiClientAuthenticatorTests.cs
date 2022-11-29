@@ -47,7 +47,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 _actualResult = _apiClientAuthenticator.TryAuthenticateAsync("MyKey", "MySecret")
                     .ConfigureAwait(false)
                     .GetAwaiter()
-                    .GetResult();;
+                    .GetResult();
             }
 
             [Test]
@@ -82,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 _actualResult = _apiClientAuthenticator.TryAuthenticateAsync("MyInvalidKey", "MySecret")
                     .ConfigureAwait(false)
                     .GetAwaiter()
-                    .GetResult();;
+                    .GetResult();
             }
 
             [Test]
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 _actualResult = _apiClientAuthenticator.TryAuthenticateAsync("MyKey", "MyInvalidSecret")
                     .ConfigureAwait(false)
                     .GetAwaiter()
-                    .GetResult();;
+                    .GetResult();
             }
 
             [Test]
