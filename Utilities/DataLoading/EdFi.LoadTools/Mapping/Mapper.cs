@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.LoadTools.Engine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace EdFi.LoadTools.Mapping
                 return;
             }
 
-            var path = new Queue<string>(propertyPath.Split(Path.DirectorySeparatorChar));
+            var path = new Queue<string>(propertyPath.Split(Constants.PropertyPathSeparator));
             var propDesc = TypeDescriptor.GetProperties(component)[path.Dequeue()];
 
             while (path.Count > 0)
@@ -67,7 +68,7 @@ namespace EdFi.LoadTools.Mapping
 
         private static object GetDeepValue(object component, string propertyPath)
         {
-            var path = new Queue<string>(propertyPath.Split(Path.DirectorySeparatorChar));
+            var path = new Queue<string>(propertyPath.Split(Constants.PropertyPathSeparator));
 
             while (path.Count > 0 && component != null)
             {

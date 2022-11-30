@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.LoadTools.Engine;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -115,19 +116,21 @@ namespace EdFi.LoadTools.Mapping
                     continue;
                 }
 
+                var propertyPath = $"{path}{Constants.PropertyPathSeparator}{propertyInfo.Name}".Trim(Constants.PropertyPathSeparator);
+
                 if (propertyInfo.PropertyType.IsPrimitiveType())
                 {
                     yield return
                         new PropertyInfoEx
                         {
-                            Path = Path.Combine(path, propertyInfo.Name), PropertyInfo = propertyInfo
+                            Path = propertyPath, PropertyInfo = propertyInfo
                         };
                 }
                 else
                 {
                     foreach (
                         var childPropertyInfo in
-                        GetRecursiveProperties(propertyInfo.PropertyType, Path.Combine(path, propertyInfo.Name))
+                        GetRecursiveProperties(propertyInfo.PropertyType, propertyPath)
                     )
                     {
                         yield return childPropertyInfo;
