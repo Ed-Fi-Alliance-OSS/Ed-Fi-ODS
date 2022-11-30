@@ -36,6 +36,8 @@ namespace EdFi.LoadTools.Engine
         public const string InterchangeNameRegex =
             @"^(?<InterchangeType>Interchange[A-Za-z]+)";
 
+        public const char PropertyPathSeparator = '\\';
+
         public static readonly AtomicTypePairs[] AtomicTypes =
         {
             new AtomicTypePairs(XmlTypes.Boolean, JsonTypes.Boolean), new AtomicTypePairs(XmlTypes.Date, JsonTypes.Date),
