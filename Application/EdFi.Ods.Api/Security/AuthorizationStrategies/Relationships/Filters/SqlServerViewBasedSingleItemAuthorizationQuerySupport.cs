@@ -6,6 +6,7 @@
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
@@ -20,7 +21,9 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
         if (filterContext.ClaimEndpointValues.Length < SqlServerParameterCountThreshold)
         {
             // Use literal IN clause approach
-            var edOrgIdsList = string.Join(',', filterContext.ClaimEndpointValues);
+            var edOrgIdsList = filterContext.ClaimEndpointValues.Any()
+                ? string.Join(',', filterContext.ClaimEndpointValues)
+                : "NULL";
             
             return
                 $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw WHERE authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName} AND authvw.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN ({edOrgIdsList})";  
