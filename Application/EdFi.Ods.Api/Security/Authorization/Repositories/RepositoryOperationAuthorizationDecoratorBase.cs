@@ -379,18 +379,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 const int MaximumEdOrgClaimValuesToDisplay = 5;
 
-                var claimEndpointValuesAsString =
+                var claimEndpointValuesAsStrings =
                     claimEndpointValues?.Select(v => v.ToString()).Take(MaximumEdOrgClaimValuesToDisplay + 1).ToArray()
                     ?? Array.Empty<string>();
 
-                var claimEndpointValuesForDisplayText = claimEndpointValuesAsString?.Take(MaximumEdOrgClaimValuesToDisplay).ToList();
-
-                if (claimEndpointValuesAsString.Length > MaximumEdOrgClaimValuesToDisplay)
-                {
-                    claimEndpointValuesForDisplayText.Add("...");
-                }
-
-                string claimEndpointValuesText = string.Join(", ", claimEndpointValuesForDisplayText);
+                string claimEndpointValuesText = GetClaimEndpointValuesText(claimEndpointValuesAsStrings, MaximumEdOrgClaimValuesToDisplay);
 
                 if (subjectEndpointNames.Length == 1)
                 {
@@ -398,6 +391,25 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 }
 
                 return $"Authorization denied. No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one or more of the following properties of the resource item: {subjectEndpointNamesText}.";
+            }
+
+            string GetClaimEndpointValuesText(string[] claimEndpointValuesAsStrings, int maximumEdOrgClaimValuesToDisplay)
+            {
+                if (claimEndpointValuesAsStrings == null || claimEndpointValuesAsStrings.Length == 0)
+                {
+                    return "none";
+                }
+                
+                var claimEndpointValuesForDisplayText = claimEndpointValuesAsStrings?.Take(maximumEdOrgClaimValuesToDisplay).ToList();
+
+                if (claimEndpointValuesAsStrings.Length > maximumEdOrgClaimValuesToDisplay)
+                {
+                    claimEndpointValuesForDisplayText.Add("...");
+                }
+
+                string claimEndpointValuesText = string.Join(", ", claimEndpointValuesForDisplayText);
+
+                return claimEndpointValuesText;
             }
         }
 
