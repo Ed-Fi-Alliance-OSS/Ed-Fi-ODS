@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "7.0"
   CONFIGURATION: "Release"
 
 jobs:
