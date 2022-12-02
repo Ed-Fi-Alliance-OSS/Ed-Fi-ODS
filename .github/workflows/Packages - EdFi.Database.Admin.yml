@@ -86,7 +86,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/NugetPackages"
         $AdminNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.nuspec"
         $AdminBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.BACPAC.nuspec"
         $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.PostgreSQL.nuspec"
