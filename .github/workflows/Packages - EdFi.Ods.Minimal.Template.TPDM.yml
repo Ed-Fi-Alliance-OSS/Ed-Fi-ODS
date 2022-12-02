@@ -13,7 +13,7 @@ on:
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
 env:
-  EDFI_STANDARD_REFERENCE: "main"
+  EDFI_STANDARD_REFERENCE: "v4.0.0"
   INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
