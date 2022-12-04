@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators
 {
@@ -20,15 +21,19 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         protected override void Configure()
         {
+            var profileValidationReporter = new ProfileValidationReporter();
+
             var validatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
                 TemplateContext.ProjectPath,
-                ResourceModelProvider);
+                ResourceModelProvider,
+                profileValidationReporter);
 
             ProfileResourceNamesProvider = validatingProfileMetadataProvider;
 
             ProfileResourceModelProvider = new ProfileResourceModelProvider(
                 ResourceModelProvider,
-                validatingProfileMetadataProvider);
+                validatingProfileMetadataProvider,
+                profileValidationReporter);
 
             ProjectHasProfileDefinition = validatingProfileMetadataProvider.HasProfileData;
         }

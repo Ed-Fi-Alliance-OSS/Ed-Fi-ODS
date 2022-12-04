@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Models;
@@ -11,6 +12,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
@@ -32,17 +34,20 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public ResourceProfileProvider(
             IResourceModelProvider resourceModelProvider,
-            TemplateContext templateContext)
+            TemplateContext templateContext,
+            IProfileValidationReporter profileValidationReporter)
         {
             var validatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
                 templateContext.ProjectPath,
-                resourceModelProvider);
+                resourceModelProvider,
+                profileValidationReporter);
 
             _profileResourceNamesProvider = validatingProfileMetadataProvider;
 
             _profileResourceModelProvider = new ProfileResourceModelProvider(
                 resourceModelProvider,
-                validatingProfileMetadataProvider);
+                validatingProfileMetadataProvider,
+                profileValidationReporter);
 
             ProjectHasProfileDefinition = validatingProfileMetadataProvider.HasProfileData;
 

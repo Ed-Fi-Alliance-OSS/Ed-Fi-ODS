@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -19,6 +20,9 @@ namespace EdFi.Ods.CodeGen.Metadata
 {
     public class ProfileMetadataValidator : MetadataValidatorBase<Profile>
     {
+        private const string ReadContentType = "ReadContentType";
+        private const string WriteContentType = "WriteContentType";
+
         public ProfileMetadataValidator(ResourceModel resourceModel, Profile[] profiles, XDocument profileXDocument)
             : base(resourceModel, profiles, profileXDocument) { }
 
@@ -29,147 +33,79 @@ namespace EdFi.Ods.CodeGen.Metadata
                 return;
             }
 
-            ProfileNamesAreUnique();
-            ValidationObjectInstances.ForEach(IsValidProfile);
+            EnsureProfileNamesAreUnique();
         }
 
-        public void IsValidProfile(Profile profile)
+        private void EnsureProfileNamesAreUnique()
         {
-            foreach (var resource in profile.Resource)
+            var duplicateProfiles = 
+                ValidationObjectInstances
+                    .GroupBy(o => o.name, o => o, StringComparer.OrdinalIgnoreCase)
+                    .Where(g => g.Count() > 1)
+                    .ToList();
+                    
+            if (duplicateProfiles.Any())
             {
-                ValidateObjects(profile, resource);
-                ValidateCollections(profile, resource);
-                ValidateProperties(profile, resource);
+                throw new DuplicateProfileException(duplicateProfiles.Select(g => g.Key).ToArray());
             }
         }
 
-        public void ProfileNamesAreUnique()
-        {
-            if (ValidationObjectInstances.Select(obj => obj.name)
-                    .Distinct()
-                    .Count() != ValidationObjectInstances.Count())
-            {
-                throw new DuplicateProfileException();
-            }
-        }
-
-        public void ValidateObjects(Profile profile, Resource resource)
-        {
-            var domainResource = GetDomainResourceFor(resource);
-
-            if (domainResource == null)
-            {
-                throw new InvalidResourceException(resource, profile);
-            }
-
-            foreach (var objectElement in GetValidationElements(profile, resource, "Object"))
-            {
-                var objectName = GetValidationElementName(objectElement);
-
-                if (!domainResource.EmbeddedObjects.Select(embeddedObj => embeddedObj.ObjectType.Name)
-                    .Concat(domainResource.Extensions.Select(e => e.ObjectType.Name))
-                    .Contains(objectName))
-                {
-                    throw new MissingForeignKeyException("Object", objectName, profile, domainResource.Name);
-                }
-            }
-        }
-
-        public void ValidateCollections(Profile profile, Resource resource)
-        {
-            var domainResource = GetDomainResourceFor(resource);
-
-            if (domainResource == null)
-            {
-                throw new InvalidResourceException(resource, profile);
-            }
-
-            foreach (var collectionElement in GetValidationElements(profile, resource, "Collection"))
-            {
-                var collectionName = GetValidationElementName(collectionElement);
-                var containingTable = GetContainingTable(collectionElement, resource);
-
-                var embeddedObjectCollections = domainResource.EmbeddedObjects.ToDictionary(
-                    embeddedObj => embeddedObj.ObjectType.Name,
-                    embeddedObj => embeddedObj.ObjectType.Collections.Select(
-                        embeddedObjectCollection => embeddedObjectCollection.PropertyName));
-
-                var invalidCollections =
-                    containingTable == resource.name && !domainResource.Collections
-                        .Select(domainResourceCollection => domainResourceCollection.PropertyName)
-                        .Contains(collectionName) ||
-                    containingTable != resource.name && embeddedObjectCollections.Any(
-                        embeddedObjectCollection => embeddedObjectCollection.Key == containingTable &&
-                                                    !embeddedObjectCollection.Value.Contains(collectionName));
-
-                if (invalidCollections)
-                {
-                    throw new MissingForeignKeyException("Collection", collectionName, profile, domainResource.Name);
-                }
-            }
-        }
-
-        public void ValidateProperties(Profile profile, Resource resource)
-        {
-            var domainResource = GetDomainResourceFor(resource);
-
-            foreach (var propertyElement in GetValidationElements(profile, resource, "Property"))
-            {
-                var propertyName = GetValidationElementName(propertyElement);
-
-                if (IsReferenceProperty(propertyName))
-                {
-                    if (!domainResource.ReferenceByName.ContainsKey(propertyName))
-                    {
-                        throw new IncomingReferenceException(propertyName, profile, domainResource.Name);
-                    }
-
-                    return;
-                }
-
-                var resourceProperty = domainResource.AllProperties
-                    .Concat(domainResource.AllContainedItemTypes.SelectMany(item => item.AllProperties))
-                    .Concat(domainResource.Extensions.SelectMany(p => p.ObjectType.AllProperties))
-                    .FirstOrDefault(
-                        domainResourceProperty => domainResourceProperty.PropertyName ==
-                                                  FormatPropertyNameAsResourcePropertyName(propertyName));
-
-                if (resourceProperty == null)
-                {
-                    throw new MissingPropertyException(propertyName, profile);
-                }
-
-                if (resourceProperty.IsDescriptorUsage)
-                {
-                    var invalidPropertyReference = !resourceProperty.IsIdentifying && resourceProperty.IsDescriptorUsage &&
-                                                   resourceProperty.EntityProperty.Entity.IncomingAssociations
-                                                       .Concat(resourceProperty.EntityProperty.Entity.OutgoingAssociations)
-                                                       .Any(
-                                                           association
-                                                               => association.ThisProperties.Contains(
-                                                                      resourceProperty.EntityProperty) &&
-                                                                  !resourceProperty.IsDirectDescriptorUsage);
-
-                    if (invalidPropertyReference)
-                    {
-                        throw new InvalidPropertyReferenceException(
-                            propertyName,
-                            profile,
-                            domainResource.Name,
-                            resourceProperty.ParentFullName.Name);
-                    }
-                }
-            }
-        }
+        // public void ValidateProperties(Profile profile, Resource resource)
+        // {
+        //     var domainResource = GetDomainResourceFor(resource);
+        //
+        //     foreach (var propertyElement in GetValidationElements(profile, resource, "Property"))
+        //     {
+        //         var propertyName = GetValidationElementName(propertyElement);
+        //
+        //         if (IsReferenceProperty(propertyName))
+        //         {
+        //             if (!domainResource.ReferenceByName.ContainsKey(propertyName))
+        //             {
+        //                 throw new IncomingReferenceException(propertyName, profile, domainResource.Name);
+        //             }
+        //
+        //             return;
+        //         }
+        //
+        //         var resourceProperty = domainResource.AllProperties
+        //             .Concat(domainResource.AllContainedItemTypes.SelectMany(item => item.AllProperties))
+        //             .Concat(domainResource.Extensions.SelectMany(p => p.ObjectType.AllProperties))
+        //             .FirstOrDefault(
+        //                 domainResourceProperty => domainResourceProperty.PropertyName ==
+        //                                           FormatPropertyNameAsResourcePropertyName(propertyName));
+        //
+        //         if (resourceProperty == null)
+        //         {
+        //             throw new MissingPropertyException(propertyName, profile);
+        //         }
+        //
+        //         if (resourceProperty.IsDescriptorUsage)
+        //         {
+        //             var invalidPropertyReference = !resourceProperty.IsIdentifying && resourceProperty.IsDescriptorUsage &&
+        //                                            resourceProperty.EntityProperty.Entity.IncomingAssociations
+        //                                                .Concat(resourceProperty.EntityProperty.Entity.OutgoingAssociations)
+        //                                                .Any(
+        //                                                    association
+        //                                                        => association.ThisProperties.Contains(
+        //                                                               resourceProperty.EntityProperty) &&
+        //                                                           !resourceProperty.IsDirectDescriptorUsage);
+        //
+        //             if (invalidPropertyReference)
+        //             {
+        //                 throw new InvalidPropertyReferenceException(
+        //                     propertyName,
+        //                     profile,
+        //                     domainResource.Name,
+        //                     resourceProperty.ParentFullName.Name);
+        //             }
+        //         }
+        //     }
+        // }
 
         private string CreateMemberXPath(string profileName, string resourceName, string memberType)
-            => string.Format(
-                "//Profile[@name='{0}']//Resource[@name='{1}']/{2}//{4}|//Profile[@name='{0}']//Resource[@name='{1}']/{3}//{4}",
-                profileName,
-                resourceName,
-                "ReadContentType",
-                "WriteContentType",
-                memberType);
+            => $"//Profile[@name='{profileName}']/Resource[@name='{resourceName}']/{ReadContentType}/{memberType}|"
+                + $"//Profile[@name='{profileName}']/Resource[@name='{resourceName}']/{WriteContentType}/{memberType}";
 
         private List<XElement> GetXElementsFromXPath(string xPath)
             => DocumentToValidate.XPathSelectElements(xPath)
@@ -206,10 +142,10 @@ namespace EdFi.Ods.CodeGen.Metadata
 
     public class DuplicateProfileException : MetadataValidationException<Profile>
     {
-        private const string ExceptionMessage = @"There are duplicate profiles detected in Profiles.xml";
+        private const string ExceptionMessage = @"The following profile names are not unique within Profiles.xml: '{0}'";
 
-        public DuplicateProfileException()
-            : base(ExceptionMessage) { }
+        public DuplicateProfileException(string[] duplicateProfileNames)
+            : base(string.Format(ExceptionMessage, string.Join("', '", duplicateProfileNames))) { }
     }
 
     public class InvalidResourceException : MetadataValidationException<Profile>

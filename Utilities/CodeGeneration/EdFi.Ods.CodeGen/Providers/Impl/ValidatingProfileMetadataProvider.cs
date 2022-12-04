@@ -8,29 +8,43 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
 using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Schemas;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Utils.Profiles;
+using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class ValidatingProfileMetadataProvider : IProfileMetadataProvider, IProfileResourceNamesProvider
     {
+        private readonly IProfileValidationReporter _profileValidationReporter;
         private readonly Lazy<Profile[]> _codeGenProfiles;
         private readonly Lazy<IDictionary<string, XElement>> _profileDefinitionByName;
-        private readonly Lazy<List<ProfileAndResourceNames>> _profileResources;
+        private readonly Lazy<List<ProfileAndResourceNames>> _profileResourceNames;
         private readonly Lazy<XDocument> _profileXDoc;
         private readonly ResourceModel _resourceModel;
+        private Lazy<ProfilesAppliedResourceModel> _readableProfileResourceModel;
+        private Lazy<ProfilesAppliedResourceModel> _writableProfileResourceModel;
 
-        public ValidatingProfileMetadataProvider(string profilePath, IResourceModelProvider resourceModelProvider)
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ValidatingProfileMetadataProvider));
+
+        public ValidatingProfileMetadataProvider(
+            string profilePath,
+            IResourceModelProvider resourceModelProvider,
+            IProfileValidationReporter profileValidationReporter)
         {
             if (profilePath == null)
             {
                 throw new ArgumentNullException(nameof(profilePath));
             }
+
+            _profileValidationReporter = profileValidationReporter;
 
             if (!Directory.Exists(profilePath))
             {
@@ -43,42 +57,43 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             }
 
             _resourceModel = resourceModelProvider.GetResourceModel();
-            _profileDefinitionByName = new Lazy<IDictionary<string, XElement>>(LazyInitializeProfileDefinitions);
+
+            _profileDefinitionByName = new Lazy<IDictionary<string, XElement>>(LazyInitializeProfileDefinitionByName);
             _profileXDoc = new Lazy<XDocument>(() => MetadataHelper.GetProfilesXDocument(profilePath));
-            _profileResources = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResources);
 
-            _codeGenProfiles = new Lazy<Profile[]>(
-                () => MetadataHelper.GetProfiles(ProfileXDocument)
-                    .Profile);
+            _profileResourceNames = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResourceNames);
+
+            _readableProfileResourceModel = new Lazy<ProfilesAppliedResourceModel>(
+                () => new ProfilesAppliedResourceModel(
+                    ContentTypeUsage.Readable,
+                    _profileXDoc.Value.XPathSelectElements("//Profile[Resource/ReadContentType]")
+                        .Select(p => new ProfileResourceModel(_resourceModel, p, _profileValidationReporter))
+                        .ToArray()));
+
+            _writableProfileResourceModel = new Lazy<ProfilesAppliedResourceModel>(
+                () => new ProfilesAppliedResourceModel(
+                    ContentTypeUsage.Writable,
+                    _profileXDoc.Value.XPathSelectElements("//Profile[Resource/WriteContentType]")
+                        .Select(p => new ProfileResourceModel(_resourceModel, p, _profileValidationReporter))
+                        .ToArray()));
         }
-
-        /// <summary>
-        /// Get the Profile elements from the deserialized XML profile for use in CodeGen
-        /// specific applications that use them.
-        /// </summary>
-        /// <returns></returns>
-        private Profile[] CodeGenProfiles => _codeGenProfiles.Value;
-
-        /// <summary>
-        /// Gets the underlying XDocument that represents the Profile.
-        /// </summary>
-        private XDocument ProfileXDocument => _profileXDoc.Value;
 
         /// <summary>
         /// Indicates that the instance has profile metadata data.
         /// </summary>
-        public bool HasProfileData
-            => ProfileXDocument.Nodes()
-                .Any();
-
+        public bool HasProfileData 
+        {
+            get => _profileXDoc.Value.Nodes().Any();
+        }
+        
         /// <summary>
         /// Gets the specified Profile definition by name.
         /// </summary>
-        public XElement GetProfileDefinition(string profileName)
+        XElement IProfileMetadataProvider.GetProfileDefinition(string profileName)
         {
             if (profileName == null)
             {
-                throw new ArgumentException("Null profile name provided.");
+                throw new ArgumentNullException(nameof(profileName));
             }
 
             return _profileDefinitionByName.Value.GetValueOrThrow(
@@ -86,18 +101,18 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 "Unable to find profile '{0}'.");
         }
 
-        List<ProfileAndResourceNames> IProfileResourceNamesProvider.GetProfileResourceNames() => _profileResources.Value;
+        List<ProfileAndResourceNames> IProfileResourceNamesProvider.GetProfileResourceNames() => _profileResourceNames.Value;
 
-        private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
+        private IDictionary<string, XElement> LazyInitializeProfileDefinitionByName()
         {
             if (!HasProfileData)
             {
-                throw new ArgumentException("Profile does not exist.");
+                throw new ("Profile document does not have any profile definitions.");
             }
 
             ValidateMetadata();
 
-            return ProfileXDocument
+            return _profileXDoc.Value
                 .Descendants("Profile")
                 .ToDictionary(
                     x => x.AttributeValue("name"),
@@ -106,7 +121,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         .InvariantCultureIgnoreCase);
         }
 
-        private List<ProfileAndResourceNames> LazyInitializeProfileResources()
+        private List<ProfileAndResourceNames> LazyInitializeProfileResourceNames()
             => _profileDefinitionByName.Value.Values
                 .SelectMany(GetProfileResources)
                 .ToList();
@@ -123,10 +138,59 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private void ValidateMetadata()
         {
-            MetadataHelper.ValidateProfileXml(ProfileXDocument.ToString());
+            MetadataHelper.ValidateProfileXml(_profileXDoc.Value.ToString());
+            
+            // Force creation of resource model
+            var readable = _readableProfileResourceModel.Value;
 
-            new ProfileMetadataValidator(_resourceModel, CodeGenProfiles, ProfileXDocument)
-                .ValidateMetadata();
+            // Force full iteration of the read content type
+            var allReadableMembers = readable.GetAllResources()
+                .SelectMany(r => r.AllContainedItemTypesOrSelf)
+                .SelectMany(
+                    rcb => rcb.Properties.Cast<ResourceMemberBase>()
+                        .Concat(rcb.Collections)
+                        .Concat(rcb.Extensions)
+                        .Concat(rcb.References)
+                        .Concat(rcb.EmbeddedObjects))
+                .ToArray();
+
+            var writable = _writableProfileResourceModel.Value;
+
+            // Force full iteration of the write content type
+            var allWritableMembers = writable.GetAllResources()
+                .SelectMany(r => r.AllContainedItemTypesOrSelf)
+                .SelectMany(
+                    rcb => rcb.Properties.Cast<ResourceMemberBase>()
+                        .Concat(rcb.Collections)
+                        .Concat(rcb.Extensions)
+                        .Concat(rcb.References)
+                        .Concat(rcb.EmbeddedObjects))
+                .ToArray();
+
+            if (_profileValidationReporter.ValidationFailures.Any())
+            {
+                var warnings = _profileValidationReporter.ValidationFailures
+                    .Where(e => e.Severity == ProfileValidationSeverity.Warning)
+                    .ToArray();
+
+                if (warnings.Any())
+                {
+                    _logger.Warn(
+                        $"Profile validation warnings occurred:{Environment.NewLine}{string.Join(Environment.NewLine, warnings.Select(e => e.Message))}");
+                }
+
+                var errors = _profileValidationReporter.ValidationFailures
+                    .Where(e => e.Severity == ProfileValidationSeverity.Error)
+                    .ToArray();
+
+                if (errors.Any())
+                {
+                    _logger.Error(
+                        $"Profile validation errors occurred:{Environment.NewLine}{string.Join(Environment.NewLine, errors.Select(e => e.Message))}");
+
+                    throw new Exception("Profile validation errors occured.");
+                }
+            }
         }
     }
 }

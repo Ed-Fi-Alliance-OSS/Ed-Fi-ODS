@@ -10,6 +10,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators
 {
@@ -27,15 +28,19 @@ namespace EdFi.Ods.CodeGen.Generators
             TemplateContext = Preconditions.ThrowIfNull(templateContext, nameof(templateContext));
             ResourceModelProvider = new ResourceModelProvider(TemplateContext.DomainModelProvider);
 
+            var profileValidationReporter = new ProfileValidationReporter();
+
             ValidatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
                 TemplateContext.ProjectPath,
-                ResourceModelProvider);
+                ResourceModelProvider,
+                profileValidationReporter);
 
             ProfileResourceNamesProvider = ValidatingProfileMetadataProvider;
 
             ProfileResourceModelProvider = new ProfileResourceModelProvider(
                 ResourceModelProvider,
-                ValidatingProfileMetadataProvider);
+                ValidatingProfileMetadataProvider,
+                profileValidationReporter);
 
             ProjectHasProfileDefinition = ValidatingProfileMetadataProvider.HasProfileData;
 
