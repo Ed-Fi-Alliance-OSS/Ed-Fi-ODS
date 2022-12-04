@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.Profiles;
 using EdFi.Ods.Api.Security.Profiles;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
@@ -35,6 +36,10 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<ProfileValidationReporter>()
+                .As<IProfileValidationReporter>()
                 .SingleInstance();
 
             builder.RegisterType<ProfileNamePublisher>()
