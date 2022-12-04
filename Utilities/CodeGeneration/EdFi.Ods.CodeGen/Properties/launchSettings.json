@@ -2,7 +2,7 @@
   "profiles": {
     "EdFi.CodeGen - SQLServer": {
       "commandName": "Project",
-      "commandLineArgs": "-e SQLServer"
+      "commandLineArgs": "-e SQLServer -i"
     },
     "EdFi.CodeGen - PostgreSQL": {
       "commandName": "Project",
