@@ -5,6 +5,7 @@
 
 using System;
 using System.Xml.Linq;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
@@ -13,6 +14,8 @@ namespace EdFi.Ods.Common.Models.Resource
     /// </summary>
     public class ProfileResourceContentTypes
     {
+        private readonly IProfileValidationReporter _profileValidationReporter;
+        
         private readonly Lazy<Resource> _readableResource;
         private readonly Lazy<Resource> _writableResource;
 
@@ -22,8 +25,10 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <param name="sourceResource">The source (underlying) resource.</param>
         /// <param name="resourceDefinition">The profile's definition for the resource.</param>
-        public ProfileResourceContentTypes(Resource sourceResource, XElement resourceDefinition)
+        public ProfileResourceContentTypes(Resource sourceResource, XElement resourceDefinition, IProfileValidationReporter profileValidationReporter)
         {
+            _profileValidationReporter = profileValidationReporter;
+
             _readableResource = new Lazy<Resource>(
                 () => GetResourceForContentType(sourceResource, resourceDefinition, "ReadContentType"));
 
@@ -47,7 +52,7 @@ namespace EdFi.Ods.Common.Models.Resource
             get { return _writableResource.Value; }
         }
 
-        private static Resource GetResourceForContentType(
+        private Resource GetResourceForContentType(
             Resource sourceResource,
             XElement resourceDefinition,
             string contentTypeElementName)
@@ -60,7 +65,7 @@ namespace EdFi.Ods.Common.Models.Resource
             }
 
             var filterContext = new FilterContext(
-                new ProfileResourceMembersFilterProvider(),
+                new ProfileResourceMembersFilterProvider(_profileValidationReporter),
                 contentTypeElt,
                 sourceResource);
 

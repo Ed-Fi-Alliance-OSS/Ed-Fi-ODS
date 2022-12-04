@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System;
+using System.Linq;
+using EdFi.Ods.Common.Models.Domain;
+
+namespace EdFi.Ods.Common.Models.Validation;
+
+public record struct ProfileValidationFailure(
+    ProfileValidationSeverity Severity,
+    string ProfileName,
+    FullName ResourceName,
+    FullName ResourceClassName,
+    string[] MemberNames,
+    string Message)
+{
+    public readonly bool Equals(ProfileValidationFailure other)
+        => Severity == other.Severity
+            && ProfileName == other.ProfileName
+            && ResourceName.Equals(other.ResourceName)
+            && ResourceClassName.Equals(other.ResourceClassName)
+            && (MemberNames.Length == other.MemberNames.Length && !MemberNames.Where((m, i) => other.MemberNames[i] != m).Any())
+            && Message == other.Message;
+
+    public override readonly int GetHashCode()
+        => HashCode.Combine(
+            (int)Severity,
+            ProfileName,
+            ResourceName,
+            ResourceClassName,
+            string.Join('|', MemberNames),
+            Message);
+}

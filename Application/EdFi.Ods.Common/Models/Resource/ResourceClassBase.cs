@@ -379,7 +379,7 @@ namespace EdFi.Ods.Common.Models.Resource
                           .Concat(
                                entity.BaseEntity != null
                                    ? entity.BaseEntity.NonNavigableParents
-                                   : new AssociationView[0])
+                                   : Array.Empty<AssociationView>())
                           .Where(a => !a.OtherEntity.IsDescriptorEntity) // Don't generate references associations to Types/Descriptors
                           .Select(
                                a => new Reference(

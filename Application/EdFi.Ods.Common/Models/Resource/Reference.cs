@@ -101,6 +101,17 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         /// <summary>
+        /// Indicates whether the reference forms part of the identity of the resource.
+        /// </summary>
+        public bool IsIdentifying
+        {
+            get
+            {
+                return Association?.IsIdentifying ?? false;
+            }
+        }
+
+        /// <summary>
         /// Get the properties for the current reference instance.
         /// </summary>
         public IEnumerable<ResourceProperty> Properties

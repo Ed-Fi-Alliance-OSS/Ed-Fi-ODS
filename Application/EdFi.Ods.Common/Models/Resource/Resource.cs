@@ -130,5 +130,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             get => "$";
         }
+
+        public override string ToString() => FullName.ToString();
     }
 }

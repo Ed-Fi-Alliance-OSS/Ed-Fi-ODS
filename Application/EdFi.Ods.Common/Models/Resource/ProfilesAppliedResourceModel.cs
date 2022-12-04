@@ -132,10 +132,10 @@ namespace EdFi.Ods.Common.Models.Resource
                     // then we can't continue because the resource is inaccessible.
                     if (allProfileResources.All(x => x == null))
                     {
+                        var profileNames = _profileResourceModels.Select(m => m.ProfileName);
+                            
                         throw new ProfileContentTypeException(
-                            string.Format(
-                                "There is no {0} content type available to the caller for the requested resource.",
-                                _usage));
+                                $"There is no {_usage} content type available to the caller for the '{fullName}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
                     }
 
                     // Return all the profile-filtered versions of the resource

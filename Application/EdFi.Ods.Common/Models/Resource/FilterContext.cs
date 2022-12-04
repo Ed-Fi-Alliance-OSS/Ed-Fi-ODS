@@ -11,7 +11,7 @@ namespace EdFi.Ods.Common.Models.Resource
 {
     public class FilterContext
     {
-        public static readonly FilterContext NullFilterContext = new FilterContext();
+        public static readonly FilterContext NullFilterContext = new();
         private readonly IResourceMembersFilterProvider _filterProvider;
 
         private FilterContext() { }
@@ -20,7 +20,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             if (filterProvider == null)
             {
-                throw new ArgumentNullException("filterProvider");
+                throw new ArgumentNullException(nameof(filterProvider));
             }
 
             _filterProvider = filterProvider;
@@ -43,7 +43,7 @@ namespace EdFi.Ods.Common.Models.Resource
             {
                 if (_filterProvider == null)
                 {
-                    return new IncludeAllMemberFilter();
+                    return IncludeAllMemberFilter.Instance;
                 }
 
                 return _filterProvider.GetMemberFilter(UnfilteredResourceClass, Definition);
@@ -65,8 +65,7 @@ namespace EdFi.Ods.Common.Models.Resource
                 return this;
             }
 
-            var logicalName = schemaNameMapProvider.GetSchemaMapByProperCaseName(properCaseName)
-                                                   .LogicalName;
+            var logicalName = schemaNameMapProvider.GetSchemaMapByProperCaseName(properCaseName).LogicalName;
 
             var extensionDefinition = Definition.XPathSelectElement(
                 $"Extension[@name='{logicalName}']");
@@ -76,9 +75,7 @@ namespace EdFi.Ods.Common.Models.Resource
                 return null;
             }
 
-            Extension extensionMember;
-
-            if (!UnfilteredResourceClass.ExtensionByName.TryGetValue(properCaseName, out extensionMember))
+            if (!UnfilteredResourceClass.ExtensionByName.TryGetValue(properCaseName, out Extension extensionMember))
             {
                 throw new Exception(
                     $"Unable to find extension '{properCaseName}' of resource class '{UnfilteredResourceClass.Name}'.");
@@ -104,9 +101,7 @@ namespace EdFi.Ods.Common.Models.Resource
                 return null;
             }
 
-            ResourceMemberBase childResourceMember;
-
-            if (!UnfilteredResourceClass.MemberByName.TryGetValue(childMemberName, out childResourceMember))
+            if (!UnfilteredResourceClass.MemberByName.TryGetValue(childMemberName, out ResourceMemberBase childResourceMember))
             {
                 throw new Exception(
                     $"Unable to find member '{childMemberName}' of resource class '{UnfilteredResourceClass.Name}'.");
