@@ -14,7 +14,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="EdFi.Suite3.Ods.Extensions.Sample" Version="7.0.36" />
     <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
@@ -22,10 +21,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Marker_EdFi_Ods_Profiles_Test.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
     <Content Include="assemblyMetadata.json" />
   </ItemGroup>
   <ItemGroup>
