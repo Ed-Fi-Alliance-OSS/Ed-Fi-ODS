@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
-  BUILD_INCREMENTER: "4"
+  INFORMATIONAL_VERSION: "7.0"
+  BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
