@@ -6,16 +6,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Profiles;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
-    // NOTE: This should be used as a transient object, or the Lazy implementation of the _underlyingResourceModel assignment will need to be reworked.
-    public class ProfilesAppliedResourceModel : IResourceModel
+    /// <summary>
+    /// Implements a resource model that represents a set of profile-constrained resources, and should be explicitly disposed
+    /// if used alongside other profiles or the main resource model in the same <see cref="CallContext" /> (such as during code generation).
+    /// </summary>
+    public class ProfilesAppliedResourceModel : IResourceModel, IDisposable
     {
+        // NOTE: This should be used as a transient object, or the Lazy implementation of the _underlyingResourceModel assignment will need to be reworked.
+
         private readonly ProfilesAppliedResourceSelector _resourceSelector;
+        private readonly ResourceModel _profileResourceModel;
 
         public ProfilesAppliedResourceModel(
             ContentTypeUsage usage,
@@ -35,13 +41,13 @@ namespace EdFi.Ods.Common.Models.Resource
 
             _resourceSelector = new ProfilesAppliedResourceSelector(profileResourceModels, usage);
 
-            var resourceModel = profileResourceModels.First()
-                                                     .ResourceModel;
+            _profileResourceModel = profileResourceModels.First()
+                .ResourceModel;
 
-            SchemaNameMapProvider = resourceModel.SchemaNameMapProvider;
+            SchemaNameMapProvider = _profileResourceModel.SchemaNameMapProvider;
 
             // Assign the current selector as the contextual selector
-            _resourceSelector.UnderlyingResourceSelector = ((IHasContextualResourceSelector) resourceModel)
+            _resourceSelector.UnderlyingResourceSelector = ((IHasContextualResourceSelector) _profileResourceModel)
                .SetContextualResourceSelector(_resourceSelector);
         }
 
@@ -146,6 +152,14 @@ namespace EdFi.Ods.Common.Models.Resource
 
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Eliminates the contextual resource selector to revert back to usage of the main resource model.
+        /// </summary>
+        public void Dispose()
+        {
+            ((IHasContextualResourceSelector) _profileResourceModel).SetContextualResourceSelector(null);
         }
     }
 }
