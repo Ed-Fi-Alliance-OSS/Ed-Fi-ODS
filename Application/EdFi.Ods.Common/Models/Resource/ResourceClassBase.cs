@@ -772,7 +772,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// <returns>
         /// A string that represents the current object.
         /// </returns>
-        public override string ToString() => Name;
+        public override string ToString() => FullName.ToString();
 
         public bool IsDeprecated { get; set; }
 
