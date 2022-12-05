@@ -141,7 +141,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             MetadataHelper.ValidateProfileXml(_profileXDoc.Value.ToString());
             
             // Force creation of resource model
-            var readable = _readableProfileResourceModel.Value;
+            using var readable = _readableProfileResourceModel.Value;
 
             // Force full iteration of the read content type
             var allReadableMembers = readable.GetAllResources()
@@ -154,7 +154,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         .Concat(rcb.EmbeddedObjects))
                 .ToArray();
 
-            var writable = _writableProfileResourceModel.Value;
+            using var writable = _writableProfileResourceModel.Value;
 
             // Force full iteration of the write content type
             var allWritableMembers = writable.GetAllResources()
