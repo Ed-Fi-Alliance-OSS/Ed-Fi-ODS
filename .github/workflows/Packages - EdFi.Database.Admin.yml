@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
@@ -86,7 +86,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/NugetPackages"
         $AdminNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.nuspec"
         $AdminBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.BACPAC.nuspec"
         $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.PostgreSQL.nuspec"

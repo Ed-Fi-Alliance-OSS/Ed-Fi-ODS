@@ -14,7 +14,7 @@ on:
       - main
   workflow_dispatch:
 env:
-  INFORMATIONAL_VERSION: "6.1"
+  INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
