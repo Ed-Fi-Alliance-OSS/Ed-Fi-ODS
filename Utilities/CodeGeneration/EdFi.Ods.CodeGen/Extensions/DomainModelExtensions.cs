@@ -115,42 +115,11 @@ namespace EdFi.Ods.CodeGen.Extensions
                 case DbType.Decimal:
 
                     return string.Format(
-                        "[Range(typeof(decimal), \"-{0}\", \"{1}\")]",
-                        property.EntityProperty.PropertyType.MinValue.HasValue
-                            ? property.EntityProperty.PropertyType.MinValue.Value
-                            : string.Format(
-                                "{0}.{1}",
-                                new string(
-                                    '9',
-                                    property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale),
-                                new string('9', property.EntityProperty.PropertyType.Scale)),
-                        property.EntityProperty.PropertyType.MaxValue.HasValue
-                            ? property.EntityProperty.PropertyType.MaxValue.Value
-                            : string.Format(
-                                "{0}.{1}",
-                                new string(
-                                    '9',
-                                    property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale),
-                                new string('9', property.EntityProperty.PropertyType.Scale)));
-
-                case DbType.Int32:
-
-                    return string.Format(
-                        "[Range(typeof(Int32), \"-{0}\", \"{1}\")]",
-                        property.EntityProperty.PropertyType.MinValue.HasValue
-                            ? property.EntityProperty.PropertyType.MinValue.Value
-                            : string.Format(
-                                "{0}",
-                                new string(
-                                    '9',
-                                    property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale)),
-                        property.EntityProperty.PropertyType.MaxValue.HasValue
-                            ? property.EntityProperty.PropertyType.MaxValue.Value
-                            : string.Format(
-                                "{0}",
-                                new string(
-                                    '9',
-                                    property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale)));
+                        "[Range(typeof(decimal), \"-{0}.{1}\", \"{0}.{1}\")]",
+                        new string(
+                            '9',
+                            property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale),
+                        new string('9', property.EntityProperty.PropertyType.Scale));
 
                 case DbType.Currency:
                     return "[Range(typeof(decimal), \"-922337203685477.5808\", \"922337203685477.5807\")]";
