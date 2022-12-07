@@ -234,7 +234,9 @@ namespace EdFi.Ods.Common.Models.Resource
                 propertyType.MaxLength,
                 propertyType.Precision,
                 propertyType.Scale,
-                propertyType.IsNullable);
+                propertyType.IsNullable,
+                propertyType.MinValue,
+                propertyType.MaxValue);
         }
 
         private static PropertyType GetBasePersonUniqueIdPropertyType(EntityProperty property)
