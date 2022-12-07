@@ -65,7 +65,7 @@ namespace EdFi.Ods.Api.Security.Authentication
             
             if (firstRow == null)
             {
-                return null;
+                return new ApiClientDetails();
             }
 
             var apiClientDetails = new ApiClientDetails

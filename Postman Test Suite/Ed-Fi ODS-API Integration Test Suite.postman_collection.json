@@ -1,11 +1,914 @@
 {
 	"info": {
-		"_postman_id": "dc652c0b-5efc-4042-b7e5-0e5da7f315d5",
+		"_postman_id": "39d18015-ee11-43b0-8d79-d473e80ca76a",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Authenicate API Client Key/Secret",
+			"item": [
+				{
+					"name": "Valid Key/Secret Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a access_token\", () => {\r",
+									"  const responseItem = pm.response.text();\r",
+									"  pm.expect(responseItem).to.contains(\"access_token\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ApiSecret_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ApiKey_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid Key/Secret with EdorgID Scope Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a access_token\", () => {\r",
+									"  const responseItem = pm.response.text();\r",
+									"  pm.expect(responseItem).to.contains(\"access_token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a scope\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.scope).to.equal(\"255901\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ApiSecret_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ApiKey_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								},
+								{
+									"key": "scope",
+									"value": "255901",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Non Exist Key Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_client\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_client\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "non-existing-password",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "non-existing-key",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exist Key -Mismatch Secret Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_client\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_client\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{ApiKey_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "non-existing-password",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Empty Key/Secret Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_request\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_request\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong Basic Authorization Type Format Auth Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_request\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_request\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic Test Test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Wrong  AuthorizationType Auth Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_client\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_client\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Test Test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unsupported GrantType Auth Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a unsupported_grant_type\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"unsupported_grant_type\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ApiSecret_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ApiKey_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Test Test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "server_credentials",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InvalidScope Auth Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_scope\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_scope\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return error description The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'.\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error_description).to.equal(\"The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ApiSecret_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ApiKey_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Test Test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								},
+								{
+									"key": "scope",
+									"value": "343",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "InvalidScope with wrong EdorgId  Auth Request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {\r",
+									"  pm.expect(pm.response.code).to.equal(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return a invalid_scope\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error).to.equal(\"invalid_scope\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Should return error description The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\", () => {\r",
+									"  const responseItem = pm.response.json();\r",
+									"  pm.expect(responseItem.error_description).to.equal(\"The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client).\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{ApiSecret_255901}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{ApiKey_255901}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Test Test",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mode",
+									"value": "urlencoded",
+									"type": "default"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "default"
+								},
+								{
+									"key": "scope",
+									"value": "test",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8765/oauth/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Health Check",
 			"item": [
