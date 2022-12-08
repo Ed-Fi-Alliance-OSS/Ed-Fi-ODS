@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
@@ -37,7 +38,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                     new[]
                     {
                         new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
-                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.String), null, true)
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.String), null, true),
+                        new EntityPropertyDefinition("Property1", new PropertyType(DbType.String), null, false)
                     },
                     new[]
                     {
@@ -50,6 +52,85 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                             isPrimary: true)
                     }));
 
+            domainModelBuilder.AddEntity(
+                new EntityDefinition(
+                    "schema1",
+                    "TestEntityChild",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("ChildKeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("ChildProperty1", new PropertyType(DbType.Int32), null, false),
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1",
+                                "KeyProperty2",
+                                "ChildKeyProperty1"
+                            })
+                    }));
+
+            domainModelBuilder.AddAssociation(
+                new AssociationDefinition(
+                    "schema1.FK_TestEntityChild_TestEntity",
+                    Cardinality.OneToZeroOrMore,
+                    "schema1.TestEntity",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.String), null, true),
+                    },
+                    "schema1.TestEntityChild",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.String), null, true),
+                    },
+                    true,
+                    true));
+            
+            domainModelBuilder.AddEntity(
+                new EntityDefinition(
+                    "schema1",
+                    "TestEntityChild2",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("Property1", new PropertyType(DbType.Int32), null, false),
+                        new EntityPropertyDefinition("Property2", new PropertyType(DbType.Int32), null, false),
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1",
+                                "KeyProperty2",
+                            })
+                    }));
+
+            domainModelBuilder.AddAssociation(
+                new AssociationDefinition(
+                    "schema1.FK_TestEntityChild2_TestEntity",
+                    Cardinality.OneToOne,
+                    "schema1.TestEntity",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.String), null, true),
+                    },
+                    "schema1.TestEntityChild2",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.String), null, true),
+                    },
+                    true,
+                    true));
+            
             domainModelBuilder.AddEntity(
                 new EntityDefinition(
                     "schema1",
@@ -93,9 +174,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             domainModelBuilder.AddAggregate(
                 new AggregateDefinition(
                     new FullName("schema1", "TestEntity"),
-                    new[]
+                    new FullName[]
                     {
-                        new FullName("schema1", "TestEntity")
+                        "schema1.TestEntity",
+                        "schema1.TestEntityChild",
+                        "schema1.TestEntityChild2",
                     }));
 
             //Add aggregate for reference of TestEntity
@@ -357,12 +440,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = new Resource_Resource("TestResource");
 
-                var filterProvider = new ProfileResourceMembersFilterProvider();
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                var filterProvider = new ProfileResourceMembersFilterProvider(profileValidationReporter);
 
                 var definition = XElement.Parse(
                     @"
-<ClassDefinition name='TestResource' memberSelection='IncludeAll'>
-</ClassDefinition>");
+<ReadContentType memberSelection='IncludeAll'>
+</ReadContentType>");
 
                 _actualMemberFilter = filterProvider.GetMemberFilter(_suppliedResource, definition);
             }
@@ -401,16 +486,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 _suppliedResource = GetTestResource();
 
                 // Execute code under test
-                var filterProvider = new ProfileResourceMembersFilterProvider();
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                var filterProvider = new ProfileResourceMembersFilterProvider(profileValidationReporter);
 
                 var definition = XElement.Parse(
                     @"
-<ClassDefinition name='TestResource' memberSelection='IncludeOnly'>
-    <Property name='IncludedProperty1' />
-    <Property name='IncludedPropertyWithExpansionOnUSI' />
-    <Object name='IncludedObject1' />
-    <Collection name='IncludedCollection1' />
-</ClassDefinition>");
+<ReadContentType memberSelection='IncludeOnly'>
+    <Property name='Property1' />
+    <Object name='TestEntityChild2' />
+    <Collection name='TestEntityChildren' />
+</ReadContentType>");
 
                 _actualMemberFilter = filterProvider.GetMemberFilter(_suppliedResource, definition);
             }
@@ -445,17 +531,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             [Assert]
             public void Should_include_the_explicitly_included_property_names()
             {
-                Assert.That(_actualMemberFilter.ShouldInclude("IncludedProperty1"));
-                Assert.That(_actualMemberFilter.ShouldInclude("IncludedObject1"));
-                Assert.That(_actualMemberFilter.ShouldInclude("IncludedCollection1"));
-            }
-
-            [Assert]
-            public void Should_include_UniqueId_property_based_on_USI_name_expansion()
-            {
-                // NOTE: GKM - Not sure why this behavior is present, but leaving it intact.
-                Assert.That(_actualMemberFilter.ShouldInclude("IncludedPropertyWithExpansionOnUSI"));
-                Assert.That(_actualMemberFilter.ShouldInclude("IncludedPropertyWithExpansionOnUniqueId"));
+                Assert.That(_actualMemberFilter.ShouldInclude("Property1"));
+                Assert.That(_actualMemberFilter.ShouldInclude("TestEntityChild2"));
+                Assert.That(_actualMemberFilter.ShouldInclude("TestEntityChildren"));
             }
 
             [Assert]
@@ -476,16 +554,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = GetTestResource();
 
-                var filterProvider = new ProfileResourceMembersFilterProvider();
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                var filterProvider = new ProfileResourceMembersFilterProvider(profileValidationReporter);
 
                 var definition = XElement.Parse(
                     @"
-<ClassDefinition name='TestResource' memberSelection='ExcludeOnly'>
-    <Property name='ExcludedProperty1' />
-    <Property name='ExcludedPropertyWithExpansionOnUSI' />
-    <Object name='ExcludedObject1' />
-    <Collection name='ExcludedCollection1' />
-</ClassDefinition>");
+<ReadContentType memberSelection='ExcludeOnly'>
+    <Property name='Property1' />
+    <Object name='TestEntityChild2' />
+    <Collection name='TestEntityChildren' />
+</ReadContentType>");
 
                 _actualMemberFilter = filterProvider.GetMemberFilter(_suppliedResource, definition);
             }
@@ -520,17 +599,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             [Assert]
             public void Should_exclude_the_explicitly_excluded_property_names()
             {
-                Assert.That(_actualMemberFilter.ShouldInclude("ExcludedProperty1"), Is.False);
-                Assert.That(_actualMemberFilter.ShouldInclude("ExcludedObject1"), Is.False);
-                Assert.That(_actualMemberFilter.ShouldInclude("ExcludedCollection1"), Is.False);
-            }
-
-            [Assert]
-            public void Should_exclude_UniqueId_property_based_on_USI_name_expansion()
-            {
-                // NOTE: GKM - Not sure why this behavior is present, but leaving it intact.
-                Assert.That(_actualMemberFilter.ShouldInclude("ExcludedPropertyWithExpansionOnUSI"), Is.False);
-                Assert.That(_actualMemberFilter.ShouldInclude("ExcludedPropertyWithExpansionOnUniqueId"), Is.False);
+                Assert.That(_actualMemberFilter.ShouldInclude("Property1"), Is.False);
+                Assert.That(_actualMemberFilter.ShouldInclude("TestEntityChild2"), Is.False);
+                Assert.That(_actualMemberFilter.ShouldInclude("TestEntityChildren"), Is.False);
             }
 
             [Assert]
@@ -551,7 +622,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = GetTestResourceForWithAnExtension();
 
-                var filterProvider = new ProfileResourceMembersFilterProvider();
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                var filterProvider = new ProfileResourceMembersFilterProvider(profileValidationReporter);
 
                 var definition = XElement.Parse(
                     @"

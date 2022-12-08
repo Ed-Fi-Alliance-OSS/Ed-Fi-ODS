@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -150,7 +152,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                 A.CallTo(() => resourceModelProvider.GetResourceModel())
                     .Returns(GetTestResourceModel());
 
-                profileresourceModelProvider = new ProfileResourceModelProvider(resourceModelProvider, profileMetadaProvider);
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+
+                profileresourceModelProvider = new ProfileResourceModelProvider(
+                    resourceModelProvider,
+                    profileMetadaProvider,
+                    profileValidationReporter);
             }
 
             protected override void Act()

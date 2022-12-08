@@ -9,7 +9,9 @@ using System.Xml.Linq;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
 using Resource_Resource = EdFi.Ods.Common.Models.Resource.Resource;
@@ -75,10 +77,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </WriteContentType>
 </Resource>");
 
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 _actualProfileResourceContentTypes =
                     new ProfileResourceContentTypes(
                         GetTestResource(),
-                        resourceDefinition);
+                        resourceDefinition,
+                        profileValidationReporter);
             }
 
             [Assert]
@@ -129,10 +134,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </ReadContentType>
 </Resource>");
 
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 _actualProfileResourceContentTypes =
                     new ProfileResourceContentTypes(
                         GetTestResource(),
-                        resourceDefinition);
+                        resourceDefinition,
+                        profileValidationReporter);
             }
 
             [Assert]
@@ -173,10 +181,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </WriteContentType>
 </Resource>");
 
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 _actualProfileResourceContentTypes =
                     new ProfileResourceContentTypes(
                         GetTestResource(),
-                        resourceDefinition);
+                        resourceDefinition,
+                        profileValidationReporter);
             }
 
             [Assert]

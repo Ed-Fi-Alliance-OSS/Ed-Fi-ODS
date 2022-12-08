@@ -14,8 +14,10 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
@@ -342,8 +344,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 string profileDefinition =
                     @"<Profile name='Test-ParentNonAbstractBaseClass-ExcludeOnly'> <Resource name='StudentSpecialEducationProgramAssociation'> <ReadContentType memberSelection='ExcludeOnly'> <Property name='SpecialEducationHoursPerWeek'/> </ReadContentType> <WriteContentType memberSelection='IncludeAll'/> </Resource> <Resource name='Staff'> <ReadContentType memberSelection='IncludeOnly'> <Extension name='GrandBend'  memberSelection='IncludeOnly' logicalSchema='GrandBend'> <Property name='Tenured'/> </Extension> </ReadContentType> <WriteContentType memberSelection='IncludeAll' /> </Resource> <Resource name='StudentProgramAssociation'> <ReadContentType memberSelection='IncludeOnly'/> </Resource> </Profile>";
 
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 var profileResourceModel = new ProfileResourceModel(
-                    ResourceModelProvider.GetResourceModel(), XElement.Parse(profileDefinition));
+                    ResourceModelProvider.GetResourceModel(), XElement.Parse(profileDefinition), profileValidationReporter);
 
                 var readableResourceModel = profileResourceModel.ResourceByName.Values.Where(r => r.Readable != null);
                 var writableResourceModel = profileResourceModel.ResourceByName.Values.Where(r => r.Writable != null);

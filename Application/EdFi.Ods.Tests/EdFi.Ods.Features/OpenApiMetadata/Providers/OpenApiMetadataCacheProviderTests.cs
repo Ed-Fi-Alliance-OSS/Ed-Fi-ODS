@@ -16,7 +16,12 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
+using EdFi.Ods.Common.Metadata.Profiles;
+using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
+using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Composites.Test;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.Composites;
@@ -125,7 +130,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var openApiContentProviders = new List<IOpenApiContentProvider>();
 
-                var compositesMetadataProvider = new CompositesMetadataProvider();
+                ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
+                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider() };
+
+                var compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
@@ -355,10 +363,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 A.CallTo(() => _compositesMetadataProvider.GetAllCategories())
                     .Returns(new List<CompositeCategory>());
 
-                _profileResourceNamesProvider = new ProfileResourceNamesProvider();
+                IProfilesMetadataStreamsProvider[] profileMetadataStreamsProviders =
+                {
+                    new AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider()
+                };
+                
+                var profileResourceMetadataProvider = new ProfileMetadataProvider(
+                    ResourceModelProvider,
+                    profileMetadataStreamsProviders);
 
+                _profileResourceNamesProvider = profileResourceMetadataProvider;
+                
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 _profileResourceModelProvider = new ProfileResourceModelProvider(
-                    ResourceModelProvider, new ProfileResourceNamesProvider());
+                    ResourceModelProvider,
+                    profileResourceMetadataProvider,
+                    profileValidationReporter);
 
                 var _openAPIMetadataRouteInformation = Stub<List<IOpenApiMetadataRouteInformation>>();
                 var _openApiContentProviders = Stub<List<IOpenApiContentProvider>>();
@@ -434,13 +455,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Arrange()
             {
-                _compositesMetadataProvider = new CompositesMetadataProvider();
+                ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
+                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider() };
+                
+                _compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var apiSettings = CreateApiSettings();
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
-                _compositesMetadataProvider = new CompositesMetadataProvider();
+                _compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
@@ -452,7 +476,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var openapicontentproviderlist = new List<IOpenApiContentProvider>();
 
-                var compositemetadataprovider = new CompositesMetadataProvider();
+                var compositemetadataprovider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
@@ -552,7 +576,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var openapicontentproviderlist = new List<IOpenApiContentProvider>();
 
-                var compositemetadataprovider = new CompositesMetadataProvider();
+                ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
+                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider() };
+
+                var compositemetadataprovider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 

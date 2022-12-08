@@ -8,9 +8,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.TestFixture;
 using FluentValidation.Results;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
@@ -26,19 +28,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
 
             private readonly XDocument _validCompositeDefinition = XDocument.Parse(
                 @"<?xml version='1.0' encoding='utf-8'?>
-                                                        <CompositeMetadata organizationCode='OrganizationCode'>
-                                                          <Category displayName='Test' name='test'>
-                                                            <Routes>      
-                                                            </Routes>
-                                                            <Composites>
-                                                              <Composite name='CompositeName'>
-                                                                <BaseResource name='TestResource'>
-                                                                  <Property name='TestProperty' />
-                                                                </BaseResource>
-                                                              </Composite>
-                                                            </Composites>
-                                                          </Category>
-                                                        </CompositeMetadata>");
+                <CompositeMetadata organizationCode='OrganizationCode'>
+                  <Category displayName='Test' name='test'>
+                    <Routes>      
+                    </Routes>
+                    <Composites>
+                      <Composite name='CompositeName'>
+                        <BaseResource name='TestResource'>
+                          <Property name='TestProperty' />
+                        </BaseResource>
+                      </Composite>
+                    </Composites>
+                  </Category>
+                </CompositeMetadata>");
 
             protected override void Arrange()
             {
@@ -61,30 +63,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
             }
         }
 
-        public class When_validating_composite_metadata_documents_and_validation_exceptions_exist : TestFixtureBase
+        public class When_validating_composite_metadata_documents_and_validation_exceptions_exist_with_no_organization_code_defined : TestFixtureBase
         {
             private CompositeMetadataValidator _compositeMetadataValidator;
             private ValidationResult _validationResult;
 
             private readonly XDocument _invalidCompositeDefinition = XDocument.Parse(
                 @"<?xml version='1.0' encoding='utf-8'?>
-                                                        <CompositeMetadata organizationCode='OrganizationCode'>
-                                                          <Category displayName='Test' name='test'>
-                                                            <Routes>      
-                                                            </Routes>
-                                                            <Composites>
-                                                              <InvalidElment name='CompositeName'>
-                                                                <BaseResource name='TestResource'>
-                                                                  <Property name='TestProperty' />
-                                                                </BaseResource>
-                                                              </InvalidElment>
-                                                            </Composites>
-                                                          </Category>
-                                                        </CompositeMetadata>");
+                <CompositeMetadata>
+                  <Category displayName='Test' name='test'>
+                    <Routes>
+                    </Routes>
+                    <Composites>
+                      <InvalidElment name='CompositeName'>
+                        <BaseResource name='TestResource'>
+                          <Property name='TestProperty' />
+                        </BaseResource>
+                      </InvalidElment>
+                    </Composites>
+                  </Category>
+                </CompositeMetadata>");
 
             protected override void Arrange()
             {
-                _invalidCompositeDefinition.AddAnnotation("PathToCompositeDefinition");
                 _compositeMetadataValidator = new CompositeMetadataValidator();
             }
 
@@ -94,23 +95,97 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
             }
 
             [Test]
-            public void Should_return_an_invalid_validation_result_containing_validation_errors_and_path_to_invalid_composite_definitoin()
+            public void Should_return_an_invalid_validation_result_containing_validation_errors_with_categories_and_org_code_in_each_error_label()
             {
-                AssertHelper.All(
-                    () => { Assert.That(_validationResult.IsValid, Is.False); },
-                    () =>
-                    {
-                        Assert.That(
-                            _validationResult.Errors.First()
-                                .ErrorMessage.Contains("PathToCompositeDefinition"));
-                    },
-                    () =>
-                    {
-                        Assert.That(
-                            _validationResult.Errors.First()
-                                .ErrorMessage.Contains("The element 'Composites' has invalid child element 'InvalidElment'"));
-                    }
-                );
+                _validationResult.ShouldSatisfyAllConditions(
+                    () => _validationResult.IsValid.ShouldBeFalse(),
+                    () => _validationResult.Errors.First().ErrorMessage.ShouldStartWith("Test: The required attribute 'organizationCode' is missing."));
+            }
+        }
+
+        public class When_validating_composite_metadata_documents_and_validation_exceptions_exist_with_a_single_composite_category_defined : TestFixtureBase
+        {
+            private CompositeMetadataValidator _compositeMetadataValidator;
+            private ValidationResult _validationResult;
+
+            private readonly XDocument _invalidCompositeDefinition = XDocument.Parse(
+                @"<?xml version='1.0' encoding='utf-8'?>
+                <CompositeMetadata organizationCode='OrganizationCode'>
+                  <Category displayName='Test' name='test'>
+                    <Routes>
+                    </Routes>
+                    <Composites>
+                      <InvalidElment name='CompositeName'>
+                        <BaseResource name='TestResource'>
+                          <Property name='TestProperty' />
+                        </BaseResource>
+                      </InvalidElment>
+                    </Composites>
+                  </Category>
+                </CompositeMetadata>");
+
+            protected override void Arrange()
+            {
+                // _invalidCompositeDefinition.AddAnnotation("PathToCompositeDefinition");
+                _compositeMetadataValidator = new CompositeMetadataValidator();
+            }
+
+            protected override void Act()
+            {
+                _validationResult = _compositeMetadataValidator.Validate(_invalidCompositeDefinition);
+            }
+
+            [Test]
+            public void Should_return_an_invalid_validation_result_containing_validation_errors_with_categories_and_org_code_in_each_error_label()
+            {
+                _validationResult.ShouldSatisfyAllConditions(
+                    () => _validationResult.IsValid.ShouldBeFalse(),
+                    () => _validationResult.Errors.First().ErrorMessage.ShouldStartWith("Test (OrganizationCode):"),
+                    () => _validationResult.Errors.First().ErrorMessage.ShouldContain("The element 'Composites' has invalid child element 'InvalidElment'"));
+            }
+        }
+
+        public class When_validating_composite_metadata_documents_and_validation_exceptions_exist_with_multiple_composite_categories_defined : TestFixtureBase
+        {
+            private CompositeMetadataValidator _compositeMetadataValidator;
+            private ValidationResult _validationResult;
+
+            private readonly XDocument _invalidCompositeDefinition = XDocument.Parse(
+                @"<?xml version='1.0' encoding='utf-8'?>
+                <CompositeMetadata organizationCode='OrganizationCode'>
+                  <Category displayName='Test' name='test'>
+                    <Routes>
+                    </Routes>
+                    <Composites>
+                      <InvalidElment name='CompositeName'>
+                        <BaseResource name='TestResource'>
+                          <Property name='TestProperty' />
+                        </BaseResource>
+                      </InvalidElment>
+                    </Composites>
+                  </Category>
+                  <Category displayName='Test2' name='test'>
+                  </Category>
+                </CompositeMetadata>");
+
+            protected override void Arrange()
+            {
+                // _invalidCompositeDefinition.AddAnnotation("PathToCompositeDefinition");
+                _compositeMetadataValidator = new CompositeMetadataValidator();
+            }
+
+            protected override void Act()
+            {
+                _validationResult = _compositeMetadataValidator.Validate(_invalidCompositeDefinition);
+            }
+
+            [Test]
+            public void Should_return_an_invalid_validation_result_containing_validation_errors_with_categories_and_org_code_in_each_error_label()
+            {
+                _validationResult.ShouldSatisfyAllConditions(
+                    () => _validationResult.IsValid.ShouldBeFalse(),
+                    () => _validationResult.Errors.First().ErrorMessage.ShouldStartWith("Test/Test2 (OrganizationCode):"),
+                    () => _validationResult.Errors.First().ErrorMessage.ShouldContain("The element 'Composites' has invalid child element 'InvalidElment'"));
             }
         }
     }

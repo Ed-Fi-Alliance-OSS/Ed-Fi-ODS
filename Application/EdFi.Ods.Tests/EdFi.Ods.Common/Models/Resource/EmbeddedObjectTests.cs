@@ -9,6 +9,8 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
+using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Composites.Test;
@@ -62,7 +64,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
 
-                var compositeMetadataProvider = new CompositesMetadataProvider();
+                ICompositesMetadataStreamsProvider[] streamsProviders = 
+                {
+                    new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider()
+                };
+                
+                var compositeMetadataProvider = new CompositesMetadataProvider(streamsProviders);
 
                 var resourceModel =
                     DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel()
