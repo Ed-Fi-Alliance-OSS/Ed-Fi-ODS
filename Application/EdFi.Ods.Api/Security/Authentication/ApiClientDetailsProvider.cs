@@ -59,6 +59,11 @@ namespace EdFi.Ods.Api.Security.Authentication
         
         private ApiClientDetails CreateApiClientDetails(IReadOnlyList<RawApiClientDetailsDataRow> apiClientRawDataRows)
         {
+            if(!apiClientRawDataRows.Any())
+            {
+                apiClientRawDataRows = null;
+            }
+
             ArgumentNullException.ThrowIfNull(apiClientRawDataRows);
 
             var firstRow = apiClientRawDataRows.FirstOrDefault();

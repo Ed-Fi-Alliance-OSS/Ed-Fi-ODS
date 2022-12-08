@@ -18,8 +18,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization;
 public class ApiClientDetailsProviderTests
 {
     [Test]
-    public async Task
-        When_Admin_database_returns_an_empty_set_of_raw_API_client_token_data_should_return_a_null_ApiClientDetails_reference()
+    public Task
+        When_Admin_database_returns_an_empty_set_of_raw_API_client_token_data_should_return_aargumentnullexception_ApiClientDetails_reference()
     {
         // Arrange
         var rawApiClientDetailsProvider = A.Fake<IEdFiAdminRawApiClientDetailsProvider>();
@@ -30,11 +30,13 @@ public class ApiClientDetailsProviderTests
         
         ApiClientDetailsProvider provider = new(rawApiClientDetailsProvider);
 
-        var actual = await provider.GetApiClientDetailsForTokenAsync(suppliedToken.ToString("N"));
+        var ex  = Assert.ThrowsAsync<ArgumentNullException>(async () =>  await provider.GetApiClientDetailsForTokenAsync(suppliedToken.ToString("N")));
 
-        actual.ShouldBeNull();
+        Assert.That(ex.Message, Is.EqualTo("Value cannot be null. (Parameter 'apiClientRawDataRows')"));
+
+        return Task.CompletedTask;
     }
-    
+
     [Test]
     public async Task
         When_token_is_not_parseable_as_a_GUID_should_return_a_null_ApiClientDetails_reference()
@@ -48,6 +50,7 @@ public class ApiClientDetailsProviderTests
         var actual = await provider.GetApiClientDetailsForTokenAsync("not-a-guid");
 
         actual.ShouldBeNull();
+
     }
 
     [Test]
