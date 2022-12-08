@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{4E45A4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Common", "..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj", "{499B084C-D905-47FB-B8A9-BFF715CCFF05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Common", "..\..\Application\Test.Common\Test.Common.csproj", "{E5895A75-94B8-4B70-992F-561484BFE3C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,12 +31,17 @@ Global
 		{499B084C-D905-47FB-B8A9-BFF715CCFF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{499B084C-D905-47FB-B8A9-BFF715CCFF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{499B084C-D905-47FB-B8A9-BFF715CCFF05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5895A75-94B8-4B70-992F-561484BFE3C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5895A75-94B8-4B70-992F-561484BFE3C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5895A75-94B8-4B70-992F-561484BFE3C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5895A75-94B8-4B70-992F-561484BFE3C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9ABFDC41-AC22-49FE-93BA-8E4EEC44B97C} = {4E45A485-D52E-442D-AF97-E5F371F3FCCC}
+		{E5895A75-94B8-4B70-992F-561484BFE3C1} = {4E45A485-D52E-442D-AF97-E5F371F3FCCC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9719C1CA-9453-495C-B918-4EBCFF2C1CE8}
