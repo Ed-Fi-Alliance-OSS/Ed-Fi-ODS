@@ -3,15 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Schema;
-using System.Xml.Serialization;
+using System.Linq;
+using System.Text;
 using EdFi.Ods.CodeGen.Providers.Impl;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Metadata.Schemas;
+using EdFi.Ods.Common.Metadata.Profiles;
+using EdFi.Ods.Common.Metadata.StreamProviders.Common;
+using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
+using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.CodeGen.Metadata
 {
@@ -28,81 +29,66 @@ namespace EdFi.Ods.CodeGen.Metadata
             _metadataFolderProvider = new MetadataFolderProvider(codeRepository);
         }
 
-        public static XDocument GetProfilesXDocument(string profilesMetadataPath)
+        private static IProfilesMetadataStreamsProvider GetStreamsProvider(string projectPath)
         {
-            // By convention, this should only look for a file called "Profiles.xml"
-            string xml = GetMetadataRawXml(profilesMetadataPath, "Profiles.xml");
+            string profilesFileName = Path.Combine(projectPath, "Profiles.xml");
 
-            if (xml == null)
+            if (File.Exists(profilesFileName))
             {
-                return new XDocument();
+                return new SingleFileMetadataStreamsProvider(profilesFileName);
             }
 
-            return XDocument.Parse(xml);
+            return new NullFileMetadatStreamsProvider();
         }
 
-        public static Profiles GetProfiles(XDocument profilesXDocument) => GetProfilesCore(profilesXDocument.ToString());
-
-        private static Profiles GetProfilesCore(string profilesXml)
+        private class NullFileMetadatStreamsProvider : IProfilesMetadataStreamsProvider
         {
-            if (profilesXml == null)
+            public IEnumerable<MetadataStream> GetStreams() => Array.Empty<MetadataStream>();
+        }
+        
+        private class SingleFileMetadataStreamsProvider : IProfilesMetadataStreamsProvider
+        {
+            private readonly string _fileName;
+
+            public SingleFileMetadataStreamsProvider(string fileName)
             {
-                return new Profiles {Profile = new Profile[0]};
+                _fileName = fileName;
             }
 
-            ValidateProfileXml(profilesXml);
-            var sr = new StringReader(profilesXml);
-            var serializer = new XmlSerializer(typeof(Profiles));
-            var profiles = (Profiles) serializer.Deserialize(sr);
-
-            return profiles;
-        }
-
-        public static void ValidateProfileXml(string profileXml)
-        {
-            ValidateRawXml(profileXml, "profiles", @"Metadata.Schemas.Ed-Fi-ODS-API-Profiles.xsd");
-        }
-
-        private static string GetMetadataRawXml(string metadataPath, string fileName)
-        {
-            string metadataFilePath = Path.Combine(metadataPath, fileName);
-
-            if (!File.Exists(metadataFilePath))
+            public IEnumerable<MetadataStream> GetStreams()
             {
-                return null;
+                yield return new MetadataStream(Path.GetFileName(_fileName), _fileName, GetMemoryStream());
             }
 
-            string xml = File.ReadAllText(metadataFilePath);
-            return xml;
-        }
-
-        private static void ValidateRawXml(string rawXml, string metadataType, string resourceName)
-        {
-            var xmlReaderSettings = new XmlReaderSettings {ValidationType = ValidationType.Schema};
-
-            xmlReaderSettings.ValidationEventHandler += (sender, e) =>
+            private Stream GetMemoryStream()
             {
-                throw new XmlSchemaValidationException(
-                    $"The {metadataType} specified are not valid. {e.Message} on line number {e.Exception.LineNumber} line position {e.Exception.LinePosition}");
+                var ms = new MemoryStream(Encoding.UTF8.GetBytes(File.ReadAllText(_fileName)));
+
+                return ms;
+            }
+        }
+        
+        public static ProfileMetadataProvider GetProfileMetadataProvider(IResourceModelProvider resourceModelProvider, string projectPath)
+        {
+            IProfilesMetadataStreamsProvider[] streamProviders =
+            {
+                GetStreamsProvider(projectPath)
             };
 
-            XmlReader metadataXsd;
+            var profileMetadataProvider = new ProfileMetadataProvider(resourceModelProvider, streamProviders);
 
-            // the embedded resource for profies is located in the common assembly
-            var currentAssembly = Assembly.GetAssembly(typeof(IChildEntity));
+            var failedValidationResults = profileMetadataProvider.GetValidationResults()
+                .Where(r => !r.ValidationResult.IsValid)
+                .ToArray();
 
-            Stream stream = currentAssembly.GetManifestResourceStream($"{currentAssembly.GetName().Name}.{resourceName}");
+            if (failedValidationResults.Any())
+            {
+                var result = failedValidationResults.First();
 
-            metadataXsd = new XmlTextReader(stream);
+                throw new Exception($"Profile validation failed for '{result.Name}' (from '{result.Source}'): {result.ValidationResult}");
+            }
 
-            xmlReaderSettings.Schemas.Add("", metadataXsd);
-            var metadataXml = new XmlTextReader(new StringReader(rawXml));
-
-            stream.Dispose();
-
-            var xmlReader = XmlReader.Create(metadataXml, xmlReaderSettings);
-
-            while (xmlReader.Read()) { }
+            return profileMetadataProvider;
         }
     }
 }

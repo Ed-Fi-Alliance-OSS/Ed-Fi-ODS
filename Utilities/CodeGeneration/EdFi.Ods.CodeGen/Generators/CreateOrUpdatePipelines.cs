@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Helpers;
+using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -21,21 +22,17 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         protected override void Configure()
         {
+            var profileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, TemplateContext.ProjectPath);
+            ProfileResourceNamesProvider = profileMetadataProvider;
+
             var profileValidationReporter = new ProfileValidationReporter();
-
-            var validatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
-                TemplateContext.ProjectPath,
-                ResourceModelProvider,
-                profileValidationReporter);
-
-            ProfileResourceNamesProvider = validatingProfileMetadataProvider;
 
             ProfileResourceModelProvider = new ProfileResourceModelProvider(
                 ResourceModelProvider,
-                validatingProfileMetadataProvider,
+                profileMetadataProvider,
                 profileValidationReporter);
 
-            ProjectHasProfileDefinition = validatingProfileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = profileMetadataProvider.HasProfileData;
         }
 
         protected override object Build()

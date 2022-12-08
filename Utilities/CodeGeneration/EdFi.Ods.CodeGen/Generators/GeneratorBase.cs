@@ -4,10 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common;
+using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Models;
-using EdFi.Ods.CodeGen.Providers.Impl;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Models.Validation;
@@ -21,28 +20,22 @@ namespace EdFi.Ods.CodeGen.Generators
         protected bool ProjectHasProfileDefinition;
         protected IResourceModelProvider ResourceModelProvider;
         protected TemplateContext TemplateContext;
-        protected ValidatingProfileMetadataProvider ValidatingProfileMetadataProvider;
+        protected ProfileMetadataProvider ProfileMetadataProvider;
 
         public object Generate(TemplateContext templateContext)
         {
             TemplateContext = Preconditions.ThrowIfNull(templateContext, nameof(templateContext));
             ResourceModelProvider = new ResourceModelProvider(TemplateContext.DomainModelProvider);
 
-            var profileValidationReporter = new ProfileValidationReporter();
-
-            ValidatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
-                TemplateContext.ProjectPath,
-                ResourceModelProvider,
-                profileValidationReporter);
-
-            ProfileResourceNamesProvider = ValidatingProfileMetadataProvider;
-
+            // Profile-related properties
+            ProfileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, templateContext.ProjectPath);
+            ProfileResourceNamesProvider = ProfileMetadataProvider;
             ProfileResourceModelProvider = new ProfileResourceModelProvider(
                 ResourceModelProvider,
-                ValidatingProfileMetadataProvider,
-                profileValidationReporter);
+                ProfileMetadataProvider,
+                new ProfileValidationReporter());
 
-            ProjectHasProfileDefinition = ValidatingProfileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = ProfileMetadataProvider.HasProfileData;
 
             Configure();
 
