@@ -4,14 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using System.Xml.XPath;
+using EdFi.Ods.Common.Extensions;
 using FluentValidation.Results;
 
-namespace EdFi.Ods.Common.Metadata
+namespace EdFi.Ods.Common.Metadata.Composites
 {
     public class CompositeMetadataValidator
     {
@@ -19,7 +22,7 @@ namespace EdFi.Ods.Common.Metadata
 
         private XmlSchemaSet GetValidationSchemaSet()
         {
-            var currentAssembly = Assembly.GetExecutingAssembly();
+            var currentAssembly = typeof(CompositeMetadataValidator).Assembly;
 
             using (var streamReader = new StreamReader(currentAssembly.GetManifestResourceStream(ValidationSchemaResourceName)))
             {
@@ -33,23 +36,30 @@ namespace EdFi.Ods.Common.Metadata
 
         public ValidationResult Validate(XDocument compositeDefinition)
         {
-            ValidationResult validationResult = null;
+            var errorLabel = new Lazy<string> ( () =>
+            {
+                string orgCode = compositeDefinition.XPathSelectElement("/CompositeMetadata").AttributeValue("organizationCode");
+
+                string[] categories = compositeDefinition.XPathSelectElements("//Category")
+                    .Select(x => x.AttributeValue("displayName"))
+                    .ToArray();
+
+                return string.Join("/", categories)
+                    + (string.IsNullOrEmpty(orgCode)
+                        ? string.Empty
+                        : $" ({orgCode})");
+            });  
+            
+            var validationFailures = new List<ValidationFailure>();
 
             compositeDefinition.Validate(
                 GetValidationSchemaSet(),
                 (sender, args) =>
                 {
-                    validationResult =
-                        new ValidationResult(
-                            new[]
-                            {
-                                new ValidationFailure(
-                                    string.Empty,
-                                    $"The composite definition '{compositeDefinition.Annotation<string>()}' assembly failed schema validation:{Environment.NewLine}{args.Message}")
-                            });
+                    validationFailures.Add(new ValidationFailure(string.Empty, $"{errorLabel.Value}: {args.Message}"));
                 });
 
-            return validationResult ?? new ValidationResult();
+            return new ValidationResult(validationFailures);
         }
     }
 }
