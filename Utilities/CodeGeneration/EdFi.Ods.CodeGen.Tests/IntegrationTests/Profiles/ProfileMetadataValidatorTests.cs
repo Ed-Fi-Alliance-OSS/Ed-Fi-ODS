@@ -3,144 +3,147 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.CodeGen.Metadata;
+using System.Linq;
+using EdFi.Ods.Common.Metadata.Profiles;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
+using FluentValidation.Results;
+using NHibernate.Criterion;
 using NUnit.Framework;
+using Shouldly;
+using Test.Common;
 
 namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 {
-    [TestFixture, LocalTestOnly]
+    [TestFixture]
     public class ProfileMetadataValidatorTests
     {
-        [LocalTestOnly]
         public class When_duplicate_profile_names_found_in_profiles_xml : TestFixtureBase
         {
-            private const string DuplicateProfileTest = "DuplicateProfile.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
+            private const string TestDefinition = "DuplicateProfile.xml";
 
-            protected override void Arrange()
+            private ValidationResult _actualValidationResult;
+
+            protected override void Act()
             {
-                _profileTestDataHelper = new ProfileTestDataHelper(DuplicateProfileTest);
+                var resourceModelProvider = this.GetResourceModelProvider("General");
+                
+                var xDoc = ProfileTestDataHelper.LoadProfileDocument(TestDefinition);
+
+                var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
+                _actualValidationResult = profilesMetadataValidator.Validate(xDoc);
             }
 
             [Test]
             public void Should_Throw_Duplicate_Profile_Exception()
             {
-                Assert.Throws<DuplicateProfileException>(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
+                _actualValidationResult.ShouldSatisfyAllConditions(
+                    () => _actualValidationResult.IsValid.ShouldBeFalse(),
+                    () => _actualValidationResult.Errors.First().ErrorMessage.ShouldContain("Duplicate profile name(s) encountered: 'The-Duplicated-Profile-Name'"));
             }
         }
-
-        [LocalTestOnly]
+        
         public class When_invalid_resource_found_in_profiles_xml : TestFixtureBase
         {
-            private const string InvalidResourceTest = "InvalidResource.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
+            private const string TestDefinition = "InvalidResource.xml";
 
-            protected override void Arrange()
+            private ValidationResult _actualValidationResult;
+
+            protected override void Act()
             {
-                _profileTestDataHelper = new ProfileTestDataHelper(InvalidResourceTest);
-            }
+                var resourceModelProvider = this.GetResourceModelProvider("General");
 
+                var xDoc = ProfileTestDataHelper.LoadProfileDocument(TestDefinition);
+
+                var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
+                _actualValidationResult = profilesMetadataValidator.Validate(xDoc);
+            }
+        
             [Test]
             public void Should_Throw_Invalid_Resource_Exception()
             {
-                Assert.Throws<InvalidResourceException>(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
+                _actualValidationResult.ShouldSatisfyAllConditions(
+                    () => _actualValidationResult.IsValid.ShouldBeFalse(),
+                    () => _actualValidationResult.Errors.First().ErrorMessage.ShouldContain("Resource 'edfi.InvalidResource' not found."));
             }
         }
 
-        [LocalTestOnly]
-        public class When_missing_key_for_resource_found_in_profiles_xml : TestFixtureBase
+        [TestFixture]
+        public class When_including_or_excluding_singular_invalid_members_in_profiles_xml
         {
-            private const string MissingForeignKey = "MissingForeignKey.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
-
-            protected override void Arrange()
+            [TestCase("InvalidProperty.xml", "NotAProperty")]
+            [TestCase("InvalidEmbeddedObject.xml", "NotAnEmbeddedObject")]
+            [TestCase("InvalidCollection.xml", "NotACollection")]
+            public void Should_include_validation_failure_indicating_member_could_not_be_found(string modelName, string memberName)
             {
-                _profileTestDataHelper = new ProfileTestDataHelper(MissingForeignKey);
-            }
+                var resourceModelProvider = this.GetResourceModelProvider("General");
+                var xDoc = ProfileTestDataHelper.LoadProfileDocument(modelName);
+                var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
+                var result = profilesMetadataValidator.Validate(xDoc);
 
-            [Test]
-            public void Should_Throw_Missing_Foreign_Key_Exception()
-            {
-                Assert.Throws<MissingForeignKeyException>(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
+                string[] expectedMessages = 
+                {
+                    $"Profile 'Inclusion' definition for the read content type for resource 'edfi.TestResourceOne' attempted to include member '{memberName}' of 'edfi.TestResourceOne', but it doesn't exist. The following members are available: 'Name', 'SomethingId'.",
+                    $"Profile 'Inclusion' definition for the write content type for resource 'edfi.TestResourceOne' attempted to include member '{memberName}' of 'edfi.TestResourceOne', but it doesn't exist. The following members are available: 'Name', 'SomethingId'.",
+                    $"Profile 'Exclusion' definition for the read content type for resource 'edfi.TestResourceOne' attempted to exclude member '{memberName}' of 'edfi.TestResourceOne', but it doesn't exist. The following members are available: 'Name', 'SomethingId'.",
+                    $"Profile 'Exclusion' definition for the write content type for resource 'edfi.TestResourceOne' attempted to exclude member '{memberName}' of 'edfi.TestResourceOne', but it doesn't exist. The following members are available: 'Name', 'SomethingId'.",
+                };
+
+                string[] actualMessages = result.Errors.Select(e => e.ErrorMessage).ToArray();
+
+                Assert.That(actualMessages, Is.EquivalentTo(expectedMessages));
             }
         }
 
-        [LocalTestOnly]
-        public class When_missing_incoming_reference_found_in_profiles_xml : TestFixtureBase
+        [TestFixture]
+        public class When_including_or_excluding_multiple_invalid_members_in_profiles_xml
         {
-            private const string IncomingReference = "IncomingReference.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
-
-            protected override void Arrange()
+            [TestCase("InvalidProperties.xml", "NotAProperty")]
+            [TestCase("InvalidEmbeddedObjects.xml", "NotAnEmbeddedObject")]
+            [TestCase("InvalidCollections.xml", "NotACollection")]
+            public void Should_include_validation_failure_indicating_multiple_members_could_not_be_found(string modelName, string memberBaseName)
             {
-                _profileTestDataHelper = new ProfileTestDataHelper(IncomingReference);
-            }
+                var resourceModelProvider = this.GetResourceModelProvider("General");
+                var xDoc = ProfileTestDataHelper.LoadProfileDocument(modelName);
+                var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
+                var result = profilesMetadataValidator.Validate(xDoc);
 
-            [Test]
-            public void Should_Throw_Incoming_Reference_Exception()
-            {
-                Assert.Throws<IncomingReferenceException>(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
+                string[] expectedMessages =
+                {
+                    $"Profile 'Inclusion' definition for the read content type for resource 'edfi.TestResourceOne' attempted to include members '{memberBaseName}1', '{memberBaseName}2' of 'edfi.TestResourceOne', but they don't exist. The following members are available: 'Name', 'SomethingId'.",
+                    $"Profile 'Inclusion' definition for the write content type for resource 'edfi.TestResourceOne' attempted to include members '{memberBaseName}1', '{memberBaseName}2' of 'edfi.TestResourceOne', but they don't exist. The following members are available: 'Name', 'SomethingId'.",
+                    $"Profile 'Exclusion' definition for the read content type for resource 'edfi.TestResourceOne' attempted to exclude members '{memberBaseName}1', '{memberBaseName}2' of 'edfi.TestResourceOne', but they don't exist. The following members are available: 'Name', 'SomethingId'.",
+                    $"Profile 'Exclusion' definition for the write content type for resource 'edfi.TestResourceOne' attempted to exclude members '{memberBaseName}1', '{memberBaseName}2' of 'edfi.TestResourceOne', but they don't exist. The following members are available: 'Name', 'SomethingId'.",
+                };
+                
+                string[] actualMessages = result.Errors.Select(e => e.ErrorMessage).ToArray();
+
+                Assert.That(actualMessages, Is.EquivalentTo(expectedMessages));
             }
         }
 
-        [LocalTestOnly]
-        public class When_invalid_property_name_found_in_profiles_xml : TestFixtureBase
+        public class When_profiles_xml_fails_schema_validation : TestFixtureBase
         {
-            private const string MissingProperty = "MissingProperty.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
+            private const string TestDefinition = "SchemaViolation.xml";
 
-            protected override void Arrange()
+            private ValidationResult _actualValidationResult;
+
+            protected override void Act()
             {
-                _profileTestDataHelper = new ProfileTestDataHelper(MissingProperty);
-            }
+                var resourceModelProvider = this.GetResourceModelProvider("General");
 
+                var xDoc = ProfileTestDataHelper.LoadProfileDocument(TestDefinition);
+
+                var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
+                _actualValidationResult = profilesMetadataValidator.Validate(xDoc);
+            }
+        
             [Test]
-            public void Should_Throw_Missing_Property_Exception()
+            public void Should_Throw_Invalid_Resource_Exception()
             {
-                Assert.Throws<MissingPropertyException>(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
-            }
-        }
-
-        [LocalTestOnly]
-        public class When_invalid_property_reference_found_in_profiles_xml : TestFixtureBase
-        {
-            private const string InvalidReference = "InvalidReference.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
-
-            protected override void Arrange()
-            {
-                _profileTestDataHelper = new ProfileTestDataHelper(InvalidReference);
-            }
-
-            [Test]
-            public void Should_Throw_Invalid_Property_Reference_Exception()
-            {
-                Assert.Throws<InvalidPropertyReferenceException>(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
-            }
-        }
-
-        [LocalTestOnly]
-        public class When_valid_profiles_xml_file_provided : TestFixtureBase
-        {
-            private const string ValidProfile = "Profiles.xml";
-            private ProfileTestDataHelper _profileTestDataHelper;
-
-            protected override void Arrange()
-            {
-                _profileTestDataHelper = new ProfileTestDataHelper(ValidProfile);
-            }
-
-            [Test]
-            public void Should_Not_Throw_Exception()
-            {
-                Assert.DoesNotThrow(
-                    () => _profileTestDataHelper.Validator.ValidateMetadata());
+                _actualValidationResult.ShouldSatisfyAllConditions(
+                    () => _actualValidationResult.IsValid.ShouldBeFalse(),
+                    () => _actualValidationResult.Errors.First().ErrorMessage.ShouldContain("The 'Profile' element is not declared."));
             }
         }
     }

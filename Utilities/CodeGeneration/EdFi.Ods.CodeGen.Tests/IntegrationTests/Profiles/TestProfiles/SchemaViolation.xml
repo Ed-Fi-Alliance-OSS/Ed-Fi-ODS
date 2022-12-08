@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profile name="The-Duplicated-Profile-Name">
+  <Resource name="TestResourceOne">
+    <ReadContentType memberSelection="IncludeOnly">
+      <Property name="NotAProperty" />
+    </ReadContentType>
+    <WriteContentType memberSelection="IncludeOnly">
+      <Property name="Name" />
+    </WriteContentType>
+  </Resource>
+</Profile>

@@ -27,7 +27,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference  Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.CodeGen\EdFi.Ods.CodeGen.csproj" />
   </ItemGroup>
 
@@ -54,27 +55,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="IntegrationTests\Profiles\Xml\DuplicateProfile.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="IntegrationTests\Profiles\Xml\IncomingReference.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="IntegrationTests\Profiles\Xml\InvalidReference.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="IntegrationTests\Profiles\Xml\InvalidResource.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="IntegrationTests\Profiles\Xml\MissingForeignKey.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="IntegrationTests\Profiles\Xml\MissingProperty.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="IntegrationTests\Profiles\Xml\Profiles.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Remove="IntegrationTests\Profiles\TestProfiles\*.xml" />
+    <EmbeddedResource Include="IntegrationTests\Profiles\TestProfiles\*.xml" />
+    <None Remove="**\TestModels\*.json" />
+    <EmbeddedResource Include="**\TestModels\*.json" />
   </ItemGroup>
 
 </Project>

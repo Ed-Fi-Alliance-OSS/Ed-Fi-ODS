@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+
+  <Profile name="The-Duplicated-Profile-Name">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="Name" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="Name" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Different-Profile-Name">
+    <Resource name="TestResourceTwo">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="Name" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="Name" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="The-Duplicated-Profile-Name">
+    <Resource name="TestResourceTwo">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="Name" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="Name" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+</Profiles>

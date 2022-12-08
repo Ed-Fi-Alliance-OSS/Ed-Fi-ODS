@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+
+  <Profile name="Inclusion">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="NotACollection1" memberSelection="IncludeAll" />
+        <Collection name="NotACollection2" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="NotACollection1" memberSelection="IncludeAll" />
+        <Collection name="NotACollection2" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+  
+  <Profile name="Exclusion">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Collection name="NotACollection1" memberSelection="IncludeAll" />
+        <Collection name="NotACollection2" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Collection name="NotACollection1" memberSelection="IncludeAll" />
+        <Collection name="NotACollection2" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+</Profiles>
