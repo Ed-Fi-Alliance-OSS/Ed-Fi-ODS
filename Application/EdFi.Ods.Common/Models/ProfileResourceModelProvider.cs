@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Concurrent;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Models.Validation;
 

@@ -11,6 +11,7 @@ using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Common;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Profiles;
 using log4net;
 
 namespace EdFi.Ods.Api.Security.Profiles
