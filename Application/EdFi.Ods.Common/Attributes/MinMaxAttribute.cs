@@ -16,16 +16,16 @@ namespace EdFi.Ods.Common.Attributes
         public object MaxValue { get; private set; }
 
         /// <summary>
-        ///     Gets the type of the <see cref="MinValue" /> and <see cref="MaxValue" /> values (e.g. Int32 or Decimal)
+        ///     Gets the type of the <see cref="MinValue" /> and <see cref="MaxValue" /> values (e.g. int or Decimal)
         ///     type)
         /// </summary>
         public Type OperandType { get; private set; }
 
-        public MinMaxAttribute(Int32 minValue, Int32 maxValue)
+        public MinMaxAttribute(int minValue, int maxValue)
         {
             MinValue = minValue;
             MaxValue = maxValue;
-            OperandType = typeof(Int32);
+            OperandType = typeof(int);
         }
 
         public MinMaxAttribute(decimal minValue, decimal maxValue)
@@ -42,10 +42,10 @@ namespace EdFi.Ods.Common.Attributes
                 return true;
             }
 
-            if (OperandType == typeof(Int32))
+            if (OperandType == typeof(int))
             {
-                int convertedValue = (Int32) value;
-                return convertedValue >= (Int32)MinValue && convertedValue <= (Int32)MaxValue;
+                int convertedValue = (int) value;
+                return convertedValue >= (int)MinValue && convertedValue <= (int)MaxValue;
             }
 
             if (OperandType == typeof(decimal))
