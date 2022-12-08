@@ -946,7 +946,7 @@ namespace {{ResourceClassesNamespace}}
         /// {{{Description}}}
         /// </summary>
         {{Misc}}
-        [DataMember(Name="{{JsonPropertyName}}")]{{{RangeAttribute}}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
+        [DataMember(Name="{{JsonPropertyName}}")]{{{RangeAttribute}}}{{{MinMaxAttribute}}}{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{CSharpSafePropertyName}} { get; set; }
         {{/Property}}
         {{/Standard}}

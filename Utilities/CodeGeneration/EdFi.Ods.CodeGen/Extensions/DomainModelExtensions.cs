@@ -130,6 +130,31 @@ namespace EdFi.Ods.CodeGen.Extensions
         }
 
         /// <summary>
+        /// Generates the MinMax attribute property information for int and decimal properties.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        public static string ToMinMaxAttributeCSharp(this ResourceProperty property)
+        {
+            if (property.EntityProperty.PropertyType.MinValue.HasValue && property.EntityProperty.PropertyType.MaxValue.HasValue)
+            {
+                switch (property.EntityProperty.PropertyType.DbType)
+                {
+                    case DbType.Decimal:
+                        return string.Format(
+                            "[MinMax(typeof(decimal), {0}, {1}]", property.EntityProperty.PropertyType.MinValue.Value,
+                            property.EntityProperty.PropertyType.MaxValue.Value);
+                    case DbType.Int32:
+                        return string.Format(
+                            "MinMax(typeof(Int32), {0}, {1}]", property.EntityProperty.PropertyType.MinValue.Value,
+                            property.EntityProperty.PropertyType.MaxValue.Value);
+                }
+            }
+            
+            return null;
+        }
+
+        /// <summary>
         /// Get the derived base property
         /// </summary>
         /// <param name="property"></param>
