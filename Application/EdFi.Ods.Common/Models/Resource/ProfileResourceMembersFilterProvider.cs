@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Validation;
 
@@ -73,7 +74,7 @@ namespace EdFi.Ods.Common.Models.Resource
                         string profileName = GetProfileName();
 
                         string message =
-                            $"The following member(s) defined in profile '{profileName}' could not be included for resource class '{resourceClass.FullName}' {(resourceClass is Resource ? string.Empty : $"in resource '{resourceClass.ResourceRoot.FullName}' ")}because they don't exist: '{string.Join("', '", invalidInclusions)}'. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to include {Inflector.Inflect("member", invalidInclusions.Length)} '{string.Join("', '", invalidInclusions)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, invalidInclusions.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
 
                         _profileValidationReporter.ReportValidationFailure(
                             ProfileValidationSeverity.Error,
@@ -107,7 +108,7 @@ namespace EdFi.Ods.Common.Models.Resource
                         string profileName = GetProfileName();
                         
                         string message =
-                            $"The following member(s) defined in profile '{profileName}' could not be excluded for resource class '{resourceClass.FullName}' {(resourceClass is Resource ? string.Empty : $"in resource '{resourceClass.ResourceRoot.FullName}' ")}because they are identifying: '{string.Join("', '", invalidIdentifyingExclusions)}'. The following members are identifying and cannot be excluded: '{GetAllMemberNamesCsv(identifyingPropertyNames.Concat(identifyingReferenceNames))}'.";
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude identifying {Inflector.Inflect("member", invalidIdentifyingExclusions.Length)} '{string.Join("', '", invalidIdentifyingExclusions)}' of '{resourceClass.FullName}', but identifying members cannot be excluded. The following members are identifying and cannot be excluded: '{GetAllMemberNamesCsv(identifyingPropertyNames.Concat(identifyingReferenceNames))}'.";
                         
                         _profileValidationReporter.ReportValidationFailure(
                             ProfileValidationSeverity.Warning,
@@ -132,8 +133,8 @@ namespace EdFi.Ods.Common.Models.Resource
                         string profileName = GetProfileName();
 
                         string message =
-                            $"The following member(s) defined in profile '{profileName}' could not be excluded for resource class '{resourceClass.FullName}' {(resourceClass is Resource ? string.Empty : $"in resource '{resourceClass.ResourceRoot.FullName}' ")}because they don't exist: '{string.Join("', '", missingExclusions)}'. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
-                        
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude {Inflector.Inflect("member", missingExclusions.Length)} '{string.Join("', '", missingExclusions)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, missingExclusions.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
+
                         _profileValidationReporter.ReportValidationFailure(
                             ProfileValidationSeverity.Warning,
                             profileName,
@@ -154,15 +155,30 @@ namespace EdFi.Ods.Common.Models.Resource
 
                 default:
 
-                    throw new NotImplementedException(
-                        string.Format("Member selection mode '{0}' is not supported.", memberSelectionMode));
+                    throw new NotImplementedException($"Member selection mode '{memberSelectionMode}' is not supported.");
             }
 
             return memberFilter;
 
             string GetProfileName()
             {
-                return definition.XPathSelectElements("ancestor-or-self::Profile").Last().AttributeValue("name");
+                return definition.XPathSelectElements("ancestor-or-self::Profile").LastOrDefault().AttributeValue("name")
+                    ?? "unknown";
+            }
+
+            string ReadOrWrite()
+            {
+                if (definition.XPathSelectElement("ancestor-or-self::ReadContentType") != null)
+                {
+                    return "read";
+                }
+
+                if (definition.XPathSelectElement("ancestor-or-self::WriteContentType") != null)
+                {
+                    return "write";
+                }
+                
+                return "(unknown)";
             }
         }
 

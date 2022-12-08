@@ -32,12 +32,12 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public Resource GetByName(FullName fullName)
         {
-            return _resourceByFullName.GetValueOrThrow(fullName, "FullName {0} was not located in ResourceSelector.");
+            return _resourceByFullName.GetValueOrThrow(fullName, "Resource '{0}' not found.");
         }
 
         public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
         {
-            return _resourceByCollectionName.GetValueOrThrow(new FullName(schemaUriSegment, resourceCollectionName), $"Resource collection for /{schemaUriSegment}/{resourceCollectionName} was not located in ResourceSelector.");
+            return _resourceByCollectionName.GetValueOrThrow(new FullName(schemaUriSegment, resourceCollectionName), $"Resource for collection '/{schemaUriSegment}/{resourceCollectionName}' was not found.");
         }
 
         public Resource GetBySchemaProperCaseNameAndName(string properCaseName, string name)

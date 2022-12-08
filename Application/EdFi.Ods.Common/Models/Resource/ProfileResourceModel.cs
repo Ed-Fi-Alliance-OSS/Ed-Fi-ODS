@@ -31,6 +31,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <param name="resourceModel">The backing <see cref="ResourceModel"/> for the Profile-constrained model.</param>
         /// <param name="profileDefinition">The Profile definition which is to be used to constraint the Resource model.</param>
+        /// <param name="profileValidationReporter"></param>
         public ProfileResourceModel(ResourceModel resourceModel, XElement profileDefinition, IProfileValidationReporter profileValidationReporter)
         {
             ResourceModel = resourceModel;
