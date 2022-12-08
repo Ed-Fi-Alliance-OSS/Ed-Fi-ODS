@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace EdFi.Ods.Common.Metadata
+namespace EdFi.Ods.Common.Metadata.Profiles
 {
     /// <summary>
     /// Defines a method for obtaining tuples of names of associated Profiles and Resources.
