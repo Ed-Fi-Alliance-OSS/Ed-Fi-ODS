@@ -767,10 +767,10 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         /// <summary>
-        /// Returns a string that represents the current object.
+        /// Returns a string containing the <see cref="FullName" /> of the resource class.
         /// </summary>
         /// <returns>
-        /// A string that represents the current object.
+        /// The string representation of the <see cref="FullName" /> of the resource class.
         /// </returns>
         public override string ToString() => FullName.ToString();
 

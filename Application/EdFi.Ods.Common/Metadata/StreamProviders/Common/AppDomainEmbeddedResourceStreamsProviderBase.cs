@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Metadata.StreamProviders.Common;
 /// Provides a base class for metadata stream providers that returns streams for all the embedded resources in Assemblies in the AppDomain
 /// matching the supplied name suffix. 
 /// </summary>
-public class AppDomainEmbeddedResourceStreamsProviderBase
+public abstract class AppDomainEmbeddedResourceStreamsProviderBase
 {
     private readonly ILog _logger = LogManager.GetLogger(typeof(AppDomainEmbeddedResourceStreamsProviderBase));
 

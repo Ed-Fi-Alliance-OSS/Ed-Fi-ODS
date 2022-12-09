@@ -74,20 +74,6 @@ public class ProfileMetadataValidator : IProfileMetadataValidator
         // Resource model validation
         var resourceModel = _resourceModelProvider.GetResourceModel();
 
-        // var readableProfileResourceModel = new Lazy<ProfilesAppliedResourceModel>(
-        //     () => new ProfilesAppliedResourceModel(
-        //         ContentTypeUsage.Readable,
-        //         profilesDefinition.XPathSelectElements("//Profile[Resource/ReadContentType]")
-        //             .Select(p => new ProfileResourceModel(resourceModel, p, profileValidationReporter))
-        //             .ToArray()));
-        //
-        // var writableProfileResourceModel = new Lazy<ProfilesAppliedResourceModel>(
-        //     () => new ProfilesAppliedResourceModel(
-        //         ContentTypeUsage.Writable,
-        //         profilesDefinition.XPathSelectElements("//Profile[Resource/WriteContentType]")
-        //             .Select(p => new ProfileResourceModel(resourceModel, p, profileValidationReporter))
-        //             .ToArray()));
-
         validationFailures.AddRange(ValidateModels());
         
         return new ValidationResult(validationFailures);
@@ -144,28 +130,6 @@ public class ProfileMetadataValidator : IProfileMetadataValidator
                             {
                                 Severity = Enum.Parse<Severity>(f.Severity.ToString()),
                             });
-                
-                    // var warnings = profileValidationReporter.ValidationFailures
-                    //     .Where(e => e.Severity == ProfileValidationSeverity.Warning)
-                    //     .ToArray();
-                    //
-                    // if (warnings.Any())
-                    // {
-                    //     _logger.Warn(
-                    //         $"Profile validation warnings occurred:{Environment.NewLine}{string.Join(Environment.NewLine, warnings.Select(e => e.Message))}");
-                    // }
-                    //
-                    // var errors = _profileValidationReporter.ValidationFailures
-                    //     .Where(e => e.Severity == ProfileValidationSeverity.Error)
-                    //     .ToArray();
-                    //
-                    // if (errors.Any())
-                    // {
-                    //     _logger.Error(
-                    //         $"Profile validation errors occurred:{Environment.NewLine}{string.Join(Environment.NewLine, errors.Select(e => e.Message))}");
-                    //
-                    //     throw new Exception("Profile validation errors occured.");
-                    // }
                 }
             }
             catch (Exception ex)

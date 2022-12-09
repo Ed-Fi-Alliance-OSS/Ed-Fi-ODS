@@ -6,7 +6,8 @@ namespace EdFi.Ods.Common.Models.Validation;
 public class ProfileValidationReporter : IProfileValidationReporter
 {
     private readonly List<ProfileValidationFailure> _validationFailures = new();
-        
+
+    /// <inheritdoc cref="IProfileValidationReporter.ReportValidationFailure" />
     public void ReportValidationFailure(
         ProfileValidationSeverity severity,
         string profileName,

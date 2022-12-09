@@ -32,7 +32,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
             }
 
             [Test]
-            public void Should_Throw_Duplicate_Profile_Exception()
+            public void Should_include_validation_failure_message_indicating_that_a_duplicate_profile_name_was_found()
             {
                 _actualValidationResult.ShouldSatisfyAllConditions(
                     () => _actualValidationResult.IsValid.ShouldBeFalse(),
@@ -57,7 +57,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
             }
         
             [Test]
-            public void Should_Throw_Invalid_Resource_Exception()
+            public void Should_include_validation_failure_message_indicating_resource_was_not_found()
             {
                 _actualValidationResult.ShouldSatisfyAllConditions(
                     () => _actualValidationResult.IsValid.ShouldBeFalse(),
@@ -134,9 +134,9 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
                 var profilesMetadataValidator = new ProfileMetadataValidator(resourceModelProvider);
                 _actualValidationResult = profilesMetadataValidator.Validate(xDoc);
             }
-        
+
             [Test]
-            public void Should_Throw_Invalid_Resource_Exception()
+            public void Should_report_the_schema_validation_error()
             {
                 _actualValidationResult.ShouldSatisfyAllConditions(
                     () => _actualValidationResult.IsValid.ShouldBeFalse(),

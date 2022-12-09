@@ -13,4 +13,4 @@ public interface IProfilesMetadataStreamsProvider
     /// </summary>
     /// <returns>An enumerable of open streams.</returns>
     IEnumerable<MetadataStream> GetStreams();
-};
+}

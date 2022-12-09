@@ -9,6 +9,15 @@ using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Models.Validation;
 
+/// <summary>
+/// Contains information about a Profiles validation failure.
+/// </summary>
+/// <param name="Severity">One of the values of the <see cref="ProfileValidationSeverity" /> enumeration, indicating the severity of failure.</param>
+/// <param name="ProfileName">The name of the Profile that is the subject of the validation failure.</param>
+/// <param name="ResourceName">The name of the Resource within the Profile definition that is the subject of the validation failure.</param>
+/// <param name="ResourceClassName">The name of the Resource class (which may be resource or one of its children), that is the subject of the validation failure.</param>
+/// <param name="MemberNames">The names of the members that are part of the validation failure.</param>
+/// <param name="Message">The description of the validation failure.</param>
 public record struct ProfileValidationFailure(
     ProfileValidationSeverity Severity,
     string ProfileName,
