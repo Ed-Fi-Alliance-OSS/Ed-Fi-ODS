@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Extensions;
+using EdFi.Ods.Tests._Helpers;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;

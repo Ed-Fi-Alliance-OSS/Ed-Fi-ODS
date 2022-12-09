@@ -40,7 +40,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
-    <ProjectReference Include="..\..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.CodeGen\EdFi.Ods.CodeGen.csproj" />
   </ItemGroup>
 

@@ -4,14 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 using EdFi.Ods.Common.Metadata.Profiles;
-using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Models.Resource;
 using FluentValidation.Results;
-using NHibernate.Criterion;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 {

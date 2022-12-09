@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using Newtonsoft.Json;
 
-namespace Test.Common;
+namespace EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 
 public static class DomainModelHelper
 {
