@@ -75,7 +75,7 @@ namespace EdFi.Ods.CodeGen.Metadata
                 GetStreamsProvider(projectPath)
             };
 
-            var profileMetadataProvider = new ProfileMetadataProvider(resourceModelProvider, streamProviders);
+            var profileMetadataProvider = new ProfileMetadataProvider(new ProfileMetadataValidator(resourceModelProvider), streamProviders);
 
             var failedValidationResults = profileMetadataProvider.GetValidationResults()
                 .Where(r => !r.ValidationResult.IsValid)
