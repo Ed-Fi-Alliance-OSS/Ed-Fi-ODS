@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Json;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Constants;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.Controllers
 {
@@ -68,7 +70,7 @@ namespace EdFi.Ods.Features.Controllers
                 .Select(GetSwaggerSectionDetailsForCacheItem)
                 .ToList();
 
-            var eTag = HashHelper.GetSha256Hash(content.ToString())
+            var eTag = HashHelper.GetSha256Hash(JsonConvert.SerializeObject(content))
                 .ToHexString()
                 .DoubleQuoted();
 
