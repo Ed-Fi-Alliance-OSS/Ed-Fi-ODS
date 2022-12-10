@@ -131,7 +131,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiContentProviders = new List<IOpenApiContentProvider>();
 
                 ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
-                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider() };
+                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider() };
 
                 var compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
@@ -369,7 +369,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 };
                 
                 var profileResourceMetadataProvider = new ProfileMetadataProvider(
-                    ResourceModelProvider,
+                    new ProfileMetadataValidator(ResourceModelProvider),
                     profileMetadataStreamsProviders);
 
                 _profileResourceNamesProvider = profileResourceMetadataProvider;
@@ -456,7 +456,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             protected override void Arrange()
             {
                 ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
-                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider() };
+                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider() };
                 
                 _compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
@@ -577,7 +577,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openapicontentproviderlist = new List<IOpenApiContentProvider>();
 
                 ICompositesMetadataStreamsProvider[] compositesMetadataStreamsProviders =
-                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider() };
+                    { new AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider() };
 
                 var compositemetadataprovider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 

@@ -23,7 +23,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
     {
         public class When_validating_composite_metadata_documents_and_no_validation_exceptions_exist : TestFixtureBase
         {
-            private CompositeMetadataValidator _compositeMetadataValidator;
+            private CompositesMetadataValidator _compositesMetadataValidator;
             private ValidationResult _validationResult;
 
             private readonly XDocument _validCompositeDefinition = XDocument.Parse(
@@ -45,12 +45,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
             protected override void Arrange()
             {
                 _validCompositeDefinition.AddAnnotation("PathToCompositeDefinition");
-                _compositeMetadataValidator = new CompositeMetadataValidator();
+                _compositesMetadataValidator = new CompositesMetadataValidator();
             }
 
             protected override void Act()
             {
-                _validationResult = _compositeMetadataValidator.Validate(_validCompositeDefinition);
+                _validationResult = _compositesMetadataValidator.Validate(_validCompositeDefinition);
             }
 
             [Test]
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
 
         public class When_validating_composite_metadata_documents_and_validation_exceptions_exist_with_no_organization_code_defined : TestFixtureBase
         {
-            private CompositeMetadataValidator _compositeMetadataValidator;
+            private CompositesMetadataValidator _compositesMetadataValidator;
             private ValidationResult _validationResult;
 
             private readonly XDocument _invalidCompositeDefinition = XDocument.Parse(
@@ -86,12 +86,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
 
             protected override void Arrange()
             {
-                _compositeMetadataValidator = new CompositeMetadataValidator();
+                _compositesMetadataValidator = new CompositesMetadataValidator();
             }
 
             protected override void Act()
             {
-                _validationResult = _compositeMetadataValidator.Validate(_invalidCompositeDefinition);
+                _validationResult = _compositesMetadataValidator.Validate(_invalidCompositeDefinition);
             }
 
             [Test]
@@ -105,7 +105,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
 
         public class When_validating_composite_metadata_documents_and_validation_exceptions_exist_with_a_single_composite_category_defined : TestFixtureBase
         {
-            private CompositeMetadataValidator _compositeMetadataValidator;
+            private CompositesMetadataValidator _compositesMetadataValidator;
             private ValidationResult _validationResult;
 
             private readonly XDocument _invalidCompositeDefinition = XDocument.Parse(
@@ -127,12 +127,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
             protected override void Arrange()
             {
                 // _invalidCompositeDefinition.AddAnnotation("PathToCompositeDefinition");
-                _compositeMetadataValidator = new CompositeMetadataValidator();
+                _compositesMetadataValidator = new CompositesMetadataValidator();
             }
 
             protected override void Act()
             {
-                _validationResult = _compositeMetadataValidator.Validate(_invalidCompositeDefinition);
+                _validationResult = _compositesMetadataValidator.Validate(_invalidCompositeDefinition);
             }
 
             [Test]
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
 
         public class When_validating_composite_metadata_documents_and_validation_exceptions_exist_with_multiple_composite_categories_defined : TestFixtureBase
         {
-            private CompositeMetadataValidator _compositeMetadataValidator;
+            private CompositesMetadataValidator _compositesMetadataValidator;
             private ValidationResult _validationResult;
 
             private readonly XDocument _invalidCompositeDefinition = XDocument.Parse(
@@ -171,12 +171,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Metadata
             protected override void Arrange()
             {
                 // _invalidCompositeDefinition.AddAnnotation("PathToCompositeDefinition");
-                _compositeMetadataValidator = new CompositeMetadataValidator();
+                _compositesMetadataValidator = new CompositesMetadataValidator();
             }
 
             protected override void Act()
             {
-                _validationResult = _compositeMetadataValidator.Validate(_invalidCompositeDefinition);
+                _validationResult = _compositesMetadataValidator.Validate(_invalidCompositeDefinition);
             }
 
             [Test]

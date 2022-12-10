@@ -66,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
                 ICompositesMetadataStreamsProvider[] streamsProviders = 
                 {
-                    new AppDomainEmbeddedResourcesCompositesMetadataStreamProvider()
+                    new AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider()
                 };
                 
                 var compositeMetadataProvider = new CompositesMetadataProvider(streamsProviders);

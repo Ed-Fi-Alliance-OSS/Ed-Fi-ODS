@@ -16,13 +16,13 @@ using FluentValidation.Results;
 
 namespace EdFi.Ods.Common.Metadata.Composites
 {
-    public class CompositeMetadataValidator
+    public class CompositesMetadataValidator : ICompositesMetadataValidator
     {
         private const string ValidationSchemaResourceName = @"EdFi.Ods.Common.Metadata.Schemas.Ed-Fi-ODS-API-Composites.xsd";
 
         private XmlSchemaSet GetValidationSchemaSet()
         {
-            var currentAssembly = typeof(CompositeMetadataValidator).Assembly;
+            var currentAssembly = typeof(CompositesMetadataValidator).Assembly;
 
             using (var streamReader = new StreamReader(currentAssembly.GetManifestResourceStream(ValidationSchemaResourceName)))
             {

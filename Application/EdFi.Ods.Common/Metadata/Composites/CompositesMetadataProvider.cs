@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using EdFi.Common.Extensions;
@@ -35,7 +34,12 @@ public class CompositesMetadataProvider : ICompositesMetadataProvider
     public CompositesMetadataProvider(ICompositesMetadataStreamsProvider[] compositeMetadataStreamsProviders)
     {
         _compositeMetadataStreamsProviders = compositeMetadataStreamsProviders;
-            
+
+        if (compositeMetadataStreamsProviders.Length == 0)
+        {
+            throw new Exception("No composite metadata stream providers have been registered.");
+        }
+        
         _allDocs = new Lazy<IReadOnlyList<XDocument>>(LazyInitializeXDocuments);
 
         _compositeCategories = new Lazy<IReadOnlyList<CompositeCategory>>(LazyInitializeCompositeCategories);
@@ -60,10 +64,12 @@ public class CompositesMetadataProvider : ICompositesMetadataProvider
             .Select(
                 s =>
                 {
+                    _logger.Debug($"Loading composites metadata from stream '{s.Source}'...");
+                    
                     using var reader = new StreamReader(s.Stream);
                     var metadataXDoc = XDocument.Load(reader);
 
-                    var validator = new CompositeMetadataValidator();
+                    var validator = new CompositesMetadataValidator();
                     var validationResult = validator.Validate(metadataXDoc);
 
                     _validationResultsByMetadataStream.AddOrUpdate(

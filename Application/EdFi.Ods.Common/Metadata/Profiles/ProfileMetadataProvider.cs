@@ -11,7 +11,6 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
-using EdFi.Ods.Common.Models;
 using FluentValidation.Results;
 using log4net;
 
@@ -20,7 +19,7 @@ namespace EdFi.Ods.Common.Metadata.Profiles
     public class ProfileMetadataProvider : IProfileMetadataProvider, IProfileResourceNamesProvider
     {
         private readonly Lazy<IReadOnlyList<XDocument>> _allDocs;
-        private readonly IResourceModelProvider _resourceModelProvider;
+        private readonly IProfileMetadataValidator _profileMetadataValidator;
         private readonly IProfilesMetadataStreamsProvider[] _metadataStreamsProviders;
         private readonly Lazy<IDictionary<string, XElement>> _profileDefinitionByName;
         private readonly Lazy<List<ProfileAndResourceNames>> _profileResources;
@@ -31,12 +30,17 @@ namespace EdFi.Ods.Common.Metadata.Profiles
         /// Initializes a new instance of the <see cref="ProfileMetadataProvider"/> class.
         /// </summary>
         public ProfileMetadataProvider(
-            IResourceModelProvider resourceModelProvider,
+            IProfileMetadataValidator profileMetadataValidator,
             IProfilesMetadataStreamsProvider[] metadataStreamsProviders)
         {
-            _resourceModelProvider = resourceModelProvider;
+            _profileMetadataValidator = profileMetadataValidator;
             _metadataStreamsProviders = metadataStreamsProviders;
 
+            if (metadataStreamsProviders.Length == 0)
+            {
+                throw new Exception("No profiles metadata stream providers have been registered.");
+            }
+            
             _allDocs = new Lazy<IReadOnlyList<XDocument>>(LazyInitializeXDocuments);
             _profileDefinitionByName = new Lazy<IDictionary<string, XElement>>(LazyInitializeProfileDefinitions);
             _profileResources = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResources);
@@ -85,8 +89,7 @@ namespace EdFi.Ods.Common.Metadata.Profiles
                         using var reader = new StreamReader(s.Stream);
                         var profilesDocument = XDocument.Load(reader);
 
-                        var validator = new ProfileMetadataValidator(_resourceModelProvider);
-                        var validationResult = validator.Validate(profilesDocument);
+                        var validationResult = _profileMetadataValidator.Validate(profilesDocument);
 
                         _validationResultsByMetadataStream.AddOrUpdate(
                             (s.Name, s.Source),
