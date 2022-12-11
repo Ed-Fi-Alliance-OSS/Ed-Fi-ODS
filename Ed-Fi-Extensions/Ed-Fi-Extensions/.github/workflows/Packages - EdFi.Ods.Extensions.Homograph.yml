@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       distinct_id:
-          default: "2ae6d5eb-f56d-4a1d-b057-b6e347e989c4"
+          default: ${{ github.run_id }}
 env:
   INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
