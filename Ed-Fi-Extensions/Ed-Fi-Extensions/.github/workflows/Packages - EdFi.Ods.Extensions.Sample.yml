@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       distinct_id:
-          default: 'distinct_id'
+          
 
 env:
   INFORMATIONAL_VERSION: "7.0"
