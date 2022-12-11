@@ -7,6 +7,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      distinct_id:
+          default: 'distinct_id'  
 
 env:
   INFORMATIONAL_VERSION: "7.0"
@@ -25,6 +28,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run: echo ${{ github.event.inputs.distinct_id }}      
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
