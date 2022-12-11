@@ -11,7 +11,9 @@ on:
       - main
    
   workflow_dispatch:
-
+    inputs:
+      distinct_id:
+          default: "2ae6d5eb-f56d-4a1d-b057-b6e347e989c4"
 env:
   INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
@@ -29,6 +31,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run: echo ${{ github.event.inputs.distinct_id }}    
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
       with:
