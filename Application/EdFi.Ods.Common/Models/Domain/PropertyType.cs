@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Models.Domain
 {
     public class PropertyType
     {
-        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false, int? minValue = null, int? maxValue = null)
+        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false, decimal? minValue = null, decimal? maxValue = null)
         {
             if (maxLength != 0 && (precision != 0 || scale != 0))
             {
@@ -51,9 +51,9 @@ namespace EdFi.Ods.Common.Models.Domain
 
         public int MaxLength { get; }
 
-        public int? MinValue { get; set; }
+        public decimal? MinValue { get; set; }
 
-        public int? MaxValue { get; set; }
+        public decimal? MaxValue { get; set; }
 
         private static void ValidatePrecisionAndScale(int precision, int scale)
         {
