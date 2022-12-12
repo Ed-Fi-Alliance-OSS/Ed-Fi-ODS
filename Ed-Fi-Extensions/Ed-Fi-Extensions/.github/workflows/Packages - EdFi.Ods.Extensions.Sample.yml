@@ -12,6 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       distinct_id:
+      required: false
           
 
 env:
