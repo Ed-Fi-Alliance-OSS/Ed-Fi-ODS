@@ -143,6 +143,17 @@ namespace EdFi.Ods.CodeGen.Extensions
 
                     return string.Format("[Range(typeof(decimal), \"{0}\", \"{1}\")]", minToUse, maxToUse);
 
+                case DbType.Int32:
+
+                    if (!property.EntityProperty.PropertyType.MinValue.HasValue ||
+                        !property.EntityProperty.PropertyType.MaxValue.HasValue)
+                        return null;
+
+                    return string.Format(
+                        "[Range(typeof(Int32), \"-{0}\", \"{1}\")]",
+                        property.EntityProperty.PropertyType.MinValue ?? int.MinValue,
+                        property.EntityProperty.PropertyType.MaxValue ?? int.MaxValue);
+
                 case DbType.Currency:
                     return "[Range(typeof(decimal), \"-922337203685477.5808\", \"922337203685477.5807\")]";
 
