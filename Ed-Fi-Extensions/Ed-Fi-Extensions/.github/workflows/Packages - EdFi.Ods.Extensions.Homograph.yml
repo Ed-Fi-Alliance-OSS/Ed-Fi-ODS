@@ -13,7 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       distinct_id:
-      required: false
+        description: 'distinct ID for Rebuild Database Templates workflow'
+        required: false
+        default: 'distinct_id'
           
 env:
   INFORMATIONAL_VERSION: "7.0"
