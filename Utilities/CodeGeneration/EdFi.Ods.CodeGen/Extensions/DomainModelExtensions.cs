@@ -113,13 +113,46 @@ namespace EdFi.Ods.CodeGen.Extensions
             switch (property.EntityProperty.PropertyType.DbType)
             {
                 case DbType.Decimal:
-
-                    return string.Format(
-                        "[Range(typeof(decimal), \"-{0}.{1}\", \"{0}.{1}\")]",
+                    var minRange = Convert.ToDecimal(string.Format(
+                        "-{0}.{1}",
                         new string(
                             '9',
                             property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale),
-                        new string('9', property.EntityProperty.PropertyType.Scale));
+                        new string('9', property.EntityProperty.PropertyType.Scale)));
+
+                    var minValue = property.EntityProperty.PropertyType.MinValue ?? minRange;
+
+                    var minToUse = Math.Max(minRange, minValue);
+
+                    var maxRange = Convert.ToDecimal(string.Format(
+                        "{0}.{1}",
+                        new string(
+                            '9',
+                            property.EntityProperty.PropertyType.Precision - property.EntityProperty.PropertyType.Scale),
+                        new string('9', property.EntityProperty.PropertyType.Scale)));
+
+                    var maxValue = property.EntityProperty.PropertyType.MaxValue ?? maxRange;
+
+                    var maxToUse = Math.Min(maxRange, maxValue);
+
+                    if (minToUse > maxToUse)
+                    {
+                        throw new ArgumentException(
+                            "A domain range was defined that does not fall within the range of values valid for storage by the API");
+                    }
+
+                    return string.Format("[Range(typeof(decimal), \"{0}\", \"{1}\")]", minToUse, maxToUse);
+
+                case DbType.Int32:
+
+                    if (!property.EntityProperty.PropertyType.MinValue.HasValue ||
+                        !property.EntityProperty.PropertyType.MaxValue.HasValue)
+                        return null;
+
+                    return string.Format(
+                        "[Range(typeof(Int32), \"-{0}\", \"{1}\")]",
+                        property.EntityProperty.PropertyType.MinValue ?? int.MinValue,
+                        property.EntityProperty.PropertyType.MaxValue ?? int.MaxValue);
 
                 case DbType.Currency:
                     return "[Range(typeof(decimal), \"-922337203685477.5808\", \"922337203685477.5807\")]";

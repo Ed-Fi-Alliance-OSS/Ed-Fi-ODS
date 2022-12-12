@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data;
 using EdFi.Ods.Common.Exceptions;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ namespace EdFi.Ods.Common.Models.Domain
 {
     public class PropertyType
     {
-        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false)
+        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false, decimal? minValue = null, decimal? maxValue = null)
         {
             if (maxLength != 0 && (precision != 0 || scale != 0))
             {
@@ -35,6 +36,8 @@ namespace EdFi.Ods.Common.Models.Domain
 
             DbType = dbType;
             IsNullable = isNullable;
+            MinValue = minValue;
+            MaxValue = maxValue;
         }
 
         public bool IsNullable { get; }
@@ -47,6 +50,10 @@ namespace EdFi.Ods.Common.Models.Domain
         public int Scale { get; }
 
         public int MaxLength { get; }
+
+        public decimal? MinValue { get; set; }
+
+        public decimal? MaxValue { get; set; }
 
         private static void ValidatePrecisionAndScale(int precision, int scale)
         {
