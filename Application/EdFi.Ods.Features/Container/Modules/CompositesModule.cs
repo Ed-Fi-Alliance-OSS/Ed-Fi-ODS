@@ -5,11 +5,11 @@
 
 using Autofac;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
+using EdFi.Ods.Common.Metadata.StreamProviders.Composites;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
@@ -31,6 +31,14 @@ namespace EdFi.Ods.Features.Container.Modules
                 .As<ICompositesMetadataProvider>()
                 .SingleInstance();
 
+            builder.RegisterType<CompositesMetadataValidator>()
+                .As<ICompositesMetadataValidator>()
+                .SingleInstance();
+            
+            builder.RegisterType<AppDomainEmbeddedResourcesCompositesMetadataStreamsProvider>()
+                .As<ICompositesMetadataStreamsProvider>()
+                .SingleInstance();
+            
             builder.RegisterGeneric(typeof(CompositeDefinitionProcessor<,>))
                 .As(typeof(ICompositeDefinitionProcessor<,>))
                 .SingleInstance();

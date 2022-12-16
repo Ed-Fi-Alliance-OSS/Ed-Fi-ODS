@@ -258,26 +258,6 @@ namespace EdFi.Ods.Api.Pipelines.Test_StudentEducationOrganizationAssociation_Ex
 {
 }
 
-namespace EdFi.Ods.Api.Pipelines.Test_ParentNonAbstractBaseClass_ExcludeOnly
-{
-    [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation, Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation>
-    {
-        public StudentSpecialEducationProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-}
-
-namespace EdFi.Ods.Api.Pipelines.Test_ParentNonAbstractBaseClass_IncludeAll
-{
-    [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll_Writable.StudentSpecialEducationProgramAssociation, Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation>
-    {
-        public StudentSpecialEducationProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-}
-
 namespace EdFi.Ods.Api.Pipelines.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
 {
     [ExcludeFromCodeCoverage]

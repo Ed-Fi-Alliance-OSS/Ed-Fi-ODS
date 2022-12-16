@@ -16,5 +16,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             return true;
         }
+
+        public static IMemberFilter Instance = new IncludeAllMemberFilter();
     }
 }

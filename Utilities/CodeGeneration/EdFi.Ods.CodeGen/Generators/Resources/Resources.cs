@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
@@ -33,7 +34,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         {
             _resourceProfileProvider = new ResourceProfileProvider(
                 new ResourceModelProvider(TemplateContext.DomainModelProvider),
-                TemplateContext);
+                TemplateContext,
+                new ProfileValidationReporter());
         }
 
         protected override object Build()

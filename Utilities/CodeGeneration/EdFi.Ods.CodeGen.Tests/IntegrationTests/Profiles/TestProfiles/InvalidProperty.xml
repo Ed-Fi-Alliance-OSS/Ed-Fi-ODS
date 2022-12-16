@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+  
+  <Profile name="Inclusion">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NotAProperty" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="NotAProperty" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Exclusion">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="NotAProperty" />
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Property name="NotAProperty" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+</Profiles>

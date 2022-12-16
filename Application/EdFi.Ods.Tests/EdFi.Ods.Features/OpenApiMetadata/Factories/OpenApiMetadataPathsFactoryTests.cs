@@ -15,11 +15,13 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
 
@@ -276,10 +278,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                                                 </Resource>
                                               </Profile>";
 
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 var profileResourceModel =
                     new ProfileResourceModel(
                         ResourceModelProvider.GetResourceModel(),
-                        XElement.Parse(profileDefinition));
+                        XElement.Parse(profileDefinition),
+                        profileValidationReporter);
 
                 var readableResourceModel =
                     profileResourceModel.ResourceByName.Values.Where(r => r.Readable != null);

@@ -123,6 +123,11 @@ namespace EdFi.Ods.Common.Models.Domain
             return first._hashCode != second._hashCode;
         }
 
+        public static implicit operator FullName(string fullyQualifiedName)
+        {
+            return new FullName(fullyQualifiedName);
+        }
+        
         /// <summary>
         /// Indicates whether this instance and a specified object are equal.
         /// </summary>

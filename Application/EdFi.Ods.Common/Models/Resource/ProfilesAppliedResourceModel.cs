@@ -6,16 +6,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Profiles;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
-    // NOTE: This should be used as a transient object, or the Lazy implementation of the _underlyingResourceModel assignment will need to be reworked.
-    public class ProfilesAppliedResourceModel : IResourceModel
+    /// <summary>
+    /// Implements a resource model that represents a set of profile-constrained resources, and should be explicitly disposed
+    /// if used alongside other profiles or the main resource model in the same <see cref="CallContext" /> (such as during code generation).
+    /// </summary>
+    public class ProfilesAppliedResourceModel : IResourceModel, IDisposable
     {
+        // NOTE: This should be used as a transient object, or the Lazy implementation of the _underlyingResourceModel assignment will need to be reworked.
+
         private readonly ProfilesAppliedResourceSelector _resourceSelector;
+        private readonly ResourceModel _backingResourceModel;
 
         public ProfilesAppliedResourceModel(
             ContentTypeUsage usage,
@@ -35,13 +41,12 @@ namespace EdFi.Ods.Common.Models.Resource
 
             _resourceSelector = new ProfilesAppliedResourceSelector(profileResourceModels, usage);
 
-            var resourceModel = profileResourceModels.First()
-                                                     .ResourceModel;
+            _backingResourceModel = profileResourceModels.First().ResourceModel;
 
-            SchemaNameMapProvider = resourceModel.SchemaNameMapProvider;
+            SchemaNameMapProvider = _backingResourceModel.SchemaNameMapProvider;
 
             // Assign the current selector as the contextual selector
-            _resourceSelector.UnderlyingResourceSelector = ((IHasContextualResourceSelector) resourceModel)
+            _resourceSelector.UnderlyingResourceSelector = ((IHasContextualResourceSelector) _backingResourceModel)
                .SetContextualResourceSelector(_resourceSelector);
         }
 
@@ -114,16 +119,18 @@ namespace EdFi.Ods.Common.Models.Resource
                     ?? UnderlyingResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
             }
 
-            private Resource GetByName(FullName fullName, Func<ProfileResourceModel, IReadOnlyDictionary<FullName, ProfileResourceContentTypes>> getContentTypesByFullName)
+            private Resource GetByName(
+                FullName fullName,
+                Func<ProfileResourceModel, IReadOnlyDictionary<FullName, ProfileResourceContentTypes>> contentTypesByFullName)
             {
                 var allProfileResources =
-                    (from m in _profileResourceModels
-                     let ct = getContentTypesByFullName(m).GetValueOrDefault(fullName)
-                     where ct != null
-                     select _usage == ContentTypeUsage.Readable
-                         ? ct.Readable
-                         : ct.Writable)
-                   .ToArray();
+                    _profileResourceModels.Select(m => contentTypesByFullName(m).GetValueOrDefault(fullName))
+                        .Where(ct => ct != null)
+                        .Select(ct => 
+                            _usage == ContentTypeUsage.Readable
+                                ? ct.Readable
+                                : ct.Writable)
+                        .ToArray();
 
                 // If we have any Profiles that apply to the requested resource
                 if (allProfileResources.Any())
@@ -132,20 +139,26 @@ namespace EdFi.Ods.Common.Models.Resource
                     // then we can't continue because the resource is inaccessible.
                     if (allProfileResources.All(x => x == null))
                     {
+                        var profileNames = _profileResourceModels.Select(m => m.ProfileName);
+
                         throw new ProfileContentTypeException(
-                            string.Format(
-                                "There is no {0} content type available to the caller for the requested resource.",
-                                _usage));
+                            $"There is no {_usage} content type available to the caller for the '{fullName}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
                     }
 
                     // Return all the profile-filtered versions of the resource
-                    return new Resource(
-                        allProfileResources.Where(x => x != null)
-                                           .ToArray());
+                    return new Resource(allProfileResources.Where(x => x != null).ToArray());
                 }
 
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Eliminates the contextual resource selector to revert back to usage of the main resource model.
+        /// </summary>
+        public void Dispose()
+        {
+            ((IHasContextualResourceSelector) _backingResourceModel).SetContextualResourceSelector(null);
         }
     }
 }

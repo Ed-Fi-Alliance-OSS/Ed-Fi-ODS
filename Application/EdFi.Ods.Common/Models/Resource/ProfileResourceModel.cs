@@ -13,6 +13,7 @@ using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
@@ -22,6 +23,7 @@ namespace EdFi.Ods.Common.Models.Resource
     public class ProfileResourceModel
     {
         private readonly XElement _profileDefinition;
+        private readonly IProfileValidationReporter _profileValidationReporter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileResourceModel"/> class based on
@@ -29,11 +31,14 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <param name="resourceModel">The backing <see cref="ResourceModel"/> for the Profile-constrained model.</param>
         /// <param name="profileDefinition">The Profile definition which is to be used to constraint the Resource model.</param>
-        public ProfileResourceModel(ResourceModel resourceModel, XElement profileDefinition)
+        /// <param name="profileValidationReporter"></param>
+        public ProfileResourceModel(ResourceModel resourceModel, XElement profileDefinition, IProfileValidationReporter profileValidationReporter)
         {
             ResourceModel = resourceModel;
 
             _profileDefinition = profileDefinition;
+            _profileValidationReporter = profileValidationReporter;
+            
             ProfileName = _profileDefinition.AttributeValue("name");
 
             // Removed the lazy reference so that the tests will pass
@@ -105,10 +110,12 @@ namespace EdFi.Ods.Common.Models.Resource
                     var fullName = new FullName(physicalName, resourceName);
                     var sourceResource = ResourceModel.DefaultResourceSelector.GetByName(fullName);
 
-                    resources[createKey(sourceResource)] = new ProfileResourceContentTypes(sourceResource, resourceElt);
+                    resources[createKey(sourceResource)] = new ProfileResourceContentTypes(sourceResource, resourceElt, _profileValidationReporter);
                 });
 
             return resources;
         }
+
+        public override string ToString() => ProfileName;
     }
 }

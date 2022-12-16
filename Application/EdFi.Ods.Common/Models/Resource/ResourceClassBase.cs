@@ -379,7 +379,7 @@ namespace EdFi.Ods.Common.Models.Resource
                           .Concat(
                                entity.BaseEntity != null
                                    ? entity.BaseEntity.NonNavigableParents
-                                   : new AssociationView[0])
+                                   : Array.Empty<AssociationView>())
                           .Where(a => !a.OtherEntity.IsDescriptorEntity) // Don't generate references associations to Types/Descriptors
                           .Select(
                                a => new Reference(
@@ -767,12 +767,12 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         /// <summary>
-        /// Returns a string that represents the current object.
+        /// Returns a string containing the <see cref="FullName" /> of the resource class.
         /// </summary>
         /// <returns>
-        /// A string that represents the current object.
+        /// The string representation of the <see cref="FullName" /> of the resource class.
         /// </returns>
-        public override string ToString() => Name;
+        public override string ToString() => FullName.ToString();
 
         public bool IsDeprecated { get; set; }
 

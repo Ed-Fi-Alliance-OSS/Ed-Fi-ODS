@@ -1,0 +1,47 @@
+{
+  "schemaDefinition": {
+    "logicalName": "Ed-Fi",
+    "physicalName": "edfi"
+  },
+  "aggregateDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "TestResource"
+      },
+      "aggregateEntityNames": []
+    }
+  ],
+  "entityDefinitions": [
+    {
+      "schema": "edfi",
+      "name": "TestResource",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "SomeId",
+          "propertyType": {
+            "dbType": "Int32"
+          },
+          "isIdentifying": true
+        },
+        {
+          "propertyName": "Namespace",
+          "propertyType": {
+            "dbType": "String"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK",
+          "identifyingPropertyNames": [
+            "SomeId"
+          ],
+          "isPrimary": true
+        }
+      ]
+    }
+  ],
+  "associationDefinitions": [],
+  "aggregateExtensionDefinitions": []
+}

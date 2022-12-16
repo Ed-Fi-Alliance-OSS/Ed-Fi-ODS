@@ -33,8 +33,7 @@ namespace EdFi.Ods.Features.Composites
 
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
 
-        private readonly ConcurrentDictionary<string, Type> _entityTypeByName
-            = new ConcurrentDictionary<string, Type>(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly ConcurrentDictionary<string, Type> _entityTypeByName = new(StringComparer.OrdinalIgnoreCase);
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;

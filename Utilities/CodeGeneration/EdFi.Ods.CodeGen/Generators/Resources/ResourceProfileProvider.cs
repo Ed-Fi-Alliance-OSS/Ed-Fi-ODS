@@ -3,14 +3,21 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Profiles;
+using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
@@ -32,19 +39,18 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public ResourceProfileProvider(
             IResourceModelProvider resourceModelProvider,
-            TemplateContext templateContext)
+            TemplateContext templateContext,
+            IProfileValidationReporter profileValidationReporter)
         {
-            var validatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
-                templateContext.ProjectPath,
-                resourceModelProvider);
-
-            _profileResourceNamesProvider = validatingProfileMetadataProvider;
+            var profileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(resourceModelProvider, templateContext.ProjectPath);
+            _profileResourceNamesProvider = profileMetadataProvider;
 
             _profileResourceModelProvider = new ProfileResourceModelProvider(
                 resourceModelProvider,
-                validatingProfileMetadataProvider);
+                profileMetadataProvider,
+                profileValidationReporter);
 
-            ProjectHasProfileDefinition = validatingProfileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = profileMetadataProvider.HasProfileData;
 
             ResourceModel = resourceModelProvider.GetResourceModel();
         }

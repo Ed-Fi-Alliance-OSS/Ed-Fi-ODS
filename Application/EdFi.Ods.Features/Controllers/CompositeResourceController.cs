@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using log4net;
 using Microsoft.AspNetCore.Authorization;

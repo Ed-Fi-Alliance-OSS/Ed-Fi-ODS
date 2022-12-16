@@ -10,13 +10,16 @@ using System.Xml.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
 
@@ -65,12 +68,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                                                 </Resource>
                                               </Profile>";
 
-                bool IProfileMetadataProvider.HasProfileData => true;
-
                 public XElement GetProfileDefinition(string profileName)
                 {
                     return XElement.Parse(_profileDefinition);
                 }
+
+                public MetadataValidationResult[] GetValidationResults() => Array.Empty<MetadataValidationResult>();
             }
 
             protected override void Arrange()
@@ -116,10 +119,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
 
                 _schemaNameMapProviderStub = Stub<ISchemaNameMapProvider>();
 
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
                 var profileResourceModel =
                     new ProfileResourceModel(
                         _resourceModelProvider.GetResourceModel(),
-                        _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"));
+                        _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"),
+                        profileValidationReporter);
 
                 _openApiMetadataDocumentContext =
                     new OpenApiMetadataDocumentContext(

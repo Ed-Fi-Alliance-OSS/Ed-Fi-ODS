@@ -4,108 +4,198 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml.XPath;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
     public class ProfileResourceMembersFilterProvider : IResourceMembersFilterProvider
     {
-        private static readonly string[] ProfileDefinitionMemberElementNames =
+        private readonly IProfileValidationReporter _profileValidationReporter;
+        
+        private static readonly string[] _profileDefinitionMemberElementNames =
         {
-            "Property", "Collection", "Object"
+            "Property",
+            "Collection",
+            "Object"
         };
 
+        public ProfileResourceMembersFilterProvider(IProfileValidationReporter profileValidationReporter)
+        {
+            _profileValidationReporter = profileValidationReporter;
+        }
+        
         public IMemberFilter GetMemberFilter(ResourceClassBase resourceClass, XElement definition)
         {
             string memberSelectionMode = definition.AttributeValue("memberSelection");
 
             // TODO: Embedded rule - Profiles always include PK properties
-            var identifyingPropertyNames = resourceClass.IdentifyingProperties.Select(p => p.PropertyName);
+            var identifyingPropertyNames = resourceClass.IdentifyingProperties
+                .Select(p => p.PropertyName);
 
-            var identifyingReferences = resourceClass.References.Where(r => r.Association.IsIdentifying)
-                                                     .Select(r => r.PropertyName);
+            var identifyingReferenceNames = resourceClass.References
+                .Where(r => r.Association.IsIdentifying)
+                .Select(r => r.PropertyName);
 
-            var baseMemberNames =
-                definition
-                   .Elements()
-                   .Where(e => ProfileDefinitionMemberElementNames.Contains(e.Name.ToString()))
-                   .Select(e => e.AttributeValue("name"))
-                   .Where(n => !string.IsNullOrEmpty(n));
+            var definitionMemberNames = definition.Elements()
+                .Where(e => _profileDefinitionMemberElementNames.Contains(e.Name.ToString()))
+                .Select(e => e.AttributeValue("name"))
+                .Where(n => !string.IsNullOrEmpty(n));
 
-            var extensionNames =
-                definition
-                   .Elements("Extension")
-                   .Select(e => e.AttributeValue("name"))
-                   .Where(n => !string.IsNullOrEmpty(n) && resourceClass.ResourceModel.SchemaNameMapProvider != null)
-                   .Select(
-                        x => resourceClass.ResourceModel.SchemaNameMapProvider.GetSchemaMapByLogicalName(x)
-                                          .ProperCaseName)
-                   .ToArray();
-
-            var extensionMembers =
-                definition
-                   .Descendants("Property")
-                   .Select(e => e.AttributeValue("name"))
-                   .Where(n => !string.IsNullOrEmpty(n))
-                   .ToArray();
+            var definitionExtensionNames = definition.Elements("Extension")
+                .Select(e => e.AttributeValue("name"))
+                .Where(n => !string.IsNullOrEmpty(n) && resourceClass.ResourceModel.SchemaNameMapProvider != null)
+                .Select(x => resourceClass.ResourceModel.SchemaNameMapProvider.GetSchemaMapByLogicalName(x).ProperCaseName);
 
             IMemberFilter memberFilter;
 
             switch (memberSelectionMode)
             {
                 case "IncludeAll":
-                    memberFilter = new IncludeAllMemberFilter();
+                    memberFilter = IncludeAllMemberFilter.Instance;
                     break;
 
                 case "IncludeOnly":
+                    var invalidInclusions = definitionMemberNames.Where(
+                            n => !resourceClass.CollectionByName.ContainsKey(n)
+                                && !resourceClass.PropertyByName.ContainsKey(n)
+                                && !resourceClass.ReferenceByName.ContainsKey(n)
+                                && !resourceClass.EmbeddedObjectByName.ContainsKey(n))
+                        .OrderBy(n => n)
+                        .ToArray();
 
-                    var includedMemberNames = identifyingPropertyNames.Concat(identifyingReferences)
-                                                                      .Concat(baseMemberNames)
-                                                                      .ToArray();
+                    if (invalidInclusions.Any())
+                    {
+                        string profileName = GetProfileName();
 
-                    // Expand filter to include UniqueId versions on names alongside USI names
-                    var includedUsiExpansionNames = includedMemberNames
-                                                   .Where(n => n.EndsWith("USI"))
-                                                   .Select(n => n.Replace("USI", "UniqueId"));
+                        string message =
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to include {Inflector.Inflect("member", invalidInclusions.Length)} '{string.Join("', '", invalidInclusions)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, invalidInclusions.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
 
+                        _profileValidationReporter.ReportValidationFailure(
+                            ProfileValidationSeverity.Error,
+                            profileName,
+                            resourceClass.ResourceRoot.FullName,
+                            resourceClass.FullName,
+                            invalidInclusions,
+                            message);
+                    }
+
+                    var finalInclusions = definitionMemberNames
+                        .Except(invalidInclusions)
+                        .Concat(identifyingReferenceNames)
+                        .Concat(identifyingPropertyNames)
+                        .ToArray();
+                    
                     memberFilter = new IncludeOnlyMemberFilter(
-                        includedMemberNames.Concat(includedUsiExpansionNames)
-                                           .Concat(extensionMembers)
-                                           .ToArray(),
-                        extensionNames);
+                        finalInclusions.ToArray(),
+                        definitionExtensionNames.ToArray());
 
                     break;
 
                 case "ExcludeOnly":
 
-                    var excludedMemberNames =
-                        baseMemberNames
-                           .ToArray();
+                    var invalidIdentifyingExclusions = definitionMemberNames
+                        .Intersect(identifyingPropertyNames.Concat(identifyingReferenceNames))
+                        .ToArray();
 
-                    var excludedUsiExpansionNames = excludedMemberNames
-                                                   .Where(n => n.EndsWith("USI"))
-                                                   .Select(n => n.Replace("USI", "UniqueId"));
+                    if (invalidIdentifyingExclusions.Any())
+                    {
+                        string profileName = GetProfileName();
+                        
+                        string message =
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude identifying {Inflector.Inflect("member", invalidIdentifyingExclusions.Length)} '{string.Join("', '", invalidIdentifyingExclusions)}' of '{resourceClass.FullName}', but identifying members cannot be excluded. The following members are identifying and cannot be excluded: '{GetAllMemberNamesCsv(identifyingPropertyNames.Concat(identifyingReferenceNames))}'.";
+                        
+                        _profileValidationReporter.ReportValidationFailure(
+                            ProfileValidationSeverity.Warning,
+                            profileName,
+                            resourceClass.ResourceRoot.FullName,
+                            resourceClass.FullName,
+                            invalidIdentifyingExclusions,
+                            message);
+                    }
+                    
+                    var missingExclusions = definitionMemberNames
+                        .Except(invalidIdentifyingExclusions)
+                        .Where(
+                            n => !resourceClass.CollectionByName.ContainsKey(n)
+                                && !resourceClass.PropertyByName.ContainsKey(n)
+                                && !resourceClass.ReferenceByName.ContainsKey(n)
+                                && !resourceClass.EmbeddedObjectByName.ContainsKey(n))
+                        .ToArray();
 
-                    memberFilter = new ExcludeOnlyMemberFilter(
-                        excludedMemberNames
-                           .Concat(excludedUsiExpansionNames)
-                           .Except(identifyingPropertyNames) // Don't let identifying properties be excluded.
-                           .Except(identifyingReferences) // Don't let identifying references be excluded.
-                           .Concat(extensionMembers)
-                           .ToArray(),
-                        extensionNames);
+                    if (missingExclusions.Any())
+                    {
+                        string profileName = GetProfileName();
+
+                        string message =
+                            $"Profile '{profileName}' definition for the {ReadOrWrite()} content type for resource '{resourceClass.ResourceRoot.FullName}' attempted to exclude {Inflector.Inflect("member", missingExclusions.Length)} '{string.Join("', '", missingExclusions)}' of '{resourceClass.FullName}', but {Inflector.Inflect(string.Empty, missingExclusions.Length, "it doesn't", "they don't")} exist. The following members are available: '{GetAllMemberNamesCsv(resourceClass)}'.";
+
+                        _profileValidationReporter.ReportValidationFailure(
+                            ProfileValidationSeverity.Warning,
+                            profileName,
+                            resourceClass.ResourceRoot.FullName,
+                            resourceClass.FullName,
+                            missingExclusions,
+                            message);
+                    }
+
+                    string[] finalExclusions = definitionMemberNames
+                        .Except(invalidIdentifyingExclusions) // Don't let identifying members be excluded.
+                        .Except(missingExclusions) // Don't let identifying members be excluded.
+                        .ToArray();
+
+                    memberFilter = new ExcludeOnlyMemberFilter(finalExclusions.ToArray(), definitionExtensionNames.ToArray());
 
                     break;
 
                 default:
 
-                    throw new NotImplementedException(
-                        string.Format("Member selection mode '{0}' is not supported.", memberSelectionMode));
+                    throw new NotImplementedException($"Member selection mode '{memberSelectionMode}' is not supported.");
             }
 
             return memberFilter;
+
+            string GetProfileName()
+            {
+                return definition.XPathSelectElements("ancestor-or-self::Profile").LastOrDefault().AttributeValue("name")
+                    ?? "unknown";
+            }
+
+            string ReadOrWrite()
+            {
+                if (definition.XPathSelectElement("ancestor-or-self::ReadContentType") != null)
+                {
+                    return "read";
+                }
+
+                if (definition.XPathSelectElement("ancestor-or-self::WriteContentType") != null)
+                {
+                    return "write";
+                }
+                
+                return "(unknown)";
+            }
+        }
+
+        private string GetAllMemberNamesCsv(IEnumerable<string> memberNames)
+        {
+            return string.Join("', '", memberNames.OrderBy(n => n));
+        }
+
+        private string GetAllMemberNamesCsv(ResourceClassBase resourceClass)
+        {
+            return string.Join("', '", 
+                resourceClass.Properties.Cast<ResourceMemberBase>()
+                    .Concat(resourceClass.References)
+                    .Concat(resourceClass.Collections)
+                    .Concat(resourceClass.EmbeddedObjects)
+                    .Select(m => m.PropertyName)
+                    .OrderBy(n => n));
         }
     }
 }

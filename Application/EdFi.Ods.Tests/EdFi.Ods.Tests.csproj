@@ -66,4 +66,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="**\TestModels\*.json" />
+    <EmbeddedResource Include="**\TestModels\*.json" />
+  </ItemGroup>
 </Project>

@@ -163,14 +163,14 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return resourceData.ProfileName == null
                 ? null
-                : new {ContentType = $"application/vnd.ed-fi.{resourceData.ResolvedResource}.{resourceData.ProfileName}".ToLower()};
+                : new {ContentType = $"application/vnd.ed-fi.{resourceData.ResolvedResource.Name}.{resourceData.ProfileName}".ToLower()};
         }
 
         private static string FormatReadContentType(StandardizedResourceProfileData resourceData)
         {
             return resourceData.ProfileName == null
                 ? null
-                : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource, resourceData.ProfileName, "readable+json")
+                : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource.Name, resourceData.ProfileName, "readable+json")
                     .ToLower();
         }
 
@@ -178,7 +178,7 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return resourceData.ProfileName == null
                 ? null
-                : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource, resourceData.ProfileName, "writable+json")
+                : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource.Name, resourceData.ProfileName, "writable+json")
                     .ToLower();
         }
 

@@ -18,8 +18,8 @@ namespace EdFi.Ods.Common.Conventions
 {
     public static class EdFiConventions
     {
-        private static readonly ConcurrentDictionary<Assembly, bool> _isProfileAssemblyByAssembly =
-            new ConcurrentDictionary<Assembly, bool>();
+        private static readonly ConcurrentDictionary<Assembly, bool> _isProfileAssemblyByAssembly = new();
+        private static readonly ConcurrentDictionary<Assembly, bool> _isCompositesAssemblyByAssembly = new();
 
         public static string LogicalName => "Ed-Fi";
 
@@ -40,11 +40,17 @@ namespace EdFi.Ods.Common.Conventions
 
         public static bool IsStandardAssembly(this string assemblyName) => assemblyName == Namespaces.Standard.BaseNamespace;
 
-        public static bool IsProfileAssembly(Assembly assembly) => _isProfileAssemblyByAssembly.GetOrAdd(
-            assembly,
-            assembly.FullName.Contains(".Profiles.")
-            && assembly.GetManifestResourceNames()
-                       .Any(x => x.EndsWithIgnoreCase("profiles.xml")));
+        public static bool IsProfileAssembly(Assembly assembly)
+            => _isProfileAssemblyByAssembly.GetOrAdd(
+                assembly,
+                assembly.FullName.Contains(".Profiles.")
+                    && assembly.GetManifestResourceNames().Any(x => x.EndsWithIgnoreCase("profiles.xml")));
+
+        public static bool IsCompositesAssembly(Assembly assembly)
+            => _isCompositesAssemblyByAssembly.GetOrAdd(
+                assembly,
+                assembly.FullName.StartsWithIgnoreCase("EdFi.Ods.Composites")
+                    && assembly.GetManifestResourceNames().Any(x => x.EndsWithIgnoreCase("Composites.xml")));
 
         public static bool IsEdFiPhysicalSchemaName(string schema) => PhysicalSchemaName.Equals(schema);
 

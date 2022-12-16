@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+
+  <Profile name="Inclusion">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Object name="NotAnEmbeddedObject1" memberSelection="IncludeAll" />
+        <Object name="NotAnEmbeddedObject2" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Object name="NotAnEmbeddedObject1" memberSelection="IncludeAll" />
+        <Object name="NotAnEmbeddedObject2" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Exclusion">
+    <Resource name="TestResourceOne">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Object name="NotAnEmbeddedObject1" memberSelection="IncludeAll" />
+        <Object name="NotAnEmbeddedObject2" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Object name="NotAnEmbeddedObject1" memberSelection="IncludeAll" />
+        <Object name="NotAnEmbeddedObject2" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+</Profiles>

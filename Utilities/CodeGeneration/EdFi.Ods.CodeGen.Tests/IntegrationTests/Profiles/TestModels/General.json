@@ -1,0 +1,82 @@
+{
+  "schemaDefinition": {
+    "logicalName": "Ed-Fi",
+    "physicalName": "edfi"
+  },
+  "aggregateDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "TestResourceOne"
+      },
+      "aggregateEntityNames": []
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "TestResourceTwo"
+      },
+      "aggregateEntityNames": []
+    }
+  ],
+  "entityDefinitions": [
+    {
+      "schema": "edfi",
+      "name": "TestResourceOne",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "SomethingId",
+          "propertyType": {
+            "dbType": "Int32"
+          },
+          "isIdentifying": true
+        },
+        {
+          "propertyName": "Name",
+          "propertyType": {
+            "dbType": "String"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK",
+          "identifyingPropertyNames": [
+            "SomeId"
+          ],
+          "isPrimary": true
+        }
+      ]
+    },
+    {
+      "schema": "edfi",
+      "name": "TestResourceTwo",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "SomethingId",
+          "propertyType": {
+            "dbType": "Int32"
+          },
+          "isIdentifying": true
+        },
+        {
+          "propertyName": "Name",
+          "propertyType": {
+            "dbType": "String"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK",
+          "identifyingPropertyNames": [
+            "SomeId"
+          ],
+          "isPrimary": true
+        }
+      ]
+    }
+  ],
+  "associationDefinitions": [],
+  "aggregateExtensionDefinitions": []
+}

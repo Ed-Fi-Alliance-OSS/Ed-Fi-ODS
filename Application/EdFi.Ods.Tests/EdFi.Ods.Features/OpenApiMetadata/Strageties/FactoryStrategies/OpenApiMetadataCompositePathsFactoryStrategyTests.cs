@@ -10,6 +10,7 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;

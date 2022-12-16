@@ -573,28 +573,6 @@
     </Resource>
   </Profile>
 
-  <Profile name="Test-ParentNonAbstractBaseClass-ExcludeOnly">
-    <Resource name="StudentSpecialEducationProgramAssociation">
-      <ReadContentType memberSelection="ExcludeOnly">
-        <Property name="SpecialEducationHoursPerWeek" />
-      </ReadContentType>
-      <WriteContentType memberSelection="IncludeAll" />
-    </Resource>
-    <Resource name="GeneralStudentProgramAssociation">
-      <ReadContentType memberSelection="IncludeOnly" />
-    </Resource>
-  </Profile>
-
-  <Profile name="Test-ParentNonAbstractBaseClass-IncludeAll">
-    <Resource name="StudentSpecialEducationProgramAssociation">
-      <ReadContentType memberSelection="IncludeAll" />
-      <WriteContentType memberSelection="IncludeAll" />
-    </Resource>
-    <Resource name="GeneralStudentProgramAssociation">
-      <ReadContentType memberSelection="IncludeOnly" />
-    </Resource>
-  </Profile>
-
   <Profile name="StudentSpecialEducationProgramAssociation-Derived-Association-IncludeOnly">
     <Resource name="StudentSpecialEducationProgramAssociation">
       <ReadContentType memberSelection="IncludeOnly">
@@ -644,7 +622,6 @@
   <Profile name="MinimalStudentSchoolAssociation-ExcludeOnly">
     <Resource name="StudentSchoolAssociation">
       <ReadContentType memberSelection ="ExcludeOnly">
-        <Property name="EntryDate" />
         <Property name="ExitWithdrawDate" />
         <Property name="PrimarySchool" />
         <Property name="EntryGradeLevelDescriptor" />

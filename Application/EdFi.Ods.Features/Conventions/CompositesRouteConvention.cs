@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;

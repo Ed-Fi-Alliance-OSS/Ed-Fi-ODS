@@ -8,10 +8,12 @@ using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.Profiles;
 using EdFi.Ods.Api.Security.Profiles;
+using EdFi.Ods.Common.Metadata.Profiles;
+using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
+using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
@@ -28,13 +30,25 @@ namespace EdFi.Ods.Features.Container.Modules
                 .As<IAdminProfileNamesPublisher>()
                 .SingleInstance();
 
-            builder.RegisterType<ProfileResourceNamesProvider>()
+            builder.RegisterType<ProfileMetadataProvider>()
                 .As<IProfileResourceNamesProvider>()
                 .As<IProfileMetadataProvider>()
                 .SingleInstance();
 
+            builder.RegisterType<ProfileMetadataValidator>()
+                .As<IProfileMetadataValidator>()
+                .SingleInstance();
+            
+            builder.RegisterType<AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider>()
+                .As<IProfilesMetadataStreamsProvider>()
+                .SingleInstance();
+            
             builder.RegisterType<ProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<ProfileValidationReporter>()
+                .As<IProfileValidationReporter>()
                 .SingleInstance();
 
             builder.RegisterType<ProfileNamePublisher>()

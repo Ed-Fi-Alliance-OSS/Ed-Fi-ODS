@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;

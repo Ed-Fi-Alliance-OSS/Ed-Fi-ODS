@@ -7,19 +7,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Extensions;
+using EdFi.Ods.Tests._Helpers;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common.ModelBuilders;
+using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
+namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 {
     [TestFixture]
     public class NamespaceBasedAuthorizationStrategyTests
@@ -141,15 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             public void ClaimsMatchNamespaceWithoutPrefix_ShouldNotThrowAnException()
             {
                 //Arrange
-                var domainModel = new FluentDomainModelBuilder()
-                    .WithSchemas(_ => _
-                        .Schema("edfi")
-                        .WithAggregates(_ => _
-                            .AggregateRoot("TestResource")
-                            .WithProperties(_ => _
-                                .Property("SomeId").Identifying().AsInteger()
-                                .Property("Namespace").AsString()))) // Namespace without prefix
-                    .Build();
+                var domainModel = this.LoadDomainModel("ClaimsMatchNamespaceWithoutPrefix");
 
                 var resource = domainModel.ResourceModel.GetAllResources().Single();
 
@@ -177,20 +170,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     new EdFiAuthorizationContext(new ApiKeyContext(), principal, resource, new[] { resourceUri }, action, data));
 
                 //Assert
+                // No exception
             }
 
             [Test]
             public void ClaimsMatchNamespaceWithPrefix_ShouldNotThrowAnException()
             {
-                var domainModel = new FluentDomainModelBuilder()
-                    .WithSchemas(_ => _
-                        .Schema("edfi")
-                        .WithAggregates(_ => _
-                            .AggregateRoot("TestResource")
-                            .WithProperties(_ => _
-                                .Property("SomeId").Identifying().AsInteger()
-                                .Property("AbcNamespace").AsString())))  // Namespace with prefix
-                    .Build();
+                var domainModel = this.LoadDomainModel("ClaimsMatchNamespaceWithoutPrefix");
 
                 //Arrange
                 var resource = domainModel.ResourceModel.GetAllResources().Single();
@@ -224,17 +210,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Test]
             public void NoNamespacePropertyPresent_ShouldThrowAnException()
             {
-                var domainModel = new FluentDomainModelBuilder()
-                    .WithSchemas(_ => _
-                        .Schema("edfi")
-                        .WithAggregates(_ => _
-                            .AggregateRoot("TestResource")
-                            .WithProperties(_ => _
-                                .Property("SomeId").Identifying().AsInteger()
-                                .Property("SomethingElse").AsString()))) // No Namespace property
-                    .Build();
-
                 //Arrange
+                var domainModel = this.LoadDomainModel("NoNamespacePropertyPresent");
+
                 var resource = domainModel.ResourceModel.GetAllResources().Single();
                 var requestContextProvider = A.Fake<IDataManagementRequestContextProvider>();
                 A.CallTo(() => requestContextProvider.GetResource()).Returns(resource);

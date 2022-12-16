@@ -1724,10 +1724,10 @@
 											"    pm.expect(pm.response.code).to.equal(405);",
 											"});",
 											"",
-											"pm.test(\"Should the item return with message There is no Readable content type available to the caller for the requested resource\", () => {",
+											"pm.test(\"Should return a message indicating there is no Readable content type available to the caller for the requested resource\", () => {",
 											"",
 											"    const responseItem = pm.response.json();",
-											"    pm.expect(responseItem.message).to.equal(\"There is no Readable content type available to the caller for the requested resource.\");",
+											"    pm.expect(responseItem.message).to.contains(\"There is no Readable content type available to the caller for the 'edfi.School' resource in the following profiles\");",
 											"});"
 										],
 										"type": "text/javascript"

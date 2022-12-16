@@ -12,7 +12,9 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
 using Test.Common;
 
@@ -135,7 +137,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </Resource>
 </Profile>");
 
-                _actualProfileResourceModel = new ProfileResourceModel(GetTestResourceModel(), profileDefinition);
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                _actualProfileResourceModel = new ProfileResourceModel(GetTestResourceModel(), profileDefinition, profileValidationReporter);
             }
 
             [Assert]
@@ -271,7 +275,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected override void Act()
             {
-                _actualProfileResourceModel = new ProfileResourceModel(_resourceModel, _profileDefinition);
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                _actualProfileResourceModel = new ProfileResourceModel(_resourceModel, _profileDefinition, profileValidationReporter);
                 _student = _actualProfileResourceModel.GetResourceByName(new FullName("edfi", "Student"));
             }
 
@@ -362,7 +368,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected override void Act()
             {
-                _actualProfileResourceModel = new ProfileResourceModel(_resourceModel, _profileDefinition);
+                var profileValidationReporter = A.Fake<IProfileValidationReporter>();
+                
+                _actualProfileResourceModel = new ProfileResourceModel(_resourceModel, _profileDefinition, profileValidationReporter);
                 _student = _actualProfileResourceModel.GetResourceByName(new FullName("edfi", "Student"));
             }
 

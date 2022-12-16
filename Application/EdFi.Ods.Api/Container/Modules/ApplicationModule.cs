@@ -151,7 +151,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISystemDateProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<ProfilePassthroughResourceModelProvider>()
+            builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
                 .PreserveExistingDefaults()
                 .SingleInstance();
