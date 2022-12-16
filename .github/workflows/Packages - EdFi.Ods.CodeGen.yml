@@ -100,4 +100,4 @@ jobs:
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackage.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.CodeGen*.nupkg      
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/*.nupkg
