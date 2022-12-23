@@ -109,21 +109,13 @@ jobs:
               exit 0
           }
 
-          $packageFolder = "$env:temp/$($fileName -replace '.zip','')"
+          $packageFolder = "$env:temp/Microsoft.NuGet.CredentialProvider/"
 
-          if ($fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')) {
+          if ($fileName.EndsWith('.zip')) {
               Write-host "Extracting $fileName..."
-              if (Get-IsWindows){
-                  Expand-7Zip -ArchiveFileName "$env:temp/$fileName" -TargetPath $packageFolder
-              }
-              else {
-                  EnsureCommandIsAvailable "7z"
-                  $arguments = @("x", "$env:temp/$fileName", "-o$packageFolder")
-                  7z @arguments | Out-Null
-              }
-
-              Get-ChildItem –Path "$packageFolder\plugins\" -Recurse | Copy-Item -Destination "$env:UserProfile\.nuget\plugins"
-
+              $zipFilePath = "$env:temp/$fileName"
+              if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+              Copy-Item -Path $packageFolder\* -Destination "$env:UserProfile/.nuget/" -Recurse -Force
               Write-Host "Extracted to: $env:UserProfile\.nuget\plugins\" -ForegroundColor Green
           }
       shell: pwsh     
