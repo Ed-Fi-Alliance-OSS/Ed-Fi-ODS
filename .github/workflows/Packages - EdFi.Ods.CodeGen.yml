@@ -88,8 +88,45 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
       shell: pwsh
     - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
+         if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+              Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+         }
+
+          # using WebClient is faster then Invoke-WebRequest but shows no progress
+          $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
+          $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
+          Write-host "Downloading file from $sourceUrl..."
+          $webClient = New-Object System.Net.WebClient
+          $webClient.DownloadFile($sourceUrl, "$env:temp/$fileName")
+
+          Write-host "Download complete." 
+
+          if (-not (Test-Path "$env:temp/$fileName")) {
+              Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+              exit 0
+          }
+
+          $packageFolder = "$env:temp/$($fileName -replace '.zip','')"
+
+          if ($fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')) {
+              Write-host "Extracting $fileName..."
+              if (Get-IsWindows){
+                  Expand-7Zip -ArchiveFileName "$env:temp/$fileName" -TargetPath $packageFolder
+              }
+              else {
+                  EnsureCommandIsAvailable "7z"
+                  $arguments = @("x", "$env:temp/$fileName", "-o$packageFolder")
+                  7z @arguments | Out-Null
+              }
+
+              Get-ChildItem –Path "$packageFolder\plugins\" -Recurse | Copy-Item -Destination "$env:UserProfile\.nuget\plugins"
+
+              Write-Host "Extracted to: $env:UserProfile\.nuget\plugins\" -ForegroundColor Green
+          }
+      shell: pwsh     
     - name: publish codegen
       working-directory: ./Ed-Fi-ODS/    
       run: |
