@@ -1,4 +1,4 @@
-name: EdFi.Common Pull request build and test
+name: Lib EdFi.Common Pull request build and test
 
 on:
   pull_request:

@@ -3,22 +3,21 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL
+name: Pkg Packages - EdFi.Ods.Populated.Template.PostgreSQL
 
 on:
   push:
     branches:
       - main
-
   workflow_dispatch:
     inputs:
       distinct_id:
         description: 'distinct ID for Rebuild Database Templates workflow'
         required: false
         default: 'distinct_id'
-
   repository_dispatch:
-    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
+    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo]
+
 env:
   EDFI_STANDARD_REFERENCE: "v4.0.0"
   INFORMATIONAL_VERSION: "7.0"
@@ -60,22 +59,12 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
-          ref: ${{ env.EDFI_STANDARD_REFERENCE }}
+          ref: ${{ env.EDFI_STANDARD_REFERENCE }}          
     - name: Is pull request branch exists in Ed-Fi-Standard
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"          
-    - name: Checkout Ed-Fi-TPDM-Artifacts
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
-          path: Ed-Fi-TPDM-Artifacts/
-    - name: Is pull request branch exists in Ed-Fi-TPDM-Artifacts
-      working-directory: ./Ed-Fi-ODS/
-      shell: powershell
-      run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-TPDM-Artifacts"                    
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
@@ -94,20 +83,27 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -Engine PostgreSQL
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -Engine PostgreSQL
       shell: powershell
+    - name: Remove Plug-Ins
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        rm -R "./Plugin/EdFi.*"
+      shell: powershell 
     - name: Create Database Template (no extensions)
+      working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
-        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-tpdm-template.psm1"
-        Initialize-TPDMTemplate -Engine PostgreSQL
+        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-populated-template.psm1"
+        Initialize-PopulatedTemplate -samplePath "./Ed-Fi-Standard/" -noExtensions -Engine PostgreSQL
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.TPDM.Core.PostgreSQL.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.PostgreSQL"
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL"
       shell: powershell
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -144,14 +140,11 @@ jobs:
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.PostgreSQL"
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template.PostgreSQL"
       shell: powershell
-    - name: Upload EdFi.Ods.Populated.Template.TPDM.PostgreSQL Artifacts
+    - name: Upload EdFi.Ods.Populated.Template Artifacts
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: |
-         ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.PostgreSQL*.nupkg
-         ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/bin/**/logfile*.*
-         ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog*.*
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL*.nupkg

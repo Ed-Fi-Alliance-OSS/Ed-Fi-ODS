@@ -1,4 +1,4 @@
-name: EdFi.Ods.Api Pull request build and test
+name: Lib EdFi.Ods.Api Pull request build and test
 
 on:
   pull_request:

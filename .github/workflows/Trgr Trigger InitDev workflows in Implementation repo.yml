@@ -1,4 +1,4 @@
-name: Trigger InitDev workflows in Implementation repo
+name: Trgr Trigger InitDev workflows in Implementation repo
 
 on:
   pull_request:
