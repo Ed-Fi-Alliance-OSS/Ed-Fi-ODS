@@ -1,0 +1,55 @@
+name: EdFi.Ods.Standard Pull request build and test
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  INFORMATIONAL_VERSION: "7.0"
+  BUILD_INCREMENTER: "1"
+  CONFIGURATION: "Release"
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: Ed-Fi-ODS/
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+        path: Ed-Fi-ODS-Implementation/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+        ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: CodeGen    
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+          $ErrorActionPreference = 'Stop'
+          $PSVersionTable
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE
+    - name: build
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        ./build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+      shell: pwsh
+    - name: Run Unit tests
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        ./build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+      shell: pwsh     
+
+          
+
+    
