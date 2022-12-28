@@ -1,4 +1,4 @@
-name: EdFi.Admin.DataAccess Pull request build and test
+name: Lib EdFi.Admin.DataAccess Pull request build and test
 
 on:
   pull_request:

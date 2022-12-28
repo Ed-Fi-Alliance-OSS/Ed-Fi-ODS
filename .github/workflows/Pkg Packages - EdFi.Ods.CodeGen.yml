@@ -1,4 +1,4 @@
-name: Packages - EdFi.Ods.CodeGen
+name: Pkg Packages - EdFi.Ods.CodeGen
 
 on:
   pull_request:
