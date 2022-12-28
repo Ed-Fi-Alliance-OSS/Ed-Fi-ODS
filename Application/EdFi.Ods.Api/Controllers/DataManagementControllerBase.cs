@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,6 +61,7 @@ namespace EdFi.Ods.Api.Controllers
         private readonly int _defaultPageLimitSize;
         private readonly ReverseProxySettings _reverseProxySettings;
         private ILog _logger;
+        private ILog _requestResponseDetailsLogger;
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> GetByIdPipeline;
 
@@ -77,7 +79,7 @@ namespace EdFi.Ods.Api.Controllers
         {
             const int RetryCount = 5;
             const int RetryStartingDelayMilliseconds = 100;
-        
+
             _retryPolicy = Policy.HandleResult<PutResult>(res => res.ShouldRetry())
                 .WaitAndRetryAsync(
                     RetryCount,
@@ -129,6 +131,19 @@ namespace EdFi.Ods.Api.Controllers
                 }
 
                 return _logger;
+            }
+        }
+
+        protected ILog RequestResponseDetailsLogger
+        {
+            get
+            {
+                if (_requestResponseDetailsLogger == null)
+                {
+                    _requestResponseDetailsLogger = LogManager.GetLogger("RequestResponseDetailsLogger");
+                }
+
+                return _requestResponseDetailsLogger;
             }
         }
 
@@ -189,6 +204,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error(GetAllRequest, result.Exception);
+                LogRequestResponseDetailsOnException(nameof(this.GetAll), result.Exception);
                 return CreateActionResultFromException(result.Exception);
             }
 
@@ -219,6 +235,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error(GetByIdRequest, result.Exception);
+                LogRequestResponseDetailsOnException(nameof(this.Get), result.Exception);
                 return CreateActionResultFromException(result.Exception);
             }
 
@@ -256,11 +273,12 @@ namespace EdFi.Ods.Api.Controllers
                     new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState),
                     CancellationToken.None),
                 contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
-            
+
             // Check for exceptions
             if (result.Exception != null)
             {
                 Logger.Error("Put", result.Exception);
+                LogRequestResponseDetailsOnException(nameof(this.Put), result.Exception);
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
@@ -307,6 +325,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Post", result.Exception);
+                LogRequestResponseDetailsOnException(nameof(this.Post), result.Exception);
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
@@ -341,6 +360,7 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Delete", result.Exception);
+                LogRequestResponseDetailsOnException(nameof(this.Delete), result.Exception);
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
@@ -374,5 +394,22 @@ namespace EdFi.Ods.Api.Controllers
         private static string Quoted(string text) => "\"" + text + "\"";
 
         private static string Unquoted(string text) => text?.Trim('"');
+
+        private void LogRequestResponseDetailsOnException(string requestMethod, Exception exception)
+        {
+            // Check the Appender exits to avoid duplicated log messages on both controller(root) and detailed loggers
+            if (!RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender"))
+                return;
+
+            var restError = _restErrorProvider.GetRestErrorFromException(exception);
+
+            RequestResponseDetailsLogger.Error(new
+            {
+                RequestURL = GetResourceUrl(),
+                RequestMethod = requestMethod,
+                ResponseCode = restError.Code,
+                ResponseMessage = restError.Message
+            }, exception);
+        }
     }
 }
