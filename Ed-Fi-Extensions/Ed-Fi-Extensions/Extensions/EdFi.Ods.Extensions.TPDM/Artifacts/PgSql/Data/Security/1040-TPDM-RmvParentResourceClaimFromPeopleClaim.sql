@@ -6,6 +6,8 @@
 -- Note: This step undoes the parent resource claim assignment that resulted in people being placed under EducationOrganizations.
 -- This was previously (inadvertently) performed in 1010-TPDM-ResourceClaims.sql, starting at line 1769.
 
+-- Renamed from 1040-TPDM-Ensure-people-claim-has-no-parent-resource-claim.sql to shorten file name.
+
 DO $$
 BEGIN
     IF EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/people' AND ParentResourceClaimId IS NOT NULL) THEN
