@@ -8,6 +8,7 @@ using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
@@ -19,7 +20,6 @@ namespace EdFi.Ods.Api.Caching
 {
     public class DescriptorsCache : IDescriptorsCache
     {
-        private const int DatabaseSynchronizationExpirationSeconds = 60;
         private const string DescriptorCacheKeyPrefix = "Descriptors";
         private const string InitializedKeyPrefix = "DescriptorsCache.Initialized";
         private const string LastSyncedKey = "DescriptorsCache.LastSynced";
@@ -33,15 +33,18 @@ namespace EdFi.Ods.Api.Caching
         private readonly ICacheProvider _cacheProvider;
         private readonly IDescriptorLookupProvider _descriptorLookupProvider;
         private readonly IEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
+        private readonly int _databaseSynchronizationExpirationSeconds;
 
         public DescriptorsCache(
             IDescriptorLookupProvider descriptorLookupProvider,
             ICacheProvider cacheProvider,
-            IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider)
+            IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
+            ApiSettings apiSettings)
         {
             _descriptorLookupProvider = descriptorLookupProvider;
             _cacheProvider = cacheProvider;
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
+            _databaseSynchronizationExpirationSeconds = apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
         }
 
         private bool HasLastDatabaseSynchronizationExpired
@@ -56,7 +59,7 @@ namespace EdFi.Ods.Api.Caching
                 }
 
                 var totalSeconds = (currentTime - (DateTime) lastSynced).TotalSeconds;
-                return totalSeconds > DatabaseSynchronizationExpirationSeconds;
+                return totalSeconds > _databaseSynchronizationExpirationSeconds;
             }
         }
 
