@@ -20,7 +20,7 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 {
     [TestFixture]
     public class DescriptorsCacheTests
