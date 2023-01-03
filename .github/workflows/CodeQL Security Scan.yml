@@ -7,7 +7,7 @@ name: CodeQL Security Scan Pull request
 
 on:
   schedule:
-    - cron: '15 * * * *'
+    - cron: '*/15 * * * *'
 env:
   INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
