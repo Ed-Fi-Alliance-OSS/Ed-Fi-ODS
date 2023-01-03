@@ -58,8 +58,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 
         protected IEdFiOdsInstanceIdentificationProvider MockEdFiOdsInstanceIdentificationProvider { get; set; }
 
-        protected DescriptorsCache descriptionCache;
-
         private IDescriptorsCache MockNHibernateCallsAndInitializeCache()
         {
             MockDescriptorCacheDataProvider = A.Fake<IDescriptorLookupProvider>();
@@ -103,9 +101,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             A.CallTo(() => MockEdFiOdsInstanceIdentificationProvider.GetInstanceIdentification())
                 .Returns(1UL);
 
-            descriptionCache = new DescriptorsCache(
+            return new DescriptorsCache(
                 MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider);
-            return descriptionCache;
         }
 
         [Test]
@@ -113,7 +110,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         {
             var cache = MockNHibernateCallsAndInitializeCache();
 
-            var returnedId = descriptionCache.GetId(TestDescriptorName, "uri://www.changetest.org/academicSubjectDescriptor#mathematics");
+            var returnedId = cache.GetId(TestDescriptorName, "uri://www.changetest.org/academicSubjectDescriptor#mathematics");
             Assert.AreEqual(TestDescriptorWithCodeValue.Id, returnedId);
         }
 
