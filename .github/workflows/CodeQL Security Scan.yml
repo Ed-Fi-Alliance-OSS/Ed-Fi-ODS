@@ -6,13 +6,8 @@
 name: CodeQL Security Scan Pull request 
 
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
 env:
   INFORMATIONAL_VERSION: "7.0"
   BUILD_INCREMENTER: "1"
