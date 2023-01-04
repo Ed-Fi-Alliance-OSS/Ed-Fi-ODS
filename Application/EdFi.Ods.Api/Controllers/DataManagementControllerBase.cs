@@ -409,7 +409,7 @@ namespace EdFi.Ods.Api.Controllers
                 RequestMethod = requestMethod,
                 ResponseCode = restError.Code,
                 ResponseMessage = restError.Message
-            }, exception);
+            });
         }
 
         private bool RequestResponseDetailsFileAppenderExists() => 
