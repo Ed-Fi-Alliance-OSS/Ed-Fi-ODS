@@ -397,8 +397,8 @@ namespace EdFi.Ods.Api.Controllers
 
         private void LogRequestResponseDetailsOnException(string requestMethod, Exception exception)
         {
-            // Check the Appender exits to avoid duplicated log messages on both controller(root) and detailed loggers
-            if (!RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender"))
+            // Check the Appender exists to avoid duplicated log messages on both controller(root) and detailed loggers
+            if (!RequestResponseDetailsFileAppenderExists())
                 return;
 
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
@@ -411,5 +411,8 @@ namespace EdFi.Ods.Api.Controllers
                 ResponseMessage = restError.Message
             }, exception);
         }
+
+        private bool RequestResponseDetailsFileAppenderExists() => 
+            RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender");
     }
 }
