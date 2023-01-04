@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: Pkg Packages - EdFi.Ods.Profiles.Sample
+name: Pkg EdFi.Ods.Profiles.Sample
 
 on:
   push:
@@ -13,7 +13,7 @@ on:
 
 env:
   INFORMATIONAL_VERSION: "7.0"
-  BUILD_INCREMENTER: "19"
+  BUILD_INCREMENTER: "23"
   CONFIGURATION: "Release"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
