@@ -3,15 +3,11 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: CodeQL Security Scan Pull request 
+name: CodeQL Security Scan Schedule 
 
 on:
-  pull_request:
-    branches:
-      - main
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: '0 0 * * *'
 env:
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
