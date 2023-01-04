@@ -20,7 +20,7 @@ using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 {
     [TestFixture]
     public class DescriptorsCacheTests
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
 
         protected IEdFiOdsInstanceIdentificationProvider MockEdFiOdsInstanceIdentificationProvider { get; set; }
 
-        protected DescriptorsCache descriptionCache;
+        protected int CacheExpirationSeconds { get; set; }
 
         private IDescriptorsCache MockNHibernateCallsAndInitializeCache()
         {
@@ -103,9 +103,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
             A.CallTo(() => MockEdFiOdsInstanceIdentificationProvider.GetInstanceIdentification())
                 .Returns(1UL);
 
-            descriptionCache = new DescriptorsCache(
-                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider);
-            return descriptionCache;
+            var apiSettings = new ApiSettings();
+            apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds = CacheExpirationSeconds;
+
+            return new DescriptorsCache(
+                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider, apiSettings);
         }
 
         [Test]
@@ -113,7 +115,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
         {
             var cache = MockNHibernateCallsAndInitializeCache();
 
-            var returnedId = descriptionCache.GetId(TestDescriptorName, "uri://www.changetest.org/academicSubjectDescriptor#mathematics");
+            var returnedId = cache.GetId(TestDescriptorName, "uri://www.changetest.org/academicSubjectDescriptor#mathematics");
             Assert.AreEqual(TestDescriptorWithCodeValue.Id, returnedId);
         }
 
@@ -192,6 +194,180 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
             var cache = MockNHibernateCallsAndInitializeCache();
             var returnedValue = cache.GetValue(TestDescriptorName, TestDescriptorNormal.Id);
             Assert.AreEqual(TestDescriptorNormal.DescriptorValue, returnedValue);
+        }
+
+        [Test]
+        public void GetId_ForDescriptor_ForMissingInvalidValue_Initializes_Cache()
+        {
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            Should.Throw<BadRequestException>(() => cache.GetId(TestDescriptorName, "descriptorValue"));
+
+            Should.Throw<BadRequestException>(() => cache.GetId(TestDescriptorName, "descriptorValue"));
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public void GetId_ForDescriptor_ForMissingInvalidValue_Should_Not_RefreshCache_After_Expiration()
+        {
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1);
+
+            Should.Throw<BadRequestException>(() => cache.GetId(TestDescriptorName, "descriptorValue"));
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1).AddSeconds(CacheExpirationSeconds);
+
+            Should.Throw<BadRequestException>(() => cache.GetId(TestDescriptorName, "descriptorValue"));
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public void GetId_ForDescriptor_ForMissingValue_Should_RefreshCache_After_Expiration()
+        {
+            CacheExpirationSeconds = 60;
+
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetDescriptorLookupsByDescriptorName(TestDescriptorName))
+                .Returns(
+                    new List<DescriptorLookup>
+                    {
+                        TestDescriptorNormal,
+                        TestDescriptorCustom,
+                        TestDescriptorCustomNotIncluded
+                    });
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1);
+
+            _ = cache.GetId(TestDescriptorName, TestDescriptorNormal.DescriptorValue);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1).AddSeconds(CacheExpirationSeconds * 2);
+
+            var returnedId = cache.GetId(TestDescriptorName, TestDescriptorCustomNotIncluded.DescriptorValue);
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedTwiceExactly();
+
+            Assert.AreEqual(TestDescriptorCustomNotIncluded.Id, returnedId);
+        }
+
+        [Test]
+        public void GetId_ForDescriptor_ForMissingValue_Should_Not_RefreshCache_Before_Expiration()
+        {
+            CacheExpirationSeconds = 60;
+
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetDescriptorLookupsByDescriptorName(TestDescriptorName))
+                .Returns(
+                    new List<DescriptorLookup>
+                    {
+                        TestDescriptorNormal,
+                        TestDescriptorCustom,
+                        TestDescriptorCustomNotIncluded
+                    });
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1);
+
+            _ = cache.GetId(TestDescriptorName, TestDescriptorNormal.DescriptorValue);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1).AddSeconds(CacheExpirationSeconds / 2);
+
+            var returnedId = cache.GetId(TestDescriptorName, TestDescriptorCustomNotIncluded.DescriptorValue);
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedOnceExactly();
+
+            Assert.AreEqual(TestDescriptorCustomNotIncluded.Id, returnedId);
+        }
+
+        [Test]
+        public void GetValue_ForDescriptor_ForMissingInvalidValue_Initializes_Cache()
+        {
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetSingleDescriptorLookupById(TestDescriptorName, 99))
+                .Returns(null);
+
+            Should.Throw<BadRequestException>(() => cache.GetValue(TestDescriptorName, 99));
+
+            Should.Throw<BadRequestException>(() => cache.GetValue(TestDescriptorName, 99));
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public void GetValue_ForDescriptor_ForMissingInvalidValue_Should_Not_RefreshCache_After_Expiration()
+        {
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetSingleDescriptorLookupById(TestDescriptorName, 99))
+                .Returns(null);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1);
+
+            Should.Throw<BadRequestException>(() => cache.GetValue(TestDescriptorName, 99));
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1).AddSeconds(60);
+
+            Should.Throw<BadRequestException>(() => cache.GetValue(TestDescriptorName, 99));
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public void GetValue_ForDescriptor_ForMissingValue_Should_RefreshCache_After_Expiration()
+        {
+            CacheExpirationSeconds = 60;
+
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetSingleDescriptorLookupById(TestDescriptorName, TestDescriptorCustomNotIncluded.Id))
+                .Returns(TestDescriptorCustomNotIncluded);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1);
+
+            _ = cache.GetValue(TestDescriptorName, TestDescriptorNormal.Id);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1).AddSeconds(CacheExpirationSeconds * 2);
+
+            var returnedValue = cache.GetValue(TestDescriptorName, TestDescriptorCustomNotIncluded.Id);
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedTwiceExactly();
+
+            Assert.AreEqual(TestDescriptorCustomNotIncluded.DescriptorValue, returnedValue);
+        }
+
+        [Test]
+        public void GetValue_ForDescriptor_ForMissingValue_Should_Not_RefreshCache_Before_Expiration()
+        {
+            CacheExpirationSeconds = 60;
+
+            var cache = MockNHibernateCallsAndInitializeCache();
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetSingleDescriptorLookupById(TestDescriptorName, TestDescriptorCustomNotIncluded.Id))
+                .Returns(TestDescriptorCustomNotIncluded);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1);
+
+            _ = cache.GetValue(TestDescriptorName, TestDescriptorNormal.Id);
+
+            SystemClock.Now = () => DateTime.UtcNow.AddHours(1).AddSeconds(CacheExpirationSeconds / 2);
+
+            var returnedValue = cache.GetValue(TestDescriptorName, TestDescriptorCustomNotIncluded.Id);
+
+            A.CallTo(() => MockDescriptorCacheDataProvider.GetAllDescriptorLookups())
+                .MustHaveHappenedOnceExactly();
+
+            Assert.AreEqual(TestDescriptorCustomNotIncluded.DescriptorValue, returnedValue);
         }
     }
 }
