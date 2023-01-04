@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: Pkg Packages - EdFi.Ods.Populated.Template
+name: Pkg EdFi.Ods.Minimal.Template.PostgreSQL
 
 on:
   push:
@@ -15,13 +15,13 @@ on:
         description: 'distinct ID for Rebuild Database Templates workflow'
         required: false
         default: 'distinct_id'
-
   repository_dispatch:
     types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo]
+
 env:
   EDFI_STANDARD_REFERENCE: "v4.0.0"
   INFORMATIONAL_VERSION: "7.0"
-  BUILD_INCREMENTER: "442"
+  BUILD_INCREMENTER: "400"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
@@ -29,6 +29,7 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
+
 jobs:
   build:
 
@@ -58,7 +59,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
-          ref: ${{ env.EDFI_STANDARD_REFERENCE }}          
+          ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-Standard
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
@@ -69,21 +70,21 @@ jobs:
       shell: powershell
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
+    - name: Install Postgres13
+      shell: pwsh
       run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
+          choco install postgresql13 --params '/Password:postgres'
+          $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
+          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
+          Restart-Service postgresql-x64-13
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
-
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        
-        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -Engine PostgreSQL
       shell: powershell
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -96,13 +97,13 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
-        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-populated-template.psm1"      
-        Initialize-PopulatedTemplate -samplePath './Ed-Fi-Standard/' -noExtensions
+        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"
+        Initialize-MinimalTemplate -samplePath "./Ed-Fi-Standard/" -noExtensions -Engine PostgreSQL
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.nuspec" -PackageName  "EdFi.Suite3.Ods.Populated.Template" 
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.PostgreSQL.nuspec" -PackageName "EdFi.Suite3.Ods.Minimal.Template.PostgreSQL"
       shell: powershell
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -139,11 +140,11 @@ jobs:
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Populated.Template"
-      shell: powershell      
-    - name: Upload EdFi.Ods.Populated.Template Artifacts
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.Ods.Minimal.Template.PostgreSQL"
+      shell: powershell
+    - name: Upload EdFi.Ods.Minimal.Template Artifacts
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.*.nupkg
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL*.nupkg
