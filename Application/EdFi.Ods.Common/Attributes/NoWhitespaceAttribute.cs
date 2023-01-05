@@ -3,8 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.ComponentModel.DataAnnotations;
-
 namespace EdFi.Ods.Common.Attributes
 {
     public class NoWhitespaceAttribute : ValidationAttribute
@@ -14,7 +14,7 @@ namespace EdFi.Ods.Common.Attributes
             string stringValue = value as string;
 
             // Validate property value does not contain any leading or trailing whitespace
-            return stringValue == null || stringValue.Equals(stringValue.Trim())
+            return stringValue == null || (!((stringValue.Length > 0 && Char.IsWhiteSpace(stringValue, 0)) || (stringValue.Length > 0 && Char.IsWhiteSpace(stringValue, stringValue.Length - 1))))
                 ? ValidationResult.Success
                 : new ValidationResult(
                     $"{validationContext.DisplayName} property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.");
