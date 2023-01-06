@@ -215,7 +215,7 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());
-
+            LogRequestResponseDetailsInfo(nameof(this.GetAll));
             return Ok(result.Resources);
         }
 
@@ -242,7 +242,7 @@ namespace EdFi.Ods.Api.Controllers
             // Handle success result
             // Add ETag header for the resource
             Response.GetTypedHeaders().ETag = GetEtag(result.Resource.ETag);
-
+            LogRequestResponseDetailsInfo(nameof(this.Get));
             return Ok(result.Resource);
         }
 
@@ -286,9 +286,16 @@ namespace EdFi.Ods.Api.Controllers
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
-            return result.ResourceWasCreated
-                ? (IActionResult) Created(resourceUri, null)
-                : NoContent();
+            if (result.ResourceWasCreated)
+            {
+                LogRequestResponseDetailsInfo(nameof(this.Put), StatusCodes.Status201Created, resourceUri.ToString());
+                return (IActionResult)Created(resourceUri, null);
+            }
+            else
+            {
+                LogRequestResponseDetailsInfo(nameof(this.Put), StatusCodes.Status204NoContent, "No Content");
+                return NoContent();
+            }
         }
 
         [CheckModelForNull]
@@ -333,9 +340,16 @@ namespace EdFi.Ods.Api.Controllers
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
-            return result.ResourceWasCreated
-                ? (IActionResult) Created(resourceUri, null)
-                : Ok();
+            if (result.ResourceWasCreated)
+            {
+                LogRequestResponseDetailsInfo(nameof(this.Post), StatusCodes.Status201Created, resourceUri.ToString());
+                return (IActionResult)Created(resourceUri, null);
+            }
+            else
+            {
+                LogRequestResponseDetailsInfo(nameof(this.Post), StatusCodes.Status200OK);
+                return Ok();
+            }
         }
 
         [CheckModelForNull]
@@ -364,6 +378,7 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
+            LogRequestResponseDetailsInfo(nameof(this.Delete), StatusCodes.Status204NoContent, "No Content");
             //Return 204 (according to RFC 2616, if the delete action has been enacted but the response does not include an entity, the return code should be 204).
             return NoContent();
         }
@@ -397,8 +412,8 @@ namespace EdFi.Ods.Api.Controllers
 
         private void LogRequestResponseDetailsOnException(string requestMethod, Exception exception)
         {
-            // Check the Appender exits to avoid duplicated log messages on both controller(root) and detailed loggers
-            if (!RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender"))
+            // Check the Appender exists to avoid duplicated log messages on both controller(root) and detailed loggers
+            if (!RequestResponseDetailsFileAppenderExists())
                 return;
 
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
@@ -409,7 +424,25 @@ namespace EdFi.Ods.Api.Controllers
                 RequestMethod = requestMethod,
                 ResponseCode = restError.Code,
                 ResponseMessage = restError.Message
-            }, exception);
+            });
         }
+
+        private void LogRequestResponseDetailsInfo(string requestMethod, int responseCode = StatusCodes.Status200OK, string responseMessage = "Ok")
+        {
+            // Check the Appender exists to avoid duplicated log messages on both controller(root) and detailed loggers
+            if (!RequestResponseDetailsFileAppenderExists())
+                return;
+
+            RequestResponseDetailsLogger.Info(new
+            {
+                RequestURL = GetResourceUrl(),
+                RequestMethod = requestMethod,
+                ResponseCode = responseCode,
+                ResponseMessage = responseMessage
+            });
+        }
+
+        private bool RequestResponseDetailsFileAppenderExists() => 
+            RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender");
     }
 }
