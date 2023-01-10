@@ -6,7 +6,7 @@
     },
     "EdFi.CodeGen - PostgreSQL": {
       "commandName": "Project",
-      "commandLineArgs": "-e PostgreSQL"
+      "commandLineArgs": "-e PostgreSQL -i"
     }
   }
 }
