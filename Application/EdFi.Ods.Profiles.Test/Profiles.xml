@@ -665,13 +665,21 @@
     </Resource>
   </Profile>
 
+  <Profile name="Sample-Staff-Extension-Excluded">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
   <!-- Staff extensions (with explicit extension object) -->
   <Profile name="Sample-Staff-Extension-Include-Only-Deeply">
     <Resource name="Staff">
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <Property name="FirstPetOwnedDate" />
           <Object name="StaffPetPreference" memberSelection="IncludeOnly">
             <Property name="MinimumWeight" />
@@ -691,7 +699,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <!-- Should exclude FirstPetOwnedDate -->
           <Object name="StaffPetPreference" memberSelection="ExcludeOnly">
             <Property name="MinimumWeight" />
