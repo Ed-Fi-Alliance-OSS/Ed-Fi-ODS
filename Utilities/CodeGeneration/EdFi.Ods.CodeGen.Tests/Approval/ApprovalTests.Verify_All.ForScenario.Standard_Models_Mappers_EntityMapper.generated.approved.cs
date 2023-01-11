@@ -20825,11 +20825,17 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
     [ExcludeFromCodeCoverage]
     public static class EducationOrganizationAssociationTypeDescriptorMapper
     {
+        private static readonly FullName _fullName_edfi_EducationOrganizationAssociationTypeDescriptor = new FullName("edfi", "EducationOrganizationAssociationTypeDescriptor");
+    
         public static bool SynchronizeTo(this IEducationOrganizationAssociationTypeDescriptor source, IEducationOrganizationAssociationTypeDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EducationOrganizationAssociationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EducationOrganizationAssociationTypeDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationAssociationTypeDescriptorId != target.EducationOrganizationAssociationTypeDescriptorId)
@@ -20840,49 +20846,49 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -20903,9 +20909,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
 
         public static void MapTo(this IEducationOrganizationAssociationTypeDescriptor source, IEducationOrganizationAssociationTypeDescriptor target, Action<IEducationOrganizationAssociationTypeDescriptor, IEducationOrganizationAssociationTypeDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EducationOrganizationAssociationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_EducationOrganizationAssociationTypeDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -20914,40 +20922,26 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -20982,22 +20976,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAssociationTypeD
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEducationOrganizationAssociationTypeDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
     }
 
 }
@@ -64180,8 +64158,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
         }
     }
 
-        bool IsReportedSchoolIdSupported { get; set; }
-        bool IsReportedSchoolIdentifierSupported { get; set; }
     [ExcludeFromCodeCoverage]
     public static class StudentAssessmentAccommodationMapper
     {
@@ -65049,8 +65025,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentAggregate
         }
     }
 
-    }
-
 }
 // Aggregate: StudentAssessmentEducationOrganizationAssociation
 
@@ -65059,11 +65033,17 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
     [ExcludeFromCodeCoverage]
     public static class StudentAssessmentEducationOrganizationAssociationMapper
     {
+        private static readonly FullName _fullName_edfi_StudentAssessmentEducationOrganizationAssociation = new FullName("edfi", "StudentAssessmentEducationOrganizationAssociation");
+    
         public static bool SynchronizeTo(this IStudentAssessmentEducationOrganizationAssociation source, IStudentAssessmentEducationOrganizationAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentAssessmentEducationOrganizationAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentAssessmentEducationOrganizationAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AssessmentIdentifier != target.AssessmentIdentifier)
@@ -65093,7 +65073,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsSchoolYearSupported)
+            if ((mappingContract?.IsSchoolYearSupported != false)
                 && target.SchoolYear != source.SchoolYear)
             {
                 target.SchoolYear = source.SchoolYear;
@@ -65103,7 +65083,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
 
             // Sync lists
             // Sync extensions
-            isModified |= source.SynchronizeExtensionsTo(target);
+            isModified |= source.SynchronizeExtensionsTo(target, mappingContract);
 
             return isModified;
         }
@@ -65112,9 +65092,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
 
         public static void MapTo(this IStudentAssessmentEducationOrganizationAssociation source, IStudentAssessmentEducationOrganizationAssociation target, Action<IStudentAssessmentEducationOrganizationAssociation, IStudentAssessmentEducationOrganizationAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentAssessmentEducationOrganizationAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_edfi_StudentAssessmentEducationOrganizationAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -65128,10 +65110,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsSchoolYearSupported)
+            if (mappingContract?.IsSchoolYearSupported != false)
                 target.SchoolYear = source.SchoolYear;
-            else
-                targetSynchSupport.IsSchoolYearSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -65153,7 +65133,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
             // Map lists
 
             // Map extensions
-            source.MapExtensionsTo(target);
+            source.MapExtensionsTo(target, mappingContract);
 
             // Convert source to an ETag, if appropriate
             if (target is IHasETag entityWithETag)
@@ -65176,14 +65156,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAssessmentEducationOrganizatio
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentAssessmentEducationOrganizationAssociationSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
-    {
-        bool IsSchoolYearSupported { get; set; }
 }
 // Aggregate: StudentCharacteristicDescriptor
 

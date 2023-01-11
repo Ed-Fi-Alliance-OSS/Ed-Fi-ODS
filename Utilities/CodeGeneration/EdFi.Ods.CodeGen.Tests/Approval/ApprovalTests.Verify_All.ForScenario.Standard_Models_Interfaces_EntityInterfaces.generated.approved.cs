@@ -10986,6 +10986,82 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducationOrganizationAssociationTypeDescriptor model.
+    /// </summary>
+    public interface IEducationOrganizationAssociationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int EducationOrganizationAssociationTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class EducationOrganizationAssociationTypeDescriptorMappingContract : IMappingContract
+    {
+        public EducationOrganizationAssociationTypeDescriptorMappingContract(
+            bool isCodeValueSupported,
+            bool isDescriptionSupported,
+            bool isEffectiveBeginDateSupported,
+            bool isEffectiveEndDateSupported,
+            bool isNamespaceSupported,
+            bool isPriorDescriptorIdSupported,
+            bool isShortDescriptionSupported
+            )
+        {
+            IsCodeValueSupported = isCodeValueSupported;
+            IsDescriptionSupported = isDescriptionSupported;
+            IsEffectiveBeginDateSupported = isEffectiveBeginDateSupported;
+            IsEffectiveEndDateSupported = isEffectiveEndDateSupported;
+            IsNamespaceSupported = isNamespaceSupported;
+            IsPriorDescriptorIdSupported = isPriorDescriptorIdSupported;
+            IsShortDescriptionSupported = isShortDescriptionSupported;
+        }
+
+        public bool IsCodeValueSupported { get; }
+        public bool IsDescriptionSupported { get; }
+        public bool IsEffectiveBeginDateSupported { get; }
+        public bool IsEffectiveEndDateSupported { get; }
+        public bool IsNamespaceSupported { get; }
+        public bool IsPriorDescriptorIdSupported { get; }
+        public bool IsShortDescriptionSupported { get; }
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                case "CodeValue":
+                    return IsCodeValueSupported;
+                case "Description":
+                    return IsDescriptionSupported;
+                case "EffectiveBeginDate":
+                    return IsEffectiveBeginDateSupported;
+                case "EffectiveEndDate":
+                    return IsEffectiveEndDateSupported;
+                case "Namespace":
+                    return IsNamespaceSupported;
+                case "PriorDescriptorId":
+                    return IsPriorDescriptorIdSupported;
+                case "ShortDescription":
+                    return IsShortDescriptionSupported;
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the EducationOrganizationCategory model.
     /// </summary>
     public interface IEducationOrganizationCategory : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -34157,6 +34233,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             bool isEventDescriptionSupported,
             bool isPlatformTypeDescriptorSupported,
             bool isReasonNotTestedDescriptorSupported,
+            bool isReportedSchoolIdSupported,
+            bool isReportedSchoolIdentifierSupported,
             bool isRetestIndicatorDescriptorSupported,
             bool isSchoolYearSupported,
             bool isSerialNumberSupported,
@@ -34184,6 +34262,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
             IsEventDescriptionSupported = isEventDescriptionSupported;
             IsPlatformTypeDescriptorSupported = isPlatformTypeDescriptorSupported;
             IsReasonNotTestedDescriptorSupported = isReasonNotTestedDescriptorSupported;
+            IsReportedSchoolIdSupported = isReportedSchoolIdSupported;
+            IsReportedSchoolIdentifierSupported = isReportedSchoolIdentifierSupported;
             IsRetestIndicatorDescriptorSupported = isRetestIndicatorDescriptorSupported;
             IsSchoolYearSupported = isSchoolYearSupported;
             IsSerialNumberSupported = isSerialNumberSupported;
@@ -34211,6 +34291,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         public bool IsEventDescriptionSupported { get; }
         public bool IsPlatformTypeDescriptorSupported { get; }
         public bool IsReasonNotTestedDescriptorSupported { get; }
+        public bool IsReportedSchoolIdSupported { get; }
+        public bool IsReportedSchoolIdentifierSupported { get; }
         public bool IsRetestIndicatorDescriptorSupported { get; }
         public bool IsSchoolYearSupported { get; }
         public bool IsSerialNumberSupported { get; }
@@ -34249,6 +34331,10 @@ namespace EdFi.Ods.Entities.Common.EdFi
                     return IsPlatformTypeDescriptorSupported;
                 case "ReasonNotTestedDescriptor":
                     return IsReasonNotTestedDescriptorSupported;
+                case "ReportedSchoolId":
+                    return IsReportedSchoolIdSupported;
+                case "ReportedSchoolIdentifier":
+                    return IsReportedSchoolIdentifierSupported;
                 case "RetestIndicatorDescriptor":
                     return IsRetestIndicatorDescriptorSupported;
                 case "SchoolYear":
@@ -34303,6 +34389,37 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
+    /// between entities/resources during API request processing.
+    /// </summary>
+    public class StudentAssessmentAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    {
+        public StudentAssessmentAccommodationMappingContract(
+            IReadOnlyList<string> supportedExtensions
+            )
+        {
+            SupportedExtensions = supportedExtensions;
+        }
+
+
+        bool IMappingContract.IsMemberSupported(string memberName)
+        {
+            switch (memberName)
+            {
+                default:
+                    throw new Exception($"Unknown member '{memberName}'.");
+            }
+        }
+
+        public IReadOnlyList<string> SupportedExtensions { get; }
+
+        public bool IsExtensionSupported(string name)
+        {
+            return SupportedExtensions.Contains(name);    
+        }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentAssessmentEducationOrganizationAssociation model.
     /// </summary>
     public interface IStudentAssessmentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -34340,20 +34457,25 @@ namespace EdFi.Ods.Entities.Common.EdFi
     /// Defines a mapping contract appropriate for a particular context when data is either being mapped or synchronized
     /// between entities/resources during API request processing.
     /// </summary>
-    public class StudentAssessmentAccommodationMappingContract : IMappingContract, IExtensionsMappingContract
+    public class StudentAssessmentEducationOrganizationAssociationMappingContract : IMappingContract, IExtensionsMappingContract
     {
-        public StudentAssessmentAccommodationMappingContract(
+        public StudentAssessmentEducationOrganizationAssociationMappingContract(
+            bool isSchoolYearSupported,
             IReadOnlyList<string> supportedExtensions
             )
         {
+            IsSchoolYearSupported = isSchoolYearSupported;
             SupportedExtensions = supportedExtensions;
         }
 
+        public bool IsSchoolYearSupported { get; }
 
         bool IMappingContract.IsMemberSupported(string memberName)
         {
             switch (memberName)
             {
+                case "SchoolYear":
+                    return IsSchoolYearSupported;
                 default:
                     throw new Exception($"Unknown member '{memberName}'.");
             }
