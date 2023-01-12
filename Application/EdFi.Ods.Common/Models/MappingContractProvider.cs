@@ -156,7 +156,7 @@ public class MappingContractProvider : IMappingContractProvider
                             if (parameterInfo.Name == "supportedExtensions")
                             {
                                 // SPIKE NOTE: Is this the correct name to use for the extension?
-                                return profileResource.Extensions.Select(x => x.PropertyName).ToArray();
+                                return profileResourceClass.Extensions.Select(x => x.PropertyName).ToArray();
                             }
 
                             if (parameterInfo.Name?.StartsWith("is") != true)
@@ -171,7 +171,7 @@ public class MappingContractProvider : IMappingContractProvider
                                     2,
                                     parameterInfo.Name.Length - "Supported".Length - 2);
 
-                                return profileResource.FilterContext.MemberFilter.ShouldInclude(memberName);
+                                return profileResourceClass.FilterContext.MemberFilter.ShouldInclude(memberName);
                             }
 
                             if (parameterInfo.Name.EndsWith("Included"))
@@ -182,7 +182,7 @@ public class MappingContractProvider : IMappingContractProvider
 
                                 string collectionName = CompositeTermInflector.MakePlural(memberName);
 
-                                if (profileResource.CollectionByName.TryGetValue(collectionName, out var collection))
+                                if (profileResourceClass.CollectionByName.TryGetValue(collectionName, out var collection))
                                 {
                                     Type itemType = parameterInfo.ParameterType.GenericTypeArguments[0];
 

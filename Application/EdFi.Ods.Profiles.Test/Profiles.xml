@@ -679,7 +679,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly">
+        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
           <Property name="FirstPetOwnedDate" />
           <Object name="StaffPetPreference" memberSelection="IncludeOnly">
             <Property name="MinimumWeight" />
@@ -707,7 +707,7 @@
           </Object>
           <Collection name="StaffPets" memberSelection="ExcludeOnly">
             <Property name="IsFixed" />
-            <!-- Should include PetName -->
+            <!-- Cannot exclude PetName, it's part of the PK -->
           </Collection>
         </Extension>
       </ReadContentType>
@@ -775,6 +775,8 @@
         <Extension name="Sample" memberSelection="ExcludeOnly" logicalSchema="Sample">
           <Object name="StudentPetPreference" memberSelection="IncludeAll" />
           <Collection name="StudentPets" memberSelection="IncludeAll" />
+          <Collection name="StudentAquaticPets" memberSelection="IncludeAll" />
+          <Collection name="StudentFavoriteBooks" memberSelection="IncludeAll" />
         </Extension>
       </ReadContentType>
     </Resource>
@@ -787,7 +789,6 @@
         <Property name="LastSurname" />
         <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
           <Collection name="StudentFavoriteBooks" memberSelection="IncludeOnly">
-            <Property name="BookTitle" />
             <Collection name="StudentFavoriteBookArtMedia" memberSelection="IncludeOnly">
               <Property name="ArtPieces" />
             </Collection>

@@ -37,6 +37,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
+    private static readonly string[] _extensionsStringArray = new[] { "Extensions" };
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -111,11 +112,17 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             using var enumerator = tokenizer.GetEnumerator();
 
             enumerator.MoveNext();
-
             enumerator.MoveNext();
             string schema = enumerator.Current.Value;
-
             enumerator.MoveNext();
+            
+            if (enumerator.Current.Value == "Extensions")
+            {
+                enumerator.MoveNext();
+                schema = enumerator.Current.Value;
+                enumerator.MoveNext();
+            }
+            
             string name = enumerator.Current.Value;
 
             return (schema, name);
@@ -154,15 +161,34 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
         if (profileResource == null)
         {
             throw new Exception(
-                $"Resource '{profileRequestContext.ResourceName}' not found in API Profile '{profileRequestContext.ProfileName}'");
+                $"Resource '{profileRequestContext.ResourceName}' not found in API Profile '{profileRequestContext.ProfileName}'.");
         }
 
         var profileResourceClass =
             profileResource.AllContainedItemTypesOrSelf.SingleOrDefault(x => x.FullName == resourceClassFullName);
 
-        var supportedMemberNames = profileResourceClass?.PropertyByName.Keys.Concat(profileResourceClass.CollectionByName.Keys)
+        if (profileResourceClass == null)
+        {
+            // If it's a reference class, just serialize it using default serialization behavior
+            if (resourceClassFullName.Name.EndsWith("Reference"))
+            {
+                return serializableMembers;
+            }
+            
+            throw new Exception(
+                $"Resource class '{resourceClassFullName}' not found in resource '{profileRequestContext.ResourceName}' in API Profile '{profileRequestContext.ProfileName}'.");
+        }
+        
+        var supportedMemberNames = 
+            profileResourceClass.PropertyByName.Keys
+            .Concat(profileResourceClass.CollectionByName.Keys)
             .Concat(profileResourceClass.ReferenceByName.Keys)
-            .ToArray();
+            .Concat(profileResourceClass.EmbeddedObjectByName.Keys);
+
+        if (profileResourceClass.Extensions.Any())
+        {
+            supportedMemberNames = supportedMemberNames.Concat(_extensionsStringArray);
+        }
 
         var profileConstrainedMembers = serializableMembers
             .Where(mi => supportedMemberNames?.Contains(mi.Name) != false)
