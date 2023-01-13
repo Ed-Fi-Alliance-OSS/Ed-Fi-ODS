@@ -662,6 +662,10 @@
         <Property name="FirstName" />
         <Property name="LastSurname" />
       </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+      </WriteContentType>
     </Resource>
   </Profile>
 
@@ -679,7 +683,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <Property name="FirstPetOwnedDate" />
           <Object name="StaffPetPreference" memberSelection="IncludeOnly">
             <Property name="MinimumWeight" />
@@ -719,7 +723,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="ExcludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="ExcludeOnly">
           <Property name="FirstPetOwnedDate" />
           <Object name="StaffPetPreference" memberSelection="IncludeAll" />
           <Collection name="StaffPets" memberSelection="IncludeAll" />
@@ -734,7 +738,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <Object name="StudentPetPreference" memberSelection="IncludeOnly">
             <Property name="MinimumWeight" />
             <!-- Should exclude MaximumWeight -->
@@ -753,7 +757,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <Object name="StudentPetPreference" memberSelection="ExcludeOnly">
             <Property name="MinimumWeight" />
             <!-- Should include MaximumWeight -->
@@ -772,7 +776,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="ExcludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="ExcludeOnly">
           <Object name="StudentPetPreference" memberSelection="IncludeAll" />
           <Collection name="StudentPets" memberSelection="IncludeAll" />
           <Collection name="StudentAquaticPets" memberSelection="IncludeAll" />
@@ -787,7 +791,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <Collection name="StudentFavoriteBooks" memberSelection="IncludeOnly">
             <Collection name="StudentFavoriteBookArtMedia" memberSelection="IncludeOnly">
               <Property name="ArtPieces" />
@@ -803,7 +807,7 @@
       <ReadContentType memberSelection="IncludeOnly">
         <Property name="FirstName" />
         <Property name="LastSurname" />
-        <Extension name="Sample" memberSelection="IncludeOnly" logicalSchema="Sample">
+        <Extension name="Sample" memberSelection="IncludeOnly">
           <Collection name="StudentFavoriteBooks" memberSelection="ExcludeOnly">
             <Property name="BookTitle" />
             <!-- Should include art mediums -->
@@ -816,4 +820,21 @@
     </Resource>
   </Profile>
 
+  <Profile name="Sample-School-Multiple-Extensions-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-School-Multiple-Extensions-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="NameOfInstitution" />
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
 </Profiles>

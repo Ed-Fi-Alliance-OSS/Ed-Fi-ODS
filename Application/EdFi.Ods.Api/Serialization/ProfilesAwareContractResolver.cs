@@ -37,7 +37,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
-    private static readonly string[] _extensionsStringArray = new[] { "Extensions" };
+    private static readonly string[] _extensionsInArray = new[] { "Extensions" };
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -187,7 +187,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
         if (profileResourceClass.Extensions.Any())
         {
-            supportedMemberNames = supportedMemberNames.Concat(_extensionsStringArray);
+            supportedMemberNames = supportedMemberNames.Concat(_extensionsInArray);
         }
 
         var profileConstrainedMembers = serializableMembers
