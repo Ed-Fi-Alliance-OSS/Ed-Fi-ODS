@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading;
@@ -25,11 +24,12 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Utils.Profiles;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
-using Npgsql;
 using Polly;
 using Polly.Retry;
 
@@ -58,6 +58,7 @@ namespace EdFi.Ods.Api.Controllers
         private const string GetByIdRequest = "GetByIdRequest";
 
         private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
         private readonly int _defaultPageLimitSize;
         private readonly ReverseProxySettings _reverseProxySettings;
         private ILog _logger;
@@ -100,11 +101,13 @@ namespace EdFi.Ods.Api.Controllers
             ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
-            ApiSettings apiSettings)
+            ApiSettings apiSettings,
+            IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
         {
             //this.repository = repository;
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
+            _profileContentTypeContextProvider = profileContentTypeContextProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
 
@@ -167,10 +170,23 @@ namespace EdFi.Ods.Api.Controllers
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
 
-        // This is overriden when profiles are used, and passed back the constrained profile
-        protected virtual string GetReadContentType() => MediaTypeNames.Application.Json;
+        private string GetReadContentType()
+        {
+            var profilesContext = _profileContentTypeContextProvider.Get();
+
+            if (profilesContext == null)
+            {
+                return MediaTypeNames.Application.Json;
+            }
+
+            return ProfilesContentTypeHelper.CreateContentType(
+                profilesContext.ResourceName,
+                profilesContext.ProfileName,
+                profilesContext.ContentTypeUsage);
+        }
 
         [HttpGet]
+        [EnforceAssignedProfileUsage]
         public virtual async Task<IActionResult> GetAll(
             [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
             [FromQuery] TGetByExampleRequest request = default(TGetByExampleRequest))
@@ -220,6 +236,7 @@ namespace EdFi.Ods.Api.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [EnforceAssignedProfileUsage]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Get(Guid id)
@@ -240,14 +257,20 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             // Handle success result
+            var responseHeaders = Response.GetTypedHeaders();
+            
+            // Set content type appropriately
+            responseHeaders.ContentType = new MediaTypeHeaderValue(GetReadContentType());
+            
             // Add ETag header for the resource
-            Response.GetTypedHeaders().ETag = GetEtag(result.Resource.ETag);
+            responseHeaders.ETag = GetEtag(result.Resource.ETag);
             LogRequestResponseDetailsInfo(nameof(this.Get));
             return Ok(result.Resource);
         }
 
         [CheckModelForNull]
         [HttpPut("{id}")]
+        [EnforceAssignedProfileUsage]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -300,6 +323,7 @@ namespace EdFi.Ods.Api.Controllers
 
         [CheckModelForNull]
         [HttpPost]
+        [EnforceAssignedProfileUsage]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
