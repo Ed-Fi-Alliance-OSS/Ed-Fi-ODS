@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.Providers
                 apiClientDetails.EducationOrganizationIds,
                 apiClientDetails.ClaimSetName,
                 apiClientDetails.NamespacePrefixes,
-                apiClientDetails.Profiles.ToList(),
+                apiClientDetails.Profiles,
                 apiClientDetails.OwnershipTokenIds.ToArray());
 
             var principal = new ClaimsPrincipal(identity);

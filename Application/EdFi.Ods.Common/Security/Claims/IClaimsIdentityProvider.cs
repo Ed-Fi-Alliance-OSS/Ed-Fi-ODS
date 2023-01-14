@@ -30,9 +30,9 @@ namespace EdFi.Ods.Common.Security.Claims
         ClaimsIdentity GetClaimsIdentity(
             IEnumerable<int> localEducationAgencyIds,
             string claimSetName,
-            IEnumerable<string> vendorNamespacePrefixes,
-            IReadOnlyList<string> assignedProfileNames,
-            IReadOnlyList<short> ownershipTokenIds);
+            IList<string> vendorNamespacePrefixes,
+            IList<string> assignedProfileNames,
+            IList<short> ownershipTokenIds);
     }
 
     /// <summary>

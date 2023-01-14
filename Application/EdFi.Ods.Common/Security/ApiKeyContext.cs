@@ -24,12 +24,12 @@ namespace EdFi.Ods.Common.Security
         public ApiKeyContext(
             string apiKey,
             string claimSetName,
-            int[] educationOrganizationIds,
-            IEnumerable<string> namespacePrefixes,
-            IEnumerable<string> profiles,
+            IList<int> educationOrganizationIds,
+            IList<string> namespacePrefixes,
+            IList<string> profiles,
             string studentIdentificationSystemDescriptor,
             short? creatorOwnershipTokenId,
-            IEnumerable<short> ownershipTokenIds,
+            IList<short> ownershipTokenIds,
             int apiClientId)
         {
             ApiKey = apiKey;
@@ -43,7 +43,7 @@ namespace EdFi.Ods.Common.Security
             ApiClientId = apiClientId;
         }
 
-        public IEnumerable<short> OwnershipTokenIds { get; }
+        public IList<short> OwnershipTokenIds { get; }
 
         public short? CreatorOwnershipTokenId { get; }
 
@@ -51,11 +51,11 @@ namespace EdFi.Ods.Common.Security
 
         public string ClaimSetName { get; }
 
-        public int[] EducationOrganizationIds { get; }
+        public IList<int> EducationOrganizationIds { get; }
 
-        public IEnumerable<string> NamespacePrefixes { get; }
+        public IList<string> NamespacePrefixes { get; }
 
-        public IEnumerable<string> Profiles { get; }
+        public IList<string> Profiles { get; }
 
         public string StudentIdentificationSystemDescriptor { get; }
 
