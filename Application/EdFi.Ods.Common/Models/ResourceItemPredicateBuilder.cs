@@ -14,14 +14,10 @@ namespace EdFi.Ods.Common.Models;
 
 public static class ResourceItemPredicateBuilder
 {
-    // IEnumerable.Contains
-    private static readonly MethodInfo _containsMethodInfo = typeof(IEnumerable<string>).GetMethod(
-        "Contains",
-        new[]
-        {
-            typeof(IEnumerable<string>),
-            typeof(string)
-        });
+    // Enumerable.Contains(IEnumerable<T>, T)
+    private static readonly MethodInfo _containsMethodInfo = typeof(Enumerable).GetMethods()
+        .Single(m => m.Name == "Contains" && m.GetParameters().Length == 2)
+        .MakeGenericMethod(typeof(string));
 
     /// <summary>
     /// Builds a functional predicate that can be used to filter items from a collection based on the provided value
