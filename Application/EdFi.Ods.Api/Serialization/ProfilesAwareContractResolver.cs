@@ -37,7 +37,10 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
+
     private static readonly string[] _extensionsInArray = new[] { "Extensions" };
+    private static readonly string[] _metadataProperties = new[] { "ETag", "LastModifiedDate" };
+    private static readonly List<MemberInfo> _emptyMemberList = new();
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -174,16 +177,16 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             {
                 return serializableMembers;
             }
-            
-            throw new Exception(
-                $"Resource class '{resourceClassFullName}' not found in resource '{profileRequestContext.ResourceName}' in API Profile '{profileRequestContext.ProfileName}'.");
+
+            return _emptyMemberList;
         }
         
         var supportedMemberNames = 
             profileResourceClass.PropertyByName.Keys
             .Concat(profileResourceClass.CollectionByName.Keys)
             .Concat(profileResourceClass.ReferenceByName.Keys)
-            .Concat(profileResourceClass.EmbeddedObjectByName.Keys);
+            .Concat(profileResourceClass.EmbeddedObjectByName.Keys)
+            .Concat(_metadataProperties);
 
         if (profileResourceClass.Extensions.Any())
         {

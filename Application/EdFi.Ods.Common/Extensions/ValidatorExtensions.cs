@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using EdFi.Ods.Common.Exceptions;
 using log4net;
 
 namespace EdFi.Ods.Common.Extensions
@@ -31,6 +32,11 @@ namespace EdFi.Ods.Common.Extensions
                     {
                         _logger.Error($"Validation exception [{ex.GetType()}]: {ex.StackTrace}", ex);
                         result.Add(new ValidationResult(ex.InnerException.Message));
+                    }
+                    catch (ProfileContentTypeUsageException)
+                    {
+                        // Allow error translation to be performed for desired HTTP response status
+                        throw;
                     }
                     catch (Exception ex)
                     {

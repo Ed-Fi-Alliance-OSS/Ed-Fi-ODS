@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
@@ -101,7 +102,7 @@ public class MappingContractProvider : IMappingContractProvider
                 if (!profileResourceModel.ResourceByName.TryGetValue(key.ProfileResourceName, out var contentTypes))
                 {
                     throw new BadRequestException(
-                        $"Unable to locate resource '{key.ProfileResourceName}' in API profile '{key.ProfileName}'.");
+                        $"The '{key.ProfileResourceName.Name}' resource is not accessible through the '{key.ProfileName}' profile specified by the content type.");
                 }
 
                 // Use the appropriate variant of the resource (readable or writable)
@@ -111,8 +112,9 @@ public class MappingContractProvider : IMappingContractProvider
 
                 if (profileResource == null)
                 {
-                    throw new BadRequestException(
-                        $"Resource class '{key.ResourceClassName}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.");
+                    throw new ProfileContentTypeUsageException(
+                        $"Resource class '{key.ResourceClassName}' is not {key.ContentTypeUsage.ToString().ToLower()} using API profile '{key.ProfileName}'.",
+                        key.ProfileName, key.ContentTypeUsage);
                 }
 
                 var profileResourceClass =

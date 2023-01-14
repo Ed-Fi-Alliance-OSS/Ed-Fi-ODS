@@ -674,6 +674,9 @@
       <ReadContentType memberSelection="ExcludeOnly">
         <Extension name="Sample" memberSelection="IncludeAll" />
       </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </WriteContentType>
     </Resource>
   </Profile>
 
@@ -695,6 +698,21 @@
           </Collection>
         </Extension>
       </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Property name="FirstPetOwnedDate" />
+          <Object name="StaffPetPreference" memberSelection="IncludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should exclude MaximumWeight -->
+          </Object>
+          <Collection name="StaffPets" memberSelection="IncludeOnly">
+            <Property name="PetName" />
+            <!-- Should exclude IsFixed -->
+          </Collection>
+        </Extension>
+      </WriteContentType>
     </Resource>
   </Profile>
 
@@ -715,6 +733,21 @@
           </Collection>
         </Extension>
       </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <!-- Should exclude FirstPetOwnedDate -->
+          <Object name="StaffPetPreference" memberSelection="ExcludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should include MaximumWeight -->
+          </Object>
+          <Collection name="StaffPets" memberSelection="ExcludeOnly">
+            <Property name="IsFixed" />
+            <!-- Cannot exclude PetName, it's part of the PK -->
+          </Collection>
+        </Extension>
+      </WriteContentType>
     </Resource>
   </Profile>
 
@@ -729,6 +762,15 @@
           <Collection name="StaffPets" memberSelection="IncludeAll" />
         </Extension>
       </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="ExcludeOnly">
+          <Property name="FirstPetOwnedDate" />
+          <Object name="StaffPetPreference" memberSelection="IncludeAll" />
+          <Collection name="StaffPets" memberSelection="IncludeAll" />
+        </Extension>
+      </WriteContentType>
     </Resource>
   </Profile>
 
