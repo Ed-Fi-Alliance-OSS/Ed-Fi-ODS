@@ -14,8 +14,8 @@ namespace EdFi.Ods.Common.Models;
 
 public class ProfileResourceModelProvider : IProfileResourceModelProvider
 {
-    private readonly ConcurrentDictionary<string, ProfileResourceModel> _modelByProfileName =
-        new(StringComparer.InvariantCultureIgnoreCase);
+    private readonly ConcurrentDictionary<string, ProfileResourceModel> _modelByProfileName 
+        = new (StringComparer.OrdinalIgnoreCase);
 
     private readonly IProfileMetadataProvider _profileMetadataProvider;
     private readonly IProfileValidationReporter _profileValidationReporter;

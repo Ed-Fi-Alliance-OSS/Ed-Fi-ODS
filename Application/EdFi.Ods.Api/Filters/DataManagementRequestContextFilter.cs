@@ -21,7 +21,7 @@ using Microsoft.Extensions.Primitives;
 namespace EdFi.Ods.Api.Filters;
 
 /// <summary>
-/// An action filter that inspects the action descriptor's AttributeRouteInfo to locate
+/// A resource filter that inspects the action descriptor's AttributeRouteInfo to locate
 /// the <see cref="Resource" /> associated with the current data management API request.
 /// </summary>
 public class DataManagementRequestContextFilter : IAsyncResourceFilter
@@ -50,7 +50,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 .ToArray());
 
         _apiSettings = apiSettings;
-        _templatePrefix = new Lazy<string>(() => GetTemplatePrefix());
+        _templatePrefix = new Lazy<string>(GetTemplatePrefix);
     }
 
     public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)

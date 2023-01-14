@@ -128,7 +128,7 @@ namespace EdFi.Ods.Common.Extensions
 
                 // Assumption: ItemType is last generic argument (most of the time this will be a List<T>,
                 // but it could be a CovariantIListAdapter<TBase, TDerived>.  We want the last generic argument type.
-                 type = listTypes[listTypes.Length - 1];
+                 type = listTypes[^1];
                 _itemTypeByUnderlyingListType[targetListType] = type;
 
                 return type;

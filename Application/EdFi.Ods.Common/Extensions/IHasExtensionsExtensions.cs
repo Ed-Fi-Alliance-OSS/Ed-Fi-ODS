@@ -50,7 +50,10 @@ namespace EdFi.Ods.Common.Extensions
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static bool SynchronizeExtensionsTo<TSource, TTarget>(this TSource source, TTarget target, IExtensionsMappingContract extensionsMappingContract)
+        public static bool SynchronizeExtensionsTo<TSource, TTarget>(
+            this TSource source,
+            TTarget target,
+            IExtensionsMappingContract extensionsMappingContract)
             where TSource : ISynchronizable, IHasExtensions
             where TTarget : IHasExtensions
         {
