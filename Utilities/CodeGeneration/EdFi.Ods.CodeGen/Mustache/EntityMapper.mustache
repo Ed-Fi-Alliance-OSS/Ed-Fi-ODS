@@ -287,7 +287,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             if (mappingContract?.Is{{OtherClassPlural}}Supported != false)
             {
-                source.{{OtherClassPlural}}.MapCollectionTo(target.{{OtherClassPlural}}, target);
+                source.{{OtherClassPlural}}.MapCollectionTo(target.{{OtherClassPlural}}, target, mappingContract?.Is{{OtherClassSingular}}Included);
             }
             {{/BaseNavigableChildrenList}}
             {{/IsDerivedEntity}}
@@ -297,7 +297,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             if (mappingContract?.Is{{ChildClassPlural}}Supported != false)
             {
-                source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionAggregateExtension}}target.{{ParentName}}{{/IsCollectionAggregateExtension}}{{^IsCollectionAggregateExtension}}target{{/IsCollectionAggregateExtension}});
+                source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionAggregateExtension}}target.{{ParentName}}{{/IsCollectionAggregateExtension}}{{^IsCollectionAggregateExtension}}target{{/IsCollectionAggregateExtension}}, mappingContract?.Is{{ChildClassSingular}}Included);
             }
             {{/NavigableChildrenList}}
 

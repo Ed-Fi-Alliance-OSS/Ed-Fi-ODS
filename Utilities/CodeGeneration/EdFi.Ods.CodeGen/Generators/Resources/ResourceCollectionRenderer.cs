@@ -241,11 +241,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             public string EntityName { get; set; }
 
+            public bool HasCollections { get; set; }
+            
             public IEnumerable<PutPostRequestValidatorCollectionProperty> Collections { get; set; }
-
-            public bool HasProfileItemFilterValidations { get; set; }
-
-            public IEnumerable<ItemFilterValidation> ProfileItemFilterValidations { get; set; }
 
             public KeyUnificationValidation KeyUnificationValidations { get; set; }
         }
@@ -274,9 +272,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 Schema = resource.FullName.Schema,
                 EntityName = resource.Name,
+                HasCollections = resource.Collections.Any(), 
                 Collections = resource.Collections
-                    // TODO: Remove this filter with dynamic profiles
-                    .Where(collection => !profileData.HasProfile || profileData.IsIncluded(resource, collection))
                     .Select(
                         collection => new PutPostRequestValidatorCollectionProperty
                         {
@@ -291,18 +288,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     profileData.ProfilePropertyNamespaceSection)
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
-                HasProfileItemFilterValidations = profileData.HasProfile
-                    && profileData.IsWritable
-                    && profileData.HasFilteredCollection()
-                    && GetItemFilterValidations().Any(),
-                ProfileItemFilterValidations = GetItemFilterValidations(),
                 KeyUnificationValidations = new KeyUnificationValidation
                 {
                     ResourceClassName = resource.Name,
                     ParentResourceClassName = resourceChildItem?.Parent.Name,
                     UnifiedProperties = resource.AllProperties
-                        // TODO: Remove this filter with dynamic profiles
-                        .Where(rp => !profileData.HasProfile || profileData.IsIncluded(resource, rp))
                         .Where(rp => rp.IsUnified())
                         .Select(rp => new UnifiedProperty
                         {
@@ -348,26 +338,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         })
                 }
             };
-
-            IEnumerable<ItemFilterValidation> GetItemFilterValidations()
-            {
-                return resource.Collections
-                    .Where(x => profileData.IsFilteredCollection(resource, x))
-                    .OrderBy(x => x.PropertyName)
-                    .SelectMany(
-                        x => profileData.GetFilteredCollection(resource, x)
-                            .ValueFilters
-                            .Select(
-                                y => new ItemFilterValidation
-                                {
-                                    PropertyName = x.PropertyName,
-                                    ValidatorName = x.ItemType.Name,
-                                    ValidatorPropertyName = y.PropertyName,
-                                    PropertyFieldName = x.ItemType.Name.ToCamelCase(),
-                                    Filters = string.Join(", ", y.Values.Select(s => string.Format("'{0}'", s))),
-                                    ProfileName = profileData.ProfileName
-                                }));
-            }
         }
 
         public object References(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)

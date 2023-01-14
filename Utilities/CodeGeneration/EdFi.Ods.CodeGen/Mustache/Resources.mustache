@@ -1336,10 +1336,8 @@ namespace {{ResourceClassesNamespace}}
     [ExcludeFromCodeCoverage]
     public class {{EntityName}}PutPostRequestValidator : FluentValidation.AbstractValidator<{{EntityName}}>
     {
-        {{#HasProfileItemFilterValidations}}
         private static readonly FullName _fullName_{{Schema}}_{{EntityName}} = new FullName("{{Schema}}", "{{EntityName}}");
 
-        {{/HasProfileItemFilterValidations}}
         protected override bool PreValidate(FluentValidation.ValidationContext<{{EntityName}}> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -1353,25 +1351,32 @@ namespace {{ResourceClassesNamespace}}
 
             var failures = new List<ValidationFailure>();
 
-            {{#HasProfileItemFilterValidations}}
             // Get the current mapping contract
             var mappingContract = new Lazy<{{EntityName}}MappingContract>(() => ({{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_{{Schema}}_{{EntityName}}));
 
+            {{#HasCollections}}
             // Profile-based collection item filter validation
-            {{#ProfileItemFilterValidations}}
-            var invalid{{PropertyName}} = instance.{{PropertyName}}.Where(x => !mappingContract.Value.Is{{ValidatorName}}Included(x)).Select(x => x.{{ValidatorPropertyName}}).ToList();
+            string profileName = null;
 
-            if (invalid{{PropertyName}}.Any())
-                failures.Add(new ValidationFailure("{{ValidatorPropertyName}}",
-                    string.Format(
-                        "The value of '{0}' supplied for the '{{ValidatorPropertyName}}' of the '{{ValidatorName}}' does not conform with the filter values defined by profile '{{ProfileName}}': [{{Filters}}]",
-                        invalid{{PropertyName}}.FirstOrDefault())));
+            if (mappingContract.Value != null)
+            {
+                {{#Collections}}
+                if (mappingContract.Value.Is{{ItemTypeName}}Included != null)
+                {
+                    var hasInvalid{{PropertyName}}Items = instance.{{PropertyName}}.Any(x => !mappingContract.Value.Is{{ItemTypeName}}Included(x));
+        
+                    if (hasInvalid{{PropertyName}}Items)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("{{ItemTypeName}}", $"A supplied '{{ItemTypeName}}' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
 
-            {{/ProfileItemFilterValidations}}
-
-            {{/HasProfileItemFilterValidations}}
+                {{/Collections}}
+            }
+            {{/HasCollections}}
             // -----------------------
             //  Validate unified keys
             // -----------------------
