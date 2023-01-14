@@ -54,6 +54,9 @@ using System.Runtime.Loader;
 using System.Security.Claims;
 using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -330,6 +333,12 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IMappingContractProvider>());
+
+                // NOTE: These static resolvers could be eliminated if Profiles enforcement was in a singleton action filter rather than attribute
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IProfileResourceModelProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IApiKeyContextProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<ProfileContentTypeContext>>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<DataManagementResourceContext>>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.
