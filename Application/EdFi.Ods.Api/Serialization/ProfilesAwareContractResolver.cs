@@ -8,22 +8,16 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EdFi.Common;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
 
 namespace EdFi.Ods.Api.Serialization;
-
-// SPIKE NOTE: We may want to provide an extension point while initializing the JSON serializer for the API so that the Profiles
-// feature can set to this contract resolver (renamed to ProfilesContractResolver) as part of the feature only (otherwise the
-// default behavior would be to use the CamelCasePropertyNamesContractResolver).
 
 public class ProfilesAwareContractResolver : DefaultContractResolver
 {
@@ -38,8 +32,8 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
 
-    private static readonly string[] _extensionsInArray = new[] { "Extensions" };
-    private static readonly string[] _metadataProperties = new[] { "ETag", "LastModifiedDate" };
+    private static readonly string[] _extensionsInArray = { "Extensions" };
+    private static readonly string[] _metadataProperties = { "ETag", "LastModifiedDate" };
     private static readonly List<MemberInfo> _emptyMemberList = new();
 
     public ProfilesAwareContractResolver(
