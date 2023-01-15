@@ -1383,7 +1383,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<CandidateMappingContract>(() => (CandidateMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.CandidateMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.CandidateMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_Candidate));
 
@@ -1957,7 +1957,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<CandidateAddressMappingContract>(() => (CandidateAddressMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.CandidateAddressMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.CandidateAddressMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateAddress));
 
@@ -2507,7 +2507,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<CandidateDisabilityMappingContract>(() => (CandidateDisabilityMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.CandidateDisabilityMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.CandidateDisabilityMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateDisability));
 
@@ -3281,7 +3281,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<CandidateLanguageMappingContract>(() => (CandidateLanguageMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.CandidateLanguageMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.CandidateLanguageMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateLanguage));
 
@@ -5178,7 +5178,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<CandidateEducatorPreparationProgramAssociationMappingContract>(() => (CandidateEducatorPreparationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.CandidateEducatorPreparationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociation));
 
@@ -6707,7 +6707,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<CredentialExtensionMappingContract>(() => (CredentialExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.CredentialExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.CredentialExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CredentialExtension));
 
@@ -7850,7 +7850,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EducatorPreparationProgramMappingContract>(() => (EducatorPreparationProgramMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EducatorPreparationProgramMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EducatorPreparationProgramMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EducatorPreparationProgram));
 
@@ -9548,7 +9548,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EvaluationMappingContract>(() => (EvaluationMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EvaluationMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EvaluationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_Evaluation));
 
@@ -10512,7 +10512,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EvaluationElementMappingContract>(() => (EvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EvaluationElementMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EvaluationElementMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElement));
 
@@ -11674,7 +11674,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EvaluationElementRatingMappingContract>(() => (EvaluationElementRatingMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EvaluationElementRatingMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EvaluationElementRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationElementRating));
 
@@ -13105,7 +13105,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EvaluationObjectiveMappingContract>(() => (EvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EvaluationObjectiveMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjective));
 
@@ -14206,7 +14206,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EvaluationObjectiveRatingMappingContract>(() => (EvaluationObjectiveRatingMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EvaluationObjectiveRatingMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EvaluationObjectiveRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRating));
 
@@ -15912,7 +15912,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<EvaluationRatingMappingContract>(() => (EvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.EvaluationRatingMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.EvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_EvaluationRating));
 
@@ -19334,7 +19334,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<PerformanceEvaluationMappingContract>(() => (PerformanceEvaluationMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.PerformanceEvaluationMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.PerformanceEvaluationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluation));
 
@@ -20628,7 +20628,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<PerformanceEvaluationRatingMappingContract>(() => (PerformanceEvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.TPDM.PerformanceEvaluationRatingMappingContract>(() => (global::EdFi.Ods.Entities.Common.TPDM.PerformanceEvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRating));
 

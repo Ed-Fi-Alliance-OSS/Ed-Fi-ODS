@@ -1358,7 +1358,7 @@ namespace {{ResourceClassesNamespace}}
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<{{EntityName}}MappingContract>(() => ({{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<{{ExtensionNamespacePrefix}}{{EntityName}}MappingContract>(() => ({{ExtensionNamespacePrefix}}{{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_{{Schema}}_{{EntityName}}));
 

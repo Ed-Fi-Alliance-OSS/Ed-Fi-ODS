@@ -246,6 +246,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             public IEnumerable<PutPostRequestValidatorCollectionProperty> Collections { get; set; }
 
             public KeyUnificationValidation KeyUnificationValidations { get; set; }
+
+            /// <summary>
+            /// The fully qualified namespace prefix that can be used for extension artifacts to ensure they can be delineated
+            /// from Ed-Fi Standard artifacts by the compiler (e.g. global::EdFi...).
+            /// </summary>
+            public string ExtensionNamespacePrefix { get; set; }
         }
 
         public class ItemFilterValidation {
@@ -272,6 +278,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 Schema = resource.FullName.Schema,
                 EntityName = resource.Name,
+                ExtensionNamespacePrefix = templateContext.IsExtension
+                    ? $"global::EdFi.Ods.Entities.Common.{resource.SchemaProperCaseName}."
+                    : null,
                 HasCollections = resource.Collections.Any(), 
                 Collections = resource.Collections
                     .Select(

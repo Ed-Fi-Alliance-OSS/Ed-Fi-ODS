@@ -1292,7 +1292,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<BusRouteMappingContract>(() => (BusRouteMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.BusRouteMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.BusRouteMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_BusRoute));
 
@@ -3530,7 +3530,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<ParentAddressExtensionMappingContract>(() => (ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.ParentAddressExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentAddressExtension));
 
@@ -5484,7 +5484,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<ParentExtensionMappingContract>(() => (ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.ParentExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentExtension));
 
@@ -7286,7 +7286,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<SchoolExtensionMappingContract>(() => (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.SchoolExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_SchoolExtension));
 
@@ -7594,7 +7594,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StaffExtensionMappingContract>(() => (StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StaffExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StaffExtension));
 
@@ -8659,7 +8659,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentExtensionMappingContract>(() => (StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentExtension));
 
@@ -9008,7 +9008,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentFavoriteBookMappingContract>(() => (StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentFavoriteBookMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentFavoriteBook));
 
@@ -10590,7 +10590,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentArtProgramAssociationMappingContract>(() => (StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentArtProgramAssociationMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentArtProgramAssociation));
 
@@ -12146,7 +12146,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentEducationOrganizationAssociationAddressExtensionMappingContract>(() => (StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationAddressExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension));
 
@@ -12895,7 +12895,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract>(() => (StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension));
 
@@ -14071,7 +14071,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentGraduationPlanAssociationMappingContract>(() => (StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentGraduationPlanAssociationMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation));
 
@@ -17040,7 +17040,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentParentAssociationExtensionMappingContract>(() => (StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentParentAssociationExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationExtension));
 
@@ -18920,7 +18920,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentSectionAssociationExtensionMappingContract>(() => (StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Sample.StudentSectionAssociationExtensionMappingContract>(() => (global::EdFi.Ods.Entities.Common.Sample.StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension));
 

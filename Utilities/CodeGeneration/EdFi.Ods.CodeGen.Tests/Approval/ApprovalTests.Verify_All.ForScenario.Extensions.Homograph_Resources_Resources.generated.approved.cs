@@ -795,7 +795,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<ParentMappingContract>(() => (ParentMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.ParentMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.ParentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Parent));
 
@@ -2790,7 +2790,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StaffMappingContract>(() => (StaffMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Staff));
 
@@ -3932,7 +3932,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
             string profileName = null;
 
             // Get the current mapping contract
-            var mappingContract = new Lazy<StudentMappingContract>(() => (StudentMappingContract) GeneratedArtifactStaticDependencies
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.StudentMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.StudentMappingContract) GeneratedArtifactStaticDependencies
                 .MappingContractProvider
                 .GetMappingContract(_fullName_homograph_Student));
 
