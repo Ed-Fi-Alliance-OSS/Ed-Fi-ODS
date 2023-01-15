@@ -8,7 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Security;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -17,24 +22,41 @@ using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Filters;
 
-public class EnforceAssignedProfileUsageAttribute : ActionFilterAttribute
+public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
 {
-    public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-    {
-        // ------------------------------------------------------------------------------------------------------------------------
-        // NOTE: If we want to determine whether Profiles feature is enabled, we'll need access to the ApiSettings statically
-        // or we'll need to convert the attribute to be instance-based rather than type-based (on a high-throughput part of the system)
-        // ------------------------------------------------------------------------------------------------------------------------
-        // var apiSettings = GeneratedArtifactStaticDependencies.ApiSettings().Get();
-        //
-        // if (!apiSettings.IsFeatureEnabled("Profiles")) // ProfilesConstants.FeatureName
-        // {
-        //     await next();
-        //     return;
-        // }
-        // ------------------------------------------------------------------------------------------------------------------------
+    private readonly IApiKeyContextProvider _apiKeyContextProvider;
+    private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+    private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
+    private readonly IProfileResourceModelProvider _profileResourceModelProvider;
 
-        var apiKeyContext = GeneratedArtifactStaticDependencies.ApiKeyContextProvider.GetApiKeyContext();
+    private readonly bool _isEnabled;
+
+    public EnforceAssignedProfileUsageFilter(
+        IApiKeyContextProvider apiKeyContextProvider,
+        IProfileResourceModelProvider profileResourceModelProvider,
+        IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+        IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
+        ApiSettings apiSettings)
+    {
+        _apiKeyContextProvider = apiKeyContextProvider;
+        _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        _profileContentTypeContextProvider = profileContentTypeContextProvider;
+        _profileResourceModelProvider = profileResourceModelProvider;
+
+        _isEnabled = apiSettings.IsFeatureEnabled("Profiles");
+    }
+
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+    {
+        // If Profiles feature is not enabled, don't do any processing.
+        if (!_isEnabled)
+        {
+            await next();
+
+            return;
+        }
+
+        var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
 
         // No authorized client? Skip additional processing here now.
         if (apiKeyContext == null)
@@ -45,7 +67,7 @@ public class EnforceAssignedProfileUsageAttribute : ActionFilterAttribute
         }
 
         // No profiles assigned? Skip additional processing here now.
-        if (apiKeyContext.Profiles.Count == 0)
+        if (!apiKeyContext.Profiles.Any())
         {
             await next();
 
@@ -57,10 +79,19 @@ public class EnforceAssignedProfileUsageAttribute : ActionFilterAttribute
             ? ContentTypeUsage.Readable
             : ContentTypeUsage.Writable;
 
-        var resourceFullName = GeneratedArtifactStaticDependencies.DataManagementResourceContextProvider.Get().Resource.FullName;
+        var dataManagementResourceContext = _dataManagementResourceContextProvider.Get();
+
+        if (dataManagementResourceContext == null)
+        {
+            await next();
+
+            return;
+        }
+        
+        var resourceFullName = dataManagementResourceContext.Resource.FullName;
 
         var assignedProfilesForRequest = apiKeyContext.Profiles.Where(
-                p => GeneratedArtifactStaticDependencies.ProfileResourceModelProvider.GetProfileResourceModel(p)
+                p => _profileResourceModelProvider.GetProfileResourceModel(p)
                         .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
                     && (relevantContentTypeUsage == ContentTypeUsage.Readable
                         ? contentTypes.Readable
@@ -76,7 +107,7 @@ public class EnforceAssignedProfileUsageAttribute : ActionFilterAttribute
             return;
         }
 
-        var profileContentTypeContext = GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get();
+        var profileContentTypeContext = _profileContentTypeContextProvider.Get();
 
         // No profile content type specified in the request header?
         if (profileContentTypeContext == null)

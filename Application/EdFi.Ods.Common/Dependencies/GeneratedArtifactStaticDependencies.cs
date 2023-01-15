@@ -21,23 +21,13 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IResourceModelProvider> _resourceModelProvider;
         private static Lazy<IETagProvider> _etagProvider;
         private static Lazy<IMappingContractProvider> _mappingContractProvider;
-        
-        // NOTE: These static resolvers could be eliminated if Profiles enforcement was in a singleton action filter rather than attribute
-        private static Lazy<IApiKeyContextProvider> _apiKeyContextProvider;
-        private static Lazy<IProfileResourceModelProvider> _profileResourceModelProvider;
         private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
-        private static Lazy<IContextProvider<DataManagementResourceContext>> _dataManagementResourceContextProvider;
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
         public static IResourceModelProvider ResourceModelProvider => _resourceModelProvider?.Value;
         public static IETagProvider ETagProvider => _etagProvider?.Value;
         public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
-
-        // NOTE: These static resolvers could be eliminated if Profiles enforcement was in a singleton action filter rather than attribute
-        public static IApiKeyContextProvider ApiKeyContextProvider => _apiKeyContextProvider?.Value;
-        public static IProfileResourceModelProvider ProfileResourceModelProvider => _profileResourceModelProvider?.Value;
         public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
-        public static IContextProvider<DataManagementResourceContext> DataManagementResourceContextProvider => _dataManagementResourceContextProvider?.Value;
 
         /// <summary>
         /// Provides a mechanism for providing resolution of container managed components (intended for use only
@@ -65,25 +55,9 @@ namespace EdFi.Ods.Common.Dependencies
                 _mappingContractProvider = new Lazy<IMappingContractProvider>(resolver);
             }
 
-            // NOTE: These static resolvers could be eliminated if Profiles enforcement was in a singleton action filter rather than attribute
-            public static void Set(Func<IApiKeyContextProvider> resolver)
-            {
-                _apiKeyContextProvider = new Lazy<IApiKeyContextProvider>(resolver);
-            }
-
-            public static void Set(Func<IProfileResourceModelProvider> resolver)
-            {
-                _profileResourceModelProvider = new Lazy<IProfileResourceModelProvider>(resolver);
-            }
-
             public static void Set(Func<IContextProvider<ProfileContentTypeContext>> resolver)
             {
                 _profileContentTypeContextProvider = new Lazy<IContextProvider<ProfileContentTypeContext>>(resolver);
-            }
-
-            public static void Set(Func<IContextProvider<DataManagementResourceContext>> resolver)
-            {
-                _dataManagementResourceContextProvider = new Lazy<IContextProvider<DataManagementResourceContext>>(resolver);
             }
         }
     }

@@ -65,6 +65,9 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IFilterMetadata>()
                 .SingleInstance();
             
+            builder.RegisterType<EnforceAssignedProfileUsageFilter>()
+                .SingleInstance();
+            
             builder.RegisterType<EnterpriseApiVersionProvider>()
                 .As<IApiVersionProvider>()
                 .SingleInstance();
