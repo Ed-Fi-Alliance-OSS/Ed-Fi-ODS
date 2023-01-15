@@ -2720,7 +2720,7 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(`Status code is 204 (json=${pm.response.message})`, () => {",
+													"pm.test(`Status code is 204 (json=${pm.response.json().message})`, () => {",
 													"    pm.expect(pm.response.code).to.equal(204);",
 													"});"
 												],
