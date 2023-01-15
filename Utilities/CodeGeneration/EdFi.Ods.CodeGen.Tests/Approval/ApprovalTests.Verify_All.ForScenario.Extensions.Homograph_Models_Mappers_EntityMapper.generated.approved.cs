@@ -195,12 +195,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
             if (mappingContract?.IsParentAddressesSupported != false)
             {
-                source.ParentAddresses.MapCollectionTo(target.ParentAddresses, target);
+                source.ParentAddresses.MapCollectionTo(target.ParentAddresses, target, mappingContract?.IsParentAddressIncluded);
             }
 
             if (mappingContract?.IsParentStudentSchoolAssociationsSupported != false)
             {
-                source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, target);
+                source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, target, mappingContract?.IsParentStudentSchoolAssociationIncluded);
             }
 
 
@@ -800,12 +800,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             if (mappingContract?.IsStaffAddressesSupported != false)
             {
-                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target);
+                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target, mappingContract?.IsStaffAddressIncluded);
             }
 
             if (mappingContract?.IsStaffStudentSchoolAssociationsSupported != false)
             {
-                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target);
+                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target, mappingContract?.IsStaffStudentSchoolAssociationIncluded);
             }
 
 
@@ -1093,7 +1093,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
             if (mappingContract?.IsStudentAddressesSupported != false)
             {
-                source.StudentAddresses.MapCollectionTo(target.StudentAddresses, target);
+                source.StudentAddresses.MapCollectionTo(target.StudentAddresses, target, mappingContract?.IsStudentAddressIncluded);
             }
 
 

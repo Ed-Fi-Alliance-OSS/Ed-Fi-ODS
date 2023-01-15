@@ -776,6 +776,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     [ExcludeFromCodeCoverage]
     public class ParentPutPostRequestValidator : FluentValidation.AbstractValidator<Parent>
     {
+        private static readonly FullName _fullName_homograph_Parent = new FullName("homograph", "Parent");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Parent> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -789,6 +791,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<ParentMappingContract>(() => (ParentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Parent));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsParentAddressIncluded != null)
+                {
+                    var hasInvalidParentAddressesItems = instance.ParentAddresses.Any(x => !mappingContract.Value.IsParentAddressIncluded(x));
+        
+                    if (hasInvalidParentAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentAddress", $"A supplied 'ParentAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentStudentSchoolAssociationIncluded != null)
+                {
+                    var hasInvalidParentStudentSchoolAssociationsItems = instance.ParentStudentSchoolAssociations.Any(x => !mappingContract.Value.IsParentStudentSchoolAssociationIncluded(x));
+        
+                    if (hasInvalidParentStudentSchoolAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentStudentSchoolAssociation", $"A supplied 'ParentStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -2736,6 +2771,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffPutPostRequestValidator : FluentValidation.AbstractValidator<Staff>
     {
+        private static readonly FullName _fullName_homograph_Staff = new FullName("homograph", "Staff");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Staff> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -2749,6 +2786,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StaffMappingContract>(() => (StaffMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Staff));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStaffAddressIncluded != null)
+                {
+                    var hasInvalidStaffAddressesItems = instance.StaffAddresses.Any(x => !mappingContract.Value.IsStaffAddressIncluded(x));
+        
+                    if (hasInvalidStaffAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StaffAddress", $"A supplied 'StaffAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStaffStudentSchoolAssociationIncluded != null)
+                {
+                    var hasInvalidStaffStudentSchoolAssociationsItems = instance.StaffStudentSchoolAssociations.Any(x => !mappingContract.Value.IsStaffStudentSchoolAssociationIncluded(x));
+        
+                    if (hasInvalidStaffStudentSchoolAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StaffStudentSchoolAssociation", $"A supplied 'StaffStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -3843,6 +3913,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class StudentPutPostRequestValidator : FluentValidation.AbstractValidator<Student>
     {
+        private static readonly FullName _fullName_homograph_Student = new FullName("homograph", "Student");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Student> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -3856,6 +3928,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentMappingContract>(() => (StudentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Student));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentAddressIncluded != null)
+                {
+                    var hasInvalidStudentAddressesItems = instance.StudentAddresses.Any(x => !mappingContract.Value.IsStudentAddressIncluded(x));
+        
+                    if (hasInvalidStudentAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentAddress", $"A supplied 'StudentAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------

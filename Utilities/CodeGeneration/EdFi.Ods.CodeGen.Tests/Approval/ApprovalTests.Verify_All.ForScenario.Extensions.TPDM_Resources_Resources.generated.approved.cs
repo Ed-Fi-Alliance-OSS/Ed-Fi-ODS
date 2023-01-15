@@ -1364,6 +1364,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidatePutPostRequestValidator : FluentValidation.AbstractValidator<Candidate>
     {
+        private static readonly FullName _fullName_tpdm_Candidate = new FullName("tpdm", "Candidate");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Candidate> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -1377,6 +1379,105 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<CandidateMappingContract>(() => (CandidateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_Candidate));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsCandidateAddressIncluded != null)
+                {
+                    var hasInvalidCandidateAddressesItems = instance.CandidateAddresses.Any(x => !mappingContract.Value.IsCandidateAddressIncluded(x));
+        
+                    if (hasInvalidCandidateAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateAddress", $"A supplied 'CandidateAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateDisabilityIncluded != null)
+                {
+                    var hasInvalidCandidateDisabilitiesItems = instance.CandidateDisabilities.Any(x => !mappingContract.Value.IsCandidateDisabilityIncluded(x));
+        
+                    if (hasInvalidCandidateDisabilitiesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateDisability", $"A supplied 'CandidateDisability' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateElectronicMailIncluded != null)
+                {
+                    var hasInvalidCandidateElectronicMailsItems = instance.CandidateElectronicMails.Any(x => !mappingContract.Value.IsCandidateElectronicMailIncluded(x));
+        
+                    if (hasInvalidCandidateElectronicMailsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateElectronicMail", $"A supplied 'CandidateElectronicMail' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateLanguageIncluded != null)
+                {
+                    var hasInvalidCandidateLanguagesItems = instance.CandidateLanguages.Any(x => !mappingContract.Value.IsCandidateLanguageIncluded(x));
+        
+                    if (hasInvalidCandidateLanguagesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateLanguage", $"A supplied 'CandidateLanguage' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateOtherNameIncluded != null)
+                {
+                    var hasInvalidCandidateOtherNamesItems = instance.CandidateOtherNames.Any(x => !mappingContract.Value.IsCandidateOtherNameIncluded(x));
+        
+                    if (hasInvalidCandidateOtherNamesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateOtherName", $"A supplied 'CandidateOtherName' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidatePersonalIdentificationDocumentIncluded != null)
+                {
+                    var hasInvalidCandidatePersonalIdentificationDocumentsItems = instance.CandidatePersonalIdentificationDocuments.Any(x => !mappingContract.Value.IsCandidatePersonalIdentificationDocumentIncluded(x));
+        
+                    if (hasInvalidCandidatePersonalIdentificationDocumentsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidatePersonalIdentificationDocument", $"A supplied 'CandidatePersonalIdentificationDocument' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateRaceIncluded != null)
+                {
+                    var hasInvalidCandidateRacesItems = instance.CandidateRaces.Any(x => !mappingContract.Value.IsCandidateRaceIncluded(x));
+        
+                    if (hasInvalidCandidateRacesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateRace", $"A supplied 'CandidateRace' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateTelephoneIncluded != null)
+                {
+                    var hasInvalidCandidateTelephonesItems = instance.CandidateTelephones.Any(x => !mappingContract.Value.IsCandidateTelephoneIncluded(x));
+        
+                    if (hasInvalidCandidateTelephonesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateTelephone", $"A supplied 'CandidateTelephone' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -1837,6 +1938,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateAddressPutPostRequestValidator : FluentValidation.AbstractValidator<CandidateAddress>
     {
+        private static readonly FullName _fullName_tpdm_CandidateAddress = new FullName("tpdm", "CandidateAddress");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<CandidateAddress> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -1850,6 +1953,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<CandidateAddressMappingContract>(() => (CandidateAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateAddress));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsCandidateAddressPeriodIncluded != null)
+                {
+                    var hasInvalidCandidateAddressPeriodsItems = instance.CandidateAddressPeriods.Any(x => !mappingContract.Value.IsCandidateAddressPeriodIncluded(x));
+        
+                    if (hasInvalidCandidateAddressPeriodsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateAddressPeriod", $"A supplied 'CandidateAddressPeriod' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -2363,6 +2488,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateDisabilityPutPostRequestValidator : FluentValidation.AbstractValidator<CandidateDisability>
     {
+        private static readonly FullName _fullName_tpdm_CandidateDisability = new FullName("tpdm", "CandidateDisability");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<CandidateDisability> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -2376,6 +2503,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<CandidateDisabilityMappingContract>(() => (CandidateDisabilityMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateDisability));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsCandidateDisabilityDesignationIncluded != null)
+                {
+                    var hasInvalidCandidateDisabilityDesignationsItems = instance.CandidateDisabilityDesignations.Any(x => !mappingContract.Value.IsCandidateDisabilityDesignationIncluded(x));
+        
+                    if (hasInvalidCandidateDisabilityDesignationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateDisabilityDesignation", $"A supplied 'CandidateDisabilityDesignation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -3113,6 +3262,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     [ExcludeFromCodeCoverage]
     public class CandidateLanguagePutPostRequestValidator : FluentValidation.AbstractValidator<CandidateLanguage>
     {
+        private static readonly FullName _fullName_tpdm_CandidateLanguage = new FullName("tpdm", "CandidateLanguage");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<CandidateLanguage> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -3126,6 +3277,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<CandidateLanguageMappingContract>(() => (CandidateLanguageMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateLanguage));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsCandidateLanguageUseIncluded != null)
+                {
+                    var hasInvalidCandidateLanguageUsesItems = instance.CandidateLanguageUses.Any(x => !mappingContract.Value.IsCandidateLanguageUseIncluded(x));
+        
+                    if (hasInvalidCandidateLanguageUsesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateLanguageUse", $"A supplied 'CandidateLanguageUse' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -4986,6 +5159,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationPutPostRequestValidator : FluentValidation.AbstractValidator<CandidateEducatorPreparationProgramAssociation>
     {
+        private static readonly FullName _fullName_tpdm_CandidateEducatorPreparationProgramAssociation = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociation");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<CandidateEducatorPreparationProgramAssociation> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -4999,6 +5174,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<CandidateEducatorPreparationProgramAssociationMappingContract>(() => (CandidateEducatorPreparationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociation));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded != null)
+                {
+                    var hasInvalidCandidateEducatorPreparationProgramAssociationCohortYearsItems = instance.CandidateEducatorPreparationProgramAssociationCohortYears.Any(x => !mappingContract.Value.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded(x));
+        
+                    if (hasInvalidCandidateEducatorPreparationProgramAssociationCohortYearsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateEducatorPreparationProgramAssociationCohortYear", $"A supplied 'CandidateEducatorPreparationProgramAssociationCohortYear' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded != null)
+                {
+                    var hasInvalidCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItems = instance.CandidateEducatorPreparationProgramAssociationDegreeSpecializations.Any(x => !mappingContract.Value.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded(x));
+        
+                    if (hasInvalidCandidateEducatorPreparationProgramAssociationDegreeSpecializationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CandidateEducatorPreparationProgramAssociationDegreeSpecialization", $"A supplied 'CandidateEducatorPreparationProgramAssociationDegreeSpecialization' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -6480,6 +6688,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
     [ExcludeFromCodeCoverage]
     public class CredentialExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<CredentialExtension>
     {
+        private static readonly FullName _fullName_tpdm_CredentialExtension = new FullName("tpdm", "CredentialExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<CredentialExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -6493,6 +6703,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<CredentialExtensionMappingContract>(() => (CredentialExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsCredentialStudentAcademicRecordIncluded != null)
+                {
+                    var hasInvalidCredentialStudentAcademicRecordsItems = instance.CredentialStudentAcademicRecords.Any(x => !mappingContract.Value.IsCredentialStudentAcademicRecordIncluded(x));
+        
+                    if (hasInvalidCredentialStudentAcademicRecordsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("CredentialStudentAcademicRecord", $"A supplied 'CredentialStudentAcademicRecord' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -7599,6 +7831,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     [ExcludeFromCodeCoverage]
     public class EducatorPreparationProgramPutPostRequestValidator : FluentValidation.AbstractValidator<EducatorPreparationProgram>
     {
+        private static readonly FullName _fullName_tpdm_EducatorPreparationProgram = new FullName("tpdm", "EducatorPreparationProgram");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<EducatorPreparationProgram> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -7612,6 +7846,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EducatorPreparationProgramMappingContract>(() => (EducatorPreparationProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorPreparationProgram));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEducatorPreparationProgramGradeLevelIncluded != null)
+                {
+                    var hasInvalidEducatorPreparationProgramGradeLevelsItems = instance.EducatorPreparationProgramGradeLevels.Any(x => !mappingContract.Value.IsEducatorPreparationProgramGradeLevelIncluded(x));
+        
+                    if (hasInvalidEducatorPreparationProgramGradeLevelsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EducatorPreparationProgramGradeLevel", $"A supplied 'EducatorPreparationProgramGradeLevel' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -9273,6 +9529,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationPutPostRequestValidator : FluentValidation.AbstractValidator<Evaluation>
     {
+        private static readonly FullName _fullName_tpdm_Evaluation = new FullName("tpdm", "Evaluation");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Evaluation> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -9286,6 +9544,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EvaluationMappingContract>(() => (EvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_Evaluation));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEvaluationRatingLevelIncluded != null)
+                {
+                    var hasInvalidEvaluationRatingLevelsItems = instance.EvaluationRatingLevels.Any(x => !mappingContract.Value.IsEvaluationRatingLevelIncluded(x));
+        
+                    if (hasInvalidEvaluationRatingLevelsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationRatingLevel", $"A supplied 'EvaluationRatingLevel' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -10213,6 +10493,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationElementPutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationElement>
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElement = new FullName("tpdm", "EvaluationElement");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationElement> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -10226,6 +10508,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EvaluationElementMappingContract>(() => (EvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElement));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEvaluationElementRatingLevelIncluded != null)
+                {
+                    var hasInvalidEvaluationElementRatingLevelsItems = instance.EvaluationElementRatingLevels.Any(x => !mappingContract.Value.IsEvaluationElementRatingLevelIncluded(x));
+        
+                    if (hasInvalidEvaluationElementRatingLevelsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationElementRatingLevel", $"A supplied 'EvaluationElementRatingLevel' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -11351,6 +11655,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationElementRatingPutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationElementRating>
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElementRating = new FullName("tpdm", "EvaluationElementRating");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationElementRating> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -11364,6 +11670,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EvaluationElementRatingMappingContract>(() => (EvaluationElementRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRating));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEvaluationElementRatingResultIncluded != null)
+                {
+                    var hasInvalidEvaluationElementRatingResultsItems = instance.EvaluationElementRatingResults.Any(x => !mappingContract.Value.IsEvaluationElementRatingResultIncluded(x));
+        
+                    if (hasInvalidEvaluationElementRatingResultsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationElementRatingResult", $"A supplied 'EvaluationElementRatingResult' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -12758,6 +13086,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectivePutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationObjective>
     {
+        private static readonly FullName _fullName_tpdm_EvaluationObjective = new FullName("tpdm", "EvaluationObjective");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationObjective> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -12771,6 +13101,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EvaluationObjectiveMappingContract>(() => (EvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjective));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEvaluationObjectiveRatingLevelIncluded != null)
+                {
+                    var hasInvalidEvaluationObjectiveRatingLevelsItems = instance.EvaluationObjectiveRatingLevels.Any(x => !mappingContract.Value.IsEvaluationObjectiveRatingLevelIncluded(x));
+        
+                    if (hasInvalidEvaluationObjectiveRatingLevelsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationObjectiveRatingLevel", $"A supplied 'EvaluationObjectiveRatingLevel' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -13835,6 +14187,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveRatingPutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationObjectiveRating>
     {
+        private static readonly FullName _fullName_tpdm_EvaluationObjectiveRating = new FullName("tpdm", "EvaluationObjectiveRating");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationObjectiveRating> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -13848,6 +14202,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EvaluationObjectiveRatingMappingContract>(() => (EvaluationObjectiveRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRating));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEvaluationObjectiveRatingResultIncluded != null)
+                {
+                    var hasInvalidEvaluationObjectiveRatingResultsItems = instance.EvaluationObjectiveRatingResults.Any(x => !mappingContract.Value.IsEvaluationObjectiveRatingResultIncluded(x));
+        
+                    if (hasInvalidEvaluationObjectiveRatingResultsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationObjectiveRatingResult", $"A supplied 'EvaluationObjectiveRatingResult' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -15517,6 +15893,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingPutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationRating>
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRating = new FullName("tpdm", "EvaluationRating");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationRating> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -15530,6 +15908,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<EvaluationRatingMappingContract>(() => (EvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRating));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsEvaluationRatingResultIncluded != null)
+                {
+                    var hasInvalidEvaluationRatingResultsItems = instance.EvaluationRatingResults.Any(x => !mappingContract.Value.IsEvaluationRatingResultIncluded(x));
+        
+                    if (hasInvalidEvaluationRatingResultsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationRatingResult", $"A supplied 'EvaluationRatingResult' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsEvaluationRatingReviewerIncluded != null)
+                {
+                    var hasInvalidEvaluationRatingReviewersItems = instance.EvaluationRatingReviewers.Any(x => !mappingContract.Value.IsEvaluationRatingReviewerIncluded(x));
+        
+                    if (hasInvalidEvaluationRatingReviewersItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("EvaluationRatingReviewer", $"A supplied 'EvaluationRatingReviewer' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -18904,6 +19315,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationPutPostRequestValidator : FluentValidation.AbstractValidator<PerformanceEvaluation>
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluation = new FullName("tpdm", "PerformanceEvaluation");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<PerformanceEvaluation> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -18917,6 +19330,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<PerformanceEvaluationMappingContract>(() => (PerformanceEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluation));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsPerformanceEvaluationGradeLevelIncluded != null)
+                {
+                    var hasInvalidPerformanceEvaluationGradeLevelsItems = instance.PerformanceEvaluationGradeLevels.Any(x => !mappingContract.Value.IsPerformanceEvaluationGradeLevelIncluded(x));
+        
+                    if (hasInvalidPerformanceEvaluationGradeLevelsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("PerformanceEvaluationGradeLevel", $"A supplied 'PerformanceEvaluationGradeLevel' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsPerformanceEvaluationRatingLevelIncluded != null)
+                {
+                    var hasInvalidPerformanceEvaluationRatingLevelsItems = instance.PerformanceEvaluationRatingLevels.Any(x => !mappingContract.Value.IsPerformanceEvaluationRatingLevelIncluded(x));
+        
+                    if (hasInvalidPerformanceEvaluationRatingLevelsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("PerformanceEvaluationRatingLevel", $"A supplied 'PerformanceEvaluationRatingLevel' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -20163,6 +20609,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     [ExcludeFromCodeCoverage]
     public class PerformanceEvaluationRatingPutPostRequestValidator : FluentValidation.AbstractValidator<PerformanceEvaluationRating>
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRating = new FullName("tpdm", "PerformanceEvaluationRating");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<PerformanceEvaluationRating> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -20176,6 +20624,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<PerformanceEvaluationRatingMappingContract>(() => (PerformanceEvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRating));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsPerformanceEvaluationRatingResultIncluded != null)
+                {
+                    var hasInvalidPerformanceEvaluationRatingResultsItems = instance.PerformanceEvaluationRatingResults.Any(x => !mappingContract.Value.IsPerformanceEvaluationRatingResultIncluded(x));
+        
+                    if (hasInvalidPerformanceEvaluationRatingResultsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("PerformanceEvaluationRatingResult", $"A supplied 'PerformanceEvaluationRatingResult' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsPerformanceEvaluationRatingReviewerIncluded != null)
+                {
+                    var hasInvalidPerformanceEvaluationRatingReviewersItems = instance.PerformanceEvaluationRatingReviewers.Any(x => !mappingContract.Value.IsPerformanceEvaluationRatingReviewerIncluded(x));
+        
+                    if (hasInvalidPerformanceEvaluationRatingReviewersItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("PerformanceEvaluationRatingReviewer", $"A supplied 'PerformanceEvaluationRatingReviewer' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------

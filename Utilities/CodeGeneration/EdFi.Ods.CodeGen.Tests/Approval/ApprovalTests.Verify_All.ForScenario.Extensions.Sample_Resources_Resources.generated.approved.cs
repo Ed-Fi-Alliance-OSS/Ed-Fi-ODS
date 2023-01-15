@@ -1273,6 +1273,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     [ExcludeFromCodeCoverage]
     public class BusRoutePutPostRequestValidator : FluentValidation.AbstractValidator<BusRoute>
     {
+        private static readonly FullName _fullName_sample_BusRoute = new FullName("sample", "BusRoute");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<BusRoute> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -1286,6 +1288,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<BusRouteMappingContract>(() => (BusRouteMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRoute));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsBusRouteBusYearIncluded != null)
+                {
+                    var hasInvalidBusRouteBusYearsItems = instance.BusRouteBusYears.Any(x => !mappingContract.Value.IsBusRouteBusYearIncluded(x));
+        
+                    if (hasInvalidBusRouteBusYearsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("BusRouteBusYear", $"A supplied 'BusRouteBusYear' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsBusRouteProgramIncluded != null)
+                {
+                    var hasInvalidBusRouteProgramsItems = instance.BusRoutePrograms.Any(x => !mappingContract.Value.IsBusRouteProgramIncluded(x));
+        
+                    if (hasInvalidBusRouteProgramsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("BusRouteProgram", $"A supplied 'BusRouteProgram' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsBusRouteServiceAreaPostalCodeIncluded != null)
+                {
+                    var hasInvalidBusRouteServiceAreaPostalCodesItems = instance.BusRouteServiceAreaPostalCodes.Any(x => !mappingContract.Value.IsBusRouteServiceAreaPostalCodeIncluded(x));
+        
+                    if (hasInvalidBusRouteServiceAreaPostalCodesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("BusRouteServiceAreaPostalCode", $"A supplied 'BusRouteServiceAreaPostalCode' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsBusRouteStartTimeIncluded != null)
+                {
+                    var hasInvalidBusRouteStartTimesItems = instance.BusRouteStartTimes.Any(x => !mappingContract.Value.IsBusRouteStartTimeIncluded(x));
+        
+                    if (hasInvalidBusRouteStartTimesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("BusRouteStartTime", $"A supplied 'BusRouteStartTime' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsBusRouteTelephoneIncluded != null)
+                {
+                    var hasInvalidBusRouteTelephonesItems = instance.BusRouteTelephones.Any(x => !mappingContract.Value.IsBusRouteTelephoneIncluded(x));
+        
+                    if (hasInvalidBusRouteTelephonesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("BusRouteTelephone", $"A supplied 'BusRouteTelephone' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -3443,6 +3511,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentAddressExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<ParentAddressExtension>
     {
+        private static readonly FullName _fullName_sample_ParentAddressExtension = new FullName("sample", "ParentAddressExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<ParentAddressExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -3456,6 +3526,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<ParentAddressExtensionMappingContract>(() => (ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsParentAddressSchoolDistrictIncluded != null)
+                {
+                    var hasInvalidParentAddressSchoolDistrictsItems = instance.ParentAddressSchoolDistricts.Any(x => !mappingContract.Value.IsParentAddressSchoolDistrictIncluded(x));
+        
+                    if (hasInvalidParentAddressSchoolDistrictsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentAddressSchoolDistrict", $"A supplied 'ParentAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentAddressTermIncluded != null)
+                {
+                    var hasInvalidParentAddressTermsItems = instance.ParentAddressTerms.Any(x => !mappingContract.Value.IsParentAddressTermIncluded(x));
+        
+                    if (hasInvalidParentAddressTermsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentAddressTerm", $"A supplied 'ParentAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -5362,6 +5465,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class ParentExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<ParentExtension>
     {
+        private static readonly FullName _fullName_sample_ParentExtension = new FullName("sample", "ParentExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<ParentExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -5375,6 +5480,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<ParentExtensionMappingContract>(() => (ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsParentAuthorIncluded != null)
+                {
+                    var hasInvalidParentAuthorsItems = instance.ParentAuthors.Any(x => !mappingContract.Value.IsParentAuthorIncluded(x));
+        
+                    if (hasInvalidParentAuthorsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentAuthor", $"A supplied 'ParentAuthor' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentCeilingHeightIncluded != null)
+                {
+                    var hasInvalidParentCeilingHeightsItems = instance.ParentCeilingHeights.Any(x => !mappingContract.Value.IsParentCeilingHeightIncluded(x));
+        
+                    if (hasInvalidParentCeilingHeightsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentCeilingHeight", $"A supplied 'ParentCeilingHeight' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentEducationContentIncluded != null)
+                {
+                    var hasInvalidParentEducationContentsItems = instance.ParentEducationContents.Any(x => !mappingContract.Value.IsParentEducationContentIncluded(x));
+        
+                    if (hasInvalidParentEducationContentsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentEducationContent", $"A supplied 'ParentEducationContent' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentFavoriteBookTitleIncluded != null)
+                {
+                    var hasInvalidParentFavoriteBookTitlesItems = instance.ParentFavoriteBookTitles.Any(x => !mappingContract.Value.IsParentFavoriteBookTitleIncluded(x));
+        
+                    if (hasInvalidParentFavoriteBookTitlesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentFavoriteBookTitle", $"A supplied 'ParentFavoriteBookTitle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentStudentProgramAssociationIncluded != null)
+                {
+                    var hasInvalidParentStudentProgramAssociationsItems = instance.ParentStudentProgramAssociations.Any(x => !mappingContract.Value.IsParentStudentProgramAssociationIncluded(x));
+        
+                    if (hasInvalidParentStudentProgramAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentStudentProgramAssociation", $"A supplied 'ParentStudentProgramAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -7096,6 +7267,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
     {
+        private static readonly FullName _fullName_sample_SchoolExtension = new FullName("sample", "SchoolExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -7109,6 +7282,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<SchoolExtensionMappingContract>(() => (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsSchoolDirectlyOwnedBusIncluded != null)
+                {
+                    var hasInvalidSchoolDirectlyOwnedBusesItems = instance.SchoolDirectlyOwnedBuses.Any(x => !mappingContract.Value.IsSchoolDirectlyOwnedBusIncluded(x));
+        
+                    if (hasInvalidSchoolDirectlyOwnedBusesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("SchoolDirectlyOwnedBus", $"A supplied 'SchoolDirectlyOwnedBus' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -7380,6 +7575,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StaffExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StaffExtension>
     {
+        private static readonly FullName _fullName_sample_StaffExtension = new FullName("sample", "StaffExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StaffExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -7393,6 +7590,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StaffExtensionMappingContract>(() => (StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStaffPetIncluded != null)
+                {
+                    var hasInvalidStaffPetsItems = instance.StaffPets.Any(x => !mappingContract.Value.IsStaffPetIncluded(x));
+        
+                    if (hasInvalidStaffPetsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StaffPet", $"A supplied 'StaffPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -8421,6 +8640,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StudentExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentExtension>
     {
+        private static readonly FullName _fullName_sample_StudentExtension = new FullName("sample", "StudentExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -8434,6 +8655,50 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentExtensionMappingContract>(() => (StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentAquaticPetIncluded != null)
+                {
+                    var hasInvalidStudentAquaticPetsItems = instance.StudentAquaticPets.Any(x => !mappingContract.Value.IsStudentAquaticPetIncluded(x));
+        
+                    if (hasInvalidStudentAquaticPetsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentAquaticPet", $"A supplied 'StudentAquaticPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentFavoriteBookIncluded != null)
+                {
+                    var hasInvalidStudentFavoriteBooksItems = instance.StudentFavoriteBooks.Any(x => !mappingContract.Value.IsStudentFavoriteBookIncluded(x));
+        
+                    if (hasInvalidStudentFavoriteBooksItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentFavoriteBook", $"A supplied 'StudentFavoriteBook' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentPetIncluded != null)
+                {
+                    var hasInvalidStudentPetsItems = instance.StudentPets.Any(x => !mappingContract.Value.IsStudentPetIncluded(x));
+        
+                    if (hasInvalidStudentPetsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentPet", $"A supplied 'StudentPet' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -8724,6 +8989,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBookPutPostRequestValidator : FluentValidation.AbstractValidator<StudentFavoriteBook>
     {
+        private static readonly FullName _fullName_sample_StudentFavoriteBook = new FullName("sample", "StudentFavoriteBook");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentFavoriteBook> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -8737,6 +9004,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentFavoriteBookMappingContract>(() => (StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentFavoriteBook));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentFavoriteBookArtMediumIncluded != null)
+                {
+                    var hasInvalidStudentFavoriteBookArtMediaItems = instance.StudentFavoriteBookArtMedia.Any(x => !mappingContract.Value.IsStudentFavoriteBookArtMediumIncluded(x));
+        
+                    if (hasInvalidStudentFavoriteBookArtMediaItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentFavoriteBookArtMedium", $"A supplied 'StudentFavoriteBookArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -10282,6 +10571,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationPutPostRequestValidator : FluentValidation.AbstractValidator<StudentArtProgramAssociation>
     {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociation = new FullName("sample", "StudentArtProgramAssociation");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentArtProgramAssociation> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -10295,6 +10586,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentArtProgramAssociationMappingContract>(() => (StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociation));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentArtProgramAssociationArtMediumIncluded != null)
+                {
+                    var hasInvalidStudentArtProgramAssociationArtMediaItems = instance.StudentArtProgramAssociationArtMedia.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationArtMediumIncluded(x));
+        
+                    if (hasInvalidStudentArtProgramAssociationArtMediaItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationArtMedium", $"A supplied 'StudentArtProgramAssociationArtMedium' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentArtProgramAssociationPortfolioYearsIncluded != null)
+                {
+                    var hasInvalidStudentArtProgramAssociationPortfolioYearsItems = instance.StudentArtProgramAssociationPortfolioYears.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationPortfolioYearsIncluded(x));
+        
+                    if (hasInvalidStudentArtProgramAssociationPortfolioYearsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationPortfolioYears", $"A supplied 'StudentArtProgramAssociationPortfolioYears' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentArtProgramAssociationServiceIncluded != null)
+                {
+                    var hasInvalidStudentArtProgramAssociationServicesItems = instance.StudentArtProgramAssociationServices.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationServiceIncluded(x));
+        
+                    if (hasInvalidStudentArtProgramAssociationServicesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationService", $"A supplied 'StudentArtProgramAssociationService' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentArtProgramAssociationStyleIncluded != null)
+                {
+                    var hasInvalidStudentArtProgramAssociationStylesItems = instance.StudentArtProgramAssociationStyles.Any(x => !mappingContract.Value.IsStudentArtProgramAssociationStyleIncluded(x));
+        
+                    if (hasInvalidStudentArtProgramAssociationStylesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentArtProgramAssociationStyle", $"A supplied 'StudentArtProgramAssociationStyle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded != null)
+                {
+                    var hasInvalidGeneralStudentProgramAssociationProgramParticipationStatusesItems = instance.GeneralStudentProgramAssociationProgramParticipationStatuses.Any(x => !mappingContract.Value.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded(x));
+        
+                    if (hasInvalidGeneralStudentProgramAssociationProgramParticipationStatusesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("GeneralStudentProgramAssociationProgramParticipationStatus", $"A supplied 'GeneralStudentProgramAssociationProgramParticipationStatus' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -11770,6 +12127,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentEducationOrganizationAssociationAddressExtension>
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationAddressExtension = new FullName("sample", "StudentEducationOrganizationAssociationAddressExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentEducationOrganizationAssociationAddressExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -11783,6 +12142,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentEducationOrganizationAssociationAddressExtensionMappingContract>(() => (StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded != null)
+                {
+                    var hasInvalidStudentEducationOrganizationAssociationAddressSchoolDistrictsItems = instance.StudentEducationOrganizationAssociationAddressSchoolDistricts.Any(x => !mappingContract.Value.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded(x));
+        
+                    if (hasInvalidStudentEducationOrganizationAssociationAddressSchoolDistrictsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationAddressSchoolDistrict", $"A supplied 'StudentEducationOrganizationAssociationAddressSchoolDistrict' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentEducationOrganizationAssociationAddressTermIncluded != null)
+                {
+                    var hasInvalidStudentEducationOrganizationAssociationAddressTermsItems = instance.StudentEducationOrganizationAssociationAddressTerms.Any(x => !mappingContract.Value.IsStudentEducationOrganizationAssociationAddressTermIncluded(x));
+        
+                    if (hasInvalidStudentEducationOrganizationAssociationAddressTermsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationAddressTerm", $"A supplied 'StudentEducationOrganizationAssociationAddressTerm' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -12484,6 +12876,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationStudentCharacteristicExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentEducationOrganizationAssociationStudentCharacteristicExtension>
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension = new FullName("sample", "StudentEducationOrganizationAssociationStudentCharacteristicExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentEducationOrganizationAssociationStudentCharacteristicExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -12497,6 +12891,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract>(() => (StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded != null)
+                {
+                    var hasInvalidStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItems = instance.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.Any(x => !mappingContract.Value.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded(x));
+        
+                    if (hasInvalidStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed", $"A supplied 'StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -13636,6 +14052,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationPutPostRequestValidator : FluentValidation.AbstractValidator<StudentGraduationPlanAssociation>
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociation = new FullName("sample", "StudentGraduationPlanAssociation");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentGraduationPlanAssociation> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -13649,6 +14067,94 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentGraduationPlanAssociationMappingContract>(() => (StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationAcademicSubjectIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationAcademicSubjectsItems = instance.StudentGraduationPlanAssociationAcademicSubjects.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationAcademicSubjectIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationAcademicSubjectsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationAcademicSubject", $"A supplied 'StudentGraduationPlanAssociationAcademicSubject' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationCareerPathwayCodesItems = instance.StudentGraduationPlanAssociationCareerPathwayCodes.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationCareerPathwayCodesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationCareerPathwayCode", $"A supplied 'StudentGraduationPlanAssociationCareerPathwayCode' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationDescriptionIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationDescriptionsItems = instance.StudentGraduationPlanAssociationDescriptions.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationDescriptionIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationDescriptionsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationDescription", $"A supplied 'StudentGraduationPlanAssociationDescription' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationDesignatedByIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationDesignatedBiesItems = instance.StudentGraduationPlanAssociationDesignatedBies.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationDesignatedByIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationDesignatedBiesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationDesignatedBy", $"A supplied 'StudentGraduationPlanAssociationDesignatedBy' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationIndustryCredentialIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationIndustryCredentialsItems = instance.StudentGraduationPlanAssociationIndustryCredentials.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationIndustryCredentialIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationIndustryCredentialsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationIndustryCredential", $"A supplied 'StudentGraduationPlanAssociationIndustryCredential' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationStudentParentAssociationsItems = instance.StudentGraduationPlanAssociationStudentParentAssociations.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationStudentParentAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationStudentParentAssociation", $"A supplied 'StudentGraduationPlanAssociationStudentParentAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentGraduationPlanAssociationYearsAttendedIncluded != null)
+                {
+                    var hasInvalidStudentGraduationPlanAssociationYearsAttendedsItems = instance.StudentGraduationPlanAssociationYearsAttendeds.Any(x => !mappingContract.Value.IsStudentGraduationPlanAssociationYearsAttendedIncluded(x));
+        
+                    if (hasInvalidStudentGraduationPlanAssociationYearsAttendedsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentGraduationPlanAssociationYearsAttended", $"A supplied 'StudentGraduationPlanAssociationYearsAttended' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -16515,6 +17021,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentParentAssociationExtension>
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationExtension = new FullName("sample", "StudentParentAssociationExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentParentAssociationExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -16528,6 +17036,72 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentParentAssociationExtensionMappingContract>(() => (StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentParentAssociationDisciplineIncluded != null)
+                {
+                    var hasInvalidStudentParentAssociationDisciplinesItems = instance.StudentParentAssociationDisciplines.Any(x => !mappingContract.Value.IsStudentParentAssociationDisciplineIncluded(x));
+        
+                    if (hasInvalidStudentParentAssociationDisciplinesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentParentAssociationDiscipline", $"A supplied 'StudentParentAssociationDiscipline' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentParentAssociationFavoriteBookTitleIncluded != null)
+                {
+                    var hasInvalidStudentParentAssociationFavoriteBookTitlesItems = instance.StudentParentAssociationFavoriteBookTitles.Any(x => !mappingContract.Value.IsStudentParentAssociationFavoriteBookTitleIncluded(x));
+        
+                    if (hasInvalidStudentParentAssociationFavoriteBookTitlesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentParentAssociationFavoriteBookTitle", $"A supplied 'StudentParentAssociationFavoriteBookTitle' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentParentAssociationHoursPerWeekIncluded != null)
+                {
+                    var hasInvalidStudentParentAssociationHoursPerWeeksItems = instance.StudentParentAssociationHoursPerWeeks.Any(x => !mappingContract.Value.IsStudentParentAssociationHoursPerWeekIncluded(x));
+        
+                    if (hasInvalidStudentParentAssociationHoursPerWeeksItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentParentAssociationHoursPerWeek", $"A supplied 'StudentParentAssociationHoursPerWeek' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentParentAssociationPagesReadIncluded != null)
+                {
+                    var hasInvalidStudentParentAssociationPagesReadsItems = instance.StudentParentAssociationPagesReads.Any(x => !mappingContract.Value.IsStudentParentAssociationPagesReadIncluded(x));
+        
+                    if (hasInvalidStudentParentAssociationPagesReadsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentParentAssociationPagesRead", $"A supplied 'StudentParentAssociationPagesRead' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded != null)
+                {
+                    var hasInvalidStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItems = instance.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.Any(x => !mappingContract.Value.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded(x));
+        
+                    if (hasInvalidStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentParentAssociationStaffEducationOrganizationEmploymentAssociation", $"A supplied 'StudentParentAssociationStaffEducationOrganizationEmploymentAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -18327,6 +18901,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
     [ExcludeFromCodeCoverage]
     public class StudentSectionAssociationExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<StudentSectionAssociationExtension>
     {
+        private static readonly FullName _fullName_sample_StudentSectionAssociationExtension = new FullName("sample", "StudentSectionAssociationExtension");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<StudentSectionAssociationExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -18340,6 +18916,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<StudentSectionAssociationExtensionMappingContract>(() => (StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded != null)
+                {
+                    var hasInvalidStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItems = instance.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.Any(x => !mappingContract.Value.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded(x));
+        
+                    if (hasInvalidStudentSectionAssociationRelatedGeneralStudentProgramAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentSectionAssociationRelatedGeneralStudentProgramAssociation", $"A supplied 'StudentSectionAssociationRelatedGeneralStudentProgramAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
