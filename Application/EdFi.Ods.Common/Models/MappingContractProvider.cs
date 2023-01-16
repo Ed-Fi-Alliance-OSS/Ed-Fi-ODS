@@ -205,14 +205,7 @@ public class MappingContractProvider : IMappingContractProvider
                     .ToArray();
 
                 // Create the synchronization context
-                var mappingContract = (IMappingContract)constructorInfo.Invoke(arguments);
-
-                if (profileResourceClass.FullName.Name == "AssessmentContentStandard")
-                {
-                    _logger.Fatal($"AssessmentContentStandard Mapping Contract: {JsonConvert.SerializeObject(mappingContract)}");
-                }
-                
-                return mappingContract;
+                return (IMappingContract)constructorInfo.Invoke(arguments);
             });
 
         return mappingContract;

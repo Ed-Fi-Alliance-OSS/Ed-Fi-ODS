@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Utils.Profiles;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
 
@@ -65,7 +66,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
         var profileContentTypeContext = _profileContentTypeContextProvider.Get();
 
         // Use default behavior if there is no Profile request
-        if (profileContentTypeContext == null)
+        if (profileContentTypeContext == null || profileContentTypeContext.ContentTypeUsage == ContentTypeUsage.Writable)
         {
             return base.ResolveContract(type);
         }
@@ -128,29 +129,26 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
     protected override List<MemberInfo> GetSerializableMembers(Type objectType)
     {
-        // Get the total list of available members to serialize
-        var serializableMembers = base.GetSerializableMembers(objectType);
-
         string typeFullName = objectType.FullName;
 
         // Use default serialization behavior if this is not a resource class
         if (typeFullName?.StartsWith(_resourcesNamespacePrefix) != true)
         {
-            return serializableMembers;
+            return base.GetSerializableMembers(objectType);
         }
 
         // Get the profile request context
-        var profileRequestContext = _profileContentTypeContextProvider.Get();
+        var profileContentTypeContext = _profileContentTypeContextProvider.Get();
 
-        // If this is not Profile-constrained, use default behavior
-        if (profileRequestContext == null)
+        // If this is not Profile-constrained, or we're deserializing, use default behavior
+        if (profileContentTypeContext == null || profileContentTypeContext.ContentTypeUsage == ContentTypeUsage.Writable)
         {
-            return serializableMembers;
+            return base.GetSerializableMembers(objectType);
         }
 
         var resourceClassFullName = GetFullNameFromResourceTypeNamespace(objectType);
 
-        var profileResourceModel = _profileResourceModelProvider.GetProfileResourceModel(profileRequestContext.ProfileName);
+        var profileResourceModel = _profileResourceModelProvider.GetProfileResourceModel(profileContentTypeContext.ProfileName);
 
         var profileResource =
             profileResourceModel.GetResourceByName(_dataManagementResourceContextProvider.Get().Resource.FullName);
@@ -158,7 +156,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
         if (profileResource == null)
         {
             throw new Exception(
-                $"Resource '{profileRequestContext.ResourceName}' not found in API Profile '{profileRequestContext.ProfileName}'.");
+                $"Resource '{profileContentTypeContext.ResourceName}' not found in API Profile '{profileContentTypeContext.ProfileName}'.");
         }
 
         var profileResourceClass =
@@ -169,7 +167,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             // If it's a reference class, just serialize it using default serialization behavior
             if (resourceClassFullName.Name.EndsWith("Reference"))
             {
-                return serializableMembers;
+                return base.GetSerializableMembers(objectType);
             }
 
             return _emptyMemberList;
@@ -186,6 +184,9 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
         {
             supportedMemberNames = supportedMemberNames.Concat(_extensionsInArray);
         }
+
+        // Get the total list of available members to serialize
+        var serializableMembers = base.GetSerializableMembers(objectType);
 
         var profileConstrainedMembers = serializableMembers
             .Where(mi => supportedMemberNames?.Contains(mi.Name) != false)
