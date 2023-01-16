@@ -159,8 +159,6 @@ namespace EdFi.Ods.Common.Extensions
             where TSource : IMappable, IHasExtensions
             where TTarget : IHasExtensions
         {
-            // SPIKE NOTE: These modifications need careful attention.
-
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
@@ -194,13 +192,6 @@ namespace EdFi.Ods.Common.Extensions
                 {
                     continue;
                 }
-
-                // Mark the extension as available on the target
-                // SPIKE NOTE: Identify the specific scenario this "available" context supports
-                // -- It is probably related to supporting semantics for setting an extension to
-                // null explicitly to remove it (rather than it not being present). Needs to be confirmed.
-                // SPIKE NOTE: Remove this line of code if obsolete
-                // extensionsSynchronizationContextContext.SetExtensionAvailable(extensionName, true);
 
                 // Identify the source extension instance
                 var sourceExtensionObject = GetMappableSourceExtensionObject(source, availableExtensionName);

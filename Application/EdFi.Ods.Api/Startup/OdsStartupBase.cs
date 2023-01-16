@@ -142,7 +142,7 @@ namespace EdFi.Ods.Api.Startup
                 .AddNewtonsoftJson();
 
             // Configure the JSON serializer, and assign the Profiles-aware contract resolver
-            // SPIKE NOTE: We may want to make this an extensibility point to fully isolate Profiles-related logic from the core.
+            // NOTE: We may want to make this an extensibility point to fully isolate Profiles-related logic from the core.
             mvcBuilder.Services.ConfigureOptions<NewtonsoftJsonOptionConfigurator>();
 
             // Add controllers for the plugins

@@ -18,8 +18,6 @@ using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Middleware;
 
-// SPIKE NOTE: This class could really use some unit tests.
-
 /// <summary>
 /// Implements middleware that inspects the content type of a request (Accept for GET request, Content-Type for PUT/POST requests),
 /// and initializes the <see cref="ProfileContentTypeContext" /> for the current request.

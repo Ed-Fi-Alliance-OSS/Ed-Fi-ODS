@@ -13,12 +13,9 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
-using log4net;
-using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Models;
 
@@ -32,8 +29,6 @@ public class MappingContractProvider : IMappingContractProvider
     private readonly ConcurrentDictionary<MappingContractKey, IMappingContract>
         _mappingContractByKey = new();
 
-    private readonly ILog _logger = LogManager.GetLogger(typeof(MappingContractProvider));
-    
     public MappingContractProvider(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
@@ -64,7 +59,6 @@ public class MappingContractProvider : IMappingContractProvider
 
         var dataManagementResourceContext = _dataManagementResourceContextProvider.Get();
 
-        // SPIKE NOTE: This check might be better located in middleware or a filter
         // Need to verify that the resource in the profile content type matches the current request resource
         if (!dataManagementResourceContext.Resource.Name.EqualsIgnoreCase(profileContentTypeContext.ResourceName))
         {
@@ -138,14 +132,12 @@ public class MappingContractProvider : IMappingContractProvider
                     .GetSchemaMapByPhysicalName(profileResourceClass.FullName.Schema)
                     .ProperCaseName;
                 
-                // SPIKE NOTE: This embedded convention should probably be located somewhere more sensible (like the Namespaces class).
                 string mappingContractTypeName =
-                    $"EdFi.Ods.Entities.Common.{properCaseSchemaName}.{profileResourceClass.FullName.Name}MappingContract";
+                    $"{Namespaces.Entities.Common.BaseNamespace}.{properCaseSchemaName}.{profileResourceClass.FullName.Name}MappingContract";
 
-                // SPIKE NOTE: These embedded conventions should probably be located (or used from) somewhere more sensible (like the Namespaces class).
                 string assemblyName = key.ResourceClassName.Schema.EqualsIgnoreCase(EdFiConventions.PhysicalSchemaName)
-                    ? "EdFi.Ods.Standard"
-                    : $"EdFi.Ods.Extensions.{properCaseSchemaName}";
+                    ? Namespaces.Standard.BaseNamespace
+                    : $"{Namespaces.Extensions.BaseNamespace}.{properCaseSchemaName}";
 
                 var mappingContractType = Type.GetType(
                     $"{mappingContractTypeName}, {assemblyName}",
@@ -161,7 +153,6 @@ public class MappingContractProvider : IMappingContractProvider
                         {
                             if (parameterInfo.Name == "supportedExtensions")
                             {
-                                // SPIKE NOTE: Is this the correct name to use for the extension?
                                 return profileResourceClass.Extensions.Select(x => x.PropertyName).ToArray();
                             }
 

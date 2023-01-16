@@ -7,83 +7,83 @@ namespace EdFi.Ods.Common
 {
     public static class Namespaces
     {
-        public static string OdsBaseNamespace => "EdFi.Ods";
+        public static readonly string OdsBaseNamespace = "EdFi.Ods";
 
         public static class Standard
         {
-            public static string RelativeNamespace => "Standard";
+            public static readonly string RelativeNamespace = "Standard";
 
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
-            public static string Security => $"{BaseNamespace}.Security";
+            public static readonly string Security = $"{BaseNamespace}.Security";
 
-            public static string NHibernateMappings => $"{BaseNamespace}.NHibernate.Mappings";
+            public static readonly string NHibernateMappings = $"{BaseNamespace}.NHibernate.Mappings";
         }
 
         public static class Api
         {
             public static string AssemblyName = "EdFi.Ods.Api";
 
-            public static string RelativeNamespace => "Api";
+            public static readonly string RelativeNamespace = "Api";
 
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
-            public static string Pipelines => $"{BaseNamespace}.Pipelines";
+            public static readonly string Pipelines = $"{BaseNamespace}.Pipelines";
 
-            public static string Architecture => $"{BaseNamespace}.Architecture";
+            public static readonly string Architecture = $"{BaseNamespace}.Architecture";
 
-            public static string Controllers => $"{BaseNamespace}.Services.Controllers";
+            public static readonly string Controllers = $"{BaseNamespace}.Services.Controllers";
 
             public static class NHibernate
             {
-                public static string RelativeNamespace => "Api.NHibernate";
+                public static readonly string RelativeNamespace = "Api.NHibernate";
 
-                public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+                public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
-                public static string Architecture => $"{BaseNamespace}.Architecture";
+                public static readonly string Architecture = $"{BaseNamespace}.Architecture";
             }
 
             public static class Security
             {
-                public static string RelativeNamespace => "Api.Security";
+                public static readonly string RelativeNamespace = "Api.Security";
 
-                public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+                public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
-                public static string AuthorizationStrategies => $"{BaseNamespace}.{"AuthorizationStrategies"}";
+                public static readonly string AuthorizationStrategies = $"{BaseNamespace}.{"AuthorizationStrategies"}";
 
-                public static string Authorization => $"{BaseNamespace}.{"Authorization"}";
+                public static readonly string Authorization = $"{BaseNamespace}.{"Authorization"}";
 
-                public static string Relationships => $"{AuthorizationStrategies}.{"Relationships"}";
+                public static readonly string Relationships = $"{AuthorizationStrategies}.{"Relationships"}";
 
-                public static string ContextDataProviders => $"{Authorization}.{"ContextDataProviders"}";
+                public static readonly string ContextDataProviders = $"{Authorization}.{"ContextDataProviders"}";
             }
         }
 
         public static class Resources
         {
-            public static string RelativeNamespace => "Api.Common.Models.Resources";
+            public static readonly string RelativeNamespace = "Api.Common.Models.Resources";
 
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
         }
 
         public static class Requests
         {
-            public static string RelativeNamespace => "Api.Common.Models.Requests";
+            public static readonly string RelativeNamespace = "Api.Common.Models.Requests";
 
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
         }
 
         public static class Entities
         {
-            public static string RelativeNamespace => "Entities";
+            public static readonly string RelativeNamespace = "Entities";
 
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
             public static class NHibernate
             {
-                public static string RelativeNamespace => "Entities.NHibernate";
+                public static readonly string RelativeNamespace = "Entities.NHibernate";
 
-                public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+                public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
                 public static string GetAggregateNamespace(string aggregateName, string properCaseName, bool isExtensionEntity = false)
                 {
@@ -127,11 +127,11 @@ namespace EdFi.Ods.Common
 
                 public static class QueryModels
                 {
-                    public static string RelativeNamespace => $"{NHibernate.RelativeNamespace}.QueryModels";
+                    public static readonly string RelativeNamespace = $"{NHibernate.RelativeNamespace}.QueryModels";
 
-                    public static string BaseNamespace => $"{NHibernate.BaseNamespace}.QueryModels";
+                    public static readonly string BaseNamespace = $"{NHibernate.BaseNamespace}.QueryModels";
 
-                    public static string Views => $"{BaseNamespace}.Views";
+                    public static readonly string Views = $"{BaseNamespace}.Views";
 
                     public static string GetViewNamespace(string viewName)
                     {
@@ -155,48 +155,48 @@ namespace EdFi.Ods.Common
 
             public static class Common
             {
-                public static string RelativeNamespace => "Entities.Common";
+                public static readonly string RelativeNamespace = "Entities.Common";
 
-                public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+                public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
             }
         }
 
         public static class Extensions
         {
-            public static string RelativeNamespace => "Extensions";
+            public static readonly string RelativeNamespace = "Extensions";
 
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.{RelativeNamespace}";
 
             public static string FullExtensionTypeName(string extensionEntityName) => $"{BaseNamespace}.{extensionEntityName}";
         }
 
         public static class CodeGen
         {
-            public static string BaseNamespace => "EdFi.Ods.CodeGen";
+            public static readonly string BaseNamespace = "EdFi.Ods.CodeGen";
 
-            public static string XmlShredding => $"{BaseNamespace}.XmlShredding";
+            public static readonly string XmlShredding = $"{BaseNamespace}.XmlShredding";
 
-            public static string XsdToWebApiProcess => $"{BaseNamespace}.XsdToWebApi.Process";
+            public static readonly string XsdToWebApiProcess = $"{BaseNamespace}.XsdToWebApi.Process";
 
-            public static string Metadata => "EdFi.Ods.Metadata";
+            public static readonly string Metadata = "EdFi.Ods.Metadata";
 
-            public static string ExceptionHandling => "EdFi.Ods.Api.ExceptionHandling";
+            public static readonly string ExceptionHandling = "EdFi.Ods.Api.ExceptionHandling";
         }
 
         public static class Common
         {
-            public static string BaseNamespace => "EdFi.Ods.Common";
+            public static readonly string BaseNamespace = "EdFi.Ods.Common";
 
-            public static string Security => $"{BaseNamespace}.{"Security"}";
+            public static readonly string Security = $"{BaseNamespace}.{"Security"}";
 
-            public static string Claims => $"{Security}.{"Claims"}";
+            public static readonly string Claims = $"{Security}.{"Claims"}";
         }
 
         public static class XmlShredding
         {
-            public static string BaseNamespace => $"{OdsBaseNamespace}.XmlShredding";
+            public static readonly string BaseNamespace = $"{OdsBaseNamespace}.XmlShredding";
 
-            public static string ResourceFactories => $"{BaseNamespace}.ResourceFactories";
+            public static readonly string ResourceFactories = $"{BaseNamespace}.ResourceFactories";
         }
     }
 }
