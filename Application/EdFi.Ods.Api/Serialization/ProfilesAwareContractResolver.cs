@@ -22,7 +22,13 @@ namespace EdFi.Ods.Api.Serialization;
 
 public class ProfilesAwareContractResolver : DefaultContractResolver
 {
-    private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
+    private static readonly string[] _extensionsInArray = { "Extensions" };
+    private static readonly string[] _metadataProperties =
+    {
+        "ETag",
+        "LastModifiedDate"
+    };
+    private static readonly List<MemberInfo> _emptyMemberList = new();
 
     private readonly ConcurrentDictionary<MappingContractKey, JsonContract> _contractByKey = new();
     private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
@@ -31,11 +37,8 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     private readonly IContextProvider<ProfileContentTypeContext> _profileContentTypeContextProvider;
 
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
+    private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
-
-    private static readonly string[] _extensionsInArray = { "Extensions" };
-    private static readonly string[] _metadataProperties = { "ETag", "LastModifiedDate" };
-    private static readonly List<MemberInfo> _emptyMemberList = new();
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -101,7 +104,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
                 var (schema, name) = GetSchemaAndResourceNameFromTokenizedString(namePartsTokenizer);
 
                 string physicalSchemaName = _schemaNameMapProvider.GetSchemaMapByProperCaseName(schema).PhysicalName;
-                
+
                 return new FullName(physicalSchemaName, name);
             });
 
@@ -113,14 +116,14 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             enumerator.MoveNext();
             string schema = enumerator.Current.Value;
             enumerator.MoveNext();
-            
+
             if (enumerator.Current.Value == "Extensions")
             {
                 enumerator.MoveNext();
                 schema = enumerator.Current.Value;
                 enumerator.MoveNext();
             }
-            
+
             string name = enumerator.Current.Value;
 
             return (schema, name);
@@ -172,9 +175,8 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
 
             return _emptyMemberList;
         }
-        
-        var supportedMemberNames = 
-            profileResourceClass.PropertyByName.Keys
+
+        var supportedMemberNames = profileResourceClass.PropertyByName.Keys
             .Concat(profileResourceClass.CollectionByName.Keys)
             .Concat(profileResourceClass.ReferenceByName.Keys)
             .Concat(profileResourceClass.EmbeddedObjectByName.Keys)
