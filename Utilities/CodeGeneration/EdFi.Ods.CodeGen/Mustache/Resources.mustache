@@ -1073,21 +1073,7 @@ namespace {{ResourceClassesNamespace}}
             {
                 _{{PropertyFieldName}} = value;
 
-                // SPIKE NOTE: Review the need for this
-                //var synchronizationContext = ((IHasSynchronizationContext<{{ResourceName}}SynchronizationContext>) this)
-                //    .SynchronizationContext;
-            
                 var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
-                covariantList.AddingItem += (s, e) =>
-                {
-                    var item = ({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item;
-
-                    // SPIKE NOTE: Review the need for this filtering (on deserialization?)
-                    // Shouldn't this really be happening in the mapping process?
-                    //if (!synchronizationContext.Is{{ItemType}}Included(item))
-                    //    e.Cancel = true;
-                };
-
                 _{{PropertyFieldName}}Covariant = covariantList;
             }
         }
@@ -1175,31 +1161,15 @@ namespace {{ResourceClassesNamespace}}
             {
                 if (value == null) return;
             
-                // SPIKE NOTE: Review this list item handling for validity
-                //var synchronizationContext = ((IHasSynchronizationContext<{{BaseEntity}}SynchronizationContext>) this)
-                //    .SynchronizationContext;
-            
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<{{ItemType}}>(value,
-                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this); //,
-                    //(s, e) => synchronizationContext.Is{{ItemType}}Included(({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item));
+                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this);
 
                 _{{PropertyFieldName}} = list;
 
                 // Initialize covariant list with notifying adapter with deferred wireup so only new items are processed (optimization)
                 var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{ItemType}}>(value);
                 covariantList.ItemAdded += (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this;
-
-                covariantList.AddingItem += (s, e) =>
-                {
-                    var item = ({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item;
-
-                    // SPIKE NOTE: Review this list item handling for validity
-                    // Shouldn't this level of filtering be handled during mapping/synchronization?
-                    // If it's confirmed to not be needed here, can we simplify the list (eliminate covariantList class?)
-                    //if (!synchronizationContext.Is{{ItemType}}Included(item))
-                    //    e.Cancel = true;
-                };
                 _{{PropertyFieldName}}Covariant = covariantList;
             }
         }

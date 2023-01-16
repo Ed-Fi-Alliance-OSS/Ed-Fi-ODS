@@ -265,7 +265,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 .Where(p => p.IsSynchronizedProperty())
         
                 // Don't include identifying properties, with the exception of where UniqueIds are defined
-                .Where(p => !p.IsIdentifying || IsDefiningUniqueId(resourceClass, p))
+                .Where(p => !p.IsIdentifying || UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
                 .Select(p => p.PropertyName)
         
                 // Add embedded object properties
@@ -302,14 +302,6 @@ namespace EdFi.Ods.CodeGen.Generators
                         ItemTypeName = x.ItemTypeName,
                         IsLast = x == members.Last() && !resourceClass.IsExtendable()
                     });
-        }
-
-        // SPIKE NOTE: This is a copy/paste from EntityMapper.cs. It should probably be converted into a shared 
-        // utility or extension method.
-        private static bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property)
-        {
-            return UniqueIdSpecification.IsUniqueId(property.PropertyName)
-                && PersonEntitySpecification.IsPersonEntity(resourceClass.Name);
         }
     }
 }

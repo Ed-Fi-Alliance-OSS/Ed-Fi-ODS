@@ -1335,15 +1335,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentAddressExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.ParentAddress as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -1959,15 +1950,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_ParentExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.Parent as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -2818,15 +2800,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_SchoolExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.School as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -2983,15 +2956,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StaffExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.Staff as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -3410,15 +3374,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.Student as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -4690,15 +4645,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentCTEProgramAssociationExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentCTEProgramAssociation as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -4793,15 +4739,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentEducationOrganizationAssociationAddress as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -5079,15 +5016,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentEducationOrganizationAssociationStudentCharacteristic as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -6353,15 +6281,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentParentAssociationExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentParentAssociation as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -7162,15 +7081,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentSchoolAssociationExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentSchoolAssociation as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -7255,15 +7165,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentSectionAssociation as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("Sample"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 

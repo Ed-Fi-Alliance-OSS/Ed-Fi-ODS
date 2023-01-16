@@ -2682,15 +2682,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_CredentialExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.Credential as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("TPDM"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -8630,15 +8621,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SchoolExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.School as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("TPDM"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -8729,15 +8711,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_tpdm_SurveyResponseExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.SurveyResponse as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("TPDM"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 

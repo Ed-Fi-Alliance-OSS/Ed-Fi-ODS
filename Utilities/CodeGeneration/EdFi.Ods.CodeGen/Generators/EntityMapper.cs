@@ -82,7 +82,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 BackSynchedPrimaryKeyList =
                     resourceClass.IdentifyingProperties
                         .Where(
-                            p => !IsDefiningUniqueId(resourceClass, p))
+                            p => !UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
                         .OrderBy(
                             x => x.PropertyName)
                         .Select(
@@ -96,7 +96,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     .Where(p => !p.IsInherited && p.IsSynchronizedProperty())
 
                     // Add mappings for UniqueId values defined on Person resources
-                    .Concat(resourceClass.IdentifyingProperties.Where(p => IsDefiningUniqueId(resourceClass, p)))
+                    .Concat(resourceClass.IdentifyingProperties.Where(p => UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p)))
                     .OrderBy(p => p.PropertyName)
                     .Select(
                         p => new
@@ -161,12 +161,6 @@ namespace EdFi.Ods.CodeGen.Generators
                                 MappedReferenceDataHasDiscriminator = a.OtherEntity.HasDiscriminator()
                             })
             };
-        }
-
-        private static bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property)
-        {
-            return UniqueIdSpecification.IsUniqueId(property.PropertyName)
-                   && PersonEntitySpecification.IsPersonEntity(resourceClass.Name);
         }
 
         private bool IsBaseClassConcrete(ResourceClassBase resourceClass)
@@ -237,7 +231,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 .Where(p => p.IsSynchronizedProperty())
 
                 // Don't include identifying properties, with the exception of where UniqueIds are defined
-                .Where(p => !p.IsIdentifying || IsDefiningUniqueId(resourceClass, p))
+                .Where(p => !p.IsIdentifying || UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
                 .Select(p => p.PropertyName)
 
                 // Add embedded object properties

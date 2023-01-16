@@ -33,17 +33,6 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                 .MappingContractProvider
                 .GetMappingContract(_fullName_{{ModelSchema}}_{{ModelName}});
             
-            {{#IsEntityExtension}}
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.{{ModelParentName}} as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("{{ExtensionName}}"))
-            //    return false;
-            {{/IsEntityExtension}}
             {{#AllowPrimaryKeyUpdates}}
 
             // Allow PK column updates on {{ModelName}}

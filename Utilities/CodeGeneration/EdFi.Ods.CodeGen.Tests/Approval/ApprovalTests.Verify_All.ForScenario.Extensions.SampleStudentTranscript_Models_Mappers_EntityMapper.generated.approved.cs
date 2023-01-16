@@ -624,15 +624,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_StudentAcademicRecordClassRankingExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentAcademicRecordClassRanking as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("SampleStudentTranscript"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -712,15 +703,6 @@ namespace EdFi.Ods.Entities.Common.SampleStudentTranscript //.StudentAcademicRec
                 .MappingContractProvider
                 .GetMappingContract(_fullName_samplestudenttranscript_StudentAcademicRecordExtension);
             
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // SPIKE NOTE: Need to review the intent of this logic and ensure it's covered. Appears to be a pre-emptive check to ensure that
-            // the source has it's extension *available*. Needs some investigation to determine how this scenario translates to use with 
-            // the mapping contract approach.
-            // ----------------------------------------------------------------------------------------------------------------------------
-            // var extensionsSynchronizationContext = source.StudentAcademicRecord as IHasExtensionsSynchronizationContext;
-            //
-            // if (!extensionsSynchronizationContext.IsExtensionAvailable("SampleStudentTranscript"))
-            //    return false;
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
