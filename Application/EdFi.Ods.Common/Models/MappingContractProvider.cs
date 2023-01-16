@@ -207,7 +207,7 @@ public class MappingContractProvider : IMappingContractProvider
                 // Create the synchronization context
                 var mappingContract = (IMappingContract)constructorInfo.Invoke(arguments);
 
-                if (profileResourceClass.FullName == new FullName("edfi", "AssemblyContentStandard"))
+                if (profileResourceClass.FullName.Name == "AssessmentContentStandard")
                 {
                     _logger.Info($"AssessmentContentStandard Mapping Contract: {JsonConvert.SerializeObject(mappingContract)}");
                 }
