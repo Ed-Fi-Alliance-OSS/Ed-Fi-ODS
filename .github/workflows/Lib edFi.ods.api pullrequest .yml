@@ -2,7 +2,7 @@ name: Lib EdFi.Ods.Api Pull request build and test
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, 'ODS-*']
 
 env:
   INFORMATIONAL_VERSION: "7.0"
