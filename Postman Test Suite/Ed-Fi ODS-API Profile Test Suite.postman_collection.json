@@ -2720,7 +2720,7 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(`Status code is 204 (json=${pm.response.json().message})`, () => {",
+													"pm.test(`Status code is 204 (body=${pm.response.body})`, () => {",
 													"    pm.expect(pm.response.code).to.equal(204);",
 													"});"
 												],
@@ -2731,7 +2731,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn(\"{{$guid}}\"));",
+													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn(\"1234{{$randomAdjective}}\"));",
 													""
 												],
 												"type": "text/javascript"
@@ -2749,7 +2749,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n    \"contentStandard\": {\r\n        \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n    },\r\n    \"academicSubjects\": [\r\n        {\r\n            \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n  \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n  \"contentStandard\": {\r\n    \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n  },\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
