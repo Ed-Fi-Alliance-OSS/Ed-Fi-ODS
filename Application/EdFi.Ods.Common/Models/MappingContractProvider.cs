@@ -17,6 +17,8 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Profiles;
+using log4net;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Models;
 
@@ -30,6 +32,8 @@ public class MappingContractProvider : IMappingContractProvider
     private readonly ConcurrentDictionary<MappingContractKey, IMappingContract>
         _mappingContractByKey = new();
 
+    private readonly ILog _logger = LogManager.GetLogger(typeof(MappingContractProvider));
+    
     public MappingContractProvider(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
         IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
@@ -141,7 +145,7 @@ public class MappingContractProvider : IMappingContractProvider
                 // SPIKE NOTE: These embedded conventions should probably be located (or used from) somewhere more sensible (like the Namespaces class).
                 string assemblyName = key.ResourceClassName.Schema.EqualsIgnoreCase(EdFiConventions.PhysicalSchemaName)
                     ? "EdFi.Ods.Standard"
-                    : $"EdFi.Ods.Extensions.{profileResourceClass.FullName.Schema}";
+                    : $"EdFi.Ods.Extensions.{properCaseSchemaName}";
 
                 var mappingContractType = Type.GetType(
                     $"{mappingContractTypeName}, {assemblyName}",
@@ -201,7 +205,14 @@ public class MappingContractProvider : IMappingContractProvider
                     .ToArray();
 
                 // Create the synchronization context
-                return (IMappingContract)constructorInfo.Invoke(arguments);
+                var mappingContract = (IMappingContract)constructorInfo.Invoke(arguments);
+
+                if (profileResourceClass.FullName == new FullName("edfi", "AssemblyContentStandard"))
+                {
+                    _logger.Info($"AssessmentContentStandard Mapping Contract: {JsonConvert.SerializeObject(mappingContract)}");
+                }
+                
+                return mappingContract;
             });
 
         return mappingContract;
