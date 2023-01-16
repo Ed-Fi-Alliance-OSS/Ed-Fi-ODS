@@ -209,7 +209,7 @@ public class MappingContractProvider : IMappingContractProvider
 
                 if (profileResourceClass.FullName.Name == "AssessmentContentStandard")
                 {
-                    _logger.Info($"AssessmentContentStandard Mapping Contract: {JsonConvert.SerializeObject(mappingContract)}");
+                    _logger.Fatal($"AssessmentContentStandard Mapping Contract: {JsonConvert.SerializeObject(mappingContract)}");
                 }
                 
                 return mappingContract;
