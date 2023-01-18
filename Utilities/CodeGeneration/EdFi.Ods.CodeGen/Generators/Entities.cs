@@ -308,13 +308,6 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                 }
                                                               : new string[0])
                                                          .Concat(
-                                                              p.PropertyType.ToCSharp() == "DateTime"
-                                                                  ? new[]
-                                                                    {
-                                                                        "SqlServerDateTimeRange"
-                                                                    }
-                                                                  : new string[0])
-                                                         .Concat(
                                                               p.PropertyType.ToCSharp() == "string"
                                                                   ? new[]
                                                                     {
