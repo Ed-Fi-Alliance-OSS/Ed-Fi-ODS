@@ -96,7 +96,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"      
-        Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/' -noExtensions
+        Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/Descriptors' -noExtensions
       shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS/
