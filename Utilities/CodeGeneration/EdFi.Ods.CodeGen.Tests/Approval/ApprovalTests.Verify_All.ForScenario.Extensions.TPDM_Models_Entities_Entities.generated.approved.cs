@@ -656,7 +656,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _birthCountryDescriptorId = default(int?);
             }
         }
-        [RequiredWithNonDefault, SqlServerDateTimeRange]
+        [RequiredWithNonDefault]
         public virtual DateTime BirthDate 
         {
             get { return _birthDate; }
@@ -736,7 +736,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _birthStateAbbreviationDescriptorId = default(int?);
             }
         }
-        [SqlServerDateTimeRange]
         public virtual DateTime? DateEnteredUS 
         {
             get { return _dateEnteredUS; }
@@ -2229,7 +2228,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -3936,7 +3934,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? DocumentExpirationDate 
         {
             get { return _documentExpirationDate; }
@@ -4756,7 +4753,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -5453,7 +5449,6 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -6438,7 +6433,6 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         }
         [StringLength(64), NoDangerousText]
         public virtual string CertificationTitle  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? CredentialStatusDate 
         {
             get { return _credentialStatusDate; }
@@ -9989,7 +9983,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, SqlServerDateTimeRange]
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -11813,7 +11807,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, SqlServerDateTimeRange]
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -12856,7 +12850,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, SqlServerDateTimeRange]
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -14034,7 +14028,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? InterRaterReliabilityScore  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? ReceivedTrainingDate 
         {
             get { return _receivedTrainingDate; }
@@ -15114,7 +15107,6 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         public virtual decimal? AidAmount  { get; set; }
         [StringLength(1024), NoDangerousText]
         public virtual string AidConditionDescription  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -17049,7 +17041,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, SqlServerDateTimeRange]
+        [RequiredWithNonDefault]
         public virtual DateTime ActualDate 
         {
             get { return _actualDate; }
@@ -17132,7 +17124,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 _performanceEvaluationRatingLevelDescriptorId = default(int?);
             }
         }
-        [SqlServerDateTimeRange]
         public virtual DateTime? ScheduleDate 
         {
             get { return _scheduleDate; }
@@ -18070,7 +18061,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? InterRaterReliabilityScore  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? ReceivedTrainingDate 
         {
             get { return _receivedTrainingDate; }

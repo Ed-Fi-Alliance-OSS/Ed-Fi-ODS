@@ -187,7 +187,7 @@ namespace {{AggregateNamespace}}
             {{#NonParentProperties}}
                 {{^IsAbstract}}
         {{#DisplayName}}[Display(Name="{{DisplayName}}")]
-        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsDateTime}}, SqlServerDateTimeRange{{/IsDateTime}}{{#IsString}}, StringLength({{MaxLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]
+        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsString}}, StringLength({{MaxLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]
                 {{/IsAbstract}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
                 {{#PropertyAccessors}}

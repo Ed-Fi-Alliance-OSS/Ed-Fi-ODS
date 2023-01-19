@@ -615,7 +615,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? BeginDate 
         {
             get { return _beginDate; }
@@ -752,7 +751,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 _staffUniqueId = value;
             }
         }
-        [SqlServerDateTimeRange]
         public virtual DateTime? StartDate 
         {
             get { return _startDate; }
@@ -4574,7 +4572,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         public virtual int? Duration  { get; set; }
         [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
         public virtual decimal? GPA  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? GraduationDate 
         {
             get { return _graduationDate; }
@@ -6411,7 +6408,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? FirstPetOwnedDate 
         {
             get { return _firstPetOwnedDate; }
@@ -7967,7 +7963,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         public virtual int? ArtPieces  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? ExhibitDate 
         {
             get { return _exhibitDate; }
@@ -8937,7 +8932,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         public virtual bool? PrimaryIndicator  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? ServiceBeginDate 
         {
             get { return _serviceBeginDate; }
@@ -8957,7 +8951,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
         private DateTime? _serviceBeginDate;
         
-        [SqlServerDateTimeRange]
         public virtual DateTime? ServiceEndDate 
         {
             get { return _serviceEndDate; }
@@ -9335,7 +9328,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         //                          Properties
         // -------------------------------------------------------------
         public virtual bool? AnalysisCompleted  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? AnalysisDate 
         {
             get { return _analysisDate; }
@@ -9913,7 +9905,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
         public virtual DateTime? EndDate 
         {
             get { return _endDate; }
@@ -10626,7 +10617,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         //                          Properties
         // -------------------------------------------------------------
         public virtual TimeSpan? CommencementTime  { get; set; }
-        [RequiredWithNonDefault, SqlServerDateTimeRange]
+        [RequiredWithNonDefault]
         public virtual DateTime EffectiveDate 
         {
             get { return _effectiveDate; }
@@ -14178,7 +14169,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         public virtual short? LibraryVisits  { get; set; }
         [StringLength(250), NoDangerousText]
         public virtual string PriorContactRestrictions  { get; set; }
-        [SqlServerDateTimeRange]
         public virtual DateTime? ReadGreenEggsAndHamDate 
         {
             get { return _readGreenEggsAndHamDate; }

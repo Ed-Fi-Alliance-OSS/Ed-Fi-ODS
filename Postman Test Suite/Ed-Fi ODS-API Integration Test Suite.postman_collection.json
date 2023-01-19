@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "39d18015-ee11-43b0-8d79-d473e80ca76a",
+		"_postman_id": "829ceac5-1c29-44c8-8df4-994aa4747b6e",
 		"name": "Ed-Fi ODS/API Integration Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7275232"
 	},
 	"item": [
 		{
@@ -73,12 +74,7 @@
 									"value": "client_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -169,12 +165,7 @@
 									"value": "255901",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -255,12 +246,7 @@
 									"value": "client_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -341,12 +327,7 @@
 									"value": "client_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -427,12 +408,7 @@
 									"value": "client_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -507,12 +483,7 @@
 									"value": "client_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -588,12 +559,7 @@
 									"value": "client_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -681,12 +647,7 @@
 									"value": "server_credentials",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -783,12 +744,7 @@
 									"value": "343",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -885,12 +841,7 @@
 									"value": "test",
 									"type": "default"
 								}
-							],
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							]
 						},
 						"url": {
 							"raw": "http://localhost:8765/oauth/token",
@@ -1418,16 +1369,14 @@
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
-									"pm.test(\"Should return the item with BeginDate must be within SQL datetime range string\", () => {",
-									"     ",
-									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"BeginDate : \\'1/1/1751 12:00:00 AM\\' must be within SQL datetime range\");",
+									"pm.test(\"Should return the item with BeginDate must be required and not default\", () => {",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"BeginDate is required.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item with EndDate must be within SQL datetime range string\", () => {",
-									"     ",
-									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"EndDate : \\'1/1/1752 12:00:00 AM\\' must be within SQL datetime range\");",
+									"pm.test(\"Should return the item with EndDate must be required and not default\", () => {",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"EndDate is required.\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1446,7 +1395,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n \"beginDate\":\"1/1/1751\",\r\n  \"endDate\":\"1/1/1752\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
+							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"beginDate\":\"1/1/0001\",\r\n  \"endDate\":\"1/1/0001\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
@@ -1951,14 +1900,14 @@
 									"    pm.expect(pm.response.code).to.equal(400);",
 									"});",
 									"",
-									"pm.test(\"Should return the item  with BeginDate must be within SQL datetime range string\", () => {",
+									"pm.test(\"Should return the item with BeginDate must be required and not default\", () => {",
 									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"BeginDate : \\'1/1/1751 12:00:00 AM\\' must be within SQL datetime range\");",
+									"     pm.expect(responseItem.message).to.include(\"BeginDate is required.\");",
 									"});",
 									"",
-									"pm.test(\"Should return the item  with EndDate must be within SQL datetime range string\", () => {",
+									"pm.test(\"Should return the item with EndDate must be required and not default\", () => {",
 									"      const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"EndDate : \\'1/1/1752 12:00:00 AM\\' must be within SQL datetime range\");",
+									"     pm.expect(responseItem.message).to.include(\"EndDate is required.\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1977,7 +1926,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n \"beginDate\":\"1/1/1751\",\r\n  \"endDate\":\"1/1/1752\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
+							"raw": "{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n \"beginDate\":\"1/1/0001\",\r\n  \"endDate\":\"1/1/0001\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\"\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
