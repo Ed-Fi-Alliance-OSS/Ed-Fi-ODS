@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Common.Extensions
 {
@@ -18,8 +19,7 @@ namespace EdFi.Ods.Common.Extensions
     /// </summary>
     public static class IHasExtensionsExtensions
     {
-        private static readonly ConcurrentDictionary<ExtensionKey, Type> _extensionTypeByExtensionKey
-            = new ConcurrentDictionary<ExtensionKey, Type>();
+        private static readonly ConcurrentDictionary<ExtensionKey, Type> _extensionTypeByExtensionKey = new();
 
         public static Func<Type, string, object> CreateTargetExtensionObject = DoCreateTargetExtensionObject;
 
@@ -50,7 +50,10 @@ namespace EdFi.Ods.Common.Extensions
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        public static bool SynchronizeExtensionsTo<TSource, TTarget>(this TSource source, TTarget target)
+        public static bool SynchronizeExtensionsTo<TSource, TTarget>(
+            this TSource source,
+            TTarget target,
+            IExtensionsMappingContract extensionsMappingContract)
             where TSource : ISynchronizable, IHasExtensions
             where TTarget : IHasExtensions
         {
@@ -66,19 +69,14 @@ namespace EdFi.Ods.Common.Extensions
 
             bool isModified = false;
 
-            var sourceSynchSupport = source as IExtensionsSynchronizationSourceSupport;
-
-            if (sourceSynchSupport == null)
-            {
-                throw new Exception(
-                    $"The source type '{source.GetType().FullName}' does not implement the {typeof(IExtensionsSynchronizationSourceSupport).Name} interface which is required for synchronizing extensions.");
-            }
-
             // Iterate through the target's extensions
             foreach (string extensionName in target.Extensions.Keys)
             {
-                // If the source contains the extension and it is supported as a source for synchronization
-                if (sourceSynchSupport.IsExtensionSupported(extensionName))
+                // If the extension isn't supported by the source, don't map it.
+                //   For entities, all extensions present will be supported.
+                //   For non-profile constrained resources, all extensions will be supported.
+                //   For profile constrained resources, some extensions may not be supported.
+                if (extensionsMappingContract?.IsExtensionSupported(extensionName) ?? true)
                 {
                     if (!source.Extensions.Contains(extensionName))
                     {
@@ -153,8 +151,11 @@ namespace EdFi.Ods.Common.Extensions
         /// <typeparam name="TTarget"></typeparam>
         /// <param name="source"></param>
         /// <param name="target"></param>
-        /// <returns></returns>
-        public static void MapExtensionsTo<TSource, TTarget>(this TSource source, TTarget target)
+        /// <param name="extensionsMappingContract"></param>
+        public static void MapExtensionsTo<TSource, TTarget>(
+            this TSource source,
+            TTarget target,
+            IExtensionsMappingContract extensionsMappingContract)
             where TSource : IMappable, IHasExtensions
             where TTarget : IHasExtensions
         {
@@ -168,70 +169,49 @@ namespace EdFi.Ods.Common.Extensions
                 throw new ArgumentNullException(nameof(target));
             }
 
-            // If source has no extensions present, don't map anything and leave target in its initialized state
+            // If source has no extensions available/present, don't map anything and leave target in its initialized state
             if (source.Extensions == null)
             {
                 return;
             }
 
-            var sourceSynchSupport = source as IExtensionsSynchronizationSourceSupport;
-
-            if (sourceSynchSupport == null)
-            {
-                throw new ArgumentException(
-                    $"The source type '{source.GetType().FullName}' does not implement the {nameof(IExtensionsSynchronizationSourceSupport)} interface and cannot be mapped.");
-            }
-
-            var targetSynchSupport = target as IExtensionsSynchronizationSourceSupport;
-
-            if (targetSynchSupport == null)
-            {
-                throw new ArgumentException(
-                    $"The target type '{target.GetType().FullName}' does not implement the {nameof(IExtensionsSynchronizationSourceSupport)} interface and cannot be mapped.");
-            }
-
             // Get all the extensions present in the source object
             //   For entities, this will be all the extensions loaded from the ODS
             //   For resources, this will be all the extensions submitted by the API client
-            string[] extensionNames = new string[source.Extensions.Count];
-            source.Extensions.Keys.CopyTo(extensionNames, 0);
+            string[] availableExtensionNames = new string[source.Extensions.Count];
+            source.Extensions.Keys.CopyTo(availableExtensionNames, 0);
 
             // Process extensions alphabetically from source to target
-            foreach (string extensionName in extensionNames.OrderBy(x => x))
+            foreach (string availableExtensionName in availableExtensionNames.OrderBy(x => x))
             {
                 // If the extension isn't supported by the source, don't map it.
                 //   For entities, all extensions present will be supported.
                 //   For non-profile constrained resources, all extensions will be supported.
                 //   For profile constrained resources, some extensions may not be supported.
-                if (!sourceSynchSupport.IsExtensionSupported(extensionName))
+                if (extensionsMappingContract != null && !extensionsMappingContract.IsExtensionSupported(availableExtensionName))
                 {
-                    targetSynchSupport.SetExtensionSupported(extensionName, false);
                     continue;
                 }
 
-                // Mark the extension as available on the target
-                targetSynchSupport.SetExtensionAvailable(extensionName, true);
-
                 // Identify the source extension instance
-                var sourceExtensionObject = GetMappableSourceExtensionObject(source, extensionName);
+                var sourceExtensionObject = GetMappableSourceExtensionObject(source, availableExtensionName);
 
                 // If no source extension object is present, do not instantiate and map the corresponding target.
                 if (sourceExtensionObject == null)
                 {
                     // This logic is used when mapping resources to transient entities to prevent subsequent
                     // synchronization against the persistent entity data
-                    targetSynchSupport.SetExtensionSupported(extensionName, false);
                     continue;
                 }
 
                 // If the source entity extension is an implicit entity extension and it is empty, don't map for outbound serialization
-                if ((sourceExtensionObject as IImplicitEntityExtension)?.IsEmpty() == true)
+                if ((sourceExtensionObject as IImplicitEntityExtension)?.IsEmpty() ?? false)
                     continue;
 
                 // Identify the target extension instance
                 //   For entities, this will force the API client-supplied extension in the resource to match to a known/registered entity extension type
                 //   For resources, this will instantiate the appropriate resource extension loaded from the database.
-                var targetExtensionObject = GetMappableTargetExtensionObject(target, extensionName);
+                var targetExtensionObject = GetMappableTargetExtensionObject(target, availableExtensionName);
 
                 if (targetExtensionObject == null)
                 {
@@ -261,12 +241,7 @@ namespace EdFi.Ods.Common.Extensions
                     target.Extensions = new OrderedDictionary();
                 }
 
-                target.Extensions[extensionName] = targetExtensionObject;
-
-                // Indicate that the extension is supported
-                //   For entities, this will allow the transient entity just mapped to have the extension data subsequently synchronized to the persistent entity
-                //   For resources, this will do nothing (resource implementations of this method is empty).
-                targetSynchSupport.SetExtensionSupported(extensionName, true);
+                target.Extensions[availableExtensionName] = targetExtensionObject;
             }
         }
 

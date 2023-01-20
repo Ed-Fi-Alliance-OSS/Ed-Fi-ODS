@@ -113,7 +113,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.INameSynchronizationSourceSupport
+    public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -288,12 +288,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -434,7 +428,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Parent : Entities.Common.Homograph.IParent, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IParentSynchronizationSourceSupport
+    public class Parent : Entities.Common.Homograph.IParent, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -755,26 +749,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressesSupported                  { get { return true; } set { } }
-        bool Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Homograph.IParentAddress, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Homograph.IParentStudentSchoolAssociation, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -802,6 +776,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     [ExcludeFromCodeCoverage]
     public class ParentPutPostRequestValidator : FluentValidation.AbstractValidator<Parent>
     {
+        private static readonly FullName _fullName_homograph_Parent = new FullName("homograph", "Parent");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Parent> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -815,6 +791,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.ParentMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.ParentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Parent));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsParentAddressIncluded != null)
+                {
+                    var hasInvalidParentAddressesItems = instance.ParentAddresses.Any(x => !mappingContract.Value.IsParentAddressIncluded(x));
+        
+                    if (hasInvalidParentAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentAddress", $"A supplied 'ParentAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsParentStudentSchoolAssociationIncluded != null)
+                {
+                    var hasInvalidParentStudentSchoolAssociationsItems = instance.ParentStudentSchoolAssociations.Any(x => !mappingContract.Value.IsParentStudentSchoolAssociationIncluded(x));
+        
+                    if (hasInvalidParentStudentSchoolAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("ParentStudentSchoolAssociation", $"A supplied 'ParentStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -861,7 +870,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentAddress : Entities.Common.Homograph.IParentAddress, Entities.Common.Homograph.IParentAddressSynchronizationSourceSupport
+    public class ParentAddress : Entities.Common.Homograph.IParentAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1031,12 +1040,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1089,7 +1092,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ParentStudentSchoolAssociation : Entities.Common.Homograph.IParentStudentSchoolAssociation, Entities.Common.Homograph.IParentStudentSchoolAssociationSynchronizationSourceSupport
+    public class ParentStudentSchoolAssociation : Entities.Common.Homograph.IParentStudentSchoolAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1375,12 +1378,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1532,7 +1529,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1763,14 +1760,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.ISchoolSynchronizationSourceSupport.IsSchoolAddressSupported  { get { return true; } set { } }
-        bool Entities.Common.Homograph.ISchoolSynchronizationSourceSupport.IsSchoolYearSupported     { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1837,7 +1826,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress, Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport
+    public class SchoolAddress : Entities.Common.Homograph.ISchoolAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1998,13 +1987,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport.IsCitySupported  { get { return true; } set { } }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2142,7 +2124,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
+    public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2301,12 +2283,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2447,7 +2423,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
+    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2768,26 +2744,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressesSupported                  { get { return true; } set { } }
-        bool Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationsSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Homograph.IStaffAddress, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        Func<Entities.Common.Homograph.IStaffStudentSchoolAssociation, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -2815,6 +2771,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     [ExcludeFromCodeCoverage]
     public class StaffPutPostRequestValidator : FluentValidation.AbstractValidator<Staff>
     {
+        private static readonly FullName _fullName_homograph_Staff = new FullName("homograph", "Staff");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Staff> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -2828,6 +2786,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.StaffMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Staff));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStaffAddressIncluded != null)
+                {
+                    var hasInvalidStaffAddressesItems = instance.StaffAddresses.Any(x => !mappingContract.Value.IsStaffAddressIncluded(x));
+        
+                    if (hasInvalidStaffAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StaffAddress", $"A supplied 'StaffAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+                if (mappingContract.Value.IsStaffStudentSchoolAssociationIncluded != null)
+                {
+                    var hasInvalidStaffStudentSchoolAssociationsItems = instance.StaffStudentSchoolAssociations.Any(x => !mappingContract.Value.IsStaffStudentSchoolAssociationIncluded(x));
+        
+                    if (hasInvalidStaffStudentSchoolAssociationsItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StaffStudentSchoolAssociation", $"A supplied 'StaffStudentSchoolAssociation' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -2874,7 +2865,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffAddress : Entities.Common.Homograph.IStaffAddress, Entities.Common.Homograph.IStaffAddressSynchronizationSourceSupport
+    public class StaffAddress : Entities.Common.Homograph.IStaffAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3044,12 +3035,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3102,7 +3087,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation, Entities.Common.Homograph.IStaffStudentSchoolAssociationSynchronizationSourceSupport
+    public class StaffStudentSchoolAssociation : Entities.Common.Homograph.IStaffStudentSchoolAssociation
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3388,12 +3373,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3548,7 +3527,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
+    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3893,21 +3872,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        bool Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsSchoolYearSupported        { get { return true; } set { } }
-        bool Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressesSupported  { get { return true; } set { } }
-
-        // Child collection item filter delegates
-        Func<Entities.Common.Homograph.IStudentAddress, bool> Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressIncluded
-        {
-            get { return null; }
-            set { }
-        }
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -3949,6 +3913,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     [ExcludeFromCodeCoverage]
     public class StudentPutPostRequestValidator : FluentValidation.AbstractValidator<Student>
     {
+        private static readonly FullName _fullName_homograph_Student = new FullName("homograph", "Student");
+
         protected override bool PreValidate(FluentValidation.ValidationContext<Student> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -3962,6 +3928,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
             var failures = new List<ValidationFailure>();
 
+            // Profile-based collection item filter validation
+            string profileName = null;
+
+            // Get the current mapping contract
+            var mappingContract = new Lazy<global::EdFi.Ods.Entities.Common.Homograph.StudentMappingContract>(() => (global::EdFi.Ods.Entities.Common.Homograph.StudentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Student));
+
+            if (mappingContract.Value != null)
+            {
+                if (mappingContract.Value.IsStudentAddressIncluded != null)
+                {
+                    var hasInvalidStudentAddressesItems = instance.StudentAddresses.Any(x => !mappingContract.Value.IsStudentAddressIncluded(x));
+        
+                    if (hasInvalidStudentAddressesItems)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("StudentAddress", $"A supplied 'StudentAddress' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
+
+            }
             // -----------------------
             //  Validate unified keys
             // -----------------------
@@ -3998,7 +3986,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentAddress : Entities.Common.Homograph.IStudentAddress, Entities.Common.Homograph.IStudentAddressSynchronizationSourceSupport
+    public class StudentAddress : Entities.Common.Homograph.IStudentAddress
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4168,12 +4156,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -4317,7 +4299,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
+    public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4623,12 +4605,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
             Entities.Common.Homograph.StudentSchoolAssociationMapper.MapTo(this, (Entities.Common.Homograph.IStudentSchoolAssociation)target, null);
         }
         // -------------------------------------------------------------
-
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
 
         // =================================================================
         //                    Resource Reference Data

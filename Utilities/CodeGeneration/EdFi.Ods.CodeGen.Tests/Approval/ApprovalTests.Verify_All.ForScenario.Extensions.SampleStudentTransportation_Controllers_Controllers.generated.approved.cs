@@ -9,6 +9,7 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Models.Requests;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.SampleStudentTransportation;
@@ -33,8 +34,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTransportation.StudentT
         Api.Common.Models.Requests.SampleStudentTransportation.StudentTransportations.StudentTransportationDelete,
         Api.Common.Models.Requests.SampleStudentTransportation.StudentTransportations.StudentTransportationGetByExample>
     {
-        public StudentTransportationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        public StudentTransportationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings, IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings, profileContentTypeContextProvider)
         {
         }
 

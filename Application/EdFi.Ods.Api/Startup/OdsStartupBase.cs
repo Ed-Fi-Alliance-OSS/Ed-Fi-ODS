@@ -45,8 +45,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -56,6 +54,9 @@ using System.Runtime.Loader;
 using System.Security.Claims;
 using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -138,15 +139,11 @@ namespace EdFi.Ods.Api.Startup
             // will apply the MvcConfigurator at runtime.
             var mvcBuilder = services
                 .AddControllers(options => options.OutputFormatters.Add(new GraphMLMediaTypeOutputFormatter()))
-                .AddNewtonsoftJson(
-                    options =>
-                    {
-                        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                        options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
-                        options.SerializerSettings.DateParseHandling = DateParseHandling.None;
-                        options.SerializerSettings.Formatting = Formatting.Indented;
-                        options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    });
+                .AddNewtonsoftJson();
+
+            // Configure the JSON serializer, and assign the Profiles-aware contract resolver
+            // NOTE: We may want to make this an extensibility point to fully isolate Profiles-related logic from the core.
+            mvcBuilder.Services.ConfigureOptions<NewtonsoftJsonOptionConfigurator>();
 
             // Add controllers for the plugins
             foreach (var pluginInfo in pluginInfos)
@@ -248,7 +245,7 @@ namespace EdFi.Ods.Api.Startup
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings, IApplicationConfigurationActivity[] configurationActivities)
         {
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
@@ -288,6 +285,12 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseEdFiApiAuthentication();
             app.UseAuthorization();
+
+            // Perform additional registered configuration activities 
+            foreach (var configurationActivity in configurationActivities)
+            {
+                configurationActivity.Configure(app);
+            }
 
             // Serves Open API Metadata json files when enabled.
             if (ApiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
@@ -329,6 +332,8 @@ namespace EdFi.Ods.Api.Startup
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IResourceModelProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IMappingContractProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<ProfileContentTypeContext>>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.

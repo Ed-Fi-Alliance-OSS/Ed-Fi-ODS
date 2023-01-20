@@ -26,12 +26,14 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
@@ -63,10 +65,9 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IFilterMetadata>()
                 .SingleInstance();
             
-            builder.RegisterType<DataManagementRequestContextProvider>()
-                .As<IDataManagementRequestContextProvider>()
+            builder.RegisterType<EnforceAssignedProfileUsageFilter>()
                 .SingleInstance();
-
+            
             builder.RegisterType<EnterpriseApiVersionProvider>()
                 .As<IApiVersionProvider>()
                 .SingleInstance();
@@ -279,6 +280,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
+            builder.RegisterType<MappingContractProvider>()
+                .As<IMappingContractProvider>()
+                .SingleInstance();
+            
+            builder.RegisterGeneric(typeof(ContextProvider<>))
+                .As(typeof(IContextProvider<>))
+                .SingleInstance();
+            
             RegisterPipeLineStepProviders();
             RegisterModels();
 

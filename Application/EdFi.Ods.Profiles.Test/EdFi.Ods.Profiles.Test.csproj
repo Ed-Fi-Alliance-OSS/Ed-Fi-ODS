@@ -21,10 +21,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Marker_EdFi_Ods_Profiles_Test.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
     <Content Include="assemblyMetadata.json" />
   </ItemGroup>
   <ItemGroup>

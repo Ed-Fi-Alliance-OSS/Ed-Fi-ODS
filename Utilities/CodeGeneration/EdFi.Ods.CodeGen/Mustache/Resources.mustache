@@ -268,7 +268,7 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}, {{NamespacePrefix}}I{{EntityName}}SynchronizationSourceSupport
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1073,17 +1073,7 @@ namespace {{ResourceClassesNamespace}}
             {
                 _{{PropertyFieldName}} = value;
 
-                var synchSourceSupport = (I{{ResourceName}}SynchronizationSourceSupport) this;
-
                 var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
-                covariantList.AddingItem += (s, e) =>
-                {
-                    var item = ({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item;
-
-                    if (!synchSourceSupport.Is{{ItemType}}Included(item))
-                        e.Cancel = true;
-                };
-
                 _{{PropertyFieldName}}Covariant = covariantList;
             }
         }
@@ -1170,26 +1160,16 @@ namespace {{ResourceClassesNamespace}}
             set
             {
                 if (value == null) return;
+            
                 // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
                 var list = new CollectionAdapterWithAddNotifications<{{ItemType}}>(value,
-                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this,
-                    (s, e) => ((I{{BaseEntity}}SynchronizationSourceSupport) this)
-                                    .Is{{ItemType}}Included(({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item));
+                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this);
+
                 _{{PropertyFieldName}} = list;
 
                 // Initialize covariant list with notifying adapter with deferred wireup so only new items are processed (optimization)
                 var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{ItemType}}>(value);
                 covariantList.ItemAdded += (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this;
-
-                var synchSourceSupport = (I{{BaseEntity}}SynchronizationSourceSupport) this;
-
-                covariantList.AddingItem += (s, e) =>
-                {
-                    var item = ({{ItemTypeNamespacePrefix}}I{{ItemType}}) e.Item;
-
-                    if (!synchSourceSupport.Is{{ItemType}}Included(item))
-                        e.Cancel = true;
-                };
                 _{{PropertyFieldName}}Covariant = covariantList;
             }
         }
@@ -1280,54 +1260,6 @@ namespace {{ResourceClassesNamespace}}
         }
         // -------------------------------------------------------------
 
-        // =============================================================
-        //                Synchronization Source Support
-        // -------------------------------------------------------------
-        {{#SynchronizationSourceSupport}}
-        bool {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.{{SourceSupport}} { get { return {{^IsExcluded}}true{{/IsExcluded}}{{#IsExcluded}}false{{/IsExcluded}}; } set { } }
-        {{/SynchronizationSourceSupport}}
-        {{#HasCollections}}
-
-        // Child collection item filter delegates
-        {{/HasCollections}}
-        {{#FilteredDelegates}}
-        {{#Standard}}
-        Func<{{ItemTypeNamespacePrefix}}I{{ItemType}}, bool> {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.Is{{ItemType}}Included
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Standard}}
-        {{#Filtered}}
-        Func<{{ItemTypeNamespacePrefix}}I{{ItemType}}, bool> {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.Is{{ItemType}}Included
-        {
-            get
-            {
-                return x =>
-                    {{#FilteredValues}}
-                    {{#NotFirst}}{{#IsIncluded}}||{{/IsIncluded}}{{^IsIncluded}}&&{{/IsIncluded}}{{/NotFirst}} {{^IsIncluded}}!{{/IsIncluded}}x.{{FilteredPropertyName}}.EqualsIgnoreCase("{{FilteredValue}}"){{#IsLast}};{{/IsLast}}
-                    {{/FilteredValues}}
-            }
-            set { } // Not supported for resources
-        }
-        {{/Filtered}}
-        {{/FilteredDelegates}}
-        // -------------------------------------------------------------
-
-        {{#IsExtendable}}
-        {{#IsProfileProject}}
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { {{#HasSupportedExtensions}}return new [] { {{#SupportedExtensions}}"{{ExtensionName}}", {{/SupportedExtensions}} }.Contains(name);{{/HasSupportedExtensions}}{{^HasSupportedExtensions}}return false;{{/HasSupportedExtensions}} }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        {{/IsProfileProject}}
-        {{^IsProfileProject}}
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
-        {{/IsProfileProject}}
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
-        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
-
-        {{/IsExtendable}}
-
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
@@ -1374,6 +1306,10 @@ namespace {{ResourceClassesNamespace}}
     [ExcludeFromCodeCoverage]
     public class {{EntityName}}PutPostRequestValidator : FluentValidation.AbstractValidator<{{EntityName}}>
     {
+        {{#HasCollections}}
+        private static readonly FullName _fullName_{{Schema}}_{{EntityName}} = new FullName("{{Schema}}", "{{EntityName}}");
+
+        {{/HasCollections}}
         protected override bool PreValidate(FluentValidation.ValidationContext<{{EntityName}}> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
@@ -1387,22 +1323,32 @@ namespace {{ResourceClassesNamespace}}
 
             var failures = new List<ValidationFailure>();
 
-            {{#HasProfileItemFilterValidations}}
-            var synchSupport = (instance as I{{EntityName}}SynchronizationSourceSupport);
-
+            {{#HasCollections}}
             // Profile-based collection item filter validation
-            {{#ProfileItemFilterValidations}}
-            var invalid{{PropertyName}} = instance.{{PropertyName}}.Where(x => !synchSupport.Is{{ValidatorName}}Included(x)).Select(x => x.{{ValidatorPropertyName}}).ToList();
+            string profileName = null;
 
-            if (invalid{{PropertyName}}.Any())
-                failures.Add(new ValidationFailure("{{ValidatorPropertyName}}",
-                    string.Format(
-                        "The value of '{0}' supplied for the '{{ValidatorPropertyName}}' of the '{{ValidatorName}}' does not conform with the filter values defined by profile '{{ProfileName}}': [{{Filters}}]",
-                        invalid{{PropertyName}}.FirstOrDefault())));
+            // Get the current mapping contract
+            var mappingContract = new Lazy<{{ExtensionNamespacePrefix}}{{EntityName}}MappingContract>(() => ({{ExtensionNamespacePrefix}}{{EntityName}}MappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_{{Schema}}_{{EntityName}}));
 
-            {{/ProfileItemFilterValidations}}
+            if (mappingContract.Value != null)
+            {
+                {{#Collections}}
+                if (mappingContract.Value.Is{{ItemTypeName}}Included != null)
+                {
+                    var hasInvalid{{PropertyName}}Items = instance.{{PropertyName}}.Any(x => !mappingContract.Value.Is{{ItemTypeName}}Included(x));
+        
+                    if (hasInvalid{{PropertyName}}Items)
+                    {
+                        profileName ??= GeneratedArtifactStaticDependencies.ProfileContentTypeContextProvider.Get().ProfileName;
+                        failures.Add(new ValidationFailure("{{ItemTypeName}}", $"A supplied '{{ItemTypeName}}' has a descriptor value that does not conform with the filter values defined by profile '{profileName}'."));
+                    }
+                }
 
-            {{/HasProfileItemFilterValidations}}
+                {{/Collections}}
+            }
+            {{/HasCollections}}
             // -----------------------
             //  Validate unified keys
             // -----------------------

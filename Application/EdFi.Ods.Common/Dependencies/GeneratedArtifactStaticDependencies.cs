@@ -4,7 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Common.Dependencies
@@ -17,10 +20,14 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IAuthorizationContextProvider> _authorizationContextProvider;
         private static Lazy<IResourceModelProvider> _resourceModelProvider;
         private static Lazy<IETagProvider> _etagProvider;
+        private static Lazy<IMappingContractProvider> _mappingContractProvider;
+        private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
         public static IResourceModelProvider ResourceModelProvider => _resourceModelProvider?.Value;
         public static IETagProvider ETagProvider => _etagProvider?.Value;
+        public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
+        public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
 
         /// <summary>
         /// Provides a mechanism for providing resolution of container managed components (intended for use only
@@ -41,6 +48,16 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IETagProvider> resolver)
             {
                 _etagProvider = new Lazy<IETagProvider>(resolver);
+            }
+            
+            public static void Set(Func<IMappingContractProvider> resolver)
+            {
+                _mappingContractProvider = new Lazy<IMappingContractProvider>(resolver);
+            }
+
+            public static void Set(Func<IContextProvider<ProfileContentTypeContext>> resolver)
+            {
+                _profileContentTypeContextProvider = new Lazy<IContextProvider<ProfileContentTypeContext>>(resolver);
             }
         }
     }

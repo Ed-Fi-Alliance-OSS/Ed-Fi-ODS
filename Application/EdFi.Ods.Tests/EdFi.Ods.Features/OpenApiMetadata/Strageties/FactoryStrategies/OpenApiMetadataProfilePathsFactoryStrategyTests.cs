@@ -68,6 +68,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                                                 </Resource>
                                               </Profile>";
 
+                public bool ContainsProfileDefinition(string profileName) => true;
+
                 public XElement GetProfileDefinition(string profileName)
                 {
                     return XElement.Parse(_profileDefinition);

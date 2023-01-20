@@ -268,7 +268,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             {
                 _actualResult = new Resource("TestResource").GetResourceInterfaceName(
                     "SchemaProperCaseName",
-                    true,
                     true);
             }
 
@@ -287,7 +286,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             {
                 _actualResult = new Resource("TestResource").GetResourceInterfaceName(
                     "SchemaProperCaseName",
-                    false,
                     false);
             }
 

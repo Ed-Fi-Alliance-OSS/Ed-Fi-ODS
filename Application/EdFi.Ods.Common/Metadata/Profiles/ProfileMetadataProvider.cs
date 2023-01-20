@@ -55,6 +55,14 @@ namespace EdFi.Ods.Common.Metadata.Profiles
         }
 
         /// <summary>
+        /// Indicates whether the specified Profile definition exists.
+        /// </summary>
+        bool IProfileMetadataProvider.ContainsProfileDefinition(string profileName)
+        {
+            return _profileDefinitionByName.Value.ContainsKey(profileName);
+        }
+
+        /// <summary>
         /// Gets the specified Profile definition by name.
         /// </summary>
         XElement IProfileMetadataProvider.GetProfileDefinition(string profileName)
