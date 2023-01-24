@@ -119,7 +119,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                          .Select(
                                               a => new
                                                    {
-                                                       OtherClassName = a.OtherEntity.Name, OtherClassPluralName = a.OtherEntity.PluralName
+                                                       OtherClassName = a.OtherEntity.Name, 
+                                                       AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
                                                    }),
                        NavigableChildren = entity.NavigableChildren
                                                  .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
@@ -232,7 +233,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                          ParentReference = !entity.IsAggregateRoot
                                              ? new
                                                {
-                                                   IsAggregateExtension = entity.IsAggregateExtensionTopLevelEntity, SchemaProperCaseName = entity.SchemaProperCaseName(),
+                                                   IsAggregateExtensionTopLevelEntity = entity.IsAggregateExtensionTopLevelEntity, 
+                                                   SchemaProperCaseName = entity.SchemaProperCaseName(),
                                                    ModelParentClassName = GetModelParentClassName(entity), ClassName = entity.Name,
                                                    ModelParentInterfaceNamespacePrefix = GetModelParentInterfaceNamespacePrefix(entity),
                                                    ModelParentInterfaceName = GetModelParentInterfaceName(entity),
@@ -375,7 +377,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                           OtherClassPluralName = a.OtherEntity.PluralName,
                                                                           OtherNamespacePrefix = GetCommonRelativeNamespacePrefix(a.OtherEntity),
                                                                           EdFiStandardClassName = entity.EdFiStandardEntity.Name,
-                                                                          SchemaName = properCaseSchemaName
+                                                                          AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
                                                                       }),
                         NavigableChildren = entity.NavigableChildren
                                                   .Where(a => a.ThisEntity.Schema == a.OtherEntity.Schema)
@@ -403,7 +405,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                             ChildCollectionPropertyName = a.Name,
                                                                             ChildRelativeNamespace = GetCommonRelativeNamespacePrefix(a.OtherEntity),
                                                                             ChildCollectionFieldName = "_" + a.Name.ToCamelCase(),
-                                                                            SchemaName = properCaseSchemaName
+                                                                            AggregateExtensionBagName = a.GetAggregateExtensionBagName(),
                                                                         }),
                         LookupProperties = entity.Properties
                                                  .Where(p => p.IsDescriptorUsage 
@@ -595,7 +597,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private static string GetEntityParentClassNamespacePrefix(Entity entity)
         {
-            return entity.IsEntityExtension || entity.IsAggregateExtensionTopLevelEntity
+            return entity?.Parent?.IsEdFiStandardEntity == true
                 ? $"{EdFiConventions.ProperCaseName}."
                 : null;
         }

@@ -31,7 +31,7 @@
                 && {{OtherClassName}} == null
         {{/OneToOnes}}
         {{#NavigableChildren}}
-                && ((IList<object>) {{EntityParentFieldName}}.AggregateExtensions["{{SchemaProperCaseName}}_{{ChildCollectionPropertyName}}"]).Count == 0
+                && ((IList<object>) {{EntityParentFieldName}}.AggregateExtensions["{{AggregateExtensionBagName}}"]).Count == 0
         {{/NavigableChildren}}
             );
         }
@@ -51,7 +51,7 @@
         {
             get
             {
-                var list = (IList) {{EntityParentFieldName}}.AggregateExtensions["{{SchemaProperCaseName}}_{{OtherClassPluralName}}"];
+                var list = (IList) {{EntityParentFieldName}}.AggregateExtensions["{{AggregateExtensionBagName}}"];
 
                 if (list != null && list.Count > 0)
                     return (I{{OtherClassName}}) list[0];
@@ -61,7 +61,7 @@
             set
             {
                 // Delete the existing object
-                var list = (IList) {{EntityParentFieldName}}.AggregateExtensions["{{SchemaProperCaseName}}_{{OtherClassPluralName}}"];
+                var list = (IList) {{EntityParentFieldName}}.AggregateExtensions["{{AggregateExtensionBagName}}"];
                 list.Clear();
 
                 // If we're setting a value, add it to the list now

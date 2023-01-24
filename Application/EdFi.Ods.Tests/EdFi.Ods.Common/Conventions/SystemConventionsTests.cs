@@ -71,7 +71,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             public void Should_parse_the_schema_name_from_the_last_segment()
             {
                 Assert.That(
-                    _actualBagNameParts.PluralName,
+                    _actualBagNameParts.MemberName,
                     Is.EqualTo(_suppliedExtensionBagName.Split('_')[1]));
             }
         }

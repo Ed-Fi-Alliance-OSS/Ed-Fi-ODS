@@ -294,7 +294,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             if (sourceSynchSupport.Is{{ChildClassPlural}}Supported)
             {
                 targetSynchSupport.Is{{ChildClassSingular}}Included = sourceSynchSupport.Is{{ChildClassSingular}}Included;
-                source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionAggregateExtension}}target.{{ParentName}}{{/IsCollectionAggregateExtension}}{{^IsCollectionAggregateExtension}}target{{/IsCollectionAggregateExtension}});
+                source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionTopLevelAggregateExtension}}target.{{ParentName}}{{/IsCollectionTopLevelAggregateExtension}}{{^IsCollectionTopLevelAggregateExtension}}target{{/IsCollectionTopLevelAggregateExtension}});
             }
             else
             {
