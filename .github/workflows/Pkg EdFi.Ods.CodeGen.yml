@@ -27,7 +27,7 @@ env:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
@@ -38,7 +38,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Support longpaths
-      run: git config --system core.longpaths true
+      run: git config --global core.longpaths true
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
