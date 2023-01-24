@@ -27,7 +27,7 @@ env:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
