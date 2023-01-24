@@ -286,7 +286,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             if (mappingContract?.Is{{ChildClassPlural}}Supported != false)
             {
-                source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionAggregateExtension}}target.{{ParentName}}{{/IsCollectionAggregateExtension}}{{^IsCollectionAggregateExtension}}target{{/IsCollectionAggregateExtension}}, mappingContract?.Is{{ChildClassSingular}}Included);
+                source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionTopLevelAggregateExtension}}target.{{ParentName}}{{/IsCollectionTopLevelAggregateExtension}}{{^IsCollectionTopLevelAggregateExtension}}target{{/IsCollectionTopLevelAggregateExtension}}, mappingContract?.Is{{ChildClassSingular}}Included);
             }
             {{/NavigableChildrenList}}
 

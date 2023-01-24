@@ -63,9 +63,9 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                     nameof(edFiStandardEntityType));
             }
 
-            if (!aggregateExtensionEntity.IsAggregateExtension)
+            if (!aggregateExtensionEntity.IsAggregateExtensionTopLevelEntity)
             {
-                throw new Exception($"'{nameof(aggregateExtensionEntity)}' is not an aggregate extension entity.");
+                throw new Exception($"'{nameof(aggregateExtensionEntity)}' is not a top-level aggregate extension entity.");
             }
 
             _aggregateExtensionEntityNamesByType.AddOrUpdate(
@@ -168,7 +168,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                         {
                             Parent = e.Parent,
                             Entity = e,
-                            IsAggregateExtension = e.IsAggregateExtension,
+                            IsAggregateExtensionTopLevelEntity = e.IsAggregateExtensionTopLevelEntity,
                             IsEntityExtension = e.IsEntityExtension
                         })
                     .GroupBy(x => x.Parent, x => x)
@@ -176,7 +176,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                 var aggregateExtensionEntities = extensionsByStandardEntity
                     .SelectMany(x => x)
-                    .Where(x => x.IsAggregateExtension)
+                    .Where(x => x.IsAggregateExtensionTopLevelEntity)
                     .Select(x => x.Entity);
 
                 var entityExtensions = extensionsByStandardEntity
@@ -225,7 +225,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                 // Register implicit entity extensions
                 // Filter down to just the standard entities that have aggregate extensions, but no entity extensions (need implicit extension classes registered)
                 var implicitlyExtendedEntities = extensionsByStandardEntity
-                    .Where(p => p.Any(x => x.IsAggregateExtension) && !p.Any(x => x.IsEntityExtension));
+                    .Where(p => p.Any(x => x.IsAggregateExtensionTopLevelEntity) && !p.Any(x => x.IsEntityExtension));
 
                 foreach (var implicitlyExtendedEntity in implicitlyExtendedEntities)
                 {

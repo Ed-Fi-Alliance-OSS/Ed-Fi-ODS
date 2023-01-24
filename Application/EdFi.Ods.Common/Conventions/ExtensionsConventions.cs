@@ -217,22 +217,12 @@ namespace EdFi.Ods.Common.Conventions
         /// <returns>The name to be used in the NHibernate dynamic mapping.</returns>
         public static string GetAggregateExtensionMemberName(Entity aggregateExtensionEntity)
         {
-            if (!aggregateExtensionEntity.IsAggregateExtension)
+            if (!aggregateExtensionEntity.IsAggregateExtensionTopLevelEntity)
             {
-                throw new Exception($"The supplied '{nameof(aggregateExtensionEntity)}' was not an aggregate extension.");
+                throw new Exception($"The supplied '{nameof(aggregateExtensionEntity)}' is not a top-level aggregate extension entity.");
             }
 
-            string extensionName =
-                aggregateExtensionEntity.DomainModel.SchemaNameMapProvider
-                    .GetSchemaMapByPhysicalName(aggregateExtensionEntity.Schema)
-                    .ProperCaseName;
-
-            // Use the association's name (which incorporates the role name, if applicable)
-            string roleName = aggregateExtensionEntity.ParentAssociation.Inverse.RoleName;
-            string pluralName = aggregateExtensionEntity.PluralName;
-
-            // Convention is to supply the SchemaProperCaseName and pluralized entity name (with role name retained, if present), concatenated.
-            return $"{extensionName}_{roleName}{pluralName}";
+            return aggregateExtensionEntity.ParentAssociation.Inverse.GetAggregateExtensionBagName();
         }
 
         public static string GetExtensionClassName(string className)
