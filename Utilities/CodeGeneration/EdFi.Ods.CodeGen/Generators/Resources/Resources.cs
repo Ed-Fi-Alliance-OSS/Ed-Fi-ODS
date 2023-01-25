@@ -469,7 +469,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 Validator = putPostRequestValidator,
                 IsExtendable = resourceClass.IsExtendable(),
                 HasSupportedExtensions = profileData.SuppliedResource.Extensions.Any(),
-                SupportedExtensions = profileData.SuppliedResource.Extensions
+                SupportedExtensions = profileData.SuppliedResource.Extensions.OrderBy(f => f.PropertyName)
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),
                 IsEdFiResource = resourceClass.IsEdFiResource(),
                 NamespacePrefix = resourceClass.GetNamespacePrefix(),
