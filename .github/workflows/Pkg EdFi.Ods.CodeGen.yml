@@ -111,7 +111,7 @@ jobs:
 
           if ($fileName.EndsWith('.zip')) {
               Write-host "Extracting $fileName..."
-              $zipFilePath = "$env:temp/$fileName"
+              $zipFilePath = ([IO.Path]::GetTempPath()) + "/$fileName"
               if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
               Copy-Item -Path $packageFolder\* -Destination "$env:UserProfile/.nuget/" -Recurse -Force
               Write-Host "Extracted to: $env:UserProfile\.nuget\plugins\" -ForegroundColor Green
