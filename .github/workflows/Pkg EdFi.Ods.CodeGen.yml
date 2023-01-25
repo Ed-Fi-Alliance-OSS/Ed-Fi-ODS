@@ -108,7 +108,7 @@ jobs:
               exit 0
           }
 
-          $packageFolder = "$env:temp/Microsoft.NuGet.CredentialProvider/"
+          $packageFolder = Join-Path ([IO.Path]::GetTempPath()) "Microsoft.NuGet.CredentialProvider/"
 
           if ($fileName.EndsWith('.zip')) {
               Write-host "Extracting $fileName..."
