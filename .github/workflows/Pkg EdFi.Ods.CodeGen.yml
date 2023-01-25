@@ -103,7 +103,7 @@ jobs:
 
           Write-host "Download complete." 
 
-          if (-not (Test-Path "$env:temp/$fileName")) {
+          if (-not (Test-Path $zipFilePath)) {
               Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
               exit 0
           }
