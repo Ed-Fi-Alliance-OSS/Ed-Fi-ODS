@@ -183,7 +183,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             .ToArray();
 
                 // Process each extension schema with an individual namespace
-                foreach (string extensionSchemaPhysicalName in extensionSchemaPhysicalNames)
+                foreach (string extensionSchemaPhysicalName in extensionSchemaPhysicalNames.OrderBy(a=>a))
                 {
                     string extensionSchemaProperCaseName = TemplateContext.DomainModelProvider.GetDomainModel()
                         .SchemaNameMapProvider
