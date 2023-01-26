@@ -68,6 +68,11 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
+    - name: Configure PostgreSQL
+      shell: pwsh
+      run: |
+        $confPath = "/etc/postgresql/13/main/pg_hba.conf"
+        (Get-Content $confPath).Replace("md5", "trust") | Set-Content $confPath
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
