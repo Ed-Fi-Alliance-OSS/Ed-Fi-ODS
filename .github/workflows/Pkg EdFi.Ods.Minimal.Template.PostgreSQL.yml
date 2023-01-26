@@ -81,6 +81,9 @@ jobs:
       run: |
         $confPath = "/etc/postgresql/13/main/pg_hba.conf"
         (Get-Content $confPath).Replace("md5", "trust") | Set-Content $confPath
+    - name: Restart PostgreSQL
+      run: |
+        sudo service postgresql restart
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
