@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EdFi.Common.Extensions;
@@ -37,13 +38,17 @@ namespace EdFi.Ods.CodeGen.Generators
                     EdFiConventions.BuildNamespace(
                         Namespaces.Entities.Common.BaseNamespace,
                         TemplateContext.SchemaProperCaseName),
+                HasExtensionDerivedFromEdFiBaseEntity = resourceClassesToRender
+                    .Where(TemplateContext.ShouldRenderResourceClass)
+                    .Select(a => a.Entity)
+                    .Any(e => !e.IsEdFiStandardEntity && e.IsDerived && e.BaseEntity.IsEdFiStandardEntity),
                 Interfaces = resourceClassesToRender
                     .Where(TemplateContext.ShouldRenderResourceClass)
                     .Select(
                         r => new
                         {
                             Schema = r.FullName.Schema,
-                            Name = r.Name,
+                            ModelName = r.Name,
                             AggregateName = r.Name,
                             ImplementedInterfaces = GetImplementedInterfaceString(r),
                             ParentInterfaceName = GetParentInterfaceName(r),
@@ -72,12 +77,12 @@ namespace EdFi.Ods.CodeGen.Generators
                                             && PersonEntitySpecification.IsPersonEntity(r.Name),
                                         IsLookup = p.IsDescriptorUsage,
                                         CSharpType = p.PropertyType.ToCSharp(false),
-                                        Name = p.PropertyName,
+                                        PropertyName = p.PropertyName,
                                         CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(r.Name),
                                         LookupName = p.PropertyName
                                     })
                                 .ToList(),
-                            r.IsDerived,
+                            IsDerived = r.IsDerived,
                             InheritedNonIdentifyingProperties = r.IsDerived
                                 ? r.AllProperties
                                     .Where(p => p.IsInherited && !p.IsIdentifying)
@@ -89,7 +94,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                             {
                                                 IsLookup = p.IsDescriptorUsage,
                                                 CSharpType = p.PropertyType.ToCSharp(true),
-                                                Name = p.PropertyName,
+                                                PropertyName = p.PropertyName,
                                                 LookupName = p.PropertyName.TrimSuffix("Id")
                                             })
                                     .ToList()
@@ -103,12 +108,9 @@ namespace EdFi.Ods.CodeGen.Generators
                                         new
                                         {
                                             IsLookup = p.IsDescriptorUsage,
-                                            CSharpType =
-                                                p.PropertyType.ToCSharp(true),
-                                            Name = p.PropertyName,
-                                            CSharpSafePropertyName =
-                                                p.PropertyName
-                                                    .MakeSafeForCSharpClass(r.Name),
+                                            CSharpType = p.PropertyType.ToCSharp(true),
+                                            PropertyName = p.PropertyName,
+                                            CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(r.Name),
                                             LookupName = p.PropertyName.TrimSuffix("Id")
                                         })
                                 .ToList(),
@@ -116,17 +118,13 @@ namespace EdFi.Ods.CodeGen.Generators
                             NavigableOneToOnes = r
                                 .EmbeddedObjects
                                 .Where(eo => !eo.IsInherited)
-                                .OrderBy(
-                                    eo
-                                        => eo
-                                            .PropertyName)
+                                .OrderBy(eo => eo.PropertyName)
                                 .Select(
                                     eo
                                         => new
                                         {
-                                            Name
-                                                = eo
-                                                    .PropertyName
+                                            ItemTypeName = eo.ObjectType.Name,
+                                            PropertyName = eo.PropertyName
                                         })
                                 .ToList(),
                             InheritedLists = r.IsDerived
@@ -136,8 +134,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                     .Select(
                                         c => new
                                         {
-                                            c.ItemType.Name,
-                                            PluralName = c.PropertyName
+                                            ItemTypeName = c.ItemType.Name,
+                                            PropertyName = c.PropertyName
                                         })
                                     .ToList()
                                 : null,
@@ -147,11 +145,11 @@ namespace EdFi.Ods.CodeGen.Generators
                                 .Select(
                                     c => new
                                     {
-                                        c.ItemType.Name,
-                                        PluralName = c.PropertyName
+                                        ItemTypeName = c.ItemType.Name,
+                                        PropertyName = c.PropertyName
                                     })
                                 .ToList(),
-                            HasDiscriminator = r.HasDiscriminator(),
+                            HasDiscriminator = r.Entity?.HasDiscriminator() ?? false,
                             AggregateReferences =
                                 r.Entity?.GetAssociationsToReferenceableAggregateRoots()
                                     .OrderBy(a => a.Name)
@@ -162,7 +160,9 @@ namespace EdFi.Ods.CodeGen.Generators
                                             MappedReferenceDataHasDiscriminator =
                                                 a.OtherEntity.HasDiscriminator()
                                         })
-                                    .ToList()
+                                    .ToList(),
+                            MappingContractMembers = GetMappingContractMembers(r),
+                            IsExtendable = r.IsExtendable()
                         })
                     .ToList()
             };
@@ -255,6 +255,53 @@ namespace EdFi.Ods.CodeGen.Generators
                 "LastModifiedDate",
                 "CreateDate"
             }.Contains(p.PropertyName);
+        }
+
+        private IEnumerable<object> GetMappingContractMembers(ResourceClassBase resourceClass)
+        {
+            var properties = resourceClass.AllProperties
+        
+                // Don't include properties that are not synchronizable
+                .Where(p => p.IsSynchronizedProperty())
+        
+                // Don't include identifying properties, with the exception of where UniqueIds are defined
+                .Where(p => !p.IsIdentifying || UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
+                .Select(p => p.PropertyName)
+        
+                // Add embedded object properties
+                .Concat(
+                    resourceClass.EmbeddedObjects.Cast<ResourceMemberBase>()
+                        .Concat(resourceClass.Extensions)
+                        .Concat(resourceClass.Collections)
+                        .Select(rc => rc.PropertyName))
+                .Distinct()
+                .OrderBy(pn => pn)
+                .Select(pn => new
+                {
+                    PropertyName = pn,
+                    ItemTypeName = null as string,
+                });
+        
+            var collections = resourceClass.Collections
+                .OrderBy(c => c.ItemType.Name)
+                .Select(c => new
+                {
+                    PropertyName = c.PropertyName,
+                    ItemTypeName = c.ItemType.Name
+                });
+        
+            var members = properties
+                .Concat(collections)
+                .ToList();
+        
+            return members.Select(
+                x =>
+                    new
+                    {
+                        PropertyName = x.PropertyName,
+                        ItemTypeName = x.ItemTypeName,
+                        IsLast = x == members.Last() && !resourceClass.IsExtendable()
+                    });
         }
     }
 }

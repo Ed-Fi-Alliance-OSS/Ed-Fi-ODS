@@ -33,8 +33,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
                     new[] { EducationOrganizationId },
-                    Enumerable.Empty<string>(),
-                    Enumerable.Empty<string>(),
+                    Array.Empty<string>(),
+                    Array.Empty<string>(),
                     string.Empty,
                     null, null,0));
 
@@ -103,8 +103,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
                     Array.Empty<int>(),
-                    Enumerable.Empty<string>(),
-                    Enumerable.Empty<string>(),
+                    Array.Empty<string>(),
+                    Array.Empty<string>(),
                     string.Empty,
                     null, null,0));
 
@@ -140,8 +140,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
                     new [] { EducationOrganizationId, 123 },
-                    Enumerable.Empty<string>(),
-                    Enumerable.Empty<string>(),
+                    Array.Empty<string>(),
+                    Array.Empty<string>(),
                     string.Empty,
                     null, null,0));
 
@@ -204,8 +204,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
                     Array.Empty<int>(),
-                    Enumerable.Empty<string>(),
-                    Enumerable.Empty<string>(),
+                    Array.Empty<string>(),
+                    Array.Empty<string>(),
                     string.Empty,
                     null, null,0));
 
@@ -241,8 +241,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
                     new [] { EducationOrganizationId, 123 },
-                    Enumerable.Empty<string>(),
-                    Enumerable.Empty<string>(),
+                    Array.Empty<string>(),
+                    Array.Empty<string>(),
                     string.Empty,
                     null, null,0));
 

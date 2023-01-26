@@ -11,9 +11,7 @@ namespace EdFi.Ods.Common.Extensions
     {
         public static string GetAllMessages(this Exception ex, string delimiter = null)
         {
-            delimiter = delimiter != null
-                ? delimiter
-                : Environment.NewLine;
+            delimiter ??= Environment.NewLine;
 
             string message = ex.Message;
 
@@ -26,12 +24,6 @@ namespace EdFi.Ods.Common.Extensions
             }
 
             return message;
-        }
-
-        public static string GetAllStackTraces(this Exception ex)
-        {
-            //This method is here for possible customization in future, but for now, the built in ToString method works fine with what we want
-            return ex.ToString();
         }
     }
 }

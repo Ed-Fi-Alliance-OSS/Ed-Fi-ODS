@@ -4,82 +4,45 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Text.RegularExpressions;
 using EdFi.Common.Inflection;
+using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.Common.Utils.Profiles
 {
     public static class ProfilesContentTypeHelper
     {
-        private static readonly Regex ProfileRegex = new Regex(
-            @"^application/vnd\.ed-fi(\.(?<Implementation>[\w\-]+))?\.(?<Resource>\w+)\.(?<Profile>[\w\-]+)\.(?<Usage>(readable|writable))\+json$",
-            RegexOptions.Compiled);
+        private static readonly ConcurrentDictionary<ContentTypeKey, string> _contentTypeByKey = new();
 
         public static string CreateContentType(
-            string resourceCollectionName,
+            string resourceName,
             string profileName,
             ContentTypeUsage usage)
         {
-            return string.Format(
-                "application/vnd.ed-fi{0}.{1}.{2}.{3}+json",
-                string.Empty,
-                CompositeTermInflector.MakeSingular(resourceCollectionName)
-                                      .ToLower(),
-                profileName.ToLower(),
-                usage.ToString()
-                     .ToLower());
+            return _contentTypeByKey.GetOrAdd(
+                new ContentTypeKey(resourceName, profileName, usage),
+                key => string.Format(
+                    "application/vnd.ed-fi.{0}.{1}.{2}+json",
+                    resourceName.ToLower(),
+                    profileName.ToLower(),
+                    usage.ToString().ToLower()));
         }
 
-        public static ProfileContentTypeDetails GetContentTypeDetails(this string contentType)
+        private struct ContentTypeKey
         {
-            ProfileContentTypeDetails details;
-
-            if (TryGetContentTypeDetails(contentType, out details))
+            public ContentTypeKey(string resourceName, string profileName, ContentTypeUsage contentTypeUsage)
             {
-                return details;
+                ResourceName = resourceName;
+                ProfileName = profileName;
+                ContentTypeUsage = contentTypeUsage;
             }
 
-            return null;
-        }
+            public string ResourceName { get; }
 
-        public static bool IsEdFiContentType(this string contentType)
-        {
-            if (contentType.StartsWith("application/vnd.ed-fi."))
-            {
-                return true;
-            }
+            public string ProfileName { get; private set; }
 
-            return false;
-        }
-
-        public static bool TryGetContentTypeDetails(this string contentType, out ProfileContentTypeDetails details)
-        {
-            details = null;
-
-            var match = ProfileRegex.Match(contentType);
-
-            if (!match.Success)
-            {
-                return false;
-            }
-
-            details = new ProfileContentTypeDetails
-                      {
-                          Implementation = match.Groups["Implementation"]
-                                                .Value,
-                          Resource = match.Groups["Resource"]
-                                          .Value,
-                          Profile = match.Groups["Profile"]
-                                         .Value,
-                          Usage =
-                              (ContentTypeUsage) Enum.Parse(
-                                  typeof(ContentTypeUsage),
-                                  match.Groups["Usage"]
-                                       .Value,
-                                  true)
-                      };
-
-            return true;
+            public ContentTypeUsage ContentTypeUsage { get; private set; }
         }
     }
 }

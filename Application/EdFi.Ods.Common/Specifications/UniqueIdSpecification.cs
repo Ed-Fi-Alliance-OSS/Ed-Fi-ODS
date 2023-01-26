@@ -6,6 +6,7 @@
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Specifications
 {
@@ -120,6 +121,12 @@ namespace EdFi.Ods.Common.Specifications
         public static string GetUniqueIdPropertyName(string usiPropertyName)
         {
             return usiPropertyName.ReplaceSuffix(USI, UniqueId);
+        }
+        
+        public static bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property)
+        {
+            return UniqueIdSpecification.IsUniqueId(property.PropertyName)
+                && PersonEntitySpecification.IsPersonEntity(resourceClass.Name);
         }
     }
 }

@@ -127,124 +127,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 + ".";
         }
 
-        public object SynchronizationSourceSupport(
-            ResourceProfileData profileData,
-            ResourceClassBase resourceClass,
-            TemplateContext TemplateContext)
-        {
-            var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
-
-            var synchSupportCollections =
-                collectionPairs.Select(
-                    itemPair =>
-                    {
-                        bool isExcluded = itemPair.Current == null;
-
-                        return new
-                        {
-                            ParentName =
-                                resourceClass.IsDerived
-                                    ? resourceClass.Name
-                                    : itemPair.Underlying.Parent.Name,
-                            PropertyName = itemPair.Underlying.ItemType.PluralName,
-                            IsExcluded = isExcluded
-                        };
-                    });
-
-            // Properties
-            var allPossibleProperties = resourceClass.FilterContext.UnfilteredResourceClass?.AllProperties ??
-                resourceClass.AllProperties;
-
-            var currentProperties = resourceClass.AllProperties;
-
-            var propertyPairs =
-                (from p in allPossibleProperties
-                    join c in currentProperties on p.PropertyName equals c.PropertyName into leftJoin
-                    from _c in leftJoin.DefaultIfEmpty()
-                    where p.IsSynchronizable()
-                    orderby p.PropertyName
-                    select new
-                    {
-                        UnderlyingProperty = p,
-                        CurrentProperty = _c
-                    })
-                .ToList();
-
-            var synchSupportProperties =
-                propertyPairs.Select(
-                        x =>
-                        {
-                            bool isExcluded = x.CurrentProperty == null;
-
-                            return new
-                            {
-                                ParentName = x.UnderlyingProperty.Parent != null
-                                    ? x.UnderlyingProperty.Parent.Name
-                                    : resourceClass.Name,
-                                PropertyName = x.UnderlyingProperty.PropertyName,
-                                IsExcluded = isExcluded
-                            };
-                        })
-                    .ToList();
-
-            // Embedded Objects
-            var allPossibleEmbeddedObjects = resourceClass.FilterContext.UnfilteredResourceClass?.EmbeddedObjects ??
-                resourceClass.EmbeddedObjects;
-
-            var currentEmbeddedObjects = resourceClass.EmbeddedObjects;
-
-            var embeddedObjectPairs =
-                (from p in allPossibleEmbeddedObjects
-                    join c in currentEmbeddedObjects on p.PropertyName equals c.PropertyName into leftJoin
-                    from _c in leftJoin.DefaultIfEmpty()
-                    orderby p.PropertyName
-                    select new
-                    {
-                        UnderlyingEmbeddedObject = p,
-                        CurrentEmbeddedObject = _c
-                    })
-                .ToList();
-
-            var synchSupportEmbeddedObjects =
-                embeddedObjectPairs.Select(
-                    x => new
-                    {
-                        ParentName = x.UnderlyingEmbeddedObject.Parent.Name,
-                        PropertyName = x.UnderlyingEmbeddedObject.PropertyName,
-                        IsExcluded = x.CurrentEmbeddedObject == null
-                    });
-
-            var synchSupportMembers =
-                synchSupportCollections
-                    .Concat(synchSupportProperties)
-                    .Concat(synchSupportEmbeddedObjects)
-                    .ToList();
-
-            if (!synchSupportMembers.Any())
-            {
-                return ResourceRenderer.DoNotRenderProperty;
-            }
-
-            int horizontalSpaceAllocation = synchSupportMembers.Max(x => x.PropertyName.Length)
-                + "IsSupported".Length + 1;
-
-            return
-                synchSupportMembers
-                    .OrderBy(x => x.PropertyName)
-                    .Distinct()
-                    .Select(
-                        x =>
-                            new
-                            {
-                                ParentName = x.ParentName,
-                                PropertyName = x.PropertyName,
-                                SourceSupport = string.Format("Is{0}Supported", x.PropertyName)
-                                    .PadRight(horizontalSpaceAllocation),
-                                IsExcluded = x.IsExcluded
-                            })
-                    .ToList();
-        }
-
         public object FilteredDelegates(ResourceProfileData profileData, ResourceClassBase resourceClass)
         {
             var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
@@ -355,15 +237,21 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public class PutPostRequestValidator
         {
+            public string Schema { get; set; }
+
             public string EntityName { get; set; }
 
+            public bool HasCollections { get; set; }
+            
             public IEnumerable<PutPostRequestValidatorCollectionProperty> Collections { get; set; }
 
-            public bool HasProfileItemFilterValidations { get; set; }
-
-            public IEnumerable<ItemFilterValidation> ProfileItemFilterValidations { get; set; }
-
             public KeyUnificationValidation KeyUnificationValidations { get; set; }
+
+            /// <summary>
+            /// The fully qualified namespace prefix that can be used for extension artifacts to ensure they can be delineated
+            /// from Ed-Fi Standard artifacts by the compiler (e.g. global::EdFi...).
+            /// </summary>
+            public string ExtensionNamespacePrefix { get; set; }
         }
 
         public class ItemFilterValidation {
@@ -388,10 +276,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var resourceChildItem = resource as ResourceChildItem;
             return new PutPostRequestValidator
             {
+                Schema = resource.FullName.Schema,
                 EntityName = resource.Name,
+                ExtensionNamespacePrefix = templateContext.IsExtension
+                    ? $"global::EdFi.Ods.Entities.Common.{resource.SchemaProperCaseName}."
+                    : null,
+                HasCollections = resource.Collections.Any(), 
                 Collections = resource.Collections
-                    // TODO: Remove this filter with dynamic profiles
-                    .Where(collection => !profileData.HasProfile || profileData.IsIncluded(resource, collection))
                     .Select(
                         collection => new PutPostRequestValidatorCollectionProperty
                         {
@@ -406,18 +297,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     profileData.ProfilePropertyNamespaceSection)
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
-                HasProfileItemFilterValidations = profileData.HasProfile
-                    && profileData.IsWritable
-                    && profileData.HasFilteredCollection()
-                    && GetItemFilterValidations().Any(),
-                ProfileItemFilterValidations = GetItemFilterValidations(),
                 KeyUnificationValidations = new KeyUnificationValidation
                 {
                     ResourceClassName = resource.Name,
                     ParentResourceClassName = resourceChildItem?.Parent.Name,
                     UnifiedProperties = resource.AllProperties
-                        // TODO: Remove this filter with dynamic profiles
-                        .Where(rp => !profileData.HasProfile || profileData.IsIncluded(resource, rp))
                         .Where(rp => rp.IsUnified())
                         .Select(rp => new UnifiedProperty
                         {
@@ -463,26 +347,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         })
                 }
             };
-
-            IEnumerable<ItemFilterValidation> GetItemFilterValidations()
-            {
-                return resource.Collections
-                    .Where(x => profileData.IsFilteredCollection(resource, x))
-                    .OrderBy(x => x.PropertyName)
-                    .SelectMany(
-                        x => profileData.GetFilteredCollection(resource, x)
-                            .ValueFilters
-                            .Select(
-                                y => new ItemFilterValidation
-                                {
-                                    PropertyName = x.PropertyName,
-                                    ValidatorName = x.ItemType.Name,
-                                    ValidatorPropertyName = y.PropertyName,
-                                    PropertyFieldName = x.ItemType.Name.ToCamelCase(),
-                                    Filters = string.Join(", ", y.Values.Select(s => string.Format("'{0}'", s))),
-                                    ProfileName = profileData.ProfileName
-                                }));
-            }
         }
 
         public object References(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)

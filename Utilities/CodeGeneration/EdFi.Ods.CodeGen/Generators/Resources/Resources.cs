@@ -375,10 +375,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ReferenceIdentifiers =
                             _resourcePropertyRenderer.AssembleIdentifiers(profileData, resourceClass),
                         Href = AssembleHref(profileData, resourceClass),
-                        HasDiscriminator = resourceClass.HasDiscriminator()
+                        HasDiscriminator = resourceClass.Entity.HasDiscriminator()
                     },
                     ShouldRenderClass = false,
-                    HasDiscriminator = resourceClass.HasDiscriminator()
+                    HasDiscriminator = resourceClass.Entity.HasDiscriminator()
                 };
             }
 
@@ -438,9 +438,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         : ResourceRenderer.DoNotRenderProperty,
                 NavigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(profileData, resourceClass),
                 InheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(profileData, resourceClass),
-                SynchronizationSourceSupport =
-                    _resourceCollectionRenderer
-                        .SynchronizationSourceSupport(profileData, resourceClass, TemplateContext),
                 Versioning = resourceClass.IsAggregateRoot()
                     ? ResourceRenderer.DoRenderProperty
                     : ResourceRenderer.DoNotRenderProperty,
@@ -471,7 +468,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
                 IsExtendable = resourceClass.IsExtendable(),
-                IsProfileProject = TemplateContext.IsProfiles,
                 HasSupportedExtensions = profileData.SuppliedResource.Extensions.Any(),
                 SupportedExtensions = profileData.SuppliedResource.Extensions
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),

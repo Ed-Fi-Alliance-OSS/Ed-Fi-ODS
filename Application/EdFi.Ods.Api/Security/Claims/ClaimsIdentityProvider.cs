@@ -39,16 +39,16 @@ namespace EdFi.Ods.Api.Security.Claims
                 apiKeyContext.EducationOrganizationIds,
                 apiKeyContext.ClaimSetName,
                 apiKeyContext.NamespacePrefixes,
-                apiKeyContext.Profiles.ToList(),
-                apiKeyContext.OwnershipTokenIds.ToList());
+                apiKeyContext.Profiles,
+                apiKeyContext.OwnershipTokenIds);
         }
 
         public ClaimsIdentity GetClaimsIdentity(
             IEnumerable<int> educationOrganizationIds,
             string claimSetName,
-            IEnumerable<string> namespacePrefixes,
-            IReadOnlyList<string> assignedProfileNames,
-            IReadOnlyList<short> ownershipTokenIds)
+            IList<string> namespacePrefixes,
+            IList<string> assignedProfileNames,
+            IList<short> ownershipTokenIds)
         {
             var nonEmptyNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
 

@@ -210,25 +210,32 @@ namespace EdFi.Ods.Api.Helpers
                     }
 
                     string assemblyDirectory = Path.GetDirectoryName(assemblyPath);
-                    var assemblyMetadata = ReadAssemblyMetadata(assembly);
 
-                    if (IsExtensionAssembly(assemblyMetadata))
+                    if (TryReadAssemblyMetadata(assembly, out var assemblyMetadata))
                     {
-                        var validator = GetExtensionValidator();
-                        var validationResult = validator.ValidateObject(assemblyDirectory);
+                        if (IsExtensionAssembly(assemblyMetadata))
+                        {
+                            var validator = GetExtensionValidator();
+                            var validationResult = validator.ValidateObject(assemblyDirectory);
 
-                        if (!validationResult.Any())
-                        {
-                            yield return assembly.Location;
-                        }
-                        else
-                        {
-                            _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                            if (!validationResult.Any())
+                            {
+                                yield return assembly.Location;
+                            }
+                            else
+                            {
+                                _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                            }
                         }
                     }
-                    else if (IsProfileAssembly(assemblyMetadata))
+                    else if (IsProfileAssembly(assembly))
                     {
                         yield return assembly.Location;
+                    }
+                    else
+                    {
+                        throw new Exception(
+                            $"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in non-profiles assembly '{Path.GetFileName(assembly.Location)}'.");
                     }
                 }
             }
@@ -272,20 +279,23 @@ namespace EdFi.Ods.Api.Helpers
             return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Extension);
         }
 
-        private static bool IsProfileAssembly(AssemblyMetadata assemblyMetadata)
+        private static bool IsProfileAssembly(Assembly assembly)
         {
-            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Profile);
+            // Determine Profiles assembly from presence of Profiles.xml embedded resource
+            return assembly.GetManifestResourceNames()
+                .Any(n => n.EndsWithIgnoreCase("Profiles.xml"));
         }
 
-        private static AssemblyMetadata ReadAssemblyMetadata(Assembly assembly)
+        private static bool TryReadAssemblyMetadata(Assembly assembly, out AssemblyMetadata assemblyMetadata)
         {
+            assemblyMetadata = null;
+            
             var resourceName = assembly.GetManifestResourceNames()
                 .FirstOrDefault(p => p.EndsWith(AssemblyMetadataSearchString));
 
             if (resourceName == null)
             {
-                throw new Exception(
-                    $"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in assembly '{Path.GetFileName(assembly.Location)}'.");
+                return false;
             }
 
             var stream = assembly.GetManifestResourceStream(resourceName);
@@ -296,7 +306,9 @@ namespace EdFi.Ods.Api.Helpers
 
             _logger.Debug($"Deserializing object type '{typeof(AssemblyMetadata)}' from embedded resource '{resourceName}'.");
 
-            return JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile);
+            assemblyMetadata =  JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile);
+
+            return true;
         }
 
         private class PluginAssemblyLoadContext : AssemblyLoadContext

@@ -11,6 +11,11 @@ namespace EdFi.Ods.Common.Metadata.Profiles;
 public interface IProfileMetadataProvider
 {
     /// <summary>
+    /// Indicates whether the specified Profile definition exists.
+    /// </summary>
+    bool ContainsProfileDefinition(string profileName);
+
+    /// <summary>
     /// Gets the specified Profile definition by name.
     /// </summary>
     XElement GetProfileDefinition(string profileName);

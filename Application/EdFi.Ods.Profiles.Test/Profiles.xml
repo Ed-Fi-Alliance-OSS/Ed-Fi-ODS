@@ -654,4 +654,229 @@
       </ReadContentType>
     </Resource>
   </Profile>
+
+  <!-- Extension Profiles -->
+  <Profile name="Sample-Staff-Extension-Not-Included">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Staff-Extension-Excluded">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Staff extensions (with explicit extension object) -->
+  <Profile name="Sample-Staff-Extension-Include-Only-Deeply">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Property name="FirstPetOwnedDate" />
+          <Object name="StaffPetPreference" memberSelection="IncludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should exclude MaximumWeight -->
+          </Object>
+          <Collection name="StaffPets" memberSelection="IncludeOnly">
+            <Property name="PetName" />
+            <!-- Should exclude IsFixed -->
+          </Collection>
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Property name="FirstPetOwnedDate" />
+          <Object name="StaffPetPreference" memberSelection="IncludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should exclude MaximumWeight -->
+          </Object>
+          <Collection name="StaffPets" memberSelection="IncludeOnly">
+            <Property name="PetName" />
+            <!-- Should exclude IsFixed -->
+          </Collection>
+        </Extension>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Staff-Extension-Exclude-Only-Deeply">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <!-- Should exclude FirstPetOwnedDate -->
+          <Object name="StaffPetPreference" memberSelection="ExcludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should include MaximumWeight -->
+          </Object>
+          <Collection name="StaffPets" memberSelection="ExcludeOnly">
+            <Property name="IsFixed" />
+            <!-- Cannot exclude PetName, it's part of the PK -->
+          </Collection>
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <!-- Should exclude FirstPetOwnedDate -->
+          <Object name="StaffPetPreference" memberSelection="ExcludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should include MaximumWeight -->
+          </Object>
+          <Collection name="StaffPets" memberSelection="ExcludeOnly">
+            <Property name="IsFixed" />
+            <!-- Cannot exclude PetName, it's part of the PK -->
+          </Collection>
+        </Extension>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Staff-Extension-Exclude-Everything">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="ExcludeOnly">
+          <Property name="FirstPetOwnedDate" />
+          <Object name="StaffPetPreference" memberSelection="IncludeAll" />
+          <Collection name="StaffPets" memberSelection="IncludeAll" />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="ExcludeOnly">
+          <Property name="FirstPetOwnedDate" />
+          <Object name="StaffPetPreference" memberSelection="IncludeAll" />
+          <Collection name="StaffPets" memberSelection="IncludeAll" />
+        </Extension>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Student extension (with implicit extension object) -->
+  <Profile name="Sample-Student-Extension-Include-Only-Deeply">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Object name="StudentPetPreference" memberSelection="IncludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should exclude MaximumWeight -->
+          </Object>
+          <Collection name="StudentPets" memberSelection="IncludeOnly">
+            <Property name="PetName" />
+            <!-- Should exclude IsFixed -->
+          </Collection>
+        </Extension>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Student-Extension-Exclude-Only-Deeply">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Object name="StudentPetPreference" memberSelection="ExcludeOnly">
+            <Property name="MinimumWeight" />
+            <!-- Should include MaximumWeight -->
+          </Object>
+          <Collection name="StudentPets" memberSelection="ExcludeOnly">
+            <Property name="IsFixed" />
+            <!-- Should only include PetName -->
+          </Collection>
+        </Extension>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Student-Extension-Exclude-Everything">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="ExcludeOnly">
+          <Object name="StudentPetPreference" memberSelection="IncludeAll" />
+          <Collection name="StudentPets" memberSelection="IncludeAll" />
+          <Collection name="StudentAquaticPets" memberSelection="IncludeAll" />
+          <Collection name="StudentFavoriteBooks" memberSelection="IncludeAll" />
+        </Extension>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Student-Extension-Multi-level-IncludeOnly">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Collection name="StudentFavoriteBooks" memberSelection="IncludeOnly">
+            <Collection name="StudentFavoriteBookArtMedia" memberSelection="IncludeOnly">
+              <Property name="ArtPieces" />
+            </Collection>
+          </Collection>
+        </Extension>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-Student-Extension-Multi-level-ExcludeOnly">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="FirstName" />
+        <Property name="LastSurname" />
+        <Extension name="Sample" memberSelection="IncludeOnly">
+          <Collection name="StudentFavoriteBooks" memberSelection="ExcludeOnly">
+            <Property name="BookTitle" />
+            <!-- Should include art mediums -->
+            <!-- <Collection name="StudentFavoriteBookArtMediums" memberSelection="IncludeOnly">
+              <Property name="ArtPieces" />
+            </Collection> -->
+          </Collection>
+        </Extension>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-School-Multiple-Extensions-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Sample-School-Multiple-Extensions-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="NameOfInstitution" />
+        <Extension name="Sample" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
 </Profiles>

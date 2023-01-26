@@ -109,28 +109,6 @@
       "OutputPath": "PgSql/Data/Security/0001-ResourceClaimMetadata_generated.sql"
     }
   ],
-  "profile": [
-    {
-      "Name": "Controllers",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.generated.cs"
-    },
-    {
-      "Name": "CreateOrUpdatePipelines",
-      "Driver": "CreateOrUpdatePipelines",
-      "OutputPath": "Pipelines/CreateOrUpdatePipelines.generated.cs"
-    },
-    {
-      "Name": "Requests",
-      "Driver": "Requests",
-      "OutputPath": "Requests/Requests.generated.cs"
-    },
-    {
-      "Name": "Resources",
-      "Driver": "Resources",
-      "OutputPath": "Resources/Resources.generated.cs"
-    }
-  ],
   "extension": [
     {
       "Name": "EntityAuthorizationContextProviders",

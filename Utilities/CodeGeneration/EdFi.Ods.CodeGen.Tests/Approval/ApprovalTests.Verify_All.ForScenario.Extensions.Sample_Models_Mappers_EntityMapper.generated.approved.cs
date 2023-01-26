@@ -8,6 +8,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: ArtMediumDescriptor
 
@@ -16,11 +18,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class ArtMediumDescriptorMapper
     {
+        private static readonly FullName _fullName_sample_ArtMediumDescriptor = new FullName("sample", "ArtMediumDescriptor");
+    
         public static bool SynchronizeTo(this IArtMediumDescriptor source, IArtMediumDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IArtMediumDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ArtMediumDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ArtMediumDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ArtMediumDescriptorId != target.ArtMediumDescriptorId)
@@ -31,49 +39,49 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -94,9 +102,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
         public static void MapTo(this IArtMediumDescriptor source, IArtMediumDescriptor target, Action<IArtMediumDescriptor, IArtMediumDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IArtMediumDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IArtMediumDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ArtMediumDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ArtMediumDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -105,40 +115,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -175,22 +171,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IArtMediumDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: Bus
 
@@ -199,11 +179,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
     [ExcludeFromCodeCoverage]
     public static class BusMapper
     {
+        private static readonly FullName _fullName_sample_Bus = new FullName("sample", "Bus");
+    
         public static bool SynchronizeTo(this IBus source, IBus target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_Bus);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BusId != target.BusId)
@@ -223,9 +209,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
 
         public static void MapTo(this IBus source, IBus target, Action<IBus, IBus> onMapped)
         {
-            var sourceSynchSupport = source as IBusSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_Bus);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -265,15 +253,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: BusRoute
 
@@ -282,11 +261,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     [ExcludeFromCodeCoverage]
     public static class BusRouteMapper
     {
+        private static readonly FullName _fullName_sample_BusRoute = new FullName("sample", "BusRoute");
+    
         public static bool SynchronizeTo(this IBusRoute source, IBusRoute target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusRouteSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusRouteMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRoute);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BusId != target.BusId)
@@ -300,98 +285,98 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsBeginDateSupported)
+            if ((mappingContract?.IsBeginDateSupported != false)
                 && target.BeginDate != source.BeginDate)
             {
                 target.BeginDate = source.BeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBusRouteDirectionSupported)
+            if ((mappingContract?.IsBusRouteDirectionSupported != false)
                 && target.BusRouteDirection != source.BusRouteDirection)
             {
                 target.BusRouteDirection = source.BusRouteDirection;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBusRouteDurationSupported)
+            if ((mappingContract?.IsBusRouteDurationSupported != false)
                 && target.BusRouteDuration != source.BusRouteDuration)
             {
                 target.BusRouteDuration = source.BusRouteDuration;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDailySupported)
+            if ((mappingContract?.IsDailySupported != false)
                 && target.Daily != source.Daily)
             {
                 target.Daily = source.Daily;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDisabilityDescriptorSupported)
+            if ((mappingContract?.IsDisabilityDescriptorSupported != false)
                 && target.DisabilityDescriptor != source.DisabilityDescriptor)
             {
                 target.DisabilityDescriptor = source.DisabilityDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEducationOrganizationIdSupported)
+            if ((mappingContract?.IsEducationOrganizationIdSupported != false)
                 && target.EducationOrganizationId != source.EducationOrganizationId)
             {
                 target.EducationOrganizationId = source.EducationOrganizationId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsExpectedTransitTimeSupported)
+            if ((mappingContract?.IsExpectedTransitTimeSupported != false)
                 && target.ExpectedTransitTime != source.ExpectedTransitTime)
             {
                 target.ExpectedTransitTime = source.ExpectedTransitTime;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsHoursPerWeekSupported)
+            if ((mappingContract?.IsHoursPerWeekSupported != false)
                 && target.HoursPerWeek != source.HoursPerWeek)
             {
                 target.HoursPerWeek = source.HoursPerWeek;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOperatingCostSupported)
+            if ((mappingContract?.IsOperatingCostSupported != false)
                 && target.OperatingCost != source.OperatingCost)
             {
                 target.OperatingCost = source.OperatingCost;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOptimalCapacitySupported)
+            if ((mappingContract?.IsOptimalCapacitySupported != false)
                 && target.OptimalCapacity != source.OptimalCapacity)
             {
                 target.OptimalCapacity = source.OptimalCapacity;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsStaffClassificationDescriptorSupported)
+            if ((mappingContract?.IsStaffClassificationDescriptorSupported != false)
                 && target.StaffClassificationDescriptor != source.StaffClassificationDescriptor)
             {
                 target.StaffClassificationDescriptor = source.StaffClassificationDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsStaffUniqueIdSupported)
+            if ((mappingContract?.IsStaffUniqueIdSupported != false)
                 && target.StaffUniqueId != source.StaffUniqueId)
             {
                 target.StaffUniqueId = source.StaffUniqueId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsStartDateSupported)
+            if ((mappingContract?.IsStartDateSupported != false)
                 && target.StartDate != source.StartDate)
             {
                 target.StartDate = source.StartDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsWeeklyMileageSupported)
+            if ((mappingContract?.IsWeeklyMileageSupported != false)
                 && target.WeeklyMileage != source.WeeklyMileage)
             {
                 target.WeeklyMileage = source.WeeklyMileage;
@@ -400,7 +385,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsBusRouteBusYearsSupported)
+            if (mappingContract?.IsBusRouteBusYearsSupported ?? true)
             {
                 isModified |=
                     source.BusRouteBusYears.SynchronizeCollectionTo(
@@ -409,12 +394,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsBusRouteBusYearIncluded);
+                        includeItem: item => mappingContract?.IsBusRouteBusYearIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsBusRouteProgramsSupported)
+            if (mappingContract?.IsBusRouteProgramsSupported ?? true)
             {
                 isModified |=
                     source.BusRoutePrograms.SynchronizeCollectionTo(
@@ -423,12 +406,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsBusRouteProgramIncluded);
+                        includeItem: item => mappingContract?.IsBusRouteProgramIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsBusRouteServiceAreaPostalCodesSupported)
+            if (mappingContract?.IsBusRouteServiceAreaPostalCodesSupported ?? true)
             {
                 isModified |=
                     source.BusRouteServiceAreaPostalCodes.SynchronizeCollectionTo(
@@ -437,12 +418,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsBusRouteServiceAreaPostalCodeIncluded);
+                        includeItem: item => mappingContract?.IsBusRouteServiceAreaPostalCodeIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsBusRouteStartTimesSupported)
+            if (mappingContract?.IsBusRouteStartTimesSupported ?? true)
             {
                 isModified |=
                     source.BusRouteStartTimes.SynchronizeCollectionTo(
@@ -451,12 +430,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsBusRouteStartTimeIncluded);
+                        includeItem: item => mappingContract?.IsBusRouteStartTimeIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsBusRouteTelephonesSupported)
+            if (mappingContract?.IsBusRouteTelephonesSupported ?? true)
             {
                 isModified |=
                     source.BusRouteTelephones.SynchronizeCollectionTo(
@@ -465,9 +442,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsBusRouteTelephoneIncluded);
+                        includeItem: item => mappingContract?.IsBusRouteTelephoneIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -478,9 +453,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
         public static void MapTo(this IBusRoute source, IBusRoute target, Action<IBusRoute, IBusRoute> onMapped)
         {
-            var sourceSynchSupport = source as IBusRouteSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusRouteSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusRouteMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRoute);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -490,75 +467,47 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsBeginDateSupported)
+            if (mappingContract?.IsBeginDateSupported != false)
                 target.BeginDate = source.BeginDate;
-            else
-                targetSynchSupport.IsBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsBusRouteDirectionSupported)
+            if (mappingContract?.IsBusRouteDirectionSupported != false)
                 target.BusRouteDirection = source.BusRouteDirection;
-            else
-                targetSynchSupport.IsBusRouteDirectionSupported = false;
 
-            if (sourceSynchSupport.IsBusRouteDurationSupported)
+            if (mappingContract?.IsBusRouteDurationSupported != false)
                 target.BusRouteDuration = source.BusRouteDuration;
-            else
-                targetSynchSupport.IsBusRouteDurationSupported = false;
 
-            if (sourceSynchSupport.IsDailySupported)
+            if (mappingContract?.IsDailySupported != false)
                 target.Daily = source.Daily;
-            else
-                targetSynchSupport.IsDailySupported = false;
 
-            if (sourceSynchSupport.IsDisabilityDescriptorSupported)
+            if (mappingContract?.IsDisabilityDescriptorSupported != false)
                 target.DisabilityDescriptor = source.DisabilityDescriptor;
-            else
-                targetSynchSupport.IsDisabilityDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsEducationOrganizationIdSupported)
+            if (mappingContract?.IsEducationOrganizationIdSupported != false)
                 target.EducationOrganizationId = source.EducationOrganizationId;
-            else
-                targetSynchSupport.IsEducationOrganizationIdSupported = false;
 
-            if (sourceSynchSupport.IsExpectedTransitTimeSupported)
+            if (mappingContract?.IsExpectedTransitTimeSupported != false)
                 target.ExpectedTransitTime = source.ExpectedTransitTime;
-            else
-                targetSynchSupport.IsExpectedTransitTimeSupported = false;
 
-            if (sourceSynchSupport.IsHoursPerWeekSupported)
+            if (mappingContract?.IsHoursPerWeekSupported != false)
                 target.HoursPerWeek = source.HoursPerWeek;
-            else
-                targetSynchSupport.IsHoursPerWeekSupported = false;
 
-            if (sourceSynchSupport.IsOperatingCostSupported)
+            if (mappingContract?.IsOperatingCostSupported != false)
                 target.OperatingCost = source.OperatingCost;
-            else
-                targetSynchSupport.IsOperatingCostSupported = false;
 
-            if (sourceSynchSupport.IsOptimalCapacitySupported)
+            if (mappingContract?.IsOptimalCapacitySupported != false)
                 target.OptimalCapacity = source.OptimalCapacity;
-            else
-                targetSynchSupport.IsOptimalCapacitySupported = false;
 
-            if (sourceSynchSupport.IsStaffClassificationDescriptorSupported)
+            if (mappingContract?.IsStaffClassificationDescriptorSupported != false)
                 target.StaffClassificationDescriptor = source.StaffClassificationDescriptor;
-            else
-                targetSynchSupport.IsStaffClassificationDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsStaffUniqueIdSupported)
+            if (mappingContract?.IsStaffUniqueIdSupported != false)
                 target.StaffUniqueId = source.StaffUniqueId;
-            else
-                targetSynchSupport.IsStaffUniqueIdSupported = false;
 
-            if (sourceSynchSupport.IsStartDateSupported)
+            if (mappingContract?.IsStartDateSupported != false)
                 target.StartDate = source.StartDate;
-            else
-                targetSynchSupport.IsStartDateSupported = false;
 
-            if (sourceSynchSupport.IsWeeklyMileageSupported)
+            if (mappingContract?.IsWeeklyMileageSupported != false)
                 target.WeeklyMileage = source.WeeklyMileage;
-            else
-                targetSynchSupport.IsWeeklyMileageSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -576,54 +525,29 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsBusRouteBusYearsSupported)
+            if (mappingContract?.IsBusRouteBusYearsSupported != false)
             {
-                targetSynchSupport.IsBusRouteBusYearIncluded = sourceSynchSupport.IsBusRouteBusYearIncluded;
-                source.BusRouteBusYears.MapCollectionTo(target.BusRouteBusYears, target);
-            }
-            else
-            {
-                targetSynchSupport.IsBusRouteBusYearsSupported = false;
+                source.BusRouteBusYears.MapCollectionTo(target.BusRouteBusYears, target, mappingContract?.IsBusRouteBusYearIncluded);
             }
 
-            if (sourceSynchSupport.IsBusRouteProgramsSupported)
+            if (mappingContract?.IsBusRouteProgramsSupported != false)
             {
-                targetSynchSupport.IsBusRouteProgramIncluded = sourceSynchSupport.IsBusRouteProgramIncluded;
-                source.BusRoutePrograms.MapCollectionTo(target.BusRoutePrograms, target);
-            }
-            else
-            {
-                targetSynchSupport.IsBusRouteProgramsSupported = false;
+                source.BusRoutePrograms.MapCollectionTo(target.BusRoutePrograms, target, mappingContract?.IsBusRouteProgramIncluded);
             }
 
-            if (sourceSynchSupport.IsBusRouteServiceAreaPostalCodesSupported)
+            if (mappingContract?.IsBusRouteServiceAreaPostalCodesSupported != false)
             {
-                targetSynchSupport.IsBusRouteServiceAreaPostalCodeIncluded = sourceSynchSupport.IsBusRouteServiceAreaPostalCodeIncluded;
-                source.BusRouteServiceAreaPostalCodes.MapCollectionTo(target.BusRouteServiceAreaPostalCodes, target);
-            }
-            else
-            {
-                targetSynchSupport.IsBusRouteServiceAreaPostalCodesSupported = false;
+                source.BusRouteServiceAreaPostalCodes.MapCollectionTo(target.BusRouteServiceAreaPostalCodes, target, mappingContract?.IsBusRouteServiceAreaPostalCodeIncluded);
             }
 
-            if (sourceSynchSupport.IsBusRouteStartTimesSupported)
+            if (mappingContract?.IsBusRouteStartTimesSupported != false)
             {
-                targetSynchSupport.IsBusRouteStartTimeIncluded = sourceSynchSupport.IsBusRouteStartTimeIncluded;
-                source.BusRouteStartTimes.MapCollectionTo(target.BusRouteStartTimes, target);
-            }
-            else
-            {
-                targetSynchSupport.IsBusRouteStartTimesSupported = false;
+                source.BusRouteStartTimes.MapCollectionTo(target.BusRouteStartTimes, target, mappingContract?.IsBusRouteStartTimeIncluded);
             }
 
-            if (sourceSynchSupport.IsBusRouteTelephonesSupported)
+            if (mappingContract?.IsBusRouteTelephonesSupported != false)
             {
-                targetSynchSupport.IsBusRouteTelephoneIncluded = sourceSynchSupport.IsBusRouteTelephoneIncluded;
-                source.BusRouteTelephones.MapCollectionTo(target.BusRouteTelephones, target);
-            }
-            else
-            {
-                targetSynchSupport.IsBusRouteTelephonesSupported = false;
+                source.BusRouteTelephones.MapCollectionTo(target.BusRouteTelephones, target, mappingContract?.IsBusRouteTelephoneIncluded);
             }
 
 
@@ -648,47 +572,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusRouteSynchronizationSourceSupport 
-    {
-        bool IsBeginDateSupported { get; set; }
-        bool IsBusRouteBusYearsSupported { get; set; }
-        bool IsBusRouteDirectionSupported { get; set; }
-        bool IsBusRouteDurationSupported { get; set; }
-        bool IsBusRouteProgramsSupported { get; set; }
-        bool IsBusRouteServiceAreaPostalCodesSupported { get; set; }
-        bool IsBusRouteStartTimesSupported { get; set; }
-        bool IsBusRouteTelephonesSupported { get; set; }
-        bool IsDailySupported { get; set; }
-        bool IsDisabilityDescriptorSupported { get; set; }
-        bool IsEducationOrganizationIdSupported { get; set; }
-        bool IsExpectedTransitTimeSupported { get; set; }
-        bool IsHoursPerWeekSupported { get; set; }
-        bool IsOperatingCostSupported { get; set; }
-        bool IsOptimalCapacitySupported { get; set; }
-        bool IsStaffClassificationDescriptorSupported { get; set; }
-        bool IsStaffUniqueIdSupported { get; set; }
-        bool IsStartDateSupported { get; set; }
-        bool IsWeeklyMileageSupported { get; set; }
-        Func<IBusRouteBusYear, bool> IsBusRouteBusYearIncluded { get; set; }
-        Func<IBusRouteProgram, bool> IsBusRouteProgramIncluded { get; set; }
-        Func<IBusRouteServiceAreaPostalCode, bool> IsBusRouteServiceAreaPostalCodeIncluded { get; set; }
-        Func<IBusRouteStartTime, bool> IsBusRouteStartTimeIncluded { get; set; }
-        Func<IBusRouteTelephone, bool> IsBusRouteTelephoneIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class BusRouteBusYearMapper
     {
+        private static readonly FullName _fullName_sample_BusRouteBusYear = new FullName("sample", "BusRouteBusYear");
+    
         public static bool SynchronizeTo(this IBusRouteBusYear source, IBusRouteBusYear target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusRouteBusYearSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusRouteBusYearMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteBusYear);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BusYear != target.BusYear)
@@ -708,9 +605,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
         public static void MapTo(this IBusRouteBusYear source, IBusRouteBusYear target, Action<IBusRouteBusYear, IBusRouteBusYear> onMapped)
         {
-            var sourceSynchSupport = source as IBusRouteBusYearSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusRouteBusYearSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusRouteBusYearMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteBusYear);
+    
             // Copy contextual primary key values
             target.BusYear = source.BusYear;
 
@@ -747,23 +646,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusRouteBusYearSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class BusRouteProgramMapper
     {
+        private static readonly FullName _fullName_sample_BusRouteProgram = new FullName("sample", "BusRouteProgram");
+    
         public static bool SynchronizeTo(this IBusRouteProgram source, IBusRouteProgram target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusRouteProgramSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusRouteProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteProgram);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -791,9 +687,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
         public static void MapTo(this IBusRouteProgram source, IBusRouteProgram target, Action<IBusRouteProgram, IBusRouteProgram> onMapped)
         {
-            var sourceSynchSupport = source as IBusRouteProgramSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusRouteProgramSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusRouteProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteProgram);
+    
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
             target.ProgramName = source.ProgramName;
@@ -839,23 +737,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusRouteProgramSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class BusRouteServiceAreaPostalCodeMapper
     {
+        private static readonly FullName _fullName_sample_BusRouteServiceAreaPostalCode = new FullName("sample", "BusRouteServiceAreaPostalCode");
+    
         public static bool SynchronizeTo(this IBusRouteServiceAreaPostalCode source, IBusRouteServiceAreaPostalCode target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusRouteServiceAreaPostalCodeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteServiceAreaPostalCode);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ServiceAreaPostalCode != target.ServiceAreaPostalCode)
@@ -875,9 +770,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
         public static void MapTo(this IBusRouteServiceAreaPostalCode source, IBusRouteServiceAreaPostalCode target, Action<IBusRouteServiceAreaPostalCode, IBusRouteServiceAreaPostalCode> onMapped)
         {
-            var sourceSynchSupport = source as IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusRouteServiceAreaPostalCodeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteServiceAreaPostalCode);
+    
             // Copy contextual primary key values
             target.ServiceAreaPostalCode = source.ServiceAreaPostalCode;
 
@@ -914,23 +811,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class BusRouteStartTimeMapper
     {
+        private static readonly FullName _fullName_sample_BusRouteStartTime = new FullName("sample", "BusRouteStartTime");
+    
         public static bool SynchronizeTo(this IBusRouteStartTime source, IBusRouteStartTime target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusRouteStartTimeSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusRouteStartTimeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteStartTime);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.StartTime != target.StartTime)
@@ -950,9 +844,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
         public static void MapTo(this IBusRouteStartTime source, IBusRouteStartTime target, Action<IBusRouteStartTime, IBusRouteStartTime> onMapped)
         {
-            var sourceSynchSupport = source as IBusRouteStartTimeSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusRouteStartTimeSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusRouteStartTimeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteStartTime);
+    
             // Copy contextual primary key values
             target.StartTime = source.StartTime;
 
@@ -989,23 +885,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusRouteStartTimeSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class BusRouteTelephoneMapper
     {
+        private static readonly FullName _fullName_sample_BusRouteTelephone = new FullName("sample", "BusRouteTelephone");
+    
         public static bool SynchronizeTo(this IBusRouteTelephone source, IBusRouteTelephone target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IBusRouteTelephoneSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (BusRouteTelephoneMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteTelephone);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.TelephoneNumber != target.TelephoneNumber)
@@ -1019,21 +912,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDoNotPublishIndicatorSupported)
+            if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 && target.DoNotPublishIndicator != source.DoNotPublishIndicator)
             {
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOrderOfPrioritySupported)
+            if ((mappingContract?.IsOrderOfPrioritySupported != false)
                 && target.OrderOfPriority != source.OrderOfPriority)
             {
                 target.OrderOfPriority = source.OrderOfPriority;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsTextMessageCapabilityIndicatorSupported)
+            if ((mappingContract?.IsTextMessageCapabilityIndicatorSupported != false)
                 && target.TextMessageCapabilityIndicator != source.TextMessageCapabilityIndicator)
             {
                 target.TextMessageCapabilityIndicator = source.TextMessageCapabilityIndicator;
@@ -1050,29 +943,25 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
 
         public static void MapTo(this IBusRouteTelephone source, IBusRouteTelephone target, Action<IBusRouteTelephone, IBusRouteTelephone> onMapped)
         {
-            var sourceSynchSupport = source as IBusRouteTelephoneSynchronizationSourceSupport;
-            var targetSynchSupport = target as IBusRouteTelephoneSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (BusRouteTelephoneMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_BusRouteTelephone);
+    
             // Copy contextual primary key values
             target.TelephoneNumber = source.TelephoneNumber;
             target.TelephoneNumberTypeDescriptor = source.TelephoneNumberTypeDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDoNotPublishIndicatorSupported)
+            if (mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
-            else
-                targetSynchSupport.IsDoNotPublishIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsOrderOfPrioritySupported)
+            if (mappingContract?.IsOrderOfPrioritySupported != false)
                 target.OrderOfPriority = source.OrderOfPriority;
-            else
-                targetSynchSupport.IsOrderOfPrioritySupported = false;
 
-            if (sourceSynchSupport.IsTextMessageCapabilityIndicatorSupported)
+            if (mappingContract?.IsTextMessageCapabilityIndicatorSupported != false)
                 target.TextMessageCapabilityIndicator = source.TextMessageCapabilityIndicator;
-            else
-                targetSynchSupport.IsTextMessageCapabilityIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1105,18 +994,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IBusRouteTelephoneSynchronizationSourceSupport 
-    {
-        bool IsDoNotPublishIndicatorSupported { get; set; }
-        bool IsOrderOfPrioritySupported { get; set; }
-        bool IsTextMessageCapabilityIndicatorSupported { get; set; }
-    }
-
 }
 // Aggregate: FavoriteBookCategoryDescriptor
 
@@ -1125,11 +1002,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
     [ExcludeFromCodeCoverage]
     public static class FavoriteBookCategoryDescriptorMapper
     {
+        private static readonly FullName _fullName_sample_FavoriteBookCategoryDescriptor = new FullName("sample", "FavoriteBookCategoryDescriptor");
+    
         public static bool SynchronizeTo(this IFavoriteBookCategoryDescriptor source, IFavoriteBookCategoryDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IFavoriteBookCategoryDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (FavoriteBookCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_FavoriteBookCategoryDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FavoriteBookCategoryDescriptorId != target.FavoriteBookCategoryDescriptorId)
@@ -1140,49 +1023,49 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -1203,9 +1086,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
 
         public static void MapTo(this IFavoriteBookCategoryDescriptor source, IFavoriteBookCategoryDescriptor target, Action<IFavoriteBookCategoryDescriptor, IFavoriteBookCategoryDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IFavoriteBookCategoryDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IFavoriteBookCategoryDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (FavoriteBookCategoryDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_FavoriteBookCategoryDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -1214,40 +1099,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -1284,22 +1155,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IFavoriteBookCategoryDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: MembershipTypeDescriptor
 
@@ -1308,11 +1163,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class MembershipTypeDescriptorMapper
     {
+        private static readonly FullName _fullName_sample_MembershipTypeDescriptor = new FullName("sample", "MembershipTypeDescriptor");
+    
         public static bool SynchronizeTo(this IMembershipTypeDescriptor source, IMembershipTypeDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IMembershipTypeDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (MembershipTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_MembershipTypeDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.MembershipTypeDescriptorId != target.MembershipTypeDescriptorId)
@@ -1323,49 +1184,49 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -1386,9 +1247,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
         public static void MapTo(this IMembershipTypeDescriptor source, IMembershipTypeDescriptor target, Action<IMembershipTypeDescriptor, IMembershipTypeDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IMembershipTypeDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IMembershipTypeDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (MembershipTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_MembershipTypeDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -1397,40 +1260,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -1467,22 +1316,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IMembershipTypeDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: Parent
 
@@ -1491,29 +1324,30 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     [ExcludeFromCodeCoverage]
     public static class ParentAddressExtensionMapper
     {
+        private static readonly FullName _fullName_sample_ParentAddressExtension = new FullName("sample", "ParentAddressExtension");
+    
         public static bool SynchronizeTo(this IParentAddressExtension source, IParentAddressExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentAddressExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.ParentAddress as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsComplexSupported)
+            if ((mappingContract?.IsComplexSupported != false)
                 && target.Complex != source.Complex)
             {
                 target.Complex = source.Complex;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOnBusRouteSupported)
+            if ((mappingContract?.IsOnBusRouteSupported != false)
                 && target.OnBusRoute != source.OnBusRoute)
             {
                 target.OnBusRoute = source.OnBusRoute;
@@ -1522,7 +1356,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsParentAddressSchoolDistrictsSupported)
+            if (mappingContract?.IsParentAddressSchoolDistrictsSupported ?? true)
             {
                 isModified |=
                     source.ParentAddressSchoolDistricts.SynchronizeCollectionTo(
@@ -1534,12 +1368,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.ParentAddress);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentAddressSchoolDistrictIncluded);
+                        includeItem: item => mappingContract?.IsParentAddressSchoolDistrictIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsParentAddressTermsSupported)
+            if (mappingContract?.IsParentAddressTermsSupported ?? true)
             {
                 isModified |=
                     source.ParentAddressTerms.SynchronizeCollectionTo(
@@ -1551,9 +1383,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.ParentAddress);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentAddressTermIncluded);
+                        includeItem: item => mappingContract?.IsParentAddressTermIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -1564,22 +1394,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentAddressExtension source, IParentAddressExtension target, Action<IParentAddressExtension, IParentAddressExtension> onMapped)
         {
-            var sourceSynchSupport = source as IParentAddressExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentAddressExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsComplexSupported)
+            if (mappingContract?.IsComplexSupported != false)
                 target.Complex = source.Complex;
-            else
-                targetSynchSupport.IsComplexSupported = false;
 
-            if (sourceSynchSupport.IsOnBusRouteSupported)
+            if (mappingContract?.IsOnBusRouteSupported != false)
                 target.OnBusRoute = source.OnBusRoute;
-            else
-                targetSynchSupport.IsOnBusRouteSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1590,24 +1418,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsParentAddressSchoolDistrictsSupported)
+            if (mappingContract?.IsParentAddressSchoolDistrictsSupported != false)
             {
-                targetSynchSupport.IsParentAddressSchoolDistrictIncluded = sourceSynchSupport.IsParentAddressSchoolDistrictIncluded;
-                source.ParentAddressSchoolDistricts.MapCollectionTo(target.ParentAddressSchoolDistricts, target.ParentAddress);
-            }
-            else
-            {
-                targetSynchSupport.IsParentAddressSchoolDistrictsSupported = false;
+                source.ParentAddressSchoolDistricts.MapCollectionTo(target.ParentAddressSchoolDistricts, target.ParentAddress, mappingContract?.IsParentAddressSchoolDistrictIncluded);
             }
 
-            if (sourceSynchSupport.IsParentAddressTermsSupported)
+            if (mappingContract?.IsParentAddressTermsSupported != false)
             {
-                targetSynchSupport.IsParentAddressTermIncluded = sourceSynchSupport.IsParentAddressTermIncluded;
-                source.ParentAddressTerms.MapCollectionTo(target.ParentAddressTerms, target.ParentAddress);
-            }
-            else
-            {
-                targetSynchSupport.IsParentAddressTermsSupported = false;
+                source.ParentAddressTerms.MapCollectionTo(target.ParentAddressTerms, target.ParentAddress, mappingContract?.IsParentAddressTermIncluded);
             }
 
 
@@ -1632,29 +1450,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentAddressExtensionSynchronizationSourceSupport 
-    {
-        bool IsComplexSupported { get; set; }
-        bool IsOnBusRouteSupported { get; set; }
-        bool IsParentAddressSchoolDistrictsSupported { get; set; }
-        bool IsParentAddressTermsSupported { get; set; }
-        Func<IParentAddressSchoolDistrict, bool> IsParentAddressSchoolDistrictIncluded { get; set; }
-        Func<IParentAddressTerm, bool> IsParentAddressTermIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentAddressSchoolDistrictMapper
     {
+        private static readonly FullName _fullName_sample_ParentAddressSchoolDistrict = new FullName("sample", "ParentAddressSchoolDistrict");
+    
         public static bool SynchronizeTo(this IParentAddressSchoolDistrict source, IParentAddressSchoolDistrict target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentAddressSchoolDistrictSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentAddressSchoolDistrictMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressSchoolDistrict);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.SchoolDistrict != target.SchoolDistrict)
@@ -1674,9 +1483,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentAddressSchoolDistrict source, IParentAddressSchoolDistrict target, Action<IParentAddressSchoolDistrict, IParentAddressSchoolDistrict> onMapped)
         {
-            var sourceSynchSupport = source as IParentAddressSchoolDistrictSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentAddressSchoolDistrictSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentAddressSchoolDistrictMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressSchoolDistrict);
+    
             // Copy contextual primary key values
             target.SchoolDistrict = source.SchoolDistrict;
 
@@ -1713,23 +1524,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentAddressSchoolDistrictSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentAddressTermMapper
     {
+        private static readonly FullName _fullName_sample_ParentAddressTerm = new FullName("sample", "ParentAddressTerm");
+    
         public static bool SynchronizeTo(this IParentAddressTerm source, IParentAddressTerm target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentAddressTermSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentAddressTermMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressTerm);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.TermDescriptor != target.TermDescriptor)
@@ -1749,9 +1557,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentAddressTerm source, IParentAddressTerm target, Action<IParentAddressTerm, IParentAddressTerm> onMapped)
         {
-            var sourceSynchSupport = source as IParentAddressTermSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentAddressTermSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentAddressTermMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAddressTerm);
+    
             // Copy contextual primary key values
             target.TermDescriptor = source.TermDescriptor;
 
@@ -1788,23 +1598,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentAddressTermSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentAuthorMapper
     {
+        private static readonly FullName _fullName_sample_ParentAuthor = new FullName("sample", "ParentAuthor");
+    
         public static bool SynchronizeTo(this IParentAuthor source, IParentAuthor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentAuthorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentAuthorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAuthor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Author != target.Author)
@@ -1824,9 +1631,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentAuthor source, IParentAuthor target, Action<IParentAuthor, IParentAuthor> onMapped)
         {
-            var sourceSynchSupport = source as IParentAuthorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentAuthorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentAuthorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentAuthor);
+    
             // Copy contextual primary key values
             target.Author = source.Author;
 
@@ -1863,23 +1672,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentAuthorSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentCeilingHeightMapper
     {
+        private static readonly FullName _fullName_sample_ParentCeilingHeight = new FullName("sample", "ParentCeilingHeight");
+    
         public static bool SynchronizeTo(this IParentCeilingHeight source, IParentCeilingHeight target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentCeilingHeightSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentCeilingHeightMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentCeilingHeight);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CeilingHeight != target.CeilingHeight)
@@ -1899,9 +1705,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentCeilingHeight source, IParentCeilingHeight target, Action<IParentCeilingHeight, IParentCeilingHeight> onMapped)
         {
-            var sourceSynchSupport = source as IParentCeilingHeightSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentCeilingHeightSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentCeilingHeightMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentCeilingHeight);
+    
             // Copy contextual primary key values
             target.CeilingHeight = source.CeilingHeight;
 
@@ -1938,50 +1746,47 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentCeilingHeightSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentCTEProgramMapper
     {
+        private static readonly FullName _fullName_sample_ParentCTEProgram = new FullName("sample", "ParentCTEProgram");
+    
         public static bool SynchronizeTo(this IParentCTEProgram source, IParentCTEProgram target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentCTEProgramSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentCTEProgram);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCareerPathwayDescriptorSupported)
+            if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
             {
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCIPCodeSupported)
+            if ((mappingContract?.IsCIPCodeSupported != false)
                 && target.CIPCode != source.CIPCode)
             {
                 target.CIPCode = source.CIPCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCTEProgramCompletionIndicatorSupported)
+            if ((mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
                 && target.CTEProgramCompletionIndicator != source.CTEProgramCompletionIndicator)
             {
                 target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPrimaryCTEProgramIndicatorSupported)
+            if ((mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
                 && target.PrimaryCTEProgramIndicator != source.PrimaryCTEProgramIndicator)
             {
                 target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
@@ -1998,32 +1803,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentCTEProgram source, IParentCTEProgram target, Action<IParentCTEProgram, IParentCTEProgram> onMapped)
         {
-            var sourceSynchSupport = source as IParentCTEProgramSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentCTEProgramSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentCTEProgram);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCareerPathwayDescriptorSupported)
+            if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-            else
-                targetSynchSupport.IsCareerPathwayDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsCIPCodeSupported)
+            if (mappingContract?.IsCIPCodeSupported != false)
                 target.CIPCode = source.CIPCode;
-            else
-                targetSynchSupport.IsCIPCodeSupported = false;
 
-            if (sourceSynchSupport.IsCTEProgramCompletionIndicatorSupported)
+            if (mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
                 target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
-            else
-                targetSynchSupport.IsCTEProgramCompletionIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsPrimaryCTEProgramIndicatorSupported)
+            if (mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
                 target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
-            else
-                targetSynchSupport.IsPrimaryCTEProgramIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -2056,27 +1855,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentCTEProgramSynchronizationSourceSupport 
-    {
-        bool IsCareerPathwayDescriptorSupported { get; set; }
-        bool IsCIPCodeSupported { get; set; }
-        bool IsCTEProgramCompletionIndicatorSupported { get; set; }
-        bool IsPrimaryCTEProgramIndicatorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentEducationContentMapper
     {
+        private static readonly FullName _fullName_sample_ParentEducationContent = new FullName("sample", "ParentEducationContent");
+    
         public static bool SynchronizeTo(this IParentEducationContent source, IParentEducationContent target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentEducationContentSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentEducationContentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentEducationContent);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ContentIdentifier != target.ContentIdentifier)
@@ -2096,9 +1888,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentEducationContent source, IParentEducationContent target, Action<IParentEducationContent, IParentEducationContent> onMapped)
         {
-            var sourceSynchSupport = source as IParentEducationContentSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentEducationContentSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentEducationContentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentEducationContent);
+    
             // Copy contextual primary key values
             target.ContentIdentifier = source.ContentIdentifier;
 
@@ -2142,104 +1936,96 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentEducationContentSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentExtensionMapper
     {
+        private static readonly FullName _fullName_sample_ParentExtension = new FullName("sample", "ParentExtension");
+    
         public static bool SynchronizeTo(this IParentExtension source, IParentExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.Parent as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsAverageCarLineWaitSupported)
+            if ((mappingContract?.IsAverageCarLineWaitSupported != false)
                 && target.AverageCarLineWait != source.AverageCarLineWait)
             {
                 target.AverageCarLineWait = source.AverageCarLineWait;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBecameParentSupported)
+            if ((mappingContract?.IsBecameParentSupported != false)
                 && target.BecameParent != source.BecameParent)
             {
                 target.BecameParent = source.BecameParent;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCoffeeSpendSupported)
+            if ((mappingContract?.IsCoffeeSpendSupported != false)
                 && target.CoffeeSpend != source.CoffeeSpend)
             {
                 target.CoffeeSpend = source.CoffeeSpend;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCredentialFieldDescriptorSupported)
+            if ((mappingContract?.IsCredentialFieldDescriptorSupported != false)
                 && target.CredentialFieldDescriptor != source.CredentialFieldDescriptor)
             {
                 target.CredentialFieldDescriptor = source.CredentialFieldDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDurationSupported)
+            if ((mappingContract?.IsDurationSupported != false)
                 && target.Duration != source.Duration)
             {
                 target.Duration = source.Duration;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsGPASupported)
+            if ((mappingContract?.IsGPASupported != false)
                 && target.GPA != source.GPA)
             {
                 target.GPA = source.GPA;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsGraduationDateSupported)
+            if ((mappingContract?.IsGraduationDateSupported != false)
                 && target.GraduationDate != source.GraduationDate)
             {
                 target.GraduationDate = source.GraduationDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsIsSportsFanSupported)
+            if ((mappingContract?.IsIsSportsFanSupported != false)
                 && target.IsSportsFan != source.IsSportsFan)
             {
                 target.IsSportsFan = source.IsSportsFan;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLuckyNumberSupported)
+            if ((mappingContract?.IsLuckyNumberSupported != false)
                 && target.LuckyNumber != source.LuckyNumber)
             {
                 target.LuckyNumber = source.LuckyNumber;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPreferredWakeUpTimeSupported)
+            if ((mappingContract?.IsPreferredWakeUpTimeSupported != false)
                 && target.PreferredWakeUpTime != source.PreferredWakeUpTime)
             {
                 target.PreferredWakeUpTime = source.PreferredWakeUpTime;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsRainCertaintySupported)
+            if ((mappingContract?.IsRainCertaintySupported != false)
                 && target.RainCertainty != source.RainCertainty)
             {
                 target.RainCertainty = source.RainCertainty;
@@ -2249,8 +2035,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // ParentCTEProgram
-            if (sourceSupport == null || sourceSupport.IsParentCTEProgramSupported)
+            // ParentCTEProgram (ParentCTEProgram)
+            if (mappingContract?.IsParentCTEProgramSupported != false)
             {
                 if (source.ParentCTEProgram == null)
                 {
@@ -2272,8 +2058,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     isModified |= source.ParentCTEProgram.Synchronize(target.ParentCTEProgram);
                 }
             }
-            // ParentTeacherConference
-            if (sourceSupport == null || sourceSupport.IsParentTeacherConferenceSupported)
+            // ParentTeacherConference (ParentTeacherConference)
+            if (mappingContract?.IsParentTeacherConferenceSupported != false)
             {
                 if (source.ParentTeacherConference == null)
                 {
@@ -2299,7 +2085,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // -------------------------------------------------------------
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsParentAuthorsSupported)
+            if (mappingContract?.IsParentAuthorsSupported ?? true)
             {
                 isModified |=
                     source.ParentAuthors.SynchronizeCollectionTo(
@@ -2311,12 +2097,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentAuthorIncluded);
+                        includeItem: item => mappingContract?.IsParentAuthorIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsParentCeilingHeightsSupported)
+            if (mappingContract?.IsParentCeilingHeightsSupported ?? true)
             {
                 isModified |=
                     source.ParentCeilingHeights.SynchronizeCollectionTo(
@@ -2328,12 +2112,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentCeilingHeightIncluded);
+                        includeItem: item => mappingContract?.IsParentCeilingHeightIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsParentEducationContentsSupported)
+            if (mappingContract?.IsParentEducationContentsSupported ?? true)
             {
                 isModified |=
                     source.ParentEducationContents.SynchronizeCollectionTo(
@@ -2345,12 +2127,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentEducationContentIncluded);
+                        includeItem: item => mappingContract?.IsParentEducationContentIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsParentFavoriteBookTitlesSupported)
+            if (mappingContract?.IsParentFavoriteBookTitlesSupported ?? true)
             {
                 isModified |=
                     source.ParentFavoriteBookTitles.SynchronizeCollectionTo(
@@ -2362,12 +2142,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentFavoriteBookTitleIncluded);
+                        includeItem: item => mappingContract?.IsParentFavoriteBookTitleIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsParentStudentProgramAssociationsSupported)
+            if (mappingContract?.IsParentStudentProgramAssociationsSupported ?? true)
             {
                 isModified |=
                     source.ParentStudentProgramAssociations.SynchronizeCollectionTo(
@@ -2379,9 +2157,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentStudentProgramAssociationIncluded);
+                        includeItem: item => mappingContract?.IsParentStudentProgramAssociationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -2392,67 +2168,47 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentExtension source, IParentExtension target, Action<IParentExtension, IParentExtension> onMapped)
         {
-            var sourceSynchSupport = source as IParentExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsAverageCarLineWaitSupported)
+            if (mappingContract?.IsAverageCarLineWaitSupported != false)
                 target.AverageCarLineWait = source.AverageCarLineWait;
-            else
-                targetSynchSupport.IsAverageCarLineWaitSupported = false;
 
-            if (sourceSynchSupport.IsBecameParentSupported)
+            if (mappingContract?.IsBecameParentSupported != false)
                 target.BecameParent = source.BecameParent;
-            else
-                targetSynchSupport.IsBecameParentSupported = false;
 
-            if (sourceSynchSupport.IsCoffeeSpendSupported)
+            if (mappingContract?.IsCoffeeSpendSupported != false)
                 target.CoffeeSpend = source.CoffeeSpend;
-            else
-                targetSynchSupport.IsCoffeeSpendSupported = false;
 
-            if (sourceSynchSupport.IsCredentialFieldDescriptorSupported)
+            if (mappingContract?.IsCredentialFieldDescriptorSupported != false)
                 target.CredentialFieldDescriptor = source.CredentialFieldDescriptor;
-            else
-                targetSynchSupport.IsCredentialFieldDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsDurationSupported)
+            if (mappingContract?.IsDurationSupported != false)
                 target.Duration = source.Duration;
-            else
-                targetSynchSupport.IsDurationSupported = false;
 
-            if (sourceSynchSupport.IsGPASupported)
+            if (mappingContract?.IsGPASupported != false)
                 target.GPA = source.GPA;
-            else
-                targetSynchSupport.IsGPASupported = false;
 
-            if (sourceSynchSupport.IsGraduationDateSupported)
+            if (mappingContract?.IsGraduationDateSupported != false)
                 target.GraduationDate = source.GraduationDate;
-            else
-                targetSynchSupport.IsGraduationDateSupported = false;
 
-            if (sourceSynchSupport.IsIsSportsFanSupported)
+            if (mappingContract?.IsIsSportsFanSupported != false)
                 target.IsSportsFan = source.IsSportsFan;
-            else
-                targetSynchSupport.IsIsSportsFanSupported = false;
 
-            if (sourceSynchSupport.IsLuckyNumberSupported)
+            if (mappingContract?.IsLuckyNumberSupported != false)
                 target.LuckyNumber = source.LuckyNumber;
-            else
-                targetSynchSupport.IsLuckyNumberSupported = false;
 
-            if (sourceSynchSupport.IsPreferredWakeUpTimeSupported)
+            if (mappingContract?.IsPreferredWakeUpTimeSupported != false)
                 target.PreferredWakeUpTime = source.PreferredWakeUpTime;
-            else
-                targetSynchSupport.IsPreferredWakeUpTimeSupported = false;
 
-            if (sourceSynchSupport.IsRainCertaintySupported)
+            if (mappingContract?.IsRainCertaintySupported != false)
                 target.RainCertainty = source.RainCertainty;
-            else
-                targetSynchSupport.IsRainCertaintySupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -2460,8 +2216,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // ParentCTEProgram (Source)
-            if (sourceSynchSupport.IsParentCTEProgramSupported)
+            // ParentCTEProgram (ParentCTEProgram) (Source)
+            if (mappingContract?.IsParentCTEProgramSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("ParentCTEProgram");
 
@@ -2483,12 +2239,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsParentCTEProgramSupported = false;
-            }
-            // ParentTeacherConference (Source)
-            if (sourceSynchSupport.IsParentTeacherConferenceSupported)
+            // ParentTeacherConference (ParentTeacherConference) (Source)
+            if (mappingContract?.IsParentTeacherConferenceSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("ParentTeacherConference");
 
@@ -2510,62 +2262,33 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsParentTeacherConferenceSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map lists
 
-            if (sourceSynchSupport.IsParentAuthorsSupported)
+            if (mappingContract?.IsParentAuthorsSupported != false)
             {
-                targetSynchSupport.IsParentAuthorIncluded = sourceSynchSupport.IsParentAuthorIncluded;
-                source.ParentAuthors.MapCollectionTo(target.ParentAuthors, target.Parent);
-            }
-            else
-            {
-                targetSynchSupport.IsParentAuthorsSupported = false;
+                source.ParentAuthors.MapCollectionTo(target.ParentAuthors, target.Parent, mappingContract?.IsParentAuthorIncluded);
             }
 
-            if (sourceSynchSupport.IsParentCeilingHeightsSupported)
+            if (mappingContract?.IsParentCeilingHeightsSupported != false)
             {
-                targetSynchSupport.IsParentCeilingHeightIncluded = sourceSynchSupport.IsParentCeilingHeightIncluded;
-                source.ParentCeilingHeights.MapCollectionTo(target.ParentCeilingHeights, target.Parent);
-            }
-            else
-            {
-                targetSynchSupport.IsParentCeilingHeightsSupported = false;
+                source.ParentCeilingHeights.MapCollectionTo(target.ParentCeilingHeights, target.Parent, mappingContract?.IsParentCeilingHeightIncluded);
             }
 
-            if (sourceSynchSupport.IsParentEducationContentsSupported)
+            if (mappingContract?.IsParentEducationContentsSupported != false)
             {
-                targetSynchSupport.IsParentEducationContentIncluded = sourceSynchSupport.IsParentEducationContentIncluded;
-                source.ParentEducationContents.MapCollectionTo(target.ParentEducationContents, target.Parent);
-            }
-            else
-            {
-                targetSynchSupport.IsParentEducationContentsSupported = false;
+                source.ParentEducationContents.MapCollectionTo(target.ParentEducationContents, target.Parent, mappingContract?.IsParentEducationContentIncluded);
             }
 
-            if (sourceSynchSupport.IsParentFavoriteBookTitlesSupported)
+            if (mappingContract?.IsParentFavoriteBookTitlesSupported != false)
             {
-                targetSynchSupport.IsParentFavoriteBookTitleIncluded = sourceSynchSupport.IsParentFavoriteBookTitleIncluded;
-                source.ParentFavoriteBookTitles.MapCollectionTo(target.ParentFavoriteBookTitles, target.Parent);
-            }
-            else
-            {
-                targetSynchSupport.IsParentFavoriteBookTitlesSupported = false;
+                source.ParentFavoriteBookTitles.MapCollectionTo(target.ParentFavoriteBookTitles, target.Parent, mappingContract?.IsParentFavoriteBookTitleIncluded);
             }
 
-            if (sourceSynchSupport.IsParentStudentProgramAssociationsSupported)
+            if (mappingContract?.IsParentStudentProgramAssociationsSupported != false)
             {
-                targetSynchSupport.IsParentStudentProgramAssociationIncluded = sourceSynchSupport.IsParentStudentProgramAssociationIncluded;
-                source.ParentStudentProgramAssociations.MapCollectionTo(target.ParentStudentProgramAssociations, target.Parent);
-            }
-            else
-            {
-                targetSynchSupport.IsParentStudentProgramAssociationsSupported = false;
+                source.ParentStudentProgramAssociations.MapCollectionTo(target.ParentStudentProgramAssociations, target.Parent, mappingContract?.IsParentStudentProgramAssociationIncluded);
             }
 
 
@@ -2590,46 +2313,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentExtensionSynchronizationSourceSupport 
-    {
-        bool IsAverageCarLineWaitSupported { get; set; }
-        bool IsBecameParentSupported { get; set; }
-        bool IsCoffeeSpendSupported { get; set; }
-        bool IsCredentialFieldDescriptorSupported { get; set; }
-        bool IsDurationSupported { get; set; }
-        bool IsGPASupported { get; set; }
-        bool IsGraduationDateSupported { get; set; }
-        bool IsIsSportsFanSupported { get; set; }
-        bool IsLuckyNumberSupported { get; set; }
-        bool IsParentAuthorsSupported { get; set; }
-        bool IsParentCeilingHeightsSupported { get; set; }
-        bool IsParentCTEProgramSupported { get; set; }
-        bool IsParentEducationContentsSupported { get; set; }
-        bool IsParentFavoriteBookTitlesSupported { get; set; }
-        bool IsParentStudentProgramAssociationsSupported { get; set; }
-        bool IsParentTeacherConferenceSupported { get; set; }
-        bool IsPreferredWakeUpTimeSupported { get; set; }
-        bool IsRainCertaintySupported { get; set; }
-        Func<IParentAuthor, bool> IsParentAuthorIncluded { get; set; }
-        Func<IParentCeilingHeight, bool> IsParentCeilingHeightIncluded { get; set; }
-        Func<IParentEducationContent, bool> IsParentEducationContentIncluded { get; set; }
-        Func<IParentFavoriteBookTitle, bool> IsParentFavoriteBookTitleIncluded { get; set; }
-        Func<IParentStudentProgramAssociation, bool> IsParentStudentProgramAssociationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentFavoriteBookTitleMapper
     {
+        private static readonly FullName _fullName_sample_ParentFavoriteBookTitle = new FullName("sample", "ParentFavoriteBookTitle");
+    
         public static bool SynchronizeTo(this IParentFavoriteBookTitle source, IParentFavoriteBookTitle target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentFavoriteBookTitleSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentFavoriteBookTitleMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentFavoriteBookTitle);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FavoriteBookTitle != target.FavoriteBookTitle)
@@ -2649,9 +2346,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentFavoriteBookTitle source, IParentFavoriteBookTitle target, Action<IParentFavoriteBookTitle, IParentFavoriteBookTitle> onMapped)
         {
-            var sourceSynchSupport = source as IParentFavoriteBookTitleSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentFavoriteBookTitleSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentFavoriteBookTitleMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentFavoriteBookTitle);
+    
             // Copy contextual primary key values
             target.FavoriteBookTitle = source.FavoriteBookTitle;
 
@@ -2688,23 +2387,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentFavoriteBookTitleSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentStudentProgramAssociationMapper
     {
+        private static readonly FullName _fullName_sample_ParentStudentProgramAssociation = new FullName("sample", "ParentStudentProgramAssociation");
+    
         public static bool SynchronizeTo(this IParentStudentProgramAssociation source, IParentStudentProgramAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentStudentProgramAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentStudentProgramAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BeginDate != target.BeginDate)
@@ -2744,9 +2440,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentStudentProgramAssociation source, IParentStudentProgramAssociation target, Action<IParentStudentProgramAssociation, IParentStudentProgramAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IParentStudentProgramAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentStudentProgramAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentStudentProgramAssociation);
+    
             // Copy contextual primary key values
             target.BeginDate = source.BeginDate;
             target.EducationOrganizationId = source.EducationOrganizationId;
@@ -2794,43 +2492,40 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentStudentProgramAssociationSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentTeacherConferenceMapper
     {
+        private static readonly FullName _fullName_sample_ParentTeacherConference = new FullName("sample", "ParentTeacherConference");
+    
         public static bool SynchronizeTo(this IParentTeacherConference source, IParentTeacherConference target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentTeacherConferenceSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentTeacherConferenceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentTeacherConference);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDayOfWeekSupported)
+            if ((mappingContract?.IsDayOfWeekSupported != false)
                 && target.DayOfWeek != source.DayOfWeek)
             {
                 target.DayOfWeek = source.DayOfWeek;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEndTimeSupported)
+            if ((mappingContract?.IsEndTimeSupported != false)
                 && target.EndTime != source.EndTime)
             {
                 target.EndTime = source.EndTime;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsStartTimeSupported)
+            if ((mappingContract?.IsStartTimeSupported != false)
                 && target.StartTime != source.StartTime)
             {
                 target.StartTime = source.StartTime;
@@ -2847,27 +2542,23 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
 
         public static void MapTo(this IParentTeacherConference source, IParentTeacherConference target, Action<IParentTeacherConference, IParentTeacherConference> onMapped)
         {
-            var sourceSynchSupport = source as IParentTeacherConferenceSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentTeacherConferenceSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentTeacherConferenceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_ParentTeacherConference);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDayOfWeekSupported)
+            if (mappingContract?.IsDayOfWeekSupported != false)
                 target.DayOfWeek = source.DayOfWeek;
-            else
-                targetSynchSupport.IsDayOfWeekSupported = false;
 
-            if (sourceSynchSupport.IsEndTimeSupported)
+            if (mappingContract?.IsEndTimeSupported != false)
                 target.EndTime = source.EndTime;
-            else
-                targetSynchSupport.IsEndTimeSupported = false;
 
-            if (sourceSynchSupport.IsStartTimeSupported)
+            if (mappingContract?.IsStartTimeSupported != false)
                 target.StartTime = source.StartTime;
-            else
-                targetSynchSupport.IsStartTimeSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -2900,18 +2591,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentTeacherConferenceSynchronizationSourceSupport 
-    {
-        bool IsDayOfWeekSupported { get; set; }
-        bool IsEndTimeSupported { get; set; }
-        bool IsStartTimeSupported { get; set; }
-    }
-
 }
 // Aggregate: School
 
@@ -2920,38 +2599,44 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
     [ExcludeFromCodeCoverage]
     public static class SchoolCTEProgramMapper
     {
+        private static readonly FullName _fullName_sample_SchoolCTEProgram = new FullName("sample", "SchoolCTEProgram");
+    
         public static bool SynchronizeTo(this ISchoolCTEProgram source, ISchoolCTEProgram target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolCTEProgramSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolCTEProgram);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCareerPathwayDescriptorSupported)
+            if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
             {
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCIPCodeSupported)
+            if ((mappingContract?.IsCIPCodeSupported != false)
                 && target.CIPCode != source.CIPCode)
             {
                 target.CIPCode = source.CIPCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCTEProgramCompletionIndicatorSupported)
+            if ((mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
                 && target.CTEProgramCompletionIndicator != source.CTEProgramCompletionIndicator)
             {
                 target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPrimaryCTEProgramIndicatorSupported)
+            if ((mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
                 && target.PrimaryCTEProgramIndicator != source.PrimaryCTEProgramIndicator)
             {
                 target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
@@ -2968,32 +2653,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
         public static void MapTo(this ISchoolCTEProgram source, ISchoolCTEProgram target, Action<ISchoolCTEProgram, ISchoolCTEProgram> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolCTEProgramSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolCTEProgramSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolCTEProgram);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCareerPathwayDescriptorSupported)
+            if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-            else
-                targetSynchSupport.IsCareerPathwayDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsCIPCodeSupported)
+            if (mappingContract?.IsCIPCodeSupported != false)
                 target.CIPCode = source.CIPCode;
-            else
-                targetSynchSupport.IsCIPCodeSupported = false;
 
-            if (sourceSynchSupport.IsCTEProgramCompletionIndicatorSupported)
+            if (mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
                 target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
-            else
-                targetSynchSupport.IsCTEProgramCompletionIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsPrimaryCTEProgramIndicatorSupported)
+            if (mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
                 target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
-            else
-                targetSynchSupport.IsPrimaryCTEProgramIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -3026,27 +2705,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolCTEProgramSynchronizationSourceSupport 
-    {
-        bool IsCareerPathwayDescriptorSupported { get; set; }
-        bool IsCIPCodeSupported { get; set; }
-        bool IsCTEProgramCompletionIndicatorSupported { get; set; }
-        bool IsPrimaryCTEProgramIndicatorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class SchoolDirectlyOwnedBusMapper
     {
+        private static readonly FullName _fullName_sample_SchoolDirectlyOwnedBus = new FullName("sample", "SchoolDirectlyOwnedBus");
+    
         public static bool SynchronizeTo(this ISchoolDirectlyOwnedBus source, ISchoolDirectlyOwnedBus target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolDirectlyOwnedBusSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolDirectlyOwnedBusMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolDirectlyOwnedBus);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.DirectlyOwnedBusId != target.DirectlyOwnedBusId)
@@ -3066,9 +2738,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
         public static void MapTo(this ISchoolDirectlyOwnedBus source, ISchoolDirectlyOwnedBus target, Action<ISchoolDirectlyOwnedBus, ISchoolDirectlyOwnedBus> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolDirectlyOwnedBusSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolDirectlyOwnedBusSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolDirectlyOwnedBusMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolDirectlyOwnedBus);
+    
             // Copy contextual primary key values
             target.DirectlyOwnedBusId = source.DirectlyOwnedBusId;
 
@@ -3112,34 +2786,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolDirectlyOwnedBusSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class SchoolExtensionMapper
     {
+        private static readonly FullName _fullName_sample_SchoolExtension = new FullName("sample", "SchoolExtension");
+    
         public static bool SynchronizeTo(this ISchoolExtension source, ISchoolExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.School as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsIsExemplarySupported)
+            if ((mappingContract?.IsIsExemplarySupported != false)
                 && target.IsExemplary != source.IsExemplary)
             {
                 target.IsExemplary = source.IsExemplary;
@@ -3149,8 +2815,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // SchoolCTEProgram
-            if (sourceSupport == null || sourceSupport.IsSchoolCTEProgramSupported)
+            // SchoolCTEProgram (SchoolCTEProgram)
+            if (mappingContract?.IsSchoolCTEProgramSupported != false)
             {
                 if (source.SchoolCTEProgram == null)
                 {
@@ -3176,7 +2842,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // -------------------------------------------------------------
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsSchoolDirectlyOwnedBusesSupported)
+            if (mappingContract?.IsSchoolDirectlyOwnedBusesSupported ?? true)
             {
                 isModified |=
                     source.SchoolDirectlyOwnedBuses.SynchronizeCollectionTo(
@@ -3188,9 +2854,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.School);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsSchoolDirectlyOwnedBusIncluded);
+                        includeItem: item => mappingContract?.IsSchoolDirectlyOwnedBusIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -3201,17 +2865,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
 
         public static void MapTo(this ISchoolExtension source, ISchoolExtension target, Action<ISchoolExtension, ISchoolExtension> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_SchoolExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsIsExemplarySupported)
+            if (mappingContract?.IsIsExemplarySupported != false)
                 target.IsExemplary = source.IsExemplary;
-            else
-                targetSynchSupport.IsIsExemplarySupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -3219,8 +2883,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // SchoolCTEProgram (Source)
-            if (sourceSynchSupport.IsSchoolCTEProgramSupported)
+            // SchoolCTEProgram (SchoolCTEProgram) (Source)
+            if (mappingContract?.IsSchoolCTEProgramSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("SchoolCTEProgram");
 
@@ -3242,22 +2906,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsSchoolCTEProgramSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map lists
 
-            if (sourceSynchSupport.IsSchoolDirectlyOwnedBusesSupported)
+            if (mappingContract?.IsSchoolDirectlyOwnedBusesSupported != false)
             {
-                targetSynchSupport.IsSchoolDirectlyOwnedBusIncluded = sourceSynchSupport.IsSchoolDirectlyOwnedBusIncluded;
-                source.SchoolDirectlyOwnedBuses.MapCollectionTo(target.SchoolDirectlyOwnedBuses, target.School);
-            }
-            else
-            {
-                targetSynchSupport.IsSchoolDirectlyOwnedBusesSupported = false;
+                source.SchoolDirectlyOwnedBuses.MapCollectionTo(target.SchoolDirectlyOwnedBuses, target.School, mappingContract?.IsSchoolDirectlyOwnedBusIncluded);
             }
 
 
@@ -3282,19 +2937,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolExtensionSynchronizationSourceSupport 
-    {
-        bool IsIsExemplarySupported { get; set; }
-        bool IsSchoolCTEProgramSupported { get; set; }
-        bool IsSchoolDirectlyOwnedBusesSupported { get; set; }
-        Func<ISchoolDirectlyOwnedBus, bool> IsSchoolDirectlyOwnedBusIncluded { get; set; }
-    }
-
 }
 // Aggregate: Staff
 
@@ -3303,22 +2945,23 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
     [ExcludeFromCodeCoverage]
     public static class StaffExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StaffExtension = new FullName("sample", "StaffExtension");
+    
         public static bool SynchronizeTo(this IStaffExtension source, IStaffExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStaffExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.Staff as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsFirstPetOwnedDateSupported)
+            if ((mappingContract?.IsFirstPetOwnedDateSupported != false)
                 && target.FirstPetOwnedDate != source.FirstPetOwnedDate)
             {
                 target.FirstPetOwnedDate = source.FirstPetOwnedDate;
@@ -3328,8 +2971,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // StaffPetPreference
-            if (sourceSupport == null || sourceSupport.IsStaffPetPreferenceSupported)
+            // StaffPetPreference (StaffPetPreference)
+            if (mappingContract?.IsStaffPetPreferenceSupported != false)
             {
                 if (source.StaffPetPreference == null)
                 {
@@ -3355,7 +2998,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             // -------------------------------------------------------------
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStaffPetsSupported)
+            if (mappingContract?.IsStaffPetsSupported ?? true)
             {
                 isModified |=
                     source.StaffPets.SynchronizeCollectionTo(
@@ -3367,9 +3010,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Staff);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStaffPetIncluded);
+                        includeItem: item => mappingContract?.IsStaffPetIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -3380,17 +3021,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
         public static void MapTo(this IStaffExtension source, IStaffExtension target, Action<IStaffExtension, IStaffExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStaffExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStaffExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StaffExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsFirstPetOwnedDateSupported)
+            if (mappingContract?.IsFirstPetOwnedDateSupported != false)
                 target.FirstPetOwnedDate = source.FirstPetOwnedDate;
-            else
-                targetSynchSupport.IsFirstPetOwnedDateSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -3398,8 +3039,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // StaffPetPreference (Source)
-            if (sourceSynchSupport.IsStaffPetPreferenceSupported)
+            // StaffPetPreference (StaffPetPreference) (Source)
+            if (mappingContract?.IsStaffPetPreferenceSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("StaffPetPreference");
 
@@ -3421,22 +3062,13 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsStaffPetPreferenceSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map lists
 
-            if (sourceSynchSupport.IsStaffPetsSupported)
+            if (mappingContract?.IsStaffPetsSupported != false)
             {
-                targetSynchSupport.IsStaffPetIncluded = sourceSynchSupport.IsStaffPetIncluded;
-                source.StaffPets.MapCollectionTo(target.StaffPets, target.Staff);
-            }
-            else
-            {
-                targetSynchSupport.IsStaffPetsSupported = false;
+                source.StaffPets.MapCollectionTo(target.StaffPets, target.Staff, mappingContract?.IsStaffPetIncluded);
             }
 
 
@@ -3461,27 +3093,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStaffExtensionSynchronizationSourceSupport 
-    {
-        bool IsFirstPetOwnedDateSupported { get; set; }
-        bool IsStaffPetPreferenceSupported { get; set; }
-        bool IsStaffPetsSupported { get; set; }
-        Func<IStaffPet, bool> IsStaffPetIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StaffPetMapper
     {
+        private static readonly FullName _fullName_sample_StaffPet = new FullName("sample", "StaffPet");
+    
         public static bool SynchronizeTo(this IStaffPet source, IStaffPet target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStaffPetSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StaffPetMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffPet);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.PetName != target.PetName)
@@ -3491,7 +3116,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsIsFixedSupported)
+            if ((mappingContract?.IsIsFixedSupported != false)
                 && target.IsFixed != source.IsFixed)
             {
                 target.IsFixed = source.IsFixed;
@@ -3508,18 +3133,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
         public static void MapTo(this IStaffPet source, IStaffPet target, Action<IStaffPet, IStaffPet> onMapped)
         {
-            var sourceSynchSupport = source as IStaffPetSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStaffPetSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StaffPetMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffPet);
+    
             // Copy contextual primary key values
             target.PetName = source.PetName;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsIsFixedSupported)
+            if (mappingContract?.IsIsFixedSupported != false)
                 target.IsFixed = source.IsFixed;
-            else
-                targetSynchSupport.IsIsFixedSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -3552,37 +3177,33 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStaffPetSynchronizationSourceSupport 
-    {
-        bool IsIsFixedSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StaffPetPreferenceMapper
     {
+        private static readonly FullName _fullName_sample_StaffPetPreference = new FullName("sample", "StaffPetPreference");
+    
         public static bool SynchronizeTo(this IStaffPetPreference source, IStaffPetPreference target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStaffPetPreferenceSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StaffPetPreferenceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffPetPreference);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMaximumWeightSupported)
+            if ((mappingContract?.IsMaximumWeightSupported != false)
                 && target.MaximumWeight != source.MaximumWeight)
             {
                 target.MaximumWeight = source.MaximumWeight;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinimumWeightSupported)
+            if ((mappingContract?.IsMinimumWeightSupported != false)
                 && target.MinimumWeight != source.MinimumWeight)
             {
                 target.MinimumWeight = source.MinimumWeight;
@@ -3599,22 +3220,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
 
         public static void MapTo(this IStaffPetPreference source, IStaffPetPreference target, Action<IStaffPetPreference, IStaffPetPreference> onMapped)
         {
-            var sourceSynchSupport = source as IStaffPetPreferenceSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStaffPetPreferenceSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StaffPetPreferenceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StaffPetPreference);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMaximumWeightSupported)
+            if (mappingContract?.IsMaximumWeightSupported != false)
                 target.MaximumWeight = source.MaximumWeight;
-            else
-                targetSynchSupport.IsMaximumWeightSupported = false;
 
-            if (sourceSynchSupport.IsMinimumWeightSupported)
+            if (mappingContract?.IsMinimumWeightSupported != false)
                 target.MinimumWeight = source.MinimumWeight;
-            else
-                targetSynchSupport.IsMinimumWeightSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -3647,17 +3266,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStaffPetPreferenceSynchronizationSourceSupport 
-    {
-        bool IsMaximumWeightSupported { get; set; }
-        bool IsMinimumWeightSupported { get; set; }
-    }
-
 }
 // Aggregate: Student
 
@@ -3666,11 +3274,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     [ExcludeFromCodeCoverage]
     public static class StudentAquaticPetMapper
     {
+        private static readonly FullName _fullName_sample_StudentAquaticPet = new FullName("sample", "StudentAquaticPet");
+    
         public static bool SynchronizeTo(this IStudentAquaticPet source, IStudentAquaticPet target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentAquaticPetSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentAquaticPetMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentAquaticPet);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.MimimumTankVolume != target.MimimumTankVolume)
@@ -3684,7 +3298,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsIsFixedSupported)
+            if ((mappingContract?.IsIsFixedSupported != false)
                 && target.IsFixed != source.IsFixed)
             {
                 target.IsFixed = source.IsFixed;
@@ -3701,19 +3315,19 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
         public static void MapTo(this IStudentAquaticPet source, IStudentAquaticPet target, Action<IStudentAquaticPet, IStudentAquaticPet> onMapped)
         {
-            var sourceSynchSupport = source as IStudentAquaticPetSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentAquaticPetSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentAquaticPetMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentAquaticPet);
+    
             // Copy contextual primary key values
             target.MimimumTankVolume = source.MimimumTankVolume;
             target.PetName = source.PetName;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsIsFixedSupported)
+            if (mappingContract?.IsIsFixedSupported != false)
                 target.IsFixed = source.IsFixed;
-            else
-                targetSynchSupport.IsIsFixedSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -3746,29 +3360,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentAquaticPetSynchronizationSourceSupport 
-    {
-        bool IsIsFixedSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentExtension = new FullName("sample", "StudentExtension");
+    
         public static bool SynchronizeTo(this IStudentExtension source, IStudentExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.Student as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -3777,8 +3382,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // StudentPetPreference
-            if (sourceSupport == null || sourceSupport.IsStudentPetPreferenceSupported)
+            // StudentPetPreference (StudentPetPreference)
+            if (mappingContract?.IsStudentPetPreferenceSupported != false)
             {
                 if (source.StudentPetPreference == null)
                 {
@@ -3804,7 +3409,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             // -------------------------------------------------------------
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentAquaticPetsSupported)
+            if (mappingContract?.IsStudentAquaticPetsSupported ?? true)
             {
                 isModified |=
                     source.StudentAquaticPets.SynchronizeCollectionTo(
@@ -3816,12 +3421,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentAquaticPetIncluded);
+                        includeItem: item => mappingContract?.IsStudentAquaticPetIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentFavoriteBooksSupported)
+            if (mappingContract?.IsStudentFavoriteBooksSupported ?? true)
             {
                 isModified |=
                     source.StudentFavoriteBooks.SynchronizeCollectionTo(
@@ -3833,12 +3436,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentFavoriteBookIncluded);
+                        includeItem: item => mappingContract?.IsStudentFavoriteBookIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentPetsSupported)
+            if (mappingContract?.IsStudentPetsSupported ?? true)
             {
                 isModified |=
                     source.StudentPets.SynchronizeCollectionTo(
@@ -3850,9 +3451,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentPetIncluded);
+                        includeItem: item => mappingContract?.IsStudentPetIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -3863,9 +3462,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
         public static void MapTo(this IStudentExtension source, IStudentExtension target, Action<IStudentExtension, IStudentExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
@@ -3876,8 +3477,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // StudentPetPreference (Source)
-            if (sourceSynchSupport.IsStudentPetPreferenceSupported)
+            // StudentPetPreference (StudentPetPreference) (Source)
+            if (mappingContract?.IsStudentPetPreferenceSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("StudentPetPreference");
 
@@ -3899,42 +3500,23 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsStudentPetPreferenceSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentAquaticPetsSupported)
+            if (mappingContract?.IsStudentAquaticPetsSupported != false)
             {
-                targetSynchSupport.IsStudentAquaticPetIncluded = sourceSynchSupport.IsStudentAquaticPetIncluded;
-                source.StudentAquaticPets.MapCollectionTo(target.StudentAquaticPets, target.Student);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentAquaticPetsSupported = false;
+                source.StudentAquaticPets.MapCollectionTo(target.StudentAquaticPets, target.Student, mappingContract?.IsStudentAquaticPetIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentFavoriteBooksSupported)
+            if (mappingContract?.IsStudentFavoriteBooksSupported != false)
             {
-                targetSynchSupport.IsStudentFavoriteBookIncluded = sourceSynchSupport.IsStudentFavoriteBookIncluded;
-                source.StudentFavoriteBooks.MapCollectionTo(target.StudentFavoriteBooks, target.Student);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentFavoriteBooksSupported = false;
+                source.StudentFavoriteBooks.MapCollectionTo(target.StudentFavoriteBooks, target.Student, mappingContract?.IsStudentFavoriteBookIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentPetsSupported)
+            if (mappingContract?.IsStudentPetsSupported != false)
             {
-                targetSynchSupport.IsStudentPetIncluded = sourceSynchSupport.IsStudentPetIncluded;
-                source.StudentPets.MapCollectionTo(target.StudentPets, target.Student);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentPetsSupported = false;
+                source.StudentPets.MapCollectionTo(target.StudentPets, target.Student, mappingContract?.IsStudentPetIncluded);
             }
 
 
@@ -3959,30 +3541,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentExtensionSynchronizationSourceSupport 
-    {
-        bool IsStudentAquaticPetsSupported { get; set; }
-        bool IsStudentFavoriteBooksSupported { get; set; }
-        bool IsStudentPetPreferenceSupported { get; set; }
-        bool IsStudentPetsSupported { get; set; }
-        Func<IStudentAquaticPet, bool> IsStudentAquaticPetIncluded { get; set; }
-        Func<IStudentFavoriteBook, bool> IsStudentFavoriteBookIncluded { get; set; }
-        Func<IStudentPet, bool> IsStudentPetIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentFavoriteBookMapper
     {
+        private static readonly FullName _fullName_sample_StudentFavoriteBook = new FullName("sample", "StudentFavoriteBook");
+    
         public static bool SynchronizeTo(this IStudentFavoriteBook source, IStudentFavoriteBook target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentFavoriteBookSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentFavoriteBook);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FavoriteBookCategoryDescriptor != target.FavoriteBookCategoryDescriptor)
@@ -3992,7 +3564,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsBookTitleSupported)
+            if ((mappingContract?.IsBookTitleSupported != false)
                 && target.BookTitle != source.BookTitle)
             {
                 target.BookTitle = source.BookTitle;
@@ -4001,7 +3573,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentFavoriteBookArtMediaSupported)
+            if (mappingContract?.IsStudentFavoriteBookArtMediaSupported ?? true)
             {
                 isModified |=
                     source.StudentFavoriteBookArtMedia.SynchronizeCollectionTo(
@@ -4010,9 +3582,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                             {
                                 child.StudentFavoriteBook = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentFavoriteBookArtMediumIncluded);
+                        includeItem: item => mappingContract?.IsStudentFavoriteBookArtMediumIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -4023,18 +3593,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
         public static void MapTo(this IStudentFavoriteBook source, IStudentFavoriteBook target, Action<IStudentFavoriteBook, IStudentFavoriteBook> onMapped)
         {
-            var sourceSynchSupport = source as IStudentFavoriteBookSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentFavoriteBookSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentFavoriteBookMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentFavoriteBook);
+    
             // Copy contextual primary key values
             target.FavoriteBookCategoryDescriptor = source.FavoriteBookCategoryDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsBookTitleSupported)
+            if (mappingContract?.IsBookTitleSupported != false)
                 target.BookTitle = source.BookTitle;
-            else
-                targetSynchSupport.IsBookTitleSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -4045,14 +3615,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentFavoriteBookArtMediaSupported)
+            if (mappingContract?.IsStudentFavoriteBookArtMediaSupported != false)
             {
-                targetSynchSupport.IsStudentFavoriteBookArtMediumIncluded = sourceSynchSupport.IsStudentFavoriteBookArtMediumIncluded;
-                source.StudentFavoriteBookArtMedia.MapCollectionTo(target.StudentFavoriteBookArtMedia, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentFavoriteBookArtMediaSupported = false;
+                source.StudentFavoriteBookArtMedia.MapCollectionTo(target.StudentFavoriteBookArtMedia, target, mappingContract?.IsStudentFavoriteBookArtMediumIncluded);
             }
 
 
@@ -4077,26 +3642,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentFavoriteBookSynchronizationSourceSupport 
-    {
-        bool IsBookTitleSupported { get; set; }
-        bool IsStudentFavoriteBookArtMediaSupported { get; set; }
-        Func<IStudentFavoriteBookArtMedium, bool> IsStudentFavoriteBookArtMediumIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentFavoriteBookArtMediumMapper
     {
+        private static readonly FullName _fullName_sample_StudentFavoriteBookArtMedium = new FullName("sample", "StudentFavoriteBookArtMedium");
+    
         public static bool SynchronizeTo(this IStudentFavoriteBookArtMedium source, IStudentFavoriteBookArtMedium target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentFavoriteBookArtMediumSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentFavoriteBookArtMediumMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentFavoriteBookArtMedium);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ArtMediumDescriptor != target.ArtMediumDescriptor)
@@ -4106,7 +3665,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsArtPiecesSupported)
+            if ((mappingContract?.IsArtPiecesSupported != false)
                 && target.ArtPieces != source.ArtPieces)
             {
                 target.ArtPieces = source.ArtPieces;
@@ -4123,18 +3682,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
         public static void MapTo(this IStudentFavoriteBookArtMedium source, IStudentFavoriteBookArtMedium target, Action<IStudentFavoriteBookArtMedium, IStudentFavoriteBookArtMedium> onMapped)
         {
-            var sourceSynchSupport = source as IStudentFavoriteBookArtMediumSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentFavoriteBookArtMediumSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentFavoriteBookArtMediumMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentFavoriteBookArtMedium);
+    
             // Copy contextual primary key values
             target.ArtMediumDescriptor = source.ArtMediumDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsArtPiecesSupported)
+            if (mappingContract?.IsArtPiecesSupported != false)
                 target.ArtPieces = source.ArtPieces;
-            else
-                targetSynchSupport.IsArtPiecesSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -4167,24 +3726,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentFavoriteBookArtMediumSynchronizationSourceSupport 
-    {
-        bool IsArtPiecesSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentPetMapper
     {
+        private static readonly FullName _fullName_sample_StudentPet = new FullName("sample", "StudentPet");
+    
         public static bool SynchronizeTo(this IStudentPet source, IStudentPet target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentPetSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentPetMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentPet);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.PetName != target.PetName)
@@ -4194,7 +3749,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsIsFixedSupported)
+            if ((mappingContract?.IsIsFixedSupported != false)
                 && target.IsFixed != source.IsFixed)
             {
                 target.IsFixed = source.IsFixed;
@@ -4211,18 +3766,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
         public static void MapTo(this IStudentPet source, IStudentPet target, Action<IStudentPet, IStudentPet> onMapped)
         {
-            var sourceSynchSupport = source as IStudentPetSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentPetSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentPetMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentPet);
+    
             // Copy contextual primary key values
             target.PetName = source.PetName;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsIsFixedSupported)
+            if (mappingContract?.IsIsFixedSupported != false)
                 target.IsFixed = source.IsFixed;
-            else
-                targetSynchSupport.IsIsFixedSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -4255,37 +3810,33 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentPetSynchronizationSourceSupport 
-    {
-        bool IsIsFixedSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentPetPreferenceMapper
     {
+        private static readonly FullName _fullName_sample_StudentPetPreference = new FullName("sample", "StudentPetPreference");
+    
         public static bool SynchronizeTo(this IStudentPetPreference source, IStudentPetPreference target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentPetPreferenceSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentPetPreferenceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentPetPreference);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMaximumWeightSupported)
+            if ((mappingContract?.IsMaximumWeightSupported != false)
                 && target.MaximumWeight != source.MaximumWeight)
             {
                 target.MaximumWeight = source.MaximumWeight;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinimumWeightSupported)
+            if ((mappingContract?.IsMinimumWeightSupported != false)
                 && target.MinimumWeight != source.MinimumWeight)
             {
                 target.MinimumWeight = source.MinimumWeight;
@@ -4302,22 +3853,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
         public static void MapTo(this IStudentPetPreference source, IStudentPetPreference target, Action<IStudentPetPreference, IStudentPetPreference> onMapped)
         {
-            var sourceSynchSupport = source as IStudentPetPreferenceSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentPetPreferenceSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentPetPreferenceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentPetPreference);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMaximumWeightSupported)
+            if (mappingContract?.IsMaximumWeightSupported != false)
                 target.MaximumWeight = source.MaximumWeight;
-            else
-                targetSynchSupport.IsMaximumWeightSupported = false;
 
-            if (sourceSynchSupport.IsMinimumWeightSupported)
+            if (mappingContract?.IsMinimumWeightSupported != false)
                 target.MinimumWeight = source.MinimumWeight;
-            else
-                targetSynchSupport.IsMinimumWeightSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -4350,17 +3899,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentPetPreferenceSynchronizationSourceSupport 
-    {
-        bool IsMaximumWeightSupported { get; set; }
-        bool IsMinimumWeightSupported { get; set; }
-    }
-
 }
 // Aggregate: StudentArtProgramAssociation
 
@@ -4369,11 +3907,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     [ExcludeFromCodeCoverage]
     public static class StudentArtProgramAssociationMapper
     {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociation = new FullName("sample", "StudentArtProgramAssociation");
+    
         public static bool SynchronizeTo(this IStudentArtProgramAssociation source, IStudentArtProgramAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentArtProgramAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BeginDate != target.BeginDate)
@@ -4404,21 +3948,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+            if ((mappingContract?.IsEndDateSupported != false)
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReasonExitedDescriptorSupported)
+            if ((mappingContract?.IsReasonExitedDescriptorSupported != false)
                 && target.ReasonExitedDescriptor != source.ReasonExitedDescriptor)
             {
                 target.ReasonExitedDescriptor = source.ReasonExitedDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsServedOutsideOfRegularSessionSupported)
+            if ((mappingContract?.IsServedOutsideOfRegularSessionSupported != false)
                 && target.ServedOutsideOfRegularSession != source.ServedOutsideOfRegularSession)
             {
                 target.ServedOutsideOfRegularSession = source.ServedOutsideOfRegularSession;
@@ -4427,77 +3971,77 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsArtPiecesSupported)
+            if ((mappingContract?.IsArtPiecesSupported != false)
                 && target.ArtPieces != source.ArtPieces)
             {
                 target.ArtPieces = source.ArtPieces;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsExhibitDateSupported)
+            if ((mappingContract?.IsExhibitDateSupported != false)
                 && target.ExhibitDate != source.ExhibitDate)
             {
                 target.ExhibitDate = source.ExhibitDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsHoursPerDaySupported)
+            if ((mappingContract?.IsHoursPerDaySupported != false)
                 && target.HoursPerDay != source.HoursPerDay)
             {
                 target.HoursPerDay = source.HoursPerDay;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsIdentificationCodeSupported)
+            if ((mappingContract?.IsIdentificationCodeSupported != false)
                 && target.IdentificationCode != source.IdentificationCode)
             {
                 target.IdentificationCode = source.IdentificationCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsKilnReservationSupported)
+            if ((mappingContract?.IsKilnReservationSupported != false)
                 && target.KilnReservation != source.KilnReservation)
             {
                 target.KilnReservation = source.KilnReservation;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsKilnReservationLengthSupported)
+            if ((mappingContract?.IsKilnReservationLengthSupported != false)
                 && target.KilnReservationLength != source.KilnReservationLength)
             {
                 target.KilnReservationLength = source.KilnReservationLength;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMasteredMediumsSupported)
+            if ((mappingContract?.IsMasteredMediumsSupported != false)
                 && target.MasteredMediums != source.MasteredMediums)
             {
                 target.MasteredMediums = source.MasteredMediums;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNumberOfDaysInAttendanceSupported)
+            if ((mappingContract?.IsNumberOfDaysInAttendanceSupported != false)
                 && target.NumberOfDaysInAttendance != source.NumberOfDaysInAttendance)
             {
                 target.NumberOfDaysInAttendance = source.NumberOfDaysInAttendance;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPortfolioPiecesSupported)
+            if ((mappingContract?.IsPortfolioPiecesSupported != false)
                 && target.PortfolioPieces != source.PortfolioPieces)
             {
                 target.PortfolioPieces = source.PortfolioPieces;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPrivateArtProgramSupported)
+            if ((mappingContract?.IsPrivateArtProgramSupported != false)
                 && target.PrivateArtProgram != source.PrivateArtProgram)
             {
                 target.PrivateArtProgram = source.PrivateArtProgram;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsProgramFeesSupported)
+            if ((mappingContract?.IsProgramFeesSupported != false)
                 && target.ProgramFees != source.ProgramFees)
             {
                 target.ProgramFees = source.ProgramFees;
@@ -4507,8 +4051,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // GeneralStudentProgramAssociationParticipationStatus
-            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported)
+            // GeneralStudentProgramAssociationParticipationStatus (GeneralStudentProgramAssociationParticipationStatus)
+            if (mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusSupported != false)
             {
                 if (source.GeneralStudentProgramAssociationParticipationStatus == null)
                 {
@@ -4534,13 +4078,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // -------------------------------------------------------------
 
             // Synch inherited lists
-            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
-                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
-                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+            if (mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported ?? true)
+            {
+                isModified |= 
+                    source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(
+                        target.GeneralStudentProgramAssociationProgramParticipationStatuses, 
+                        onChildAdded: child => child.GeneralStudentProgramAssociation = target,
+                        includeItem: item => mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded?.Invoke(item) ?? true);
+            }
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationArtMediaSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationArtMediaSupported ?? true)
             {
                 isModified |=
                     source.StudentArtProgramAssociationArtMedia.SynchronizeCollectionTo(
@@ -4549,12 +4098,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentArtProgramAssociationArtMediumIncluded);
+                        includeItem: item => mappingContract?.IsStudentArtProgramAssociationArtMediumIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationPortfolioYearsSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationPortfolioYearsSupported ?? true)
             {
                 isModified |=
                     source.StudentArtProgramAssociationPortfolioYears.SynchronizeCollectionTo(
@@ -4563,12 +4110,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded);
+                        includeItem: item => mappingContract?.IsStudentArtProgramAssociationPortfolioYearsIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationServicesSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationServicesSupported ?? true)
             {
                 isModified |=
                     source.StudentArtProgramAssociationServices.SynchronizeCollectionTo(
@@ -4577,12 +4122,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentArtProgramAssociationServiceIncluded);
+                        includeItem: item => mappingContract?.IsStudentArtProgramAssociationServiceIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationStylesSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationStylesSupported ?? true)
             {
                 isModified |=
                     source.StudentArtProgramAssociationStyles.SynchronizeCollectionTo(
@@ -4591,9 +4134,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentArtProgramAssociationStyleIncluded);
+                        includeItem: item => mappingContract?.IsStudentArtProgramAssociationStyleIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -4604,9 +4145,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
         public static void MapDerivedTo(this IStudentArtProgramAssociation source, IStudentArtProgramAssociation target, Action<IStudentArtProgramAssociation, IStudentArtProgramAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentArtProgramAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentArtProgramAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -4620,77 +4163,49 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsEndDateSupported)
+            if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
-            else
-                targetSynchSupport.IsEndDateSupported = false;
 
-            if (sourceSynchSupport.IsReasonExitedDescriptorSupported)
+            if (mappingContract?.IsReasonExitedDescriptorSupported != false)
                 target.ReasonExitedDescriptor = source.ReasonExitedDescriptor;
-            else
-                targetSynchSupport.IsReasonExitedDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsServedOutsideOfRegularSessionSupported)
+            if (mappingContract?.IsServedOutsideOfRegularSessionSupported != false)
                 target.ServedOutsideOfRegularSession = source.ServedOutsideOfRegularSession;
-            else
-                targetSynchSupport.IsServedOutsideOfRegularSessionSupported = false;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsArtPiecesSupported)
+            if (mappingContract?.IsArtPiecesSupported != false)
                 target.ArtPieces = source.ArtPieces;
-            else
-                targetSynchSupport.IsArtPiecesSupported = false;
 
-            if (sourceSynchSupport.IsExhibitDateSupported)
+            if (mappingContract?.IsExhibitDateSupported != false)
                 target.ExhibitDate = source.ExhibitDate;
-            else
-                targetSynchSupport.IsExhibitDateSupported = false;
 
-            if (sourceSynchSupport.IsHoursPerDaySupported)
+            if (mappingContract?.IsHoursPerDaySupported != false)
                 target.HoursPerDay = source.HoursPerDay;
-            else
-                targetSynchSupport.IsHoursPerDaySupported = false;
 
-            if (sourceSynchSupport.IsIdentificationCodeSupported)
+            if (mappingContract?.IsIdentificationCodeSupported != false)
                 target.IdentificationCode = source.IdentificationCode;
-            else
-                targetSynchSupport.IsIdentificationCodeSupported = false;
 
-            if (sourceSynchSupport.IsKilnReservationSupported)
+            if (mappingContract?.IsKilnReservationSupported != false)
                 target.KilnReservation = source.KilnReservation;
-            else
-                targetSynchSupport.IsKilnReservationSupported = false;
 
-            if (sourceSynchSupport.IsKilnReservationLengthSupported)
+            if (mappingContract?.IsKilnReservationLengthSupported != false)
                 target.KilnReservationLength = source.KilnReservationLength;
-            else
-                targetSynchSupport.IsKilnReservationLengthSupported = false;
 
-            if (sourceSynchSupport.IsMasteredMediumsSupported)
+            if (mappingContract?.IsMasteredMediumsSupported != false)
                 target.MasteredMediums = source.MasteredMediums;
-            else
-                targetSynchSupport.IsMasteredMediumsSupported = false;
 
-            if (sourceSynchSupport.IsNumberOfDaysInAttendanceSupported)
+            if (mappingContract?.IsNumberOfDaysInAttendanceSupported != false)
                 target.NumberOfDaysInAttendance = source.NumberOfDaysInAttendance;
-            else
-                targetSynchSupport.IsNumberOfDaysInAttendanceSupported = false;
 
-            if (sourceSynchSupport.IsPortfolioPiecesSupported)
+            if (mappingContract?.IsPortfolioPiecesSupported != false)
                 target.PortfolioPieces = source.PortfolioPieces;
-            else
-                targetSynchSupport.IsPortfolioPiecesSupported = false;
 
-            if (sourceSynchSupport.IsPrivateArtProgramSupported)
+            if (mappingContract?.IsPrivateArtProgramSupported != false)
                 target.PrivateArtProgram = source.PrivateArtProgram;
-            else
-                targetSynchSupport.IsPrivateArtProgramSupported = false;
 
-            if (sourceSynchSupport.IsProgramFeesSupported)
+            if (mappingContract?.IsProgramFeesSupported != false)
                 target.ProgramFees = source.ProgramFees;
-            else
-                targetSynchSupport.IsProgramFeesSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -4709,8 +4224,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // GeneralStudentProgramAssociationParticipationStatus (Source)
-            if (sourceSynchSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported)
+            // GeneralStudentProgramAssociationParticipationStatus (GeneralStudentProgramAssociationParticipationStatus) (Source)
+            if (mappingContract?.IsGeneralStudentProgramAssociationParticipationStatusSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("GeneralStudentProgramAssociationParticipationStatus");
 
@@ -4732,64 +4247,35 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map inherited lists
 
-            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            if (mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported != false)
             {
-                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
-                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
-            }
-            else
-            {
-                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target, mappingContract?.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
             }
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentArtProgramAssociationArtMediaSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationArtMediaSupported != false)
             {
-                targetSynchSupport.IsStudentArtProgramAssociationArtMediumIncluded = sourceSynchSupport.IsStudentArtProgramAssociationArtMediumIncluded;
-                source.StudentArtProgramAssociationArtMedia.MapCollectionTo(target.StudentArtProgramAssociationArtMedia, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentArtProgramAssociationArtMediaSupported = false;
+                source.StudentArtProgramAssociationArtMedia.MapCollectionTo(target.StudentArtProgramAssociationArtMedia, target, mappingContract?.IsStudentArtProgramAssociationArtMediumIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentArtProgramAssociationPortfolioYearsSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationPortfolioYearsSupported != false)
             {
-                targetSynchSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded = sourceSynchSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded;
-                source.StudentArtProgramAssociationPortfolioYears.MapCollectionTo(target.StudentArtProgramAssociationPortfolioYears, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentArtProgramAssociationPortfolioYearsSupported = false;
+                source.StudentArtProgramAssociationPortfolioYears.MapCollectionTo(target.StudentArtProgramAssociationPortfolioYears, target, mappingContract?.IsStudentArtProgramAssociationPortfolioYearsIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentArtProgramAssociationServicesSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationServicesSupported != false)
             {
-                targetSynchSupport.IsStudentArtProgramAssociationServiceIncluded = sourceSynchSupport.IsStudentArtProgramAssociationServiceIncluded;
-                source.StudentArtProgramAssociationServices.MapCollectionTo(target.StudentArtProgramAssociationServices, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentArtProgramAssociationServicesSupported = false;
+                source.StudentArtProgramAssociationServices.MapCollectionTo(target.StudentArtProgramAssociationServices, target, mappingContract?.IsStudentArtProgramAssociationServiceIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentArtProgramAssociationStylesSupported)
+            if (mappingContract?.IsStudentArtProgramAssociationStylesSupported != false)
             {
-                targetSynchSupport.IsStudentArtProgramAssociationStyleIncluded = sourceSynchSupport.IsStudentArtProgramAssociationStyleIncluded;
-                source.StudentArtProgramAssociationStyles.MapCollectionTo(target.StudentArtProgramAssociationStyles, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentArtProgramAssociationStylesSupported = false;
+                source.StudentArtProgramAssociationStyles.MapCollectionTo(target.StudentArtProgramAssociationStyles, target, mappingContract?.IsStudentArtProgramAssociationStyleIncluded);
             }
 
 
@@ -4814,48 +4300,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentArtProgramAssociationSynchronizationSourceSupport 
-    {
-        bool IsArtPiecesSupported { get; set; }
-        bool IsEndDateSupported { get; set; }
-        bool IsExhibitDateSupported { get; set; }
-        bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
-        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
-        bool IsHoursPerDaySupported { get; set; }
-        bool IsIdentificationCodeSupported { get; set; }
-        bool IsKilnReservationSupported { get; set; }
-        bool IsKilnReservationLengthSupported { get; set; }
-        bool IsMasteredMediumsSupported { get; set; }
-        bool IsNumberOfDaysInAttendanceSupported { get; set; }
-        bool IsPortfolioPiecesSupported { get; set; }
-        bool IsPrivateArtProgramSupported { get; set; }
-        bool IsProgramFeesSupported { get; set; }
-        bool IsReasonExitedDescriptorSupported { get; set; }
-        bool IsServedOutsideOfRegularSessionSupported { get; set; }
-        bool IsStudentArtProgramAssociationArtMediaSupported { get; set; }
-        bool IsStudentArtProgramAssociationPortfolioYearsSupported { get; set; }
-        bool IsStudentArtProgramAssociationServicesSupported { get; set; }
-        bool IsStudentArtProgramAssociationStylesSupported { get; set; }
-        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
-        Func<IStudentArtProgramAssociationArtMedium, bool> IsStudentArtProgramAssociationArtMediumIncluded { get; set; }
-        Func<IStudentArtProgramAssociationPortfolioYears, bool> IsStudentArtProgramAssociationPortfolioYearsIncluded { get; set; }
-        Func<IStudentArtProgramAssociationService, bool> IsStudentArtProgramAssociationServiceIncluded { get; set; }
-        Func<IStudentArtProgramAssociationStyle, bool> IsStudentArtProgramAssociationStyleIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentArtProgramAssociationArtMediumMapper
     {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationArtMedium = new FullName("sample", "StudentArtProgramAssociationArtMedium");
+    
         public static bool SynchronizeTo(this IStudentArtProgramAssociationArtMedium source, IStudentArtProgramAssociationArtMedium target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationArtMediumMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationArtMedium);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ArtMediumDescriptor != target.ArtMediumDescriptor)
@@ -4875,9 +4333,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
         public static void MapTo(this IStudentArtProgramAssociationArtMedium source, IStudentArtProgramAssociationArtMedium target, Action<IStudentArtProgramAssociationArtMedium, IStudentArtProgramAssociationArtMedium> onMapped)
         {
-            var sourceSynchSupport = source as IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationArtMediumMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationArtMedium);
+    
             // Copy contextual primary key values
             target.ArtMediumDescriptor = source.ArtMediumDescriptor;
 
@@ -4914,23 +4374,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentArtProgramAssociationPortfolioYearsMapper
     {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationPortfolioYears = new FullName("sample", "StudentArtProgramAssociationPortfolioYears");
+    
         public static bool SynchronizeTo(this IStudentArtProgramAssociationPortfolioYears source, IStudentArtProgramAssociationPortfolioYears target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationPortfolioYearsMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationPortfolioYears);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.PortfolioYears != target.PortfolioYears)
@@ -4950,9 +4407,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
         public static void MapTo(this IStudentArtProgramAssociationPortfolioYears source, IStudentArtProgramAssociationPortfolioYears target, Action<IStudentArtProgramAssociationPortfolioYears, IStudentArtProgramAssociationPortfolioYears> onMapped)
         {
-            var sourceSynchSupport = source as IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationPortfolioYearsMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationPortfolioYears);
+    
             // Copy contextual primary key values
             target.PortfolioYears = source.PortfolioYears;
 
@@ -4989,23 +4448,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentArtProgramAssociationServiceMapper
     {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationService = new FullName("sample", "StudentArtProgramAssociationService");
+    
         public static bool SynchronizeTo(this IStudentArtProgramAssociationService source, IStudentArtProgramAssociationService target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentArtProgramAssociationServiceSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationServiceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationService);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ServiceDescriptor != target.ServiceDescriptor)
@@ -5015,21 +4471,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsPrimaryIndicatorSupported)
+            if ((mappingContract?.IsPrimaryIndicatorSupported != false)
                 && target.PrimaryIndicator != source.PrimaryIndicator)
             {
                 target.PrimaryIndicator = source.PrimaryIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsServiceBeginDateSupported)
+            if ((mappingContract?.IsServiceBeginDateSupported != false)
                 && target.ServiceBeginDate != source.ServiceBeginDate)
             {
                 target.ServiceBeginDate = source.ServiceBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsServiceEndDateSupported)
+            if ((mappingContract?.IsServiceEndDateSupported != false)
                 && target.ServiceEndDate != source.ServiceEndDate)
             {
                 target.ServiceEndDate = source.ServiceEndDate;
@@ -5046,28 +4502,24 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
         public static void MapTo(this IStudentArtProgramAssociationService source, IStudentArtProgramAssociationService target, Action<IStudentArtProgramAssociationService, IStudentArtProgramAssociationService> onMapped)
         {
-            var sourceSynchSupport = source as IStudentArtProgramAssociationServiceSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentArtProgramAssociationServiceSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationServiceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationService);
+    
             // Copy contextual primary key values
             target.ServiceDescriptor = source.ServiceDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsPrimaryIndicatorSupported)
+            if (mappingContract?.IsPrimaryIndicatorSupported != false)
                 target.PrimaryIndicator = source.PrimaryIndicator;
-            else
-                targetSynchSupport.IsPrimaryIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsServiceBeginDateSupported)
+            if (mappingContract?.IsServiceBeginDateSupported != false)
                 target.ServiceBeginDate = source.ServiceBeginDate;
-            else
-                targetSynchSupport.IsServiceBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsServiceEndDateSupported)
+            if (mappingContract?.IsServiceEndDateSupported != false)
                 target.ServiceEndDate = source.ServiceEndDate;
-            else
-                targetSynchSupport.IsServiceEndDateSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -5100,26 +4552,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentArtProgramAssociationServiceSynchronizationSourceSupport 
-    {
-        bool IsPrimaryIndicatorSupported { get; set; }
-        bool IsServiceBeginDateSupported { get; set; }
-        bool IsServiceEndDateSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentArtProgramAssociationStyleMapper
     {
+        private static readonly FullName _fullName_sample_StudentArtProgramAssociationStyle = new FullName("sample", "StudentArtProgramAssociationStyle");
+    
         public static bool SynchronizeTo(this IStudentArtProgramAssociationStyle source, IStudentArtProgramAssociationStyle target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentArtProgramAssociationStyleSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentArtProgramAssociationStyleMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationStyle);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Style != target.Style)
@@ -5139,9 +4585,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
         public static void MapTo(this IStudentArtProgramAssociationStyle source, IStudentArtProgramAssociationStyle target, Action<IStudentArtProgramAssociationStyle, IStudentArtProgramAssociationStyle> onMapped)
         {
-            var sourceSynchSupport = source as IStudentArtProgramAssociationStyleSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentArtProgramAssociationStyleSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentArtProgramAssociationStyleMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentArtProgramAssociationStyle);
+    
             // Copy contextual primary key values
             target.Style = source.Style;
 
@@ -5178,15 +4626,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentArtProgramAssociationStyleSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: StudentCTEProgramAssociation
 
@@ -5195,29 +4634,30 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
     [ExcludeFromCodeCoverage]
     public static class StudentCTEProgramAssociationExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentCTEProgramAssociationExtension = new FullName("sample", "StudentCTEProgramAssociationExtension");
+    
         public static bool SynchronizeTo(this IStudentCTEProgramAssociationExtension source, IStudentCTEProgramAssociationExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.StudentCTEProgramAssociation as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentCTEProgramAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentCTEProgramAssociationExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsAnalysisCompletedSupported)
+            if ((mappingContract?.IsAnalysisCompletedSupported != false)
                 && target.AnalysisCompleted != source.AnalysisCompleted)
             {
                 target.AnalysisCompleted = source.AnalysisCompleted;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsAnalysisDateSupported)
+            if ((mappingContract?.IsAnalysisDateSupported != false)
                 && target.AnalysisDate != source.AnalysisDate)
             {
                 target.AnalysisDate = source.AnalysisDate;
@@ -5234,22 +4674,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
 
         public static void MapTo(this IStudentCTEProgramAssociationExtension source, IStudentCTEProgramAssociationExtension target, Action<IStudentCTEProgramAssociationExtension, IStudentCTEProgramAssociationExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentCTEProgramAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentCTEProgramAssociationExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsAnalysisCompletedSupported)
+            if (mappingContract?.IsAnalysisCompletedSupported != false)
                 target.AnalysisCompleted = source.AnalysisCompleted;
-            else
-                targetSynchSupport.IsAnalysisCompletedSupported = false;
 
-            if (sourceSynchSupport.IsAnalysisDateSupported)
+            if (mappingContract?.IsAnalysisDateSupported != false)
                 target.AnalysisDate = source.AnalysisDate;
-            else
-                targetSynchSupport.IsAnalysisDateSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -5282,17 +4720,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport 
-    {
-        bool IsAnalysisCompletedSupported { get; set; }
-        bool IsAnalysisDateSupported { get; set; }
-    }
-
 }
 // Aggregate: StudentEducationOrganizationAssociation
 
@@ -5301,29 +4728,30 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
     [ExcludeFromCodeCoverage]
     public static class StudentEducationOrganizationAssociationAddressExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationAddressExtension = new FullName("sample", "StudentEducationOrganizationAssociationAddressExtension");
+    
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationAddressExtension source, IStudentEducationOrganizationAssociationAddressExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.StudentEducationOrganizationAssociationAddress as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsComplexSupported)
+            if ((mappingContract?.IsComplexSupported != false)
                 && target.Complex != source.Complex)
             {
                 target.Complex = source.Complex;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOnBusRouteSupported)
+            if ((mappingContract?.IsOnBusRouteSupported != false)
                 && target.OnBusRoute != source.OnBusRoute)
             {
                 target.OnBusRoute = source.OnBusRoute;
@@ -5332,7 +4760,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported)
+            if (mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported ?? true)
             {
                 isModified |=
                     source.StudentEducationOrganizationAssociationAddressSchoolDistricts.SynchronizeCollectionTo(
@@ -5344,12 +4772,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationAddress);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded);
+                        includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported)
+            if (mappingContract?.IsStudentEducationOrganizationAssociationAddressTermsSupported ?? true)
             {
                 isModified |=
                     source.StudentEducationOrganizationAssociationAddressTerms.SynchronizeCollectionTo(
@@ -5361,9 +4787,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationAddress);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded);
+                        includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationAddressTermIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -5374,22 +4798,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
         public static void MapTo(this IStudentEducationOrganizationAssociationAddressExtension source, IStudentEducationOrganizationAssociationAddressExtension target, Action<IStudentEducationOrganizationAssociationAddressExtension, IStudentEducationOrganizationAssociationAddressExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentEducationOrganizationAssociationAddressExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsComplexSupported)
+            if (mappingContract?.IsComplexSupported != false)
                 target.Complex = source.Complex;
-            else
-                targetSynchSupport.IsComplexSupported = false;
 
-            if (sourceSynchSupport.IsOnBusRouteSupported)
+            if (mappingContract?.IsOnBusRouteSupported != false)
                 target.OnBusRoute = source.OnBusRoute;
-            else
-                targetSynchSupport.IsOnBusRouteSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -5400,24 +4822,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported)
+            if (mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported != false)
             {
-                targetSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded = sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded;
-                source.StudentEducationOrganizationAssociationAddressSchoolDistricts.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressSchoolDistricts, target.StudentEducationOrganizationAssociationAddress);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported = false;
+                source.StudentEducationOrganizationAssociationAddressSchoolDistricts.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressSchoolDistricts, target.StudentEducationOrganizationAssociationAddress, mappingContract?.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported)
+            if (mappingContract?.IsStudentEducationOrganizationAssociationAddressTermsSupported != false)
             {
-                targetSynchSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded = sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded;
-                source.StudentEducationOrganizationAssociationAddressTerms.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressTerms, target.StudentEducationOrganizationAssociationAddress);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported = false;
+                source.StudentEducationOrganizationAssociationAddressTerms.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressTerms, target.StudentEducationOrganizationAssociationAddress, mappingContract?.IsStudentEducationOrganizationAssociationAddressTermIncluded);
             }
 
 
@@ -5442,29 +4854,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport 
-    {
-        bool IsComplexSupported { get; set; }
-        bool IsOnBusRouteSupported { get; set; }
-        bool IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported { get; set; }
-        bool IsStudentEducationOrganizationAssociationAddressTermsSupported { get; set; }
-        Func<IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded { get; set; }
-        Func<IStudentEducationOrganizationAssociationAddressTerm, bool> IsStudentEducationOrganizationAssociationAddressTermIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentEducationOrganizationAssociationAddressSchoolDistrictMapper
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationAddressSchoolDistrict = new FullName("sample", "StudentEducationOrganizationAssociationAddressSchoolDistrict");
+    
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationAddressSchoolDistrict source, IStudentEducationOrganizationAssociationAddressSchoolDistrict target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentEducationOrganizationAssociationAddressSchoolDistrictMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressSchoolDistrict);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.SchoolDistrict != target.SchoolDistrict)
@@ -5484,9 +4887,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
         public static void MapTo(this IStudentEducationOrganizationAssociationAddressSchoolDistrict source, IStudentEducationOrganizationAssociationAddressSchoolDistrict target, Action<IStudentEducationOrganizationAssociationAddressSchoolDistrict, IStudentEducationOrganizationAssociationAddressSchoolDistrict> onMapped)
         {
-            var sourceSynchSupport = source as IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentEducationOrganizationAssociationAddressSchoolDistrictMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressSchoolDistrict);
+    
             // Copy contextual primary key values
             target.SchoolDistrict = source.SchoolDistrict;
 
@@ -5523,23 +4928,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentEducationOrganizationAssociationAddressTermMapper
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationAddressTerm = new FullName("sample", "StudentEducationOrganizationAssociationAddressTerm");
+    
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationAddressTerm source, IStudentEducationOrganizationAssociationAddressTerm target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentEducationOrganizationAssociationAddressTermMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressTerm);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.TermDescriptor != target.TermDescriptor)
@@ -5559,9 +4961,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
         public static void MapTo(this IStudentEducationOrganizationAssociationAddressTerm source, IStudentEducationOrganizationAssociationAddressTerm target, Action<IStudentEducationOrganizationAssociationAddressTerm, IStudentEducationOrganizationAssociationAddressTerm> onMapped)
         {
-            var sourceSynchSupport = source as IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentEducationOrganizationAssociationAddressTermMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationAddressTerm);
+    
             // Copy contextual primary key values
             target.TermDescriptor = source.TermDescriptor;
 
@@ -5598,28 +5002,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentEducationOrganizationAssociationStudentCharacteristicExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension = new FullName("sample", "StudentEducationOrganizationAssociationStudentCharacteristicExtension");
+    
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationStudentCharacteristicExtension source, IStudentEducationOrganizationAssociationStudentCharacteristicExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.StudentEducationOrganizationAssociationStudentCharacteristic as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -5627,7 +5023,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported)
+            if (mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported ?? true)
             {
                 isModified |=
                     source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.SynchronizeCollectionTo(
@@ -5639,9 +5035,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationStudentCharacteristic);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded);
+                        includeItem: item => mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -5652,9 +5046,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
         public static void MapTo(this IStudentEducationOrganizationAssociationStudentCharacteristicExtension source, IStudentEducationOrganizationAssociationStudentCharacteristicExtension target, Action<IStudentEducationOrganizationAssociationStudentCharacteristicExtension, IStudentEducationOrganizationAssociationStudentCharacteristicExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
@@ -5668,14 +5064,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported)
+            if (mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported != false)
             {
-                targetSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded = sourceSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded;
-                source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.MapCollectionTo(target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, target.StudentEducationOrganizationAssociationStudentCharacteristic);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported = false;
+                source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.MapCollectionTo(target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, target.StudentEducationOrganizationAssociationStudentCharacteristic, mappingContract?.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded);
             }
 
 
@@ -5700,25 +5091,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport 
-    {
-        bool IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported { get; set; }
-        Func<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedMapper
     {
+        private static readonly FullName _fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed = new FullName("sample", "StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed");
+    
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed source, IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BeginDate != target.BeginDate)
@@ -5728,14 +5114,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+            if ((mappingContract?.IsEndDateSupported != false)
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPrimaryStudentNeedIndicatorSupported)
+            if ((mappingContract?.IsPrimaryStudentNeedIndicatorSupported != false)
                 && target.PrimaryStudentNeedIndicator != source.PrimaryStudentNeedIndicator)
             {
                 target.PrimaryStudentNeedIndicator = source.PrimaryStudentNeedIndicator;
@@ -5752,23 +5138,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
 
         public static void MapTo(this IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed source, IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed target, Action<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed> onMapped)
         {
-            var sourceSynchSupport = source as IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed);
+    
             // Copy contextual primary key values
             target.BeginDate = source.BeginDate;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEndDateSupported)
+            if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
-            else
-                targetSynchSupport.IsEndDateSupported = false;
 
-            if (sourceSynchSupport.IsPrimaryStudentNeedIndicatorSupported)
+            if (mappingContract?.IsPrimaryStudentNeedIndicatorSupported != false)
                 target.PrimaryStudentNeedIndicator = source.PrimaryStudentNeedIndicator;
-            else
-                targetSynchSupport.IsPrimaryStudentNeedIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -5801,17 +5185,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport 
-    {
-        bool IsEndDateSupported { get; set; }
-        bool IsPrimaryStudentNeedIndicatorSupported { get; set; }
-    }
-
 }
 // Aggregate: StudentGraduationPlanAssociation
 
@@ -5820,11 +5193,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociation = new FullName("sample", "StudentGraduationPlanAssociation");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociation source, IStudentGraduationPlanAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -5846,63 +5225,63 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCommencementTimeSupported)
+            if ((mappingContract?.IsCommencementTimeSupported != false)
                 && target.CommencementTime != source.CommencementTime)
             {
                 target.CommencementTime = source.CommencementTime;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveDateSupported)
+            if ((mappingContract?.IsEffectiveDateSupported != false)
                 && target.EffectiveDate != source.EffectiveDate)
             {
                 target.EffectiveDate = source.EffectiveDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsGraduationFeeSupported)
+            if ((mappingContract?.IsGraduationFeeSupported != false)
                 && target.GraduationFee != source.GraduationFee)
             {
                 target.GraduationFee = source.GraduationFee;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsHighSchoolDurationSupported)
+            if ((mappingContract?.IsHighSchoolDurationSupported != false)
                 && target.HighSchoolDuration != source.HighSchoolDuration)
             {
                 target.HighSchoolDuration = source.HighSchoolDuration;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsHoursPerWeekSupported)
+            if ((mappingContract?.IsHoursPerWeekSupported != false)
                 && target.HoursPerWeek != source.HoursPerWeek)
             {
                 target.HoursPerWeek = source.HoursPerWeek;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsIsActivePlanSupported)
+            if ((mappingContract?.IsIsActivePlanSupported != false)
                 && target.IsActivePlan != source.IsActivePlan)
             {
                 target.IsActivePlan = source.IsActivePlan;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsRequiredAttendanceSupported)
+            if ((mappingContract?.IsRequiredAttendanceSupported != false)
                 && target.RequiredAttendance != source.RequiredAttendance)
             {
                 target.RequiredAttendance = source.RequiredAttendance;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsStaffUniqueIdSupported)
+            if ((mappingContract?.IsStaffUniqueIdSupported != false)
                 && target.StaffUniqueId != source.StaffUniqueId)
             {
                 target.StaffUniqueId = source.StaffUniqueId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsTargetGPASupported)
+            if ((mappingContract?.IsTargetGPASupported != false)
                 && target.TargetGPA != source.TargetGPA)
             {
                 target.TargetGPA = source.TargetGPA;
@@ -5912,8 +5291,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // StudentGraduationPlanAssociationCTEProgram
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationCTEProgramSupported)
+            // StudentGraduationPlanAssociationCTEProgram (StudentGraduationPlanAssociationCTEProgram)
+            if (mappingContract?.IsStudentGraduationPlanAssociationCTEProgramSupported != false)
             {
                 if (source.StudentGraduationPlanAssociationCTEProgram == null)
                 {
@@ -5939,7 +5318,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // -------------------------------------------------------------
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectsSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationAcademicSubjects.SynchronizeCollectionTo(
@@ -5948,12 +5327,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationCareerPathwayCodes.SynchronizeCollectionTo(
@@ -5962,12 +5339,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationDescriptionsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationDescriptionsSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationDescriptions.SynchronizeCollectionTo(
@@ -5976,12 +5351,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationDescriptionIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationDescriptionIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationDesignatedBiesSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationDesignatedBies.SynchronizeCollectionTo(
@@ -5990,12 +5363,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationDesignatedByIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialsSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationIndustryCredentials.SynchronizeCollectionTo(
@@ -6004,12 +5375,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationStudentParentAssociations.SynchronizeCollectionTo(
@@ -6018,12 +5387,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedsSupported ?? true)
             {
                 isModified |=
                     source.StudentGraduationPlanAssociationYearsAttendeds.SynchronizeCollectionTo(
@@ -6032,9 +5399,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded);
+                        includeItem: item => mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -6045,9 +5410,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociation source, IStudentGraduationPlanAssociation target, Action<IStudentGraduationPlanAssociation, IStudentGraduationPlanAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -6059,50 +5426,32 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCommencementTimeSupported)
+            if (mappingContract?.IsCommencementTimeSupported != false)
                 target.CommencementTime = source.CommencementTime;
-            else
-                targetSynchSupport.IsCommencementTimeSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveDateSupported)
+            if (mappingContract?.IsEffectiveDateSupported != false)
                 target.EffectiveDate = source.EffectiveDate;
-            else
-                targetSynchSupport.IsEffectiveDateSupported = false;
 
-            if (sourceSynchSupport.IsGraduationFeeSupported)
+            if (mappingContract?.IsGraduationFeeSupported != false)
                 target.GraduationFee = source.GraduationFee;
-            else
-                targetSynchSupport.IsGraduationFeeSupported = false;
 
-            if (sourceSynchSupport.IsHighSchoolDurationSupported)
+            if (mappingContract?.IsHighSchoolDurationSupported != false)
                 target.HighSchoolDuration = source.HighSchoolDuration;
-            else
-                targetSynchSupport.IsHighSchoolDurationSupported = false;
 
-            if (sourceSynchSupport.IsHoursPerWeekSupported)
+            if (mappingContract?.IsHoursPerWeekSupported != false)
                 target.HoursPerWeek = source.HoursPerWeek;
-            else
-                targetSynchSupport.IsHoursPerWeekSupported = false;
 
-            if (sourceSynchSupport.IsIsActivePlanSupported)
+            if (mappingContract?.IsIsActivePlanSupported != false)
                 target.IsActivePlan = source.IsActivePlan;
-            else
-                targetSynchSupport.IsIsActivePlanSupported = false;
 
-            if (sourceSynchSupport.IsRequiredAttendanceSupported)
+            if (mappingContract?.IsRequiredAttendanceSupported != false)
                 target.RequiredAttendance = source.RequiredAttendance;
-            else
-                targetSynchSupport.IsRequiredAttendanceSupported = false;
 
-            if (sourceSynchSupport.IsStaffUniqueIdSupported)
+            if (mappingContract?.IsStaffUniqueIdSupported != false)
                 target.StaffUniqueId = source.StaffUniqueId;
-            else
-                targetSynchSupport.IsStaffUniqueIdSupported = false;
 
-            if (sourceSynchSupport.IsTargetGPASupported)
+            if (mappingContract?.IsTargetGPASupported != false)
                 target.TargetGPA = source.TargetGPA;
-            else
-                targetSynchSupport.IsTargetGPASupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -6121,8 +5470,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // StudentGraduationPlanAssociationCTEProgram (Source)
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationCTEProgramSupported)
+            // StudentGraduationPlanAssociationCTEProgram (StudentGraduationPlanAssociationCTEProgram) (Source)
+            if (mappingContract?.IsStudentGraduationPlanAssociationCTEProgramSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram");
 
@@ -6144,82 +5493,43 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationCTEProgramSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectsSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded;
-                source.StudentGraduationPlanAssociationAcademicSubjects.MapCollectionTo(target.StudentGraduationPlanAssociationAcademicSubjects, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported = false;
+                source.StudentGraduationPlanAssociationAcademicSubjects.MapCollectionTo(target.StudentGraduationPlanAssociationAcademicSubjects, target, mappingContract?.IsStudentGraduationPlanAssociationAcademicSubjectIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded;
-                source.StudentGraduationPlanAssociationCareerPathwayCodes.MapCollectionTo(target.StudentGraduationPlanAssociationCareerPathwayCodes, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported = false;
+                source.StudentGraduationPlanAssociationCareerPathwayCodes.MapCollectionTo(target.StudentGraduationPlanAssociationCareerPathwayCodes, target, mappingContract?.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationDescriptionsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationDescriptionsSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationDescriptionIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationDescriptionIncluded;
-                source.StudentGraduationPlanAssociationDescriptions.MapCollectionTo(target.StudentGraduationPlanAssociationDescriptions, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationDescriptionsSupported = false;
+                source.StudentGraduationPlanAssociationDescriptions.MapCollectionTo(target.StudentGraduationPlanAssociationDescriptions, target, mappingContract?.IsStudentGraduationPlanAssociationDescriptionIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationDesignatedBiesSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded;
-                source.StudentGraduationPlanAssociationDesignatedBies.MapCollectionTo(target.StudentGraduationPlanAssociationDesignatedBies, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported = false;
+                source.StudentGraduationPlanAssociationDesignatedBies.MapCollectionTo(target.StudentGraduationPlanAssociationDesignatedBies, target, mappingContract?.IsStudentGraduationPlanAssociationDesignatedByIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialsSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded;
-                source.StudentGraduationPlanAssociationIndustryCredentials.MapCollectionTo(target.StudentGraduationPlanAssociationIndustryCredentials, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported = false;
+                source.StudentGraduationPlanAssociationIndustryCredentials.MapCollectionTo(target.StudentGraduationPlanAssociationIndustryCredentials, target, mappingContract?.IsStudentGraduationPlanAssociationIndustryCredentialIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded;
-                source.StudentGraduationPlanAssociationStudentParentAssociations.MapCollectionTo(target.StudentGraduationPlanAssociationStudentParentAssociations, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported = false;
+                source.StudentGraduationPlanAssociationStudentParentAssociations.MapCollectionTo(target.StudentGraduationPlanAssociationStudentParentAssociations, target, mappingContract?.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported)
+            if (mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedsSupported != false)
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded;
-                source.StudentGraduationPlanAssociationYearsAttendeds.MapCollectionTo(target.StudentGraduationPlanAssociationYearsAttendeds, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported = false;
+                source.StudentGraduationPlanAssociationYearsAttendeds.MapCollectionTo(target.StudentGraduationPlanAssociationYearsAttendeds, target, mappingContract?.IsStudentGraduationPlanAssociationYearsAttendedIncluded);
             }
 
 
@@ -6244,47 +5554,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationSynchronizationSourceSupport 
-    {
-        bool IsCommencementTimeSupported { get; set; }
-        bool IsEffectiveDateSupported { get; set; }
-        bool IsGraduationFeeSupported { get; set; }
-        bool IsHighSchoolDurationSupported { get; set; }
-        bool IsHoursPerWeekSupported { get; set; }
-        bool IsIsActivePlanSupported { get; set; }
-        bool IsRequiredAttendanceSupported { get; set; }
-        bool IsStaffUniqueIdSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationAcademicSubjectsSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationCareerPathwayCodesSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationCTEProgramSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationDescriptionsSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationDesignatedBiesSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationIndustryCredentialsSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationStudentParentAssociationsSupported { get; set; }
-        bool IsStudentGraduationPlanAssociationYearsAttendedsSupported { get; set; }
-        bool IsTargetGPASupported { get; set; }
-        Func<IStudentGraduationPlanAssociationAcademicSubject, bool> IsStudentGraduationPlanAssociationAcademicSubjectIncluded { get; set; }
-        Func<IStudentGraduationPlanAssociationCareerPathwayCode, bool> IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded { get; set; }
-        Func<IStudentGraduationPlanAssociationDescription, bool> IsStudentGraduationPlanAssociationDescriptionIncluded { get; set; }
-        Func<IStudentGraduationPlanAssociationDesignatedBy, bool> IsStudentGraduationPlanAssociationDesignatedByIncluded { get; set; }
-        Func<IStudentGraduationPlanAssociationIndustryCredential, bool> IsStudentGraduationPlanAssociationIndustryCredentialIncluded { get; set; }
-        Func<IStudentGraduationPlanAssociationStudentParentAssociation, bool> IsStudentGraduationPlanAssociationStudentParentAssociationIncluded { get; set; }
-        Func<IStudentGraduationPlanAssociationYearsAttended, bool> IsStudentGraduationPlanAssociationYearsAttendedIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationAcademicSubjectMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationAcademicSubject = new FullName("sample", "StudentGraduationPlanAssociationAcademicSubject");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationAcademicSubject source, IStudentGraduationPlanAssociationAcademicSubject target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationAcademicSubject);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AcademicSubjectDescriptor != target.AcademicSubjectDescriptor)
@@ -6304,9 +5587,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationAcademicSubject source, IStudentGraduationPlanAssociationAcademicSubject target, Action<IStudentGraduationPlanAssociationAcademicSubject, IStudentGraduationPlanAssociationAcademicSubject> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationAcademicSubjectMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationAcademicSubject);
+    
             // Copy contextual primary key values
             target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
 
@@ -6343,23 +5628,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationCareerPathwayCodeMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationCareerPathwayCode = new FullName("sample", "StudentGraduationPlanAssociationCareerPathwayCode");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationCareerPathwayCode source, IStudentGraduationPlanAssociationCareerPathwayCode target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationCareerPathwayCodeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCareerPathwayCode);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CareerPathwayCode != target.CareerPathwayCode)
@@ -6379,9 +5661,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationCareerPathwayCode source, IStudentGraduationPlanAssociationCareerPathwayCode target, Action<IStudentGraduationPlanAssociationCareerPathwayCode, IStudentGraduationPlanAssociationCareerPathwayCode> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationCareerPathwayCodeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCareerPathwayCode);
+    
             // Copy contextual primary key values
             target.CareerPathwayCode = source.CareerPathwayCode;
 
@@ -6418,50 +5702,47 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationCTEProgramMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationCTEProgram = new FullName("sample", "StudentGraduationPlanAssociationCTEProgram");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationCTEProgram source, IStudentGraduationPlanAssociationCTEProgram target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgram);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCareerPathwayDescriptorSupported)
+            if ((mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 && target.CareerPathwayDescriptor != source.CareerPathwayDescriptor)
             {
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCIPCodeSupported)
+            if ((mappingContract?.IsCIPCodeSupported != false)
                 && target.CIPCode != source.CIPCode)
             {
                 target.CIPCode = source.CIPCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCTEProgramCompletionIndicatorSupported)
+            if ((mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
                 && target.CTEProgramCompletionIndicator != source.CTEProgramCompletionIndicator)
             {
                 target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPrimaryCTEProgramIndicatorSupported)
+            if ((mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
                 && target.PrimaryCTEProgramIndicator != source.PrimaryCTEProgramIndicator)
             {
                 target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
@@ -6478,32 +5759,26 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationCTEProgram source, IStudentGraduationPlanAssociationCTEProgram target, Action<IStudentGraduationPlanAssociationCTEProgram, IStudentGraduationPlanAssociationCTEProgram> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationCTEProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationCTEProgram);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCareerPathwayDescriptorSupported)
+            if (mappingContract?.IsCareerPathwayDescriptorSupported != false)
                 target.CareerPathwayDescriptor = source.CareerPathwayDescriptor;
-            else
-                targetSynchSupport.IsCareerPathwayDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsCIPCodeSupported)
+            if (mappingContract?.IsCIPCodeSupported != false)
                 target.CIPCode = source.CIPCode;
-            else
-                targetSynchSupport.IsCIPCodeSupported = false;
 
-            if (sourceSynchSupport.IsCTEProgramCompletionIndicatorSupported)
+            if (mappingContract?.IsCTEProgramCompletionIndicatorSupported != false)
                 target.CTEProgramCompletionIndicator = source.CTEProgramCompletionIndicator;
-            else
-                targetSynchSupport.IsCTEProgramCompletionIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsPrimaryCTEProgramIndicatorSupported)
+            if (mappingContract?.IsPrimaryCTEProgramIndicatorSupported != false)
                 target.PrimaryCTEProgramIndicator = source.PrimaryCTEProgramIndicator;
-            else
-                targetSynchSupport.IsPrimaryCTEProgramIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -6536,27 +5811,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport 
-    {
-        bool IsCareerPathwayDescriptorSupported { get; set; }
-        bool IsCIPCodeSupported { get; set; }
-        bool IsCTEProgramCompletionIndicatorSupported { get; set; }
-        bool IsPrimaryCTEProgramIndicatorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationDescriptionMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationDescription = new FullName("sample", "StudentGraduationPlanAssociationDescription");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationDescription source, IStudentGraduationPlanAssociationDescription target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationDescriptionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDescription);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Description != target.Description)
@@ -6576,9 +5844,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationDescription source, IStudentGraduationPlanAssociationDescription target, Action<IStudentGraduationPlanAssociationDescription, IStudentGraduationPlanAssociationDescription> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationDescriptionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDescription);
+    
             // Copy contextual primary key values
             target.Description = source.Description;
 
@@ -6615,23 +5885,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationDesignatedByMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationDesignatedBy = new FullName("sample", "StudentGraduationPlanAssociationDesignatedBy");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationDesignatedBy source, IStudentGraduationPlanAssociationDesignatedBy target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationDesignatedByMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDesignatedBy);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.DesignatedBy != target.DesignatedBy)
@@ -6651,9 +5918,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationDesignatedBy source, IStudentGraduationPlanAssociationDesignatedBy target, Action<IStudentGraduationPlanAssociationDesignatedBy, IStudentGraduationPlanAssociationDesignatedBy> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationDesignatedByMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationDesignatedBy);
+    
             // Copy contextual primary key values
             target.DesignatedBy = source.DesignatedBy;
 
@@ -6690,23 +5959,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationIndustryCredentialMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationIndustryCredential = new FullName("sample", "StudentGraduationPlanAssociationIndustryCredential");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationIndustryCredential source, IStudentGraduationPlanAssociationIndustryCredential target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationIndustryCredentialMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationIndustryCredential);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.IndustryCredential != target.IndustryCredential)
@@ -6726,9 +5992,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationIndustryCredential source, IStudentGraduationPlanAssociationIndustryCredential target, Action<IStudentGraduationPlanAssociationIndustryCredential, IStudentGraduationPlanAssociationIndustryCredential> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationIndustryCredentialMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationIndustryCredential);
+    
             // Copy contextual primary key values
             target.IndustryCredential = source.IndustryCredential;
 
@@ -6765,23 +6033,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationStudentParentAssociationMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationStudentParentAssociation = new FullName("sample", "StudentGraduationPlanAssociationStudentParentAssociation");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationStudentParentAssociation source, IStudentGraduationPlanAssociationStudentParentAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationStudentParentAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationStudentParentAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ParentUniqueId != target.ParentUniqueId)
@@ -6801,9 +6066,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationStudentParentAssociation source, IStudentGraduationPlanAssociationStudentParentAssociation target, Action<IStudentGraduationPlanAssociationStudentParentAssociation, IStudentGraduationPlanAssociationStudentParentAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationStudentParentAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationStudentParentAssociation);
+    
             // Copy contextual primary key values
             target.ParentUniqueId = source.ParentUniqueId;
 
@@ -6847,23 +6114,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentGraduationPlanAssociationYearsAttendedMapper
     {
+        private static readonly FullName _fullName_sample_StudentGraduationPlanAssociationYearsAttended = new FullName("sample", "StudentGraduationPlanAssociationYearsAttended");
+    
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationYearsAttended source, IStudentGraduationPlanAssociationYearsAttended target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentGraduationPlanAssociationYearsAttendedMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationYearsAttended);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.YearsAttended != target.YearsAttended)
@@ -6883,9 +6147,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
 
         public static void MapTo(this IStudentGraduationPlanAssociationYearsAttended source, IStudentGraduationPlanAssociationYearsAttended target, Action<IStudentGraduationPlanAssociationYearsAttended, IStudentGraduationPlanAssociationYearsAttended> onMapped)
         {
-            var sourceSynchSupport = source as IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentGraduationPlanAssociationYearsAttendedMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentGraduationPlanAssociationYearsAttended);
+    
             // Copy contextual primary key values
             target.YearsAttended = source.YearsAttended;
 
@@ -6922,15 +6188,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: StudentParentAssociation
 
@@ -6939,11 +6196,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationDisciplineMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationDiscipline = new FullName("sample", "StudentParentAssociationDiscipline");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationDiscipline source, IStudentParentAssociationDiscipline target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationDisciplineSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationDisciplineMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationDiscipline);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.DisciplineDescriptor != target.DisciplineDescriptor)
@@ -6963,9 +6226,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationDiscipline source, IStudentParentAssociationDiscipline target, Action<IStudentParentAssociationDiscipline, IStudentParentAssociationDiscipline> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationDisciplineSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationDisciplineSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationDisciplineMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationDiscipline);
+    
             // Copy contextual primary key values
             target.DisciplineDescriptor = source.DisciplineDescriptor;
 
@@ -7002,118 +6267,110 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationDisciplineSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationExtension = new FullName("sample", "StudentParentAssociationExtension");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationExtension source, IStudentParentAssociationExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.StudentParentAssociation as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsBedtimeReaderSupported)
+            if ((mappingContract?.IsBedtimeReaderSupported != false)
                 && target.BedtimeReader != source.BedtimeReader)
             {
                 target.BedtimeReader = source.BedtimeReader;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBedtimeReadingRateSupported)
+            if ((mappingContract?.IsBedtimeReadingRateSupported != false)
                 && target.BedtimeReadingRate != source.BedtimeReadingRate)
             {
                 target.BedtimeReadingRate = source.BedtimeReadingRate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBookBudgetSupported)
+            if ((mappingContract?.IsBookBudgetSupported != false)
                 && target.BookBudget != source.BookBudget)
             {
                 target.BookBudget = source.BookBudget;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBooksBorrowedSupported)
+            if ((mappingContract?.IsBooksBorrowedSupported != false)
                 && target.BooksBorrowed != source.BooksBorrowed)
             {
                 target.BooksBorrowed = source.BooksBorrowed;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEducationOrganizationIdSupported)
+            if ((mappingContract?.IsEducationOrganizationIdSupported != false)
                 && target.EducationOrganizationId != source.EducationOrganizationId)
             {
                 target.EducationOrganizationId = source.EducationOrganizationId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsInterventionStudyIdentificationCodeSupported)
+            if ((mappingContract?.IsInterventionStudyIdentificationCodeSupported != false)
                 && target.InterventionStudyIdentificationCode != source.InterventionStudyIdentificationCode)
             {
                 target.InterventionStudyIdentificationCode = source.InterventionStudyIdentificationCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLibraryDurationSupported)
+            if ((mappingContract?.IsLibraryDurationSupported != false)
                 && target.LibraryDuration != source.LibraryDuration)
             {
                 target.LibraryDuration = source.LibraryDuration;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLibraryTimeSupported)
+            if ((mappingContract?.IsLibraryTimeSupported != false)
                 && target.LibraryTime != source.LibraryTime)
             {
                 target.LibraryTime = source.LibraryTime;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLibraryVisitsSupported)
+            if ((mappingContract?.IsLibraryVisitsSupported != false)
                 && target.LibraryVisits != source.LibraryVisits)
             {
                 target.LibraryVisits = source.LibraryVisits;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorContactRestrictionsSupported)
+            if ((mappingContract?.IsPriorContactRestrictionsSupported != false)
                 && target.PriorContactRestrictions != source.PriorContactRestrictions)
             {
                 target.PriorContactRestrictions = source.PriorContactRestrictions;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReadGreenEggsAndHamDateSupported)
+            if ((mappingContract?.IsReadGreenEggsAndHamDateSupported != false)
                 && target.ReadGreenEggsAndHamDate != source.ReadGreenEggsAndHamDate)
             {
                 target.ReadGreenEggsAndHamDate = source.ReadGreenEggsAndHamDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReadingTimeSpentSupported)
+            if ((mappingContract?.IsReadingTimeSpentSupported != false)
                 && target.ReadingTimeSpent != source.ReadingTimeSpent)
             {
                 target.ReadingTimeSpent = source.ReadingTimeSpent;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsStudentReadSupported)
+            if ((mappingContract?.IsStudentReadSupported != false)
                 && target.StudentRead != source.StudentRead)
             {
                 target.StudentRead = source.StudentRead;
@@ -7123,8 +6380,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // StudentParentAssociationTelephone
-            if (sourceSupport == null || sourceSupport.IsStudentParentAssociationTelephoneSupported)
+            // StudentParentAssociationTelephone (StudentParentAssociationTelephone)
+            if (mappingContract?.IsStudentParentAssociationTelephoneSupported != false)
             {
                 if (source.StudentParentAssociationTelephone == null)
                 {
@@ -7150,7 +6407,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             // -------------------------------------------------------------
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentParentAssociationDisciplinesSupported)
+            if (mappingContract?.IsStudentParentAssociationDisciplinesSupported ?? true)
             {
                 isModified |=
                     source.StudentParentAssociationDisciplines.SynchronizeCollectionTo(
@@ -7162,12 +6419,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentParentAssociationDisciplineIncluded);
+                        includeItem: item => mappingContract?.IsStudentParentAssociationDisciplineIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentParentAssociationFavoriteBookTitlesSupported)
+            if (mappingContract?.IsStudentParentAssociationFavoriteBookTitlesSupported ?? true)
             {
                 isModified |=
                     source.StudentParentAssociationFavoriteBookTitles.SynchronizeCollectionTo(
@@ -7179,12 +6434,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentParentAssociationFavoriteBookTitleIncluded);
+                        includeItem: item => mappingContract?.IsStudentParentAssociationFavoriteBookTitleIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentParentAssociationHoursPerWeeksSupported)
+            if (mappingContract?.IsStudentParentAssociationHoursPerWeeksSupported ?? true)
             {
                 isModified |=
                     source.StudentParentAssociationHoursPerWeeks.SynchronizeCollectionTo(
@@ -7196,12 +6449,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentParentAssociationHoursPerWeekIncluded);
+                        includeItem: item => mappingContract?.IsStudentParentAssociationHoursPerWeekIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentParentAssociationPagesReadsSupported)
+            if (mappingContract?.IsStudentParentAssociationPagesReadsSupported ?? true)
             {
                 isModified |=
                     source.StudentParentAssociationPagesReads.SynchronizeCollectionTo(
@@ -7213,12 +6464,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentParentAssociationPagesReadIncluded);
+                        includeItem: item => mappingContract?.IsStudentParentAssociationPagesReadIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported)
+            if (mappingContract?.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported ?? true)
             {
                 isModified |=
                     source.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.SynchronizeCollectionTo(
@@ -7230,9 +6479,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded);
+                        includeItem: item => mappingContract?.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -7243,77 +6490,53 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationExtension source, IStudentParentAssociationExtension target, Action<IStudentParentAssociationExtension, IStudentParentAssociationExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsBedtimeReaderSupported)
+            if (mappingContract?.IsBedtimeReaderSupported != false)
                 target.BedtimeReader = source.BedtimeReader;
-            else
-                targetSynchSupport.IsBedtimeReaderSupported = false;
 
-            if (sourceSynchSupport.IsBedtimeReadingRateSupported)
+            if (mappingContract?.IsBedtimeReadingRateSupported != false)
                 target.BedtimeReadingRate = source.BedtimeReadingRate;
-            else
-                targetSynchSupport.IsBedtimeReadingRateSupported = false;
 
-            if (sourceSynchSupport.IsBookBudgetSupported)
+            if (mappingContract?.IsBookBudgetSupported != false)
                 target.BookBudget = source.BookBudget;
-            else
-                targetSynchSupport.IsBookBudgetSupported = false;
 
-            if (sourceSynchSupport.IsBooksBorrowedSupported)
+            if (mappingContract?.IsBooksBorrowedSupported != false)
                 target.BooksBorrowed = source.BooksBorrowed;
-            else
-                targetSynchSupport.IsBooksBorrowedSupported = false;
 
-            if (sourceSynchSupport.IsEducationOrganizationIdSupported)
+            if (mappingContract?.IsEducationOrganizationIdSupported != false)
                 target.EducationOrganizationId = source.EducationOrganizationId;
-            else
-                targetSynchSupport.IsEducationOrganizationIdSupported = false;
 
-            if (sourceSynchSupport.IsInterventionStudyIdentificationCodeSupported)
+            if (mappingContract?.IsInterventionStudyIdentificationCodeSupported != false)
                 target.InterventionStudyIdentificationCode = source.InterventionStudyIdentificationCode;
-            else
-                targetSynchSupport.IsInterventionStudyIdentificationCodeSupported = false;
 
-            if (sourceSynchSupport.IsLibraryDurationSupported)
+            if (mappingContract?.IsLibraryDurationSupported != false)
                 target.LibraryDuration = source.LibraryDuration;
-            else
-                targetSynchSupport.IsLibraryDurationSupported = false;
 
-            if (sourceSynchSupport.IsLibraryTimeSupported)
+            if (mappingContract?.IsLibraryTimeSupported != false)
                 target.LibraryTime = source.LibraryTime;
-            else
-                targetSynchSupport.IsLibraryTimeSupported = false;
 
-            if (sourceSynchSupport.IsLibraryVisitsSupported)
+            if (mappingContract?.IsLibraryVisitsSupported != false)
                 target.LibraryVisits = source.LibraryVisits;
-            else
-                targetSynchSupport.IsLibraryVisitsSupported = false;
 
-            if (sourceSynchSupport.IsPriorContactRestrictionsSupported)
+            if (mappingContract?.IsPriorContactRestrictionsSupported != false)
                 target.PriorContactRestrictions = source.PriorContactRestrictions;
-            else
-                targetSynchSupport.IsPriorContactRestrictionsSupported = false;
 
-            if (sourceSynchSupport.IsReadGreenEggsAndHamDateSupported)
+            if (mappingContract?.IsReadGreenEggsAndHamDateSupported != false)
                 target.ReadGreenEggsAndHamDate = source.ReadGreenEggsAndHamDate;
-            else
-                targetSynchSupport.IsReadGreenEggsAndHamDateSupported = false;
 
-            if (sourceSynchSupport.IsReadingTimeSpentSupported)
+            if (mappingContract?.IsReadingTimeSpentSupported != false)
                 target.ReadingTimeSpent = source.ReadingTimeSpent;
-            else
-                targetSynchSupport.IsReadingTimeSpentSupported = false;
 
-            if (sourceSynchSupport.IsStudentReadSupported)
+            if (mappingContract?.IsStudentReadSupported != false)
                 target.StudentRead = source.StudentRead;
-            else
-                targetSynchSupport.IsStudentReadSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -7328,8 +6551,8 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // StudentParentAssociationTelephone (Source)
-            if (sourceSynchSupport.IsStudentParentAssociationTelephoneSupported)
+            // StudentParentAssociationTelephone (StudentParentAssociationTelephone) (Source)
+            if (mappingContract?.IsStudentParentAssociationTelephoneSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("StudentParentAssociationTelephone");
 
@@ -7351,62 +6574,33 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                     }
                 }
             }
-            else
-            {
-                targetSynchSupport.IsStudentParentAssociationTelephoneSupported = false;
-            }
             // -------------------------------------------------------------
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentParentAssociationDisciplinesSupported)
+            if (mappingContract?.IsStudentParentAssociationDisciplinesSupported != false)
             {
-                targetSynchSupport.IsStudentParentAssociationDisciplineIncluded = sourceSynchSupport.IsStudentParentAssociationDisciplineIncluded;
-                source.StudentParentAssociationDisciplines.MapCollectionTo(target.StudentParentAssociationDisciplines, target.StudentParentAssociation);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentParentAssociationDisciplinesSupported = false;
+                source.StudentParentAssociationDisciplines.MapCollectionTo(target.StudentParentAssociationDisciplines, target.StudentParentAssociation, mappingContract?.IsStudentParentAssociationDisciplineIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentParentAssociationFavoriteBookTitlesSupported)
+            if (mappingContract?.IsStudentParentAssociationFavoriteBookTitlesSupported != false)
             {
-                targetSynchSupport.IsStudentParentAssociationFavoriteBookTitleIncluded = sourceSynchSupport.IsStudentParentAssociationFavoriteBookTitleIncluded;
-                source.StudentParentAssociationFavoriteBookTitles.MapCollectionTo(target.StudentParentAssociationFavoriteBookTitles, target.StudentParentAssociation);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentParentAssociationFavoriteBookTitlesSupported = false;
+                source.StudentParentAssociationFavoriteBookTitles.MapCollectionTo(target.StudentParentAssociationFavoriteBookTitles, target.StudentParentAssociation, mappingContract?.IsStudentParentAssociationFavoriteBookTitleIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentParentAssociationHoursPerWeeksSupported)
+            if (mappingContract?.IsStudentParentAssociationHoursPerWeeksSupported != false)
             {
-                targetSynchSupport.IsStudentParentAssociationHoursPerWeekIncluded = sourceSynchSupport.IsStudentParentAssociationHoursPerWeekIncluded;
-                source.StudentParentAssociationHoursPerWeeks.MapCollectionTo(target.StudentParentAssociationHoursPerWeeks, target.StudentParentAssociation);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentParentAssociationHoursPerWeeksSupported = false;
+                source.StudentParentAssociationHoursPerWeeks.MapCollectionTo(target.StudentParentAssociationHoursPerWeeks, target.StudentParentAssociation, mappingContract?.IsStudentParentAssociationHoursPerWeekIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentParentAssociationPagesReadsSupported)
+            if (mappingContract?.IsStudentParentAssociationPagesReadsSupported != false)
             {
-                targetSynchSupport.IsStudentParentAssociationPagesReadIncluded = sourceSynchSupport.IsStudentParentAssociationPagesReadIncluded;
-                source.StudentParentAssociationPagesReads.MapCollectionTo(target.StudentParentAssociationPagesReads, target.StudentParentAssociation);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentParentAssociationPagesReadsSupported = false;
+                source.StudentParentAssociationPagesReads.MapCollectionTo(target.StudentParentAssociationPagesReads, target.StudentParentAssociation, mappingContract?.IsStudentParentAssociationPagesReadIncluded);
             }
 
-            if (sourceSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported)
+            if (mappingContract?.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported != false)
             {
-                targetSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded = sourceSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded;
-                source.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.MapCollectionTo(target.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, target.StudentParentAssociation);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported = false;
+                source.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.MapCollectionTo(target.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, target.StudentParentAssociation, mappingContract?.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded);
             }
 
 
@@ -7431,47 +6625,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationExtensionSynchronizationSourceSupport 
-    {
-        bool IsBedtimeReaderSupported { get; set; }
-        bool IsBedtimeReadingRateSupported { get; set; }
-        bool IsBookBudgetSupported { get; set; }
-        bool IsBooksBorrowedSupported { get; set; }
-        bool IsEducationOrganizationIdSupported { get; set; }
-        bool IsInterventionStudyIdentificationCodeSupported { get; set; }
-        bool IsLibraryDurationSupported { get; set; }
-        bool IsLibraryTimeSupported { get; set; }
-        bool IsLibraryVisitsSupported { get; set; }
-        bool IsPriorContactRestrictionsSupported { get; set; }
-        bool IsReadGreenEggsAndHamDateSupported { get; set; }
-        bool IsReadingTimeSpentSupported { get; set; }
-        bool IsStudentParentAssociationDisciplinesSupported { get; set; }
-        bool IsStudentParentAssociationFavoriteBookTitlesSupported { get; set; }
-        bool IsStudentParentAssociationHoursPerWeeksSupported { get; set; }
-        bool IsStudentParentAssociationPagesReadsSupported { get; set; }
-        bool IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported { get; set; }
-        bool IsStudentParentAssociationTelephoneSupported { get; set; }
-        bool IsStudentReadSupported { get; set; }
-        Func<IStudentParentAssociationDiscipline, bool> IsStudentParentAssociationDisciplineIncluded { get; set; }
-        Func<IStudentParentAssociationFavoriteBookTitle, bool> IsStudentParentAssociationFavoriteBookTitleIncluded { get; set; }
-        Func<IStudentParentAssociationHoursPerWeek, bool> IsStudentParentAssociationHoursPerWeekIncluded { get; set; }
-        Func<IStudentParentAssociationPagesRead, bool> IsStudentParentAssociationPagesReadIncluded { get; set; }
-        Func<IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationFavoriteBookTitleMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationFavoriteBookTitle = new FullName("sample", "StudentParentAssociationFavoriteBookTitle");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationFavoriteBookTitle source, IStudentParentAssociationFavoriteBookTitle target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationFavoriteBookTitleMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationFavoriteBookTitle);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FavoriteBookTitle != target.FavoriteBookTitle)
@@ -7491,9 +6658,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationFavoriteBookTitle source, IStudentParentAssociationFavoriteBookTitle target, Action<IStudentParentAssociationFavoriteBookTitle, IStudentParentAssociationFavoriteBookTitle> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationFavoriteBookTitleMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationFavoriteBookTitle);
+    
             // Copy contextual primary key values
             target.FavoriteBookTitle = source.FavoriteBookTitle;
 
@@ -7530,23 +6699,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationHoursPerWeekMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationHoursPerWeek = new FullName("sample", "StudentParentAssociationHoursPerWeek");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationHoursPerWeek source, IStudentParentAssociationHoursPerWeek target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationHoursPerWeekMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationHoursPerWeek);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.HoursPerWeek != target.HoursPerWeek)
@@ -7566,9 +6732,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationHoursPerWeek source, IStudentParentAssociationHoursPerWeek target, Action<IStudentParentAssociationHoursPerWeek, IStudentParentAssociationHoursPerWeek> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationHoursPerWeekMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationHoursPerWeek);
+    
             // Copy contextual primary key values
             target.HoursPerWeek = source.HoursPerWeek;
 
@@ -7605,23 +6773,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationPagesReadMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationPagesRead = new FullName("sample", "StudentParentAssociationPagesRead");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationPagesRead source, IStudentParentAssociationPagesRead target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationPagesReadSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationPagesReadMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationPagesRead);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.PagesRead != target.PagesRead)
@@ -7641,9 +6806,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationPagesRead source, IStudentParentAssociationPagesRead target, Action<IStudentParentAssociationPagesRead, IStudentParentAssociationPagesRead> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationPagesReadSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationPagesReadSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationPagesReadMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationPagesRead);
+    
             // Copy contextual primary key values
             target.PagesRead = source.PagesRead;
 
@@ -7680,23 +6847,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationPagesReadSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation = new FullName("sample", "StudentParentAssociationStaffEducationOrganizationEmploymentAssociation");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation source, IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -7728,9 +6892,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation source, IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation target, Action<IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation);
+    
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
             target.EmploymentStatusDescriptor = source.EmploymentStatusDescriptor;
@@ -7777,57 +6943,54 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentParentAssociationTelephoneMapper
     {
+        private static readonly FullName _fullName_sample_StudentParentAssociationTelephone = new FullName("sample", "StudentParentAssociationTelephone");
+    
         public static bool SynchronizeTo(this IStudentParentAssociationTelephone source, IStudentParentAssociationTelephone target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentParentAssociationTelephoneSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentParentAssociationTelephoneMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationTelephone);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDoNotPublishIndicatorSupported)
+            if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 && target.DoNotPublishIndicator != source.DoNotPublishIndicator)
             {
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOrderOfPrioritySupported)
+            if ((mappingContract?.IsOrderOfPrioritySupported != false)
                 && target.OrderOfPriority != source.OrderOfPriority)
             {
                 target.OrderOfPriority = source.OrderOfPriority;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsTelephoneNumberSupported)
+            if ((mappingContract?.IsTelephoneNumberSupported != false)
                 && target.TelephoneNumber != source.TelephoneNumber)
             {
                 target.TelephoneNumber = source.TelephoneNumber;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsTelephoneNumberTypeDescriptorSupported)
+            if ((mappingContract?.IsTelephoneNumberTypeDescriptorSupported != false)
                 && target.TelephoneNumberTypeDescriptor != source.TelephoneNumberTypeDescriptor)
             {
                 target.TelephoneNumberTypeDescriptor = source.TelephoneNumberTypeDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsTextMessageCapabilityIndicatorSupported)
+            if ((mappingContract?.IsTextMessageCapabilityIndicatorSupported != false)
                 && target.TextMessageCapabilityIndicator != source.TextMessageCapabilityIndicator)
             {
                 target.TextMessageCapabilityIndicator = source.TextMessageCapabilityIndicator;
@@ -7844,37 +7007,29 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
 
         public static void MapTo(this IStudentParentAssociationTelephone source, IStudentParentAssociationTelephone target, Action<IStudentParentAssociationTelephone, IStudentParentAssociationTelephone> onMapped)
         {
-            var sourceSynchSupport = source as IStudentParentAssociationTelephoneSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentParentAssociationTelephoneSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentParentAssociationTelephoneMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentParentAssociationTelephone);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDoNotPublishIndicatorSupported)
+            if (mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
-            else
-                targetSynchSupport.IsDoNotPublishIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsOrderOfPrioritySupported)
+            if (mappingContract?.IsOrderOfPrioritySupported != false)
                 target.OrderOfPriority = source.OrderOfPriority;
-            else
-                targetSynchSupport.IsOrderOfPrioritySupported = false;
 
-            if (sourceSynchSupport.IsTelephoneNumberSupported)
+            if (mappingContract?.IsTelephoneNumberSupported != false)
                 target.TelephoneNumber = source.TelephoneNumber;
-            else
-                targetSynchSupport.IsTelephoneNumberSupported = false;
 
-            if (sourceSynchSupport.IsTelephoneNumberTypeDescriptorSupported)
+            if (mappingContract?.IsTelephoneNumberTypeDescriptorSupported != false)
                 target.TelephoneNumberTypeDescriptor = source.TelephoneNumberTypeDescriptor;
-            else
-                targetSynchSupport.IsTelephoneNumberTypeDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsTextMessageCapabilityIndicatorSupported)
+            if (mappingContract?.IsTextMessageCapabilityIndicatorSupported != false)
                 target.TextMessageCapabilityIndicator = source.TextMessageCapabilityIndicator;
-            else
-                targetSynchSupport.IsTextMessageCapabilityIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -7907,20 +7062,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentParentAssociationTelephoneSynchronizationSourceSupport 
-    {
-        bool IsDoNotPublishIndicatorSupported { get; set; }
-        bool IsOrderOfPrioritySupported { get; set; }
-        bool IsTelephoneNumberSupported { get; set; }
-        bool IsTelephoneNumberTypeDescriptorSupported { get; set; }
-        bool IsTextMessageCapabilityIndicatorSupported { get; set; }
-    }
-
 }
 // Aggregate: StudentSchoolAssociation
 
@@ -7929,22 +7070,23 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
     [ExcludeFromCodeCoverage]
     public static class StudentSchoolAssociationExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentSchoolAssociationExtension = new FullName("sample", "StudentSchoolAssociationExtension");
+    
         public static bool SynchronizeTo(this IStudentSchoolAssociationExtension source, IStudentSchoolAssociationExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentSchoolAssociationExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.StudentSchoolAssociation as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentSchoolAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSchoolAssociationExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMembershipTypeDescriptorSupported)
+            if ((mappingContract?.IsMembershipTypeDescriptorSupported != false)
                 && target.MembershipTypeDescriptor != source.MembershipTypeDescriptor)
             {
                 target.MembershipTypeDescriptor = source.MembershipTypeDescriptor;
@@ -7961,17 +7103,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
 
         public static void MapTo(this IStudentSchoolAssociationExtension source, IStudentSchoolAssociationExtension target, Action<IStudentSchoolAssociationExtension, IStudentSchoolAssociationExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentSchoolAssociationExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentSchoolAssociationExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentSchoolAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSchoolAssociationExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMembershipTypeDescriptorSupported)
+            if (mappingContract?.IsMembershipTypeDescriptorSupported != false)
                 target.MembershipTypeDescriptor = source.MembershipTypeDescriptor;
-            else
-                targetSynchSupport.IsMembershipTypeDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -8004,16 +7146,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentSchoolAssociationExtensionSynchronizationSourceSupport 
-    {
-        bool IsMembershipTypeDescriptorSupported { get; set; }
-    }
-
 }
 // Aggregate: StudentSectionAssociation
 
@@ -8022,16 +7154,17 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
     [ExcludeFromCodeCoverage]
     public static class StudentSectionAssociationExtensionMapper
     {
+        private static readonly FullName _fullName_sample_StudentSectionAssociationExtension = new FullName("sample", "StudentSectionAssociationExtension");
+    
         public static bool SynchronizeTo(this IStudentSectionAssociationExtension source, IStudentSectionAssociationExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentSectionAssociationExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.StudentSectionAssociation as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
@@ -8039,7 +7172,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported)
+            if (mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported ?? true)
             {
                 isModified |=
                     source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.SynchronizeCollectionTo(
@@ -8051,9 +7184,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentSectionAssociation);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded);
+                        includeItem: item => mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -8064,9 +7195,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
         public static void MapTo(this IStudentSectionAssociationExtension source, IStudentSectionAssociationExtension target, Action<IStudentSectionAssociationExtension, IStudentSectionAssociationExtension> onMapped)
         {
-            var sourceSynchSupport = source as IStudentSectionAssociationExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentSectionAssociationExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentSectionAssociationExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSectionAssociationExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
@@ -8080,14 +7213,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported)
+            if (mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported != false)
             {
-                targetSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded = sourceSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded;
-                source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.MapCollectionTo(target.StudentSectionAssociationRelatedGeneralStudentProgramAssociations, target.StudentSectionAssociation);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported = false;
+                source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.MapCollectionTo(target.StudentSectionAssociationRelatedGeneralStudentProgramAssociations, target.StudentSectionAssociation, mappingContract?.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded);
             }
 
 
@@ -8112,25 +7240,20 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentSectionAssociationExtensionSynchronizationSourceSupport 
-    {
-        bool IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported { get; set; }
-        Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentSectionAssociationRelatedGeneralStudentProgramAssociationMapper
     {
+        private static readonly FullName _fullName_sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociation = new FullName("sample", "StudentSectionAssociationRelatedGeneralStudentProgramAssociation");
+    
         public static bool SynchronizeTo(this IStudentSectionAssociationRelatedGeneralStudentProgramAssociation source, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentSectionAssociationRelatedGeneralStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.RelatedBeginDate != target.RelatedBeginDate)
@@ -8166,9 +7289,11 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
 
         public static void MapTo(this IStudentSectionAssociationRelatedGeneralStudentProgramAssociation source, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation target, Action<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentSectionAssociationRelatedGeneralStudentProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociation);
+    
             // Copy contextual primary key values
             target.RelatedBeginDate = source.RelatedBeginDate;
             target.RelatedEducationOrganizationId = source.RelatedEducationOrganizationId;
@@ -8214,15 +7339,6 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport 
-    {
     }
 
 }

@@ -2,7 +2,7 @@ name: Trgr InitDev workflows in Implementation repo
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, 'ODS-*']
   workflow_dispatch:
 
 env:

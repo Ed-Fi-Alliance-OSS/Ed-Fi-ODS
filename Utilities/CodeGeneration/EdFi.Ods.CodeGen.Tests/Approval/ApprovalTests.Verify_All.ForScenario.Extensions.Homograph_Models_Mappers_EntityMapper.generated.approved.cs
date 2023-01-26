@@ -8,6 +8,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: Name
 
@@ -16,11 +18,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
     [ExcludeFromCodeCoverage]
     public static class NameMapper
     {
+        private static readonly FullName _fullName_homograph_Name = new FullName("homograph", "Name");
+    
         public static bool SynchronizeTo(this IName source, IName target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as INameSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (NameMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Name);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FirstName != target.FirstName)
@@ -44,9 +52,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
 
         public static void MapTo(this IName source, IName target, Action<IName, IName> onMapped)
         {
-            var sourceSynchSupport = source as INameSynchronizationSourceSupport;
-            var targetSynchSupport = target as INameSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (NameMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Name);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -87,15 +97,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface INameSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: Parent
 
@@ -104,11 +105,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
     [ExcludeFromCodeCoverage]
     public static class ParentMapper
     {
+        private static readonly FullName _fullName_homograph_Parent = new FullName("homograph", "Parent");
+    
         public static bool SynchronizeTo(this IParent source, IParent target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Parent);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ParentFirstName != target.ParentFirstName)
@@ -124,7 +131,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsParentAddressesSupported)
+            if (mappingContract?.IsParentAddressesSupported ?? true)
             {
                 isModified |=
                     source.ParentAddresses.SynchronizeCollectionTo(
@@ -133,12 +140,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                             {
                                 child.Parent = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentAddressIncluded);
+                        includeItem: item => mappingContract?.IsParentAddressIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsParentStudentSchoolAssociationsSupported)
+            if (mappingContract?.IsParentStudentSchoolAssociationsSupported ?? true)
             {
                 isModified |=
                     source.ParentStudentSchoolAssociations.SynchronizeCollectionTo(
@@ -147,9 +152,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
                             {
                                 child.Parent = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsParentStudentSchoolAssociationIncluded);
+                        includeItem: item => mappingContract?.IsParentStudentSchoolAssociationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -160,9 +163,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
         public static void MapTo(this IParent source, IParent target, Action<IParent, IParent> onMapped)
         {
-            var sourceSynchSupport = source as IParentSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Parent);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -188,24 +193,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsParentAddressesSupported)
+            if (mappingContract?.IsParentAddressesSupported != false)
             {
-                targetSynchSupport.IsParentAddressIncluded = sourceSynchSupport.IsParentAddressIncluded;
-                source.ParentAddresses.MapCollectionTo(target.ParentAddresses, target);
-            }
-            else
-            {
-                targetSynchSupport.IsParentAddressesSupported = false;
+                source.ParentAddresses.MapCollectionTo(target.ParentAddresses, target, mappingContract?.IsParentAddressIncluded);
             }
 
-            if (sourceSynchSupport.IsParentStudentSchoolAssociationsSupported)
+            if (mappingContract?.IsParentStudentSchoolAssociationsSupported != false)
             {
-                targetSynchSupport.IsParentStudentSchoolAssociationIncluded = sourceSynchSupport.IsParentStudentSchoolAssociationIncluded;
-                source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, target);
-            }
-            else
-            {
-                targetSynchSupport.IsParentStudentSchoolAssociationsSupported = false;
+                source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, target, mappingContract?.IsParentStudentSchoolAssociationIncluded);
             }
 
 
@@ -230,27 +225,20 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentSynchronizationSourceSupport 
-    {
-        bool IsParentAddressesSupported { get; set; }
-        bool IsParentStudentSchoolAssociationsSupported { get; set; }
-        Func<IParentAddress, bool> IsParentAddressIncluded { get; set; }
-        Func<IParentStudentSchoolAssociation, bool> IsParentStudentSchoolAssociationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentAddressMapper
     {
+        private static readonly FullName _fullName_homograph_ParentAddress = new FullName("homograph", "ParentAddress");
+    
         public static bool SynchronizeTo(this IParentAddress source, IParentAddress target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentAddressSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_ParentAddress);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.City != target.City)
@@ -270,9 +258,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
         public static void MapTo(this IParentAddress source, IParentAddress target, Action<IParentAddress, IParentAddress> onMapped)
         {
-            var sourceSynchSupport = source as IParentAddressSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentAddressSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_ParentAddress);
+    
             // Copy contextual primary key values
             target.City = source.City;
 
@@ -309,23 +299,20 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentAddressSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class ParentStudentSchoolAssociationMapper
     {
+        private static readonly FullName _fullName_homograph_ParentStudentSchoolAssociation = new FullName("homograph", "ParentStudentSchoolAssociation");
+    
         public static bool SynchronizeTo(this IParentStudentSchoolAssociation source, IParentStudentSchoolAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IParentStudentSchoolAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ParentStudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_ParentStudentSchoolAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.SchoolName != target.SchoolName)
@@ -353,9 +340,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
 
         public static void MapTo(this IParentStudentSchoolAssociation source, IParentStudentSchoolAssociation target, Action<IParentStudentSchoolAssociation, IParentStudentSchoolAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IParentStudentSchoolAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IParentStudentSchoolAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ParentStudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_ParentStudentSchoolAssociation);
+    
             // Copy contextual primary key values
             target.SchoolName = source.SchoolName;
             target.StudentFirstName = source.StudentFirstName;
@@ -401,15 +390,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IParentStudentSchoolAssociationSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: School
 
@@ -418,11 +398,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
     [ExcludeFromCodeCoverage]
     public static class SchoolMapper
     {
+        private static readonly FullName _fullName_homograph_School = new FullName("homograph", "School");
+    
         public static bool SynchronizeTo(this ISchool source, ISchool target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_School);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.SchoolName != target.SchoolName)
@@ -432,7 +418,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsSchoolYearSupported)
+            if ((mappingContract?.IsSchoolYearSupported != false)
                 && target.SchoolYear != source.SchoolYear)
             {
                 target.SchoolYear = source.SchoolYear;
@@ -442,8 +428,8 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // SchoolAddress
-            if (sourceSupport == null || sourceSupport.IsSchoolAddressSupported)
+            // SchoolAddress (SchoolAddress)
+            if (mappingContract?.IsSchoolAddressSupported != false)
             {
                 if (source.SchoolAddress == null)
                 {
@@ -477,9 +463,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
         public static void MapTo(this ISchool source, ISchool target, Action<ISchool, ISchool> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_School);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -488,10 +476,8 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsSchoolYearSupported)
+            if (mappingContract?.IsSchoolYearSupported != false)
                 target.SchoolYear = source.SchoolYear;
-            else
-                targetSynchSupport.IsSchoolYearSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -506,8 +492,8 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // SchoolAddress (Source)
-            if (sourceSynchSupport.IsSchoolAddressSupported)
+            // SchoolAddress (SchoolAddress) (Source)
+            if (mappingContract?.IsSchoolAddressSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("SchoolAddress");
 
@@ -528,10 +514,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                         target.SchoolAddress = (ISchoolAddress) targetSchoolAddress;
                     }
                 }
-            }
-            else
-            {
-                targetSynchSupport.IsSchoolAddressSupported = false;
             }
             // -------------------------------------------------------------
 
@@ -559,31 +541,26 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolSynchronizationSourceSupport 
-    {
-        bool IsSchoolAddressSupported { get; set; }
-        bool IsSchoolYearSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class SchoolAddressMapper
     {
+        private static readonly FullName _fullName_homograph_SchoolAddress = new FullName("homograph", "SchoolAddress");
+    
         public static bool SynchronizeTo(this ISchoolAddress source, ISchoolAddress target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolAddressSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_SchoolAddress);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCitySupported)
+            if ((mappingContract?.IsCitySupported != false)
                 && target.City != source.City)
             {
                 target.City = source.City;
@@ -600,17 +577,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
 
         public static void MapTo(this ISchoolAddress source, ISchoolAddress target, Action<ISchoolAddress, ISchoolAddress> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolAddressSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolAddressSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_SchoolAddress);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCitySupported)
+            if (mappingContract?.IsCitySupported != false)
                 target.City = source.City;
-            else
-                targetSynchSupport.IsCitySupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -643,16 +620,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolAddressSynchronizationSourceSupport 
-    {
-        bool IsCitySupported { get; set; }
-    }
-
 }
 // Aggregate: SchoolYearType
 
@@ -661,11 +628,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
     [ExcludeFromCodeCoverage]
     public static class SchoolYearTypeMapper
     {
+        private static readonly FullName _fullName_homograph_SchoolYearType = new FullName("homograph", "SchoolYearType");
+    
         public static bool SynchronizeTo(this ISchoolYearType source, ISchoolYearType target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolYearTypeSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolYearTypeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_SchoolYearType);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.SchoolYear != target.SchoolYear)
@@ -685,9 +658,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
 
         public static void MapTo(this ISchoolYearType source, ISchoolYearType target, Action<ISchoolYearType, ISchoolYearType> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolYearTypeSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolYearTypeSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolYearTypeMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_SchoolYearType);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -727,15 +702,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolYearTypeSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: Staff
 
@@ -744,11 +710,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
     [ExcludeFromCodeCoverage]
     public static class StaffMapper
     {
+        private static readonly FullName _fullName_homograph_Staff = new FullName("homograph", "Staff");
+    
         public static bool SynchronizeTo(this IStaff source, IStaff target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStaffSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StaffMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Staff);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.StaffFirstName != target.StaffFirstName)
@@ -764,7 +736,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStaffAddressesSupported)
+            if (mappingContract?.IsStaffAddressesSupported ?? true)
             {
                 isModified |=
                     source.StaffAddresses.SynchronizeCollectionTo(
@@ -773,12 +745,10 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                             {
                                 child.Staff = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStaffAddressIncluded);
+                        includeItem: item => mappingContract?.IsStaffAddressIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsStaffStudentSchoolAssociationsSupported)
+            if (mappingContract?.IsStaffStudentSchoolAssociationsSupported ?? true)
             {
                 isModified |=
                     source.StaffStudentSchoolAssociations.SynchronizeCollectionTo(
@@ -787,9 +757,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
                             {
                                 child.Staff = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStaffStudentSchoolAssociationIncluded);
+                        includeItem: item => mappingContract?.IsStaffStudentSchoolAssociationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -800,9 +768,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
         public static void MapTo(this IStaff source, IStaff target, Action<IStaff, IStaff> onMapped)
         {
-            var sourceSynchSupport = source as IStaffSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStaffSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StaffMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Staff);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -828,24 +798,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsStaffAddressesSupported)
+            if (mappingContract?.IsStaffAddressesSupported != false)
             {
-                targetSynchSupport.IsStaffAddressIncluded = sourceSynchSupport.IsStaffAddressIncluded;
-                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStaffAddressesSupported = false;
+                source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target, mappingContract?.IsStaffAddressIncluded);
             }
 
-            if (sourceSynchSupport.IsStaffStudentSchoolAssociationsSupported)
+            if (mappingContract?.IsStaffStudentSchoolAssociationsSupported != false)
             {
-                targetSynchSupport.IsStaffStudentSchoolAssociationIncluded = sourceSynchSupport.IsStaffStudentSchoolAssociationIncluded;
-                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStaffStudentSchoolAssociationsSupported = false;
+                source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target, mappingContract?.IsStaffStudentSchoolAssociationIncluded);
             }
 
 
@@ -870,27 +830,20 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStaffSynchronizationSourceSupport 
-    {
-        bool IsStaffAddressesSupported { get; set; }
-        bool IsStaffStudentSchoolAssociationsSupported { get; set; }
-        Func<IStaffAddress, bool> IsStaffAddressIncluded { get; set; }
-        Func<IStaffStudentSchoolAssociation, bool> IsStaffStudentSchoolAssociationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StaffAddressMapper
     {
+        private static readonly FullName _fullName_homograph_StaffAddress = new FullName("homograph", "StaffAddress");
+    
         public static bool SynchronizeTo(this IStaffAddress source, IStaffAddress target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStaffAddressSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StaffAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StaffAddress);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.City != target.City)
@@ -910,9 +863,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
         public static void MapTo(this IStaffAddress source, IStaffAddress target, Action<IStaffAddress, IStaffAddress> onMapped)
         {
-            var sourceSynchSupport = source as IStaffAddressSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStaffAddressSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StaffAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StaffAddress);
+    
             // Copy contextual primary key values
             target.City = source.City;
 
@@ -949,23 +904,20 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStaffAddressSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StaffStudentSchoolAssociationMapper
     {
+        private static readonly FullName _fullName_homograph_StaffStudentSchoolAssociation = new FullName("homograph", "StaffStudentSchoolAssociation");
+    
         public static bool SynchronizeTo(this IStaffStudentSchoolAssociation source, IStaffStudentSchoolAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStaffStudentSchoolAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StaffStudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StaffStudentSchoolAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.SchoolName != target.SchoolName)
@@ -993,9 +945,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
 
         public static void MapTo(this IStaffStudentSchoolAssociation source, IStaffStudentSchoolAssociation target, Action<IStaffStudentSchoolAssociation, IStaffStudentSchoolAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStaffStudentSchoolAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStaffStudentSchoolAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StaffStudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StaffStudentSchoolAssociation);
+    
             // Copy contextual primary key values
             target.SchoolName = source.SchoolName;
             target.StudentFirstName = source.StudentFirstName;
@@ -1041,15 +995,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStaffStudentSchoolAssociationSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: Student
 
@@ -1058,11 +1003,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
     [ExcludeFromCodeCoverage]
     public static class StudentMapper
     {
+        private static readonly FullName _fullName_homograph_Student = new FullName("homograph", "Student");
+    
         public static bool SynchronizeTo(this IStudent source, IStudent target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Student);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.StudentFirstName != target.StudentFirstName)
@@ -1076,7 +1027,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsSchoolYearSupported)
+            if ((mappingContract?.IsSchoolYearSupported != false)
                 && target.SchoolYear != source.SchoolYear)
             {
                 target.SchoolYear = source.SchoolYear;
@@ -1085,7 +1036,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentAddressesSupported)
+            if (mappingContract?.IsStudentAddressesSupported ?? true)
             {
                 isModified |=
                     source.StudentAddresses.SynchronizeCollectionTo(
@@ -1094,9 +1045,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                             {
                                 child.Student = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentAddressIncluded);
+                        includeItem: item => mappingContract?.IsStudentAddressIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -1107,9 +1056,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
         public static void MapTo(this IStudent source, IStudent target, Action<IStudent, IStudent> onMapped)
         {
-            var sourceSynchSupport = source as IStudentSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_Student);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -1119,10 +1070,8 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsSchoolYearSupported)
+            if (mappingContract?.IsSchoolYearSupported != false)
                 target.SchoolYear = source.SchoolYear;
-            else
-                targetSynchSupport.IsSchoolYearSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -1142,14 +1091,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsStudentAddressesSupported)
+            if (mappingContract?.IsStudentAddressesSupported != false)
             {
-                targetSynchSupport.IsStudentAddressIncluded = sourceSynchSupport.IsStudentAddressIncluded;
-                source.StudentAddresses.MapCollectionTo(target.StudentAddresses, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentAddressesSupported = false;
+                source.StudentAddresses.MapCollectionTo(target.StudentAddresses, target, mappingContract?.IsStudentAddressIncluded);
             }
 
 
@@ -1174,26 +1118,20 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentSynchronizationSourceSupport 
-    {
-        bool IsSchoolYearSupported { get; set; }
-        bool IsStudentAddressesSupported { get; set; }
-        Func<IStudentAddress, bool> IsStudentAddressIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class StudentAddressMapper
     {
+        private static readonly FullName _fullName_homograph_StudentAddress = new FullName("homograph", "StudentAddress");
+    
         public static bool SynchronizeTo(this IStudentAddress source, IStudentAddress target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentAddressSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StudentAddress);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.City != target.City)
@@ -1213,9 +1151,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
 
         public static void MapTo(this IStudentAddress source, IStudentAddress target, Action<IStudentAddress, IStudentAddress> onMapped)
         {
-            var sourceSynchSupport = source as IStudentAddressSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentAddressSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StudentAddress);
+    
             // Copy contextual primary key values
             target.City = source.City;
 
@@ -1252,15 +1192,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentAddressSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: StudentSchoolAssociation
 
@@ -1269,11 +1200,17 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
     [ExcludeFromCodeCoverage]
     public static class StudentSchoolAssociationMapper
     {
+        private static readonly FullName _fullName_homograph_StudentSchoolAssociation = new FullName("homograph", "StudentSchoolAssociation");
+    
         public static bool SynchronizeTo(this IStudentSchoolAssociation source, IStudentSchoolAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IStudentSchoolAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (StudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StudentSchoolAssociation);
+            
 
             // Allow PK column updates on StudentSchoolAssociation
             if (
@@ -1320,9 +1257,11 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
 
         public static void MapTo(this IStudentSchoolAssociation source, IStudentSchoolAssociation target, Action<IStudentSchoolAssociation, IStudentSchoolAssociation> onMapped)
         {
-            var sourceSynchSupport = source as IStudentSchoolAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IStudentSchoolAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (StudentSchoolAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_homograph_StudentSchoolAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -1371,15 +1310,6 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IStudentSchoolAssociationSynchronizationSourceSupport 
-    {
     }
 
 }

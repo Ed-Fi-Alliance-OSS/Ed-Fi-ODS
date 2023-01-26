@@ -8,6 +8,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: AccreditationStatusDescriptor
 
@@ -16,11 +18,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
     [ExcludeFromCodeCoverage]
     public static class AccreditationStatusDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_AccreditationStatusDescriptor = new FullName("tpdm", "AccreditationStatusDescriptor");
+    
         public static bool SynchronizeTo(this IAccreditationStatusDescriptor source, IAccreditationStatusDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IAccreditationStatusDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (AccreditationStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_AccreditationStatusDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AccreditationStatusDescriptorId != target.AccreditationStatusDescriptorId)
@@ -31,49 +39,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -94,9 +102,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
 
         public static void MapTo(this IAccreditationStatusDescriptor source, IAccreditationStatusDescriptor target, Action<IAccreditationStatusDescriptor, IAccreditationStatusDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IAccreditationStatusDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IAccreditationStatusDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (AccreditationStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_AccreditationStatusDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -105,40 +115,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -175,22 +171,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IAccreditationStatusDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: AidTypeDescriptor
 
@@ -199,11 +179,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class AidTypeDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_AidTypeDescriptor = new FullName("tpdm", "AidTypeDescriptor");
+    
         public static bool SynchronizeTo(this IAidTypeDescriptor source, IAidTypeDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IAidTypeDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (AidTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_AidTypeDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AidTypeDescriptorId != target.AidTypeDescriptorId)
@@ -214,49 +200,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -277,9 +263,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
 
         public static void MapTo(this IAidTypeDescriptor source, IAidTypeDescriptor target, Action<IAidTypeDescriptor, IAidTypeDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IAidTypeDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IAidTypeDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (AidTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_AidTypeDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -288,40 +276,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -358,22 +332,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IAidTypeDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: Candidate
 
@@ -382,11 +340,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
     [ExcludeFromCodeCoverage]
     public static class CandidateMapper
     {
+        private static readonly FullName _fullName_tpdm_Candidate = new FullName("tpdm", "Candidate");
+    
         public static bool SynchronizeTo(this ICandidate source, ICandidate target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_Candidate);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CandidateIdentifier != target.CandidateIdentifier)
@@ -396,168 +360,168 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsBirthCitySupported)
+            if ((mappingContract?.IsBirthCitySupported != false)
                 && target.BirthCity != source.BirthCity)
             {
                 target.BirthCity = source.BirthCity;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBirthCountryDescriptorSupported)
+            if ((mappingContract?.IsBirthCountryDescriptorSupported != false)
                 && target.BirthCountryDescriptor != source.BirthCountryDescriptor)
             {
                 target.BirthCountryDescriptor = source.BirthCountryDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBirthDateSupported)
+            if ((mappingContract?.IsBirthDateSupported != false)
                 && target.BirthDate != source.BirthDate)
             {
                 target.BirthDate = source.BirthDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBirthInternationalProvinceSupported)
+            if ((mappingContract?.IsBirthInternationalProvinceSupported != false)
                 && target.BirthInternationalProvince != source.BirthInternationalProvince)
             {
                 target.BirthInternationalProvince = source.BirthInternationalProvince;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBirthSexDescriptorSupported)
+            if ((mappingContract?.IsBirthSexDescriptorSupported != false)
                 && target.BirthSexDescriptor != source.BirthSexDescriptor)
             {
                 target.BirthSexDescriptor = source.BirthSexDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBirthStateAbbreviationDescriptorSupported)
+            if ((mappingContract?.IsBirthStateAbbreviationDescriptorSupported != false)
                 && target.BirthStateAbbreviationDescriptor != source.BirthStateAbbreviationDescriptor)
             {
                 target.BirthStateAbbreviationDescriptor = source.BirthStateAbbreviationDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDateEnteredUSSupported)
+            if ((mappingContract?.IsDateEnteredUSSupported != false)
                 && target.DateEnteredUS != source.DateEnteredUS)
             {
                 target.DateEnteredUS = source.DateEnteredUS;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDisplacementStatusSupported)
+            if ((mappingContract?.IsDisplacementStatusSupported != false)
                 && target.DisplacementStatus != source.DisplacementStatus)
             {
                 target.DisplacementStatus = source.DisplacementStatus;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEconomicDisadvantagedSupported)
+            if ((mappingContract?.IsEconomicDisadvantagedSupported != false)
                 && target.EconomicDisadvantaged != source.EconomicDisadvantaged)
             {
                 target.EconomicDisadvantaged = source.EconomicDisadvantaged;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEnglishLanguageExamDescriptorSupported)
+            if ((mappingContract?.IsEnglishLanguageExamDescriptorSupported != false)
                 && target.EnglishLanguageExamDescriptor != source.EnglishLanguageExamDescriptor)
             {
                 target.EnglishLanguageExamDescriptor = source.EnglishLanguageExamDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsFirstGenerationStudentSupported)
+            if ((mappingContract?.IsFirstGenerationStudentSupported != false)
                 && target.FirstGenerationStudent != source.FirstGenerationStudent)
             {
                 target.FirstGenerationStudent = source.FirstGenerationStudent;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsFirstNameSupported)
+            if ((mappingContract?.IsFirstNameSupported != false)
                 && target.FirstName != source.FirstName)
             {
                 target.FirstName = source.FirstName;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsGenderDescriptorSupported)
+            if ((mappingContract?.IsGenderDescriptorSupported != false)
                 && target.GenderDescriptor != source.GenderDescriptor)
             {
                 target.GenderDescriptor = source.GenderDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsGenerationCodeSuffixSupported)
+            if ((mappingContract?.IsGenerationCodeSuffixSupported != false)
                 && target.GenerationCodeSuffix != source.GenerationCodeSuffix)
             {
                 target.GenerationCodeSuffix = source.GenerationCodeSuffix;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsHispanicLatinoEthnicitySupported)
+            if ((mappingContract?.IsHispanicLatinoEthnicitySupported != false)
                 && target.HispanicLatinoEthnicity != source.HispanicLatinoEthnicity)
             {
                 target.HispanicLatinoEthnicity = source.HispanicLatinoEthnicity;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLastSurnameSupported)
+            if ((mappingContract?.IsLastSurnameSupported != false)
                 && target.LastSurname != source.LastSurname)
             {
                 target.LastSurname = source.LastSurname;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLimitedEnglishProficiencyDescriptorSupported)
+            if ((mappingContract?.IsLimitedEnglishProficiencyDescriptorSupported != false)
                 && target.LimitedEnglishProficiencyDescriptor != source.LimitedEnglishProficiencyDescriptor)
             {
                 target.LimitedEnglishProficiencyDescriptor = source.LimitedEnglishProficiencyDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMaidenNameSupported)
+            if ((mappingContract?.IsMaidenNameSupported != false)
                 && target.MaidenName != source.MaidenName)
             {
                 target.MaidenName = source.MaidenName;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMiddleNameSupported)
+            if ((mappingContract?.IsMiddleNameSupported != false)
                 && target.MiddleName != source.MiddleName)
             {
                 target.MiddleName = source.MiddleName;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMultipleBirthStatusSupported)
+            if ((mappingContract?.IsMultipleBirthStatusSupported != false)
                 && target.MultipleBirthStatus != source.MultipleBirthStatus)
             {
                 target.MultipleBirthStatus = source.MultipleBirthStatus;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPersonalTitlePrefixSupported)
+            if ((mappingContract?.IsPersonalTitlePrefixSupported != false)
                 && target.PersonalTitlePrefix != source.PersonalTitlePrefix)
             {
                 target.PersonalTitlePrefix = source.PersonalTitlePrefix;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPersonIdSupported)
+            if ((mappingContract?.IsPersonIdSupported != false)
                 && target.PersonId != source.PersonId)
             {
                 target.PersonId = source.PersonId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSexDescriptorSupported)
+            if ((mappingContract?.IsSexDescriptorSupported != false)
                 && target.SexDescriptor != source.SexDescriptor)
             {
                 target.SexDescriptor = source.SexDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSourceSystemDescriptorSupported)
+            if ((mappingContract?.IsSourceSystemDescriptorSupported != false)
                 && target.SourceSystemDescriptor != source.SourceSystemDescriptor)
             {
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
@@ -566,7 +530,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsCandidateAddressesSupported)
+            if (mappingContract?.IsCandidateAddressesSupported ?? true)
             {
                 isModified |=
                     source.CandidateAddresses.SynchronizeCollectionTo(
@@ -575,12 +539,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateAddressIncluded);
+                        includeItem: item => mappingContract?.IsCandidateAddressIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateDisabilitiesSupported)
+            if (mappingContract?.IsCandidateDisabilitiesSupported ?? true)
             {
                 isModified |=
                     source.CandidateDisabilities.SynchronizeCollectionTo(
@@ -589,12 +551,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateDisabilityIncluded);
+                        includeItem: item => mappingContract?.IsCandidateDisabilityIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateElectronicMailsSupported)
+            if (mappingContract?.IsCandidateElectronicMailsSupported ?? true)
             {
                 isModified |=
                     source.CandidateElectronicMails.SynchronizeCollectionTo(
@@ -603,12 +563,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateElectronicMailIncluded);
+                        includeItem: item => mappingContract?.IsCandidateElectronicMailIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateLanguagesSupported)
+            if (mappingContract?.IsCandidateLanguagesSupported ?? true)
             {
                 isModified |=
                     source.CandidateLanguages.SynchronizeCollectionTo(
@@ -617,12 +575,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateLanguageIncluded);
+                        includeItem: item => mappingContract?.IsCandidateLanguageIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateOtherNamesSupported)
+            if (mappingContract?.IsCandidateOtherNamesSupported ?? true)
             {
                 isModified |=
                     source.CandidateOtherNames.SynchronizeCollectionTo(
@@ -631,12 +587,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateOtherNameIncluded);
+                        includeItem: item => mappingContract?.IsCandidateOtherNameIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidatePersonalIdentificationDocumentsSupported)
+            if (mappingContract?.IsCandidatePersonalIdentificationDocumentsSupported ?? true)
             {
                 isModified |=
                     source.CandidatePersonalIdentificationDocuments.SynchronizeCollectionTo(
@@ -645,12 +599,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidatePersonalIdentificationDocumentIncluded);
+                        includeItem: item => mappingContract?.IsCandidatePersonalIdentificationDocumentIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateRacesSupported)
+            if (mappingContract?.IsCandidateRacesSupported ?? true)
             {
                 isModified |=
                     source.CandidateRaces.SynchronizeCollectionTo(
@@ -659,12 +611,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateRaceIncluded);
+                        includeItem: item => mappingContract?.IsCandidateRaceIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateTelephonesSupported)
+            if (mappingContract?.IsCandidateTelephonesSupported ?? true)
             {
                 isModified |=
                     source.CandidateTelephones.SynchronizeCollectionTo(
@@ -673,9 +623,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.Candidate = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateTelephoneIncluded);
+                        includeItem: item => mappingContract?.IsCandidateTelephoneIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -686,9 +634,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidate source, ICandidate target, Action<ICandidate, ICandidate> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_Candidate);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -697,125 +647,77 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsBirthCitySupported)
+            if (mappingContract?.IsBirthCitySupported != false)
                 target.BirthCity = source.BirthCity;
-            else
-                targetSynchSupport.IsBirthCitySupported = false;
 
-            if (sourceSynchSupport.IsBirthCountryDescriptorSupported)
+            if (mappingContract?.IsBirthCountryDescriptorSupported != false)
                 target.BirthCountryDescriptor = source.BirthCountryDescriptor;
-            else
-                targetSynchSupport.IsBirthCountryDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsBirthDateSupported)
+            if (mappingContract?.IsBirthDateSupported != false)
                 target.BirthDate = source.BirthDate;
-            else
-                targetSynchSupport.IsBirthDateSupported = false;
 
-            if (sourceSynchSupport.IsBirthInternationalProvinceSupported)
+            if (mappingContract?.IsBirthInternationalProvinceSupported != false)
                 target.BirthInternationalProvince = source.BirthInternationalProvince;
-            else
-                targetSynchSupport.IsBirthInternationalProvinceSupported = false;
 
-            if (sourceSynchSupport.IsBirthSexDescriptorSupported)
+            if (mappingContract?.IsBirthSexDescriptorSupported != false)
                 target.BirthSexDescriptor = source.BirthSexDescriptor;
-            else
-                targetSynchSupport.IsBirthSexDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsBirthStateAbbreviationDescriptorSupported)
+            if (mappingContract?.IsBirthStateAbbreviationDescriptorSupported != false)
                 target.BirthStateAbbreviationDescriptor = source.BirthStateAbbreviationDescriptor;
-            else
-                targetSynchSupport.IsBirthStateAbbreviationDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsDateEnteredUSSupported)
+            if (mappingContract?.IsDateEnteredUSSupported != false)
                 target.DateEnteredUS = source.DateEnteredUS;
-            else
-                targetSynchSupport.IsDateEnteredUSSupported = false;
 
-            if (sourceSynchSupport.IsDisplacementStatusSupported)
+            if (mappingContract?.IsDisplacementStatusSupported != false)
                 target.DisplacementStatus = source.DisplacementStatus;
-            else
-                targetSynchSupport.IsDisplacementStatusSupported = false;
 
-            if (sourceSynchSupport.IsEconomicDisadvantagedSupported)
+            if (mappingContract?.IsEconomicDisadvantagedSupported != false)
                 target.EconomicDisadvantaged = source.EconomicDisadvantaged;
-            else
-                targetSynchSupport.IsEconomicDisadvantagedSupported = false;
 
-            if (sourceSynchSupport.IsEnglishLanguageExamDescriptorSupported)
+            if (mappingContract?.IsEnglishLanguageExamDescriptorSupported != false)
                 target.EnglishLanguageExamDescriptor = source.EnglishLanguageExamDescriptor;
-            else
-                targetSynchSupport.IsEnglishLanguageExamDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsFirstGenerationStudentSupported)
+            if (mappingContract?.IsFirstGenerationStudentSupported != false)
                 target.FirstGenerationStudent = source.FirstGenerationStudent;
-            else
-                targetSynchSupport.IsFirstGenerationStudentSupported = false;
 
-            if (sourceSynchSupport.IsFirstNameSupported)
+            if (mappingContract?.IsFirstNameSupported != false)
                 target.FirstName = source.FirstName;
-            else
-                targetSynchSupport.IsFirstNameSupported = false;
 
-            if (sourceSynchSupport.IsGenderDescriptorSupported)
+            if (mappingContract?.IsGenderDescriptorSupported != false)
                 target.GenderDescriptor = source.GenderDescriptor;
-            else
-                targetSynchSupport.IsGenderDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsGenerationCodeSuffixSupported)
+            if (mappingContract?.IsGenerationCodeSuffixSupported != false)
                 target.GenerationCodeSuffix = source.GenerationCodeSuffix;
-            else
-                targetSynchSupport.IsGenerationCodeSuffixSupported = false;
 
-            if (sourceSynchSupport.IsHispanicLatinoEthnicitySupported)
+            if (mappingContract?.IsHispanicLatinoEthnicitySupported != false)
                 target.HispanicLatinoEthnicity = source.HispanicLatinoEthnicity;
-            else
-                targetSynchSupport.IsHispanicLatinoEthnicitySupported = false;
 
-            if (sourceSynchSupport.IsLastSurnameSupported)
+            if (mappingContract?.IsLastSurnameSupported != false)
                 target.LastSurname = source.LastSurname;
-            else
-                targetSynchSupport.IsLastSurnameSupported = false;
 
-            if (sourceSynchSupport.IsLimitedEnglishProficiencyDescriptorSupported)
+            if (mappingContract?.IsLimitedEnglishProficiencyDescriptorSupported != false)
                 target.LimitedEnglishProficiencyDescriptor = source.LimitedEnglishProficiencyDescriptor;
-            else
-                targetSynchSupport.IsLimitedEnglishProficiencyDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsMaidenNameSupported)
+            if (mappingContract?.IsMaidenNameSupported != false)
                 target.MaidenName = source.MaidenName;
-            else
-                targetSynchSupport.IsMaidenNameSupported = false;
 
-            if (sourceSynchSupport.IsMiddleNameSupported)
+            if (mappingContract?.IsMiddleNameSupported != false)
                 target.MiddleName = source.MiddleName;
-            else
-                targetSynchSupport.IsMiddleNameSupported = false;
 
-            if (sourceSynchSupport.IsMultipleBirthStatusSupported)
+            if (mappingContract?.IsMultipleBirthStatusSupported != false)
                 target.MultipleBirthStatus = source.MultipleBirthStatus;
-            else
-                targetSynchSupport.IsMultipleBirthStatusSupported = false;
 
-            if (sourceSynchSupport.IsPersonalTitlePrefixSupported)
+            if (mappingContract?.IsPersonalTitlePrefixSupported != false)
                 target.PersonalTitlePrefix = source.PersonalTitlePrefix;
-            else
-                targetSynchSupport.IsPersonalTitlePrefixSupported = false;
 
-            if (sourceSynchSupport.IsPersonIdSupported)
+            if (mappingContract?.IsPersonIdSupported != false)
                 target.PersonId = source.PersonId;
-            else
-                targetSynchSupport.IsPersonIdSupported = false;
 
-            if (sourceSynchSupport.IsSexDescriptorSupported)
+            if (mappingContract?.IsSexDescriptorSupported != false)
                 target.SexDescriptor = source.SexDescriptor;
-            else
-                targetSynchSupport.IsSexDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsSourceSystemDescriptorSupported)
+            if (mappingContract?.IsSourceSystemDescriptorSupported != false)
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
-            else
-                targetSynchSupport.IsSourceSystemDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -833,84 +735,44 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsCandidateAddressesSupported)
+            if (mappingContract?.IsCandidateAddressesSupported != false)
             {
-                targetSynchSupport.IsCandidateAddressIncluded = sourceSynchSupport.IsCandidateAddressIncluded;
-                source.CandidateAddresses.MapCollectionTo(target.CandidateAddresses, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateAddressesSupported = false;
+                source.CandidateAddresses.MapCollectionTo(target.CandidateAddresses, target, mappingContract?.IsCandidateAddressIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateDisabilitiesSupported)
+            if (mappingContract?.IsCandidateDisabilitiesSupported != false)
             {
-                targetSynchSupport.IsCandidateDisabilityIncluded = sourceSynchSupport.IsCandidateDisabilityIncluded;
-                source.CandidateDisabilities.MapCollectionTo(target.CandidateDisabilities, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateDisabilitiesSupported = false;
+                source.CandidateDisabilities.MapCollectionTo(target.CandidateDisabilities, target, mappingContract?.IsCandidateDisabilityIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateElectronicMailsSupported)
+            if (mappingContract?.IsCandidateElectronicMailsSupported != false)
             {
-                targetSynchSupport.IsCandidateElectronicMailIncluded = sourceSynchSupport.IsCandidateElectronicMailIncluded;
-                source.CandidateElectronicMails.MapCollectionTo(target.CandidateElectronicMails, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateElectronicMailsSupported = false;
+                source.CandidateElectronicMails.MapCollectionTo(target.CandidateElectronicMails, target, mappingContract?.IsCandidateElectronicMailIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateLanguagesSupported)
+            if (mappingContract?.IsCandidateLanguagesSupported != false)
             {
-                targetSynchSupport.IsCandidateLanguageIncluded = sourceSynchSupport.IsCandidateLanguageIncluded;
-                source.CandidateLanguages.MapCollectionTo(target.CandidateLanguages, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateLanguagesSupported = false;
+                source.CandidateLanguages.MapCollectionTo(target.CandidateLanguages, target, mappingContract?.IsCandidateLanguageIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateOtherNamesSupported)
+            if (mappingContract?.IsCandidateOtherNamesSupported != false)
             {
-                targetSynchSupport.IsCandidateOtherNameIncluded = sourceSynchSupport.IsCandidateOtherNameIncluded;
-                source.CandidateOtherNames.MapCollectionTo(target.CandidateOtherNames, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateOtherNamesSupported = false;
+                source.CandidateOtherNames.MapCollectionTo(target.CandidateOtherNames, target, mappingContract?.IsCandidateOtherNameIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidatePersonalIdentificationDocumentsSupported)
+            if (mappingContract?.IsCandidatePersonalIdentificationDocumentsSupported != false)
             {
-                targetSynchSupport.IsCandidatePersonalIdentificationDocumentIncluded = sourceSynchSupport.IsCandidatePersonalIdentificationDocumentIncluded;
-                source.CandidatePersonalIdentificationDocuments.MapCollectionTo(target.CandidatePersonalIdentificationDocuments, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidatePersonalIdentificationDocumentsSupported = false;
+                source.CandidatePersonalIdentificationDocuments.MapCollectionTo(target.CandidatePersonalIdentificationDocuments, target, mappingContract?.IsCandidatePersonalIdentificationDocumentIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateRacesSupported)
+            if (mappingContract?.IsCandidateRacesSupported != false)
             {
-                targetSynchSupport.IsCandidateRaceIncluded = sourceSynchSupport.IsCandidateRaceIncluded;
-                source.CandidateRaces.MapCollectionTo(target.CandidateRaces, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateRacesSupported = false;
+                source.CandidateRaces.MapCollectionTo(target.CandidateRaces, target, mappingContract?.IsCandidateRaceIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateTelephonesSupported)
+            if (mappingContract?.IsCandidateTelephonesSupported != false)
             {
-                targetSynchSupport.IsCandidateTelephoneIncluded = sourceSynchSupport.IsCandidateTelephoneIncluded;
-                source.CandidateTelephones.MapCollectionTo(target.CandidateTelephones, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateTelephonesSupported = false;
+                source.CandidateTelephones.MapCollectionTo(target.CandidateTelephones, target, mappingContract?.IsCandidateTelephoneIncluded);
             }
 
 
@@ -935,63 +797,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateSynchronizationSourceSupport 
-    {
-        bool IsBirthCitySupported { get; set; }
-        bool IsBirthCountryDescriptorSupported { get; set; }
-        bool IsBirthDateSupported { get; set; }
-        bool IsBirthInternationalProvinceSupported { get; set; }
-        bool IsBirthSexDescriptorSupported { get; set; }
-        bool IsBirthStateAbbreviationDescriptorSupported { get; set; }
-        bool IsCandidateAddressesSupported { get; set; }
-        bool IsCandidateDisabilitiesSupported { get; set; }
-        bool IsCandidateElectronicMailsSupported { get; set; }
-        bool IsCandidateLanguagesSupported { get; set; }
-        bool IsCandidateOtherNamesSupported { get; set; }
-        bool IsCandidatePersonalIdentificationDocumentsSupported { get; set; }
-        bool IsCandidateRacesSupported { get; set; }
-        bool IsCandidateTelephonesSupported { get; set; }
-        bool IsDateEnteredUSSupported { get; set; }
-        bool IsDisplacementStatusSupported { get; set; }
-        bool IsEconomicDisadvantagedSupported { get; set; }
-        bool IsEnglishLanguageExamDescriptorSupported { get; set; }
-        bool IsFirstGenerationStudentSupported { get; set; }
-        bool IsFirstNameSupported { get; set; }
-        bool IsGenderDescriptorSupported { get; set; }
-        bool IsGenerationCodeSuffixSupported { get; set; }
-        bool IsHispanicLatinoEthnicitySupported { get; set; }
-        bool IsLastSurnameSupported { get; set; }
-        bool IsLimitedEnglishProficiencyDescriptorSupported { get; set; }
-        bool IsMaidenNameSupported { get; set; }
-        bool IsMiddleNameSupported { get; set; }
-        bool IsMultipleBirthStatusSupported { get; set; }
-        bool IsPersonalTitlePrefixSupported { get; set; }
-        bool IsPersonIdSupported { get; set; }
-        bool IsSexDescriptorSupported { get; set; }
-        bool IsSourceSystemDescriptorSupported { get; set; }
-        Func<ICandidateAddress, bool> IsCandidateAddressIncluded { get; set; }
-        Func<ICandidateDisability, bool> IsCandidateDisabilityIncluded { get; set; }
-        Func<ICandidateElectronicMail, bool> IsCandidateElectronicMailIncluded { get; set; }
-        Func<ICandidateLanguage, bool> IsCandidateLanguageIncluded { get; set; }
-        Func<ICandidateOtherName, bool> IsCandidateOtherNameIncluded { get; set; }
-        Func<ICandidatePersonalIdentificationDocument, bool> IsCandidatePersonalIdentificationDocumentIncluded { get; set; }
-        Func<ICandidateRace, bool> IsCandidateRaceIncluded { get; set; }
-        Func<ICandidateTelephone, bool> IsCandidateTelephoneIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateAddressMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateAddress = new FullName("tpdm", "CandidateAddress");
+    
         public static bool SynchronizeTo(this ICandidateAddress source, ICandidateAddress target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateAddressSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateAddress);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AddressTypeDescriptor != target.AddressTypeDescriptor)
@@ -1017,63 +836,63 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsApartmentRoomSuiteNumberSupported)
+            if ((mappingContract?.IsApartmentRoomSuiteNumberSupported != false)
                 && target.ApartmentRoomSuiteNumber != source.ApartmentRoomSuiteNumber)
             {
                 target.ApartmentRoomSuiteNumber = source.ApartmentRoomSuiteNumber;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsBuildingSiteNumberSupported)
+            if ((mappingContract?.IsBuildingSiteNumberSupported != false)
                 && target.BuildingSiteNumber != source.BuildingSiteNumber)
             {
                 target.BuildingSiteNumber = source.BuildingSiteNumber;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCongressionalDistrictSupported)
+            if ((mappingContract?.IsCongressionalDistrictSupported != false)
                 && target.CongressionalDistrict != source.CongressionalDistrict)
             {
                 target.CongressionalDistrict = source.CongressionalDistrict;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCountyFIPSCodeSupported)
+            if ((mappingContract?.IsCountyFIPSCodeSupported != false)
                 && target.CountyFIPSCode != source.CountyFIPSCode)
             {
                 target.CountyFIPSCode = source.CountyFIPSCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDoNotPublishIndicatorSupported)
+            if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 && target.DoNotPublishIndicator != source.DoNotPublishIndicator)
             {
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLatitudeSupported)
+            if ((mappingContract?.IsLatitudeSupported != false)
                 && target.Latitude != source.Latitude)
             {
                 target.Latitude = source.Latitude;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLocaleDescriptorSupported)
+            if ((mappingContract?.IsLocaleDescriptorSupported != false)
                 && target.LocaleDescriptor != source.LocaleDescriptor)
             {
                 target.LocaleDescriptor = source.LocaleDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLongitudeSupported)
+            if ((mappingContract?.IsLongitudeSupported != false)
                 && target.Longitude != source.Longitude)
             {
                 target.Longitude = source.Longitude;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNameOfCountySupported)
+            if ((mappingContract?.IsNameOfCountySupported != false)
                 && target.NameOfCounty != source.NameOfCounty)
             {
                 target.NameOfCounty = source.NameOfCounty;
@@ -1082,7 +901,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsCandidateAddressPeriodsSupported)
+            if (mappingContract?.IsCandidateAddressPeriodsSupported ?? true)
             {
                 isModified |=
                     source.CandidateAddressPeriods.SynchronizeCollectionTo(
@@ -1091,9 +910,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.CandidateAddress = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateAddressPeriodIncluded);
+                        includeItem: item => mappingContract?.IsCandidateAddressPeriodIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -1104,9 +921,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateAddress source, ICandidateAddress target, Action<ICandidateAddress, ICandidateAddress> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateAddressSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateAddressSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateAddressMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateAddress);
+    
             // Copy contextual primary key values
             target.AddressTypeDescriptor = source.AddressTypeDescriptor;
             target.City = source.City;
@@ -1116,50 +935,32 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsApartmentRoomSuiteNumberSupported)
+            if (mappingContract?.IsApartmentRoomSuiteNumberSupported != false)
                 target.ApartmentRoomSuiteNumber = source.ApartmentRoomSuiteNumber;
-            else
-                targetSynchSupport.IsApartmentRoomSuiteNumberSupported = false;
 
-            if (sourceSynchSupport.IsBuildingSiteNumberSupported)
+            if (mappingContract?.IsBuildingSiteNumberSupported != false)
                 target.BuildingSiteNumber = source.BuildingSiteNumber;
-            else
-                targetSynchSupport.IsBuildingSiteNumberSupported = false;
 
-            if (sourceSynchSupport.IsCongressionalDistrictSupported)
+            if (mappingContract?.IsCongressionalDistrictSupported != false)
                 target.CongressionalDistrict = source.CongressionalDistrict;
-            else
-                targetSynchSupport.IsCongressionalDistrictSupported = false;
 
-            if (sourceSynchSupport.IsCountyFIPSCodeSupported)
+            if (mappingContract?.IsCountyFIPSCodeSupported != false)
                 target.CountyFIPSCode = source.CountyFIPSCode;
-            else
-                targetSynchSupport.IsCountyFIPSCodeSupported = false;
 
-            if (sourceSynchSupport.IsDoNotPublishIndicatorSupported)
+            if (mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
-            else
-                targetSynchSupport.IsDoNotPublishIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsLatitudeSupported)
+            if (mappingContract?.IsLatitudeSupported != false)
                 target.Latitude = source.Latitude;
-            else
-                targetSynchSupport.IsLatitudeSupported = false;
 
-            if (sourceSynchSupport.IsLocaleDescriptorSupported)
+            if (mappingContract?.IsLocaleDescriptorSupported != false)
                 target.LocaleDescriptor = source.LocaleDescriptor;
-            else
-                targetSynchSupport.IsLocaleDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsLongitudeSupported)
+            if (mappingContract?.IsLongitudeSupported != false)
                 target.Longitude = source.Longitude;
-            else
-                targetSynchSupport.IsLongitudeSupported = false;
 
-            if (sourceSynchSupport.IsNameOfCountySupported)
+            if (mappingContract?.IsNameOfCountySupported != false)
                 target.NameOfCounty = source.NameOfCounty;
-            else
-                targetSynchSupport.IsNameOfCountySupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1170,14 +971,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsCandidateAddressPeriodsSupported)
+            if (mappingContract?.IsCandidateAddressPeriodsSupported != false)
             {
-                targetSynchSupport.IsCandidateAddressPeriodIncluded = sourceSynchSupport.IsCandidateAddressPeriodIncluded;
-                source.CandidateAddressPeriods.MapCollectionTo(target.CandidateAddressPeriods, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateAddressPeriodsSupported = false;
+                source.CandidateAddressPeriods.MapCollectionTo(target.CandidateAddressPeriods, target, mappingContract?.IsCandidateAddressPeriodIncluded);
             }
 
 
@@ -1202,34 +998,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateAddressSynchronizationSourceSupport 
-    {
-        bool IsApartmentRoomSuiteNumberSupported { get; set; }
-        bool IsBuildingSiteNumberSupported { get; set; }
-        bool IsCandidateAddressPeriodsSupported { get; set; }
-        bool IsCongressionalDistrictSupported { get; set; }
-        bool IsCountyFIPSCodeSupported { get; set; }
-        bool IsDoNotPublishIndicatorSupported { get; set; }
-        bool IsLatitudeSupported { get; set; }
-        bool IsLocaleDescriptorSupported { get; set; }
-        bool IsLongitudeSupported { get; set; }
-        bool IsNameOfCountySupported { get; set; }
-        Func<ICandidateAddressPeriod, bool> IsCandidateAddressPeriodIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateAddressPeriodMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateAddressPeriod = new FullName("tpdm", "CandidateAddressPeriod");
+    
         public static bool SynchronizeTo(this ICandidateAddressPeriod source, ICandidateAddressPeriod target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateAddressPeriodSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateAddressPeriod);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BeginDate != target.BeginDate)
@@ -1239,7 +1021,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+            if ((mappingContract?.IsEndDateSupported != false)
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
@@ -1256,18 +1038,18 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateAddressPeriod source, ICandidateAddressPeriod target, Action<ICandidateAddressPeriod, ICandidateAddressPeriod> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateAddressPeriodSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateAddressPeriodSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateAddressPeriodMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateAddressPeriod);
+    
             // Copy contextual primary key values
             target.BeginDate = source.BeginDate;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEndDateSupported)
+            if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
-            else
-                targetSynchSupport.IsEndDateSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1300,24 +1082,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateAddressPeriodSynchronizationSourceSupport 
-    {
-        bool IsEndDateSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateDisabilityMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateDisability = new FullName("tpdm", "CandidateDisability");
+    
         public static bool SynchronizeTo(this ICandidateDisability source, ICandidateDisability target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateDisabilitySynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateDisabilityMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateDisability);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.DisabilityDescriptor != target.DisabilityDescriptor)
@@ -1327,21 +1105,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported)
+            if ((mappingContract?.IsDisabilityDeterminationSourceTypeDescriptorSupported != false)
                 && target.DisabilityDeterminationSourceTypeDescriptor != source.DisabilityDeterminationSourceTypeDescriptor)
             {
                 target.DisabilityDeterminationSourceTypeDescriptor = source.DisabilityDeterminationSourceTypeDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDisabilityDiagnosisSupported)
+            if ((mappingContract?.IsDisabilityDiagnosisSupported != false)
                 && target.DisabilityDiagnosis != source.DisabilityDiagnosis)
             {
                 target.DisabilityDiagnosis = source.DisabilityDiagnosis;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOrderOfDisabilitySupported)
+            if ((mappingContract?.IsOrderOfDisabilitySupported != false)
                 && target.OrderOfDisability != source.OrderOfDisability)
             {
                 target.OrderOfDisability = source.OrderOfDisability;
@@ -1350,7 +1128,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsCandidateDisabilityDesignationsSupported)
+            if (mappingContract?.IsCandidateDisabilityDesignationsSupported ?? true)
             {
                 isModified |=
                     source.CandidateDisabilityDesignations.SynchronizeCollectionTo(
@@ -1359,9 +1137,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.CandidateDisability = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateDisabilityDesignationIncluded);
+                        includeItem: item => mappingContract?.IsCandidateDisabilityDesignationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -1372,28 +1148,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateDisability source, ICandidateDisability target, Action<ICandidateDisability, ICandidateDisability> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateDisabilitySynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateDisabilitySynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateDisabilityMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateDisability);
+    
             // Copy contextual primary key values
             target.DisabilityDescriptor = source.DisabilityDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported)
+            if (mappingContract?.IsDisabilityDeterminationSourceTypeDescriptorSupported != false)
                 target.DisabilityDeterminationSourceTypeDescriptor = source.DisabilityDeterminationSourceTypeDescriptor;
-            else
-                targetSynchSupport.IsDisabilityDeterminationSourceTypeDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsDisabilityDiagnosisSupported)
+            if (mappingContract?.IsDisabilityDiagnosisSupported != false)
                 target.DisabilityDiagnosis = source.DisabilityDiagnosis;
-            else
-                targetSynchSupport.IsDisabilityDiagnosisSupported = false;
 
-            if (sourceSynchSupport.IsOrderOfDisabilitySupported)
+            if (mappingContract?.IsOrderOfDisabilitySupported != false)
                 target.OrderOfDisability = source.OrderOfDisability;
-            else
-                targetSynchSupport.IsOrderOfDisabilitySupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1404,14 +1176,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsCandidateDisabilityDesignationsSupported)
+            if (mappingContract?.IsCandidateDisabilityDesignationsSupported != false)
             {
-                targetSynchSupport.IsCandidateDisabilityDesignationIncluded = sourceSynchSupport.IsCandidateDisabilityDesignationIncluded;
-                source.CandidateDisabilityDesignations.MapCollectionTo(target.CandidateDisabilityDesignations, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateDisabilityDesignationsSupported = false;
+                source.CandidateDisabilityDesignations.MapCollectionTo(target.CandidateDisabilityDesignations, target, mappingContract?.IsCandidateDisabilityDesignationIncluded);
             }
 
 
@@ -1436,28 +1203,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateDisabilitySynchronizationSourceSupport 
-    {
-        bool IsCandidateDisabilityDesignationsSupported { get; set; }
-        bool IsDisabilityDeterminationSourceTypeDescriptorSupported { get; set; }
-        bool IsDisabilityDiagnosisSupported { get; set; }
-        bool IsOrderOfDisabilitySupported { get; set; }
-        Func<ICandidateDisabilityDesignation, bool> IsCandidateDisabilityDesignationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateDisabilityDesignationMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateDisabilityDesignation = new FullName("tpdm", "CandidateDisabilityDesignation");
+    
         public static bool SynchronizeTo(this ICandidateDisabilityDesignation source, ICandidateDisabilityDesignation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateDisabilityDesignationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateDisabilityDesignationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateDisabilityDesignation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.DisabilityDesignationDescriptor != target.DisabilityDesignationDescriptor)
@@ -1477,9 +1236,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateDisabilityDesignation source, ICandidateDisabilityDesignation target, Action<ICandidateDisabilityDesignation, ICandidateDisabilityDesignation> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateDisabilityDesignationSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateDisabilityDesignationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateDisabilityDesignationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateDisabilityDesignation);
+    
             // Copy contextual primary key values
             target.DisabilityDesignationDescriptor = source.DisabilityDesignationDescriptor;
 
@@ -1516,23 +1277,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateDisabilityDesignationSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateElectronicMailMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateElectronicMail = new FullName("tpdm", "CandidateElectronicMail");
+    
         public static bool SynchronizeTo(this ICandidateElectronicMail source, ICandidateElectronicMail target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateElectronicMailSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateElectronicMailMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateElectronicMail);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ElectronicMailAddress != target.ElectronicMailAddress)
@@ -1546,14 +1304,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDoNotPublishIndicatorSupported)
+            if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 && target.DoNotPublishIndicator != source.DoNotPublishIndicator)
             {
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPrimaryEmailAddressIndicatorSupported)
+            if ((mappingContract?.IsPrimaryEmailAddressIndicatorSupported != false)
                 && target.PrimaryEmailAddressIndicator != source.PrimaryEmailAddressIndicator)
             {
                 target.PrimaryEmailAddressIndicator = source.PrimaryEmailAddressIndicator;
@@ -1570,24 +1328,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateElectronicMail source, ICandidateElectronicMail target, Action<ICandidateElectronicMail, ICandidateElectronicMail> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateElectronicMailSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateElectronicMailSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateElectronicMailMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateElectronicMail);
+    
             // Copy contextual primary key values
             target.ElectronicMailAddress = source.ElectronicMailAddress;
             target.ElectronicMailTypeDescriptor = source.ElectronicMailTypeDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDoNotPublishIndicatorSupported)
+            if (mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
-            else
-                targetSynchSupport.IsDoNotPublishIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsPrimaryEmailAddressIndicatorSupported)
+            if (mappingContract?.IsPrimaryEmailAddressIndicatorSupported != false)
                 target.PrimaryEmailAddressIndicator = source.PrimaryEmailAddressIndicator;
-            else
-                targetSynchSupport.IsPrimaryEmailAddressIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1620,25 +1376,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateElectronicMailSynchronizationSourceSupport 
-    {
-        bool IsDoNotPublishIndicatorSupported { get; set; }
-        bool IsPrimaryEmailAddressIndicatorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateLanguageMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateLanguage = new FullName("tpdm", "CandidateLanguage");
+    
         public static bool SynchronizeTo(this ICandidateLanguage source, ICandidateLanguage target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateLanguageSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateLanguageMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateLanguage);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.LanguageDescriptor != target.LanguageDescriptor)
@@ -1650,7 +1401,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsCandidateLanguageUsesSupported)
+            if (mappingContract?.IsCandidateLanguageUsesSupported ?? true)
             {
                 isModified |=
                     source.CandidateLanguageUses.SynchronizeCollectionTo(
@@ -1659,9 +1410,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
                             {
                                 child.CandidateLanguage = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateLanguageUseIncluded);
+                        includeItem: item => mappingContract?.IsCandidateLanguageUseIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -1672,9 +1421,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateLanguage source, ICandidateLanguage target, Action<ICandidateLanguage, ICandidateLanguage> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateLanguageSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateLanguageSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateLanguageMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateLanguage);
+    
             // Copy contextual primary key values
             target.LanguageDescriptor = source.LanguageDescriptor;
 
@@ -1689,14 +1440,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsCandidateLanguageUsesSupported)
+            if (mappingContract?.IsCandidateLanguageUsesSupported != false)
             {
-                targetSynchSupport.IsCandidateLanguageUseIncluded = sourceSynchSupport.IsCandidateLanguageUseIncluded;
-                source.CandidateLanguageUses.MapCollectionTo(target.CandidateLanguageUses, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateLanguageUsesSupported = false;
+                source.CandidateLanguageUses.MapCollectionTo(target.CandidateLanguageUses, target, mappingContract?.IsCandidateLanguageUseIncluded);
             }
 
 
@@ -1721,25 +1467,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateLanguageSynchronizationSourceSupport 
-    {
-        bool IsCandidateLanguageUsesSupported { get; set; }
-        Func<ICandidateLanguageUse, bool> IsCandidateLanguageUseIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateLanguageUseMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateLanguageUse = new FullName("tpdm", "CandidateLanguageUse");
+    
         public static bool SynchronizeTo(this ICandidateLanguageUse source, ICandidateLanguageUse target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateLanguageUseSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateLanguageUseMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateLanguageUse);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.LanguageUseDescriptor != target.LanguageUseDescriptor)
@@ -1759,9 +1500,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateLanguageUse source, ICandidateLanguageUse target, Action<ICandidateLanguageUse, ICandidateLanguageUse> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateLanguageUseSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateLanguageUseSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateLanguageUseMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateLanguageUse);
+    
             // Copy contextual primary key values
             target.LanguageUseDescriptor = source.LanguageUseDescriptor;
 
@@ -1798,23 +1541,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateLanguageUseSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateOtherNameMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateOtherName = new FullName("tpdm", "CandidateOtherName");
+    
         public static bool SynchronizeTo(this ICandidateOtherName source, ICandidateOtherName target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateOtherNameSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateOtherNameMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateOtherName);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.OtherNameTypeDescriptor != target.OtherNameTypeDescriptor)
@@ -1824,35 +1564,35 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsFirstNameSupported)
+            if ((mappingContract?.IsFirstNameSupported != false)
                 && target.FirstName != source.FirstName)
             {
                 target.FirstName = source.FirstName;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsGenerationCodeSuffixSupported)
+            if ((mappingContract?.IsGenerationCodeSuffixSupported != false)
                 && target.GenerationCodeSuffix != source.GenerationCodeSuffix)
             {
                 target.GenerationCodeSuffix = source.GenerationCodeSuffix;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLastSurnameSupported)
+            if ((mappingContract?.IsLastSurnameSupported != false)
                 && target.LastSurname != source.LastSurname)
             {
                 target.LastSurname = source.LastSurname;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMiddleNameSupported)
+            if ((mappingContract?.IsMiddleNameSupported != false)
                 && target.MiddleName != source.MiddleName)
             {
                 target.MiddleName = source.MiddleName;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPersonalTitlePrefixSupported)
+            if ((mappingContract?.IsPersonalTitlePrefixSupported != false)
                 && target.PersonalTitlePrefix != source.PersonalTitlePrefix)
             {
                 target.PersonalTitlePrefix = source.PersonalTitlePrefix;
@@ -1869,38 +1609,30 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateOtherName source, ICandidateOtherName target, Action<ICandidateOtherName, ICandidateOtherName> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateOtherNameSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateOtherNameSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateOtherNameMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateOtherName);
+    
             // Copy contextual primary key values
             target.OtherNameTypeDescriptor = source.OtherNameTypeDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsFirstNameSupported)
+            if (mappingContract?.IsFirstNameSupported != false)
                 target.FirstName = source.FirstName;
-            else
-                targetSynchSupport.IsFirstNameSupported = false;
 
-            if (sourceSynchSupport.IsGenerationCodeSuffixSupported)
+            if (mappingContract?.IsGenerationCodeSuffixSupported != false)
                 target.GenerationCodeSuffix = source.GenerationCodeSuffix;
-            else
-                targetSynchSupport.IsGenerationCodeSuffixSupported = false;
 
-            if (sourceSynchSupport.IsLastSurnameSupported)
+            if (mappingContract?.IsLastSurnameSupported != false)
                 target.LastSurname = source.LastSurname;
-            else
-                targetSynchSupport.IsLastSurnameSupported = false;
 
-            if (sourceSynchSupport.IsMiddleNameSupported)
+            if (mappingContract?.IsMiddleNameSupported != false)
                 target.MiddleName = source.MiddleName;
-            else
-                targetSynchSupport.IsMiddleNameSupported = false;
 
-            if (sourceSynchSupport.IsPersonalTitlePrefixSupported)
+            if (mappingContract?.IsPersonalTitlePrefixSupported != false)
                 target.PersonalTitlePrefix = source.PersonalTitlePrefix;
-            else
-                targetSynchSupport.IsPersonalTitlePrefixSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -1933,28 +1665,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateOtherNameSynchronizationSourceSupport 
-    {
-        bool IsFirstNameSupported { get; set; }
-        bool IsGenerationCodeSuffixSupported { get; set; }
-        bool IsLastSurnameSupported { get; set; }
-        bool IsMiddleNameSupported { get; set; }
-        bool IsPersonalTitlePrefixSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidatePersonalIdentificationDocumentMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidatePersonalIdentificationDocument = new FullName("tpdm", "CandidatePersonalIdentificationDocument");
+    
         public static bool SynchronizeTo(this ICandidatePersonalIdentificationDocument source, ICandidatePersonalIdentificationDocument target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidatePersonalIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidatePersonalIdentificationDocument);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.IdentificationDocumentUseDescriptor != target.IdentificationDocumentUseDescriptor)
@@ -1968,35 +1692,35 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDocumentExpirationDateSupported)
+            if ((mappingContract?.IsDocumentExpirationDateSupported != false)
                 && target.DocumentExpirationDate != source.DocumentExpirationDate)
             {
                 target.DocumentExpirationDate = source.DocumentExpirationDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDocumentTitleSupported)
+            if ((mappingContract?.IsDocumentTitleSupported != false)
                 && target.DocumentTitle != source.DocumentTitle)
             {
                 target.DocumentTitle = source.DocumentTitle;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsIssuerCountryDescriptorSupported)
+            if ((mappingContract?.IsIssuerCountryDescriptorSupported != false)
                 && target.IssuerCountryDescriptor != source.IssuerCountryDescriptor)
             {
                 target.IssuerCountryDescriptor = source.IssuerCountryDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsIssuerDocumentIdentificationCodeSupported)
+            if ((mappingContract?.IsIssuerDocumentIdentificationCodeSupported != false)
                 && target.IssuerDocumentIdentificationCode != source.IssuerDocumentIdentificationCode)
             {
                 target.IssuerDocumentIdentificationCode = source.IssuerDocumentIdentificationCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsIssuerNameSupported)
+            if ((mappingContract?.IsIssuerNameSupported != false)
                 && target.IssuerName != source.IssuerName)
             {
                 target.IssuerName = source.IssuerName;
@@ -2013,39 +1737,31 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidatePersonalIdentificationDocument source, ICandidatePersonalIdentificationDocument target, Action<ICandidatePersonalIdentificationDocument, ICandidatePersonalIdentificationDocument> onMapped)
         {
-            var sourceSynchSupport = source as ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidatePersonalIdentificationDocumentMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidatePersonalIdentificationDocument);
+    
             // Copy contextual primary key values
             target.IdentificationDocumentUseDescriptor = source.IdentificationDocumentUseDescriptor;
             target.PersonalInformationVerificationDescriptor = source.PersonalInformationVerificationDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDocumentExpirationDateSupported)
+            if (mappingContract?.IsDocumentExpirationDateSupported != false)
                 target.DocumentExpirationDate = source.DocumentExpirationDate;
-            else
-                targetSynchSupport.IsDocumentExpirationDateSupported = false;
 
-            if (sourceSynchSupport.IsDocumentTitleSupported)
+            if (mappingContract?.IsDocumentTitleSupported != false)
                 target.DocumentTitle = source.DocumentTitle;
-            else
-                targetSynchSupport.IsDocumentTitleSupported = false;
 
-            if (sourceSynchSupport.IsIssuerCountryDescriptorSupported)
+            if (mappingContract?.IsIssuerCountryDescriptorSupported != false)
                 target.IssuerCountryDescriptor = source.IssuerCountryDescriptor;
-            else
-                targetSynchSupport.IsIssuerCountryDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsIssuerDocumentIdentificationCodeSupported)
+            if (mappingContract?.IsIssuerDocumentIdentificationCodeSupported != false)
                 target.IssuerDocumentIdentificationCode = source.IssuerDocumentIdentificationCode;
-            else
-                targetSynchSupport.IsIssuerDocumentIdentificationCodeSupported = false;
 
-            if (sourceSynchSupport.IsIssuerNameSupported)
+            if (mappingContract?.IsIssuerNameSupported != false)
                 target.IssuerName = source.IssuerName;
-            else
-                targetSynchSupport.IsIssuerNameSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -2078,28 +1794,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport 
-    {
-        bool IsDocumentExpirationDateSupported { get; set; }
-        bool IsDocumentTitleSupported { get; set; }
-        bool IsIssuerCountryDescriptorSupported { get; set; }
-        bool IsIssuerDocumentIdentificationCodeSupported { get; set; }
-        bool IsIssuerNameSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateRaceMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateRace = new FullName("tpdm", "CandidateRace");
+    
         public static bool SynchronizeTo(this ICandidateRace source, ICandidateRace target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateRaceSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateRaceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateRace);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.RaceDescriptor != target.RaceDescriptor)
@@ -2119,9 +1827,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateRace source, ICandidateRace target, Action<ICandidateRace, ICandidateRace> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateRaceSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateRaceSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateRaceMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateRace);
+    
             // Copy contextual primary key values
             target.RaceDescriptor = source.RaceDescriptor;
 
@@ -2158,23 +1868,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateRaceSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateTelephoneMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateTelephone = new FullName("tpdm", "CandidateTelephone");
+    
         public static bool SynchronizeTo(this ICandidateTelephone source, ICandidateTelephone target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateTelephoneSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateTelephoneMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateTelephone);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.TelephoneNumber != target.TelephoneNumber)
@@ -2188,21 +1895,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsDoNotPublishIndicatorSupported)
+            if ((mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 && target.DoNotPublishIndicator != source.DoNotPublishIndicator)
             {
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsOrderOfPrioritySupported)
+            if ((mappingContract?.IsOrderOfPrioritySupported != false)
                 && target.OrderOfPriority != source.OrderOfPriority)
             {
                 target.OrderOfPriority = source.OrderOfPriority;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsTextMessageCapabilityIndicatorSupported)
+            if ((mappingContract?.IsTextMessageCapabilityIndicatorSupported != false)
                 && target.TextMessageCapabilityIndicator != source.TextMessageCapabilityIndicator)
             {
                 target.TextMessageCapabilityIndicator = source.TextMessageCapabilityIndicator;
@@ -2219,29 +1926,25 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
 
         public static void MapTo(this ICandidateTelephone source, ICandidateTelephone target, Action<ICandidateTelephone, ICandidateTelephone> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateTelephoneSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateTelephoneSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateTelephoneMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateTelephone);
+    
             // Copy contextual primary key values
             target.TelephoneNumber = source.TelephoneNumber;
             target.TelephoneNumberTypeDescriptor = source.TelephoneNumberTypeDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsDoNotPublishIndicatorSupported)
+            if (mappingContract?.IsDoNotPublishIndicatorSupported != false)
                 target.DoNotPublishIndicator = source.DoNotPublishIndicator;
-            else
-                targetSynchSupport.IsDoNotPublishIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsOrderOfPrioritySupported)
+            if (mappingContract?.IsOrderOfPrioritySupported != false)
                 target.OrderOfPriority = source.OrderOfPriority;
-            else
-                targetSynchSupport.IsOrderOfPrioritySupported = false;
 
-            if (sourceSynchSupport.IsTextMessageCapabilityIndicatorSupported)
+            if (mappingContract?.IsTextMessageCapabilityIndicatorSupported != false)
                 target.TextMessageCapabilityIndicator = source.TextMessageCapabilityIndicator;
-            else
-                targetSynchSupport.IsTextMessageCapabilityIndicatorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -2274,18 +1977,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateTelephoneSynchronizationSourceSupport 
-    {
-        bool IsDoNotPublishIndicatorSupported { get; set; }
-        bool IsOrderOfPrioritySupported { get; set; }
-        bool IsTextMessageCapabilityIndicatorSupported { get; set; }
-    }
-
 }
 // Aggregate: CandidateEducatorPreparationProgramAssociation
 
@@ -2294,11 +1985,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
     [ExcludeFromCodeCoverage]
     public static class CandidateEducatorPreparationProgramAssociationMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateEducatorPreparationProgramAssociation = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociation");
+    
         public static bool SynchronizeTo(this ICandidateEducatorPreparationProgramAssociation source, ICandidateEducatorPreparationProgramAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateEducatorPreparationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.BeginDate != target.BeginDate)
@@ -2324,21 +2021,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+            if ((mappingContract?.IsEndDateSupported != false)
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEPPProgramPathwayDescriptorSupported)
+            if ((mappingContract?.IsEPPProgramPathwayDescriptorSupported != false)
                 && target.EPPProgramPathwayDescriptor != source.EPPProgramPathwayDescriptor)
             {
                 target.EPPProgramPathwayDescriptor = source.EPPProgramPathwayDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReasonExitedDescriptorSupported)
+            if ((mappingContract?.IsReasonExitedDescriptorSupported != false)
                 && target.ReasonExitedDescriptor != source.ReasonExitedDescriptor)
             {
                 target.ReasonExitedDescriptor = source.ReasonExitedDescriptor;
@@ -2347,7 +2044,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported)
+            if (mappingContract?.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported ?? true)
             {
                 isModified |=
                     source.CandidateEducatorPreparationProgramAssociationCohortYears.SynchronizeCollectionTo(
@@ -2356,12 +2053,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                             {
                                 child.CandidateEducatorPreparationProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded);
+                        includeItem: item => mappingContract?.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported)
+            if (mappingContract?.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported ?? true)
             {
                 isModified |=
                     source.CandidateEducatorPreparationProgramAssociationDegreeSpecializations.SynchronizeCollectionTo(
@@ -2370,9 +2065,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
                             {
                                 child.CandidateEducatorPreparationProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded);
+                        includeItem: item => mappingContract?.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -2383,9 +2076,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
         public static void MapTo(this ICandidateEducatorPreparationProgramAssociation source, ICandidateEducatorPreparationProgramAssociation target, Action<ICandidateEducatorPreparationProgramAssociation, ICandidateEducatorPreparationProgramAssociation> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateEducatorPreparationProgramAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -2398,20 +2093,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEndDateSupported)
+            if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
-            else
-                targetSynchSupport.IsEndDateSupported = false;
 
-            if (sourceSynchSupport.IsEPPProgramPathwayDescriptorSupported)
+            if (mappingContract?.IsEPPProgramPathwayDescriptorSupported != false)
                 target.EPPProgramPathwayDescriptor = source.EPPProgramPathwayDescriptor;
-            else
-                targetSynchSupport.IsEPPProgramPathwayDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsReasonExitedDescriptorSupported)
+            if (mappingContract?.IsReasonExitedDescriptorSupported != false)
                 target.ReasonExitedDescriptor = source.ReasonExitedDescriptor;
-            else
-                targetSynchSupport.IsReasonExitedDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -2431,24 +2120,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             // Map lists
 
-            if (sourceSynchSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported)
+            if (mappingContract?.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported != false)
             {
-                targetSynchSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded = sourceSynchSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded;
-                source.CandidateEducatorPreparationProgramAssociationCohortYears.MapCollectionTo(target.CandidateEducatorPreparationProgramAssociationCohortYears, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported = false;
+                source.CandidateEducatorPreparationProgramAssociationCohortYears.MapCollectionTo(target.CandidateEducatorPreparationProgramAssociationCohortYears, target, mappingContract?.IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded);
             }
 
-            if (sourceSynchSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported)
+            if (mappingContract?.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported != false)
             {
-                targetSynchSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded = sourceSynchSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded;
-                source.CandidateEducatorPreparationProgramAssociationDegreeSpecializations.MapCollectionTo(target.CandidateEducatorPreparationProgramAssociationDegreeSpecializations, target);
-            }
-            else
-            {
-                targetSynchSupport.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported = false;
+                source.CandidateEducatorPreparationProgramAssociationDegreeSpecializations.MapCollectionTo(target.CandidateEducatorPreparationProgramAssociationDegreeSpecializations, target, mappingContract?.IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded);
             }
 
 
@@ -2473,30 +2152,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport 
-    {
-        bool IsCandidateEducatorPreparationProgramAssociationCohortYearsSupported { get; set; }
-        bool IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationsSupported { get; set; }
-        bool IsEndDateSupported { get; set; }
-        bool IsEPPProgramPathwayDescriptorSupported { get; set; }
-        bool IsReasonExitedDescriptorSupported { get; set; }
-        Func<ICandidateEducatorPreparationProgramAssociationCohortYear, bool> IsCandidateEducatorPreparationProgramAssociationCohortYearIncluded { get; set; }
-        Func<ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, bool> IsCandidateEducatorPreparationProgramAssociationDegreeSpecializationIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateEducatorPreparationProgramAssociationCohortYearMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateEducatorPreparationProgramAssociationCohortYear = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociationCohortYear");
+    
         public static bool SynchronizeTo(this ICandidateEducatorPreparationProgramAssociationCohortYear source, ICandidateEducatorPreparationProgramAssociationCohortYear target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateEducatorPreparationProgramAssociationCohortYearMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationCohortYear);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CohortYearTypeDescriptor != target.CohortYearTypeDescriptor)
@@ -2510,7 +2179,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsTermDescriptorSupported)
+            if ((mappingContract?.IsTermDescriptorSupported != false)
                 && target.TermDescriptor != source.TermDescriptor)
             {
                 target.TermDescriptor = source.TermDescriptor;
@@ -2527,19 +2196,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
         public static void MapTo(this ICandidateEducatorPreparationProgramAssociationCohortYear source, ICandidateEducatorPreparationProgramAssociationCohortYear target, Action<ICandidateEducatorPreparationProgramAssociationCohortYear, ICandidateEducatorPreparationProgramAssociationCohortYear> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateEducatorPreparationProgramAssociationCohortYearMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationCohortYear);
+    
             // Copy contextual primary key values
             target.CohortYearTypeDescriptor = source.CohortYearTypeDescriptor;
             target.SchoolYear = source.SchoolYear;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsTermDescriptorSupported)
+            if (mappingContract?.IsTermDescriptorSupported != false)
                 target.TermDescriptor = source.TermDescriptor;
-            else
-                targetSynchSupport.IsTermDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -2578,24 +2247,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport 
-    {
-        bool IsTermDescriptorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CandidateEducatorPreparationProgramAssociationDegreeSpecializationMapper
     {
+        private static readonly FullName _fullName_tpdm_CandidateEducatorPreparationProgramAssociationDegreeSpecialization = new FullName("tpdm", "CandidateEducatorPreparationProgramAssociationDegreeSpecialization");
+    
         public static bool SynchronizeTo(this ICandidateEducatorPreparationProgramAssociationDegreeSpecialization source, ICandidateEducatorPreparationProgramAssociationDegreeSpecialization target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CandidateEducatorPreparationProgramAssociationDegreeSpecializationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationDegreeSpecialization);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.MajorSpecialization != target.MajorSpecialization)
@@ -2605,14 +2270,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+            if ((mappingContract?.IsEndDateSupported != false)
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinorSpecializationSupported)
+            if ((mappingContract?.IsMinorSpecializationSupported != false)
                 && target.MinorSpecialization != source.MinorSpecialization)
             {
                 target.MinorSpecialization = source.MinorSpecialization;
@@ -2629,23 +2294,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
 
         public static void MapTo(this ICandidateEducatorPreparationProgramAssociationDegreeSpecialization source, ICandidateEducatorPreparationProgramAssociationDegreeSpecialization target, Action<ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, ICandidateEducatorPreparationProgramAssociationDegreeSpecialization> onMapped)
         {
-            var sourceSynchSupport = source as ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CandidateEducatorPreparationProgramAssociationDegreeSpecializationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CandidateEducatorPreparationProgramAssociationDegreeSpecialization);
+    
             // Copy contextual primary key values
             target.MajorSpecialization = source.MajorSpecialization;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEndDateSupported)
+            if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
-            else
-                targetSynchSupport.IsEndDateSupported = false;
 
-            if (sourceSynchSupport.IsMinorSpecializationSupported)
+            if (mappingContract?.IsMinorSpecializationSupported != false)
                 target.MinorSpecialization = source.MinorSpecialization;
-            else
-                targetSynchSupport.IsMinorSpecializationSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -2678,17 +2341,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport 
-    {
-        bool IsEndDateSupported { get; set; }
-        bool IsMinorSpecializationSupported { get; set; }
-    }
-
 }
 // Aggregate: CertificationRouteDescriptor
 
@@ -2697,11 +2349,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class CertificationRouteDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_CertificationRouteDescriptor = new FullName("tpdm", "CertificationRouteDescriptor");
+    
         public static bool SynchronizeTo(this ICertificationRouteDescriptor source, ICertificationRouteDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICertificationRouteDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CertificationRouteDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CertificationRouteDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CertificationRouteDescriptorId != target.CertificationRouteDescriptorId)
@@ -2712,49 +2370,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -2775,9 +2433,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
 
         public static void MapTo(this ICertificationRouteDescriptor source, ICertificationRouteDescriptor target, Action<ICertificationRouteDescriptor, ICertificationRouteDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as ICertificationRouteDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICertificationRouteDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CertificationRouteDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CertificationRouteDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -2786,40 +2446,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -2856,22 +2502,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICertificationRouteDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: CoteachingStyleObservedDescriptor
 
@@ -2880,11 +2510,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
     [ExcludeFromCodeCoverage]
     public static class CoteachingStyleObservedDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_CoteachingStyleObservedDescriptor = new FullName("tpdm", "CoteachingStyleObservedDescriptor");
+    
         public static bool SynchronizeTo(this ICoteachingStyleObservedDescriptor source, ICoteachingStyleObservedDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICoteachingStyleObservedDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CoteachingStyleObservedDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CoteachingStyleObservedDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CoteachingStyleObservedDescriptorId != target.CoteachingStyleObservedDescriptorId)
@@ -2895,49 +2531,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -2958,9 +2594,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
 
         public static void MapTo(this ICoteachingStyleObservedDescriptor source, ICoteachingStyleObservedDescriptor target, Action<ICoteachingStyleObservedDescriptor, ICoteachingStyleObservedDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as ICoteachingStyleObservedDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICoteachingStyleObservedDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CoteachingStyleObservedDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CoteachingStyleObservedDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -2969,40 +2607,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -3039,22 +2663,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICoteachingStyleObservedDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: Credential
 
@@ -3063,71 +2671,72 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
     [ExcludeFromCodeCoverage]
     public static class CredentialExtensionMapper
     {
+        private static readonly FullName _fullName_tpdm_CredentialExtension = new FullName("tpdm", "CredentialExtension");
+    
         public static bool SynchronizeTo(this ICredentialExtension source, ICredentialExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICredentialExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.Credential as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CredentialExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsBoardCertificationIndicatorSupported)
+            if ((mappingContract?.IsBoardCertificationIndicatorSupported != false)
                 && target.BoardCertificationIndicator != source.BoardCertificationIndicator)
             {
                 target.BoardCertificationIndicator = source.BoardCertificationIndicator;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCertificationRouteDescriptorSupported)
+            if ((mappingContract?.IsCertificationRouteDescriptorSupported != false)
                 && target.CertificationRouteDescriptor != source.CertificationRouteDescriptor)
             {
                 target.CertificationRouteDescriptor = source.CertificationRouteDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCertificationTitleSupported)
+            if ((mappingContract?.IsCertificationTitleSupported != false)
                 && target.CertificationTitle != source.CertificationTitle)
             {
                 target.CertificationTitle = source.CertificationTitle;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCredentialStatusDateSupported)
+            if ((mappingContract?.IsCredentialStatusDateSupported != false)
                 && target.CredentialStatusDate != source.CredentialStatusDate)
             {
                 target.CredentialStatusDate = source.CredentialStatusDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCredentialStatusDescriptorSupported)
+            if ((mappingContract?.IsCredentialStatusDescriptorSupported != false)
                 && target.CredentialStatusDescriptor != source.CredentialStatusDescriptor)
             {
                 target.CredentialStatusDescriptor = source.CredentialStatusDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEducatorRoleDescriptorSupported)
+            if ((mappingContract?.IsEducatorRoleDescriptorSupported != false)
                 && target.EducatorRoleDescriptor != source.EducatorRoleDescriptor)
             {
                 target.EducatorRoleDescriptor = source.EducatorRoleDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPersonIdSupported)
+            if ((mappingContract?.IsPersonIdSupported != false)
                 && target.PersonId != source.PersonId)
             {
                 target.PersonId = source.PersonId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSourceSystemDescriptorSupported)
+            if ((mappingContract?.IsSourceSystemDescriptorSupported != false)
                 && target.SourceSystemDescriptor != source.SourceSystemDescriptor)
             {
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
@@ -3136,7 +2745,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsCredentialStudentAcademicRecordsSupported)
+            if (mappingContract?.IsCredentialStudentAcademicRecordsSupported ?? true)
             {
                 isModified |=
                     source.CredentialStudentAcademicRecords.SynchronizeCollectionTo(
@@ -3148,9 +2757,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Credential);
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsCredentialStudentAcademicRecordIncluded);
+                        includeItem: item => mappingContract?.IsCredentialStudentAcademicRecordIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -3161,52 +2768,38 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
         public static void MapTo(this ICredentialExtension source, ICredentialExtension target, Action<ICredentialExtension, ICredentialExtension> onMapped)
         {
-            var sourceSynchSupport = source as ICredentialExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICredentialExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CredentialExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsBoardCertificationIndicatorSupported)
+            if (mappingContract?.IsBoardCertificationIndicatorSupported != false)
                 target.BoardCertificationIndicator = source.BoardCertificationIndicator;
-            else
-                targetSynchSupport.IsBoardCertificationIndicatorSupported = false;
 
-            if (sourceSynchSupport.IsCertificationRouteDescriptorSupported)
+            if (mappingContract?.IsCertificationRouteDescriptorSupported != false)
                 target.CertificationRouteDescriptor = source.CertificationRouteDescriptor;
-            else
-                targetSynchSupport.IsCertificationRouteDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsCertificationTitleSupported)
+            if (mappingContract?.IsCertificationTitleSupported != false)
                 target.CertificationTitle = source.CertificationTitle;
-            else
-                targetSynchSupport.IsCertificationTitleSupported = false;
 
-            if (sourceSynchSupport.IsCredentialStatusDateSupported)
+            if (mappingContract?.IsCredentialStatusDateSupported != false)
                 target.CredentialStatusDate = source.CredentialStatusDate;
-            else
-                targetSynchSupport.IsCredentialStatusDateSupported = false;
 
-            if (sourceSynchSupport.IsCredentialStatusDescriptorSupported)
+            if (mappingContract?.IsCredentialStatusDescriptorSupported != false)
                 target.CredentialStatusDescriptor = source.CredentialStatusDescriptor;
-            else
-                targetSynchSupport.IsCredentialStatusDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsEducatorRoleDescriptorSupported)
+            if (mappingContract?.IsEducatorRoleDescriptorSupported != false)
                 target.EducatorRoleDescriptor = source.EducatorRoleDescriptor;
-            else
-                targetSynchSupport.IsEducatorRoleDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsPersonIdSupported)
+            if (mappingContract?.IsPersonIdSupported != false)
                 target.PersonId = source.PersonId;
-            else
-                targetSynchSupport.IsPersonIdSupported = false;
 
-            if (sourceSynchSupport.IsSourceSystemDescriptorSupported)
+            if (mappingContract?.IsSourceSystemDescriptorSupported != false)
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
-            else
-                targetSynchSupport.IsSourceSystemDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -3224,14 +2817,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsCredentialStudentAcademicRecordsSupported)
+            if (mappingContract?.IsCredentialStudentAcademicRecordsSupported != false)
             {
-                targetSynchSupport.IsCredentialStudentAcademicRecordIncluded = sourceSynchSupport.IsCredentialStudentAcademicRecordIncluded;
-                source.CredentialStudentAcademicRecords.MapCollectionTo(target.CredentialStudentAcademicRecords, target.Credential);
-            }
-            else
-            {
-                targetSynchSupport.IsCredentialStudentAcademicRecordsSupported = false;
+                source.CredentialStudentAcademicRecords.MapCollectionTo(target.CredentialStudentAcademicRecords, target.Credential, mappingContract?.IsCredentialStudentAcademicRecordIncluded);
             }
 
 
@@ -3256,33 +2844,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICredentialExtensionSynchronizationSourceSupport 
-    {
-        bool IsBoardCertificationIndicatorSupported { get; set; }
-        bool IsCertificationRouteDescriptorSupported { get; set; }
-        bool IsCertificationTitleSupported { get; set; }
-        bool IsCredentialStatusDateSupported { get; set; }
-        bool IsCredentialStatusDescriptorSupported { get; set; }
-        bool IsCredentialStudentAcademicRecordsSupported { get; set; }
-        bool IsEducatorRoleDescriptorSupported { get; set; }
-        bool IsPersonIdSupported { get; set; }
-        bool IsSourceSystemDescriptorSupported { get; set; }
-        Func<ICredentialStudentAcademicRecord, bool> IsCredentialStudentAcademicRecordIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class CredentialStudentAcademicRecordMapper
     {
+        private static readonly FullName _fullName_tpdm_CredentialStudentAcademicRecord = new FullName("tpdm", "CredentialStudentAcademicRecord");
+    
         public static bool SynchronizeTo(this ICredentialStudentAcademicRecord source, ICredentialStudentAcademicRecord target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICredentialStudentAcademicRecordSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CredentialStudentAcademicRecordMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialStudentAcademicRecord);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -3314,9 +2889,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
 
         public static void MapTo(this ICredentialStudentAcademicRecord source, ICredentialStudentAcademicRecord target, Action<ICredentialStudentAcademicRecord, ICredentialStudentAcademicRecord> onMapped)
         {
-            var sourceSynchSupport = source as ICredentialStudentAcademicRecordSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICredentialStudentAcademicRecordSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CredentialStudentAcademicRecordMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialStudentAcademicRecord);
+    
             // Copy contextual primary key values
             target.EducationOrganizationId = source.EducationOrganizationId;
             target.SchoolYear = source.SchoolYear;
@@ -3363,15 +2940,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICredentialStudentAcademicRecordSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: CredentialStatusDescriptor
 
@@ -3380,11 +2948,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class CredentialStatusDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_CredentialStatusDescriptor = new FullName("tpdm", "CredentialStatusDescriptor");
+    
         public static bool SynchronizeTo(this ICredentialStatusDescriptor source, ICredentialStatusDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ICredentialStatusDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (CredentialStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialStatusDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.CredentialStatusDescriptorId != target.CredentialStatusDescriptorId)
@@ -3395,49 +2969,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -3458,9 +3032,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
 
         public static void MapTo(this ICredentialStatusDescriptor source, ICredentialStatusDescriptor target, Action<ICredentialStatusDescriptor, ICredentialStatusDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as ICredentialStatusDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as ICredentialStatusDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (CredentialStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_CredentialStatusDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -3469,40 +3045,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -3539,22 +3101,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ICredentialStatusDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EducatorPreparationProgram
 
@@ -3563,11 +3109,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
     [ExcludeFromCodeCoverage]
     public static class EducatorPreparationProgramMapper
     {
+        private static readonly FullName _fullName_tpdm_EducatorPreparationProgram = new FullName("tpdm", "EducatorPreparationProgram");
+    
         public static bool SynchronizeTo(this IEducatorPreparationProgram source, IEducatorPreparationProgram target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEducatorPreparationProgramSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EducatorPreparationProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorPreparationProgram);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -3585,14 +3137,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsAccreditationStatusDescriptorSupported)
+            if ((mappingContract?.IsAccreditationStatusDescriptorSupported != false)
                 && target.AccreditationStatusDescriptor != source.AccreditationStatusDescriptor)
             {
                 target.AccreditationStatusDescriptor = source.AccreditationStatusDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsProgramIdSupported)
+            if ((mappingContract?.IsProgramIdSupported != false)
                 && target.ProgramId != source.ProgramId)
             {
                 target.ProgramId = source.ProgramId;
@@ -3601,7 +3153,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEducatorPreparationProgramGradeLevelsSupported)
+            if (mappingContract?.IsEducatorPreparationProgramGradeLevelsSupported ?? true)
             {
                 isModified |=
                     source.EducatorPreparationProgramGradeLevels.SynchronizeCollectionTo(
@@ -3610,9 +3162,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
                             {
                                 child.EducatorPreparationProgram = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEducatorPreparationProgramGradeLevelIncluded);
+                        includeItem: item => mappingContract?.IsEducatorPreparationProgramGradeLevelIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -3623,9 +3173,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
         public static void MapTo(this IEducatorPreparationProgram source, IEducatorPreparationProgram target, Action<IEducatorPreparationProgram, IEducatorPreparationProgram> onMapped)
         {
-            var sourceSynchSupport = source as IEducatorPreparationProgramSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEducatorPreparationProgramSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EducatorPreparationProgramMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorPreparationProgram);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -3636,15 +3188,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsAccreditationStatusDescriptorSupported)
+            if (mappingContract?.IsAccreditationStatusDescriptorSupported != false)
                 target.AccreditationStatusDescriptor = source.AccreditationStatusDescriptor;
-            else
-                targetSynchSupport.IsAccreditationStatusDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsProgramIdSupported)
+            if (mappingContract?.IsProgramIdSupported != false)
                 target.ProgramId = source.ProgramId;
-            else
-                targetSynchSupport.IsProgramIdSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -3662,14 +3210,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEducatorPreparationProgramGradeLevelsSupported)
+            if (mappingContract?.IsEducatorPreparationProgramGradeLevelsSupported != false)
             {
-                targetSynchSupport.IsEducatorPreparationProgramGradeLevelIncluded = sourceSynchSupport.IsEducatorPreparationProgramGradeLevelIncluded;
-                source.EducatorPreparationProgramGradeLevels.MapCollectionTo(target.EducatorPreparationProgramGradeLevels, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEducatorPreparationProgramGradeLevelsSupported = false;
+                source.EducatorPreparationProgramGradeLevels.MapCollectionTo(target.EducatorPreparationProgramGradeLevels, target, mappingContract?.IsEducatorPreparationProgramGradeLevelIncluded);
             }
 
 
@@ -3694,27 +3237,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEducatorPreparationProgramSynchronizationSourceSupport 
-    {
-        bool IsAccreditationStatusDescriptorSupported { get; set; }
-        bool IsEducatorPreparationProgramGradeLevelsSupported { get; set; }
-        bool IsProgramIdSupported { get; set; }
-        Func<IEducatorPreparationProgramGradeLevel, bool> IsEducatorPreparationProgramGradeLevelIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EducatorPreparationProgramGradeLevelMapper
     {
+        private static readonly FullName _fullName_tpdm_EducatorPreparationProgramGradeLevel = new FullName("tpdm", "EducatorPreparationProgramGradeLevel");
+    
         public static bool SynchronizeTo(this IEducatorPreparationProgramGradeLevel source, IEducatorPreparationProgramGradeLevel target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EducatorPreparationProgramGradeLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorPreparationProgramGradeLevel);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.GradeLevelDescriptor != target.GradeLevelDescriptor)
@@ -3734,9 +3270,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
 
         public static void MapTo(this IEducatorPreparationProgramGradeLevel source, IEducatorPreparationProgramGradeLevel target, Action<IEducatorPreparationProgramGradeLevel, IEducatorPreparationProgramGradeLevel> onMapped)
         {
-            var sourceSynchSupport = source as IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EducatorPreparationProgramGradeLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorPreparationProgramGradeLevel);
+    
             // Copy contextual primary key values
             target.GradeLevelDescriptor = source.GradeLevelDescriptor;
 
@@ -3773,15 +3311,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: EducatorRoleDescriptor
 
@@ -3790,11 +3319,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class EducatorRoleDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EducatorRoleDescriptor = new FullName("tpdm", "EducatorRoleDescriptor");
+    
         public static bool SynchronizeTo(this IEducatorRoleDescriptor source, IEducatorRoleDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEducatorRoleDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EducatorRoleDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorRoleDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducatorRoleDescriptorId != target.EducatorRoleDescriptorId)
@@ -3805,49 +3340,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -3868,9 +3403,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
 
         public static void MapTo(this IEducatorRoleDescriptor source, IEducatorRoleDescriptor target, Action<IEducatorRoleDescriptor, IEducatorRoleDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEducatorRoleDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEducatorRoleDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EducatorRoleDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EducatorRoleDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -3879,40 +3416,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -3949,22 +3472,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEducatorRoleDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EnglishLanguageExamDescriptor
 
@@ -3973,11 +3480,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
     [ExcludeFromCodeCoverage]
     public static class EnglishLanguageExamDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EnglishLanguageExamDescriptor = new FullName("tpdm", "EnglishLanguageExamDescriptor");
+    
         public static bool SynchronizeTo(this IEnglishLanguageExamDescriptor source, IEnglishLanguageExamDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEnglishLanguageExamDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EnglishLanguageExamDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EnglishLanguageExamDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EnglishLanguageExamDescriptorId != target.EnglishLanguageExamDescriptorId)
@@ -3988,49 +3501,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -4051,9 +3564,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
 
         public static void MapTo(this IEnglishLanguageExamDescriptor source, IEnglishLanguageExamDescriptor target, Action<IEnglishLanguageExamDescriptor, IEnglishLanguageExamDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEnglishLanguageExamDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEnglishLanguageExamDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EnglishLanguageExamDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EnglishLanguageExamDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -4062,40 +3577,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -4132,22 +3633,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEnglishLanguageExamDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EPPProgramPathwayDescriptor
 
@@ -4156,11 +3641,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class EPPProgramPathwayDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EPPProgramPathwayDescriptor = new FullName("tpdm", "EPPProgramPathwayDescriptor");
+    
         public static bool SynchronizeTo(this IEPPProgramPathwayDescriptor source, IEPPProgramPathwayDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEPPProgramPathwayDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EPPProgramPathwayDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EPPProgramPathwayDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EPPProgramPathwayDescriptorId != target.EPPProgramPathwayDescriptorId)
@@ -4171,49 +3662,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -4234,9 +3725,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
 
         public static void MapTo(this IEPPProgramPathwayDescriptor source, IEPPProgramPathwayDescriptor target, Action<IEPPProgramPathwayDescriptor, IEPPProgramPathwayDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEPPProgramPathwayDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEPPProgramPathwayDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EPPProgramPathwayDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EPPProgramPathwayDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -4245,40 +3738,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -4315,22 +3794,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEPPProgramPathwayDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: Evaluation
 
@@ -4339,11 +3802,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationMapper
     {
+        private static readonly FullName _fullName_tpdm_Evaluation = new FullName("tpdm", "Evaluation");
+    
         public static bool SynchronizeTo(this IEvaluation source, IEvaluation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_Evaluation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -4377,35 +3846,35 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationDescriptionSupported)
+            if ((mappingContract?.IsEvaluationDescriptionSupported != false)
                 && target.EvaluationDescription != source.EvaluationDescription)
             {
                 target.EvaluationDescription = source.EvaluationDescription;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationTypeDescriptorSupported)
+            if ((mappingContract?.IsEvaluationTypeDescriptorSupported != false)
                 && target.EvaluationTypeDescriptor != source.EvaluationTypeDescriptor)
             {
                 target.EvaluationTypeDescriptor = source.EvaluationTypeDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsInterRaterReliabilityScoreSupported)
+            if ((mappingContract?.IsInterRaterReliabilityScoreSupported != false)
                 && target.InterRaterReliabilityScore != source.InterRaterReliabilityScore)
             {
                 target.InterRaterReliabilityScore = source.InterRaterReliabilityScore;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
@@ -4414,7 +3883,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEvaluationRatingLevelsSupported)
+            if (mappingContract?.IsEvaluationRatingLevelsSupported ?? true)
             {
                 isModified |=
                     source.EvaluationRatingLevels.SynchronizeCollectionTo(
@@ -4423,9 +3892,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
                             {
                                 child.Evaluation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationRatingLevelIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationRatingLevelIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -4436,9 +3903,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
         public static void MapTo(this IEvaluation source, IEvaluation target, Action<IEvaluation, IEvaluation> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_Evaluation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -4453,30 +3922,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEvaluationDescriptionSupported)
+            if (mappingContract?.IsEvaluationDescriptionSupported != false)
                 target.EvaluationDescription = source.EvaluationDescription;
-            else
-                targetSynchSupport.IsEvaluationDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEvaluationTypeDescriptorSupported)
+            if (mappingContract?.IsEvaluationTypeDescriptorSupported != false)
                 target.EvaluationTypeDescriptor = source.EvaluationTypeDescriptor;
-            else
-                targetSynchSupport.IsEvaluationTypeDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsInterRaterReliabilityScoreSupported)
+            if (mappingContract?.IsInterRaterReliabilityScoreSupported != false)
                 target.InterRaterReliabilityScore = source.InterRaterReliabilityScore;
-            else
-                targetSynchSupport.IsInterRaterReliabilityScoreSupported = false;
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -4494,14 +3953,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEvaluationRatingLevelsSupported)
+            if (mappingContract?.IsEvaluationRatingLevelsSupported != false)
             {
-                targetSynchSupport.IsEvaluationRatingLevelIncluded = sourceSynchSupport.IsEvaluationRatingLevelIncluded;
-                source.EvaluationRatingLevels.MapCollectionTo(target.EvaluationRatingLevels, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationRatingLevelsSupported = false;
+                source.EvaluationRatingLevels.MapCollectionTo(target.EvaluationRatingLevels, target, mappingContract?.IsEvaluationRatingLevelIncluded);
             }
 
 
@@ -4526,30 +3980,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationSynchronizationSourceSupport 
-    {
-        bool IsEvaluationDescriptionSupported { get; set; }
-        bool IsEvaluationRatingLevelsSupported { get; set; }
-        bool IsEvaluationTypeDescriptorSupported { get; set; }
-        bool IsInterRaterReliabilityScoreSupported { get; set; }
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-        Func<IEvaluationRatingLevel, bool> IsEvaluationRatingLevelIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingLevelMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRatingLevel = new FullName("tpdm", "EvaluationRatingLevel");
+    
         public static bool SynchronizeTo(this IEvaluationRatingLevel source, IEvaluationRatingLevel target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingLevelSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingLevel);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
@@ -4559,14 +4003,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
@@ -4583,23 +4027,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
 
         public static void MapTo(this IEvaluationRatingLevel source, IEvaluationRatingLevel target, Action<IEvaluationRatingLevel, IEvaluationRatingLevel> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingLevelSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingLevelSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingLevel);
+    
             // Copy contextual primary key values
             target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -4632,17 +4074,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingLevelSynchronizationSourceSupport 
-    {
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationElement
 
@@ -4651,11 +4082,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElement = new FullName("tpdm", "EvaluationElement");
+    
         public static bool SynchronizeTo(this IEvaluationElement source, IEvaluationElement target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationElementSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElement);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -4697,28 +4134,28 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationTypeDescriptorSupported)
+            if ((mappingContract?.IsEvaluationTypeDescriptorSupported != false)
                 && target.EvaluationTypeDescriptor != source.EvaluationTypeDescriptor)
             {
                 target.EvaluationTypeDescriptor = source.EvaluationTypeDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSortOrderSupported)
+            if ((mappingContract?.IsSortOrderSupported != false)
                 && target.SortOrder != source.SortOrder)
             {
                 target.SortOrder = source.SortOrder;
@@ -4727,7 +4164,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEvaluationElementRatingLevelsSupported)
+            if (mappingContract?.IsEvaluationElementRatingLevelsSupported ?? true)
             {
                 isModified |=
                     source.EvaluationElementRatingLevels.SynchronizeCollectionTo(
@@ -4736,9 +4173,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
                             {
                                 child.EvaluationElement = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationElementRatingLevelIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationElementRatingLevelIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -4749,9 +4184,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
         public static void MapTo(this IEvaluationElement source, IEvaluationElement target, Action<IEvaluationElement, IEvaluationElement> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationElementSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationElementSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationElementMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElement);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -4768,25 +4205,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEvaluationTypeDescriptorSupported)
+            if (mappingContract?.IsEvaluationTypeDescriptorSupported != false)
                 target.EvaluationTypeDescriptor = source.EvaluationTypeDescriptor;
-            else
-                targetSynchSupport.IsEvaluationTypeDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
-            if (sourceSynchSupport.IsSortOrderSupported)
+            if (mappingContract?.IsSortOrderSupported != false)
                 target.SortOrder = source.SortOrder;
-            else
-                targetSynchSupport.IsSortOrderSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -4804,14 +4233,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEvaluationElementRatingLevelsSupported)
+            if (mappingContract?.IsEvaluationElementRatingLevelsSupported != false)
             {
-                targetSynchSupport.IsEvaluationElementRatingLevelIncluded = sourceSynchSupport.IsEvaluationElementRatingLevelIncluded;
-                source.EvaluationElementRatingLevels.MapCollectionTo(target.EvaluationElementRatingLevels, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationElementRatingLevelsSupported = false;
+                source.EvaluationElementRatingLevels.MapCollectionTo(target.EvaluationElementRatingLevels, target, mappingContract?.IsEvaluationElementRatingLevelIncluded);
             }
 
 
@@ -4836,29 +4260,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationElementSynchronizationSourceSupport 
-    {
-        bool IsEvaluationElementRatingLevelsSupported { get; set; }
-        bool IsEvaluationTypeDescriptorSupported { get; set; }
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-        bool IsSortOrderSupported { get; set; }
-        Func<IEvaluationElementRatingLevel, bool> IsEvaluationElementRatingLevelIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementRatingLevelMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElementRatingLevel = new FullName("tpdm", "EvaluationElementRatingLevel");
+    
         public static bool SynchronizeTo(this IEvaluationElementRatingLevel source, IEvaluationElementRatingLevel target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationElementRatingLevelSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationElementRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevel);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
@@ -4868,14 +4283,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
@@ -4892,23 +4307,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
 
         public static void MapTo(this IEvaluationElementRatingLevel source, IEvaluationElementRatingLevel target, Action<IEvaluationElementRatingLevel, IEvaluationElementRatingLevel> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationElementRatingLevelSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationElementRatingLevelSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationElementRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevel);
+    
             // Copy contextual primary key values
             target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -4941,17 +4354,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationElementRatingLevelSynchronizationSourceSupport 
-    {
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationElementRating
 
@@ -4960,11 +4362,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementRatingMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElementRating = new FullName("tpdm", "EvaluationElementRating");
+    
         public static bool SynchronizeTo(this IEvaluationElementRating source, IEvaluationElementRating target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationElementRatingSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationElementRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRating);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -5018,35 +4426,35 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsAreaOfRefinementSupported)
+            if ((mappingContract?.IsAreaOfRefinementSupported != false)
                 && target.AreaOfRefinement != source.AreaOfRefinement)
             {
                 target.AreaOfRefinement = source.AreaOfRefinement;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsAreaOfReinforcementSupported)
+            if ((mappingContract?.IsAreaOfReinforcementSupported != false)
                 && target.AreaOfReinforcement != source.AreaOfReinforcement)
             {
                 target.AreaOfReinforcement = source.AreaOfReinforcement;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCommentsSupported)
+            if ((mappingContract?.IsCommentsSupported != false)
                 && target.Comments != source.Comments)
             {
                 target.Comments = source.Comments;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationElementRatingLevelDescriptorSupported)
+            if ((mappingContract?.IsEvaluationElementRatingLevelDescriptorSupported != false)
                 && target.EvaluationElementRatingLevelDescriptor != source.EvaluationElementRatingLevelDescriptor)
             {
                 target.EvaluationElementRatingLevelDescriptor = source.EvaluationElementRatingLevelDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsFeedbackSupported)
+            if ((mappingContract?.IsFeedbackSupported != false)
                 && target.Feedback != source.Feedback)
             {
                 target.Feedback = source.Feedback;
@@ -5055,7 +4463,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEvaluationElementRatingResultsSupported)
+            if (mappingContract?.IsEvaluationElementRatingResultsSupported ?? true)
             {
                 isModified |=
                     source.EvaluationElementRatingResults.SynchronizeCollectionTo(
@@ -5064,9 +4472,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
                             {
                                 child.EvaluationElementRating = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationElementRatingResultIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationElementRatingResultIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -5077,9 +4483,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
         public static void MapTo(this IEvaluationElementRating source, IEvaluationElementRating target, Action<IEvaluationElementRating, IEvaluationElementRating> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationElementRatingSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationElementRatingSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationElementRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRating);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -5099,30 +4507,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsAreaOfRefinementSupported)
+            if (mappingContract?.IsAreaOfRefinementSupported != false)
                 target.AreaOfRefinement = source.AreaOfRefinement;
-            else
-                targetSynchSupport.IsAreaOfRefinementSupported = false;
 
-            if (sourceSynchSupport.IsAreaOfReinforcementSupported)
+            if (mappingContract?.IsAreaOfReinforcementSupported != false)
                 target.AreaOfReinforcement = source.AreaOfReinforcement;
-            else
-                targetSynchSupport.IsAreaOfReinforcementSupported = false;
 
-            if (sourceSynchSupport.IsCommentsSupported)
+            if (mappingContract?.IsCommentsSupported != false)
                 target.Comments = source.Comments;
-            else
-                targetSynchSupport.IsCommentsSupported = false;
 
-            if (sourceSynchSupport.IsEvaluationElementRatingLevelDescriptorSupported)
+            if (mappingContract?.IsEvaluationElementRatingLevelDescriptorSupported != false)
                 target.EvaluationElementRatingLevelDescriptor = source.EvaluationElementRatingLevelDescriptor;
-            else
-                targetSynchSupport.IsEvaluationElementRatingLevelDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsFeedbackSupported)
+            if (mappingContract?.IsFeedbackSupported != false)
                 target.Feedback = source.Feedback;
-            else
-                targetSynchSupport.IsFeedbackSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -5142,14 +4540,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEvaluationElementRatingResultsSupported)
+            if (mappingContract?.IsEvaluationElementRatingResultsSupported != false)
             {
-                targetSynchSupport.IsEvaluationElementRatingResultIncluded = sourceSynchSupport.IsEvaluationElementRatingResultIncluded;
-                source.EvaluationElementRatingResults.MapCollectionTo(target.EvaluationElementRatingResults, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationElementRatingResultsSupported = false;
+                source.EvaluationElementRatingResults.MapCollectionTo(target.EvaluationElementRatingResults, target, mappingContract?.IsEvaluationElementRatingResultIncluded);
             }
 
 
@@ -5174,30 +4567,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationElementRatingSynchronizationSourceSupport 
-    {
-        bool IsAreaOfRefinementSupported { get; set; }
-        bool IsAreaOfReinforcementSupported { get; set; }
-        bool IsCommentsSupported { get; set; }
-        bool IsEvaluationElementRatingLevelDescriptorSupported { get; set; }
-        bool IsEvaluationElementRatingResultsSupported { get; set; }
-        bool IsFeedbackSupported { get; set; }
-        Func<IEvaluationElementRatingResult, bool> IsEvaluationElementRatingResultIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementRatingResultMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElementRatingResult = new FullName("tpdm", "EvaluationElementRatingResult");
+    
         public static bool SynchronizeTo(this IEvaluationElementRatingResult source, IEvaluationElementRatingResult target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationElementRatingResultSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationElementRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRatingResult);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Rating != target.Rating)
@@ -5211,7 +4594,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsResultDatatypeTypeDescriptorSupported)
+            if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 && target.ResultDatatypeTypeDescriptor != source.ResultDatatypeTypeDescriptor)
             {
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
@@ -5228,19 +4611,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
 
         public static void MapTo(this IEvaluationElementRatingResult source, IEvaluationElementRatingResult target, Action<IEvaluationElementRatingResult, IEvaluationElementRatingResult> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationElementRatingResultSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationElementRatingResultSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationElementRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRatingResult);
+    
             // Copy contextual primary key values
             target.Rating = source.Rating;
             target.RatingResultTitle = source.RatingResultTitle;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsResultDatatypeTypeDescriptorSupported)
+            if (mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
-            else
-                targetSynchSupport.IsResultDatatypeTypeDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -5273,16 +4656,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationElementRatingResultSynchronizationSourceSupport 
-    {
-        bool IsResultDatatypeTypeDescriptorSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationElementRatingLevelDescriptor
 
@@ -5291,11 +4664,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
     [ExcludeFromCodeCoverage]
     public static class EvaluationElementRatingLevelDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationElementRatingLevelDescriptor = new FullName("tpdm", "EvaluationElementRatingLevelDescriptor");
+    
         public static bool SynchronizeTo(this IEvaluationElementRatingLevelDescriptor source, IEvaluationElementRatingLevelDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationElementRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevelDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationElementRatingLevelDescriptorId != target.EvaluationElementRatingLevelDescriptorId)
@@ -5306,49 +4685,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -5369,9 +4748,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
 
         public static void MapTo(this IEvaluationElementRatingLevelDescriptor source, IEvaluationElementRatingLevelDescriptor target, Action<IEvaluationElementRatingLevelDescriptor, IEvaluationElementRatingLevelDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationElementRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationElementRatingLevelDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -5380,40 +4761,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -5450,22 +4817,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationObjective
 
@@ -5474,11 +4825,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationObjectiveMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationObjective = new FullName("tpdm", "EvaluationObjective");
+    
         public static bool SynchronizeTo(this IEvaluationObjective source, IEvaluationObjective target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationObjectiveSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjective);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -5516,35 +4873,35 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationObjectiveDescriptionSupported)
+            if ((mappingContract?.IsEvaluationObjectiveDescriptionSupported != false)
                 && target.EvaluationObjectiveDescription != source.EvaluationObjectiveDescription)
             {
                 target.EvaluationObjectiveDescription = source.EvaluationObjectiveDescription;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationTypeDescriptorSupported)
+            if ((mappingContract?.IsEvaluationTypeDescriptorSupported != false)
                 && target.EvaluationTypeDescriptor != source.EvaluationTypeDescriptor)
             {
                 target.EvaluationTypeDescriptor = source.EvaluationTypeDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSortOrderSupported)
+            if ((mappingContract?.IsSortOrderSupported != false)
                 && target.SortOrder != source.SortOrder)
             {
                 target.SortOrder = source.SortOrder;
@@ -5553,7 +4910,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEvaluationObjectiveRatingLevelsSupported)
+            if (mappingContract?.IsEvaluationObjectiveRatingLevelsSupported ?? true)
             {
                 isModified |=
                     source.EvaluationObjectiveRatingLevels.SynchronizeCollectionTo(
@@ -5562,9 +4919,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
                             {
                                 child.EvaluationObjective = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationObjectiveRatingLevelIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationObjectiveRatingLevelIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -5575,9 +4930,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
         public static void MapTo(this IEvaluationObjective source, IEvaluationObjective target, Action<IEvaluationObjective, IEvaluationObjective> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationObjectiveSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationObjectiveSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationObjectiveMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjective);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -5593,30 +4950,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEvaluationObjectiveDescriptionSupported)
+            if (mappingContract?.IsEvaluationObjectiveDescriptionSupported != false)
                 target.EvaluationObjectiveDescription = source.EvaluationObjectiveDescription;
-            else
-                targetSynchSupport.IsEvaluationObjectiveDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEvaluationTypeDescriptorSupported)
+            if (mappingContract?.IsEvaluationTypeDescriptorSupported != false)
                 target.EvaluationTypeDescriptor = source.EvaluationTypeDescriptor;
-            else
-                targetSynchSupport.IsEvaluationTypeDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
-            if (sourceSynchSupport.IsSortOrderSupported)
+            if (mappingContract?.IsSortOrderSupported != false)
                 target.SortOrder = source.SortOrder;
-            else
-                targetSynchSupport.IsSortOrderSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -5634,14 +4981,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEvaluationObjectiveRatingLevelsSupported)
+            if (mappingContract?.IsEvaluationObjectiveRatingLevelsSupported != false)
             {
-                targetSynchSupport.IsEvaluationObjectiveRatingLevelIncluded = sourceSynchSupport.IsEvaluationObjectiveRatingLevelIncluded;
-                source.EvaluationObjectiveRatingLevels.MapCollectionTo(target.EvaluationObjectiveRatingLevels, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationObjectiveRatingLevelsSupported = false;
+                source.EvaluationObjectiveRatingLevels.MapCollectionTo(target.EvaluationObjectiveRatingLevels, target, mappingContract?.IsEvaluationObjectiveRatingLevelIncluded);
             }
 
 
@@ -5666,30 +5008,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationObjectiveSynchronizationSourceSupport 
-    {
-        bool IsEvaluationObjectiveDescriptionSupported { get; set; }
-        bool IsEvaluationObjectiveRatingLevelsSupported { get; set; }
-        bool IsEvaluationTypeDescriptorSupported { get; set; }
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-        bool IsSortOrderSupported { get; set; }
-        Func<IEvaluationObjectiveRatingLevel, bool> IsEvaluationObjectiveRatingLevelIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationObjectiveRatingLevelMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationObjectiveRatingLevel = new FullName("tpdm", "EvaluationObjectiveRatingLevel");
+    
         public static bool SynchronizeTo(this IEvaluationObjectiveRatingLevel source, IEvaluationObjectiveRatingLevel target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationObjectiveRatingLevelSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationObjectiveRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingLevel);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
@@ -5699,14 +5031,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
@@ -5723,23 +5055,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
 
         public static void MapTo(this IEvaluationObjectiveRatingLevel source, IEvaluationObjectiveRatingLevel target, Action<IEvaluationObjectiveRatingLevel, IEvaluationObjectiveRatingLevel> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationObjectiveRatingLevelSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationObjectiveRatingLevelSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationObjectiveRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingLevel);
+    
             // Copy contextual primary key values
             target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -5772,17 +5102,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationObjectiveRatingLevelSynchronizationSourceSupport 
-    {
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationObjectiveRating
 
@@ -5791,11 +5110,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationObjectiveRatingMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationObjectiveRating = new FullName("tpdm", "EvaluationObjectiveRating");
+    
         public static bool SynchronizeTo(this IEvaluationObjectiveRating source, IEvaluationObjectiveRating target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationObjectiveRatingSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationObjectiveRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRating);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -5845,14 +5170,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCommentsSupported)
+            if ((mappingContract?.IsCommentsSupported != false)
                 && target.Comments != source.Comments)
             {
                 target.Comments = source.Comments;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsObjectiveRatingLevelDescriptorSupported)
+            if ((mappingContract?.IsObjectiveRatingLevelDescriptorSupported != false)
                 && target.ObjectiveRatingLevelDescriptor != source.ObjectiveRatingLevelDescriptor)
             {
                 target.ObjectiveRatingLevelDescriptor = source.ObjectiveRatingLevelDescriptor;
@@ -5861,7 +5186,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEvaluationObjectiveRatingResultsSupported)
+            if (mappingContract?.IsEvaluationObjectiveRatingResultsSupported ?? true)
             {
                 isModified |=
                     source.EvaluationObjectiveRatingResults.SynchronizeCollectionTo(
@@ -5870,9 +5195,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
                             {
                                 child.EvaluationObjectiveRating = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationObjectiveRatingResultIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationObjectiveRatingResultIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -5883,9 +5206,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
         public static void MapTo(this IEvaluationObjectiveRating source, IEvaluationObjectiveRating target, Action<IEvaluationObjectiveRating, IEvaluationObjectiveRating> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationObjectiveRatingSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationObjectiveRatingSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationObjectiveRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRating);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -5904,15 +5229,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCommentsSupported)
+            if (mappingContract?.IsCommentsSupported != false)
                 target.Comments = source.Comments;
-            else
-                targetSynchSupport.IsCommentsSupported = false;
 
-            if (sourceSynchSupport.IsObjectiveRatingLevelDescriptorSupported)
+            if (mappingContract?.IsObjectiveRatingLevelDescriptorSupported != false)
                 target.ObjectiveRatingLevelDescriptor = source.ObjectiveRatingLevelDescriptor;
-            else
-                targetSynchSupport.IsObjectiveRatingLevelDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -5932,14 +5253,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEvaluationObjectiveRatingResultsSupported)
+            if (mappingContract?.IsEvaluationObjectiveRatingResultsSupported != false)
             {
-                targetSynchSupport.IsEvaluationObjectiveRatingResultIncluded = sourceSynchSupport.IsEvaluationObjectiveRatingResultIncluded;
-                source.EvaluationObjectiveRatingResults.MapCollectionTo(target.EvaluationObjectiveRatingResults, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationObjectiveRatingResultsSupported = false;
+                source.EvaluationObjectiveRatingResults.MapCollectionTo(target.EvaluationObjectiveRatingResults, target, mappingContract?.IsEvaluationObjectiveRatingResultIncluded);
             }
 
 
@@ -5964,27 +5280,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationObjectiveRatingSynchronizationSourceSupport 
-    {
-        bool IsCommentsSupported { get; set; }
-        bool IsEvaluationObjectiveRatingResultsSupported { get; set; }
-        bool IsObjectiveRatingLevelDescriptorSupported { get; set; }
-        Func<IEvaluationObjectiveRatingResult, bool> IsEvaluationObjectiveRatingResultIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationObjectiveRatingResultMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationObjectiveRatingResult = new FullName("tpdm", "EvaluationObjectiveRatingResult");
+    
         public static bool SynchronizeTo(this IEvaluationObjectiveRatingResult source, IEvaluationObjectiveRatingResult target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationObjectiveRatingResultSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationObjectiveRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingResult);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Rating != target.Rating)
@@ -5998,7 +5307,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsResultDatatypeTypeDescriptorSupported)
+            if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 && target.ResultDatatypeTypeDescriptor != source.ResultDatatypeTypeDescriptor)
             {
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
@@ -6015,19 +5324,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
 
         public static void MapTo(this IEvaluationObjectiveRatingResult source, IEvaluationObjectiveRatingResult target, Action<IEvaluationObjectiveRatingResult, IEvaluationObjectiveRatingResult> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationObjectiveRatingResultSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationObjectiveRatingResultSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationObjectiveRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationObjectiveRatingResult);
+    
             // Copy contextual primary key values
             target.Rating = source.Rating;
             target.RatingResultTitle = source.RatingResultTitle;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsResultDatatypeTypeDescriptorSupported)
+            if (mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
-            else
-                targetSynchSupport.IsResultDatatypeTypeDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -6060,16 +5369,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationObjectiveRatingResultSynchronizationSourceSupport 
-    {
-        bool IsResultDatatypeTypeDescriptorSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationPeriodDescriptor
 
@@ -6078,11 +5377,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationPeriodDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationPeriodDescriptor = new FullName("tpdm", "EvaluationPeriodDescriptor");
+    
         public static bool SynchronizeTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationPeriodDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationPeriodDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationPeriodDescriptorId != target.EvaluationPeriodDescriptorId)
@@ -6093,49 +5398,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -6156,9 +5461,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
 
         public static void MapTo(this IEvaluationPeriodDescriptor source, IEvaluationPeriodDescriptor target, Action<IEvaluationPeriodDescriptor, IEvaluationPeriodDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationPeriodDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationPeriodDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationPeriodDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationPeriodDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -6167,40 +5474,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -6237,22 +5530,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationPeriodDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationRating
 
@@ -6261,11 +5538,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRating = new FullName("tpdm", "EvaluationRating");
+    
         public static bool SynchronizeTo(this IEvaluationRating source, IEvaluationRating target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRating);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -6311,42 +5594,42 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationRatingLevelDescriptorSupported)
+            if ((mappingContract?.IsEvaluationRatingLevelDescriptorSupported != false)
                 && target.EvaluationRatingLevelDescriptor != source.EvaluationRatingLevelDescriptor)
             {
                 target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEvaluationRatingStatusDescriptorSupported)
+            if ((mappingContract?.IsEvaluationRatingStatusDescriptorSupported != false)
                 && target.EvaluationRatingStatusDescriptor != source.EvaluationRatingStatusDescriptor)
             {
                 target.EvaluationRatingStatusDescriptor = source.EvaluationRatingStatusDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsLocalCourseCodeSupported)
+            if ((mappingContract?.IsLocalCourseCodeSupported != false)
                 && target.LocalCourseCode != source.LocalCourseCode)
             {
                 target.LocalCourseCode = source.LocalCourseCode;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSchoolIdSupported)
+            if ((mappingContract?.IsSchoolIdSupported != false)
                 && target.SchoolId != source.SchoolId)
             {
                 target.SchoolId = source.SchoolId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSectionIdentifierSupported)
+            if ((mappingContract?.IsSectionIdentifierSupported != false)
                 && target.SectionIdentifier != source.SectionIdentifier)
             {
                 target.SectionIdentifier = source.SectionIdentifier;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSessionNameSupported)
+            if ((mappingContract?.IsSessionNameSupported != false)
                 && target.SessionName != source.SessionName)
             {
                 target.SessionName = source.SessionName;
@@ -6355,7 +5638,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsEvaluationRatingResultsSupported)
+            if (mappingContract?.IsEvaluationRatingResultsSupported ?? true)
             {
                 isModified |=
                     source.EvaluationRatingResults.SynchronizeCollectionTo(
@@ -6364,12 +5647,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                             {
                                 child.EvaluationRating = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationRatingResultIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationRatingResultIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsEvaluationRatingReviewersSupported)
+            if (mappingContract?.IsEvaluationRatingReviewersSupported ?? true)
             {
                 isModified |=
                     source.EvaluationRatingReviewers.SynchronizeCollectionTo(
@@ -6378,9 +5659,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                             {
                                 child.EvaluationRating = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsEvaluationRatingReviewerIncluded);
+                        includeItem: item => mappingContract?.IsEvaluationRatingReviewerIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -6391,9 +5670,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
         public static void MapTo(this IEvaluationRating source, IEvaluationRating target, Action<IEvaluationRating, IEvaluationRating> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRating);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -6411,35 +5692,23 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsEvaluationRatingLevelDescriptorSupported)
+            if (mappingContract?.IsEvaluationRatingLevelDescriptorSupported != false)
                 target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;
-            else
-                targetSynchSupport.IsEvaluationRatingLevelDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsEvaluationRatingStatusDescriptorSupported)
+            if (mappingContract?.IsEvaluationRatingStatusDescriptorSupported != false)
                 target.EvaluationRatingStatusDescriptor = source.EvaluationRatingStatusDescriptor;
-            else
-                targetSynchSupport.IsEvaluationRatingStatusDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsLocalCourseCodeSupported)
+            if (mappingContract?.IsLocalCourseCodeSupported != false)
                 target.LocalCourseCode = source.LocalCourseCode;
-            else
-                targetSynchSupport.IsLocalCourseCodeSupported = false;
 
-            if (sourceSynchSupport.IsSchoolIdSupported)
+            if (mappingContract?.IsSchoolIdSupported != false)
                 target.SchoolId = source.SchoolId;
-            else
-                targetSynchSupport.IsSchoolIdSupported = false;
 
-            if (sourceSynchSupport.IsSectionIdentifierSupported)
+            if (mappingContract?.IsSectionIdentifierSupported != false)
                 target.SectionIdentifier = source.SectionIdentifier;
-            else
-                targetSynchSupport.IsSectionIdentifierSupported = false;
 
-            if (sourceSynchSupport.IsSessionNameSupported)
+            if (mappingContract?.IsSessionNameSupported != false)
                 target.SessionName = source.SessionName;
-            else
-                targetSynchSupport.IsSessionNameSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -6461,24 +5730,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsEvaluationRatingResultsSupported)
+            if (mappingContract?.IsEvaluationRatingResultsSupported != false)
             {
-                targetSynchSupport.IsEvaluationRatingResultIncluded = sourceSynchSupport.IsEvaluationRatingResultIncluded;
-                source.EvaluationRatingResults.MapCollectionTo(target.EvaluationRatingResults, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationRatingResultsSupported = false;
+                source.EvaluationRatingResults.MapCollectionTo(target.EvaluationRatingResults, target, mappingContract?.IsEvaluationRatingResultIncluded);
             }
 
-            if (sourceSynchSupport.IsEvaluationRatingReviewersSupported)
+            if (mappingContract?.IsEvaluationRatingReviewersSupported != false)
             {
-                targetSynchSupport.IsEvaluationRatingReviewerIncluded = sourceSynchSupport.IsEvaluationRatingReviewerIncluded;
-                source.EvaluationRatingReviewers.MapCollectionTo(target.EvaluationRatingReviewers, target);
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationRatingReviewersSupported = false;
+                source.EvaluationRatingReviewers.MapCollectionTo(target.EvaluationRatingReviewers, target, mappingContract?.IsEvaluationRatingReviewerIncluded);
             }
 
 
@@ -6503,33 +5762,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingSynchronizationSourceSupport 
-    {
-        bool IsEvaluationRatingLevelDescriptorSupported { get; set; }
-        bool IsEvaluationRatingResultsSupported { get; set; }
-        bool IsEvaluationRatingReviewersSupported { get; set; }
-        bool IsEvaluationRatingStatusDescriptorSupported { get; set; }
-        bool IsLocalCourseCodeSupported { get; set; }
-        bool IsSchoolIdSupported { get; set; }
-        bool IsSectionIdentifierSupported { get; set; }
-        bool IsSessionNameSupported { get; set; }
-        Func<IEvaluationRatingResult, bool> IsEvaluationRatingResultIncluded { get; set; }
-        Func<IEvaluationRatingReviewer, bool> IsEvaluationRatingReviewerIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingResultMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRatingResult = new FullName("tpdm", "EvaluationRatingResult");
+    
         public static bool SynchronizeTo(this IEvaluationRatingResult source, IEvaluationRatingResult target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingResultSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingResult);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Rating != target.Rating)
@@ -6543,7 +5789,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsResultDatatypeTypeDescriptorSupported)
+            if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 && target.ResultDatatypeTypeDescriptor != source.ResultDatatypeTypeDescriptor)
             {
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
@@ -6560,19 +5806,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
         public static void MapTo(this IEvaluationRatingResult source, IEvaluationRatingResult target, Action<IEvaluationRatingResult, IEvaluationRatingResult> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingResultSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingResultSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingResult);
+    
             // Copy contextual primary key values
             target.Rating = source.Rating;
             target.RatingResultTitle = source.RatingResultTitle;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsResultDatatypeTypeDescriptorSupported)
+            if (mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
-            else
-                targetSynchSupport.IsResultDatatypeTypeDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -6605,24 +5851,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingResultSynchronizationSourceSupport 
-    {
-        bool IsResultDatatypeTypeDescriptorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingReviewerMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRatingReviewer = new FullName("tpdm", "EvaluationRatingReviewer");
+    
         public static bool SynchronizeTo(this IEvaluationRatingReviewer source, IEvaluationRatingReviewer target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingReviewerSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingReviewerMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewer);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FirstName != target.FirstName)
@@ -6636,14 +5878,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsReviewerPersonIdSupported)
+            if ((mappingContract?.IsReviewerPersonIdSupported != false)
                 && target.ReviewerPersonId != source.ReviewerPersonId)
             {
                 target.ReviewerPersonId = source.ReviewerPersonId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReviewerSourceSystemDescriptorSupported)
+            if ((mappingContract?.IsReviewerSourceSystemDescriptorSupported != false)
                 && target.ReviewerSourceSystemDescriptor != source.ReviewerSourceSystemDescriptor)
             {
                 target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
@@ -6653,8 +5895,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // EvaluationRatingReviewerReceivedTraining
-            if (sourceSupport == null || sourceSupport.IsEvaluationRatingReviewerReceivedTrainingSupported)
+            // EvaluationRatingReviewerReceivedTraining (EvaluationRatingReviewerReceivedTraining)
+            if (mappingContract?.IsEvaluationRatingReviewerReceivedTrainingSupported != false)
             {
                 if (source.EvaluationRatingReviewerReceivedTraining == null)
                 {
@@ -6688,24 +5930,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
         public static void MapTo(this IEvaluationRatingReviewer source, IEvaluationRatingReviewer target, Action<IEvaluationRatingReviewer, IEvaluationRatingReviewer> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingReviewerSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingReviewerSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingReviewerMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewer);
+    
             // Copy contextual primary key values
             target.FirstName = source.FirstName;
             target.LastSurname = source.LastSurname;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsReviewerPersonIdSupported)
+            if (mappingContract?.IsReviewerPersonIdSupported != false)
                 target.ReviewerPersonId = source.ReviewerPersonId;
-            else
-                targetSynchSupport.IsReviewerPersonIdSupported = false;
 
-            if (sourceSynchSupport.IsReviewerSourceSystemDescriptorSupported)
+            if (mappingContract?.IsReviewerSourceSystemDescriptorSupported != false)
                 target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
-            else
-                targetSynchSupport.IsReviewerSourceSystemDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -6720,8 +5960,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // EvaluationRatingReviewerReceivedTraining (Source)
-            if (sourceSynchSupport.IsEvaluationRatingReviewerReceivedTrainingSupported)
+            // EvaluationRatingReviewerReceivedTraining (EvaluationRatingReviewerReceivedTraining) (Source)
+            if (mappingContract?.IsEvaluationRatingReviewerReceivedTrainingSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("EvaluationRatingReviewerReceivedTraining");
 
@@ -6742,10 +5982,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                         target.EvaluationRatingReviewerReceivedTraining = (IEvaluationRatingReviewerReceivedTraining) targetEvaluationRatingReviewerReceivedTraining;
                     }
                 }
-            }
-            else
-            {
-                targetSynchSupport.IsEvaluationRatingReviewerReceivedTrainingSupported = false;
             }
             // -------------------------------------------------------------
 
@@ -6773,39 +6009,33 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingReviewerSynchronizationSourceSupport 
-    {
-        bool IsEvaluationRatingReviewerReceivedTrainingSupported { get; set; }
-        bool IsReviewerPersonIdSupported { get; set; }
-        bool IsReviewerSourceSystemDescriptorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingReviewerReceivedTrainingMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRatingReviewerReceivedTraining = new FullName("tpdm", "EvaluationRatingReviewerReceivedTraining");
+    
         public static bool SynchronizeTo(this IEvaluationRatingReviewerReceivedTraining source, IEvaluationRatingReviewerReceivedTraining target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingReviewerReceivedTrainingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewerReceivedTraining);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsInterRaterReliabilityScoreSupported)
+            if ((mappingContract?.IsInterRaterReliabilityScoreSupported != false)
                 && target.InterRaterReliabilityScore != source.InterRaterReliabilityScore)
             {
                 target.InterRaterReliabilityScore = source.InterRaterReliabilityScore;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReceivedTrainingDateSupported)
+            if ((mappingContract?.IsReceivedTrainingDateSupported != false)
                 && target.ReceivedTrainingDate != source.ReceivedTrainingDate)
             {
                 target.ReceivedTrainingDate = source.ReceivedTrainingDate;
@@ -6822,22 +6052,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
         public static void MapTo(this IEvaluationRatingReviewerReceivedTraining source, IEvaluationRatingReviewerReceivedTraining target, Action<IEvaluationRatingReviewerReceivedTraining, IEvaluationRatingReviewerReceivedTraining> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingReviewerReceivedTrainingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingReviewerReceivedTraining);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsInterRaterReliabilityScoreSupported)
+            if (mappingContract?.IsInterRaterReliabilityScoreSupported != false)
                 target.InterRaterReliabilityScore = source.InterRaterReliabilityScore;
-            else
-                targetSynchSupport.IsInterRaterReliabilityScoreSupported = false;
 
-            if (sourceSynchSupport.IsReceivedTrainingDateSupported)
+            if (mappingContract?.IsReceivedTrainingDateSupported != false)
                 target.ReceivedTrainingDate = source.ReceivedTrainingDate;
-            else
-                targetSynchSupport.IsReceivedTrainingDateSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -6870,17 +6098,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport 
-    {
-        bool IsInterRaterReliabilityScoreSupported { get; set; }
-        bool IsReceivedTrainingDateSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationRatingLevelDescriptor
 
@@ -6889,11 +6106,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingLevelDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRatingLevelDescriptor = new FullName("tpdm", "EvaluationRatingLevelDescriptor");
+    
         public static bool SynchronizeTo(this IEvaluationRatingLevelDescriptor source, IEvaluationRatingLevelDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingLevelDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingLevelDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationRatingLevelDescriptorId != target.EvaluationRatingLevelDescriptorId)
@@ -6904,49 +6127,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -6967,9 +6190,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
 
         public static void MapTo(this IEvaluationRatingLevelDescriptor source, IEvaluationRatingLevelDescriptor target, Action<IEvaluationRatingLevelDescriptor, IEvaluationRatingLevelDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingLevelDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingLevelDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingLevelDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -6978,40 +6203,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -7048,22 +6259,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingLevelDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationRatingStatusDescriptor
 
@@ -7072,11 +6267,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
     [ExcludeFromCodeCoverage]
     public static class EvaluationRatingStatusDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationRatingStatusDescriptor = new FullName("tpdm", "EvaluationRatingStatusDescriptor");
+    
         public static bool SynchronizeTo(this IEvaluationRatingStatusDescriptor source, IEvaluationRatingStatusDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationRatingStatusDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationRatingStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingStatusDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationRatingStatusDescriptorId != target.EvaluationRatingStatusDescriptorId)
@@ -7087,49 +6288,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -7150,9 +6351,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
 
         public static void MapTo(this IEvaluationRatingStatusDescriptor source, IEvaluationRatingStatusDescriptor target, Action<IEvaluationRatingStatusDescriptor, IEvaluationRatingStatusDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationRatingStatusDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationRatingStatusDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationRatingStatusDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationRatingStatusDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -7161,40 +6364,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -7231,22 +6420,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationRatingStatusDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: EvaluationTypeDescriptor
 
@@ -7255,11 +6428,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class EvaluationTypeDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_EvaluationTypeDescriptor = new FullName("tpdm", "EvaluationTypeDescriptor");
+    
         public static bool SynchronizeTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IEvaluationTypeDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationTypeDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationTypeDescriptorId != target.EvaluationTypeDescriptorId)
@@ -7270,49 +6449,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -7333,9 +6512,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
 
         public static void MapTo(this IEvaluationTypeDescriptor source, IEvaluationTypeDescriptor target, Action<IEvaluationTypeDescriptor, IEvaluationTypeDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IEvaluationTypeDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IEvaluationTypeDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (EvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_EvaluationTypeDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -7344,40 +6525,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -7414,22 +6581,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IEvaluationTypeDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: FinancialAid
 
@@ -7438,11 +6589,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
     [ExcludeFromCodeCoverage]
     public static class FinancialAidMapper
     {
+        private static readonly FullName _fullName_tpdm_FinancialAid = new FullName("tpdm", "FinancialAid");
+    
         public static bool SynchronizeTo(this IFinancialAid source, IFinancialAid target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IFinancialAidSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (FinancialAidMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_FinancialAid);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.AidTypeDescriptor != target.AidTypeDescriptor)
@@ -7460,28 +6617,28 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsAidAmountSupported)
+            if ((mappingContract?.IsAidAmountSupported != false)
                 && target.AidAmount != source.AidAmount)
             {
                 target.AidAmount = source.AidAmount;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsAidConditionDescriptionSupported)
+            if ((mappingContract?.IsAidConditionDescriptionSupported != false)
                 && target.AidConditionDescription != source.AidConditionDescription)
             {
                 target.AidConditionDescription = source.AidConditionDescription;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+            if ((mappingContract?.IsEndDateSupported != false)
                 && target.EndDate != source.EndDate)
             {
                 target.EndDate = source.EndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPellGrantRecipientSupported)
+            if ((mappingContract?.IsPellGrantRecipientSupported != false)
                 && target.PellGrantRecipient != source.PellGrantRecipient)
             {
                 target.PellGrantRecipient = source.PellGrantRecipient;
@@ -7498,9 +6655,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
 
         public static void MapTo(this IFinancialAid source, IFinancialAid target, Action<IFinancialAid, IFinancialAid> onMapped)
         {
-            var sourceSynchSupport = source as IFinancialAidSynchronizationSourceSupport;
-            var targetSynchSupport = target as IFinancialAidSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (FinancialAidMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_FinancialAid);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -7511,25 +6670,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsAidAmountSupported)
+            if (mappingContract?.IsAidAmountSupported != false)
                 target.AidAmount = source.AidAmount;
-            else
-                targetSynchSupport.IsAidAmountSupported = false;
 
-            if (sourceSynchSupport.IsAidConditionDescriptionSupported)
+            if (mappingContract?.IsAidConditionDescriptionSupported != false)
                 target.AidConditionDescription = source.AidConditionDescription;
-            else
-                targetSynchSupport.IsAidConditionDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEndDateSupported)
+            if (mappingContract?.IsEndDateSupported != false)
                 target.EndDate = source.EndDate;
-            else
-                targetSynchSupport.IsEndDateSupported = false;
 
-            if (sourceSynchSupport.IsPellGrantRecipientSupported)
+            if (mappingContract?.IsPellGrantRecipientSupported != false)
                 target.PellGrantRecipient = source.PellGrantRecipient;
-            else
-                targetSynchSupport.IsPellGrantRecipientSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -7569,19 +6720,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IFinancialAidSynchronizationSourceSupport 
-    {
-        bool IsAidAmountSupported { get; set; }
-        bool IsAidConditionDescriptionSupported { get; set; }
-        bool IsEndDateSupported { get; set; }
-        bool IsPellGrantRecipientSupported { get; set; }
-    }
-
 }
 // Aggregate: GenderDescriptor
 
@@ -7590,11 +6728,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class GenderDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_GenderDescriptor = new FullName("tpdm", "GenderDescriptor");
+    
         public static bool SynchronizeTo(this IGenderDescriptor source, IGenderDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IGenderDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (GenderDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_GenderDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.GenderDescriptorId != target.GenderDescriptorId)
@@ -7605,49 +6749,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -7668,9 +6812,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
 
         public static void MapTo(this IGenderDescriptor source, IGenderDescriptor target, Action<IGenderDescriptor, IGenderDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IGenderDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IGenderDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (GenderDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_GenderDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -7679,40 +6825,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -7749,22 +6881,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IGenderDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: ObjectiveRatingLevelDescriptor
 
@@ -7773,11 +6889,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
     [ExcludeFromCodeCoverage]
     public static class ObjectiveRatingLevelDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_ObjectiveRatingLevelDescriptor = new FullName("tpdm", "ObjectiveRatingLevelDescriptor");
+    
         public static bool SynchronizeTo(this IObjectiveRatingLevelDescriptor source, IObjectiveRatingLevelDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IObjectiveRatingLevelDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (ObjectiveRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_ObjectiveRatingLevelDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.ObjectiveRatingLevelDescriptorId != target.ObjectiveRatingLevelDescriptorId)
@@ -7788,49 +6910,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -7851,9 +6973,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
 
         public static void MapTo(this IObjectiveRatingLevelDescriptor source, IObjectiveRatingLevelDescriptor target, Action<IObjectiveRatingLevelDescriptor, IObjectiveRatingLevelDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IObjectiveRatingLevelDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IObjectiveRatingLevelDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (ObjectiveRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_ObjectiveRatingLevelDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -7862,40 +6986,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -7932,22 +7042,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IObjectiveRatingLevelDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: PerformanceEvaluation
 
@@ -7956,11 +7050,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluation = new FullName("tpdm", "PerformanceEvaluation");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluation source, IPerformanceEvaluation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -7990,14 +7090,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsAcademicSubjectDescriptorSupported)
+            if ((mappingContract?.IsAcademicSubjectDescriptorSupported != false)
                 && target.AcademicSubjectDescriptor != source.AcademicSubjectDescriptor)
             {
                 target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPerformanceEvaluationDescriptionSupported)
+            if ((mappingContract?.IsPerformanceEvaluationDescriptionSupported != false)
                 && target.PerformanceEvaluationDescription != source.PerformanceEvaluationDescription)
             {
                 target.PerformanceEvaluationDescription = source.PerformanceEvaluationDescription;
@@ -8006,7 +7106,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsPerformanceEvaluationGradeLevelsSupported)
+            if (mappingContract?.IsPerformanceEvaluationGradeLevelsSupported ?? true)
             {
                 isModified |=
                     source.PerformanceEvaluationGradeLevels.SynchronizeCollectionTo(
@@ -8015,12 +7115,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                             {
                                 child.PerformanceEvaluation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsPerformanceEvaluationGradeLevelIncluded);
+                        includeItem: item => mappingContract?.IsPerformanceEvaluationGradeLevelIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsPerformanceEvaluationRatingLevelsSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingLevelsSupported ?? true)
             {
                 isModified |=
                     source.PerformanceEvaluationRatingLevels.SynchronizeCollectionTo(
@@ -8029,9 +7127,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
                             {
                                 child.PerformanceEvaluation = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsPerformanceEvaluationRatingLevelIncluded);
+                        includeItem: item => mappingContract?.IsPerformanceEvaluationRatingLevelIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -8042,9 +7138,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
         public static void MapTo(this IPerformanceEvaluation source, IPerformanceEvaluation target, Action<IPerformanceEvaluation, IPerformanceEvaluation> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -8058,15 +7156,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsAcademicSubjectDescriptorSupported)
+            if (mappingContract?.IsAcademicSubjectDescriptorSupported != false)
                 target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
-            else
-                targetSynchSupport.IsAcademicSubjectDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsPerformanceEvaluationDescriptionSupported)
+            if (mappingContract?.IsPerformanceEvaluationDescriptionSupported != false)
                 target.PerformanceEvaluationDescription = source.PerformanceEvaluationDescription;
-            else
-                targetSynchSupport.IsPerformanceEvaluationDescriptionSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -8085,24 +7179,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsPerformanceEvaluationGradeLevelsSupported)
+            if (mappingContract?.IsPerformanceEvaluationGradeLevelsSupported != false)
             {
-                targetSynchSupport.IsPerformanceEvaluationGradeLevelIncluded = sourceSynchSupport.IsPerformanceEvaluationGradeLevelIncluded;
-                source.PerformanceEvaluationGradeLevels.MapCollectionTo(target.PerformanceEvaluationGradeLevels, target);
-            }
-            else
-            {
-                targetSynchSupport.IsPerformanceEvaluationGradeLevelsSupported = false;
+                source.PerformanceEvaluationGradeLevels.MapCollectionTo(target.PerformanceEvaluationGradeLevels, target, mappingContract?.IsPerformanceEvaluationGradeLevelIncluded);
             }
 
-            if (sourceSynchSupport.IsPerformanceEvaluationRatingLevelsSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingLevelsSupported != false)
             {
-                targetSynchSupport.IsPerformanceEvaluationRatingLevelIncluded = sourceSynchSupport.IsPerformanceEvaluationRatingLevelIncluded;
-                source.PerformanceEvaluationRatingLevels.MapCollectionTo(target.PerformanceEvaluationRatingLevels, target);
-            }
-            else
-            {
-                targetSynchSupport.IsPerformanceEvaluationRatingLevelsSupported = false;
+                source.PerformanceEvaluationRatingLevels.MapCollectionTo(target.PerformanceEvaluationRatingLevels, target, mappingContract?.IsPerformanceEvaluationRatingLevelIncluded);
             }
 
 
@@ -8127,29 +7211,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationSynchronizationSourceSupport 
-    {
-        bool IsAcademicSubjectDescriptorSupported { get; set; }
-        bool IsPerformanceEvaluationDescriptionSupported { get; set; }
-        bool IsPerformanceEvaluationGradeLevelsSupported { get; set; }
-        bool IsPerformanceEvaluationRatingLevelsSupported { get; set; }
-        Func<IPerformanceEvaluationGradeLevel, bool> IsPerformanceEvaluationGradeLevelIncluded { get; set; }
-        Func<IPerformanceEvaluationRatingLevel, bool> IsPerformanceEvaluationRatingLevelIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationGradeLevelMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationGradeLevel = new FullName("tpdm", "PerformanceEvaluationGradeLevel");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationGradeLevel source, IPerformanceEvaluationGradeLevel target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationGradeLevelSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationGradeLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationGradeLevel);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.GradeLevelDescriptor != target.GradeLevelDescriptor)
@@ -8169,9 +7244,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
         public static void MapTo(this IPerformanceEvaluationGradeLevel source, IPerformanceEvaluationGradeLevel target, Action<IPerformanceEvaluationGradeLevel, IPerformanceEvaluationGradeLevel> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationGradeLevelSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationGradeLevelSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationGradeLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationGradeLevel);
+    
             // Copy contextual primary key values
             target.GradeLevelDescriptor = source.GradeLevelDescriptor;
 
@@ -8208,23 +7285,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationGradeLevelSynchronizationSourceSupport 
-    {
-    }
-
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingLevelMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRatingLevel = new FullName("tpdm", "PerformanceEvaluationRatingLevel");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationRatingLevel source, IPerformanceEvaluationRatingLevel target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationRatingLevelSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevel);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EvaluationRatingLevelDescriptor != target.EvaluationRatingLevelDescriptor)
@@ -8234,14 +7308,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsMaxRatingSupported)
+            if ((mappingContract?.IsMaxRatingSupported != false)
                 && target.MaxRating != source.MaxRating)
             {
                 target.MaxRating = source.MaxRating;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsMinRatingSupported)
+            if ((mappingContract?.IsMinRatingSupported != false)
                 && target.MinRating != source.MinRating)
             {
                 target.MinRating = source.MinRating;
@@ -8258,23 +7332,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
 
         public static void MapTo(this IPerformanceEvaluationRatingLevel source, IPerformanceEvaluationRatingLevel target, Action<IPerformanceEvaluationRatingLevel, IPerformanceEvaluationRatingLevel> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationRatingLevelSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationRatingLevelSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationRatingLevelMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevel);
+    
             // Copy contextual primary key values
             target.EvaluationRatingLevelDescriptor = source.EvaluationRatingLevelDescriptor;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsMaxRatingSupported)
+            if (mappingContract?.IsMaxRatingSupported != false)
                 target.MaxRating = source.MaxRating;
-            else
-                targetSynchSupport.IsMaxRatingSupported = false;
 
-            if (sourceSynchSupport.IsMinRatingSupported)
+            if (mappingContract?.IsMinRatingSupported != false)
                 target.MinRating = source.MinRating;
-            else
-                targetSynchSupport.IsMinRatingSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -8307,17 +7379,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationRatingLevelSynchronizationSourceSupport 
-    {
-        bool IsMaxRatingSupported { get; set; }
-        bool IsMinRatingSupported { get; set; }
-    }
-
 }
 // Aggregate: PerformanceEvaluationRating
 
@@ -8326,11 +7387,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRating = new FullName("tpdm", "PerformanceEvaluationRating");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationRating source, IPerformanceEvaluationRating target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationRatingSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRating);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -8368,56 +7435,56 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsActualDateSupported)
+            if ((mappingContract?.IsActualDateSupported != false)
                 && target.ActualDate != source.ActualDate)
             {
                 target.ActualDate = source.ActualDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsActualDurationSupported)
+            if ((mappingContract?.IsActualDurationSupported != false)
                 && target.ActualDuration != source.ActualDuration)
             {
                 target.ActualDuration = source.ActualDuration;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsActualTimeSupported)
+            if ((mappingContract?.IsActualTimeSupported != false)
                 && target.ActualTime != source.ActualTime)
             {
                 target.ActualTime = source.ActualTime;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsAnnouncedSupported)
+            if ((mappingContract?.IsAnnouncedSupported != false)
                 && target.Announced != source.Announced)
             {
                 target.Announced = source.Announced;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCommentsSupported)
+            if ((mappingContract?.IsCommentsSupported != false)
                 && target.Comments != source.Comments)
             {
                 target.Comments = source.Comments;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsCoteachingStyleObservedDescriptorSupported)
+            if ((mappingContract?.IsCoteachingStyleObservedDescriptorSupported != false)
                 && target.CoteachingStyleObservedDescriptor != source.CoteachingStyleObservedDescriptor)
             {
                 target.CoteachingStyleObservedDescriptor = source.CoteachingStyleObservedDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported)
+            if ((mappingContract?.IsPerformanceEvaluationRatingLevelDescriptorSupported != false)
                 && target.PerformanceEvaluationRatingLevelDescriptor != source.PerformanceEvaluationRatingLevelDescriptor)
             {
                 target.PerformanceEvaluationRatingLevelDescriptor = source.PerformanceEvaluationRatingLevelDescriptor;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsScheduleDateSupported)
+            if ((mappingContract?.IsScheduleDateSupported != false)
                 && target.ScheduleDate != source.ScheduleDate)
             {
                 target.ScheduleDate = source.ScheduleDate;
@@ -8426,7 +7493,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsPerformanceEvaluationRatingResultsSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingResultsSupported ?? true)
             {
                 isModified |=
                     source.PerformanceEvaluationRatingResults.SynchronizeCollectionTo(
@@ -8435,12 +7502,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                             {
                                 child.PerformanceEvaluationRating = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsPerformanceEvaluationRatingResultIncluded);
+                        includeItem: item => mappingContract?.IsPerformanceEvaluationRatingResultIncluded?.Invoke(item) ?? true);
             }
 
-            if (sourceSupport == null || sourceSupport.IsPerformanceEvaluationRatingReviewersSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingReviewersSupported ?? true)
             {
                 isModified |=
                     source.PerformanceEvaluationRatingReviewers.SynchronizeCollectionTo(
@@ -8449,9 +7514,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                             {
                                 child.PerformanceEvaluationRating = target;
                             },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsPerformanceEvaluationRatingReviewerIncluded);
+                        includeItem: item => mappingContract?.IsPerformanceEvaluationRatingReviewerIncluded?.Invoke(item) ?? true);
             }
 
 
@@ -8462,9 +7525,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
         public static void MapTo(this IPerformanceEvaluationRating source, IPerformanceEvaluationRating target, Action<IPerformanceEvaluationRating, IPerformanceEvaluationRating> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationRatingSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationRatingSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationRatingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRating);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -8480,45 +7545,29 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsActualDateSupported)
+            if (mappingContract?.IsActualDateSupported != false)
                 target.ActualDate = source.ActualDate;
-            else
-                targetSynchSupport.IsActualDateSupported = false;
 
-            if (sourceSynchSupport.IsActualDurationSupported)
+            if (mappingContract?.IsActualDurationSupported != false)
                 target.ActualDuration = source.ActualDuration;
-            else
-                targetSynchSupport.IsActualDurationSupported = false;
 
-            if (sourceSynchSupport.IsActualTimeSupported)
+            if (mappingContract?.IsActualTimeSupported != false)
                 target.ActualTime = source.ActualTime;
-            else
-                targetSynchSupport.IsActualTimeSupported = false;
 
-            if (sourceSynchSupport.IsAnnouncedSupported)
+            if (mappingContract?.IsAnnouncedSupported != false)
                 target.Announced = source.Announced;
-            else
-                targetSynchSupport.IsAnnouncedSupported = false;
 
-            if (sourceSynchSupport.IsCommentsSupported)
+            if (mappingContract?.IsCommentsSupported != false)
                 target.Comments = source.Comments;
-            else
-                targetSynchSupport.IsCommentsSupported = false;
 
-            if (sourceSynchSupport.IsCoteachingStyleObservedDescriptorSupported)
+            if (mappingContract?.IsCoteachingStyleObservedDescriptorSupported != false)
                 target.CoteachingStyleObservedDescriptor = source.CoteachingStyleObservedDescriptor;
-            else
-                targetSynchSupport.IsCoteachingStyleObservedDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingLevelDescriptorSupported != false)
                 target.PerformanceEvaluationRatingLevelDescriptor = source.PerformanceEvaluationRatingLevelDescriptor;
-            else
-                targetSynchSupport.IsPerformanceEvaluationRatingLevelDescriptorSupported = false;
 
-            if (sourceSynchSupport.IsScheduleDateSupported)
+            if (mappingContract?.IsScheduleDateSupported != false)
                 target.ScheduleDate = source.ScheduleDate;
-            else
-                targetSynchSupport.IsScheduleDateSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -8538,24 +7587,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Map lists
 
-            if (sourceSynchSupport.IsPerformanceEvaluationRatingResultsSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingResultsSupported != false)
             {
-                targetSynchSupport.IsPerformanceEvaluationRatingResultIncluded = sourceSynchSupport.IsPerformanceEvaluationRatingResultIncluded;
-                source.PerformanceEvaluationRatingResults.MapCollectionTo(target.PerformanceEvaluationRatingResults, target);
-            }
-            else
-            {
-                targetSynchSupport.IsPerformanceEvaluationRatingResultsSupported = false;
+                source.PerformanceEvaluationRatingResults.MapCollectionTo(target.PerformanceEvaluationRatingResults, target, mappingContract?.IsPerformanceEvaluationRatingResultIncluded);
             }
 
-            if (sourceSynchSupport.IsPerformanceEvaluationRatingReviewersSupported)
+            if (mappingContract?.IsPerformanceEvaluationRatingReviewersSupported != false)
             {
-                targetSynchSupport.IsPerformanceEvaluationRatingReviewerIncluded = sourceSynchSupport.IsPerformanceEvaluationRatingReviewerIncluded;
-                source.PerformanceEvaluationRatingReviewers.MapCollectionTo(target.PerformanceEvaluationRatingReviewers, target);
-            }
-            else
-            {
-                targetSynchSupport.IsPerformanceEvaluationRatingReviewersSupported = false;
+                source.PerformanceEvaluationRatingReviewers.MapCollectionTo(target.PerformanceEvaluationRatingReviewers, target, mappingContract?.IsPerformanceEvaluationRatingReviewerIncluded);
             }
 
 
@@ -8580,35 +7619,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationRatingSynchronizationSourceSupport 
-    {
-        bool IsActualDateSupported { get; set; }
-        bool IsActualDurationSupported { get; set; }
-        bool IsActualTimeSupported { get; set; }
-        bool IsAnnouncedSupported { get; set; }
-        bool IsCommentsSupported { get; set; }
-        bool IsCoteachingStyleObservedDescriptorSupported { get; set; }
-        bool IsPerformanceEvaluationRatingLevelDescriptorSupported { get; set; }
-        bool IsPerformanceEvaluationRatingResultsSupported { get; set; }
-        bool IsPerformanceEvaluationRatingReviewersSupported { get; set; }
-        bool IsScheduleDateSupported { get; set; }
-        Func<IPerformanceEvaluationRatingResult, bool> IsPerformanceEvaluationRatingResultIncluded { get; set; }
-        Func<IPerformanceEvaluationRatingReviewer, bool> IsPerformanceEvaluationRatingReviewerIncluded { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingResultMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRatingResult = new FullName("tpdm", "PerformanceEvaluationRatingResult");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationRatingResult source, IPerformanceEvaluationRatingResult target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationRatingResultSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingResult);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Rating != target.Rating)
@@ -8622,7 +7646,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsResultDatatypeTypeDescriptorSupported)
+            if ((mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 && target.ResultDatatypeTypeDescriptor != source.ResultDatatypeTypeDescriptor)
             {
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
@@ -8639,19 +7663,19 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
         public static void MapTo(this IPerformanceEvaluationRatingResult source, IPerformanceEvaluationRatingResult target, Action<IPerformanceEvaluationRatingResult, IPerformanceEvaluationRatingResult> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationRatingResultSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationRatingResultSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationRatingResultMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingResult);
+    
             // Copy contextual primary key values
             target.Rating = source.Rating;
             target.RatingResultTitle = source.RatingResultTitle;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsResultDatatypeTypeDescriptorSupported)
+            if (mappingContract?.IsResultDatatypeTypeDescriptorSupported != false)
                 target.ResultDatatypeTypeDescriptor = source.ResultDatatypeTypeDescriptor;
-            else
-                targetSynchSupport.IsResultDatatypeTypeDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -8684,24 +7708,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationRatingResultSynchronizationSourceSupport 
-    {
-        bool IsResultDatatypeTypeDescriptorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingReviewerMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRatingReviewer = new FullName("tpdm", "PerformanceEvaluationRatingReviewer");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationRatingReviewer source, IPerformanceEvaluationRatingReviewer target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationRatingReviewerMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewer);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.FirstName != target.FirstName)
@@ -8715,14 +7735,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsReviewerPersonIdSupported)
+            if ((mappingContract?.IsReviewerPersonIdSupported != false)
                 && target.ReviewerPersonId != source.ReviewerPersonId)
             {
                 target.ReviewerPersonId = source.ReviewerPersonId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReviewerSourceSystemDescriptorSupported)
+            if ((mappingContract?.IsReviewerSourceSystemDescriptorSupported != false)
                 && target.ReviewerSourceSystemDescriptor != source.ReviewerSourceSystemDescriptor)
             {
                 target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
@@ -8732,8 +7752,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
-            // PerformanceEvaluationRatingReviewerReceivedTraining
-            if (sourceSupport == null || sourceSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported)
+            // PerformanceEvaluationRatingReviewerReceivedTraining (PerformanceEvaluationRatingReviewerReceivedTraining)
+            if (mappingContract?.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported != false)
             {
                 if (source.PerformanceEvaluationRatingReviewerReceivedTraining == null)
                 {
@@ -8767,24 +7787,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
         public static void MapTo(this IPerformanceEvaluationRatingReviewer source, IPerformanceEvaluationRatingReviewer target, Action<IPerformanceEvaluationRatingReviewer, IPerformanceEvaluationRatingReviewer> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationRatingReviewerMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewer);
+    
             // Copy contextual primary key values
             target.FirstName = source.FirstName;
             target.LastSurname = source.LastSurname;
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsReviewerPersonIdSupported)
+            if (mappingContract?.IsReviewerPersonIdSupported != false)
                 target.ReviewerPersonId = source.ReviewerPersonId;
-            else
-                targetSynchSupport.IsReviewerPersonIdSupported = false;
 
-            if (sourceSynchSupport.IsReviewerSourceSystemDescriptorSupported)
+            if (mappingContract?.IsReviewerSourceSystemDescriptorSupported != false)
                 target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
-            else
-                targetSynchSupport.IsReviewerSourceSystemDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -8799,8 +7817,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             // ----------------------------------
             //   Map One-to-one relationships
             // ----------------------------------
-            // PerformanceEvaluationRatingReviewerReceivedTraining (Source)
-            if (sourceSynchSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported)
+            // PerformanceEvaluationRatingReviewerReceivedTraining (PerformanceEvaluationRatingReviewerReceivedTraining) (Source)
+            if (mappingContract?.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported != false)
             {
                 var itemProperty = target.GetType().GetProperty("PerformanceEvaluationRatingReviewerReceivedTraining");
 
@@ -8821,10 +7839,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
                         target.PerformanceEvaluationRatingReviewerReceivedTraining = (IPerformanceEvaluationRatingReviewerReceivedTraining) targetPerformanceEvaluationRatingReviewerReceivedTraining;
                     }
                 }
-            }
-            else
-            {
-                targetSynchSupport.IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported = false;
             }
             // -------------------------------------------------------------
 
@@ -8852,39 +7866,33 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport 
-    {
-        bool IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported { get; set; }
-        bool IsReviewerPersonIdSupported { get; set; }
-        bool IsReviewerSourceSystemDescriptorSupported { get; set; }
-    }
-
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingReviewerReceivedTrainingMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRatingReviewerReceivedTraining = new FullName("tpdm", "PerformanceEvaluationRatingReviewerReceivedTraining");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationRatingReviewerReceivedTraining source, IPerformanceEvaluationRatingReviewerReceivedTraining target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationRatingReviewerReceivedTrainingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewerReceivedTraining);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsInterRaterReliabilityScoreSupported)
+            if ((mappingContract?.IsInterRaterReliabilityScoreSupported != false)
                 && target.InterRaterReliabilityScore != source.InterRaterReliabilityScore)
             {
                 target.InterRaterReliabilityScore = source.InterRaterReliabilityScore;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsReceivedTrainingDateSupported)
+            if ((mappingContract?.IsReceivedTrainingDateSupported != false)
                 && target.ReceivedTrainingDate != source.ReceivedTrainingDate)
             {
                 target.ReceivedTrainingDate = source.ReceivedTrainingDate;
@@ -8901,22 +7909,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
         public static void MapTo(this IPerformanceEvaluationRatingReviewerReceivedTraining source, IPerformanceEvaluationRatingReviewerReceivedTraining target, Action<IPerformanceEvaluationRatingReviewerReceivedTraining, IPerformanceEvaluationRatingReviewerReceivedTraining> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationRatingReviewerReceivedTrainingMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingReviewerReceivedTraining);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsInterRaterReliabilityScoreSupported)
+            if (mappingContract?.IsInterRaterReliabilityScoreSupported != false)
                 target.InterRaterReliabilityScore = source.InterRaterReliabilityScore;
-            else
-                targetSynchSupport.IsInterRaterReliabilityScoreSupported = false;
 
-            if (sourceSynchSupport.IsReceivedTrainingDateSupported)
+            if (mappingContract?.IsReceivedTrainingDateSupported != false)
                 target.ReceivedTrainingDate = source.ReceivedTrainingDate;
-            else
-                targetSynchSupport.IsReceivedTrainingDateSupported = false;
 
             // Copy Aggregate Reference Data
 
@@ -8949,17 +7955,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport 
-    {
-        bool IsInterRaterReliabilityScoreSupported { get; set; }
-        bool IsReceivedTrainingDateSupported { get; set; }
-    }
-
 }
 // Aggregate: PerformanceEvaluationRatingLevelDescriptor
 
@@ -8968,11 +7963,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationRatingLevelDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationRatingLevelDescriptor = new FullName("tpdm", "PerformanceEvaluationRatingLevelDescriptor");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationRatingLevelDescriptor source, IPerformanceEvaluationRatingLevelDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevelDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.PerformanceEvaluationRatingLevelDescriptorId != target.PerformanceEvaluationRatingLevelDescriptorId)
@@ -8983,49 +7984,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -9046,9 +8047,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
 
         public static void MapTo(this IPerformanceEvaluationRatingLevelDescriptor source, IPerformanceEvaluationRatingLevelDescriptor target, Action<IPerformanceEvaluationRatingLevelDescriptor, IPerformanceEvaluationRatingLevelDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationRatingLevelDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -9057,40 +8060,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -9127,22 +8116,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: PerformanceEvaluationTypeDescriptor
 
@@ -9151,11 +8124,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
     [ExcludeFromCodeCoverage]
     public static class PerformanceEvaluationTypeDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_PerformanceEvaluationTypeDescriptor = new FullName("tpdm", "PerformanceEvaluationTypeDescriptor");
+    
         public static bool SynchronizeTo(this IPerformanceEvaluationTypeDescriptor source, IPerformanceEvaluationTypeDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (PerformanceEvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationTypeDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.PerformanceEvaluationTypeDescriptorId != target.PerformanceEvaluationTypeDescriptorId)
@@ -9166,49 +8145,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -9229,9 +8208,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
 
         public static void MapTo(this IPerformanceEvaluationTypeDescriptor source, IPerformanceEvaluationTypeDescriptor target, Action<IPerformanceEvaluationTypeDescriptor, IPerformanceEvaluationTypeDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (PerformanceEvaluationTypeDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_PerformanceEvaluationTypeDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -9240,40 +8221,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -9310,22 +8277,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: RubricDimension
 
@@ -9334,11 +8285,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
     [ExcludeFromCodeCoverage]
     public static class RubricDimensionMapper
     {
+        private static readonly FullName _fullName_tpdm_RubricDimension = new FullName("tpdm", "RubricDimension");
+    
         public static bool SynchronizeTo(this IRubricDimension source, IRubricDimension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IRubricDimensionSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (RubricDimensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_RubricDimension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.EducationOrganizationId != target.EducationOrganizationId)
@@ -9384,21 +8341,21 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsCriterionDescriptionSupported)
+            if ((mappingContract?.IsCriterionDescriptionSupported != false)
                 && target.CriterionDescription != source.CriterionDescription)
             {
                 target.CriterionDescription = source.CriterionDescription;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDimensionOrderSupported)
+            if ((mappingContract?.IsDimensionOrderSupported != false)
                 && target.DimensionOrder != source.DimensionOrder)
             {
                 target.DimensionOrder = source.DimensionOrder;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsRubricRatingLevelDescriptorSupported)
+            if ((mappingContract?.IsRubricRatingLevelDescriptorSupported != false)
                 && target.RubricRatingLevelDescriptor != source.RubricRatingLevelDescriptor)
             {
                 target.RubricRatingLevelDescriptor = source.RubricRatingLevelDescriptor;
@@ -9415,9 +8372,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
 
         public static void MapTo(this IRubricDimension source, IRubricDimension target, Action<IRubricDimension, IRubricDimension> onMapped)
         {
-            var sourceSynchSupport = source as IRubricDimensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as IRubricDimensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (RubricDimensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_RubricDimension);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -9435,20 +8394,14 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsCriterionDescriptionSupported)
+            if (mappingContract?.IsCriterionDescriptionSupported != false)
                 target.CriterionDescription = source.CriterionDescription;
-            else
-                targetSynchSupport.IsCriterionDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsDimensionOrderSupported)
+            if (mappingContract?.IsDimensionOrderSupported != false)
                 target.DimensionOrder = source.DimensionOrder;
-            else
-                targetSynchSupport.IsDimensionOrderSupported = false;
 
-            if (sourceSynchSupport.IsRubricRatingLevelDescriptorSupported)
+            if (mappingContract?.IsRubricRatingLevelDescriptorSupported != false)
                 target.RubricRatingLevelDescriptor = source.RubricRatingLevelDescriptor;
-            else
-                targetSynchSupport.IsRubricRatingLevelDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -9488,18 +8441,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IRubricDimensionSynchronizationSourceSupport 
-    {
-        bool IsCriterionDescriptionSupported { get; set; }
-        bool IsDimensionOrderSupported { get; set; }
-        bool IsRubricRatingLevelDescriptorSupported { get; set; }
-    }
-
 }
 // Aggregate: RubricRatingLevelDescriptor
 
@@ -9508,11 +8449,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
     [ExcludeFromCodeCoverage]
     public static class RubricRatingLevelDescriptorMapper
     {
+        private static readonly FullName _fullName_tpdm_RubricRatingLevelDescriptor = new FullName("tpdm", "RubricRatingLevelDescriptor");
+    
         public static bool SynchronizeTo(this IRubricRatingLevelDescriptor source, IRubricRatingLevelDescriptor target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as IRubricRatingLevelDescriptorSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (RubricRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_RubricRatingLevelDescriptor);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.RubricRatingLevelDescriptorId != target.RubricRatingLevelDescriptorId)
@@ -9523,49 +8470,49 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
             // Copy inherited non-PK properties
 
 
-            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+            if ((mappingContract?.IsCodeValueSupported != false)
                 && target.CodeValue != source.CodeValue)
             {
                 target.CodeValue = source.CodeValue;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+            if ((mappingContract?.IsDescriptionSupported != false)
                 && target.Description != source.Description)
             {
                 target.Description = source.Description;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+            if ((mappingContract?.IsEffectiveBeginDateSupported != false)
                 && target.EffectiveBeginDate != source.EffectiveBeginDate)
             {
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+            if ((mappingContract?.IsEffectiveEndDateSupported != false)
                 && target.EffectiveEndDate != source.EffectiveEndDate)
             {
                 target.EffectiveEndDate = source.EffectiveEndDate;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+            if ((mappingContract?.IsNamespaceSupported != false)
                 && target.Namespace != source.Namespace)
             {
                 target.Namespace = source.Namespace;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+            if ((mappingContract?.IsPriorDescriptorIdSupported != false)
                 && target.PriorDescriptorId != source.PriorDescriptorId)
             {
                 target.PriorDescriptorId = source.PriorDescriptorId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+            if ((mappingContract?.IsShortDescriptionSupported != false)
                 && target.ShortDescription != source.ShortDescription)
             {
                 target.ShortDescription = source.ShortDescription;
@@ -9586,9 +8533,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
 
         public static void MapTo(this IRubricRatingLevelDescriptor source, IRubricRatingLevelDescriptor target, Action<IRubricRatingLevelDescriptor, IRubricRatingLevelDescriptor> onMapped)
         {
-            var sourceSynchSupport = source as IRubricRatingLevelDescriptorSynchronizationSourceSupport;
-            var targetSynchSupport = target as IRubricRatingLevelDescriptorSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (RubricRatingLevelDescriptorMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_RubricRatingLevelDescriptor);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -9597,40 +8546,26 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
 
             // Copy inherited non-PK properties
 
-            if (sourceSynchSupport.IsCodeValueSupported)
+            if (mappingContract?.IsCodeValueSupported != false)
                 target.CodeValue = source.CodeValue;
-            else
-                targetSynchSupport.IsCodeValueSupported = false;
 
-            if (sourceSynchSupport.IsDescriptionSupported)
+            if (mappingContract?.IsDescriptionSupported != false)
                 target.Description = source.Description;
-            else
-                targetSynchSupport.IsDescriptionSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+            if (mappingContract?.IsEffectiveBeginDateSupported != false)
                 target.EffectiveBeginDate = source.EffectiveBeginDate;
-            else
-                targetSynchSupport.IsEffectiveBeginDateSupported = false;
 
-            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+            if (mappingContract?.IsEffectiveEndDateSupported != false)
                 target.EffectiveEndDate = source.EffectiveEndDate;
-            else
-                targetSynchSupport.IsEffectiveEndDateSupported = false;
 
-            if (sourceSynchSupport.IsNamespaceSupported)
+            if (mappingContract?.IsNamespaceSupported != false)
                 target.Namespace = source.Namespace;
-            else
-                targetSynchSupport.IsNamespaceSupported = false;
 
-            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+            if (mappingContract?.IsPriorDescriptorIdSupported != false)
                 target.PriorDescriptorId = source.PriorDescriptorId;
-            else
-                targetSynchSupport.IsPriorDescriptorIdSupported = false;
 
-            if (sourceSynchSupport.IsShortDescriptionSupported)
+            if (mappingContract?.IsShortDescriptionSupported != false)
                 target.ShortDescription = source.ShortDescription;
-            else
-                targetSynchSupport.IsShortDescriptionSupported = false;
 
             // Copy non-PK properties
 
@@ -9667,22 +8602,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface IRubricRatingLevelDescriptorSynchronizationSourceSupport 
-    {
-        bool IsCodeValueSupported { get; set; }
-        bool IsDescriptionSupported { get; set; }
-        bool IsEffectiveBeginDateSupported { get; set; }
-        bool IsEffectiveEndDateSupported { get; set; }
-        bool IsNamespaceSupported { get; set; }
-        bool IsPriorDescriptorIdSupported { get; set; }
-        bool IsShortDescriptionSupported { get; set; }
-    }
-
 }
 // Aggregate: School
 
@@ -9691,22 +8610,23 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
     [ExcludeFromCodeCoverage]
     public static class SchoolExtensionMapper
     {
+        private static readonly FullName _fullName_tpdm_SchoolExtension = new FullName("tpdm", "SchoolExtension");
+    
         public static bool SynchronizeTo(this ISchoolExtension source, ISchoolExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISchoolExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.School as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SchoolExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsPostSecondaryInstitutionIdSupported)
+            if ((mappingContract?.IsPostSecondaryInstitutionIdSupported != false)
                 && target.PostSecondaryInstitutionId != source.PostSecondaryInstitutionId)
             {
                 target.PostSecondaryInstitutionId = source.PostSecondaryInstitutionId;
@@ -9723,17 +8643,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
 
         public static void MapTo(this ISchoolExtension source, ISchoolExtension target, Action<ISchoolExtension, ISchoolExtension> onMapped)
         {
-            var sourceSynchSupport = source as ISchoolExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISchoolExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SchoolExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SchoolExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsPostSecondaryInstitutionIdSupported)
+            if (mappingContract?.IsPostSecondaryInstitutionIdSupported != false)
                 target.PostSecondaryInstitutionId = source.PostSecondaryInstitutionId;
-            else
-                targetSynchSupport.IsPostSecondaryInstitutionIdSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -9772,16 +8692,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISchoolExtensionSynchronizationSourceSupport 
-    {
-        bool IsPostSecondaryInstitutionIdSupported { get; set; }
-    }
-
 }
 // Aggregate: SurveyResponse
 
@@ -9790,29 +8700,30 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
     [ExcludeFromCodeCoverage]
     public static class SurveyResponseExtensionMapper
     {
+        private static readonly FullName _fullName_tpdm_SurveyResponseExtension = new FullName("tpdm", "SurveyResponseExtension");
+    
         public static bool SynchronizeTo(this ISurveyResponseExtension source, ISurveyResponseExtension target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISurveyResponseExtensionSynchronizationSourceSupport;
-
-            var sourceExtensionSupport = source.SurveyResponse as IExtensionsSynchronizationSourceSupport;
-
-            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
-                return false;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SurveyResponseExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SurveyResponseExtension);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
 
             // Copy non-PK properties
 
-            if ((sourceSupport == null || sourceSupport.IsPersonIdSupported)
+            if ((mappingContract?.IsPersonIdSupported != false)
                 && target.PersonId != source.PersonId)
             {
                 target.PersonId = source.PersonId;
                 isModified = true;
             }
 
-            if ((sourceSupport == null || sourceSupport.IsSourceSystemDescriptorSupported)
+            if ((mappingContract?.IsSourceSystemDescriptorSupported != false)
                 && target.SourceSystemDescriptor != source.SourceSystemDescriptor)
             {
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
@@ -9829,22 +8740,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
 
         public static void MapTo(this ISurveyResponseExtension source, ISurveyResponseExtension target, Action<ISurveyResponseExtension, ISurveyResponseExtension> onMapped)
         {
-            var sourceSynchSupport = source as ISurveyResponseExtensionSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISurveyResponseExtensionSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SurveyResponseExtensionMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SurveyResponseExtension);
+    
             // Copy contextual primary key values
 
             // Copy non-PK properties
 
-            if (sourceSynchSupport.IsPersonIdSupported)
+            if (mappingContract?.IsPersonIdSupported != false)
                 target.PersonId = source.PersonId;
-            else
-                targetSynchSupport.IsPersonIdSupported = false;
 
-            if (sourceSynchSupport.IsSourceSystemDescriptorSupported)
+            if (mappingContract?.IsSourceSystemDescriptorSupported != false)
                 target.SourceSystemDescriptor = source.SourceSystemDescriptor;
-            else
-                targetSynchSupport.IsSourceSystemDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -9884,17 +8793,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISurveyResponseExtensionSynchronizationSourceSupport 
-    {
-        bool IsPersonIdSupported { get; set; }
-        bool IsSourceSystemDescriptorSupported { get; set; }
-    }
-
 }
 // Aggregate: SurveyResponsePersonTargetAssociation
 
@@ -9903,11 +8801,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
     [ExcludeFromCodeCoverage]
     public static class SurveyResponsePersonTargetAssociationMapper
     {
+        private static readonly FullName _fullName_tpdm_SurveyResponsePersonTargetAssociation = new FullName("tpdm", "SurveyResponsePersonTargetAssociation");
+    
         public static bool SynchronizeTo(this ISurveyResponsePersonTargetAssociation source, ISurveyResponsePersonTargetAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SurveyResponsePersonTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SurveyResponsePersonTargetAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Namespace != target.Namespace)
@@ -9943,9 +8847,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
 
         public static void MapTo(this ISurveyResponsePersonTargetAssociation source, ISurveyResponsePersonTargetAssociation target, Action<ISurveyResponsePersonTargetAssociation, ISurveyResponsePersonTargetAssociation> onMapped)
         {
-            var sourceSynchSupport = source as ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SurveyResponsePersonTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SurveyResponsePersonTargetAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -9998,15 +8904,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
         }
     }
 
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport 
-    {
-    }
-
 }
 // Aggregate: SurveySectionResponsePersonTargetAssociation
 
@@ -10015,11 +8912,17 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
     [ExcludeFromCodeCoverage]
     public static class SurveySectionResponsePersonTargetAssociationMapper
     {
+        private static readonly FullName _fullName_tpdm_SurveySectionResponsePersonTargetAssociation = new FullName("tpdm", "SurveySectionResponsePersonTargetAssociation");
+    
         public static bool SynchronizeTo(this ISurveySectionResponsePersonTargetAssociation source, ISurveySectionResponsePersonTargetAssociation target)
         {
             bool isModified = false;
 
-            var sourceSupport = source as ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport;
+            // Get the mapping contract for knowing what values to synchronize through to target entity
+            var mappingContract = (SurveySectionResponsePersonTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SurveySectionResponsePersonTargetAssociation);
+            
 
             // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
             if (source.Namespace != target.Namespace)
@@ -10059,9 +8962,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
 
         public static void MapTo(this ISurveySectionResponsePersonTargetAssociation source, ISurveySectionResponsePersonTargetAssociation target, Action<ISurveySectionResponsePersonTargetAssociation, ISurveySectionResponsePersonTargetAssociation> onMapped)
         {
-            var sourceSynchSupport = source as ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport;
-            var targetSynchSupport = target as ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport;
-
+            // Get the mapping contract for determining what values to map through to target
+            var mappingContract = (SurveySectionResponsePersonTargetAssociationMappingContract) GeneratedArtifactStaticDependencies
+                .MappingContractProvider
+                .GetMappingContract(_fullName_tpdm_SurveySectionResponsePersonTargetAssociation);
+    
             // Copy resource Id
             target.Id = source.Id;
 
@@ -10113,15 +9018,6 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction
-    /// is supported by a model implementation being used as the source in a "synchronization"
-    /// operation.
-    /// </summary>
-    public interface ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport 
-    {
     }
 
 }
