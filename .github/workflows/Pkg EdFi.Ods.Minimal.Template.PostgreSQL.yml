@@ -34,9 +34,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:13
+    
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
@@ -70,13 +68,18 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Configure PostgreSQL
+    - name: Re-Install PostgreSQL
       run: |
-        sudo chmod 666 "/etc/postgresql/14/main/pg_hba.conf"
+        sudo apt-get --purge remove postgresql\*
+        sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+        wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+        sudo apt-get update
+        sudo apt-get -y install postgresql-13
+        sudo chmod 666 "/etc/postgresql/13/main/pg_hba.conf"
     - name: Configure PostgreSQL
       shell: pwsh
       run: |
-        $confPath = "/etc/postgresql/14/main/pg_hba.conf"
+        $confPath = "/etc/postgresql/13/main/pg_hba.conf"
         (Get-Content $confPath).Replace("md5", "trust") | Set-Content $confPath
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
