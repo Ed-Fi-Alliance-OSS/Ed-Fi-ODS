@@ -34,7 +34,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres:13
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
