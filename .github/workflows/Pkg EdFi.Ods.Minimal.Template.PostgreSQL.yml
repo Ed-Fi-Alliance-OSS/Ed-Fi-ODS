@@ -70,9 +70,6 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Find File
-      run: |
-        sudo find / -type f -name pg_hba.conf
     - name: Configure PostgreSQL
       shell: pwsh
       run: |
