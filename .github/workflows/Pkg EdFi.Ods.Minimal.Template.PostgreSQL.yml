@@ -68,7 +68,7 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Re-Install PostgreSQL
+    - name: Uninstall Default PostgreSQL and Replace with PostgreSQL13
       run: |
         sudo apt-get --purge remove postgresql\*
         sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
