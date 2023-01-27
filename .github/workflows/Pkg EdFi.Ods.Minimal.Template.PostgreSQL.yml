@@ -75,11 +75,11 @@ jobs:
         wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
         sudo apt-get update
         sudo apt-get -y install postgresql-13
-        $search = "md5"
-        $replace = "trust"
-        $confPath = "/etc/postgresql/13/main/pg_hba.conf"
+        search="md5"
+        replace="trust"
+        confPath="/etc/postgresql/13/main/pg_hba.conf"
         sudo chmod 666 $confPath
-        sed -i "s/$search/$replace/" $confPath
+        sudo sed -i "s/$search/$replace/" $confPath
         sudo service postgresql restart
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
