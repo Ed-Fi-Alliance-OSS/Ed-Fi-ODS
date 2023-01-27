@@ -17,20 +17,20 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.21" />
-    <PackageReference Include="FluentValidation" Version="10.4.0" />
-    <PackageReference Include="log4net" Version="2.0.13" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="NHibernate" Version="5.3.11" />
-    <PackageReference Include="Npgsql" Version="6.0.3" />
-    <PackageReference Include="Quartz" Version="3.3.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.25" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="NHibernate" Version="5.4.0" />
+    <PackageReference Include="Npgsql" Version="6.0.8" />
+    <PackageReference Include="Quartz" Version="3.5.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
