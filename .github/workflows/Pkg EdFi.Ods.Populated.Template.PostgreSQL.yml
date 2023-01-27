@@ -68,21 +68,18 @@ jobs:
       shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Uninstall Default PostgreSQL and Replace with PostgreSQL13
+    - name: Configure PostgreSQL
       run: |
         sudo apt-get --purge remove postgresql\*
         sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
         wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
         sudo apt-get update
         sudo apt-get -y install postgresql-13
-        sudo chmod 666 "/etc/postgresql/13/main/pg_hba.conf"
-    - name: Configure PostgreSQL
-      shell: pwsh
-      run: |
-        $confPath = "/etc/postgresql/13/main/pg_hba.conf"
-        (Get-Content $confPath).Replace("md5", "trust") | Set-Content $confPath
-    - name: Restart PostgreSQL
-      run: |
+        search="md5"
+        replace="trust"
+        confPath="/etc/postgresql/13/main/pg_hba.conf"
+        sudo chmod 666 $confPath
+        sudo sed -i "s/$search/$replace/" $confPath
         sudo service postgresql restart
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -113,37 +110,8 @@ jobs:
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Populated.Template.PostgreSQL.nuspec" -PackageName "EdFi.Suite3.Ods.Populated.Template.PostgreSQL"
       shell: pwsh
     - name: Install-credential-handler
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
-         if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
-              Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-         }
-
-          # using WebClient is faster then Invoke-WebRequest but shows no progress
-          $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
-          $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
-          $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) '$fileName'
-          Write-host "Downloading file from $sourceUrl..."
-          $webClient = New-Object System.Net.WebClient
-          $webClient.DownloadFile($sourceUrl, $zipFilePath)
-
-          Write-host "Download complete." 
-
-          if (-not (Test-Path $zipFilePath)) {
-              Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
-              exit 0
-          }
-
-          $packageFolder = Join-Path ([IO.Path]::GetTempPath()) "Microsoft.NuGet.CredentialProvider/"
-
-          if ($fileName.EndsWith('.zip')) {
-              Write-host "Extracting $fileName..."
-              if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
-              Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
-              Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
-          }
-      shell: pwsh     
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh  
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       run: |
