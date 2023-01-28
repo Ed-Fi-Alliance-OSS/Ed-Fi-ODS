@@ -6464,6 +6464,323 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Extensions",
+			"item": [
+				{
+					"name": "Aggregate Extensions",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Initialize Supplied ParentUniqueId",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"supplied:parent:parentUniqueId\", pm.variables.replaceIn(\"AGGREGATE-EXTENSION-{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid (Collections Empty)",
+							"item": [
+								{
+									"name": "Create Parent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status is 400\", () => {\r",
+													"  pm.expect(pm.response.code).equals(400);\r",
+													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"/*\r",
+													"    string FavoriteBookTitle\r",
+													"        documentation \"The title of the parent's favorite book.\"\r",
+													"        is required collection\r",
+													"        max length 100\r",
+													"*/\r",
+													"pm.test(\"Should indicate that the required collection has no items.\", () => {\r",
+													"  pm.expect(message).to.contain(\"ParentFavoriteBookTitles (Sample) requires at least one object in the collection.\");\r",
+													"});\r",
+													"\r",
+													"/*\r",
+													"    shared string EdFi.Author\r",
+													"        documentation \"The parent's favorite authors.\"\r",
+													"        is optional collection\r",
+													"*/\r",
+													"pm.test(\"Should NOT indicate any issues with the optional collection that is empty.\", () => {\r",
+													"  pm.expect(message).to.not.contain(\"ParentAuthors (Sample)\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Invalid (Embedded Objects Not Supplied)",
+							"item": [
+								{
+									"name": "Create Parent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status is 400\", () => {\r",
+													"  pm.expect(pm.response.code).equals(400);\r",
+													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"/*\r",
+													"    common TeacherConference\r",
+													"        documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
+													"        is required\r",
+													"*/\r",
+													"pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
+													"  pm.expect(message).to.contain(\"ParentTeacherConference (Sample) is required.\");\r",
+													"});\r",
+													"\r",
+													"/*\r",
+													"    common EdFi.CTEProgram\r",
+													"        documentation \"A CTE program the parent has completed.\"\r",
+													"        is optional\r",
+													"*/\r",
+													"pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
+													"  pm.expect(message).to.not.contain(\"ParentCTEProgram (Sample)\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Valid (Required Items Supplied)",
+							"item": [
+								{
+									"name": "Create Parent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status is 201\", () => {\r",
+													"  pm.expect(pm.response.code).equals(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete the Parent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:parent:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents",
+												"{{known:parent:id}}"
+											]
+										},
+										"description": "Scenario: A POST request is made with a write only profile \r\n    Given the caller is using the \"Test-Profile-Resource-WriteOnly\" profile\t\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {

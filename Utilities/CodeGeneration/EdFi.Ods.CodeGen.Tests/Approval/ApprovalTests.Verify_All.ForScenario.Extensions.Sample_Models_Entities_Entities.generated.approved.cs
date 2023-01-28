@@ -4616,7 +4616,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get
             {
-                var list = (IList) Parent.AggregateExtensions["Sample_ParentCTEPrograms"];
+                var list = (IList) Parent.AggregateExtensions["Sample_ParentCTEProgram"];
 
                 if (list != null && list.Count > 0)
                     return (Entities.Common.Sample.IParentCTEProgram) list[0];
@@ -4626,7 +4626,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set
             {
                 // Delete the existing object
-                var list = (IList) Parent.AggregateExtensions["Sample_ParentCTEPrograms"] ?? new List<object>();
+                var list = (IList) Parent.AggregateExtensions["Sample_ParentCTEProgram"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -4651,7 +4651,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get
             {
-                var list = (IList) Parent.AggregateExtensions["Sample_ParentTeacherConferences"];
+                var list = (IList) Parent.AggregateExtensions["Sample_ParentTeacherConference"];
 
                 if (list != null && list.Count > 0)
                     return (Entities.Common.Sample.IParentTeacherConference) list[0];
@@ -4661,7 +4661,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set
             {
                 // Delete the existing object
-                var list = (IList) Parent.AggregateExtensions["Sample_ParentTeacherConferences"] ?? new List<object>();
+                var list = (IList) Parent.AggregateExtensions["Sample_ParentTeacherConference"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -5821,7 +5821,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             get
             {
-                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEPrograms"];
+                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEProgram"];
 
                 if (list != null && list.Count > 0)
                     return (Entities.Common.Sample.ISchoolCTEProgram) list[0];
@@ -5831,7 +5831,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             set
             {
                 // Delete the existing object
-                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEPrograms"] ?? new List<object>();
+                var list = (IList) School.AggregateExtensions["Sample_SchoolCTEProgram"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -6448,7 +6448,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             get
             {
-                var list = (IList) Staff.AggregateExtensions["Sample_StaffPetPreferences"];
+                var list = (IList) Staff.AggregateExtensions["Sample_StaffPetPreference"];
 
                 if (list != null && list.Count > 0)
                     return (Entities.Common.Sample.IStaffPetPreference) list[0];
@@ -6458,7 +6458,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             set
             {
                 // Delete the existing object
-                var list = (IList) Staff.AggregateExtensions["Sample_StaffPetPreferences"] ?? new List<object>();
+                var list = (IList) Staff.AggregateExtensions["Sample_StaffPetPreference"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -7699,7 +7699,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             get
             {
-                var list = (IList) _student.AggregateExtensions["Sample_StudentPetPreferences"];
+                var list = (IList) _student.AggregateExtensions["Sample_StudentPetPreference"];
 
                 if (list != null && list.Count > 0)
                     return (IStudentPetPreference) list[0];
@@ -7709,7 +7709,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             set
             {
                 // Delete the existing object
-                var list = (IList) _student.AggregateExtensions["Sample_StudentPetPreferences"];
+                var list = (IList) _student.AggregateExtensions["Sample_StudentPetPreference"];
                 list.Clear();
 
                 // If we're setting a value, add it to the list now
@@ -14218,7 +14218,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get
             {
-                var list = (IList) StudentParentAssociation.AggregateExtensions["Sample_StudentParentAssociationTelephones"];
+                var list = (IList) StudentParentAssociation.AggregateExtensions["Sample_StudentParentAssociationTelephone"];
 
                 if (list != null && list.Count > 0)
                     return (Entities.Common.Sample.IStudentParentAssociationTelephone) list[0];
@@ -14228,7 +14228,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             set
             {
                 // Delete the existing object
-                var list = (IList) StudentParentAssociation.AggregateExtensions["Sample_StudentParentAssociationTelephones"] ?? new List<object>();
+                var list = (IList) StudentParentAssociation.AggregateExtensions["Sample_StudentParentAssociationTelephone"] ?? new List<object>();
                 list.Clear();
 
                 // If we're setting a value, add it to the list now

@@ -597,7 +597,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private static string GetEntityParentClassNamespacePrefix(Entity entity)
         {
-            return entity?.Parent?.IsEdFiStandardEntity == true
+            return entity.IsEntityExtension || entity.IsAggregateExtensionTopLevelEntity
                 ? $"{EdFiConventions.ProperCaseName}."
                 : null;
         }
