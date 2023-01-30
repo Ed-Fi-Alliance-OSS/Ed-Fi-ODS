@@ -16,7 +16,7 @@ env:
 jobs:
   scan-actions:
     name: Scan Actions
-    uses: ed-fi-alliance-oss/ed-fi-actions/.github/workflows/repository-scanner.yml@latest
+    uses: ed-fi-alliance-oss/ed-fi-actions/.github/workflows/repository-scanner.yml@main
 
   analyze-code:
     name: Analyze Code Dependencies
