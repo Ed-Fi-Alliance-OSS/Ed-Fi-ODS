@@ -303,7 +303,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
                         },
-                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
+                        Array.Empty<IDomainModelDefinitionsTransformer>()).GetDomainModel();
 
                 ExtensionsConventions.GetAggregateExtensionMemberName(
                     domainModel.Entities.FirstOrDefault(e => e.Name == "StaffLeaveExtension"));
@@ -314,7 +314,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             {
                 AssertHelper.All(
                     () => Assert.That(ActualException.GetType(), Is.EqualTo(typeof(Exception))),
-                    () => Assert.That(ActualException.Message, Is.EqualTo("The supplied 'aggregateExtensionEntity' was not an aggregate extension."))
+                    () => Assert.That(ActualException.Message, Is.EqualTo("The supplied 'aggregateExtensionEntity' is not a top-level aggregate extension entity."))
                 );
             }
         }
