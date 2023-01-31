@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 // Does the entity have assignable, single-valued Id?
                 if (metadata.HasIdentifierProperty)
                 {
-                    var persister = metadata as AbstractEntityPersister;
+                    var persister = metadata as IEntityPersister;
 
                     bool hasAssignableIdentifier = metadata.HasIdentifierProperty
                         && persister != null
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     var identifierValue = metadata.GetIdentifier(entity);
                     var identifierDefaultValue = metadata.IdentifierType.ReturnedClass.GetDefaultValue();
 
-                    bool identifierValueAssigned = !identifierValue.Equals(identifierDefaultValue);
+                    bool identifierValueAssigned = !object.Equals(identifierValue, identifierDefaultValue);
 
                     // If Id is assignable...
                     if (hasAssignableIdentifier)
