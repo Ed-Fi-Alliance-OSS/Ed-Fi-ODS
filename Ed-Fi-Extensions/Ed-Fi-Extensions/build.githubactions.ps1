@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch")]
+    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch","MaximumPathLengthLimitation")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -57,6 +57,12 @@ param(
     [string]
     $RelativeRepoPath
 )
+
+$ErrorActionPreference = 'Stop'
+
+$error.Clear()
+
+& "$PSScriptRoot/../Ed-Fi-ODS-Implementation/logistics/scripts/modules/load-path-resolver.ps1"
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
 $version = "$InformationalVersion.$newRevision"
@@ -207,6 +213,42 @@ function CheckoutBranch {
     }
 }
 
+function MaximumPathLengthLimitation {
+
+    $desinationPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Plugin/$PackageName.$version.zip"
+    Copy-Item -Path $packagePath -Destination $desinationPath -Recurse -Force -PassThru
+    if (Test-Path $desinationPath) {
+      Expand-Archive -Force -Path $desinationPath -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Plugin/$PackageName.$version/"
+    }
+    Remove-Item -Path $desinationPath -Force    
+    $baseRootPathLength = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation").Length - ("Ed-Fi-ODS-Implementation".Length)
+    $pluginParentFolderPath = (Get-RepositoryResolvedPath "Plugin/")
+    $sqlFileNameValues = "";
+    $isMaximumPathLengthFound = $false
+    $message = "";
+
+    Get-ChildItem -Path $pluginParentFolderPath -Recurse -Force -Filter "*.sql" | Sort-Object {($_.FullName.Length)} -Descending | ForEach-Object {
+        $sqlFilePath = $_.FullName
+        $sqlFileLength = ($_.FullName.Length) -($baseRootPathLength)
+        $sqlFileLength = $sqlFileLength -as [int]
+        $sqlFileName = Split-Path $sqlFilePath -leaf
+        $maximumlength = 160
+
+        if ($sqlFileLength -ge $maximumlength)
+        {
+            $isMaximumPathLengthFound = $true
+            $sqlFileNameValues +=  $sqlFileName + "`r`n"
+            $message += "Found plugin extension SQL file '$sqlFilePath' exceeds 180 characters full file path length,"
+            $message += "So Windows Operating system don't allow due to Maximum Path Length Limitation."
+            $message += "Please reduce length of SQL file name and retry.`r`n"
+        }
+    }
+    if ($isMaximumPathLengthFound) {
+        Write-Host $message -ForegroundColor Green
+        throw "Found plugin extension SQL file names '$sqlFileNameValues' exceeds 180 characters full file path length."
+    }
+}
+
 function Invoke-Build {
     Write-Host "Building Version $version" -ForegroundColor Cyan
     Invoke-Step { DotnetClean }
@@ -229,6 +271,9 @@ function Invoke-CheckoutBranch {
     Invoke-Step { CheckoutBranch }
 }
 
+function Invoke-MaximumPathLengthLimitation {
+    Invoke-Step { MaximumPathLengthLimitation }
+}
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
@@ -237,6 +282,7 @@ Invoke-Main {
         Pack { Invoke-Pack }
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
+        MaximumPathLengthLimitation { Invoke-MaximumPathLengthLimitation }
         default { throw "Command '$Command' is not recognized" }
     }
 }
