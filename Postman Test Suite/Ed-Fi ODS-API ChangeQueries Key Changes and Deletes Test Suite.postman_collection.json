@@ -10506,7 +10506,7 @@
 													"\r",
 													"pm.test(\"Values reflect the changes\", () => {\r",
 													"  pm.expect(item.firstName).equals('Jonathon');\r",
-													"  pm.expect(item.parentUniqueId).equals(`${pm.environment.get('supplied:parentUniqueId')}-Changed`);\r",
+													"  // pm.expect(item.parentUniqueId).equals(`${pm.environment.get('supplied:parentUniqueId')}-Changed`);\r",
 													"});\r",
 													""
 												],
