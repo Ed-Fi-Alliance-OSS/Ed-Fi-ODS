@@ -3208,7 +3208,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
