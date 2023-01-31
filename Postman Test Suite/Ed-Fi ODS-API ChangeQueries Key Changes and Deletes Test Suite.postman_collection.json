@@ -10125,7 +10125,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n    },\r\n    \"entryDate\": \"2010-08-23\",\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\",\r\n    \"alternativeGraduationPlans\": [],\r\n    \"educationPlans\": []\r\n}",
+											"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901777\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n    },\r\n    \"entryDate\": \"2010-08-23\",\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\",\r\n    \"alternativeGraduationPlans\": [],\r\n    \"educationPlans\": []\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -10179,7 +10179,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{supplied:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{supplied:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"

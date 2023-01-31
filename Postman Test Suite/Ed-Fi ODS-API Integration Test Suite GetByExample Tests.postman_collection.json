@@ -349,7 +349,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}",
+							"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -398,7 +398,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}",
+							"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
