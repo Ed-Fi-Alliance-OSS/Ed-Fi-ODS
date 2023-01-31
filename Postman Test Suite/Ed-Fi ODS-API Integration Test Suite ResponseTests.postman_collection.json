@@ -749,7 +749,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -887,7 +887,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -1024,7 +1024,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurnameNew}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurnameNew}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -1973,7 +1973,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -2184,7 +2184,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -2546,7 +2546,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -2986,7 +2986,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3214,7 +3214,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3278,7 +3278,6 @@
 															"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
 															"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
 															"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
-															"pm.environment.set('supplied:'+scenarioId+':YearsOfPriorProfessionalExperience', \"1123.2345498765\");",
 															""
 														],
 														"type": "text/javascript"
@@ -3297,7 +3296,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"YearsOfPriorProfessionalExperience\":\"{{supplied:{{scenarioId}}:YearsOfPriorProfessionalExperience}}\"\r\n}\r\n"
+													"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"YearsOfPriorProfessionalExperience\": \"1123.2345498765\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
@@ -3381,7 +3380,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3543,7 +3542,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3720,7 +3719,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/",
@@ -3864,7 +3863,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -4960,7 +4959,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -5132,7 +5131,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -5219,7 +5218,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -5391,7 +5390,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"BirthCountryDescriptor\":\"00\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"BirthCountryDescriptor\": \"00\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -5478,7 +5477,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -5663,7 +5662,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\":\"MaidenName\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\": \"MaidenName\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -5750,7 +5749,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -5927,7 +5926,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\":\"MaidenName\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\": \"MaidenName\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -6014,7 +6013,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -6195,7 +6194,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\":\"MaidenName\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\": \"MaidenName\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{supplied:{{scenarioId}}:studentGuid}}",
@@ -6282,7 +6281,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -6459,7 +6458,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\":\"MaidenName\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\": \"MaidenName\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -6546,7 +6545,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -6720,7 +6719,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\":\"MaidenName\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastName}}\",\r\n  \"MaidenName\": \"MaidenName\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{supplied:{{scenarioId}}:MalformedId}}",
@@ -6922,7 +6921,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n   \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -7054,7 +7053,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -7372,7 +7371,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -7516,7 +7515,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -7665,17 +7664,10 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
-											"const __ = require('lodash');\r",
-											"\r",
-											"const keys = __.keys(pm.environment.toObject());\r",
-											"console.log('Initial keys: ' + JSON.stringify(keys));\r",
-											"\r",
-											"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
-											"\r",
-											"__.each(keysToRemove, k => pm.environment.unset(k));\r",
-											"\r",
-											"const remainingKeys = __.keys(pm.environment.toObject());\r",
-											"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
 										],
 										"type": "text/javascript"
 									}

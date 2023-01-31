@@ -126,7 +126,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -276,7 +276,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\"\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"nameOfInstitution\": \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
@@ -426,7 +426,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -511,7 +511,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -662,7 +662,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"Re-Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"nameOfInstitution\": \"Re-Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
@@ -809,7 +809,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -958,7 +958,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"nameOfInstitution\": \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
@@ -1105,7 +1105,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -1175,7 +1175,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -1310,7 +1310,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
@@ -1595,7 +1595,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n  }\r\n"
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -1666,7 +1666,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -2239,7 +2239,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n }\r\n"
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -2310,7 +2310,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+											"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -5056,17 +5056,10 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"const __ = require('lodash');\r",
-													"\r",
-													"const keys = __.keys(pm.environment.toObject());\r",
-													"console.log('Initial keys: ' + JSON.stringify(keys));\r",
-													"\r",
-													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
-													"\r",
-													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
-													"\r",
-													"const remainingKeys = __.keys(pm.environment.toObject());\r",
-													"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
 												],
 												"type": "text/javascript"
 											}

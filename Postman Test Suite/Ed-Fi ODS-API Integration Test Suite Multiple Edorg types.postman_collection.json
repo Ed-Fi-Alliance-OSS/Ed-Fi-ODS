@@ -206,7 +206,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId3}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+							"raw": "{\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\": \"{{known:schoolId3}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
@@ -293,7 +293,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}"
+									"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -1969,7 +1969,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}"
+									"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -2650,7 +2650,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\"\r\n}\r\n",
+									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

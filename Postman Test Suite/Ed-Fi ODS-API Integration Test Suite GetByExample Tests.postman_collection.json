@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "92b6dabc-9ec9-47f1-8053-48031e5d934e",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -52,8 +51,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "StudentParentAssociation Tests",
@@ -64,7 +62,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4be5381c-68a5-4a6b-addc-a764141e0332",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -80,7 +77,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a37bc8b8-ccf7-4cf8-b69a-d6c1cde66c46",
 								"exec": [
 									"const uuid = require('uuid');",
 									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -113,7 +109,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}"
+							"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\": \"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 						},
 						"url": {
 							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -136,7 +132,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a3bb8672-8bf8-4bd1-93a5-ed5b43977cff",
 								"exec": [
 									"const scenarioId = pm.environment.get('scenarioId');",
 									"const moment = require('moment');",
@@ -151,7 +146,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "875e3c2a-06d1-4a53-bee3-93c2d15d69d3",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -196,7 +190,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dc2bed6d-c0bd-4bf1-aecb-a9ec1592c7d5",
 								"exec": [
 									" pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -214,7 +207,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f8ac2f44-42ca-4d46-a96e-200bdb5f80a5",
 								"exec": [
 									"const uuid=require('uuid');",
 									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -239,7 +231,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}",
+							"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -267,7 +259,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd578b20-53a2-4bd0-856b-7852f1db1ccc",
 								"exec": [
 									" pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -285,7 +276,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ec3bea67-f030-44b7-8574-a81579bd0f80",
 								"exec": [
 									"const uuid = require('uuid');",
 									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -310,7 +300,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}",
+							"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,7 +328,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "927f68a3-8b99-4dcd-a136-c19ddf45a866",
 								"exec": [
 									" pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -388,7 +377,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "670b1d36-c438-444e-b7b5-9cb0360170f8",
 								"exec": [
 									" pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -438,7 +426,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ffc20e95-f4f9-4b6a-98d0-6b8eece8c6d2",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -483,7 +470,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "421b4c57-f0af-49f4-bd67-afc577f40b8b",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -522,7 +508,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a13daac9-6c07-4146-9d2d-2591b5cbdfcd",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -576,7 +561,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7c5434d6-a697-4c99-9a08-ddb34c8cd4a6",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -630,7 +614,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "346a018f-d3b1-4087-a3e4-9b3360e3396d",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -684,8 +667,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Clean Up Test Data",
@@ -696,19 +678,12 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "dbf02bc0-8bac-4e0a-a7c0-4db34b13a00a",
 								"exec": [
-									"const __ = require('lodash');\r",
-									"\r",
-									"const keys = __.keys(pm.environment.toObject());\r",
-									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
-									"\r",
-									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:') || x == 'scenarioId');\r",
-									"\r",
-									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
-									"\r",
-									"const remainingKeys = __.keys(pm.environment.toObject());\r",
-									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+									"_.chain(_.keys(pm.environment.toObject()))\r",
+									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+									"  .each(k => pm.environment.unset(k)).value();\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -726,16 +701,15 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
-		"type": "bearer",
-		"bearer": [
+		"type": "oauth2",
+		"oauth2": [
 			{
-				"key": "token",
-				"value": "{{AccessToken}}",
+				"key": "addTokenTo",
+				"value": "header",
 				"type": "string"
 			}
 		]
@@ -744,7 +718,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "a6b2378c-07e8-4d25-ab60-cb42299d1b4a",
 				"type": "text/javascript",
 				"exec": [
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
@@ -762,6 +735,7 @@
 					"    console.log('Token is expired, retrieving new token')",
 					"} else {",
 					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
 					"}",
 					"if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
@@ -792,7 +766,7 @@
 					"        let jsonResponse = response.json(),",
 					"            newAccessToken = jsonResponse.access_token;",
 					"    ",
-					"        // console.log({ err, jsonResponse, newAccessToken })",
+					"        console.log({ err, jsonResponse, newAccessToken })",
 					"    ",
 					"        pm.environment.set(\"AccessToken\", newAccessToken);",
 					"    ",
@@ -807,13 +781,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a21b1060-f471-40b3-abfa-e1729e71000f",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
