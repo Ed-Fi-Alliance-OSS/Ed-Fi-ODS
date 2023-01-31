@@ -705,11 +705,11 @@
 		}
 	],
 	"auth": {
-		"type": "oauth2",
-		"oauth2": [
+		"type": "bearer",
+		"bearer": [
 			{
-				"key": "addTokenTo",
-				"value": "header",
+				"key": "token",
+				"value": "{{AccessToken}}",
 				"type": "string"
 			}
 		]
