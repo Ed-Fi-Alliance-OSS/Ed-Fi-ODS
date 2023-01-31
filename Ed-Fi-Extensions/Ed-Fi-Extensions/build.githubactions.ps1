@@ -215,14 +215,14 @@ function CheckoutBranch {
 
 function MaximumPathLengthLimitation {
 
-    $desinationPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Plugin/$PackageName.$version.zip"
+    $pluginParentFolderPath = (Get-RepositoryResolvedPath "Plugin/")
+    $desinationPath = "$pluginParentFolderPath/$PackageName.$version.zip"
     Copy-Item -Path $packagePath -Destination $desinationPath -Recurse -Force -PassThru
     if (Test-Path $desinationPath) {
-      Expand-Archive -Force -Path $desinationPath -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Plugin/$PackageName.$version/"
+      Expand-Archive -Force -Path $desinationPath -DestinationPath "$pluginParentFolderPath/$PackageName.$version/"
     }
-    Remove-Item -Path $desinationPath -Force    
+    Remove-Item -Path $desinationPath -Force
     $baseRootPathLength = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation").Length - ("Ed-Fi-ODS-Implementation".Length)
-    $pluginParentFolderPath = (Get-RepositoryResolvedPath "Plugin/")
     $sqlFileNameValues = "";
     $isMaximumPathLengthFound = $false
     $message = "";
