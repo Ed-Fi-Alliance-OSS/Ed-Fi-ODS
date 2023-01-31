@@ -10179,7 +10179,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{supplied:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  }\r\n}",
+											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{supplied:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -10908,14 +10908,10 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"const __ = require('lodash');\r",
-													"\r",
-													"const keys = __.keys(pm.environment.toObject());\r",
-													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
-													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
-													"\r",
-													"// const remainingKeys = __.keys(pm.environment.toObject());\r",
-													"// console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
 												],
 												"type": "text/javascript"
 											}

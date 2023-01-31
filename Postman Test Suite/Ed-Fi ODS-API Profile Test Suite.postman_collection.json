@@ -1329,7 +1329,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n  \"birthDate\": \"2010-05-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}"
+											"raw": "{\r\n  \"studentUniqueId\": \"S{{$randomInt}}{{$randomInt}}\",\r\n  \"birthDate\": \"2010-05-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -1868,7 +1868,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n    \"schoolYear\": \"2001\"\r\n  },\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"schoolId\": {\r\n    {supplied:school:schoolId\r\n    }\r\n  },\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n    \"schoolYear\": \"2001\"\r\n  },\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"schoolId\": {{supplied:school:schoolId}},\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4874,7 +4874,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"TPDM\": {\r\n      \"postSecondaryInstitutionReference\": {\r\n        \"postSecondaryInstitutionId\": 6000203\r\n      }\r\n    },\r\n    \"Sample\": {\r\n      \"isExemplary\": false\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"Extension Test Community College\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"TPDM\": {\r\n      \"postSecondaryInstitutionReference\": {\r\n        \"postSecondaryInstitutionId\": 6000203\r\n      }\r\n    },\r\n    \"Sample\": {\r\n      \"isExemplary\": false,\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6934,7 +6934,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"schoolId\": {{supplied:school:schoolId}},\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6987,7 +6987,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2022-10-29\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n  \"birthDate\": \"2022-10-29\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7484,7 +7484,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": {{supplied:school:schoolId}},\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
+													"raw": "{\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"schoolId\": {{supplied:school:schoolId}},\r\n  \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n    }\r\n  ],\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"cteProgram\": {\r\n        \"careerPathwayDescriptor\": \"uri://ed-fi.org/CareerPathwayDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -7781,7 +7781,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n  \"birthDate\": \"2010-05-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8069,7 +8069,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2022-10-29\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n  \"birthDate\": \"2022-10-29\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -8366,7 +8366,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n  \"birthDate\": \"2010-05-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n  \"birthDate\": \"2010-05-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8461,7 +8461,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n    \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n    \"birthDate\": \"2010-05-05\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastSurname\": \"{{$randomLastName}}\"\r\n}",
+													"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:studentUniqueId}}\",\r\n  \"birthDate\": \"2010-05-05\",\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastSurname\": \"{{$randomLastName}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
