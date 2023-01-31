@@ -232,7 +232,7 @@ function MaximumPathLengthLimitation {
         $sqlFileLength = ($_.FullName.Length) -($baseRootPathLength)
         $sqlFileLength = $sqlFileLength -as [int]
         $sqlFileName = Split-Path $sqlFilePath -leaf
-        $maximumlength = 160
+        $maximumlength = 180
 
         if ($sqlFileLength -ge $maximumlength)
         {
