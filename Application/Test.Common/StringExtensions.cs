@@ -41,7 +41,7 @@ namespace Test.Common
             }
             catch (FormatException ex)
             {
-                throw new FormatException(string.Format("'{0}' could not be converted to a decimal.", text), ex); 
+                throw new FormatException(string.Format("'{0}' could not be converted to a decimal.", text), ex);
             }
         }
 
