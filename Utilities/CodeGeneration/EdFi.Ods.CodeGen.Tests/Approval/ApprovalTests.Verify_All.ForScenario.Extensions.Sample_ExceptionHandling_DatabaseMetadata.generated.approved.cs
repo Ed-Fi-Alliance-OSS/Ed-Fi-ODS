@@ -51,7 +51,6 @@ namespace EdFi.Ods.Api.Common.ExceptionHandling.Sample
             { "FK_ParentCeilingHeight_Parent", new IndexDetails { IndexName = "FK_ParentCeilingHeight_Parent", TableName = "ParentCeilingHeight", ColumnNames = new List<string> { "ParentUSI" } } },
             { "ParentCeilingHeight_PK", new IndexDetails { IndexName = "ParentCeilingHeight_PK", TableName = "ParentCeilingHeight", ColumnNames = new List<string> { "CeilingHeight", "ParentUSI" } } },
             { "FK_ParentCTEProgram_CareerPathwayDescriptor", new IndexDetails { IndexName = "FK_ParentCTEProgram_CareerPathwayDescriptor", TableName = "ParentCTEProgram", ColumnNames = new List<string> { "CareerPathwayDescriptorId" } } },
-            { "FK_ParentCTEProgram_Parent", new IndexDetails { IndexName = "FK_ParentCTEProgram_Parent", TableName = "ParentCTEProgram", ColumnNames = new List<string> { "ParentUSI" } } },
             { "ParentCTEProgram_PK", new IndexDetails { IndexName = "ParentCTEProgram_PK", TableName = "ParentCTEProgram", ColumnNames = new List<string> { "ParentUSI" } } },
             { "FK_ParentEducationContent_EducationContent", new IndexDetails { IndexName = "FK_ParentEducationContent_EducationContent", TableName = "ParentEducationContent", ColumnNames = new List<string> { "ContentIdentifier" } } },
             { "FK_ParentEducationContent_Parent", new IndexDetails { IndexName = "FK_ParentEducationContent_Parent", TableName = "ParentEducationContent", ColumnNames = new List<string> { "ParentUSI" } } },
