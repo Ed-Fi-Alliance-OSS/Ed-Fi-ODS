@@ -6481,7 +6481,16 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:parent:parentUniqueId\", pm.variables.replaceIn(\"AGGREGATE-EXTENSION-{{$randomInt}}{{$randomInt}}\"));"
+													"pm.environment.set(\"supplied:parent:parentUniqueId\", \"AGGREGATE-EXTENSION-\" + pm.variables.replaceIn(\"{{$guid}}\").substring(0, 8));"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -6579,7 +6588,7 @@
 							]
 						},
 						{
-							"name": "Invalid (Embedded Objects Not Supplied)",
+							"name": "Pre-v.7.0 Behavior (Required Embedded Objects Not Supplied)",
 							"item": [
 								{
 									"name": "Create Parent",
@@ -6588,29 +6597,11 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status is 400\", () => {\r",
-													"  pm.expect(pm.response.code).equals(400);\r",
+													"pm.test(\"Status is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
 													"});\r",
 													"\r",
-													"const message = pm.response.json().message;\r",
-													"\r",
-													"/*\r",
-													"    common TeacherConference\r",
-													"        documentation \"The parent's preferred day of the week and time for parent-teacher conferences.\"\r",
-													"        is required\r",
-													"*/\r",
-													"pm.test(\"Should indicate that the required embedded object is missing.\", () => {\r",
-													"  pm.expect(message).to.contain(\"ParentTeacherConference (Sample) is required.\");\r",
-													"});\r",
-													"\r",
-													"/*\r",
-													"    common EdFi.CTEProgram\r",
-													"        documentation \"A CTE program the parent has completed.\"\r",
-													"        is optional\r",
-													"*/\r",
-													"pm.test(\"Should NOT indicate any issues with the optional embedded object that is missing.\", () => {\r",
-													"  pm.expect(message).to.not.contain(\"ParentCTEProgram (Sample)\");\r",
-													"});\r",
+													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 													""
 												],
 												"type": "text/javascript"
@@ -6644,56 +6635,8 @@
 									},
 									"response": []
 								}
-							]
-						},
-						{
-							"name": "Valid (Required Items Supplied)",
-							"item": [
-								{
-									"name": "Create Parent",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status is 201\", () => {\r",
-													"  pm.expect(pm.response.code).equals(201);\r",
-													"});\r",
-													"\r",
-													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n  \"parentUniqueId\": \"{{supplied:parent:parentUniqueId}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"teacherConference\": {\r\n        \"dayOfWeek\": \"Monday\",\r\n        \"endTime\": \"12:00:00\",\r\n        \"startTime\": \"12:00:00\"\r\n      },\r\n      \"authors\": [],\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"isSportsFan\": false\r\n    }\r\n  }\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"parents"
-											]
-										}
-									},
-									"response": []
-								}
-							]
+							],
+							"description": "This test shows backwards compatibility with pre-7.0, where required/optional embedded objects were not communicated from MetaEd and there is no enforcement of required embedded objects anywhere in the API."
 						},
 						{
 							"name": "Teardown",
