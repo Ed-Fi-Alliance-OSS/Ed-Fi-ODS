@@ -12,24 +12,37 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
     public class MetadataFolderProvider : IMetadataFolderProvider
     {
         private readonly ICodeRepositoryProvider _codeRepositoryProvider;
+        private readonly IExtensionVersionsPathProvider _extensionVersionsPathProvider;
+        private readonly IStandardVersionPathProvider _standardVersionPathProvider;
 
         public MetadataFolderProvider(ICodeRepositoryProvider codeRepositoryProvider)
         {
             _codeRepositoryProvider = codeRepositoryProvider ?? throw new ArgumentNullException(nameof(codeRepositoryProvider));
         }
 
+        public MetadataFolderProvider(ICodeRepositoryProvider codeRepositoryProvider,
+            IExtensionVersionsPathProvider extensionVersionsPathProvider,
+            IStandardVersionPathProvider standardVersionPathProvider)
+        {
+            _codeRepositoryProvider = codeRepositoryProvider ?? throw new ArgumentNullException(nameof(codeRepositoryProvider));
+
+            _extensionVersionsPathProvider = extensionVersionsPathProvider;
+
+            _standardVersionPathProvider = standardVersionPathProvider;
+        }
+
         public string GetStandardMetadataFolder()
         {
             return _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.Ods,
-                StandardConventions.Metadata);
+                StandardConventions.Metadata.Replace(StandardConventions.StandardVersionPathToken, _standardVersionPathProvider.StandardVersionPath()));
         }
 
         public string GetStandardSchemaFolder()
         {
             return _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.Ods,
-                StandardConventions.Schemas);
+                StandardConventions.Schemas.Replace(StandardConventions.StandardVersionPathToken, _standardVersionPathProvider.StandardVersionPath()));
         }
 
         public string GetProjectSchemaFolder(string projectPath)
