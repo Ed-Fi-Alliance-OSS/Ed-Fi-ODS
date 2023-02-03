@@ -4204,7 +4204,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
+									"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6481,16 +6481,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set(\"supplied:parent:parentUniqueId\", \"AGGREGATE-EXTENSION-\" + pm.variables.replaceIn(\"{{$guid}}\").substring(0, 8));"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													""
+													"pm.environment.set(\"supplied:parent:parentUniqueId\", `AGG-EXT-TEST-${pm.variables.replaceIn(\"{{$guid}}\").substring(0, 8)}`);"
 												],
 												"type": "text/javascript"
 											}
@@ -6511,7 +6502,7 @@
 							]
 						},
 						{
-							"name": "Invalid (Collections Empty)",
+							"name": "Required Collection is enforced",
 							"item": [
 								{
 									"name": "Create Parent",
@@ -6588,7 +6579,7 @@
 							]
 						},
 						{
-							"name": "Pre-v.7.0 Behavior (Required Embedded Objects Not Supplied)",
+							"name": "Required Embedded Object is not enforced",
 							"item": [
 								{
 									"name": "Create Parent",
@@ -6598,11 +6589,10 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status is 201\", () => {\r",
-													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"  pm.expect(pm.response.code).equals(201);\r",
 													"});\r",
 													"\r",
-													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-													""
+													"pm.environment.set('known:parent:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -6635,8 +6625,7 @@
 									},
 									"response": []
 								}
-							],
-							"description": "This test shows backwards compatibility with pre-7.0, where required/optional embedded objects were not communicated from MetaEd and there is no enforcement of required embedded objects anywhere in the API."
+							]
 						},
 						{
 							"name": "Teardown",
