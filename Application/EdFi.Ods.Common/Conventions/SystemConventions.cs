@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Conventions
             if (association.AssociationType != AssociationViewType.OneToMany && association.AssociationType != AssociationViewType.OneToOneOutgoing)
                 throw new Exception($"For aggregate extensions, the association must be {AssociationViewType.OneToMany} or {AssociationViewType.OneToOneOutgoing}.");
 
-            return $"{association.OtherEntity.SchemaProperCaseName()}_{association.OtherEntity.PluralName}";
+            return $"{association.OtherEntity.SchemaProperCaseName()}_{association.Name}";
         }
 
         /// <summary>
@@ -81,14 +81,14 @@ namespace EdFi.Ods.Common.Conventions
 
         public class ExtensionBagNameParts
         {
-            public ExtensionBagNameParts(string schemaProperCaseName, string pluralName)
+            public ExtensionBagNameParts(string schemaProperCaseName, string memberName)
             {
                 SchemaProperCaseName = schemaProperCaseName;
-                PluralName = pluralName;
+                MemberName = memberName;
             }
 
             public string SchemaProperCaseName { get; private set; }
-            public string PluralName { get; private set; }
+            public string MemberName { get; private set; }
         }
 
         public static ExtensionBagNameParts GetExtensionBagNameParts(string extensionBagName)

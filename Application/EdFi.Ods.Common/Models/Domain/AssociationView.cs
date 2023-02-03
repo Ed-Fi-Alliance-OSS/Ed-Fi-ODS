@@ -136,6 +136,7 @@ namespace EdFi.Ods.Common.Models.Domain
                 switch (Association.Cardinality)
                 {
                     case Cardinality.OneToOne:
+                    case Cardinality.OneToZeroOrOne:
 
                         return _isPrimaryEntity
                             ? AssociationViewType.OneToOneOutgoing

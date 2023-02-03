@@ -3891,7 +3891,7 @@
 											"listen": "prerequest",
 											"script": {
 												"exec": [
-													"pm.environment.set('supplied:student:studentUniqueId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));",
+													"pm.environment.set('supplied:student:studentUniqueId', pm.variables.replaceIn(\"{{$guid}}\").substring(0, 8));",
 													"",
 													"const moment = require('moment');",
 													"let birthDate = new Date();",
