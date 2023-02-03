@@ -35,7 +35,9 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj" -PackageName "EdFi.Suite3.Ods.Common"
       shell: pwsh
     - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
     - name: publish
       run: |
