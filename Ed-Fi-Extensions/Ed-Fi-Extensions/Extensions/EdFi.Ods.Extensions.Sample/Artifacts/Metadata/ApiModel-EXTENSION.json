@@ -7200,7 +7200,7 @@
         "schema": "sample",
         "name": "FK_ParentCTEProgram_Parent"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "Parent"
@@ -7969,7 +7969,7 @@
         "schema": "sample",
         "name": "FK_SchoolCTEProgram_School"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "School"
@@ -8327,7 +8327,7 @@
         "schema": "sample",
         "name": "FK_StaffPetPreference_Staff"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "Staff"
@@ -11891,7 +11891,7 @@
         "schema": "sample",
         "name": "FK_StudentGraduationPlanAssociationCTEProgram_StudentGraduationPlanAssociation"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "sample",
         "name": "StudentGraduationPlanAssociation"
@@ -13836,7 +13836,7 @@
         "schema": "sample",
         "name": "FK_StudentParentAssociationTelephone_StudentParentAssociation"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "StudentParentAssociation"
@@ -14050,7 +14050,7 @@
         "schema": "sample",
         "name": "FK_StudentPetPreference_Student"
       },
-      "cardinality": "OneToOne",
+      "cardinality": "OneToZeroOrOne",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "Student"
