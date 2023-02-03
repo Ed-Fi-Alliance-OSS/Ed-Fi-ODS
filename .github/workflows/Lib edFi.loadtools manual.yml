@@ -43,7 +43,9 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName "EdFi.Suite3.SmokeTest.Console"
       shell: pwsh          
     - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
     - name: publish load tools
       run: |
