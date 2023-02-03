@@ -229,7 +229,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"studentUniqueId\": \"AAAAAA\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Registered\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
+									"raw": "{\r\n  \"studentUniqueId\": \"AAAAAA\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Registered\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -506,7 +506,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"studentUniqueId\": \"BBBBBB\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Responsibility\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}"
+									"raw": "{\r\n  \"studentUniqueId\": \"BBBBBB\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Responsibility\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",

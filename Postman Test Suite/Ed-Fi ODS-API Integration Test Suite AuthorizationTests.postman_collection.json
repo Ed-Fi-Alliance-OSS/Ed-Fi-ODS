@@ -1744,7 +1744,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"petPreference\": {\r\n        \"minimumWeight\": 0,\r\n        \"maximumWeight\": 10\r\n      }\r\n    }\r\n  }\r\n}",
+											"raw": "{ \r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\"\r\n  \r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3144,7 +3144,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3491,7 +3491,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3838,7 +3838,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ],\r\n      \"telephone\": {\r\n        \"telephoneNumber\": \"12345\",\r\n        \"telephoneNumberTypeDescriptor\": \"uri://ed-fi.org/TelephoneNumberTypeDescriptor#Other\"\r\n      }\r\n    }\r\n  }\r\n}",
+											"raw": "{\r\n  \"parentReference\": {\r\n    \"parentUniqueId\": \"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n  },\r\n  \"_ext\": {\r\n    \"Sample\": {\r\n      \"bedtimeReader\": true,\r\n      \"favoriteBookTitles\": [\r\n        {\r\n          \"favoriteBookTitle\": \"Green Eggs and Ham\"\r\n        }\r\n      ]\r\n    }\r\n  }\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
