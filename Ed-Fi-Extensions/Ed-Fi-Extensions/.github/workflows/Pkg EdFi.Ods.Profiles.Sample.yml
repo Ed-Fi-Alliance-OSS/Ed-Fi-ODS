@@ -25,15 +25,13 @@ env:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
       with:
         dotnet-version: 6.0.x
-    - name: Support longpaths
-      run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-Extensions
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
@@ -51,19 +49,20 @@ jobs:
           path: Ed-Fi-ODS/          
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-Extensions/
-      shell: powershell
+      shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-Extensions/
-      shell: powershell
+      shell: pwsh
       run: |
         .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
     - name: Run CodeGen
       run: |
           $ErrorActionPreference = 'Stop'
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample
+          Invoke-CodeGen -Engine PostgreSQL -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample
+      shell: pwsh
     - name: Build
       working-directory: ./Ed-Fi-Extensions/
       run: |
@@ -75,8 +74,10 @@ jobs:
         .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "EdFi.Suite3.Ods.Profiles.Sample" -NuspecFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.nuspec"
       shell: pwsh
     - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
+      working-directory: ./Ed-Fi-Extensions/
+      run: |
+        .\build.githubactions.ps1 InstallCredentialHandler
+      shell: pwsh     
     - name: publish
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh

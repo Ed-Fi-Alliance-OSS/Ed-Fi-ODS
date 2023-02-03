@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch","MaximumPathLengthLimitation")]
+    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch","MaximumPathLengthLimitation","InstallCredentialHandler")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -249,6 +249,34 @@ function MaximumPathLengthLimitation {
     }
 }
 
+function InstallCredentialHandler {
+         Import-Module -Force -Scope Global "$PSScriptRoot/../Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
+         if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+              Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+         }
+          # using WebClient is faster then Invoke-WebRequest but shows no progress
+          $sourceUrl = ' https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
+          $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
+          $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
+          Write-host "Downloading file from $sourceUrl..."
+          $webClient = New-Object System.Net.WebClient
+          $webClient.DownloadFile($sourceUrl, $zipFilePath)
+          Write-host "Download complete." 
+          if (-not (Test-Path $zipFilePath)) {
+              Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+              exit 0
+          }
+          $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
+          if ($fileName.EndsWith('.zip')) {
+              Write-host "Extracting $fileName..."
+              
+              if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+              Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
+              Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
+          }
+
+}
+
 function Invoke-Build {
     Write-Host "Building Version $version" -ForegroundColor Cyan
     Invoke-Step { DotnetClean }
@@ -271,9 +299,14 @@ function Invoke-CheckoutBranch {
     Invoke-Step { CheckoutBranch }
 }
 
+function Invoke-InstallCredentialHandler {
+    Invoke-Step { InstallCredentialHandler }
+}
+
 function Invoke-MaximumPathLengthLimitation {
     Invoke-Step { MaximumPathLengthLimitation }
 }
+
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
@@ -283,6 +316,7 @@ Invoke-Main {
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
         MaximumPathLengthLimitation { Invoke-MaximumPathLengthLimitation }
+        InstallCredentialHandler { Invoke-InstallCredentialHandler }
         default { throw "Command '$Command' is not recognized" }
     }
 }

@@ -17,7 +17,7 @@ env:
 jobs:
   analyze:
     name: Analyze Code
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     permissions:
       actions: read
@@ -38,8 +38,6 @@ jobs:
         uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
         with:
           languages: 'csharp'
-      - name: Support longpaths
-        run: git config --system core.longpaths true
       - name: Checkout Ed-Fi-Extensions
         uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
         with:
@@ -93,7 +91,7 @@ jobs:
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-            Invoke-CodeGen -Engine SQLServer  -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/
+            Invoke-CodeGen -Engine PostgreSQL  -ExtensionPaths  $env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/
       - name: build
         shell: pwsh
         working-directory: ./Ed-Fi-Extensions/
