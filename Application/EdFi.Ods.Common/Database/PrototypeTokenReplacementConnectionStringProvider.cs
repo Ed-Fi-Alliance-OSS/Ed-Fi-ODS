@@ -49,7 +49,7 @@ namespace EdFi.Ods.Common.Database
             _dbConnectionStringBuilderAdapterFactory = dbConnectionStringBuilderAdapterFactory;
 
             _protoTypeConnectionString = new Lazy<string>(() => PrototypeConnectionString(_prototypeConnectionStringName));
-            _protoTypeReadOnlyConnectionString = new Lazy<string>(() => PrototypeConnectionString(_readOnlyPrototypeConnectionStringName));
+            _protoTypeReadOnlyConnectionString = new Lazy<string>(() => PrototypeConnectionString(_readOnlyPrototypeConnectionStringName) ?? _protoTypeConnectionString.Value);
 
             string PrototypeConnectionString(string connectionStringName)
             {
@@ -63,7 +63,12 @@ namespace EdFi.Ods.Common.Database
                     throw new ArgumentNullException(nameof(connectionStringName));
                 }
 
-                return _configConnectionStringsProvider.GetConnectionString(connectionStringName);
+                if (_configConnectionStringsProvider.ConnectionStringProviderByName.TryGetValue(connectionStringName, out var connectionString))
+                {
+                    return connectionString;
+                }
+                
+                return null;
             }
         }
 

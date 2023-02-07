@@ -53,6 +53,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             // Perform the action to be tested
             var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
+                "SomeReadOnlyConnectionStringName",
                 _databaseReplacementTokenProvider,
                 _configConnectionStringsProvider,
                 _dbConnectionStringBuilderAdapterFactory);
@@ -119,6 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             // Perform the action to be tested
             var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
+                "SomeReadOnlyConnectionStringName",
                 _databaseReplacementTokenProvider,
                 _configConnectionStringsProvider,
                 _dbConnectionStringBuilderAdapterFactory);
@@ -175,6 +177,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         {
             var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
+                "SomeReadOnlyConnectionStringName",
                 _databaseReplacementTokenProvider,
                 _configConnectionStringsProvider,
                 _dbConnectionStringBuilderAdapterFactory);
