@@ -3,6 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Data.Common;
+using System.Threading.Tasks;
+using Dapper;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Infrastructure;
 using NHibernate;
 using NHibernate.Transform;
@@ -16,34 +20,33 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
     /// </summary>
     public class AvailableChangeVersionProvider : IAvailableChangeVersionProvider
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly DbProviderFactory _dbProviderFactory;
+        private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
 
-        public AvailableChangeVersionProvider(ISessionFactory sessionFactory)
+        public AvailableChangeVersionProvider(
+            DbProviderFactory dbProviderFactory,
+            IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider)
         {
-            _sessionFactory = sessionFactory;
+            _dbProviderFactory = dbProviderFactory;
+            _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
         }
 
         /// <summary>
         /// Gets the ids of the earliest (oldest) and most recent (newest) change events available.
         /// </summary>
         /// <returns>A newly created <see cref="AvailableChangeVersion"/> instance.</returns>
-        public AvailableChangeVersion GetAvailableChangeVersion()
+        public async Task<AvailableChangeVersion> GetAvailableChangeVersion()
         {
             var cmdSql =
                 $@"SELECT {ChangeQueriesDatabaseConstants.SchemaName}.GetMaxChangeVersion() as NewestChangeVersion";
 
-            AvailableChangeVersion result;
+            await using var conn = _dbProviderFactory.CreateConnection();
+            conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetReadOnlyConnectionString();
+            await conn.OpenAsync();
 
-            using (var sessionScope = new SessionScope(_sessionFactory))
-            {
-                result = sessionScope.Session.CreateSQLQuery(cmdSql)
-                                     .SetResultTransformer(Transformers.AliasToBean<AvailableChangeVersion>())
-                                     .UniqueResult<AvailableChangeVersion>();
-            }
-
-            result.OldestChangeVersion = 0;
-
-            return result;
+            var maxChangeVersion = await conn.ExecuteScalarAsync<long>(cmdSql); // QueryAsync<AvailableChangeVersion>(cmdSql);
+            
+            return new AvailableChangeVersion { NewestChangeVersion = maxChangeVersion };
         }
     }
 }
