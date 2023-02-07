@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Connection;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
@@ -16,10 +17,14 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
     public class NHibernateOdsConnectionProvider : DriverConnectionProvider
     {
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
 
-        public NHibernateOdsConnectionProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
+        public NHibernateOdsConnectionProvider(
+            IOdsDatabaseConnectionStringProvider connectionStringProvider,
+            IAuthorizationContextProvider authorizationContextProvider)
         {
             _connectionStringProvider = connectionStringProvider;
+            _authorizationContextProvider = authorizationContextProvider;
         }
 
         public override DbConnection GetConnection()
@@ -46,7 +51,15 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                connection.ConnectionString = _connectionStringProvider.GetConnectionString();
+                if (IsReadRequest(_authorizationContextProvider.GetAction()))
+                {
+                    connection.ConnectionString = _connectionStringProvider.GetReadOnlyConnectionString();
+                }
+                else
+                {
+                    connection.ConnectionString = _connectionStringProvider.GetConnectionString();
+                }
+                
                 await connection.OpenAsync(cancellationToken);
             }
             catch (Exception ex)
@@ -56,6 +69,14 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             }
 
             return connection;
+
+            bool IsReadRequest(string actionUri)
+            {
+                int lastSlashPos = actionUri.LastIndexOf('/');
+
+                // Use a convention of the action URI name starting with "read" for all read-related operations (e.g. read, readChange, readHistory, etc)
+                return lastSlashPos >= 0 && actionUri.AsSpan(lastSlashPos).StartsWith("read");
+            }
         }
     }
 }

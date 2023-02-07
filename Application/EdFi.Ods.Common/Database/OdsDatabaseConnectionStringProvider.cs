@@ -17,5 +17,7 @@ namespace EdFi.Ods.Common.Database {
         }
 
         public string GetConnectionString() => _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
+        
+        public string GetReadOnlyConnectionString() => _configConnectionStringsProvider.GetConnectionString("EdFi_Ods_ReadOnly");
     }
 }

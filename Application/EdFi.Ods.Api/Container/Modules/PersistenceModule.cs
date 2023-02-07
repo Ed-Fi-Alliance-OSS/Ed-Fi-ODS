@@ -78,6 +78,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<PrototypeTokenReplacementConnectionStringProvider>()
                 .WithParameter(new NamedParameter("prototypeConnectionStringName", "EdFi_Ods"))
+                .WithParameter(new NamedParameter("readOnlyPrototypeConnectionStringName", "EdFi_Ods_ReadOnly"))
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
