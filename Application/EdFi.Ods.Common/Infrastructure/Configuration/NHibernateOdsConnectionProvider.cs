@@ -72,10 +72,15 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             bool IsReadRequest(string actionUri)
             {
+                if (actionUri == null)
+                {
+                    return false;
+                }
+                
                 int lastSlashPos = actionUri.LastIndexOf('/');
 
                 // Use a convention of the action URI name starting with "read" for all read-related operations (e.g. read, readChange, readHistory, etc)
-                return lastSlashPos >= 0 && actionUri.AsSpan(lastSlashPos).StartsWith("read");
+                return lastSlashPos >= 0 && actionUri.AsSpan(lastSlashPos + 1).StartsWith("read");
             }
         }
     }

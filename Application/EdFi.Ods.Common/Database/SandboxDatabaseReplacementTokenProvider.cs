@@ -10,18 +10,17 @@ namespace EdFi.Ods.Common.Database
 {
     public class SandboxDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
-        private readonly IApiKeyContextProvider apiKeyContextProvider;
+        private readonly IApiKeyContextProvider _apiKeyContextProvider;
 
         public SandboxDatabaseReplacementTokenProvider(IApiKeyContextProvider apiKeyContextProvider)
         {
-            this.apiKeyContextProvider = apiKeyContextProvider;
+            this._apiKeyContextProvider = apiKeyContextProvider;
         }
 
         public string GetDatabaseNameReplacementToken()
         {
-            //Convention: "Ods_Sandbox_" + vendor's api key.
-            string apiKey = apiKeyContextProvider.GetApiKeyContext()
-                .ApiKey;
+            // Convention: "Ods_Sandbox_" + vendor's api key.
+            string apiKey = _apiKeyContextProvider.GetApiKeyContext().ApiKey;
 
             if (string.IsNullOrEmpty(apiKey))
             {
@@ -29,7 +28,7 @@ namespace EdFi.Ods.Common.Database
                     "The sandbox ODS database name replacement token cannot be derived because the API key was not set in the current context.");
             }
 
-            return string.Format("Ods_Sandbox_{0}", apiKey);
+            return $"Ods_Sandbox_{apiKey}";
         }
 
         public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
