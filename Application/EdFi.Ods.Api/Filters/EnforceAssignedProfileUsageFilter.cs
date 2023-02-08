@@ -97,7 +97,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                         ? contentTypes.Readable
                         : contentTypes.Writable)
                     != null)
-            .ToArray();
+            .OrderBy(a=>a).ToArray();
 
         // If there are no assigned profiles relevant for this request, skip additional processing here now.
         if (assignedProfilesForRequest.Length == 0)

@@ -7358,7 +7358,7 @@
 															"    () => {",
 															"        const responseItem = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json\\'\");",
+															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\");",
 															"    });"
 														],
 														"type": "text/javascript"
@@ -7950,7 +7950,7 @@
 															"    () => {",
 															"        const responseItem = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.include(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json\\'\");",
+															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
 															"    });"
 														],
 														"type": "text/javascript"
@@ -8149,7 +8149,7 @@
 															"    () => {",
 															"        const responseItem = pm.response.json();",
 															"",
-															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json\\'\");",
+															"        pm.expect(responseItem.message).to.equal(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json\\', \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\");",
 															"    });"
 														],
 														"type": "text/javascript"
