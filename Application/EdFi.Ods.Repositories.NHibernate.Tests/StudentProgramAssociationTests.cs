@@ -417,6 +417,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new DescriptorLookupProviderModule());
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
 
+                builder.RegisterType<AuthorizationContextProvider>()
+                    .As<IAuthorizationContextProvider>()
+                    .SingleInstance();
+                
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
 
                 // Stub out the mapping contract provider to return null every time

@@ -11,6 +11,7 @@ using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
@@ -72,6 +73,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new PostgresSpecificModule(apiSettings));
             builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
 
+            builder.RegisterType<AuthorizationContextProvider>()
+                .As<IAuthorizationContextProvider>()
+                .SingleInstance();
+            
             Container = builder.Build();
         }
     }
