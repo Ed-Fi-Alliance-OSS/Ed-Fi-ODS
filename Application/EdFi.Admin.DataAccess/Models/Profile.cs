@@ -24,7 +24,6 @@ namespace EdFi.Admin.DataAccess.Models
         [Required]
         public string ProfileName { get; set; }
 
-        [Required]
         public string ProfileDefinition { get; set; }
 
         public virtual ICollection<Application> Applications { get; set; }
