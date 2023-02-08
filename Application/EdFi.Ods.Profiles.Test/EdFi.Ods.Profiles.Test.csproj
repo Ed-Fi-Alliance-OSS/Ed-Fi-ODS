@@ -21,9 +21,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assemblyMetadata.json" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Profiles.xml" />
   </ItemGroup>
   <ItemGroup>

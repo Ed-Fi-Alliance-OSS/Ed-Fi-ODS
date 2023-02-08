@@ -61,8 +61,6 @@ public class ProfileContentTypeContextMiddleware
                     context.Response,
                     context.Request);
 
-                profileContentTypeContextProvider.Set(profileContentTypeContext);
-
                 if (!continueInvocation)
                 {
                     return;

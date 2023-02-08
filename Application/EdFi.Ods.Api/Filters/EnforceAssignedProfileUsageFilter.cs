@@ -116,18 +116,18 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
             // NOTE: Auto-assign the content type usage if none specified by client, and exactly one relevant profile is assigned
             // -------------------------------------------------------------------------------------------------------------------
             // // If there's only one Profile that can be applied, automatically apply it and continue processing
-            // if (allowedProfilesForRequest.Length == 1)
-            // {
-            //     // Auto-assign the appropriate profile usage
-            //     _profileContentTypeContextProvider.Set(
-            //         new ProfileContentTypeContext(
-            //             allowedProfilesForRequest.Single(),
-            //             resourceFullName.Name,
-            //             relevantContentTypeUsage));
-            //
-            //     await next();
-            //     return;
-            // }
+            if (assignedProfilesForRequest.Length == 1)
+            {
+                // Auto-assign the appropriate profile usage
+                _profileContentTypeContextProvider.Set(
+                    new ProfileContentTypeContext(
+                        assignedProfilesForRequest.Single(),
+                        resourceFullName.Name,
+                        relevantContentTypeUsage));
+
+                await next();
+                return;
+            }
             // -------------------------------------------------------------------------------------------------------------------
 
             // If there's more than one possible Profile, the client is required to specify which one is in use.
