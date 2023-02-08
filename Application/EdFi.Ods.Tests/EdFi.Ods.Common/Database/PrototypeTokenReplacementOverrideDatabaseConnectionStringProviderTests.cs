@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
@@ -11,6 +12,7 @@ using EdFi.TestFixture;
 using Shouldly;
 using Test.Common;
 using FakeItEasy;
+using NUnit.Framework;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 {
@@ -40,8 +42,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => _configConnectionStringsProvider.Count)
                 .Returns(1);
 
-            A.CallTo(() => _configConnectionStringsProvider.GetConnectionString("SomeConnectionStringName"))
-                .Returns("Server=SomeServer; Database=EdFi_{0}; UID=SomeUser; Password=SomePassword");
+            A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName)
+                .Returns(
+                    new Dictionary<string, string>
+                    {
+                        {
+                            "SomeConnectionStringName",
+                            "Server=SomeServer; Database=EdFi_{0}; UID=SomeUser; Password=SomePassword"
+                        }
+                    });
 
             _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
 
@@ -107,8 +116,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
             A.CallTo(() => _configConnectionStringsProvider.Count).Returns(1);
 
-            A.CallTo(() => _configConnectionStringsProvider.GetConnectionString("SomeConnectionStringName"))
-                .Returns("Server=SomeServer; Database=EdFi_{0}; UID=SomeUser; Password=SomePassword");
+            A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName)
+                .Returns(
+                    new Dictionary<string, string>
+                    {
+                        {
+                            "SomeConnectionStringName",
+                            "Server=SomeServer; Database=EdFi_{0}; UID=SomeUser; Password=SomePassword"
+                        }
+                    });
 
             _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
 
@@ -140,17 +156,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
+    [TestFixture]
     public class When_building_connection_string_based_on_a_prototype_from_the_connectionStrings_config_section_with_different_server_names
-        : TestFixtureBase
     {
-        private string _actualConnectionStringWithPrefix;
-        private string _actualConnectionStringWithoutTemplate;
-
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
         private IConfigConnectionStringsProvider _configConnectionStringsProvider;
         private IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
 
-        protected override void Arrange()
+        private void Arrange(string connectionString)
         {
             _databaseReplacementTokenProvider = A.Fake<IDatabaseReplacementTokenProvider>();
 
@@ -160,21 +173,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
             A.CallTo(() => _configConnectionStringsProvider.Count).Returns(1);
 
-            A.CallTo(() => _configConnectionStringsProvider.GetConnectionString(A<string>.Ignored))
-                .Returns("Server=SomeServer; Database=SomeDatabase; UID=SomeUser; Password=SomePassword")
+            var dictionary = A.Fake<IDictionary<string, string>>();
+            
+            string connectionStringOut;
+            
+            A.CallTo(() => dictionary.TryGetValue(A<string>.Ignored, out connectionStringOut))
+                .Returns(true)
+                .AssignsOutAndRefParameters(connectionString)
                 .Once();
 
-            A.CallTo(() => _configConnectionStringsProvider.GetConnectionString(A<string>.Ignored))
-                .Returns("Server=prefix_{0}_suffix; Database=SomeDatabase; UID=SomeUser; Password=SomePassword")
-                .Once();
+            A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName).Returns(dictionary);
 
             _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
 
             A.CallTo(() => _dbConnectionStringBuilderAdapterFactory.Get()).Returns(new SqlConnectionStringBuilderAdapter());
         }
 
-        protected override void Act()
+        [TestCase("Server=SomeServer; Database=SomeDatabase; UID=SomeUser; Password=SomePassword", "Data Source=SomeServer;")]
+        [TestCase("Server=prefix_{0}_suffix; Database=SomeDatabase; UID=SomeUser; Password=SomePassword", "Data Source=prefix_OneDatabase_suffix;")]
+        public void Should_properly_modify_connection_string_template_with_varying_server_names(
+            string connectionString, string expectedContainsText)
         {
+            Arrange(connectionString);
+            
             var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
                 "SomeReadOnlyConnectionStringName",
@@ -182,15 +203,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 _configConnectionStringsProvider,
                 _dbConnectionStringBuilderAdapterFactory);
 
-            _actualConnectionStringWithPrefix = provider.GetConnectionString();
-            _actualConnectionStringWithoutTemplate = provider.GetConnectionString();
-        }
-
-        [Assert]
-        public void Should_properly_modify_connection_string_template_with_varying_server_names()
-        {
-            _actualConnectionStringWithPrefix.ShouldContain("Data Source=prefix_OneDatabase_suffix;");
-            _actualConnectionStringWithoutTemplate.ShouldContain("Data Source=SomeServer;");
+            provider.GetConnectionString().ShouldContain(expectedContainsText);
         }
     }
 }
