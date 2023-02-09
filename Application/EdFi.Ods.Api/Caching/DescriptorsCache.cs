@@ -72,7 +72,7 @@ namespace EdFi.Ods.Api.Caching
             // If no id supplied, return the default string value
             if (!DescriptorEntitySpecification.IsEdFiDescriptorEntity(descriptorName) || id == default(int))
             {
-                return default(string);
+                return default;
             }
 
             var lookupKey = GetDescriptorLookupKeyById(descriptorName, id);
@@ -86,7 +86,7 @@ namespace EdFi.Ods.Api.Caching
                 || !TryGetCachedValue(lookupKey, out codeValue))
             {
                 // If a non-default result is provided, add it to the cache
-                if (codeValue != default(string))
+                if (codeValue != default)
                 {
                     UpdateDescriptorLookupCache(
                         CreateDescriptorLookup(descriptorName, id, codeValue));
