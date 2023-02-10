@@ -10,8 +10,7 @@ env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-  NUGET_FALLBACK_PACKAGES: ${{ env.HOME }}/.nuget/packages
-  
+
 jobs:
   build:
 
@@ -50,6 +49,10 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/EdFi.Ods.Common.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+    - name: Setup NuGet fallback packages
+      run: |
+        $NUGET_FALLBACK_PACKAGES = ${{ env.HOME }}/.nuget/packages
+        echo "NUGET_FALLBACK_PACKAGES=$NUGET_FALLBACK_PACKAGES" >> $Env:GITHUB_ENV  
     - name: Restore
       run: |
         .\build.githubactions.ps1 restore -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln"

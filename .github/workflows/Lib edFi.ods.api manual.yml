@@ -54,6 +54,10 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/EdFi.Ods.Api.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+    - name: Setup NuGet fallback packages
+      run: |
+        $NUGET_FALLBACK_PACKAGES = ${{ env.HOME }}/.nuget/packages
+        echo "NUGET_FALLBACK_PACKAGES=$NUGET_FALLBACK_PACKAGES" >> $Env:GITHUB_ENV             
     - name: Restore
       run: |
         .\build.githubactions.ps1 restore -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
