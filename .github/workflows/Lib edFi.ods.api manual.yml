@@ -29,7 +29,6 @@ jobs:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
         path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
         ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
