@@ -18,12 +18,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
     {
         public string GetCollectionReferenceName(OpenApiMetadataResource openApiMetadataResource, Collection collection)
         {
-            var name = collection.IsDerivedFrom(openApiMetadataResource.Resource)
-                ? CreateChildModelTypeName(
-                    openApiMetadataResource.Resource,
-                    collection.ItemType.Name,
-                    collection.Parent)
-                : collection.ItemType.Name;
+            var name = CreateChildModelTypeName(openApiMetadataResource, collection.ItemType);
 
             return
                 OpenApiMetadataDocumentHelper.CamelCaseSegments(
@@ -32,12 +27,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
         public string GetContainedItemTypeName(OpenApiMetadataResource openApiMetadataResource, ResourceChildItem resourceChildItem)
         {
-            var name = resourceChildItem.IsDerivedFrom(openApiMetadataResource.Resource)
-                ? CreateChildModelTypeName(
-                    openApiMetadataResource.Resource,
-                    resourceChildItem.Name,
-                    resourceChildItem.Parent)
-                : resourceChildItem.Name;
+            var name = CreateChildModelTypeName(openApiMetadataResource, resourceChildItem);
 
             return
                 OpenApiMetadataDocumentHelper.CamelCaseSegments(
@@ -46,9 +36,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
         public string GetEmbeddedObjectReferenceName(OpenApiMetadataResource openApiMetadataResource, EmbeddedObject embeddedObject)
         {
+            var name = CreateChildModelTypeName(openApiMetadataResource, embeddedObject.ObjectType);
+
             return
                 OpenApiMetadataDocumentHelper.CamelCaseSegments(
-                    $@"{embeddedObject.ObjectType.SchemaProperCaseName}_{embeddedObject.ObjectType.Name}_{openApiMetadataResource.OperationNamingContext}");
+                    $@"{embeddedObject.ObjectType.SchemaProperCaseName}_{name}_{openApiMetadataResource.OperationNamingContext}");
         }
 
         public string GetReferenceName(ResourceClassBase openApiMetadataResource, Reference reference)
@@ -78,25 +70,25 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
             return OpenApiMetadataDocumentHelper.CamelCaseSegments(name);
         }
 
-        private static string CreateChildModelTypeName(
-            ResourceClassBase resourceClassBase,
-            string childTypeName,
-            ResourceClassBase containingResource)
+        private static string CreateChildModelTypeName(OpenApiMetadataResource openApiMetadataResource, ResourceChildItem resourceChildItem)
         {
-            if (containingResource is IHasParent)
+            if (resourceChildItem.IsDerivedFrom(openApiMetadataResource.Resource) != true)
+                return resourceChildItem.Name;
+
+            if (resourceChildItem.Parent is IHasParent parent)
             {
                 return string.Join(
                     "_",
                     new[]
                     {
-                        childTypeName
+                        resourceChildItem.Name
                     }.Concat(
-                        (containingResource as IHasParent)
-                       .GetLineage()
-                       .Select(x => x.Name.ToCamelCase())));
+                         parent
+                        .GetLineage()
+                        .Select(x => x.Name.ToCamelCase())));
             }
 
-            return $"{childTypeName}_{resourceClassBase.Name}";
+            return $"{resourceChildItem.Name}_{openApiMetadataResource.Resource.Name}";
         }
     }
 }
