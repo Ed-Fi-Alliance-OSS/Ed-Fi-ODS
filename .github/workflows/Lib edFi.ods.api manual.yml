@@ -24,7 +24,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore
-      working-directory: ./Ed-Fi-ODS/
       run: |
         dotnet restore $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Api/EdFi.Ods.Api.sln
       shell: pwsh        
