@@ -56,7 +56,7 @@
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="C:\OSS-Workspace\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
     <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
