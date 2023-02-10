@@ -120,7 +120,7 @@ function DotnetClean {
 }
 
 function Restore {
-    Invoke-Execute { dotnet restore  $Solution -c $Configuration --nologo -v minimal --use-lock-file }
+    Invoke-Execute { dotnet restore  $Solution -c $Configuration --use-lock-file }
 }
 
 function Compile {
