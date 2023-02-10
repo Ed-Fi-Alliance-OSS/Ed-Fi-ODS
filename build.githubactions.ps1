@@ -120,7 +120,7 @@ function DotnetClean {
 }
 
 function Restore {
-    Invoke-Execute { dotnet restore  $Solution --use-lock-file }
+    Invoke-Execute { dotnet restore  $Solution /p:RestoreUseCache=true --use-lock-file }
 }
 
 function Compile {

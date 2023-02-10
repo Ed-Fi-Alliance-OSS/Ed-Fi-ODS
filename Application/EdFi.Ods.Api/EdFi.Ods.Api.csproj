@@ -17,9 +17,6 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <PropertyGroup>
-	<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-  </PropertyGroup>	
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.2" />
