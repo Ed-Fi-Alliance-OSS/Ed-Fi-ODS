@@ -51,8 +51,9 @@ jobs:
           ${{ runner.os }}-nuget-
     - name: Setup NuGet fallback packages
       run: |
-        $NUGET_FALLBACK_PACKAGES = ${{ env.HOME }}/.nuget/packages
-        echo "NUGET_FALLBACK_PACKAGES=$NUGET_FALLBACK_PACKAGES" >> $Env:GITHUB_ENV  
+        $NUGET_FALLBACK_PACKAGES = '${{ env.HOME }}/.nuget/packages'
+        echo "NUGET_FALLBACK_PACKAGES=$NUGET_FALLBACK_PACKAGES" >> $Env:GITHUB_ENV
+      shell: pwsh        
     - name: Restore
       run: |
         .\build.githubactions.ps1 restore -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln"
