@@ -56,8 +56,9 @@ jobs:
     - name: Setup NuGet fallback packages
       run: |
         Write-Host "The value of $env:HOME is: $env:HOME"   
-        $NUGET_FALLBACK_PACKAGES = '${{ env.HOME }}/.nuget/packages'
+        $NUGET_FALLBACK_PACKAGES = '$env:HOME/.nuget/packages'
         echo "NUGET_FALLBACK_PACKAGES=$NUGET_FALLBACK_PACKAGES" >> $Env:GITHUB_ENV  
+        Write-Host "The value ofNUGET_FALLBACK_PACKAGES is: $env:NUGET_FALLBACK_PACKAGES"         
       shell: pwsh                
     - name: Restore
       run: |
