@@ -14,7 +14,7 @@ env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
-  NUGET_FALLBACK_PACKAGES: '/home/ubuntu/.nuget/packages'
+
 jobs:
   build:
 
@@ -49,14 +49,10 @@ jobs:
     - name: Cache Nuget packages
       uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 #v3.2.4
       with:
-        path: /home/ubuntu/.nuget/packages
+        path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/EdFi.Ods.Api.csproj') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
-    - name: Setup NuGet fallback packages
-      run: |
-        Write-Host "The value ofNUGET_FALLBACK_PACKAGES is: $env:NUGET_FALLBACK_PACKAGES"         
-      shell: pwsh                
     - name: Restore
       run: |
         .\build.githubactions.ps1 restore -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
