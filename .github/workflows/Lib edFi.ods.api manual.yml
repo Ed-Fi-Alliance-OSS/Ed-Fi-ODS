@@ -60,6 +60,7 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj" -PackageName  "EdFi.Suite3.Ods.Api"
       shell: pwsh
     - name: Install-credential-handler
+      working-directory: ./Ed-Fi-ODS-Implementation/    
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
