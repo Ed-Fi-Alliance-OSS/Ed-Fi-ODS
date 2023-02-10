@@ -55,7 +55,7 @@ jobs:
           ${{ runner.os }}-nuget-
     - name: Restore
       run: |
-        .\build.githubactions.ps1 restore -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
+        .\build.githubactions.ps1 restore -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
       shell: pwsh        
     - name: build
       run: |

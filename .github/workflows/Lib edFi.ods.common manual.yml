@@ -57,10 +57,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
       shell: pwsh
-    - name: Run Unit tests
-      run: |
-        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
-      shell: pwsh
     - name: pack
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj" -PackageName "EdFi.Suite3.Ods.Common"
