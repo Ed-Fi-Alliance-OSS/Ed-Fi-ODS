@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -117,6 +117,10 @@ function Invoke-Main {
 
 function DotnetClean {
     Invoke-Execute { dotnet clean $Solution -c $Configuration --nologo -v minimal }
+}
+
+function Restore {
+    Invoke-Execute { dotnet restore  $Solution -c $Configuration --nologo -v minimal --use-lock-file }
 }
 
 function Compile {
@@ -245,6 +249,10 @@ function Invoke-DotnetClean {
     Invoke-Step { DotnetClean }
 }
 
+function Invoke-Restore {
+    Invoke-Step { Restore }
+}
+
 function Invoke-Publish {
     Invoke-Step { Publish }
 }
@@ -268,6 +276,7 @@ function Invoke-InstallCredentialHandler {
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
+        Restore { Invoke-Restore }
         Build { Invoke-Build }
         Test { Invoke-Tests }
         Pack { Invoke-Pack }
