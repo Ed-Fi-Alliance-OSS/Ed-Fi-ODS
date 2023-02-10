@@ -14,7 +14,7 @@ env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
-  
+  NUGET_FALLBACK_PACKAGES: /home/ubuntu/.nuget/packages
 jobs:
   build:
 
@@ -55,7 +55,6 @@ jobs:
           ${{ runner.os }}-nuget-
     - name: Setup NuGet fallback packages
       run: |
-        $env:NUGET_FALLBACK_PACKAGES = "~/.nuget/packages"         
         Write-Host "The value ofNUGET_FALLBACK_PACKAGES is: $env:NUGET_FALLBACK_PACKAGES"         
       shell: pwsh                
     - name: Restore
