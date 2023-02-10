@@ -36,11 +36,11 @@ jobs:
           ${{ runner.os }}-nuget- 
     - name: build
       run: |
-        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
+        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"  -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
       shell: pwsh
     - name: Run Unit tests
       run: |
-        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
+        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"  -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
       shell: pwsh
     - name: pack
       run: |

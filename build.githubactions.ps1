@@ -133,7 +133,7 @@ function Compile {
 function Pack {
     if ([string]::IsNullOrWhiteSpace($PackageName) -and [string]::IsNullOrWhiteSpace($NuspecFilePath)){
         Invoke-Execute {
-            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
@@ -141,7 +141,7 @@ function Pack {
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
         Invoke-Execute {
-            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build ---no-restore -verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
         }
     }
 }
