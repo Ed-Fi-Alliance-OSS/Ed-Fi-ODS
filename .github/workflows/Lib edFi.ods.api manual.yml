@@ -14,7 +14,7 @@ env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
-
+  
 jobs:
   build:
 
@@ -32,6 +32,7 @@ jobs:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
         path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
         ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
