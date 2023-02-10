@@ -46,17 +46,17 @@ jobs:
       shell: pwsh
       run: |
         ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
-    - name: Restore
-      run: |
-        .\build.githubactions.ps1 restore -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
-      shell: pwsh        
     - name: Cache Nuget packages
       uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 #v3.2.4
       with:
         path: ~/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/EdFi.Ods.Api.csproj') }}
         restore-keys: |
-          ${{ runner.os }}-nuget- 
+          ${{ runner.os }}-nuget-
+    - name: Restore
+      run: |
+        .\build.githubactions.ps1 restore -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"
+      shell: pwsh        
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln"  -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
