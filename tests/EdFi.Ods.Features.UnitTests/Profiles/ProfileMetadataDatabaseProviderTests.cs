@@ -19,12 +19,13 @@ using Shouldly;
 
 namespace EdFi.Ods.Features.UnitTests.Profiles
 {
-    public class ProfileMetadataDatabaseProviderUnitTests
+    public class AdminDatabaseProfileDefinitionsProviderTests
     {
         [TestFixture]
         public class WhenProfileDefinitionIsValid : TestFixtureBase
         {
-            private ProfileMetadataDatabaseProvider? _profileMetadataDatabaseProvider;
+            private IProfileDefinitionsProvider? _adminDatabaseProfileDefinitionsProvider;
+            public IDictionary<string, XElement>? _profileDefinitions;
 
             private readonly Profile ValidProfile = new Profile
             {
@@ -68,7 +69,7 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
                 A.CallTo(() => profileMetadataValidator.Validate(An<XDocument>.Ignored))
                     .Returns(new FluentValidation.Results.ValidationResult());
 
-                _profileMetadataDatabaseProvider = new ProfileMetadataDatabaseProvider(
+                _adminDatabaseProfileDefinitionsProvider = new AdminDatabaseProfileDefinitionsProvider(
                     usersContextFactory,
                     memoryCacheProvider,
                     profileMetadataValidator
@@ -77,41 +78,33 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
 
             protected override void Act()
             {
-                ((IProfileResourceNamesProvider)_profileMetadataDatabaseProvider!)
-                    .GetProfileResourceNames();
+                _profileDefinitions = _adminDatabaseProfileDefinitionsProvider!.GetProfileDefinitions();
             }
 
             [Test]
             public void Should_contain_valid_profile_definition()
             {
-                ((IProfileMetadataProvider)_profileMetadataDatabaseProvider!)
-                    .ContainsProfileDefinition(ValidProfile.ProfileName).ShouldBeTrue();
-            }
+                _profileDefinitions!.ContainsKey(ValidProfile.ProfileName).ShouldBeTrue();
+                _profileDefinitions![ValidProfile.ProfileName].Name.ShouldBe("Profile");
 
-            [Test]
-            public void Should_return_expected_profile_definition()
-            {
-                ((IProfileMetadataProvider)_profileMetadataDatabaseProvider!)
-                    .GetProfileDefinition(ValidProfile.ProfileName).Name.ShouldBe("Profile");
             }
 
             [TestCase("Invalid-Profile", "Profile Definition is not in valid XML format")]
             [TestCase("Empty-Profile", "Profile Definition is empty")]
             public void Should_contain_invalid_messajes(string profileName, string errorMessage)
             {
-                var validationResult = ((IProfileMetadataProvider)_profileMetadataDatabaseProvider!)
-                    .GetValidationResults().FirstOrDefault(x => x.Name.Equals(profileName));
+                var validationResult = _adminDatabaseProfileDefinitionsProvider!.ValidationResultsByMetadataStream
+                    .First(x => x.Key.name == profileName).Value;
 
                 validationResult.ShouldNotBeNull();
-                validationResult.ValidationResult.Errors[0].ErrorMessage.ShouldBe(errorMessage);
+                validationResult.Errors[0].ErrorMessage.ShouldBe(errorMessage);
             }
 
             [TestCase("Invalid-Profile")]
             [TestCase("Empty-Profile")]
             public void Should_not_contain_invalid_profiles(string profileName)
             {
-                ((IProfileMetadataProvider)_profileMetadataDatabaseProvider!)
-                    .ContainsProfileDefinition(profileName).ShouldBeFalse();
+                _profileDefinitions!.ContainsKey(profileName).ShouldBeFalse();
             }
         }
     }

@@ -30,6 +30,7 @@ using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.OpenApiMetadataContentProviders;
+using EdFi.Ods.Features.Profiles;
 using EdFi.Ods.Features.RouteInformations;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
@@ -352,7 +353,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             private ICompositesMetadataProvider _compositesMetadataProvider;
             private IProfileResourceModelProvider _profileResourceModelProvider;
             private IProfileResourceNamesProvider _profileResourceNamesProvider;
-
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
             private List<OpenApiContent> _actualMetadata;
 
@@ -367,12 +367,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 {
                     new AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider()
                 };
-                
-                var profileResourceMetadataProvider = new ProfileMetadataProvider(
-                    new ProfileMetadataValidator(ResourceModelProvider),
-                    profileMetadataStreamsProviders);
 
-                _profileResourceNamesProvider = profileResourceMetadataProvider;
+                IProfileDefinitionsProvider[] profileDefinitionsProviders =
+                {
+                    new EmbeddedResourceProfileDefinitionsProvider(
+                        new ProfileMetadataValidator(ResourceModelProvider),
+                        profileMetadataStreamsProviders)
+                };
+
+                var profileResourceMetadataProvider = new ProfileMetadataProvider(
+                    profileDefinitionsProviders);
+
+                _profileResourceNamesProvider = new ProfileResourceNamesProvider(
+                    profileResourceMetadataProvider);
                 
                 var profileValidationReporter = A.Fake<IProfileValidationReporter>();
                 
