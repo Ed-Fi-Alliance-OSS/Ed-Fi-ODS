@@ -26,6 +26,14 @@ namespace EdFi.Ods.Common.Metadata.Profiles
             _profileDefinitionsProviders = profileDefinitionsProviders;
         }
 
+        // <summary>
+        /// Indicates that the instance has profile metadata data.
+        /// </summary>
+        public bool HasProfileData
+        {
+            get { return ProfileDefinitionsByName.Any(); }
+        }
+
         /// <summary>
         /// Collection of valid profile definitions, organized by name.
         /// </summary>

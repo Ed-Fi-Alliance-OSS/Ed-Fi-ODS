@@ -29,7 +29,8 @@ namespace EdFi.Ods.CodeGen.Generators
 
             // Profile-related properties
             ProfileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, templateContext.ProjectPath);
-            ProfileResourceNamesProvider = ProfileMetadataProvider;
+            ProfileResourceNamesProvider = MetadataHelper.GetProfileResourceNamesProvider(ResourceModelProvider, templateContext.ProjectPath);
+
             ProfileResourceModelProvider = new ProfileResourceModelProvider(
                 ResourceModelProvider,
                 ProfileMetadataProvider,

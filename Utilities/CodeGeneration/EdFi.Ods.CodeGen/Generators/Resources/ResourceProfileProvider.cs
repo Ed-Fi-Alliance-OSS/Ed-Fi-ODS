@@ -42,8 +42,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             TemplateContext templateContext,
             IProfileValidationReporter profileValidationReporter)
         {
+            _profileResourceNamesProvider = MetadataHelper.GetProfileResourceNamesProvider(resourceModelProvider, templateContext.ProjectPath);
             var profileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(resourceModelProvider, templateContext.ProjectPath);
-            _profileResourceNamesProvider = profileMetadataProvider;
 
             _profileResourceModelProvider = new ProfileResourceModelProvider(
                 resourceModelProvider,
