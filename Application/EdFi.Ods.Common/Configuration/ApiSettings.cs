@@ -54,8 +54,6 @@ namespace EdFi.Ods.Common.Configuration
 
         public int? OverrideForForwardingHostPort { get; set; }
 
-        public bool LoadProfilesFromDatabase { get; set; }
-
         public ReverseProxySettings GetReverseProxySettings()
         {
             return new ReverseProxySettings(this.UseReverseProxyHeaders, this.OverrideForForwardingHostServer, this.OverrideForForwardingHostPort);

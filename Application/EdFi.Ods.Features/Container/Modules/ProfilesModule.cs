@@ -31,9 +31,7 @@ namespace EdFi.Ods.Features.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            if (ApiSettings.LoadProfilesFromDatabase)
-            {
-                builder.RegisterType<ProfileMetadataDatabaseProvider>()
+            builder.RegisterType<AdminDatabaseProfileDefinitionsProvider>()
                     .WithParameter(
                         new ResolvedParameter(
                             (p, c) => p.ParameterType == typeof(ICacheProvider),
@@ -44,29 +42,32 @@ namespace EdFi.Ods.Features.Container.Modules
                                             ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds
                                         ));
                             }))
-                    .As<IProfileMetadataProvider>()
-                    .As<IProfileResourceNamesProvider>()
+                    .As<IProfileDefinitionsProvider>()
                     .SingleInstance();
-            }
-            else
-            {
-                builder.RegisterType<AdminProfileNamesPublisher>()
+
+            builder.RegisterType<EmbeddedResourceProfileDefinitionsProvider>()
+                    .As<IProfileDefinitionsProvider>()
+                    .SingleInstance();
+
+            builder.RegisterType<ProfileMetadataProvider>()
+                    .As<IProfileMetadataProvider>()
+                    .SingleInstance();
+
+            builder.RegisterType<ProfileResourceNamesProvider>()
+                .As<IProfileResourceNamesProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<AdminProfileNamesPublisher>()
                     .As<IAdminProfileNamesPublisher>()
                     .SingleInstance();
 
-                builder.RegisterType<ProfileMetadataProvider>()
-                    .As<IProfileResourceNamesProvider>()
-                    .As<IProfileMetadataProvider>()
-                    .SingleInstance();
+            builder.RegisterType<ProfileNamePublisher>()
+                .As<IExternalTask>()
+                .SingleInstance();
 
-                builder.RegisterType<ProfileNamePublisher>()
-                    .As<IExternalTask>()
-                    .SingleInstance();
-
-                builder.RegisterType<AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider>()
-                    .As<IProfilesMetadataStreamsProvider>()
-                    .SingleInstance();
-            }
+            builder.RegisterType<AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider>()
+                .As<IProfilesMetadataStreamsProvider>()
+                .SingleInstance();
 
             builder.RegisterType<ProfileMetadataValidator>()
                 .As<IProfileMetadataValidator>()

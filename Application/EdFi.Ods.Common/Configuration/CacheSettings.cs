@@ -14,7 +14,7 @@ namespace EdFi.Ods.Common.Configuration
         public PersonUniqueIdToUsiCacheConfiguration PersonUniqueIdToUsi { get; set; } = new PersonUniqueIdToUsiCacheConfiguration();
         public ApiClientDetailsConfiguration ApiClientDetails { get; set; } = new ApiClientDetailsConfiguration();
         public SecurityCacheConfiguration Security { get; set; } = new SecurityCacheConfiguration();
-        public ProfilesCacheSettings Profiles { get; set; } = new ProfilesCacheSettings();
+        public ProfilesCacheConfiguration Profiles { get; set; } = new ProfilesCacheConfiguration();
 
         public class DescriptorsCacheConfiguration
         {
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Common.Configuration
             public string TableName { get; set; }
         }
 
-        public class ProfilesCacheSettings
+        public class ProfilesCacheConfiguration
         {
             public int AbsoluteExpirationSeconds { get; set; }
         }
