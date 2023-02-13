@@ -7,6 +7,7 @@ using System;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security.Claims;
@@ -16,15 +17,20 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
     public class NHibernateOdsConnectionProvider : DriverConnectionProvider
     {
+        public const string UseReadWriteConnectionCacheKey = "UseReadWriteConnection";
+        
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly IContextStorage _contextStorage;
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
         public NHibernateOdsConnectionProvider(
             IOdsDatabaseConnectionStringProvider connectionStringProvider,
-            IAuthorizationContextProvider authorizationContextProvider)
+            IAuthorizationContextProvider authorizationContextProvider,
+            IContextStorage contextStorage)
         {
             _connectionStringProvider = connectionStringProvider;
             _authorizationContextProvider = authorizationContextProvider;
+            _contextStorage = contextStorage;
         }
 
         public override DbConnection GetConnection()
@@ -33,7 +39,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                if (IsReadRequest(_authorizationContextProvider.GetAction()))
+                if (IsReadRequest(_authorizationContextProvider.GetAction()) 
+                    && !(_contextStorage.GetValue<bool?>(UseReadWriteConnectionCacheKey) ?? false))
                 {
                     connection.ConnectionString = _connectionStringProvider.GetReadOnlyConnectionString();
                 }
@@ -60,7 +67,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                if (IsReadRequest(_authorizationContextProvider.GetAction()))
+                if (IsReadRequest(_authorizationContextProvider.GetAction()) 
+                    && !(_contextStorage.GetValue<bool?>(UseReadWriteConnectionCacheKey) ?? false))
                 {
                     connection.ConnectionString = _connectionStringProvider.GetReadOnlyConnectionString();
                 }

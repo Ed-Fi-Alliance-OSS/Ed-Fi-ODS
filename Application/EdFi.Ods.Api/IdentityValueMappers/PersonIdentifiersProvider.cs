@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
@@ -24,10 +26,12 @@ namespace EdFi.Ods.Api.IdentityValueMappers
     /// </summary>
     public class PersonIdentifiersProvider : IPersonIdentifiersProvider
     {
+        private readonly IContextStorage _contextStorage;
         private readonly Func<IStatelessSession> _openStatelessSession;
 
-        public PersonIdentifiersProvider(Func<IStatelessSession> openStatelessSession)
+        public PersonIdentifiersProvider(Func<IStatelessSession> openStatelessSession, IContextStorage contextStorage)
         {
+            _contextStorage = contextStorage;
             _openStatelessSession = Preconditions.ThrowIfNull(openStatelessSession, nameof(openStatelessSession));
         }
 
@@ -54,8 +58,12 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                 throw new ArgumentException($"Invalid person type '{personType}'. Valid person types are: {validPersonTypes}");
             }
 
-            using (var session = _openStatelessSession())
+            try
             {
+                _contextStorage.SetValue(NHibernateOdsConnectionProvider.UseReadWriteConnectionCacheKey, true);
+
+                using var session = _openStatelessSession();
+
                 string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
                     personType, EdFiConventions.ProperCaseName);
 
@@ -70,6 +78,10 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                     .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
 
                 return await criteria.ListAsync<PersonIdentifiersValueMap>();
+            }
+            finally
+            {
+                _contextStorage.SetValue(NHibernateOdsConnectionProvider.UseReadWriteConnectionCacheKey, null);
             }
         }
     }
