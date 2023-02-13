@@ -33,6 +33,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
 using EdFi.Ods.Api.Container.Modules;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
@@ -420,6 +421,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterType<AuthorizationContextProvider>()
                     .As<IAuthorizationContextProvider>()
                     .SingleInstance();
+
+                builder.RegisterType<CallContextStorage>().As<IContextStorage>();
                 
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
 

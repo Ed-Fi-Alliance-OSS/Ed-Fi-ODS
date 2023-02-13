@@ -7,6 +7,7 @@ using System;
 using System.Data;
 using System.Linq;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
@@ -127,7 +128,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 .Returns(domainModel);
 
             DescriptorLookupProvider = new DescriptorLookupProvider(
-                SessionFactory, new EdFiDescriptorReflectionProvider(domainModelProvider));
+                SessionFactory, 
+                new EdFiDescriptorReflectionProvider(domainModelProvider),
+                new HashtableContextStorage());
 
             AssociationDefinition CreateDescriptorInheritanceAssociation(string descriptorName)
             {
