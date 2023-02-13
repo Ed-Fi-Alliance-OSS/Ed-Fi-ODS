@@ -7,5 +7,8 @@ using EdFi.Common.Database;
 
 namespace EdFi.Ods.Common.Database
 {
-    public interface IOdsDatabaseConnectionStringProvider : IDatabaseConnectionStringProvider { }
+    public interface IOdsDatabaseConnectionStringProvider : IDatabaseConnectionStringProvider
+    {
+        string GetReadOnlyConnectionString();
+    }
 }

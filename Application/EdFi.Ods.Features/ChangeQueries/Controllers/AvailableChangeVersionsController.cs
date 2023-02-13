@@ -5,6 +5,7 @@
 
 using System.Net.Http.Json;
 using System.Net.Mime;
+using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.ChangeQueries.Providers;
@@ -35,7 +36,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             if (!_isEnabled)
             {
@@ -43,7 +44,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return NotFound();
             }
 
-            return new ObjectResult(_availableChangeVersionProvider.GetAvailableChangeVersion());
+            return new ObjectResult(await _availableChangeVersionProvider.GetAvailableChangeVersion());
         }
     }
 }

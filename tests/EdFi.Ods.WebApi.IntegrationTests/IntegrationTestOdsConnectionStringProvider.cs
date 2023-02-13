@@ -32,5 +32,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                 ? YearSpecificHostGlobalFixture.Instance.GetConnectionString(_schoolYearContextProvider.GetSchoolYear().ToString())
                 : SandboxHostGlobalFixture.Instance.GetConnectionString();
         }
+
+        public string GetReadOnlyConnectionString() => GetConnectionString(); // No read-only connection support here
     }
 }

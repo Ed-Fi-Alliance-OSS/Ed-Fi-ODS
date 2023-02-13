@@ -19,5 +19,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         public string GetConnectionString()
             => _configuration.GetConnectionString("EdFi_Ods");
+
+        public string GetReadOnlyConnectionString() => GetConnectionString(); // No read-only connection support here
     }
 }

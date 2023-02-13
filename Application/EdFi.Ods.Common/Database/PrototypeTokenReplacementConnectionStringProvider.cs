@@ -4,12 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Configuration;
 using EdFi.Common.Configuration;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Database
 {
@@ -21,29 +18,58 @@ namespace EdFi.Ods.Common.Database
     {
         private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
 
+        private readonly string _prototypeConnectionStringName;
+        private readonly string _readOnlyPrototypeConnectionStringName;
         private readonly IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
         private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
-        private readonly string _prototypeConnectionStringName;
+        
+        private readonly Lazy<string> _protoTypeConnectionString;
+        private readonly Lazy<string> _protoTypeReadOnlyConnectionString;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PrototypeTokenReplacementConnectionStringProvider"/> class using
         /// the specified "prototype" named connection string from the application configuration file.
         /// </summary>
         /// <param name="prototypeConnectionStringName">The named connection string to use as the basis for building the connection string.</param>
+        /// <param name="readOnlyPrototypeConnectionStringName">The named connection string to use as the basis for building the connection string for read-only data.</param>
         /// <param name="databaseReplacementTokenProvider">The provider that builds the database replacement token for use in the resulting connection string.</param>
         /// <param name="configConnectionStringsProvider"></param>
         /// <param name="dbConnectionStringBuilderAdapterFactory"></param>
-        /// <param name="databaseServerNameProvider"></param>
         public PrototypeTokenReplacementConnectionStringProvider(
             string prototypeConnectionStringName,
+            string readOnlyPrototypeConnectionStringName,
             IDatabaseReplacementTokenProvider databaseReplacementTokenProvider,
             IConfigConnectionStringsProvider configConnectionStringsProvider,
             IDbConnectionStringBuilderAdapterFactory dbConnectionStringBuilderAdapterFactory)
         {
             _prototypeConnectionStringName = prototypeConnectionStringName;
+            _readOnlyPrototypeConnectionStringName = readOnlyPrototypeConnectionStringName;
             _databaseReplacementTokenProvider = databaseReplacementTokenProvider;
             _configConnectionStringsProvider = configConnectionStringsProvider;
             _dbConnectionStringBuilderAdapterFactory = dbConnectionStringBuilderAdapterFactory;
+
+            _protoTypeConnectionString = new Lazy<string>(() => PrototypeConnectionString(_prototypeConnectionStringName));
+            _protoTypeReadOnlyConnectionString = new Lazy<string>(() => PrototypeConnectionString(_readOnlyPrototypeConnectionStringName) ?? _protoTypeConnectionString.Value);
+
+            string PrototypeConnectionString(string connectionStringName)
+            {
+                if (_configConnectionStringsProvider.Count == 0)
+                {
+                    throw new ArgumentException("No connection strings were found in the configuration file.");
+                }
+
+                if (string.IsNullOrWhiteSpace(connectionStringName))
+                {
+                    throw new ArgumentNullException(nameof(connectionStringName));
+                }
+
+                if (_configConnectionStringsProvider.ConnectionStringProviderByName.TryGetValue(connectionStringName, out var connectionString))
+                {
+                    return connectionString;
+                }
+                
+                return null;
+            }
         }
 
         /// <summary>
@@ -52,50 +78,49 @@ namespace EdFi.Ods.Common.Database
         /// <returns>The connection string.</returns>
         public string GetConnectionString()
         {
+            return ProcessTokenReplacements(_protoTypeConnectionString.Value, _prototypeConnectionStringName);
+        }
+
+        /// <summary>
+        /// Gets the connection string for read-only database requests with the tokens already replaced using a configured named connection string.
+        /// </summary>
+        /// <returns>The connection string.</returns>
+        public string GetReadOnlyConnectionString()
+        {
+            return ProcessTokenReplacements(_protoTypeReadOnlyConnectionString.Value, _readOnlyPrototypeConnectionStringName);
+        }
+
+        private string ProcessTokenReplacements(string prototypeConnectionString, string prototypeConnectionStringName)
+        {
             var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
 
-            string protoTypeConnectionString = PrototypeConnectionString();
-
-            if (string.IsNullOrEmpty(protoTypeConnectionString))
+            if (string.IsNullOrEmpty(prototypeConnectionString))
             {
                 throw new ArgumentException(
-                    $"No connection string named '{_prototypeConnectionStringName}' was found in the 'connectionStrings' section of the application configuration file.");
+                    $"No connection string named '{prototypeConnectionStringName}' was found in the 'connectionStrings' section of the application configuration file.");
             }
 
-            connectionStringBuilder.ConnectionString = protoTypeConnectionString;
+            connectionStringBuilder.ConnectionString = prototypeConnectionString;
 
             // Override the Database Name, format if string coming in has a format replacement token,
             // otherwise use database name set in the Initial Catalog.
-            connectionStringBuilder.DatabaseName = connectionStringBuilder.DatabaseName.IsFormatString()
-                ? string.Format(
+            if (connectionStringBuilder.DatabaseName.IsFormatString())
+            {
+                connectionStringBuilder.DatabaseName = string.Format(
                     connectionStringBuilder.DatabaseName,
-                    _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken())
-                : connectionStringBuilder.DatabaseName;
+                    _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken());
+            }
 
             // Override the Server Name, format if string coming in has a format replacement token,
             // otherwise use server name set in the Data Source.
-            connectionStringBuilder.ServerName = connectionStringBuilder.ServerName.IsFormatString()
-                ? string.Format(
+            if (connectionStringBuilder.ServerName.IsFormatString())
+            {
+                connectionStringBuilder.ServerName = string.Format(
                     connectionStringBuilder.ServerName,
-                    _databaseReplacementTokenProvider.GetServerNameReplacementToken())
-                : connectionStringBuilder.ServerName;
+                    _databaseReplacementTokenProvider.GetServerNameReplacementToken());
+            }
 
             return connectionStringBuilder.ConnectionString;
-
-            string PrototypeConnectionString()
-            {
-                if (_configConnectionStringsProvider.Count == 0)
-                {
-                    throw new ArgumentException("No connection strings were found in the configuration file.");
-                }
-
-                if (string.IsNullOrWhiteSpace(_prototypeConnectionStringName))
-                {
-                    throw new ArgumentNullException("prototypeConnectionStringName");
-                }
-
-                return _configConnectionStringsProvider.GetConnectionString(_prototypeConnectionStringName);
-            }
         }
     }
 }

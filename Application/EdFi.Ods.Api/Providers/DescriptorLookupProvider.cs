@@ -8,6 +8,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Dtos;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Specifications;
 using log4net;
 using NHibernate;
@@ -21,10 +23,12 @@ namespace EdFi.Ods.Api.Providers
         private readonly Lazy<ConcurrentDictionary<string, string>> _descriptorFullNameByName;
         private readonly ILog _log = LogManager.GetLogger(typeof(DescriptorLookupProvider));
         private readonly ISessionFactory _sessionFactory;
+        private readonly IContextStorage _contextStorage;
 
-        public DescriptorLookupProvider(ISessionFactory sessionFactory, IEdFiDescriptorReflectionProvider edFiDescriptorReflectionProvider)
+        public DescriptorLookupProvider(ISessionFactory sessionFactory, IEdFiDescriptorReflectionProvider edFiDescriptorReflectionProvider, IContextStorage contextStorage)
         {
             _sessionFactory = sessionFactory;
+            _contextStorage = contextStorage;
 
             _descriptorFullNameByName = new Lazy<ConcurrentDictionary<string, string>>(
                 () => new ConcurrentDictionary<string, string>(edFiDescriptorReflectionProvider.GetDescriptorEntityNameMapping()));
@@ -45,6 +49,8 @@ namespace EdFi.Ods.Api.Providers
         {
             try
             {
+                _contextStorage.SetValue(NHibernateOdsConnectionProvider.UseReadWriteConnectionCacheKey, true);
+
                 using (var session = _sessionFactory.OpenSession())
                 {
                     var queries = new List<IEnumerable<DescriptorEntry>>();
@@ -57,33 +63,37 @@ namespace EdFi.Ods.Api.Providers
                         var descriptorIdColumnName = descriptorName + "Id";
 
                         var query = session.CreateCriteria(typeName)
-                                           .SetProjection(
-                                                Projections.ProjectionList()
-                                                           .Add(Projections.Property(descriptorIdColumnName), "Id")
-                                                           .Add(Projections.Property("Namespace"), "Namespace")
-                                                           .Add(Projections.Property("CodeValue"), "CodeValue"))
-                                           .SetResultTransformer(Transformers.AliasToBean<DescriptorEntry>())
-                                           .Future<DescriptorEntry>();
+                            .SetProjection(
+                                Projections.ProjectionList()
+                                    .Add(Projections.Property(descriptorIdColumnName), "Id")
+                                    .Add(Projections.Property("Namespace"), "Namespace")
+                                    .Add(Projections.Property("CodeValue"), "CodeValue"))
+                            .SetResultTransformer(Transformers.AliasToBean<DescriptorEntry>())
+                            .Future<DescriptorEntry>();
 
                         queries.Add(query);
                     }
 
-                    return queries
-                          .Select(
-                               (q, i) =>
-                                   new
-                                   {
-                                       TypeName = descriptorNames[i], Data =
-                                           TransformToDescriptorLookups(descriptorNames[i], q.ToList())
-                                              .ToList() as IList<DescriptorLookup>
-                                   })
-                          .ToDictionary(x => x.TypeName, x => x.Data);
+                    return queries.Select(
+                            (q, i) => new
+                            {
+                                TypeName = descriptorNames[i],
+                                Data =
+                                    TransformToDescriptorLookups(descriptorNames[i], q.ToList()).ToList() as
+                                        IList<DescriptorLookup>
+                            })
+                        .ToDictionary(x => x.TypeName, x => x.Data);
                 }
             }
             catch (Exception ex)
             {
                 _log.Error("Error retrieving all Ed-Fi Descriptor data.", ex);
+
                 throw;
+            }
+            finally
+            {
+                _contextStorage.SetValue(NHibernateOdsConnectionProvider.UseReadWriteConnectionCacheKey, null);
             }
         }
 
