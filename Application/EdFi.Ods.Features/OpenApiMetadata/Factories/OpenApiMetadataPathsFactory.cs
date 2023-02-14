@@ -129,17 +129,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private PathItem CreatePathItemForTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
             => new PathItem
             {
-                get = openApiMetadataResource.Writable
-                    ? CreateTrackedChangesDeleteOperation(openApiMetadataResource)
-                    : null
+                get = CreateTrackedChangesDeleteOperation(openApiMetadataResource)
             };
 
         private PathItem CreatePathItemForTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
             => new PathItem
             {
-                get = openApiMetadataResource.Writable
-                    ? CreateTrackedChangesKeyChangeOperation(openApiMetadataResource)
-                    : null
+                get = CreateTrackedChangesKeyChangeOperation(openApiMetadataResource)
             };
 
         private Operation CreateGetOperation(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
