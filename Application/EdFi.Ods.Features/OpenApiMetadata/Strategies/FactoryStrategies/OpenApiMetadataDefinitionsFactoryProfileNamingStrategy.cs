@@ -72,10 +72,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
         private static string CreateChildModelTypeName(OpenApiMetadataResource openApiMetadataResource, ResourceChildItem resourceChildItem)
         {
-            if (resourceChildItem.IsDerivedFrom(openApiMetadataResource.Resource) != true)
+            var resource = openApiMetadataResource.Resource;
+
+            if (resourceChildItem.IsDerivedFrom(resource) != true)
                 return resourceChildItem.Name;
 
-            if (resourceChildItem.Parent is IHasParent parent)
+            if (resourceChildItem.Parent is IHasParent childItemWithParent)
             {
                 return string.Join(
                     "_",
@@ -83,12 +85,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                     {
                         resourceChildItem.Name
                     }.Concat(
-                         parent
+                        childItemWithParent
                         .GetLineage()
                         .Select(x => x.Name.ToCamelCase())));
             }
 
-            return $"{resourceChildItem.Name}_{openApiMetadataResource.Resource.Name}";
+            return $"{resourceChildItem.Name}_{resource.Name}";
         }
     }
 }
