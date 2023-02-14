@@ -399,7 +399,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Operation CreateTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
                 true, true);
 
             var parameters = new List<Parameter>
@@ -453,7 +453,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Operation CreateTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
                 true, false, true);
 
             var parameters = new List<Parameter>
