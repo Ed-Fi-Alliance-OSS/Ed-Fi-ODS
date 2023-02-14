@@ -443,9 +443,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
                 {
-                    _contentTypeStrategy.GetOperationContentType(
-                        openApiMetadataResource,
-                        ContentTypeUsage.Writable)
+                    "application/json"
                 },
                 parameters = parameters,
                 responses = responses
@@ -500,9 +498,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
                 {
-                    _contentTypeStrategy.GetOperationContentType(
-                        openApiMetadataResource,
-                        ContentTypeUsage.Writable)
+                    "application/json"
                 },
                 parameters = parameters,
                 responses = responses
