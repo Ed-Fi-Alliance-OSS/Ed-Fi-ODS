@@ -75,10 +75,10 @@ namespace EdFi.Ods.Features.Profiles
 
             foreach (var profile in profiles)
             {
+                // Empty Profile definitions are expected in the Admin database for definitions that are sourced elsewhere
+                // The empty entries allow them to be presented in the Admin UI, but they should be ignored here.
                 if (string.IsNullOrEmpty(profile.ProfileDefinition))
                 {
-                    RegisterValidationResult(profile.ProfileName, "root", "Profile Definition is empty");
-
                     continue;
                 }
 
@@ -145,7 +145,7 @@ namespace EdFi.Ods.Features.Profiles
         {
             using (var usersContext = _usersContextFactory.CreateContext())
             {
-                return usersContext.Profiles.ToList();
+                return usersContext.Profiles.Where(p => p.ProfileDefinition != null).ToList();
             }
         }
     }
