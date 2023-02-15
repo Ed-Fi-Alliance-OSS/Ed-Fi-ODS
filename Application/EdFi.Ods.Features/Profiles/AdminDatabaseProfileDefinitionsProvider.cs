@@ -51,7 +51,7 @@ namespace EdFi.Ods.Features.Profiles
         {
             EnsureProfileDefinitionsCacheIsRefreshedFromDatabase();
 
-            if (!_cacheProvider.TryGetCachedObject($"{DefinitionsCacheKeyPrefix}", out IDictionary<string, XElement> profileDefinitions))
+            if (!_cacheProvider.TryGetCachedObject(DefinitionsCacheKeyPrefix, out IDictionary<string, XElement> profileDefinitions))
             {
                 return new Dictionary<string, XElement>();
             }
@@ -114,7 +114,7 @@ namespace EdFi.Ods.Features.Profiles
             }
 
             // Add profile definitions to cache
-            _cacheProvider.SetCachedObject($"{DefinitionsCacheKeyPrefix}", profileDefinitionByName);
+            _cacheProvider.SetCachedObject(DefinitionsCacheKeyPrefix, profileDefinitionByName);
         }
 
         private bool HasCacheExpired

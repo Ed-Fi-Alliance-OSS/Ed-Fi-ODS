@@ -51,14 +51,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
             : TestFixtureBase
         {
             private TestProfileResourceNamesProvider _testProfileResourceNamesProvider;
-            private ISchemaNameMapProvider _schemaNameMapProvider;
             private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
             private IEnumerable<OpenApiMetadataResource> _actualFilteredResources;
             private IEnumerable<OpenApiMetadataResource> _expectedFilteredResources;
 
+            private const string TestProfileName = "Test-ParentNonAbstractBaseClass-ExcludeOnly";
+            
             private class TestProfileResourceNamesProvider : IProfileMetadataProvider
             {
-                private readonly string _profileDefinition = @"<Profile name='Test-ParentNonAbstractBaseClass-ExcludeOnly'>
+                private readonly string _profileDefinition = $@"<Profile name='{TestProfileName}'>
                                                 <Resource name='StudentSpecialEducationProgramAssociation'>
                                                   <ReadContentType memberSelection='ExcludeOnly'>
                                                     <Property name='SpecialEducationHoursPerWeek'/>
@@ -70,14 +71,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                                                 </Resource>
                                               </Profile>";
 
-                public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName => throw new NotImplementedException();
-
-                public bool ContainsProfileDefinition(string profileName) => true;
-
-                public XElement GetProfileDefinition(string profileName)
-                {
-                    return XElement.Parse(_profileDefinition);
-                }
+                public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName
+                    => new Dictionary<string, XElement> { { TestProfileName, XElement.Parse(_profileDefinition) } };
 
                 public MetadataValidationResult[] GetValidationResults() => Array.Empty<MetadataValidationResult>();
             }
@@ -132,14 +127,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                     }
                 };
 
-                _schemaNameMapProvider = Stub<ISchemaNameMapProvider>();
-
                 var profileValidationReporter = A.Fake<IProfileValidationReporter>();
                 
                 var profileResourceModel =
                     new ProfileResourceModel(
                         _resourceModelProvider.GetResourceModel(),
-                        _testProfileResourceNamesProvider.ProfileDefinitionsByName.GetValueOrThrow("ProfileName", "Unable to find profile '{0}'."),
+                        _testProfileResourceNamesProvider.ProfileDefinitionsByName.GetValueOrThrow(TestProfileName, "Unable to find profile '{0}'."),
                         profileValidationReporter);
 
                 _openApiMetadataDocumentContext =
@@ -149,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                         ProfileContext =
                             new OpenApiMetadataProfileContext
                             {
-                                ProfileName = "ProfileName", ProfileResourceModel = profileResourceModel
+                                ProfileName = TestProfileName, ProfileResourceModel = profileResourceModel
                             }
                     };
             }

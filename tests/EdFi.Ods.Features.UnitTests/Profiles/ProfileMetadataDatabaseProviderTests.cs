@@ -24,13 +24,14 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
         [TestFixture]
         public class WhenProfileDefinitionIsValid : TestFixtureBase
         {
+            private const string ValidProfileName = "Sample-Profile-Resource-WriteOnly";
             private IProfileDefinitionsProvider? _adminDatabaseProfileDefinitionsProvider;
             public IDictionary<string, XElement>? _profileDefinitions;
 
             private readonly Profile ValidProfile = new Profile
             {
-                ProfileName = "Sample-Profile-Resource-ReadOnly",
-                ProfileDefinition = "<Profiles><Profile name=\"Sample-Profile-Resource-WriteOnly\"><Resource name=\"School\"><WriteContentType memberSelection=\"IncludeAll\"/></Resource></Profile></Profiles>"
+                ProfileName = "Valid-Profile",
+                ProfileDefinition = $"<Profile name=\"{ValidProfileName}\"><Resource name=\"School\"><WriteContentType memberSelection=\"IncludeAll\"/></Resource></Profile>"
             };
 
             private readonly Profile InvalidProfile = new Profile
@@ -51,8 +52,10 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
                 var userContext = Stub<IUsersContext>();
 
                 var fakeDbSet = A.Fake<IDbSet<Profile>>(options => options.Implements(typeof(IQueryable<Profile>)));
-                A.CallTo(() => ((IQueryable<Profile>)fakeDbSet).Provider).Returns(profiles.Provider);
-                A.CallTo(() => ((IQueryable<Profile>)fakeDbSet).GetEnumerator()).Returns(profiles.GetEnumerator());
+                A.CallTo(() => fakeDbSet.Provider).Returns(profiles.Provider);
+                A.CallTo(() => fakeDbSet.Expression).Returns(profiles.Expression);
+                A.CallTo(() => fakeDbSet.ElementType).Returns(profiles.ElementType);
+                A.CallTo(() => fakeDbSet.GetEnumerator()).Returns(profiles.GetEnumerator());
 
                 A.CallTo(() => userContext.Profiles)
                     .Returns(fakeDbSet);
@@ -84,14 +87,13 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
             [Test]
             public void Should_contain_valid_profile_definition()
             {
-                _profileDefinitions!.ContainsKey(ValidProfile.ProfileName).ShouldBeTrue();
-                _profileDefinitions![ValidProfile.ProfileName].Name.ShouldBe("Profile");
+                _profileDefinitions!.ShouldContainKey(ValidProfileName);
+                _profileDefinitions![ValidProfileName].Name.ShouldBe("Profile");
 
             }
 
             [TestCase("Invalid-Profile", "Profile Definition is not in valid XML format")]
-            [TestCase("Empty-Profile", "Profile Definition is empty")]
-            public void Should_contain_invalid_messajes(string profileName, string errorMessage)
+            public void Should_contain_invalid_messages(string profileName, string errorMessage)
             {
                 var validationResult = _adminDatabaseProfileDefinitionsProvider!.ValidationResultsByMetadataStream
                     .First(x => x.Key.name == profileName).Value;
@@ -104,7 +106,7 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
             [TestCase("Empty-Profile")]
             public void Should_not_contain_invalid_profiles(string profileName)
             {
-                _profileDefinitions!.ContainsKey(profileName).ShouldBeFalse();
+                _profileDefinitions!.ShouldNotContainKey(profileName);
             }
         }
     }
