@@ -34,7 +34,6 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseProfileDefinitionsProvider>()
-                                    "Admin Database Profile Definitions",
                     .As<IProfileDefinitionsProvider>()
                     .SingleInstance();
 
