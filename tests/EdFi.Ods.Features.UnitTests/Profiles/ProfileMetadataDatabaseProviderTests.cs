@@ -64,19 +64,13 @@ namespace EdFi.Ods.Features.UnitTests.Profiles
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(userContext);
 
-                var memorycacheoption = Stub<IOptions<MemoryCacheOptions>>();
-                var memoryCache = new MemoryCache(memorycacheoption);
-                var memoryCacheProvider = new MemoryCacheProvider(memoryCache);
-
                 var profileMetadataValidator = Stub<IProfileMetadataValidator>();
                 A.CallTo(() => profileMetadataValidator.Validate(An<XDocument>.Ignored))
                     .Returns(new FluentValidation.Results.ValidationResult());
 
                 _adminDatabaseProfileDefinitionsProvider = new AdminDatabaseProfileDefinitionsProvider(
                     usersContextFactory,
-                    memoryCacheProvider,
-                    profileMetadataValidator
-                    );
+                    profileMetadataValidator);
             }
 
             protected override void Act()
