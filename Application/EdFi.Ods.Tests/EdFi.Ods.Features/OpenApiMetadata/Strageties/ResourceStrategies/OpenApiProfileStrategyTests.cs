@@ -139,7 +139,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                 var profileResourceModel =
                     new ProfileResourceModel(
                         _resourceModelProvider.GetResourceModel(),
-                        _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"),
+                        _testProfileResourceNamesProvider.ProfileDefinitionsByName.GetValueOrThrow("ProfileName", "Unable to find profile '{0}'."),
                         profileValidationReporter);
 
                 _openApiMetadataDocumentContext =

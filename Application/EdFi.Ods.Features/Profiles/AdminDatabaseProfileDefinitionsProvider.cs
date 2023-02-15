@@ -70,7 +70,8 @@ namespace EdFi.Ods.Features.Profiles
 
             var profiles = LoadProfilesFromDatabase();
 
-            var profileDefinitions = new Dictionary<string, XElement>(StringComparer.OrdinalIgnoreCase);
+            var profileDefinitionByName = new Dictionary<string, XElement>(StringComparer.OrdinalIgnoreCase);
+
             foreach (var profile in profiles)
             {
                 if (string.IsNullOrEmpty(profile.ProfileDefinition))
@@ -82,9 +83,14 @@ namespace EdFi.Ods.Features.Profiles
 
                 try
                 {
-                    var profileDefinition = XDocument.Parse(profile.ProfileDefinition);
+                    var profileDefinition = XElement.Parse(profile.ProfileDefinition);
 
-                    var validationResult = _profileMetadataValidator.Validate(profileDefinition);
+                    // Wrap the profile definition element in a Profiles document for validation
+                    var profilesElement = XElement.Parse("<Profiles/>");
+                    profilesElement.Add(profileDefinition);
+                    var validationDoc = new XDocument(profilesElement);
+                    
+                    var validationResult = _profileMetadataValidator.Validate(validationDoc);
 
                     if (!validationResult.IsValid)
                     {
@@ -98,7 +104,7 @@ namespace EdFi.Ods.Features.Profiles
                         continue;
                     }
 
-                    profileDefinitions.Add(profile.ProfileName, (XElement)profileDefinition.Root.FirstNode);
+                    profileDefinitionByName.Add(profileDefinition.AttributeValue("name"), profileDefinition);
                 }
                 catch (XmlException)
                 {
@@ -107,7 +113,7 @@ namespace EdFi.Ods.Features.Profiles
             }
 
             // Add profile definitions to cache
-            _cacheProvider.SetCachedObject($"{DefinitionsCacheKeyPrefix}", profileDefinitions);
+            _cacheProvider.SetCachedObject($"{DefinitionsCacheKeyPrefix}", profileDefinitionByName);
         }
 
         private bool HasCacheExpired

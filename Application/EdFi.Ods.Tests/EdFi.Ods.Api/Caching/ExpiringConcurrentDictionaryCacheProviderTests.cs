@@ -34,7 +34,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             {
                 const int TestExpirationPeriod = 250;
 
-                var cache = new ExpiringConcurrentDictionaryCacheProvider(TimeSpan.FromMilliseconds(TestExpirationPeriod));
+                var cache = new ExpiringConcurrentDictionaryCacheProvider("Test", TimeSpan.FromMilliseconds(TestExpirationPeriod));
 
                 // Wait for midpoint of the first expiration period
                 Thread.Sleep(TestExpirationPeriod / 2);

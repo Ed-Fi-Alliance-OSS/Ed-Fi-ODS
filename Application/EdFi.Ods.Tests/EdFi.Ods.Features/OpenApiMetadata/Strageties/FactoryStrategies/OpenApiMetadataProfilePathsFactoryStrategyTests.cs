@@ -9,6 +9,7 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models;
@@ -128,7 +129,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                 var profileResourceModel =
                     new ProfileResourceModel(
                         _resourceModelProvider.GetResourceModel(),
-                        _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"),
+                        _testProfileResourceNamesProvider.ProfileDefinitionsByName.GetValueOrThrow("ProfileName", "Unable to find profile '{0}'."),
                         profileValidationReporter);
 
                 _openApiMetadataDocumentContext =

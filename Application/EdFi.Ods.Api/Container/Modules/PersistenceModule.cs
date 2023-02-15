@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int expirationPeriod =
                                 configuration.GetValue<int?>("ApiSettings:Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
 
-                            return new ExpiringConcurrentDictionaryCacheProvider(TimeSpan.FromSeconds(expirationPeriod));
+                            return new ExpiringConcurrentDictionaryCacheProvider("Descriptors", TimeSpan.FromSeconds(expirationPeriod));
                         }))
                 .As<IDescriptorsCache>()
                 .SingleInstance();

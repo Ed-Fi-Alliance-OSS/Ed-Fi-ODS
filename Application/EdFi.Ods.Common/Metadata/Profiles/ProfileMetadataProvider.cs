@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using EdFi.Ods.Common.Extensions;
 using log4net;
 
 namespace EdFi.Ods.Common.Metadata.Profiles
@@ -26,35 +25,11 @@ namespace EdFi.Ods.Common.Metadata.Profiles
             _profileDefinitionsProviders = profileDefinitionsProviders;
         }
 
-        // <summary>
-        /// Indicates that the instance has profile metadata data.
-        /// </summary>
-        public bool HasProfileData
-        {
-            get { return ProfileDefinitionsByName.Any(); }
-        }
-
         /// <summary>
         /// Collection of valid profile definitions, organized by name.
         /// </summary>
         public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName =>
                 _profileDefinitionsProviders.SelectMany(x => x.GetProfileDefinitions()).ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
-
-        /// <summary>
-        /// Indicates whether the specified Profile definition exists.
-        /// </summary>
-        bool IProfileMetadataProvider.ContainsProfileDefinition(string profileName)
-        {
-            return ProfileDefinitionsByName.ContainsKey(profileName);
-        }
-
-        /// <summary>
-        /// Gets the specified Profile definition by name.
-        /// </summary>
-        XElement IProfileMetadataProvider.GetProfileDefinition(string profileName)
-        {
-            return ProfileDefinitionsByName.GetValueOrThrow(profileName, "Unable to find profile '{0}'.");
-        }
 
         /// <inheritdoc cref="IProfileMetadataProvider.GetValidationResults" />
         public MetadataValidationResult[] GetValidationResults()

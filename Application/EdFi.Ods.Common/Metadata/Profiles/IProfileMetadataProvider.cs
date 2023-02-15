@@ -17,16 +17,6 @@ public interface IProfileMetadataProvider
     IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName { get; }
 
     /// <summary>
-    /// Indicates whether the specified Profile definition exists.
-    /// </summary>
-    bool ContainsProfileDefinition(string profileName);
-
-    /// <summary>
-    /// Gets the specified Profile definition by name.
-    /// </summary>
-    XElement GetProfileDefinition(string profileName);
-
-    /// <summary>
     /// Gets the validation results for all profile metadata that has been loaded (or attempted to be loaded).
     /// </summary>
     /// <returns></returns>

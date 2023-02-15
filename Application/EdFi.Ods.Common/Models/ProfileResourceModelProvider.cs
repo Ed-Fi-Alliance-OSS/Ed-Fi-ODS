@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models.Resource;
@@ -40,7 +41,7 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider
             pn =>
                 new ProfileResourceModel(
                     _resourceModel.Value,
-                    _profileMetadataProvider.GetProfileDefinition(profileName),
+                    _profileMetadataProvider.ProfileDefinitionsByName.GetValueOrThrow(profileName, "Unable to find profile '{0}'."),
                     _profileValidationReporter));
     }
 }
