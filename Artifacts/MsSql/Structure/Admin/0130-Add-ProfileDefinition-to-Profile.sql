@@ -4,4 +4,4 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 ALTER TABLE [dbo].[Profiles]
-    ADD [ProfileDefinition] [nvarchar](max) NULL;
+    ADD [ProfileDefinition] XML NULL;
