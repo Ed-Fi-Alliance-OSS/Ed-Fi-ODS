@@ -36,7 +36,8 @@ namespace EdFi.Ods.Features.ExternalCache
             _slidingExpiration = slidingExpiration;
             _absoluteExpiration = absoluteExpiration;
         }
-        bool ICacheProvider.TryGetCachedObject(string key, out object value)
+        
+        public bool TryGetCachedObject(string key, out object value)
         {
             try
             {
@@ -82,7 +83,7 @@ namespace EdFi.Ods.Features.ExternalCache
             }
         }
 
-        void ICacheProvider.SetCachedObject(string keyName, object obj)
+        public void SetCachedObject(string keyName, object obj)
         {
             try
             {
@@ -99,7 +100,7 @@ namespace EdFi.Ods.Features.ExternalCache
             }
         }
 
-        void ICacheProvider.Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+        public void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             try
             {

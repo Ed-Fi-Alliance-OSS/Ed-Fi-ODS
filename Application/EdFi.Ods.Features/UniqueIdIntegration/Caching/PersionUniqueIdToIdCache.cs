@@ -16,13 +16,13 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Caching
         public const string IdByUniqueIdFormatter = "{0}{1}_id_by_uniqueid_{2}";
         public const string UniqueIdByIdFormatter = "{0}{1}_uniqueid_by_id_{2}";
 
-        private readonly ICacheProvider _cacheProvider;
+        private readonly ICacheProvider<string> _cacheProvider;
         private readonly IEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
         private readonly IUniqueIdToIdValueMapper _uniqueIdToIdValueMapper;
         private readonly TimeSpan _slidingExpiration;
 
         public PersonUniqueIdToIdCache(
-            ICacheProvider cacheProvider,
+            ICacheProvider<string> cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
             IUniqueIdToIdValueMapper uniqueIdToIdValueMapper,
             int cacheExpirationMinutes = 10)

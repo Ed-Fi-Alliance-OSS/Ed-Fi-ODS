@@ -18,14 +18,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         {
             builder.Register(c => new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>();
 
-            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>();
-            builder.RegisterType<ConcurrentDictionaryCacheProvider>().AsSelf().SingleInstance();
+            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider<string>>();
+            builder.RegisterGeneric(typeof(ConcurrentDictionaryCacheProvider<>)).AsSelf().SingleInstance();
 
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.ParameterType == typeof(IDescriptorsCache),
-                        (p, c) => c.Resolve<ConcurrentDictionaryCacheProvider>()))
+                        (p, c) => c.Resolve<ConcurrentDictionaryCacheProvider<string>>()))
                 .As<IDescriptorsCache>()
                 .SingleInstance();
         }

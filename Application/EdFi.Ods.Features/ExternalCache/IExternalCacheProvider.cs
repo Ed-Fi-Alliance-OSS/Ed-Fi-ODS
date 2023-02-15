@@ -7,7 +7,7 @@ using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
-    public interface IExternalCacheProvider : ICacheProvider
+    public interface IExternalCacheProvider : ICacheProvider<string>
     {
         //NOTE - Separate interfaces exist for IExternalCacheProvider and ICacheProvider so that both can be used if configured to do so
     }

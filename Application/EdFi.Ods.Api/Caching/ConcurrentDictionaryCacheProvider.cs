@@ -11,21 +11,21 @@ using EdFi.Ods.Common.Caching;
 namespace EdFi.Ods.Api.Caching
 {
     [Serializable]
-    public class ConcurrentDictionaryCacheProvider : ICacheProvider
+    public class ConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>
     {
-        private readonly IDictionary<string, object> _cacheDictionary = new ConcurrentDictionary<string, object>();
+        private readonly IDictionary<TKey, object> _cacheDictionary = new ConcurrentDictionary<TKey, object>();
 
-        public bool TryGetCachedObject(string key, out object value)
+        public bool TryGetCachedObject(TKey key, out object value)
         {
             return _cacheDictionary.TryGetValue(key, out value);
         }
 
-        public void SetCachedObject(string keyName, object obj)
+        public void SetCachedObject(TKey key, object obj)
         {
-            _cacheDictionary[keyName] = obj;
+            _cacheDictionary[key] = obj;
         }
 
-        public void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+        public void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             _cacheDictionary[key] = value;
         }

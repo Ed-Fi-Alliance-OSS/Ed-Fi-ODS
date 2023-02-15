@@ -9,19 +9,19 @@ namespace EdFi.Ods.Api.Extensions
 {
     public static class CacheProviderExtensions
     {
-        public static bool TryGetCachedObject<T>(this ICacheProvider cacheProvider, string key, out T value)
+        public static bool TryGetCachedObject<TKey, TResult>(this ICacheProvider<TKey> cacheProvider, TKey key, out TResult value)
         {
             object objectValue;
 
-            if (cacheProvider.TryGetCachedObject(key, out objectValue) && objectValue is T)
+            if (cacheProvider.TryGetCachedObject(key, out objectValue) && objectValue is TResult)
             {
                 //object was found in the cacheProvider and was of the type T. return the cached value and true
-                value = (T) objectValue;
+                value = (TResult) objectValue;
                 return true;
             }
 
             // the cacheProvider was not able to Get the cached object or the object returned was not of the type T then return false with the default value for the type T
-            value = default(T);
+            value = default;
             return false;
         }
     }
