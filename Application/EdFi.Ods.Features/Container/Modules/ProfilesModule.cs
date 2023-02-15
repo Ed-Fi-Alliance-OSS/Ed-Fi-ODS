@@ -38,6 +38,7 @@ namespace EdFi.Ods.Features.Container.Modules
                             (p, c) =>
                             {
                                 return new ExpiringConcurrentDictionaryCacheProvider(
+                                    "Admin Database Profile Definitions",
                                     TimeSpan.FromSeconds(
                                             ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds
                                         ));
