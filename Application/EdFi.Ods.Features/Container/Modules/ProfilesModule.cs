@@ -6,6 +6,8 @@
 using System;
 using Autofac;
 using Autofac.Core;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Security.Profiles;
@@ -32,17 +34,7 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseProfileDefinitionsProvider>()
-                    .WithParameter(
-                        new ResolvedParameter(
-                            (p, c) => p.ParameterType == typeof(ICacheProvider),
-                            (p, c) =>
-                            {
-                                return new ExpiringConcurrentDictionaryCacheProvider(
                                     "Admin Database Profile Definitions",
-                                    TimeSpan.FromSeconds(
-                                            ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds
-                                        ));
-                            }))
                     .As<IProfileDefinitionsProvider>()
                     .SingleInstance();
 
@@ -52,7 +44,17 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ProfileMetadataProvider>()
                     .As<IProfileMetadataProvider>()
+                    .EnableInterfaceInterceptors()
                     .SingleInstance();
+
+            builder.RegisterType<CachingInterceptor>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (parmInfo, ctx) => parmInfo.ParameterType == typeof(ICacheProvider<ulong>),
+                        (parmInfo, ctx) => new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            "Profile Metadata",
+                            TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds))))
+                .Named<IInterceptor>("cache-profile-metadata");
 
             builder.RegisterType<ProfileResourceNamesProvider>()
                 .As<IProfileResourceNamesProvider>()
