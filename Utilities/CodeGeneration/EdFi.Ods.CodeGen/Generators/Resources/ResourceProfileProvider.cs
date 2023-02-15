@@ -50,7 +50,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 profileMetadataProvider,
                 profileValidationReporter);
 
-            ProjectHasProfileDefinition = profileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = profileMetadataProvider.ProfileDefinitionsByName.Any();
 
             ResourceModel = resourceModelProvider.GetResourceModel();
         }

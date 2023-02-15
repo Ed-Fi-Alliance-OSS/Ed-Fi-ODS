@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Linq;
 using EdFi.Common;
 using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Models;
@@ -36,7 +37,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 ProfileMetadataProvider,
                 new ProfileValidationReporter());
 
-            ProjectHasProfileDefinition = ProfileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = ProfileMetadataProvider.ProfileDefinitionsByName.Any();
 
             Configure();
 

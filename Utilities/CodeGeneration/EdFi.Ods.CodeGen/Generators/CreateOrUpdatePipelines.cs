@@ -32,7 +32,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 profileMetadataProvider,
                 profileValidationReporter);
 
-            ProjectHasProfileDefinition = profileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = profileMetadataProvider.ProfileDefinitionsByName.Any();
         }
 
         protected override object Build()
