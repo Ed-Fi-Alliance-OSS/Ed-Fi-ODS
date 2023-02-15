@@ -148,7 +148,7 @@ public class ProfileContentTypeContextMiddleware
                 // Validate that the Profile exists
                 string profileName = profileContentTypeFacets[ProfileNameFacet].Value;
 
-                if (!_profileMetadataProvider.ContainsProfileDefinition(profileName))
+                if (!_profileMetadataProvider.ProfileDefinitionsByName.ContainsKey(profileName))
                 {
                     await WriteResponse(
                         response,

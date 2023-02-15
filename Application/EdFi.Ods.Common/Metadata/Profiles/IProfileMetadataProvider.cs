@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 using FluentValidation.Results;
 
@@ -11,14 +12,9 @@ namespace EdFi.Ods.Common.Metadata.Profiles;
 public interface IProfileMetadataProvider
 {
     /// <summary>
-    /// Indicates whether the specified Profile definition exists.
+    /// Collection of valid profile definitions, organized by name.
     /// </summary>
-    bool ContainsProfileDefinition(string profileName);
-
-    /// <summary>
-    /// Gets the specified Profile definition by name.
-    /// </summary>
-    XElement GetProfileDefinition(string profileName);
+    IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName { get; }
 
     /// <summary>
     /// Gets the validation results for all profile metadata that has been loaded (or attempted to be loaded).

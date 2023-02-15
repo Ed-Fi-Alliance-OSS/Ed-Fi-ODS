@@ -85,40 +85,48 @@ public class ProfileMetadataValidator : IProfileMetadataValidator
                 var profileValidationReporter = new ProfileValidationReporter();
             
                 // Readable models
-                using var readable = new ProfilesAppliedResourceModel(
-                    ContentTypeUsage.Readable,
-                    profilesDefinition.XPathSelectElements("//Profile[Resource/ReadContentType]")
-                        .Select(profileDefinition => new ProfileResourceModel(resourceModel, profileDefinition, profileValidationReporter))
-                        .ToArray());
-
-                // Force full iteration of the read content type
-                var allReadableMembers = readable.GetAllResources()
-                    .SelectMany(r => r.AllContainedItemTypesOrSelf)
-                    .SelectMany(
-                        rcb => rcb.Properties.Cast<ResourceMemberBase>()
-                            .Concat(rcb.Collections)
-                            .Concat(rcb.Extensions)
-                            .Concat(rcb.References)
-                            .Concat(rcb.EmbeddedObjects))
+                var readableProfileResourceModels = profilesDefinition.XPathSelectElements("//Profile[Resource/ReadContentType]")
+                    .Select(profileDefinition => new ProfileResourceModel(resourceModel, profileDefinition, profileValidationReporter))
                     .ToArray();
+
+                if (readableProfileResourceModels.Any())
+                {
+                    using var readable = new ProfilesAppliedResourceModel(ContentTypeUsage.Readable, readableProfileResourceModels);
+
+                    // Force full iteration of the read content type
+                    var allReadableMembers = readable.GetAllResources()
+                        .SelectMany(r => r.AllContainedItemTypesOrSelf)
+                        .SelectMany(
+                            rcb => rcb.Properties.Cast<ResourceMemberBase>()
+                                .Concat(rcb.Collections)
+                                .Concat(rcb.Extensions)
+                                .Concat(rcb.References)
+                                .Concat(rcb.EmbeddedObjects))
+                        .ToArray();
+                }
 
                 // Writable models
-                using var writable = new ProfilesAppliedResourceModel(
-                    ContentTypeUsage.Writable,
-                    profilesDefinition.XPathSelectElements("//Profile[Resource/WriteContentType]")
-                        .Select(p => new ProfileResourceModel(resourceModel, p, profileValidationReporter))
-                        .ToArray());
-
-                // Force full iteration of the write content type
-                var allWritableMembers = writable.GetAllResources()
-                    .SelectMany(r => r.AllContainedItemTypesOrSelf)
-                    .SelectMany(
-                        rcb => rcb.Properties.Cast<ResourceMemberBase>()
-                            .Concat(rcb.Collections)
-                            .Concat(rcb.Extensions)
-                            .Concat(rcb.References)
-                            .Concat(rcb.EmbeddedObjects))
+                var writableProfileResourceModels = profilesDefinition.XPathSelectElements("//Profile[Resource/WriteContentType]")
+                    .Select(p => new ProfileResourceModel(resourceModel, p, profileValidationReporter))
                     .ToArray();
+
+                if (writableProfileResourceModels.Any())
+                {
+                    using var writable = new ProfilesAppliedResourceModel(
+                        ContentTypeUsage.Writable,
+                        writableProfileResourceModels);
+
+                    // Force full iteration of the write content type
+                    var allWritableMembers = writable.GetAllResources()
+                        .SelectMany(r => r.AllContainedItemTypesOrSelf)
+                        .SelectMany(
+                            rcb => rcb.Properties.Cast<ResourceMemberBase>()
+                                .Concat(rcb.Collections)
+                                .Concat(rcb.Extensions)
+                                .Concat(rcb.References)
+                                .Concat(rcb.EmbeddedObjects))
+                        .ToArray();
+                }
 
                 if (profileValidationReporter.ValidationFailures.Any())
                 {

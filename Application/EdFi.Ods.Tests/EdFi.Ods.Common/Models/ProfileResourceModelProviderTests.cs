@@ -113,8 +113,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
             {
                 resourceModelProvider = A.Fake<IResourceModelProvider>();
                 profileMetadaProvider = A.Fake<IProfileMetadataProvider>();
-                A.CallTo(() => profileMetadaProvider.GetProfileDefinition("Profile1"))
-                    .Returns(
+                A.CallTo(() => profileMetadaProvider.ProfileDefinitionsByName)
+                    .Returns(new Dictionary<string, XElement>()
+                    {
+                        {"Profile1", 
                         XElement.Parse(
                             @"
                             <Profile name='Profile1'>
@@ -126,11 +128,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                                         <Property name='DateProperty1' />
                                     </WriteContentType>
                                 </Resource>
-                            </Profile>"));
-
-
-                A.CallTo(() => profileMetadaProvider.GetProfileDefinition("Profile2"))
-                    .Returns(
+                            </Profile>")},
+                        {"Profile2", 
                         XElement.Parse(
                             @"
                             <Profile name='Profile2'>
@@ -144,10 +143,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                                         <Property name='DateProperty1' />
                                     </WriteContentType>
                                 </Resource>
-                            </Profile>"));
-
-                A.CallTo(() => profileMetadaProvider.GetProfileDefinition("ProfileX"))
-                    .Throws(new KeyNotFoundException());
+                            </Profile>")}});
 
                 A.CallTo(() => resourceModelProvider.GetResourceModel())
                     .Returns(GetTestResourceModel());

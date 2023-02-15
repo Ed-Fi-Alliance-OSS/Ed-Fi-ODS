@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen.Generators
         protected override void Configure()
         {
             var profileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, TemplateContext.ProjectPath);
-            ProfileResourceNamesProvider = profileMetadataProvider;
+            ProfileResourceNamesProvider = MetadataHelper.GetProfileResourceNamesProvider(ResourceModelProvider, TemplateContext.ProjectPath);
 
             var profileValidationReporter = new ProfileValidationReporter();
 
@@ -32,7 +32,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 profileMetadataProvider,
                 profileValidationReporter);
 
-            ProjectHasProfileDefinition = profileMetadataProvider.HasProfileData;
+            ProjectHasProfileDefinition = profileMetadataProvider.ProfileDefinitionsByName.Any();
         }
 
         protected override object Build()

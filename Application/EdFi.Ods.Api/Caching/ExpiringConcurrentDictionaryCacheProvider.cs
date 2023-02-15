@@ -15,6 +15,7 @@ namespace EdFi.Ods.Api.Caching
     public class ExpiringConcurrentDictionaryCacheProvider : ICacheProvider
     {
         private readonly IDictionary<string, object> _cacheDictionary = new ConcurrentDictionary<string, object>();
+        private readonly string _description;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringConcurrentDictionaryCacheProvider));
 
@@ -24,9 +25,11 @@ namespace EdFi.Ods.Api.Caching
         /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider" /> class using the
         /// specified recurring expiration period.
         /// </summary>
+        /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
         /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
-        public ExpiringConcurrentDictionaryCacheProvider(TimeSpan expirationPeriod)
+        public ExpiringConcurrentDictionaryCacheProvider(string description, TimeSpan expirationPeriod)
         {
+            _description = description;
             _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
         }
 
@@ -49,7 +52,7 @@ namespace EdFi.Ods.Api.Caching
         {
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider)} cache expired (all entries cleared).");
+                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider)} cache '{_description}' expired (all entries cleared).");
             }
 
             _cacheDictionary.Clear();

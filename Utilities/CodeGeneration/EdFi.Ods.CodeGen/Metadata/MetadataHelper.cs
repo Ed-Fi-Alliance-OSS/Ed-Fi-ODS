@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Metadata.StreamProviders.Common;
 using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Features.Profiles;
 
 namespace EdFi.Ods.CodeGen.Metadata
 {
@@ -75,7 +76,12 @@ namespace EdFi.Ods.CodeGen.Metadata
                 GetStreamsProvider(projectPath)
             };
 
-            var profileMetadataProvider = new ProfileMetadataProvider(new ProfileMetadataValidator(resourceModelProvider), streamProviders);
+            IProfileDefinitionsProvider[] definitionsProviders =
+            {
+                new EmbeddedResourceProfileDefinitionsProvider(new ProfileMetadataValidator(resourceModelProvider), streamProviders)
+            };
+
+            var profileMetadataProvider = new ProfileMetadataProvider(definitionsProviders);
 
             var failedValidationResults = profileMetadataProvider.GetValidationResults()
                 .Where(r => !r.ValidationResult.IsValid)
@@ -89,6 +95,13 @@ namespace EdFi.Ods.CodeGen.Metadata
             }
 
             return profileMetadataProvider;
+        }
+
+        public static ProfileResourceNamesProvider GetProfileResourceNamesProvider(IResourceModelProvider resourceModelProvider, string projectPath)
+        {
+            var profileResourceNamesProvider = new ProfileResourceNamesProvider(GetProfileMetadataProvider(resourceModelProvider, projectPath));
+
+            return profileResourceNamesProvider;
         }
     }
 }

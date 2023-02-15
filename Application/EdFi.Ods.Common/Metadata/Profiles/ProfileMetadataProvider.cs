@@ -4,138 +4,37 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
-using FluentValidation.Results;
 using log4net;
 
 namespace EdFi.Ods.Common.Metadata.Profiles
 {
-    public class ProfileMetadataProvider : IProfileMetadataProvider, IProfileResourceNamesProvider
+    public class ProfileMetadataProvider : IProfileMetadataProvider
     {
-        private readonly Lazy<IReadOnlyList<XDocument>> _allDocs;
-        private readonly IProfileMetadataValidator _profileMetadataValidator;
-        private readonly IProfilesMetadataStreamsProvider[] _metadataStreamsProviders;
-        private readonly Lazy<IDictionary<string, XElement>> _profileDefinitionByName;
-        private readonly Lazy<List<ProfileAndResourceNames>> _profileResources;
+        private readonly IProfileDefinitionsProvider[] _profileDefinitionsProviders;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(ProfileMetadataProvider));
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileMetadataProvider"/> class.
         /// </summary>
-        public ProfileMetadataProvider(
-            IProfileMetadataValidator profileMetadataValidator,
-            IProfilesMetadataStreamsProvider[] metadataStreamsProviders)
+        public ProfileMetadataProvider(IProfileDefinitionsProvider[] profileDefinitionsProviders)
         {
-            _profileMetadataValidator = profileMetadataValidator;
-            _metadataStreamsProviders = metadataStreamsProviders;
-
-            if (metadataStreamsProviders.Length == 0)
-            {
-                throw new Exception("No profiles metadata stream providers have been registered.");
-            }
-            
-            _allDocs = new Lazy<IReadOnlyList<XDocument>>(LazyInitializeXDocuments);
-            _profileDefinitionByName = new Lazy<IDictionary<string, XElement>>(LazyInitializeProfileDefinitions);
-            _profileResources = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResources);
+            _profileDefinitionsProviders = profileDefinitionsProviders;
         }
 
         /// <summary>
-        /// Indicates that the instance has profile metadata data.
+        /// Collection of valid profile definitions, organized by name.
         /// </summary>
-        public bool HasProfileData
-        {
-            get { return _profileDefinitionByName.Value.Any(); }
-        }
-
-        /// <summary>
-        /// Indicates whether the specified Profile definition exists.
-        /// </summary>
-        bool IProfileMetadataProvider.ContainsProfileDefinition(string profileName)
-        {
-            return _profileDefinitionByName.Value.ContainsKey(profileName);
-        }
-
-        /// <summary>
-        /// Gets the specified Profile definition by name.
-        /// </summary>
-        XElement IProfileMetadataProvider.GetProfileDefinition(string profileName)
-        {
-            return _profileDefinitionByName.Value.GetValueOrThrow(profileName, "Unable to find profile '{0}'.");
-        }
+        public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName =>
+                _profileDefinitionsProviders.SelectMany(x => x.GetProfileDefinitions()).ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
 
         /// <inheritdoc cref="IProfileMetadataProvider.GetValidationResults" />
         public MetadataValidationResult[] GetValidationResults()
-            => _validationResultsByMetadataStream
+            => _profileDefinitionsProviders.SelectMany(x => x.ValidationResultsByMetadataStream)
                 .Select(kvp => new MetadataValidationResult(kvp.Key.name, kvp.Key.source, kvp.Value))
                 .ToArray();
-
-        /// <summary>
-        /// Gets a list of tuples containing the names of associated Profiles and Resources.
-        /// </summary>
-        /// <returns>A list of tuples containing associated Profile and Resource names.</returns>
-        List<ProfileAndResourceNames> IProfileResourceNamesProvider.GetProfileResourceNames()
-        {
-            return _profileResources.Value;
-        }
-
-        private readonly ConcurrentDictionary<(string name, string source), ValidationResult> _validationResultsByMetadataStream = new();
-
-        private XDocument[] LazyInitializeXDocuments()
-        {
-            return _metadataStreamsProviders
-                .SelectMany(p => p.GetStreams())
-                .Select(
-                    s =>
-                    {
-                        using var reader = new StreamReader(s.Stream);
-                        var profilesDocument = XDocument.Load(reader);
-
-                        var validationResult = _profileMetadataValidator.Validate(profilesDocument);
-
-                        _validationResultsByMetadataStream.AddOrUpdate(
-                            (s.Name, s.Source),
-                            validationResult,
-                            (key, existingResult) => validationResult); 
-                            
-                        if (validationResult.IsValid)
-                        {
-                            return profilesDocument;
-                        }
-                        
-                        _logger.Error($"Profiles schema validation failed: {validationResult}");
-                    
-                        return null;
-                    })
-                .Where(d => d != null)
-                .ToArray();
-        }
-
-        private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
-        {
-            return _allDocs.Value.SelectMany(x => x.Descendants("Profile"))
-                .ToDictionary(x => x.AttributeValue("name"), x => x, StringComparer.InvariantCultureIgnoreCase);
-        }
-
-        private List<ProfileAndResourceNames> LazyInitializeProfileResources()
-        {
-            return _profileDefinitionByName.Value.Values.SelectMany(GetProfileResources).ToList();
-        }
-
-        private IEnumerable<ProfileAndResourceNames> GetProfileResources(XElement profileElt)
-        {
-            return from r in profileElt.Descendants("Resource")
-                select new ProfileAndResourceNames
-                {
-                    ProfileName = profileElt.AttributeValue("name"),
-                    ResourceName = (string)r.Attribute("name")
-                };
-        }
     }
 }

@@ -47,13 +47,45 @@ namespace EdFi.Ods.Common
             return _schemaNameMaps;
         }
 
-        public SchemaNameMap GetSchemaMapByPhysicalName(string name) => _schemaNameMapByPhysicalName[name];
+        public SchemaNameMap GetSchemaMapByPhysicalName(string name)
+        {
+            if (!_schemaNameMapByPhysicalName.TryGetValue(name, out SchemaNameMap result))
+            {
+                throw new KeyNotFoundException($"The schema with physical name '{name}' was not found. Has the appropriate extension been loaded?");
+            }
 
-        public SchemaNameMap GetSchemaMapByLogicalName(string name) => _schemaNameMapByLogicalName[name];
+            return result;
+        }
 
-        public SchemaNameMap GetSchemaMapByUriSegment(string name) => _schemaNameMapByUriSegment[name];
+        public SchemaNameMap GetSchemaMapByLogicalName(string name)
+        {
+            if (!_schemaNameMapByLogicalName.TryGetValue(name, out SchemaNameMap result))
+            {
+                throw new KeyNotFoundException($"The schema with logical name '{name}' was not found. Has the appropriate extension been loaded?");
+            }
 
-        public SchemaNameMap GetSchemaMapByProperCaseName(string name) => _schemaNameMapByProperCaseName[name];
+            return result;
+        }
+
+        public SchemaNameMap GetSchemaMapByUriSegment(string name)
+        {
+            if (!_schemaNameMapByUriSegment.TryGetValue(name, out SchemaNameMap result))
+            {
+                throw new KeyNotFoundException($"The schema with URI segment '{name}' was not found. Has the appropriate extension been loaded?");
+            }
+
+            return result;
+        }
+
+        public SchemaNameMap GetSchemaMapByProperCaseName(string name)
+        {
+            if (!_schemaNameMapByProperCaseName.TryGetValue(name, out SchemaNameMap result))
+            {
+                throw new KeyNotFoundException($"The schema with proper case name '{name}' was not found. Has the appropriate extension been loaded?");
+            }
+
+            return result;
+        }
 
         private SchemaNameMap CreateNameMap(string logicalName, string physicalName)
         {
