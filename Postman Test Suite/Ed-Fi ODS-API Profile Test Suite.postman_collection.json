@@ -7258,7 +7258,7 @@
 									]
 								},
 								{
-									"name": "Covered resource without standard content type for one Assign Profile",
+									"name": "Covered resource with standard content type specified for API client with one assigned profile",
 									"item": [
 										{
 											"name": "Get School",
@@ -7269,6 +7269,10 @@
 														"exec": [
 															"pm.test(\"Status code is 200\", () => {",
 															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Response Content-Type indicates profile was applied to the response.\", () => {",
+															"    pm.expect(pm.response.headers.one('Content-Type').value).to.match(/^application\\/vnd.ed-fi.school.test-profile-resource-includeall.readable\\+json/);",
 															"});"
 														],
 														"type": "text/javascript"
@@ -7284,6 +7288,11 @@
 													}
 												}
 											],
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {
+													"accept": true
+												}
+											},
 											"request": {
 												"auth": {
 													"type": "bearer",
@@ -7296,7 +7305,13 @@
 													]
 												},
 												"method": "GET",
-												"header": [],
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
 													"host": [
@@ -7341,7 +7356,7 @@
 									]
 								},
 								{
-									"name": "Covered resource with standard content type for several Assigned Profile",
+									"name": "Covered resource with standard content type specified for API client with multiple assigned profiles",
 									"item": [
 										{
 											"name": "Get School",
@@ -7375,7 +7390,9 @@
 												}
 											],
 											"protocolProfileBehavior": {
-												"disabledSystemHeaders": {}
+												"disabledSystemHeaders": {
+													"accept": true
+												}
 											},
 											"request": {
 												"auth": {
@@ -7389,7 +7406,13 @@
 													]
 												},
 												"method": "GET",
-												"header": [],
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
 													"host": [
@@ -7525,7 +7548,7 @@
 									]
 								},
 								{
-									"name": "Covered resource with different Profile's content type for  several assigned profiles",
+									"name": "Covered resource with different Profile's content type for API client with several assigned profiles",
 									"item": [
 										{
 											"name": "Get Student",
@@ -7833,7 +7856,7 @@
 									]
 								},
 								{
-									"name": "Covered resource without standard content type for one Assign Profile",
+									"name": "Covered resource with standard content type specified for API client with one assigned profile",
 									"item": [
 										{
 											"name": "Update School",
@@ -7874,7 +7897,7 @@
 												"header": [],
 												"body": {
 													"mode": "raw",
-													"raw": " {\r\n \t\"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n   \r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n      \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n      }\r\n    ]\r\n  }\r\n",
+													"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -7924,7 +7947,7 @@
 									]
 								},
 								{
-									"name": "Covered resource with standard content type for several Assigned Profile",
+									"name": "Covered resource with standard content type specified for API client with several assigned profiles",
 									"item": [
 										{
 											"name": "Update School",
@@ -7978,7 +8001,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": " {\r\n \t\"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n   \r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n      \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n      }\r\n    ]\r\n  }\r\n",
+													"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"{{$randomCompanyName}}\",\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        }\r\n    ]\r\n}",
 													"options": {
 														"raw": {
 															"language": "json"
@@ -8132,7 +8155,7 @@
 									]
 								},
 								{
-									"name": "Covered resource with different Profile's content type for  several assigned profiles",
+									"name": "Covered resource with different Profile's content type for API client with several assigned profiles",
 									"item": [
 										{
 											"name": "Update School",
