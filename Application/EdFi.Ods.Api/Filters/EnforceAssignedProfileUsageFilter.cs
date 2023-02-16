@@ -116,18 +116,18 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
             // NOTE: Auto-assign the content type usage if none specified by client, and exactly one relevant profile is assigned
             // -------------------------------------------------------------------------------------------------------------------
             // // If there's only one Profile that can be applied, automatically apply it and continue processing
-            // if (allowedProfilesForRequest.Length == 1)
-            // {
-            //     // Auto-assign the appropriate profile usage
-            //     _profileContentTypeContextProvider.Set(
-            //         new ProfileContentTypeContext(
-            //             allowedProfilesForRequest.Single(),
-            //             resourceFullName.Name,
-            //             relevantContentTypeUsage));
-            //
-            //     await next();
-            //     return;
-            // }
+            if (assignedProfilesForRequest.Length == 1)
+            {
+                // Auto-assign the appropriate profile usage
+                _profileContentTypeContextProvider.Set(
+                    new ProfileContentTypeContext(
+                        assignedProfilesForRequest.Single(),
+                        resourceFullName.Name,
+                        relevantContentTypeUsage));
+
+                await next();
+                return;
+            }
             // -------------------------------------------------------------------------------------------------------------------
 
             // If there's more than one possible Profile, the client is required to specify which one is in use.
@@ -149,8 +149,8 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         async Task WriteForbiddenResponse()
         {
             string errorMessage = relevantContentTypeUsage == ContentTypeUsage.Readable
-                ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
-                : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
+                ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
+                : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
             var response = context.HttpContext.Response;
 
