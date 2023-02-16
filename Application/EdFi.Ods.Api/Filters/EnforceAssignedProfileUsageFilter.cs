@@ -97,7 +97,7 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
                         ? contentTypes.Readable
                         : contentTypes.Writable)
                     != null)
-            .OrderBy(a=>a).ToArray();
+            .ToArray();
 
         // If there are no assigned profiles relevant for this request, skip additional processing here now.
         if (assignedProfilesForRequest.Length == 0)
@@ -149,8 +149,8 @@ public class EnforceAssignedProfileUsageFilter : IAsyncActionFilter
         async Task WriteForbiddenResponse()
         {
             string errorMessage = relevantContentTypeUsage == ContentTypeUsage.Readable
-                ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
-                : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
+                ? $"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'"
+                : $"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: '{string.Join("', '", assignedProfilesForRequest.OrderBy(a => a).Select(p => ProfilesContentTypeHelper.CreateContentType(resourceFullName.Name, p, relevantContentTypeUsage)))}'";
 
             var response = context.HttpContext.Response;
 
