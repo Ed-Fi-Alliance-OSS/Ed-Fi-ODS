@@ -19,7 +19,11 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
         private IContainer _container;
         private IMetadataFolderProvider _metadataFolderProvider;
 
-        protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options());
+        protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options
+        {
+            StandardVersion = "4.0.0",
+            ExtensionVersion = "1.1.0"
+        });
 
         protected override void Act() => _metadataFolderProvider = _container.Resolve<IMetadataFolderProvider>();
 

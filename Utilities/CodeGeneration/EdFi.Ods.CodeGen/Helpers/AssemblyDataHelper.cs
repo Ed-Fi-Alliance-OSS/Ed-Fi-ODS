@@ -20,10 +20,14 @@ namespace EdFi.Ods.CodeGen.Helpers
     {
         private readonly IJsonFileProvider _jsonFileProvider;
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
+        private readonly IExtensionVersionsPathProvider _extensionVersionsPathProvider;
+        private readonly IStandardVersionPathProvider _standardVersionPathProvider;
 
         public AssemblyDataHelper(
             IJsonFileProvider jsonFileProvider,
-            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider)
+            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
+            IExtensionVersionsPathProvider extensionVersionsPathProvider,
+            IStandardVersionPathProvider standardVersionPathProvider)
         {
             _jsonFileProvider = Preconditions.ThrowIfNull(jsonFileProvider, nameof(jsonFileProvider));
 
@@ -31,6 +35,10 @@ namespace EdFi.Ods.CodeGen.Helpers
 
             _domainModelsDefinitionsProvidersByProjectName =
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
+
+            _extensionVersionsPathProvider = extensionVersionsPathProvider;
+
+            _standardVersionPathProvider = standardVersionPathProvider;
         }
 
         // last element is the assemblyName.
@@ -46,7 +54,7 @@ namespace EdFi.Ods.CodeGen.Helpers
             bool isExtension = assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Extension);
 
             string assemblyName = GetAssemblyName(assemblyMetadataPath);
-
+            
             var schemaName = isExtension
                 ? ExtensionsConventions.GetProperCaseNameForLogicalName(
                     _domainModelsDefinitionsProvidersByProjectName[assemblyName]
@@ -57,13 +65,25 @@ namespace EdFi.Ods.CodeGen.Helpers
             var assemblyData = new AssemblyData
             {
                 AssemblyName = assemblyName,
-                Path = Path.GetDirectoryName(assemblyMetadataPath),
+                Path = GetPath(Path.GetDirectoryName(assemblyMetadataPath), assemblyName, isExtension),
                 TemplateSet = assemblyMetadata.AssemblyModelType,
                 SchemaName = schemaName,
                 IsExtension = isExtension
             };
 
             return assemblyData;
+        }
+
+        private string GetPath(string basePath, string assemblyName, bool isExtension)
+        {
+            if(!isExtension)
+            {
+                return Path.Combine(basePath, 
+                    _standardVersionPathProvider.StandardVersionPath());
+            }
+
+            return Path.Combine(_extensionVersionsPathProvider.ExtensionVersionsPath(basePath),
+                _standardVersionPathProvider.StandardVersionPath());
         }
     }
 }
