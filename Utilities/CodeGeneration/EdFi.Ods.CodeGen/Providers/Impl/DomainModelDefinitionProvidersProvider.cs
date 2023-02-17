@@ -18,18 +18,22 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
     {
         private static readonly string _standardModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel.json");
         private static readonly string _extensionModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel-EXTENSION.json");
+        private readonly IExtensionVersionsPathProvider _extensionVersionsPathProvider;
+        private readonly IStandardVersionPathProvider _standardVersionPathProvider;
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
         private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
         private readonly string _extensionsPath;
         private readonly IIncludePluginsProvider _includePluginsProvider;
-
+        
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
 
         public DomainModelDefinitionProvidersProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IExtensionPluginsProvider extensionPluginsProviderProvider,
-            IIncludePluginsProvider includePluginsProvider)
+            IIncludePluginsProvider includePluginsProvider,
+            IExtensionVersionsPathProvider extensionVersionsPathProvider, 
+            IStandardVersionPathProvider standardVersionPathProvider)
         {
             _solutionPath = Path.Combine(
                 codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation),
@@ -45,6 +49,10 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             _extensionPluginsProviderProvider = extensionPluginsProviderProvider;
 
             _includePluginsProvider = includePluginsProvider;
+
+            _extensionVersionsPathProvider = extensionVersionsPathProvider;
+
+            _standardVersionPathProvider = standardVersionPathProvider;
         }
 
         /// <summary>
@@ -106,11 +114,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             foreach (var modelProject in modelProjects)
             {
-                var modelsPath = modelProject.Name.IsStandardAssembly()
-                    ? _standardModelsPath
-                    : _extensionModelsPath;
-
-                var metadataFile = new FileInfo(Path.Combine(modelProject.FullName, modelsPath));
+                var metadataFile = GetMetadataFileInfo(modelProject);
 
                 Logger.Debug($"Loading ApiModels for {metadataFile}.");
 
@@ -142,6 +146,20 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 }
 
                 return new DirectoryInfo[0];
+            }
+
+            FileInfo GetMetadataFileInfo(DirectoryInfo modelProject)
+            {
+                if(modelProject.Name.IsStandardAssembly())
+                {
+                    return new FileInfo(Path.Combine(modelProject.FullName, 
+                        _standardVersionPathProvider.StandardVersionPath(), 
+                        _standardModelsPath));
+                }
+
+                return new FileInfo(Path.Combine(_extensionVersionsPathProvider.ExtensionVersionsPath(modelProject.FullName),
+                    _standardVersionPathProvider.StandardVersionPath(), 
+                    _extensionModelsPath));
             }
         }
     }

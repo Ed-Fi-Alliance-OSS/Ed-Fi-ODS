@@ -23,6 +23,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
     public class ApprovalTests
     {
+        private const string StandardVersion = "4.0.0";
         private const string GeneratedCs = "*.generated.cs";
         private const string GeneratedHbm = "*.generated.hbm.xml";
         private const string GeneratedSql = "*_generated.sql";
@@ -60,7 +61,11 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                 new[]
                 {
                     "--ExtensionPaths",
-                    _extensionRepository
+                    _extensionRepository,
+                    "--ExtensionVersion",
+                    "1.1.0",
+                    "--StandardVersion",
+                    "4.0.0"
                 });
         }
 
@@ -80,10 +85,13 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 
             files.Sort();
 
-            Approvals.Verify(
-                string.Join('\n', files.Select(x => Path.GetRelativePath(_repositoryRoot, x)))
-                      .Replace('\\', '/') + '\n' // Unix uses forward slash directory separator and files are terminated with newline
-            );
+            using (var cleanup = NamerFactory.AsEnvironmentSpecificTest($"Standard.{StandardVersion}"))
+            {
+                Approvals.Verify(
+                    string.Join('\n', files.Select(x => Path.GetRelativePath(_repositoryRoot, x)))
+                          .Replace('\\', '/') + '\n' // Unix uses forward slash directory separator and files are terminated with newline
+                );
+            }
         }
 
         /// <summary>
@@ -121,7 +129,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var generatedFileList = Path.Combine(
                 _odsRepository,
-                "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", $"{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
+                "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval", $"{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.Standard.{StandardVersion}.approved.txt");
 
             var files = File.ReadAllLines(generatedFileList)
                 .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot, x)))

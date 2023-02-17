@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <StandardVersion Condition="'$(StandardVersion)' == '' ">4.0.0</StandardVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <PackageId>EdFi.Suite3.Ods.Standard</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <TargetFramework>net6.0</TargetFramework>
@@ -27,18 +30,26 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Artifacts\Metadata\ApiModel.json" />
+    <Compile Remove="Standard\**" />
+    <EmbeddedResource Remove="Standard\**" />
+    <None Remove="Standard\**" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="**\*.generated.hbm.xml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Designer</SubType>
+    <Compile Include="Standard\$(StandardVersion)\**\*.cs" />
+    <EmbeddedResource Include="Standard\$(StandardVersion)\Artifacts\Metadata\ApiModel.json">
+      <LogicalName>$(RootNamespace).Artifacts.Metadata.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
+    <EmbeddedResource Include="Standard\$(StandardVersion)\**\*.generated.hbm.xml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
+      <LogicalName>$(RootNamespace).$([System.String]::Copy('%(RecursiveDir)').Replace('/', '.').Replace('\', '.'))%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Standard\$(StandardVersion)\Artifacts\**\Schemas\*.xsd">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Designer</SubType>
+      <LogicalName>$(RootNamespace).Artifacts.Schemas.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
