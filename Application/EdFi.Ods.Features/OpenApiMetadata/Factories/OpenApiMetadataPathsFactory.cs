@@ -129,17 +129,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private PathItem CreatePathItemForTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
             => new PathItem
             {
-                get = openApiMetadataResource.Writable
-                    ? CreateTrackedChangesDeleteOperation(openApiMetadataResource)
-                    : null
+                get = CreateTrackedChangesDeleteOperation(openApiMetadataResource)
             };
 
         private PathItem CreatePathItemForTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
             => new PathItem
             {
-                get = openApiMetadataResource.Writable
-                    ? CreateTrackedChangesKeyChangeOperation(openApiMetadataResource)
-                    : null
+                get = CreateTrackedChangesKeyChangeOperation(openApiMetadataResource)
             };
 
         private Operation CreateGetOperation(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
@@ -403,7 +399,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Operation CreateTrackedChangesDeleteOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
                 true, true);
 
             var parameters = new List<Parameter>
@@ -447,9 +443,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
                 {
-                    _contentTypeStrategy.GetOperationContentType(
-                        openApiMetadataResource,
-                        ContentTypeUsage.Writable)
+                    "application/json"
                 },
                 parameters = parameters,
                 responses = responses
@@ -459,7 +453,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private Operation CreateTrackedChangesKeyChangeOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, openApiMetadataResource.Writable ? ContentTypeUsage.Writable : ContentTypeUsage.Readable),
                 true, false, true);
 
             var parameters = new List<Parameter>
@@ -504,9 +498,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
                 {
-                    _contentTypeStrategy.GetOperationContentType(
-                        openApiMetadataResource,
-                        ContentTypeUsage.Writable)
+                    "application/json"
                 },
                 parameters = parameters,
                 responses = responses
