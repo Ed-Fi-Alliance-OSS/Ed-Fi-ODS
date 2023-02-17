@@ -25,5 +25,11 @@ namespace EdFi.Ods.CodeGen
 
         [Option("extensionPaths", Required = false, HelpText = "Array of paths for the Extension location to determine if plugin assemblies are included",Separator =',' )]
         public IEnumerable<string> ExtensionPaths { get; set; }
+
+        [Option("standardVersion", Required = true, HelpText = "Standard Version")]
+        public string StandardVersion { get; set; }
+
+        [Option("extensionVersion", Required = false, HelpText = "Extension Version")]
+        public string ExtensionVersion { get; set; }
     }
 }
