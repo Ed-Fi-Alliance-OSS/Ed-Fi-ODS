@@ -56,7 +56,19 @@ jobs:
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"  
+    - name: Cache Nuget packages       
+      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-    
+    - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-Extensions/
+      run: |
+        .\build.githubactions.ps1 restore -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/EdFi.Ods.Profiles.Sample.csproj"
+      shell: pwsh    
     - name: Build
       working-directory: ./Ed-Fi-Extensions/
       run: |
