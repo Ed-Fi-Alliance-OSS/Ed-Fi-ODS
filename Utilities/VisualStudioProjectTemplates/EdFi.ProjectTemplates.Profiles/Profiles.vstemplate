@@ -23,7 +23,6 @@
 
       <!-- Direct copy template files -->
       <ProjectItem>Profiles.xml</ProjectItem>
-      <ProjectItem>assemblyMetadata.json</ProjectItem>
 
       <!--Generated Files-->
     </Project>
