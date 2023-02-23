@@ -89,7 +89,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        rm -R "./Plugin/EdFi.*"
+        rm -R "./Plugin/Extensions.*"
       shell: powershell 
     - name: Create Database Template (no extensions)
       working-directory: ./
