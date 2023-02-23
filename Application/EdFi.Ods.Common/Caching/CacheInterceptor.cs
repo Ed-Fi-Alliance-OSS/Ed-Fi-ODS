@@ -9,7 +9,6 @@ namespace EdFi.Ods.Common.Caching;
 
 using Castle.DynamicProxy;
 using System;
-using System.Collections.Generic;
 
 public class CachingInterceptor : IInterceptor
 {
