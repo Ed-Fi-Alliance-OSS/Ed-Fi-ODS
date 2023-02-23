@@ -110,7 +110,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 Line:               2463
                 Routine:            ri_ReportViolation
              */
-            
+
             protected override void Arrange()
             {
                 var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
@@ -174,7 +174,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 Line:               2476
                 Routine:            ri_ReportViolation
              */
-            
+
             protected override void Arrange()
             {
                 //Arrange
@@ -194,19 +194,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     "studentschoolassociation",
                     "fk_857b52_school");
             }
-        
+
             protected override void Act()
             {
                 var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(_exception, out actualError);
             }
-        
+
             [Test]
             public void Should_handle_exception()
             {
                 wasHandled.ShouldBeTrue();
             }
-        
+
             [Test]
             public void Should_return_a_409_Conflict_error_with_a_message_identifying_the_dependent_entity()
             {
@@ -239,7 +239,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 Line:               2476
                 Routine:            ri_ReportViolation
              */
-            
+
             protected override void Arrange()
             {
                 //Arrange
@@ -259,19 +259,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     "studentschoolassociation",
                     "NOT-IN-SUPPLIED-METADATA"); // <---------- Constraint name doesn't exist in metadata
             }
-        
+
             protected override void Act()
             {
                 var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
                 wasHandled = translator.TryTranslateMessage(_exception, out actualError);
             }
-        
+
             [Test]
             public void Should_handle_exception()
             {
                 wasHandled.ShouldBeTrue();
             }
-        
+
             [Test]
             public void Should_return_a_409_Conflict_error_with_a_message_indicating_a_dependency_exists_even_if_it_cannot_be_identified()
             {
