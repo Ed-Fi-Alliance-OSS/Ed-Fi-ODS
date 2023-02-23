@@ -1,3 +1,8 @@
+# When to Use : 
+   # 1.At the time of  every major/minor version new development must run to get new major/minor version updated in Azure Artifacts 
+   # 2.If any new code changes in Ed-Fi-ODS/Application/EdFi.Ods.Api/EdFi.Ods.Common.csproj project which interacts with ODS/API Solution.
+   # 3.If any .NET new major/minor version upgrade or Nuget package version upgrade happens in Ed-Fi-ODS/Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj  Project.
+
 name: Lib EdFi.Ods.Common Manually triggered build
 
 on:

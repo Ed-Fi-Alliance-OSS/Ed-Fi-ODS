@@ -1,3 +1,8 @@
+# When to Use : 
+   # 1.At the time of every major/minor version new development must run to get new major/minor version updated in Azure Artifacts 
+   # 2.If any new code changes in Utilities/DataLoading/ folder which interacts with BulkLoadClient /SmokeTest.Console tools for testing the ODS/API solution.
+   # 3.If any .NET new major/minor version upgrade or Nuget package version upgrade happens in Utilities/DataLoading/LoadTools.sln solution
+
 name: Lib EdFi.LoadTools Manually triggered build
 
 on:
