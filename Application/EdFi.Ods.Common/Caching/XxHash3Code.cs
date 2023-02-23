@@ -5,11 +5,16 @@
 
 using System;
 using System.Buffers;
+using System.Security.Policy;
 using System.Text;
 using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Common.Caching;
 
+/// <summary>
+/// Provides methods for building an XxHash3 value based on multiple input arguments of different types in the same
+/// vein as the <see cref="System.HashCode.Combine{T}" /> method and its related overloads.
+/// </summary>
 public static class XxHash3Code
 {
     public static ulong Combine<T1>(T1 value1)

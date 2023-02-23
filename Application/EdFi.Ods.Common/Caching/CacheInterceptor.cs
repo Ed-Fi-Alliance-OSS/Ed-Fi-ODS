@@ -21,20 +21,21 @@ public class CachingInterceptor : IInterceptor
 
     public void Intercept(IInvocation invocation)
     {
+        // Compute the cache for the method invocation
         var cacheKey = GenerateCacheKey(invocation.Method, invocation.Arguments);
 
+        // Check the cache provider for a known response
         if (_cacheProvider.TryGetCachedObject(cacheKey, out var data))
         {
             invocation.ReturnValue = data;
             return;
         }
 
+        // Invoke the underlying method
         invocation.Proceed();
 
-        if (!invocation.Method.ReturnType.IsValueType && invocation.ReturnValue != null)
-        {
-            _cacheProvider.SetCachedObject(cacheKey, invocation.ReturnValue);
-        }
+        // Cache the response
+        _cacheProvider.SetCachedObject(cacheKey, invocation.ReturnValue);
     }
 
     private ulong GenerateCacheKey(MethodInfo method, object[] arguments)

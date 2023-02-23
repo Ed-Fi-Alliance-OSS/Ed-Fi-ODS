@@ -65,7 +65,7 @@ public class CacheInterceptorTests
         string GetAString(string input, int input2);
         string GetAString(string input, int input2, int input3);
     }
-    
+
     public class TestIntercepted : ITestIntercepted
     {
         private readonly List<string> _invocations0;
@@ -73,7 +73,11 @@ public class CacheInterceptorTests
         private readonly List<(string, int, string)> _invocations2;
         private readonly List<(string, int, int, string)> _invocations3;
 
-        public TestIntercepted(List<string> invocations0, List<(string, string)> invocations1, List<(string, int, string)> invocations2, List<(string, int, int, string)> invocations3)
+        public TestIntercepted(
+            List<string> invocations0,
+            List<(string, string)> invocations1,
+            List<(string, int, string)> invocations2,
+            List<(string, int, int, string)> invocations3)
         {
             _invocations0 = invocations0;
             _invocations1 = invocations1;
@@ -83,26 +87,26 @@ public class CacheInterceptorTests
 
         public string GetAString()
         {
-            string result = (new Random().Next()).ToString();
-            
+            string result = new Random().Next().ToString();
+
             _invocations0.Add(result);
 
             return result;
         }
-        
+
         public string GetAString(string input)
         {
             string result = input.GetHashCode().ToString();
-            
+
             _invocations1.Add((input, result));
 
             return result;
         }
-        
+
         public string GetAString(string input, int input2)
         {
             string result = (input.GetHashCode() + input2 * 7).ToString();
-            
+
             _invocations2.Add((input, input2, result));
 
             return result;
@@ -111,7 +115,7 @@ public class CacheInterceptorTests
         public string GetAString(string input, int input2, int input3)
         {
             string result = (input.GetHashCode() + input2 * 7 + input3 * 11).ToString();
-            
+
             _invocations3.Add((input, input2, input3, result));
 
             return result;
