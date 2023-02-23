@@ -16,7 +16,7 @@ on:
         required: false
         default: 'distinct_id'
   repository_dispatch:
-    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
+    types: [triggered-from-datastandard-repo ,triggered-from-tpdmartifacts-repo]
 env:
   EDFI_STANDARD_REFERENCE: "v4.0.0"
   INFORMATIONAL_VERSION: "7.0"
