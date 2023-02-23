@@ -25,7 +25,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
     {
         private const string GenericSqlExceptionMessage = "Generic Sql exception message.";
 
-        public class When_a_general_Exception_is_being_handled : TestFixtureBase
+        public class When_an_instance_of_Exception_is_being_handled : TestFixtureBase
         {
             private Exception exception;
             private bool result;
@@ -90,7 +90,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             }
         }
 
-        public class When_an_insert_or_update_conflicts_with_a_foreign_key_constraint : TestFixtureBase
+        public class When_an_insert_or_update_violated_a_foreign_key_constraint : TestFixtureBase
         {
             private Exception _exception;
             private bool _wasHandled;
@@ -154,8 +154,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             }
         }
 
-        // TODO: Implement
-        public class When_an_update_or_delete_conflicts_with_a_foreign_key_constraint : TestFixtureBase
+        public class When_an_update_or_delete_violates_a_foreign_key_constraint : TestFixtureBase
         {
             private Exception _exception;
             private bool wasHandled;
@@ -192,8 +191,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     message,
                     PostgresSqlStates.ForeignKeyViolation,
                     "edfi",
-                    "studentschoolassociation", // "studentacademicrecord",
-                    "fk_857b52_school"); // "fk_0ff8d6_student");
+                    "studentschoolassociation",
+                    "fk_857b52_school");
             }
         
             protected override void Act()
@@ -209,7 +208,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             }
         
             [Test]
-            public void Should_RestError_show_simple_constraint_message()
+            public void Should_return_a_409_Conflict_error_with_a_message_identifying_the_dependent_entity()
             {
                 AssertHelper.All(
                     () => actualError.ShouldNotBeNull(),
@@ -217,6 +216,71 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                     () => actualError.Type.ShouldBe("Conflict"),
                     () => actualError.Message.ShouldBe("The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the 'StudentSchoolAssociation' entity.") 
                 );
+            }
+        }
+
+        public class When_an_update_or_delete_conflicts_with_a_foreign_key_constraint_that_is_not_defined_in_the_database_metadata : TestFixtureBase
+        {
+            private Exception _exception;
+            private bool wasHandled;
+            private RESTError actualError;
+            private ContextProvider<DataManagementResourceContext> _contextProvider;
+
+            /*
+                Severity:           ERROR
+                InvariantSeverity:  ERROR
+                SqlState:           23503
+                MessageText:        update or delete on table "student" violates foreign key constraint "fk_0ff8d6_student" on table "studentacademicrecord"
+                Detail:             Detail redacted as it may contain sensitive data. Specify 'Include Error Detail' in the connection string to include this information.
+                SchemaName:         edfi
+                TableName:          studentacademicrecord
+                ConstraintName:     fk_0ff8d6_student
+                File:               ri_triggers.c
+                Line:               2476
+                Routine:            ri_ReportViolation
+             */
+            
+            protected override void Arrange()
+            {
+                //Arrange
+                var domainModel = this.LoadDomainModel("StudentSchoolAssociation");
+                var resourceModel = new ResourceModel(domainModel);
+                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentSchoolAssociations");
+                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _contextProvider.Set(new DataManagementResourceContext(resource));
+
+                const string message = "update or delete on table \"school\" violates foreign key constraint \"fk_857b52_school\" on table \"studentschoolassociation\"";
+
+                _exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.ForeignKeyViolation,
+                    "edfi",
+                    "studentschoolassociation",
+                    "NOT-IN-SUPPLIED-METADATA"); // <---------- Constraint name doesn't exist in metadata
+            }
+        
+            protected override void Act()
+            {
+                var translator = new PostgresForeignKeyExceptionTranslator(_contextProvider);
+                wasHandled = translator.TryTranslateMessage(_exception, out actualError);
+            }
+        
+            [Test]
+            public void Should_handle_exception()
+            {
+                wasHandled.ShouldBeTrue();
+            }
+        
+            [Test]
+            public void Should_return_a_409_Conflict_error_with_a_message_indicating_a_dependency_exists_even_if_it_cannot_be_identified()
+            {
+                actualError.ShouldSatisfyAllConditions(
+                    e => e.ShouldNotBeNull(),
+                    e => e.Code.ShouldBe(409),
+                    e => e.Type.ShouldBe("Conflict"),
+                    e => e.Message.ShouldBe(
+                        "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity."));
             }
         }
     }

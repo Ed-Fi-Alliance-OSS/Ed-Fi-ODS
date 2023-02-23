@@ -23,6 +23,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         private const string InsertOrUpdateMessageFormat = "The value supplied for the related '{0}' resource does not exist.";
         private const string UpdateOrDeleteMessageFormat = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{0}' entity.";
 
+        private const string NoDetailsUpdateOrDeleteMessage = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity.";
+        private const string NoDetailsInsertOrUpdateMessage = "The value supplied for a related resource does not exist.";
+
         public PostgresForeignKeyExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
@@ -53,17 +56,22 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
                     if (association == null)
                     {
-                        return false;
+                        string noDetailsMessage = postgresException.MessageText.Contains("update or delete")
+                            ? NoDetailsUpdateOrDeleteMessage
+                            : NoDetailsInsertOrUpdateMessage;
+
+                        webServiceError = CreateError(noDetailsMessage);
+
+                        return true;
                     }
 
-                    string message = 
-                        postgresException.MessageText.Contains("update or delete")
+                    string message = postgresException.MessageText.Contains("update or delete")
                         ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
                         : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
 
                     webServiceError = new RESTError
                     {
-                        Code = (int)HttpStatusCode.Conflict,
+                        Code = (int) HttpStatusCode.Conflict,
                         Type = "Conflict",
                         Message = message
                     };
@@ -73,6 +81,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             }
 
             return false;
+
+            RESTError CreateError(string message) => new RESTError
+            {
+                Code = (int)HttpStatusCode.Conflict,
+                Type = "Conflict",
+                Message = message
+            };
         }
     }
 }
