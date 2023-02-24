@@ -6,17 +6,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata.Profiles;
+using EdFi.Ods.Common.Profiles;
+using log4net;
+using MediatR;
 
 namespace EdFi.Ods.Features.Profiles
 {
-    public class ProfileResourceNamesProvider : IProfileResourceNamesProvider
+    public class ProfileResourceNamesProvider : IProfileResourceNamesProvider, INotificationHandler<ProfileMetadataCacheExpired>
     {
         private readonly IProfileMetadataProvider _profileMetadataProvider;
-        private readonly Lazy<List<ProfileAndResourceNames>> _profileResources;
+        private Lazy<List<ProfileAndResourceNames>> _profileResources;
 
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ProfileResourceNamesProvider));
+        
         public ProfileResourceNamesProvider(
             IProfileMetadataProvider profileMetadataProvider)
         {
@@ -36,6 +43,11 @@ namespace EdFi.Ods.Features.Profiles
 
         private List<ProfileAndResourceNames> LazyInitializeProfileResources()
         {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug("Initializing Profile and resource names...");
+            }
+            
             return _profileMetadataProvider.ProfileDefinitionsByName.Values
                         .SelectMany(GetProfileResources).ToList();
         }
@@ -48,6 +60,18 @@ namespace EdFi.Ods.Features.Profiles
                        ProfileName = profileElt.AttributeValue("name"),
                        ResourceName = (string)r.Attribute("name")
                    };
+        }
+
+        public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+        {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug("Resetting Profile and resource name initialization due to profile metadata cache expiration...");
+            }
+
+            _profileResources = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResources);
+
+            return Task.CompletedTask;
         }
     }
 }

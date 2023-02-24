@@ -5,15 +5,19 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Profiles;
+using log4net;
+using MediatR;
 
 namespace EdFi.Ods.Common.Models;
 
-public class ProfileResourceModelProvider : IProfileResourceModelProvider
+public class ProfileResourceModelProvider : IProfileResourceModelProvider, INotificationHandler<ProfileMetadataCacheExpired>
 {
     private readonly ConcurrentDictionary<string, ProfileResourceModel> _modelByProfileName 
         = new (StringComparer.OrdinalIgnoreCase);
@@ -23,6 +27,8 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider
 
     private readonly Lazy<ResourceModel> _resourceModel;
 
+    private readonly ILog _logger = LogManager.GetLogger(typeof(ProfileResourceModelProvider));
+    
     public ProfileResourceModelProvider(
         IResourceModelProvider resourceModelProvider,
         IProfileMetadataProvider profileMetadataProvider,
@@ -43,5 +49,17 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider
                     _resourceModel.Value,
                     _profileMetadataProvider.ProfileDefinitionsByName.GetValueOrThrow(profileName, "Unable to find profile '{0}'."),
                     _profileValidationReporter));
+    }
+
+    public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+    {
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug("Resetting ProfileResourceModels due to profile metadata cache expiration...");
+        }
+
+        _modelByProfileName.Clear();
+
+        return Task.CompletedTask;
     }
 }

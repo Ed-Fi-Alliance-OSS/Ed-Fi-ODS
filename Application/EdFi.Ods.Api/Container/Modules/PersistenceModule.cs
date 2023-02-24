@@ -14,6 +14,7 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Repositories;
@@ -55,17 +56,18 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(ICacheProvider<string>),
-                        (p, c) =>
+                        ctx =>
                         {
-                            var configuration = c.Resolve<IConfiguration>();
+                            var configuration = ctx.Resolve<IConfiguration>();
 
                             int expirationPeriod =
                                 configuration.GetValue<int?>("ApiSettings:Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
 
-                            return new ExpiringConcurrentDictionaryCacheProvider<string>("Descriptors", TimeSpan.FromSeconds(expirationPeriod));
-                        }))
+                            return (ICacheProvider<string>)
+                                new ExpiringConcurrentDictionaryCacheProvider<string>(
+                                    "Descriptors", 
+                                    TimeSpan.FromSeconds(expirationPeriod));
+                        })
                 .As<IDescriptorsCache>()
                 .SingleInstance();
 
