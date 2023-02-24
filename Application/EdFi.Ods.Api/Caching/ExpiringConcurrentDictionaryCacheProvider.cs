@@ -15,6 +15,7 @@ namespace EdFi.Ods.Api.Caching
     public class ExpiringConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>
     {
         private readonly string _description;
+        private readonly Action _expirationCallback;
         private readonly IDictionary<TKey, object> _cacheDictionary = new ConcurrentDictionary<TKey, object>();
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringConcurrentDictionaryCacheProvider<>));
@@ -28,9 +29,20 @@ namespace EdFi.Ods.Api.Caching
         /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
         /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
         public ExpiringConcurrentDictionaryCacheProvider(string description, TimeSpan expirationPeriod)
+            : this(description, expirationPeriod, expirationCallback: null) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider{TKey}" /> class using the
+        /// specified recurring expiration period.
+        /// </summary>
+        /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
+        /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
+        /// <param name="expirationCallback">Callback to invoke when the cache expires.</param>
+        public ExpiringConcurrentDictionaryCacheProvider(string description, TimeSpan expirationPeriod, Action expirationCallback)
         {
             _description = description;
             _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
+            _expirationCallback = expirationCallback;
         }
 
         public bool TryGetCachedObject(TKey key, out object value)
@@ -56,6 +68,8 @@ namespace EdFi.Ods.Api.Caching
             }
 
             _cacheDictionary.Clear();
+
+            _expirationCallback?.Invoke();
         }
     }
 }
