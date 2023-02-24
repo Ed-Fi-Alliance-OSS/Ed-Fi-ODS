@@ -4,9 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
+using EdFi.Common.Configuration;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 using Npgsql;
 
@@ -14,11 +18,19 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
     public class PostgresForeignKeyExceptionTranslator : IExceptionTranslator
     {
-        private static readonly Regex _expression = new Regex(@"(?<ErrorCode>\d*): (?<ConstraintType>insert or update|update or delete) on table ""(?<TableName>\w+)"" violates foreign key constraint ""(?<ConstraintName>.*?)"".*?");
-        private static readonly Regex _detailExpression = new Regex(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) is (?<ConstraintType>not present in|still referenced from) table ""(?<TableName>\w+)"".");
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        
         private const string InsertOrUpdateMessageFormat = "The value supplied for the related '{0}' resource does not exist.";
-        private const string UpdateOrDeleteMessageFormat = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{1}' value of the '{0}' entity.";
+        private const string UpdateOrDeleteMessageFormat = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{0}' entity.";
 
+        private const string NoDetailsUpdateOrDeleteMessage = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of another entity.";
+        private const string NoDetailsInsertOrUpdateMessage = "The value supplied for a related resource does not exist.";
+
+        public PostgresForeignKeyExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+        {
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+        }
+        
         public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
         {
             webServiceError = null;
@@ -29,19 +41,39 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
             if (exception is PostgresException postgresException)
             {
-                var match = _expression.Match(postgresException.Message);
-
-                if (match.Success)
+                if (postgresException.SqlState == PostgresSqlStates.ForeignKeyViolation)
                 {
-                    var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
+                    var entity = _dataManagementResourceContextProvider.Get()
+                        .Resource.Entity.Aggregate.Members.SingleOrDefault(
+                            e => 
+                                e.Schema.EqualsIgnoreCase(postgresException.SchemaName)
+                                && e.TableNameByDatabaseEngine[DatabaseEngine.Postgres].EqualsIgnoreCase(postgresException.TableName));
 
-                    var handledMessage = GetHandledMessage(exceptionInfo, match);
+                    var association = entity?.IncomingAssociations.SingleOrDefault(
+                        a => 
+                            a.Association.ConstraintByDatabaseEngine[DatabaseEngine.Postgres.Value]
+                            .EqualsIgnoreCase(postgresException.ConstraintName));
+
+                    if (association == null)
+                    {
+                        string noDetailsMessage = postgresException.MessageText.Contains("update or delete")
+                            ? NoDetailsUpdateOrDeleteMessage
+                            : NoDetailsInsertOrUpdateMessage;
+
+                        webServiceError = CreateError(noDetailsMessage);
+
+                        return true;
+                    }
+
+                    string message = postgresException.MessageText.Contains("update or delete")
+                        ? string.Format(UpdateOrDeleteMessageFormat, association.ThisEntity.Name)
+                        : string.Format(InsertOrUpdateMessageFormat, association.OtherEntity.Name);
 
                     webServiceError = new RESTError
                     {
-                        Code = (int)HttpStatusCode.Conflict,
+                        Code = (int) HttpStatusCode.Conflict,
                         Type = "Conflict",
-                        Message = handledMessage
+                        Message = message
                     };
 
                     return true;
@@ -49,29 +81,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             }
 
             return false;
-        }
 
-        private static string GetHandledMessage(PostgresExceptionInfo exceptionInfo, Match exceptionMessageMatch)
-        {
-            switch (exceptionInfo.ConstraintType)
+            RESTError CreateError(string message) => new RESTError
             {
-                case PostgresExceptionConstraintType.InsertOrUpdateForeignKey:
-                    return string.Format(InsertOrUpdateMessageFormat, exceptionInfo.TableName);
-                case PostgresExceptionConstraintType.UpdateOrDeleteForeignKey:
-                    return string.Format(UpdateOrDeleteMessageFormat, exceptionInfo.TableName, exceptionInfo.ColumnNames);
-                default:
-                    return GetHandledMessageFromExceptionMessage(exceptionInfo, exceptionMessageMatch);
-            }
-        }
-
-        private static string GetHandledMessageFromExceptionMessage(PostgresExceptionInfo exceptionInfo, Match exceptionMessageMatch)
-        {
-            var constraintTypeText = exceptionMessageMatch.Groups["ConstraintType"].Value;
-            var tableName = exceptionMessageMatch.Groups["TableName"].Value;
-
-            return constraintTypeText.Equals("insert or update")
-                ? string.Format(InsertOrUpdateMessageFormat, tableName)
-                : string.Format(UpdateOrDeleteMessageFormat, tableName, exceptionInfo.ColumnNames);
+                Code = (int)HttpStatusCode.Conflict,
+                Type = "Conflict",
+                Message = message
+            };
         }
     }
 }

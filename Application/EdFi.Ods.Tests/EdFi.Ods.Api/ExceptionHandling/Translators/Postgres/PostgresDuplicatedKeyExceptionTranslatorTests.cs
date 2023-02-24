@@ -93,7 +93,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 const string slightlyWrongMessage = "duplicate key value violates index constraint \"PK_UsersId\"";
 
-                exception = NHibernateExceptionBuilder.CreatePostgresException(GenericSqlExceptionMessage, slightlyWrongMessage);
+                exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    slightlyWrongMessage,
+                    PostgresSqlStates.UniqueViolation,
+                    null,
+                    null,
+                    null);
             }
 
             protected override void Act()
@@ -125,7 +131,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 const string message = "duplicate key value violates unique constraint \"PK_ApplicationId\"";
 
-                exception = NHibernateExceptionBuilder.CreatePostgresException(GenericSqlExceptionMessage, message);
+                exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.UniqueViolation,
+                    null,
+                    null,
+                    null);
             }
 
             protected override void Act()
@@ -161,7 +173,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 const string message = "duplicate key value violates unique constraint \"PK_ApplicationId\"";
 
-                exception = NHibernateExceptionBuilder.CreatePostgresException(GenericSqlExceptionMessage, message);
+                exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.UniqueViolation,
+                    null,
+                    null,
+                    null);
             }
 
             protected override void Act()
@@ -197,7 +215,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             {
                 const string message = "duplicate key value violates unique constraint \"PK_ApplicationId\"";
 
-                exception = NHibernateExceptionBuilder.CreatePostgresException(GenericSqlExceptionMessage, message);
+                exception = NHibernateExceptionBuilder.CreateWrappedPostgresException(
+                    GenericSqlExceptionMessage,
+                    message,
+                    PostgresSqlStates.UniqueViolation,
+                    null,
+                    null,
+                    null);
             }
 
             protected override void Act()

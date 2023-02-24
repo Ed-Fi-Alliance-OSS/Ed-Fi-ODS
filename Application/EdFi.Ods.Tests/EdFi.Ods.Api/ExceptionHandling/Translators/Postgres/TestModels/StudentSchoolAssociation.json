@@ -1,0 +1,972 @@
+{
+  "schemaDefinition": {
+    "logicalName": "Ed-Fi",
+    "physicalName": "edfi"
+  },
+  "aggregateDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "StudentSchoolAssociation"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "StudentSchoolAssociation"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "Student"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "School"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "School"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "EducationOrganization"
+        }
+      ]
+    }
+  ],
+  "entityDefinitions": [
+    {
+      "schema": "edfi",
+      "name": "StudentSchoolAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "EmployedWhileEnrolled",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "An individual who is a paid employee or works in his or her own business, profession, or farm and at the same time is enrolled in secondary, postsecondary, or adult education.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EmployedWhileEnrolled",
+            "postgreSql": "EmployedWhileEnrolled"
+          }
+        },
+        {
+          "propertyName": "EntryDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The month, day, and year on which an individual enters and begins to receive instructional services in a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EntryDate",
+            "postgreSql": "EntryDate"
+          }
+        },
+        {
+          "propertyName": "ExitWithdrawDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The recorded exit or withdraw date for the student.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ExitWithdrawDate",
+            "postgreSql": "ExitWithdrawDate"
+          }
+        },
+        {
+          "propertyName": "FullTimeEquivalency",
+          "propertyType": {
+            "dbType": "Decimal",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 4,
+            "isNullable": true
+          },
+          "description": "The full-time equivalent ratio for the student’s assignment to a school for services or instruction. For example, a full-time student would have an FTE value of 1 while a half-time student would have an FTE value of 0.5.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FullTimeEquivalency",
+            "postgreSql": "FullTimeEquivalency"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "PrimarySchool",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicates if a given enrollment record should be considered the primary record for a student.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PrimarySchool",
+            "postgreSql": "PrimarySchool"
+          }
+        },
+        {
+          "propertyName": "RepeatGradeIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "An indicator of whether the student is enrolling to repeat a grade level, either by failure or an agreement to hold the student back.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RepeatGradeIndicator",
+            "postgreSql": "RepeatGradeIndicator"
+          }
+        },
+        {
+          "propertyName": "SchoolChoiceTransfer",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "An indication of whether students transferred in or out of the school did so during the school year under the provisions for public school choice in accordance with Title I, Part A, Section 1116.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolChoiceTransfer",
+            "postgreSql": "SchoolChoiceTransfer"
+          }
+        },
+        {
+          "propertyName": "TermCompletionIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Idicates whether or not a student completed the most recent school term.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermCompletionIndicator",
+            "postgreSql": "TermCompletionIndicator"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentSchoolAssociation_PK",
+          "identifyingPropertyNames": [
+            "EntryDate",
+            "SchoolId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": true,
+          "constraintNames": {
+            "sqlServer": "StudentSchoolAssociation_PK",
+            "postgreSql": "StudentSchoolAssociation_PK"
+          }
+        },
+        {
+          "identifierName": "UX_StudentSchoolAssociation_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": true,
+          "constraintNames": {
+            "sqlServer": "UX_StudentSchoolAssociation_Id",
+            "postgreSql": "UX_857b52_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This association represents the school in which a student is enrolled. The semantics of enrollment may differ slightly by state. Non-enrollment relationships between a student and an education organization may be described using the StudentEducationOrganizationAssociation.",
+      "tableNames": {
+        "sqlServer": "StudentSchoolAssociation",
+        "postgreSql": "StudentSchoolAssociation"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "School",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "School_PK",
+          "identifyingPropertyNames": [
+            "SchoolId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "School_PK",
+            "postgreSql": "School_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.",
+      "tableNames": {
+        "sqlServer": "School",
+        "postgreSql": "School"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "EducationOrganization",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "NameOfInstitution",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The full, legally accepted name of the institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NameOfInstitution",
+            "postgreSql": "NameOfInstitution"
+          }
+        },
+        {
+          "propertyName": "ShortNameOfInstitution",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A short name for the institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ShortNameOfInstitution",
+            "postgreSql": "ShortNameOfInstitution"
+          }
+        },
+        {
+          "propertyName": "WebSite",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The public web site address (URL) for the education organization.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "WebSite",
+            "postgreSql": "WebSite"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "EducationOrganization_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EducationOrganization_PK",
+            "postgreSql": "EducationOrganization_PK"
+          }
+        },
+        {
+          "identifierName": "UX_EducationOrganization_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_EducationOrganization_Id",
+            "postgreSql": "UX_4525e6_Id"
+          }
+        }
+      ],
+      "isAbstract": true,
+      "description": "This entity represents any public or private institution, organization, or agency that provides instructional or support services to students or staff at any level.",
+      "tableNames": {
+        "sqlServer": "EducationOrganization",
+        "postgreSql": "EducationOrganization"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "Student",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "BirthCity",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The city the student was born in.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BirthCity",
+            "postgreSql": "BirthCity"
+          }
+        },
+        {
+          "propertyName": "BirthDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The month, day, and year on which an individual was born.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BirthDate",
+            "postgreSql": "BirthDate"
+          }
+        },
+        {
+          "propertyName": "BirthInternationalProvince",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 150,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "For students born outside of the U.S., the Province or jurisdiction in which an individual is born.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BirthInternationalProvince",
+            "postgreSql": "BirthInternationalProvince"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "DateEnteredUS",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "For students born outside of the U.S., the date the student entered the U.S.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DateEnteredUS",
+            "postgreSql": "DateEnteredUS"
+          }
+        },
+        {
+          "propertyName": "FirstName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "FirstName",
+            "postgreSql": "FirstName"
+          }
+        },
+        {
+          "propertyName": "GenerationCodeSuffix",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 10,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "An appendage, if any, used to denote an individual's generation in his family (e.g., Jr., Sr., III).",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GenerationCodeSuffix",
+            "postgreSql": "GenerationCodeSuffix"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "LastSurname",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name borne in common by members of a family.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastSurname",
+            "postgreSql": "LastSurname"
+          }
+        },
+        {
+          "propertyName": "MaidenName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The individual's maiden name.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MaidenName",
+            "postgreSql": "MaidenName"
+          }
+        },
+        {
+          "propertyName": "MiddleName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A secondary name given to an individual at birth, baptism, or during another naming ceremony.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MiddleName",
+            "postgreSql": "MiddleName"
+          }
+        },
+        {
+          "propertyName": "MultipleBirthStatus",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicator of whether the student was born with other siblings (i.e., twins, triplets, etc.)",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MultipleBirthStatus",
+            "postgreSql": "MultipleBirthStatus"
+          }
+        },
+        {
+          "propertyName": "PersonalTitlePrefix",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 30,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A prefix used to denote the title, degree, position, or seniority of the individual.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonalTitlePrefix",
+            "postgreSql": "PersonalTitlePrefix"
+          }
+        },
+        {
+          "propertyName": "StudentUniqueId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUniqueId",
+            "postgreSql": "StudentUniqueId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Student_PK",
+          "identifyingPropertyNames": [
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Student_PK",
+            "postgreSql": "Student_PK"
+          }
+        },
+        {
+          "identifierName": "Student_UI_StudentUniqueId",
+          "identifyingPropertyNames": [
+            "StudentUniqueId"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Student_UI_StudentUniqueId",
+            "postgreSql": "Student_UI_StudentUniqueId"
+          }
+        },
+        {
+          "identifierName": "UX_Student_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Student_Id",
+            "postgreSql": "UX_2a164d_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents an individual for whom instruction, services, and/or care are provided in an early childhood, elementary, or secondary educational program under the jurisdiction of a school, education agency or other institution or program. A student is a person who has been enrolled in a school or other educational institution.",
+      "tableNames": {
+        "sqlServer": "Student",
+        "postgreSql": "Student"
+      }
+    }
+  ],
+  "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_StudentSchoolAssociation_School"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "School"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSchoolAssociation_School",
+        "postgreSql": "FK_857b52_School"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_StudentSchoolAssociation_Student"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSchoolAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSchoolAssociation_Student",
+        "postgreSql": "FK_857b52_Student"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_School_EducationOrganization"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "School"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_School_EducationOrganization",
+        "postgreSql": "FK_6cd2e3_EducationOrganization"
+      },
+      "potentiallyLogical": false
+    }
+  ],
+  "aggregateExtensionDefinitions": []
+}
