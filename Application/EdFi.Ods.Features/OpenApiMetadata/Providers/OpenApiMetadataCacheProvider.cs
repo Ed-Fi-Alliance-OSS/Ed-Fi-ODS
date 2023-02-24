@@ -8,22 +8,26 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using EdFi.Ods.Features.Profiles;
 using log4net;
+using MediatR;
 using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {
-    public class OpenApiMetadataCacheProvider : IOpenApiMetadataCacheProvider
+    public class OpenApiMetadataCacheProvider : IOpenApiMetadataCacheProvider, INotificationHandler<ProfileMetadataCacheExpired>
     {
         private const string Descriptors = "descriptors";
         private const string Resources = "resources";
@@ -48,7 +52,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             OpenApiMetadataSections.SdkGen,
             OpenApiMetadataSections.Other
         };
-        private readonly ConcurrentDictionary<string, OpenApiContent> _openApiMetadataMetadataCache;
+        
+        private Lazy<ConcurrentDictionary<string, OpenApiContent>> _openApiMetadataMetadataCache;
 
         public OpenApiMetadataCacheProvider(
             IResourceModelProvider resourceModelProvider,
@@ -68,15 +73,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     {All, new SdkGenAllResourceStrategy()}
                 };
 
-            _openApiMetadataMetadataCache =
-                new ConcurrentDictionary<string, OpenApiContent>(StringComparer.InvariantCultureIgnoreCase);
+            _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache);
 
             _openApiMetadataDocumentFactory = openApiMetadataDocumentFactory;
         }
 
         public IList<OpenApiContent> GetAllSectionDocuments(bool sdk)
         {
-            var sections = _openApiMetadataMetadataCache.Values
+            var sections = _openApiMetadataMetadataCache.Value.Values
                 .Where(
                     c => sdk
                         ? _sdkGenSections.Contains(c.Section)
@@ -95,7 +99,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
         public OpenApiContent GetOpenApiContentByFeedName(string feedName)
         {
-            if (!_openApiMetadataMetadataCache.TryGetValue(feedName, out OpenApiContent document))
+            if (!_openApiMetadataMetadataCache.Value.TryGetValue(feedName, out OpenApiContent document))
             {
                 _logger.Warn($"Unable to find OpenApiContent for {feedName}");
             }
@@ -103,11 +107,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             return document;
         }
 
-        public void InitializeCache()
+        public void ResetCacheInitialization()
+        {
+            // Reset the underlying cache
+            _openApiMetadataMetadataCache = new Lazy<ConcurrentDictionary<string, OpenApiContent>>(LazyInitializeCache);
+        }
+        
+        private ConcurrentDictionary<string, OpenApiContent> LazyInitializeCache()
         {
             var sw = new Stopwatch();
             sw.Start();
 
+            var newCache = new ConcurrentDictionary<string, OpenApiContent>();
+            
             foreach (IOpenApiMetadataRouteInformation openApiMetadataRouteInformation in _openApiMetadataRouteInformations)
             {
                 var routeInformation = openApiMetadataRouteInformation.GetRouteInformation();
@@ -139,6 +151,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             _logger.Debug($"Populated the complete document cache in {sw.Elapsed:c}");
 
+            return newCache;
+            
             IEnumerable<OpenApiContent> CreateOpenApiMetadataUiSection()
             {
                 // resources, types, descriptors using tightly coupled extensions
@@ -184,15 +198,26 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 foreach (var openApiContent in openApiContents)
                 {
                     // we want to force an update if the document has changed.
-                    _openApiMetadataMetadataCache
-                        .AddOrUpdate(
-                            $"{openApiContent.Section}-{openApiContent.Name}",
-                            openApiContent,
-                            (key, existing) => existing.GetHashCode() != openApiContent.GetHashCode()
-                                ? openApiContent
-                                : existing);
+                    newCache.AddOrUpdate(
+                        $"{openApiContent.Section}-{openApiContent.Name}",
+                        openApiContent,
+                        (key, existing) => existing.GetHashCode() != openApiContent.GetHashCode()
+                            ? openApiContent
+                            : existing);
                 }
             }
+        }
+
+        public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
+        {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug("Resetting OpenApiMetadata initialization due to profile metadata cache expiration...");
+            }
+
+            ResetCacheInitialization();
+
+            return Task.CompletedTask;
         }
     }
 }

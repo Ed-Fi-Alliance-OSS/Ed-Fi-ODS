@@ -162,7 +162,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: true)
@@ -249,7 +249,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: false)
@@ -322,7 +322,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: false)
@@ -411,7 +411,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: false)
@@ -511,7 +511,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: false)
@@ -614,7 +614,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: true)
@@ -683,7 +683,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
             protected override void Act()
             {
-                _openApiMetadataCacheProvider.InitializeCache();
+                _openApiMetadataCacheProvider.ResetCacheInitialization();
 
                 _actualMetadata = _openApiMetadataCacheProvider
                     .GetAllSectionDocuments(sdk: false)

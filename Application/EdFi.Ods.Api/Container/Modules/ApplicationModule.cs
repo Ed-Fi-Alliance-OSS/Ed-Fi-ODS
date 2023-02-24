@@ -39,6 +39,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -286,6 +287,10 @@ namespace EdFi.Ods.Api.Container.Modules
             
             builder.RegisterGeneric(typeof(ContextProvider<>))
                 .As(typeof(IContextProvider<>))
+                .SingleInstance();
+            
+            builder.RegisterType<Mediator>()
+                .As<IMediator>()
                 .SingleInstance();
             
             RegisterPipeLineStepProviders();

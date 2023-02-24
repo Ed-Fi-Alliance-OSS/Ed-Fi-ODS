@@ -5,7 +5,6 @@
 
 using System;
 using Autofac;
-using Autofac.Core;
 using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
@@ -20,7 +19,9 @@ using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Metadata.StreamProviders.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Features.Profiles;
+using MediatR;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
@@ -47,21 +48,26 @@ namespace EdFi.Ods.Features.Container.Modules
                     .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (parmInfo, ctx) => parmInfo.ParameterType == typeof(ICacheProvider<ulong>),
-                        (parmInfo, ctx) => new ExpiringConcurrentDictionaryCacheProvider<ulong>(
-                            "Profile Metadata",
-                            TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds))))
+                .WithParameter(ctx =>
+                    {
+                        var mediator = ctx.Resolve<IMediator>();
+
+                        return (ICacheProvider<ulong>)
+                            new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                                "Profile Metadata", 
+                                TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds), 
+                                () => mediator.Publish(new ProfileMetadataCacheExpired()));
+                    }
+                )
                 .Named<IInterceptor>("cache-profile-metadata");
 
             builder.RegisterType<ProfileResourceNamesProvider>()
-                .As<IProfileResourceNamesProvider>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterType<AdminProfileNamesPublisher>()
-                    .As<IAdminProfileNamesPublisher>()
-                    .SingleInstance();
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             builder.RegisterType<ProfileNamePublisher>()
                 .As<IExternalTask>()
@@ -76,7 +82,7 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<ProfileResourceModelProvider>()
-                .As<IProfileResourceModelProvider>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterType<ProfileValidationReporter>()

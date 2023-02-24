@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<OpenApiMetadataCacheProvider>()
-                .As<IOpenApiMetadataCacheProvider>()
+                .AsImplementedInterfaces()
                 .SingleInstance();
 
             builder.RegisterType<InitializeOpenApiMetadataCache>()
