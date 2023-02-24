@@ -173,7 +173,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("ApiSettings:PersonUniqueIdToUsi:SuppressStaffCache") ?? false;
+                            return configuration.GetValue<bool?>("ApiSettings:Caching:PersonUniqueIdToUsi:SuppressStaffCache") ?? false;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
