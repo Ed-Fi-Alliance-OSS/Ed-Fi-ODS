@@ -289,10 +289,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                     principal.Claims.SingleOrDefault(c => c.Type == EdFiOdsApiClaimTypes.ClaimSetName)?.Value;
 
                 response.SecurityExceptionMessage =
-                    $@"Access to the resource could not be authorized. Are you missing a claim? This resource can be authorized by the following claims:
-    {string.Join(Environment.NewLine + "    ", authorizingClaimNames)}
-The API client has been assigned the '{apiClientClaimSetName}' claim set with the following resource claims:
-    {string.Join(Environment.NewLine + "    ", apiClientResourceClaims)}";
+                    $@"Access to the resource could not be authorized. The API client has been assigned the '
+                        {apiClientClaimSetName}' claim set. Assign different claim set which includes one of the following claims to access this resource:
+                        {string.Join(Environment.NewLine + "    ", authorizingClaimNames)}";
 
                 return response;
             }
