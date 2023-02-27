@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 webServiceError = new RESTError
                                   {
                                       Code = (int) HttpStatusCode.Conflict, Type = HttpStatusCode.Conflict.ToString(), Message =
-                                          "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated."
+                                          "A natural key conflict occurred when attempting to update a new resource with a duplicate key."
                                   };
 
                 return true;

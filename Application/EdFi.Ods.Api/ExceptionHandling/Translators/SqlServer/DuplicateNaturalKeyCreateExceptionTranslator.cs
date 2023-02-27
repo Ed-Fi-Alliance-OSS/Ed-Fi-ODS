@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
     public class DuplicateNaturalKeyCreateExceptionTranslator : IExceptionTranslator
     {
         private const string MessageFormat =
-            "A natural key conflict occurred when attempting to create a new resource '{0}' with a duplicate key.  The duplicated columns and values are [{1}] {2} This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was inserted.";
+            "A natural key conflict occurred when attempting to create a new resource '{0}' with a duplicate key.  The duplicated columns and values are [{1}] {2}.";
 
         private static readonly Regex MatchPattern = new Regex(
             @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is (?<Values>\(.*\))\.\s+The statement has been terminated\.\s*$");
