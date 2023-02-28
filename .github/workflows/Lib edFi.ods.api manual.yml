@@ -1,3 +1,8 @@
+# When to Use : 
+   # 1.At the time of  every major/minor version new development must run to get new major/minor version updated in Azure Artifacts 
+   # 2.If any new code changes in Ed-Fi-ODS/Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj project which interacts with ODS/API Solution.
+   # 3.If any .NET new major/minor version upgrade or Nuget package version upgrade happens in Ed-Fi-ODS/Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj  Project.
+
 name: Lib EdFi.Ods.Api Manually triggered build
 
 on:
@@ -22,6 +27,21 @@ jobs:
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
       with:
         dotnet-version: 6.0.x
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        path: Ed-Fi-ODS/
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+        path: Ed-Fi-ODS-Implementation/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+        ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"        
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
