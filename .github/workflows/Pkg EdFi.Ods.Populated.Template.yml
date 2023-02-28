@@ -17,7 +17,7 @@ on:
         default: 'distinct_id'
 
   repository_dispatch:
-    types: [triggered-from-implementation-repo ,triggered-from-datastandard-repo]
+    types: [triggered-from-datastandard-repo]
 env:
   EDFI_STANDARD_REFERENCE: "v4.0.0"
   INFORMATIONAL_VERSION: "7.0"
