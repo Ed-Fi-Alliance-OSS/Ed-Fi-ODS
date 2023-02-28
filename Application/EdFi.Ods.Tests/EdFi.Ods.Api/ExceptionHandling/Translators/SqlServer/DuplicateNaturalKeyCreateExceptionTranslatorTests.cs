@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key.  The duplicated columns and values are [Column1, Column2, Column3] (900007, 9, 2014) This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was inserted.");
+                    "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key.  The duplicated columns and values are [Column1, Column2, Column3] (900007, 9, 2014).");
             }
 
             [Test]
@@ -195,7 +195,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'unknown' with a duplicate key.  The duplicated columns and values are [unknown] (900007, 9, 2014) This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was inserted.");
+                    "A natural key conflict occurred when attempting to create a new resource 'unknown' with a duplicate key.  The duplicated columns and values are [unknown] (900007, 9, 2014).");
             }
         }
 

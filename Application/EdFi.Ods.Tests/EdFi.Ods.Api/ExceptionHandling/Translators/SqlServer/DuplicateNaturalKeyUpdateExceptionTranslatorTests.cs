@@ -127,7 +127,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated.");
+                    "A natural key conflict occurred when attempting to update a new resource with a duplicate key.");
             }
 
             [Test]
