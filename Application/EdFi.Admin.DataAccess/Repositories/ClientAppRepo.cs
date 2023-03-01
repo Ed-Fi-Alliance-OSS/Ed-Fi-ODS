@@ -64,7 +64,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Value);
         }
 
-        private Profile GetOrCreateProfile(string profileName)
+        private Profile GetOrCreateProfile(string profileName, string profileDefinition)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -72,11 +72,29 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 if (profiles == null)
                 {
-                    context.Profiles.Add(new Profile { ProfileName = profileName });
+                    context.Profiles.Add(new Profile { ProfileName = profileName ,ProfileDefinition = profileDefinition });
                     context.SaveChanges();
                 }
 
                 return context.Profiles.FirstOrDefault(s => s.ProfileName == profileName);
+            }
+        }
+
+        public void CreateProfilesWithProfileDefinition(List<Profile> profiles)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                foreach (var profile in profiles)
+                {
+                    var profileExists = context.Profiles.FirstOrDefault(s => s.ProfileName == profile.ProfileName);
+
+                    if (profileExists == null)
+                    {
+                        context.Profiles.Add(new Profile { ProfileName = profile.ProfileName, ProfileDefinition = profile.ProfileDefinition });
+                        
+                    }
+                }
+                context.SaveChanges();
             }
         }
 
@@ -136,13 +154,13 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-        public void AddProfilesToApplication(List<string> profileNames, int applicationId)
+        public void AddProfilesToApplication(List<Profile> profiles, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                foreach (var profileName in profileNames)
+                foreach (var _profile in profiles)
                 {
-                    var profile = GetOrCreateProfile(profileName);
+                    var profile = GetOrCreateProfile(_profile.ProfileName , _profile.ProfileDefinition);
 
                     var currentProfile = context.Profiles
                         .Include(u => u.Applications)
@@ -461,6 +479,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     dbContext.DeleteAll<Application>();
                     dbContext.DeleteAll<Vendor>();
                     dbContext.DeleteAll<OwnershipToken>();
+                    dbContext.DeleteAll<Profile>();
                     context.SaveChanges();
                 }
             }

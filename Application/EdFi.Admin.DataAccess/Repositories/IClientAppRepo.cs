@@ -12,7 +12,9 @@ namespace EdFi.Admin.DataAccess.Repositories
     public interface IClientAppRepo
     {
 
-        void AddProfilesToApplication(List<string> profileNames, int applicationId);
+        void CreateProfilesWithProfileDefinition(List<Profile> profiles);
+
+        void AddProfilesToApplication(List<Profile> profiles, int applicationId);
 
         IEnumerable<User> GetUsers();
 
