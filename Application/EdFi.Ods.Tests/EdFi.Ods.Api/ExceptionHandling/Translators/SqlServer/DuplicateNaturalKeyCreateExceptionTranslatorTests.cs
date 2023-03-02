@@ -4,20 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using Antlr.Runtime;
-using System.Security.Policy;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
 using EdFi.Ods.Tests._Helpers;
 using EdFi.TestFixture;
-using FakeItEasy;
 using NHibernate.Exceptions;
 using NUnit.Framework;
 using Shouldly;
