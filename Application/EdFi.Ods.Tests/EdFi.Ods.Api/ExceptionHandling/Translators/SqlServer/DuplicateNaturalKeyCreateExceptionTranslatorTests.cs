@@ -138,7 +138,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             public void Should_set_a_reasonable_message()
             {
                 actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'StudentProgramAssociation' with a duplicate key. The duplicated columns and values are [BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI] (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1)");
+                    "A natural key conflict occurred when attempting to create a new resource 'StudentProgramAssociation' with a duplicate key. The duplicated columns and values are [BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI] (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1).");
             }
 
             [Test]
