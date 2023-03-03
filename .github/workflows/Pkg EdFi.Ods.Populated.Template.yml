@@ -9,6 +9,8 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main, 'ODS-*']       
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -74,6 +76,18 @@ jobs:
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
+    - name: Cache Nuget packages       
+      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/*.sln', '**/configuration.packages.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+      shell: pwsh                
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -83,7 +97,7 @@ jobs:
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         
-        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy  -NoRestore
       shell: powershell
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/

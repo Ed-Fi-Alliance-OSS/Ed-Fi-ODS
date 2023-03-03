@@ -42,6 +42,17 @@ jobs:
       shell: pwsh
       run: |
         ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"        
+    - name: Cache Nuget packages       
+      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/*.sln', '**/configuration.packages.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    - name: Restore NuGet packages
+      run: |
+        .\build.githubactions.ps1 restore -Solution "Utilities/DataLoading/LoadTools.sln"
+      shell: pwsh
     - name: build
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/DataLoading/LoadTools.sln"
