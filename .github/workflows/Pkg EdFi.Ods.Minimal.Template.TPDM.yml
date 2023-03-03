@@ -87,7 +87,7 @@ jobs:
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/*.sln', '**/configuration.packages.json') }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
     - name: Restore NuGet packages

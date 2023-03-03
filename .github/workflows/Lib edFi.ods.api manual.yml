@@ -7,6 +7,8 @@ name: Lib EdFi.Ods.Api Manually triggered build
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main, 'ODS-*']  
 
 env:
   INFORMATIONAL_VERSION: "7.0"
@@ -32,21 +34,11 @@ jobs:
       with:
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         path: Ed-Fi-ODS/
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-      with:
-        repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-        path: Ed-Fi-ODS-Implementation/
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
-      run: |
-        ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"  
     - name: Cache Nuget packages       
       uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
       with:
         path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/*.sln', '**/configuration.packages.json') }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
     - name: Restore NuGet packages
@@ -66,7 +58,6 @@ jobs:
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj" -PackageName  "EdFi.Suite3.Ods.Api"
       shell: pwsh
     - name: Install-credential-handler
-      working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
