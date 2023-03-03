@@ -211,8 +211,23 @@ function CheckoutBranch {
     }
 }
 
+function Get-IsWindows {
+    <#
+    .SYNOPSIS
+        Checks to see if the current machine is a Windows machine.
+    .EXAMPLE
+        Get-IsWindows returns $True
+    #>
+    if ($null -eq $IsWindows) {
+        # This section will only trigger when the automatic $IsWindows variable is not detected.
+        # Every version of PS released on Linux contains this variable so it will always exist.
+        # $IsWindows does not exist pre PS 6.
+        return $true
+    }
+    return $IsWindows
+}
+
 function InstallCredentialHandler {
-    Import-Module -Force -Scope Global "$PSScriptRoot/../Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
     if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
          Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
