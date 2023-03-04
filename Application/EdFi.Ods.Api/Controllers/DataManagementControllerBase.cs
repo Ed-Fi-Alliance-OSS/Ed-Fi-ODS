@@ -211,6 +211,8 @@ namespace EdFi.Ods.Api.Controllers
             // Add ETag header for the resource
             Response.GetTypedHeaders().ETag = GetEtag(result.Resource.ETag);
 
+            Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());
+
             return Ok(result.Resource);
         }
 
