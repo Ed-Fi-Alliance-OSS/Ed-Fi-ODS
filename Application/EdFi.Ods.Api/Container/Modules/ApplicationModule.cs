@@ -57,6 +57,13 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IFilterMetadata>()
                 .SingleInstance();
 
+            builder.RegisterType<EnforceAssignedProfileUsageFilter>()
+                .SingleInstance();
+
+            builder.RegisterType<DataManagementRequestContextFilter>()
+                .As<IFilterMetadata>()
+                .SingleInstance();
+
             builder.RegisterType<EnterpriseApiVersionProvider>()
                 .As<IApiVersionProvider>()
                 .SingleInstance();
@@ -237,6 +244,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
+            builder.RegisterGeneric(typeof(ContextProvider<>))
+                .As(typeof(IContextProvider<>))
+                .SingleInstance();
+            
             RegisterPipeLineStepProviders();
             RegisterModels();
 
