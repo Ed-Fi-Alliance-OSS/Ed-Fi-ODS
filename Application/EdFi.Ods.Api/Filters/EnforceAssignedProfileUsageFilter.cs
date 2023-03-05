@@ -72,14 +72,6 @@ namespace EdFi.Ods.Api.Filters
                 return;
             }
 
-            // // No profiles assigned? Skip additional processing here now.
-            // if (!apiKeyContext.Profiles.Any())
-            // {
-            //     await next();
-            //
-            //     return;
-            // }
-
             // Determine the relevant content type usage for the current request (readable or writable)
             var relevantContentTypeUsage = context.HttpContext.Request.Method == HttpMethods.Get
                 ? ContentTypeUsage.Readable
@@ -95,24 +87,6 @@ namespace EdFi.Ods.Api.Filters
             }
             
             var resourceFullName = dataManagementResourceContext.Resource.FullName;
-
-            // var assignedProfilesForRequest = apiKeyContext.Profiles.Where(
-            //         p => _profileResourceModelProvider.GetProfileResourceModel(p)
-            //                 .ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
-            //             && (relevantContentTypeUsage == ContentTypeUsage.Readable
-            //                 ? contentTypes.Readable
-            //                 : contentTypes.Writable)
-            //             != null)
-            //     .ToArray();
-            //
-            // // If there are no assigned profiles relevant for this request, skip additional processing here now.
-            // if (assignedProfilesForRequest.Length == 0)
-            // {
-            //     await next();
-            //
-            //     return;
-            // }
-
             var profileContentTypeContext = _profileContentTypeContextProvider.Get();
 
             if (profileContentTypeContext != null)
@@ -163,24 +137,6 @@ namespace EdFi.Ods.Api.Filters
             // No profile content type specified in the request header?
             if (profileContentTypeContext == null)
             {
-                // -------------------------------------------------------------------------------------------------------------------
-                // NOTE: Auto-assign the content type usage if none specified by client, and exactly one relevant profile is assigned
-                // -------------------------------------------------------------------------------------------------------------------
-                // // If there's only one Profile that can be applied, automatically apply it and continue processing
-                // if (assignedProfilesForRequest.Length == 1)
-                // {
-                //     // Auto-assign the appropriate profile usage
-                //     _profileContentTypeContextProvider.Set(
-                //         new ProfileContentTypeContext(
-                //             assignedProfilesForRequest.Single(),
-                //             resourceFullName.Name,
-                //             relevantContentTypeUsage));
-                //
-                //     await next();
-                //     return;
-                // }
-                // -------------------------------------------------------------------------------------------------------------------
-
                 // If there's more than one possible Profile, the client is required to specify which one is in use.
                 await WriteForbiddenResponse();
 
@@ -223,4 +179,3 @@ namespace EdFi.Ods.Api.Filters
         }
     }
 }
-

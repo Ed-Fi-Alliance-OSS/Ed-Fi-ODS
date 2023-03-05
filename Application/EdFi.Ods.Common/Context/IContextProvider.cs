@@ -24,4 +24,3 @@ namespace EdFi.Ods.Common.Context
         void Set(T context);
     }
 }
-

@@ -19,4 +19,3 @@ namespace EdFi.Ods.Api.Startup
         void Configure(IApplicationBuilder builder);
     }
 }
-

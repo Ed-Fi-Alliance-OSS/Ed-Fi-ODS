@@ -7,37 +7,37 @@ using EdFi.Ods.Common.Utils.Profiles;
 
 namespace EdFi.Ods.Common.Profiles
 {
-/// <summary>
-/// Contains the information related to the Profile-specific content type on the current API request.
-/// </summary>
-public class ProfileContentTypeContext
-{
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfileContentTypeContext"/> class using the supplied profile and resource names, and <see cref="ContentTypeUsage" />.
+    /// Contains the information related to the Profile-specific content type on the current API request.
     /// </summary>
-    /// <param name="profileName">The name of the profile from the content type used on the current request.</param>
-    /// <param name="resourceName">The name of the API resource from the content type used on the current request.</param>
-    /// <param name="contentTypeUsage">The content type usage (readable or writable).</param>
-    public ProfileContentTypeContext(string profileName, string resourceName, ContentTypeUsage contentTypeUsage)
+    public class ProfileContentTypeContext
     {
-        ProfileName = profileName;
-        ResourceName = resourceName;
-        ContentTypeUsage = contentTypeUsage;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProfileContentTypeContext"/> class using the supplied profile and resource names, and <see cref="ContentTypeUsage" />.
+        /// </summary>
+        /// <param name="profileName">The name of the profile from the content type used on the current request.</param>
+        /// <param name="resourceName">The name of the API resource from the content type used on the current request.</param>
+        /// <param name="contentTypeUsage">The content type usage (readable or writable).</param>
+        public ProfileContentTypeContext(string profileName, string resourceName, ContentTypeUsage contentTypeUsage)
+        {
+            ProfileName = profileName;
+            ResourceName = resourceName;
+            ContentTypeUsage = contentTypeUsage;
+        }
+
+        /// <summary>
+        /// Gets the name of the profile from the content type used on the current request.
+        /// </summary>
+        public string ProfileName { get; }
+
+        /// <summary>
+        /// Gets the name of the API resource from the content type used on the current request.
+        /// </summary>
+        public string ResourceName { get; }
+
+        /// <summary>
+        /// Gets the content type usage (readable or writable).
+        /// </summary>
+        public ContentTypeUsage ContentTypeUsage { get; }
     }
-
-    /// <summary>
-    /// Gets the name of the profile from the content type used on the current request.
-    /// </summary>
-    public string ProfileName { get; }
-
-    /// <summary>
-    /// Gets the name of the API resource from the content type used on the current request.
-    /// </summary>
-    public string ResourceName { get; }
-
-    /// <summary>
-    /// Gets the content type usage (readable or writable).
-    /// </summary>
-    public ContentTypeUsage ContentTypeUsage { get; }
-}
 }
