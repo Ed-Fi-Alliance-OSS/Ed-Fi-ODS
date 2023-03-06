@@ -4,19 +4,19 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
-using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Builders;
+using EdFi.Ods.Tests._Helpers;
 using EdFi.TestFixture;
-using FakeItEasy;
 using NHibernate.Exceptions;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
     public class DuplicateNaturalKeyCreateExceptionTranslatorTests
     {
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
                 RESTError actualError;
                 result = translator.TryTranslateMessage(exception, out actualError);
             }
@@ -60,7 +60,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -101,36 +101,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         }
 
         [TestFixture]
-        public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_SQL_exception_primary_key_violation : TestFixtureBase
+        public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_SQL_exception_primary_key_violation_for_an_abstract_table : TestFixtureBase
         {
-            private IDatabaseMetadataProvider suppliedMetadataProvider;
             private Exception exception;
             private bool result;
             private RESTError actualError;
+            private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                var resourceModel = new ResourceModel(domainModel);
+                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "studentProgramAssociations");
+                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _contextProvider.Set(new DataManagementResourceContext(resource));
+
                 string mess =
-                    $"Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). {Environment.NewLine}The statement has been terminated.";
+                    $"Violation of PRIMARY KEY constraint 'GeneralStudentProgramAssociation_PK'. Cannot insert duplicate key in object 'edfi.GeneralStudentProgramAssociation'. The duplicate key value is (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1). {Environment.NewLine}The statement has been terminated.";
 
                 exception = NHibernateExceptionBuilder.CreateException("Generic SQL Exception message...", mess);
-                suppliedMetadataProvider = Stub<IDatabaseMetadataProvider>();
-                A.CallTo(() => suppliedMetadataProvider.GetIndexDetails("PK_Session"))
-                    .Returns(
-                        new IndexDetails
-                        {
-                            IndexName = "SomeIndexName",
-                            TableName = "Session",
-                            ColumnNames = new List<string>
-                            {
-                                 "Column1", "Column2", "Column3"
-                            }
-                        });
             }
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(_contextProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -144,7 +138,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key.  The duplicated columns and values are [Column1, Column2, Column3] (900007, 9, 2014).");
+                    "A natural key conflict occurred when attempting to create a new resource 'StudentProgramAssociation' with a duplicate key. The duplicated columns and values are [BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI] (2021-08-30, 255901, 255901, Career and Technical Education, 1921, 1).");
             }
 
             [Test]
@@ -161,27 +155,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         }
 
         [TestFixture]
-        public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_SQL_exception_primary_key_violation_for_unknown_index : TestFixtureBase
+        public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_SQL_exception_primary_key_violation : TestFixtureBase
         {
-            private IDatabaseMetadataProvider suppliedMetadataProvider;
             private Exception exception;
             private bool result;
             private RESTError actualError;
+            private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                var resourceModel = new ResourceModel(domainModel);
+                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "sessions");
+                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _contextProvider.Set(new DataManagementResourceContext(resource));
+
                 string mess =
                     $"Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). {Environment.NewLine}The statement has been terminated.";
 
                 exception = NHibernateExceptionBuilder.CreateException("Generic SQL Exception message...", mess);
-                suppliedMetadataProvider = Stub<IDatabaseMetadataProvider>();
-                A.CallTo(() => suppliedMetadataProvider.GetIndexDetails("PK_Session"))
-                    .Returns(null);
             }
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(_contextProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -195,7 +192,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_set_a_reasonable_message()
             {
                 actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to create a new resource 'unknown' with a duplicate key.  The duplicated columns and values are [unknown] (900007, 9, 2014).");
+                    "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key. The duplicated columns and values are [SchoolId, SchoolYear, SessionName] (900007, 9, 2014).");
+            }
+
+            [Test]
+            public void Should_set_the_exception_type_to_conflict()
+            {
+                actualError.Type.ShouldBe("Conflict");
+            }
+
+            [Test]
+            public void Should_translate_the_exception_to_a_409_error()
+            {
+                actualError.Code.ShouldBe(409);
             }
         }
 
@@ -203,25 +212,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_SQL_exception_primary_key_violation_and_a_backwards_PK_name
             : TestFixtureBase
         {
-            private IDatabaseMetadataProvider suppliedMetadataProvider;
             private Exception exception;
             private bool result;
             private RESTError actualError;
+            private ContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
+                var domainModel = this.LoadDomainModel("GeneralStudentProgramAssociation");
+                var resourceModel = new ResourceModel(domainModel);
+                var resource = resourceModel.GetResourceByApiCollectionName("ed-fi", "sessions");
+                _contextProvider = new ContextProvider<DataManagementResourceContext>(new HashtableContextStorage());
+                _contextProvider.Set(new DataManagementResourceContext(resource));
+
                 var mess =
                     $"Violation of PRIMARY KEY constraint 'BackwardsPkName_PK'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). {Environment.NewLine}The statement has been terminated.";
 
                 exception = NHibernateExceptionBuilder.CreateException("Generic exception message", mess);
-                suppliedMetadataProvider = Stub<IDatabaseMetadataProvider>();
-                A.CallTo(() => suppliedMetadataProvider.GetIndexDetails("BackwardsPkName_PK"))
-                    .Returns(null);
             }
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(_contextProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
             }
 
@@ -250,7 +262,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Act()
             {
-                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
+                var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IContextProvider<DataManagementResourceContext>>());
                 result = translator.TryTranslateMessage(exception, out actualError);
             }
 

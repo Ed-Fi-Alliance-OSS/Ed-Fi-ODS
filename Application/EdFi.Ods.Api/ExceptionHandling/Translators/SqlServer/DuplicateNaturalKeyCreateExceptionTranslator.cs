@@ -9,7 +9,8 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
@@ -17,15 +18,16 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
     public class DuplicateNaturalKeyCreateExceptionTranslator : IExceptionTranslator
     {
         private const string MessageFormat =
-            "A natural key conflict occurred when attempting to create a new resource '{0}' with a duplicate key.  The duplicated columns and values are [{1}] {2}.";
+            "A natural key conflict occurred when attempting to create a new resource '{0}' with a duplicate key. The duplicated columns and values are [{1}] {2}.";
 
         private static readonly Regex MatchPattern = new Regex(
             @"^Violation of PRIMARY KEY constraint '(?<IndexName>\w+)'\.\s+Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'\.\s+The duplicate key value is (?<Values>\(.*\))\.\s+The statement has been terminated\.\s*$");
-        private readonly IDatabaseMetadataProvider _databaseMetadataProvider;
 
-        public DuplicateNaturalKeyCreateExceptionTranslator(IDatabaseMetadataProvider databaseMetadataProvider)
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+
+        public DuplicateNaturalKeyCreateExceptionTranslator(IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
-            _databaseMetadataProvider = databaseMetadataProvider;
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
 
         public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
@@ -42,23 +44,16 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                 if (match.Success)
                 {
-                    string indexName = match.Groups["IndexName"]
-                                            .Value;
+                    var resourceEntity = _dataManagementResourceContextProvider.Get().Resource.Entity;
 
                     string values = match.Groups["Values"]
                                          .Value;
 
-                    var indexDetails = _databaseMetadataProvider.GetIndexDetails(indexName);
+                    string columnNames = resourceEntity.BaseEntity == null ? 
+                        string.Join(", ", resourceEntity.Identifier.Properties.Select(x => x.PropertyName))
+                        : string.Join(", ", resourceEntity.BaseEntity.Identifier.Properties.Select(x => x.PropertyName));
 
-                    string tableName = indexDetails == null
-                        ? "unknown"
-                        : indexDetails.TableName;
-
-                    string columnNames = indexDetails == null
-                        ? "unknown"
-                        : string.Join(", ", indexDetails.ColumnNames.Select(x => x));
-
-                    var message = string.Format(MessageFormat, tableName, columnNames, values);
+                    var message = string.Format(MessageFormat, resourceEntity.Name, columnNames, values);
 
                     webServiceError = new RESTError
                                       {
