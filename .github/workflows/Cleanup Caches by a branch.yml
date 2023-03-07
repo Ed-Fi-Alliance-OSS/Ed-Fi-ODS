@@ -20,19 +20,28 @@ jobs:
           gh extension install actions/gh-actions-cache
           
           REPO=${{ github.repository }}
-          BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
+          PULLREQUESTBRANCH = "refs/pull/${{ github.event.pull_request.number }}/merge"
+
+          cacheKeysForPR = $(gh actions-cache list -R $REPO -B $PULLREQUESTBRANCH | cut -f 1 )          
+          ## Setting this to not fail the workflow while deleting cache keys. 
+          set +e
+          echo "Deleting caches for  PULLREQUESTBRANCH..."
+          for cacheKey in $cacheKeysForPR
+          do
+              gh actions-cache delete $cacheKey -R $REPO -B $PULLREQUESTBRANCH --confirm
+          done
+
+          WORKINGBRANCH =  ${{ GITHUB.HEAD_REF }}         
           echo "HEAD_REF: " ${{ GITHUB.HEAD_REF }}
           echo "REF_NAME: " ${{ GITHUB.REF_NAME }}
           echo "Fetching list of cache key"
-          cacheKeysForPR=$(gh actions-cache list -R $REPO -B $BRANCH | cut -f 1 )
-
-          ## Setting this to not fail the workflow while deleting cache keys. 
+          cacheKeysForPR = $(gh actions-cache list -R $REPO -B $WORKINGBRANCH | cut -f 1 )
           set +e
-          echo "Deleting caches..."
+          echo "Deleting caches for WORKINGBRANCH..."
           for cacheKey in $cacheKeysForPR
           do
-              gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
-          done
+              gh actions-cache delete $cacheKey -R $REPO -B $WORKINGBRANCH --confirm
+          done          
           echo "Done"
         env:
           GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
