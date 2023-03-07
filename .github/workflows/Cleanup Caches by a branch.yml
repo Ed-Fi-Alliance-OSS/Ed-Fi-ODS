@@ -6,16 +6,15 @@
 name: Cleanup Caches by a branch
 on:
   pull_request:
-    types:
-      - opened
+    branches: [main, 'ODS-*']
+    types: [ assigned, opened, synchronize ]
 
 jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
-        
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
       - name: Cleanup
         run: |
           gh extension install actions/gh-actions-cache
@@ -35,4 +34,4 @@ jobs:
           done
           echo "Done"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
