@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -119,17 +119,21 @@ function DotnetClean {
     Invoke-Execute { dotnet clean $Solution -c $Configuration --nologo -v minimal }
 }
 
+function Restore {
+    Invoke-Execute { dotnet restore  $Solution --verbosity:normal }
+}
+
 function Compile {
     Invoke-Execute {
         dotnet --info
-        dotnet build $Solution -c $Configuration --version-suffix $version
+        dotnet build $Solution -c $Configuration --version-suffix $version --no-restore
     }
 }
 
 function Pack {
     if ([string]::IsNullOrWhiteSpace($PackageName) -and [string]::IsNullOrWhiteSpace($NuspecFilePath)){
         Invoke-Execute {
-            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
@@ -137,7 +141,7 @@ function Pack {
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
         Invoke-Execute {
-            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
         }
     }
 }
@@ -165,9 +169,9 @@ function Publish {
 
 function Test {
     if(-not $TestFilter) {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build --no-restore -v normal }
     } else {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" }
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build --no-restore -v normal --filter TestCategory!~"$TestFilter" }
     }
 }
 
@@ -207,8 +211,23 @@ function CheckoutBranch {
     }
 }
 
+function Get-IsWindows {
+    <#
+    .SYNOPSIS
+        Checks to see if the current machine is a Windows machine.
+    .EXAMPLE
+        Get-IsWindows returns $True
+    #>
+    if ($null -eq $IsWindows) {
+        # This section will only trigger when the automatic $IsWindows variable is not detected.
+        # Every version of PS released on Linux contains this variable so it will always exist.
+        # $IsWindows does not exist pre PS 6.
+        return $true
+    }
+    return $IsWindows
+}
+
 function InstallCredentialHandler {
-    Import-Module -Force -Scope Global "$PSScriptRoot/../Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/cross-platform.psm1"
     if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
          Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
@@ -245,6 +264,10 @@ function Invoke-DotnetClean {
     Invoke-Step { DotnetClean }
 }
 
+function Invoke-Restore {
+    Invoke-Step { Restore }
+}
+
 function Invoke-Publish {
     Invoke-Step { Publish }
 }
@@ -268,6 +291,7 @@ function Invoke-InstallCredentialHandler {
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
+        Restore { Invoke-Restore }
         Build { Invoke-Build }
         Test { Invoke-Tests }
         Pack { Invoke-Pack }
