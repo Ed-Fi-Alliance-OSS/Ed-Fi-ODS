@@ -13,7 +13,6 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
@@ -61,7 +60,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _resourceModelProvider = resourceModelProvider;
 
             _openApiMetadataResourceFilters =
-                new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.InvariantCultureIgnoreCase)
+                new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.OrdinalIgnoreCase)
                 {
                     {Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy()},
                     {Resources, new OpenApiMetadataUiResourceOnlyStrategy()},
@@ -69,7 +68,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 };
 
             _openApiMetadataMetadataCache =
-                new ConcurrentDictionary<string, OpenApiContent>(StringComparer.InvariantCultureIgnoreCase);
+                new ConcurrentDictionary<string, OpenApiContent>(StringComparer.OrdinalIgnoreCase);
 
             _openApiMetadataDocumentFactory = openApiMetadataDocumentFactory;
         }
