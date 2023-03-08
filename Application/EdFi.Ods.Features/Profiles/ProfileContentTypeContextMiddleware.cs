@@ -129,9 +129,10 @@ namespace EdFi.Ods.Api.Middleware
                     {
                         await WriteResponse(
                             response,
-                            StatusCodes.Status400BadRequest,
+                            // Should probably be Status400BadRequest, but 405 for backwards compatibility.
+                            StatusCodes.Status405MethodNotAllowed,
                             headerName,
-                            "A profile-based content type that is writable cannot be used with GET requests.");
+                            $"The allowed methods for this resource with the '{profileContentTypeFacets[ProfileNameFacet]}' profile are PUT, POST, DELETE and OPTIONS.");
 
                         return (false, null);
                     }
@@ -141,9 +142,10 @@ namespace EdFi.Ods.Api.Middleware
                     {
                         await WriteResponse(
                             response,
-                            StatusCodes.Status400BadRequest,
+                            // Should probably be Status400BadRequest, but 405 for backwards compatibility.
+                            StatusCodes.Status405MethodNotAllowed,
                             headerName,
-                            "A profile-based content type that is readable cannot be used with PUT or POST requests.");
+                            $"The allowed methods for this resource with the '{profileContentTypeFacets[ProfileNameFacet]}' profile are GET, DELETE and OPTIONS.");
 
                         return (false, null);
                     }
