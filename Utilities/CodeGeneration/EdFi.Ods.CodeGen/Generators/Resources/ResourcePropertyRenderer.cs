@@ -244,25 +244,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             IList<ResourcePropertyData> includedProperties = null;
 
-            if (profileData.HasProfile)
-            {
-                includedProperties = (resource.Name == profileData.SuppliedResource.Name
-                        ? profileData.UnfilteredResource
-                        : resource).InheritedProperties()
-                    .Where(x => !x.IsIdentifying && !x.PropertyName.Equals("Id"))
-                    .OrderBy(x => x.PropertyName)
-                    .Select(
-                        x =>
-                            new ResourcePropertyData
-                            {
-                                Property = x,
-                                IsStandardProperty = !profileData.IsIncluded(resource, x)
-                            })
-                    .ToList();
-            }
-            else
-            {
-                includedProperties = resource.InheritedProperties()
+            includedProperties = resource.InheritedProperties()
                     .OrderBy(x => x.PropertyName)
                     .Where(x => !x.IsIdentifying && !x.PropertyName.Equals("Id"))
                     .Select(
@@ -272,7 +254,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             IsStandardProperty = false
                         })
                     .ToList();
-            }
 
             var propertiesToRender = new List<PropertyData>();
 

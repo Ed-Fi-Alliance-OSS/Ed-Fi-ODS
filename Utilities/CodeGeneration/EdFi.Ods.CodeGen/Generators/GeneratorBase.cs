@@ -18,7 +18,6 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         protected ProfileResourceModelProvider ProfileResourceModelProvider;
         protected IProfileResourceNamesProvider ProfileResourceNamesProvider;
-        protected bool ProjectHasProfileDefinition;
         protected IResourceModelProvider ResourceModelProvider;
         protected TemplateContext TemplateContext;
         protected ProfileMetadataProvider ProfileMetadataProvider;
@@ -28,16 +27,6 @@ namespace EdFi.Ods.CodeGen.Generators
             TemplateContext = Preconditions.ThrowIfNull(templateContext, nameof(templateContext));
             ResourceModelProvider = new ResourceModelProvider(TemplateContext.DomainModelProvider);
 
-            // Profile-related properties
-            ProfileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, templateContext.ProjectPath);
-            ProfileResourceNamesProvider = MetadataHelper.GetProfileResourceNamesProvider(ResourceModelProvider, templateContext.ProjectPath);
-
-            ProfileResourceModelProvider = new ProfileResourceModelProvider(
-                ResourceModelProvider,
-                ProfileMetadataProvider,
-                new ProfileValidationReporter());
-
-            ProjectHasProfileDefinition = ProfileMetadataProvider.ProfileDefinitionsByName.Any();
 
             Configure();
 

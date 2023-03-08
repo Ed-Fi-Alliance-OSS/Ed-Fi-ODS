@@ -24,9 +24,7 @@ namespace EdFi.Ods.CodeGen.Generators
         }
 
         protected override object Build()
-            => ProjectHasProfileDefinition
-                ? GetTemplateModelFromProfileResourceModel()
-                : GetTemplateModelFromResourceModel();
+            => GetTemplateModelFromResourceModel();
 
         private object GetTemplateModelFromProfileResourceModel()
         {

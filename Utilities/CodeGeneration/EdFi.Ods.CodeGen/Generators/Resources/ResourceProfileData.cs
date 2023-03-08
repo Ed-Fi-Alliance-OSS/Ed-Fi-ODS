@@ -19,8 +19,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         /// <remarks>When generating a non-profile constrained resource, this will be the same as the <see cref="SuppliedResource" />.</remarks>
         public Resource UnfilteredResource { get; set; }
 
-        public bool HasProfile { get; set; }
-
         public string ProfileName { get; set; }
 
         /// <summary>
@@ -107,11 +105,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public bool HasFilteredCollection()
         {
-            if (!HasProfile)
-            {
-                return false;
-            }
-
             return SuppliedResource.Collections
                 .Select(x => x)
                 .Concat(
@@ -268,11 +261,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            if (!HasProfile)
-            {
-                return false;
-            }
-
             var filteredCollection = GetFilteredCollection(resource, collection);
 
             if (filteredCollection == null || !IsIncluded(resource, collection))
@@ -303,7 +291,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            if (!HasProfile || IsBaseResource)
+            if (IsBaseResource)
             {
                 return resource.Entity.NavigableChildren.Any();
             }
@@ -328,11 +316,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            if (!HasProfile)
-            {
-                return collection;
-            }
-
             var filteredResource = GetContainedResource(resource) ?? resource;
             return filteredResource.Collections.FirstOrDefault(x => ModelComparers.Collection.Equals(x, collection));
         }
@@ -344,7 +327,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            return HasProfile && SuppliedResource.Name == resource.Name
+            return SuppliedResource.Name == resource.Name
                 ? UnfilteredResource
                 : resource;
         }
@@ -356,7 +339,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            return HasProfile && resource.Name == SuppliedResource.Name
+            return resource.Name == SuppliedResource.Name
                 ? ProfilePropertyNamespaceSection
                 : null;
         }
@@ -401,12 +384,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 throw new ArgumentNullException(nameof(resourceMember));
             }
-
-            if (!HasProfile)
-            {
-                return true;
-            }
-
             if (!IsIncluded(resource))
             {
                 return false;

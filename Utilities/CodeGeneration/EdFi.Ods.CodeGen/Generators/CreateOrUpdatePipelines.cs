@@ -22,76 +22,11 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         protected override void Configure()
         {
-            var profileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, TemplateContext.ProjectPath);
-            ProfileResourceNamesProvider = MetadataHelper.GetProfileResourceNamesProvider(ResourceModelProvider, TemplateContext.ProjectPath);
 
-            var profileValidationReporter = new ProfileValidationReporter();
-
-            ProfileResourceModelProvider = new ProfileResourceModelProvider(
-                ResourceModelProvider,
-                profileMetadataProvider,
-                profileValidationReporter);
-
-            ProjectHasProfileDefinition = profileMetadataProvider.ProfileDefinitionsByName.Any();
         }
 
         protected override object Build()
-            => ProjectHasProfileDefinition
-                ? GetTemplateModelFromProfileResourceModel()
-                : GetTemplateModelFromResourceModel();
-
-        private object GetTemplateModelFromProfileResourceModel()
-        {
-            var profileResourceModels = GetProfileResourceModels();
-
-            return new
-            {
-                RenderGroups = profileResourceModels
-                    .Select(
-                        model => new
-                        {
-                            Model = model,
-                            Namespace = GetNamespace(model.ProfileName)
-                        })
-                    .Select(
-                        x => new
-                        {
-                            x.Namespace,
-                            Resources = x.Model.ResourceByName
-                                .OrderBy(resourceEntry => resourceEntry.Key)
-                                .Where(
-                                    resource => !x.Model.GetResourceByName(resource.Key)
-                                                    .IsAbstract()
-                                                && x.Model.ResourceByName.Any(
-                                                    resourceInProfile
-                                                        => x.Model.ResourceIsWritable(
-                                                            resourceInProfile
-                                                                .Key)))
-                                .Select(
-                                    resource => new
-                                    {
-                                        ResourceName = resource.Key.Name,
-                                        ResourceTypeName =
-                                            NamespaceHelper
-                                                .GetRelativeNamespace(
-                                                    x.Namespace,
-                                                    GetResourceTypeName(
-                                                        x.Model
-                                                            .GetResourceByName(
-                                                                resource.Key),
-                                                        x.Model.ProfileName)),
-                                        EntityTypeName =
-                                            NamespaceHelper
-                                                .GetRelativeNamespace(
-                                                    x.Namespace,
-                                                    GetEntityTypeName(
-                                                        x.Model
-                                                            .GetResourceByName(
-                                                                resource.Key)))
-                                    })
-                        })
-            };
-        }
+            => GetTemplateModelFromResourceModel();
 
         private object GetTemplateModelFromResourceModel()
         {
@@ -127,16 +62,6 @@ namespace EdFi.Ods.CodeGen.Generators
             };
         }
 
-        private IEnumerable<ProfileResourceModel> GetProfileResourceModels()
-        {
-            return ProfileResourceNamesProvider
-                .GetProfileResourceNames()
-                .Select(prn => prn.ProfileName)
-                .Distinct()
-                .Select(
-                    profileName =>
-                        ProfileResourceModelProvider.GetProfileResourceModel(profileName));
-        }
 
         private static string FormatProfileNameForNamespace(string profileName)
         {

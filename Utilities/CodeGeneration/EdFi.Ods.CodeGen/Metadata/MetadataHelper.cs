@@ -68,40 +68,5 @@ namespace EdFi.Ods.CodeGen.Metadata
                 return ms;
             }
         }
-        
-        public static ProfileMetadataProvider GetProfileMetadataProvider(IResourceModelProvider resourceModelProvider, string projectPath)
-        {
-            IProfilesMetadataStreamsProvider[] streamProviders =
-            {
-                GetStreamsProvider(projectPath)
-            };
-
-            IProfileDefinitionsProvider[] definitionsProviders =
-            {
-                new EmbeddedResourceProfileDefinitionsProvider(new ProfileMetadataValidator(resourceModelProvider), streamProviders)
-            };
-
-            var profileMetadataProvider = new ProfileMetadataProvider(definitionsProviders);
-
-            var failedValidationResults = profileMetadataProvider.GetValidationResults()
-                .Where(r => !r.ValidationResult.IsValid)
-                .ToArray();
-
-            if (failedValidationResults.Any())
-            {
-                var result = failedValidationResults.First();
-
-                throw new Exception($"Profile validation failed for '{result.Name}' (from '{result.Source}'): {result.ValidationResult}");
-            }
-
-            return profileMetadataProvider;
-        }
-
-        public static ProfileResourceNamesProvider GetProfileResourceNamesProvider(IResourceModelProvider resourceModelProvider, string projectPath)
-        {
-            var profileResourceNamesProvider = new ProfileResourceNamesProvider(GetProfileMetadataProvider(resourceModelProvider, projectPath));
-
-            return profileResourceNamesProvider;
-        }
     }
 }

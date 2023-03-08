@@ -368,28 +368,6 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private IEnumerable<StandardizedResourceProfileData> GetStandardizedResourceProfileData()
         {
-            if (ProjectHasProfileDefinition)
-            {
-                return ProfileResourceNamesProvider
-                    .GetProfileResourceNames()
-                    .Select(prn => prn.ProfileName)
-                    .Distinct()
-                    .Select(
-                        profileName =>
-                            ProfileResourceModelProvider.GetProfileResourceModel(profileName))
-                    .SelectMany(
-                        prm => prm.Resources.Select(
-                            pct =>
-                                new StandardizedResourceProfileData
-                                {
-                                    Readable = pct.Readable,
-                                    Writable = pct.Writable,
-                                    ProfileName = prm.ProfileName
-                                }))
-                    .OrderBy(spd => spd.ProfileName, StringComparer.OrdinalIgnoreCase)
-                    .ThenBy(x => x.ResolvedResource.Name);
-            }
-
             return ResourceModelProvider.GetResourceModel()
                 .GetAllResources()
                 .Where(r => !r.IsAbstract() && TemplateContext.ShouldRenderResourceClass(r))

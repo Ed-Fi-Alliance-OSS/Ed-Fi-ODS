@@ -293,7 +293,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 ? string.Format(
                                     "{0}.{1}.{2}",
                                     collection.ParentFullName.Name,
-                                    profileData.HasProfile ? resource.SchemaProperCaseName : resource.Entity.BaseEntity.SchemaProperCaseName(),
+                                    resource.Entity.BaseEntity.SchemaProperCaseName(),
                                     profileData.ProfilePropertyNamespaceSection)
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
@@ -324,8 +324,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
                                     OtherEntityPropertyName = a.PropertyMappings.Where(pm => pm.ThisProperty.Equals(rp.EntityProperty)).Select(pm => pm.OtherProperty.PropertyName).Single(),
                                 })
-                                // TODO: Remove this filter with dynamic profiles
-                                .Where(x => !profileData.HasProfile || profileData.IsIncluded(resource, x.Reference))
                                 .Select(x => new
                                 {
                                     Reference = x.Reference,
@@ -448,10 +446,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
         public object OnDeserialize(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)
         {
-            bool shouldRender = !(profileData.HasProfile && !profileData.HasNavigableChildren(resource));
+            bool shouldRender = false;
 
-            if (!profileData.HasProfile
-                && !(resource.Collections.Any() || !resource.IsAggregateRoot() && resource.HasBackReferences()))
+            if (!(resource.Collections.Any() || !resource.IsAggregateRoot() && resource.HasBackReferences()))
             {
                 shouldRender = false;
             }
