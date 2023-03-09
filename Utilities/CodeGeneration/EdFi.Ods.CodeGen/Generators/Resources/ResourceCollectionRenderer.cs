@@ -446,7 +446,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
         public object OnDeserialize(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)
         {
-            bool shouldRender = false;
+            bool shouldRender = !(!profileData.HasNavigableChildren(resource));
 
             if (!(resource.Collections.Any() || !resource.IsAggregateRoot() && resource.HasBackReferences()))
             {
