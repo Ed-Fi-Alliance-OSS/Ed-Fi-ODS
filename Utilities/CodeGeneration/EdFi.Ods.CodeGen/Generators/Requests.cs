@@ -26,52 +26,7 @@ namespace EdFi.Ods.CodeGen.Generators
         protected override object Build()
             => GetTemplateModelFromResourceModel();
 
-        private object GetTemplateModelFromProfileResourceModel()
-        {
-            return new
-            {
-                RenderGroups = GetProfileResourceModels()
-                    .Select(
-                        model => new
-                        {
-                            Resources = model.ResourceByName.OrderBy(resource => resource.Key)
-                                .Where(
-                                    resource => !model.GetResourceByName(resource.Key)
-                                        .IsAbstract())
-                                .Select(
-                                    resource =>
-                                        GetTemplateModelPropertiesForResource(
-                                            GetNamespace(model.GetResourceByName(resource.Key), model.ProfileName),
-                                            ResourceModelProvider.GetResourceModel()
-                                                .GetResourceByFullName(resource.Key),
-                                            GetResourceClassTypeName(
-                                                model.GetResourceByName(resource.Key),
-                                                model.ProfileName),
-                                            model.ResourceIsReadable(resource.Key),
-                                            model.ResourceIsWritable(resource.Key)
-                                            || model.ResourceByName
-                                                .Any(
-                                                    r => r.Value.Writable != null
-                                                         && r.Value.Writable.Entity.IncomingAssociations
-                                                             .Any(
-                                                                 a => a.OtherEntity.FullName == resource.Key
-                                                                      && a.AssociationType
-                                                                      == AssociationViewType.FromBase)),
-                                            model.ResourceIsWritable(resource.Key)
-                                            || model.ResourceByName
-                                                .Any(
-                                                    r => r.Value.Writable != null
-                                                         && r.Value.Writable.Entity.IncomingAssociations
-                                                             .Any(
-                                                                 a => a.OtherEntity.FullName == resource.Key
-                                                                      && a.AssociationType
-                                                                      == AssociationViewType.FromBase)),
-                                            GetProfileContentWritableFormat(resource.Key.Name, model.ProfileName)
-                                        ))
-                        })
-            };
-        }
-
+        
         private object GetTemplateModelFromResourceModel()
         {
             return new
@@ -140,8 +95,7 @@ namespace EdFi.Ods.CodeGen.Generators
             string resourceClassTypeName,
             bool readableContentType,
             bool writableContentType,
-            bool generateWritableFormat,
-            string profileContentWritableFormat = "")
+            bool generateWritableFormat)
         {
             return new
             {
@@ -155,25 +109,8 @@ namespace EdFi.Ods.CodeGen.Generators
                         ? GetReadableContentTypeForResource(resource)
                         : null,
                 WritableContentType = writableContentType,
-                GenerateWritableFormat = generateWritableFormat,
-                ProfileContentWritableFormat = profileContentWritableFormat
+                GenerateWritableFormat = generateWritableFormat
             };
-        }
-
-        private IEnumerable<ProfileResourceModel> GetProfileResourceModels()
-        {
-            return ProfileResourceNamesProvider
-                .GetProfileResourceNames()
-                .Select(prn => prn.ProfileName)
-                .Distinct()
-                .Select(
-                    profileName =>
-                        ProfileResourceModelProvider.GetProfileResourceModel(profileName));
-        }
-
-        private string GetProfileNamespaceName(string profileName)
-        {
-            return profileName.Replace("-", "_");
         }
 
         private string GetNamespace(Resource resource)
@@ -186,31 +123,9 @@ namespace EdFi.Ods.CodeGen.Generators
                     resource.Entity.IsExtensionEntity);
         }
 
-        private string GetNamespace(Resource resource, string profileName)
-        {
-            string baseNamespace = EdFiConventions.BuildNamespace(
-                BaseNamespaceName,
-                TemplateContext.GetSchemaProperCaseNameForResource(resource),
-                resource.Entity.PluralName,
-                resource.Entity.IsExtensionEntity);
-
-            return $"{baseNamespace}.{GetProfileNamespaceName(profileName)}";
-        }
-
         private string GetResourceClassTypeName(Resource resource)
         {
             string resourceNamespace = EdFiConventions.CreateResourceNamespace(resource);
-
-            return $"{resourceNamespace}.{resource.Name}";
-        }
-
-        private string GetResourceClassTypeName(Resource resource, string profileName)
-        {
-            string resourceNamespace =
-                EdFiConventions.CreateResourceNamespace(
-                    resource,
-                    GetProfileNamespaceName(profileName),
-                    "_Writable");
 
             return $"{resourceNamespace}.{resource.Name}";
         }
@@ -220,14 +135,6 @@ namespace EdFi.Ods.CodeGen.Generators
             return property.IsDescriptorUsage || property.PropertyName.EndsWith("UniqueId")
                 ? "string"
                 : property.PropertyType.ToCSharp();
-        }
-
-        private string GetProfileContentWritableFormat(string resourceName, string profileName)
-        {
-            return string.Format(
-                "[ProfileContentType(\"application/vnd.ed-fi.{0}.{1}.writable+json\")]",
-                resourceName.ToCamelCase(),
-                profileName);
         }
     }
 }

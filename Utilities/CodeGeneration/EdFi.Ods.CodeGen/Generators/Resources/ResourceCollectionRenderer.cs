@@ -254,20 +254,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             public string ExtensionNamespacePrefix { get; set; }
         }
 
-        public class ItemFilterValidation {
-            public string PropertyName { get; set; }
-
-            public string ValidatorName { get; set; }
-
-            public string ValidatorPropertyName { get; set; }
-
-            public string PropertyFieldName { get; set; }
-
-            public string Filters { get; set; }
-
-            public string ProfileName { get; set; }
-        }
-
         public object CreatePutPostRequestValidator(
             ResourceProfileData profileData,
             ResourceClassBase resource,

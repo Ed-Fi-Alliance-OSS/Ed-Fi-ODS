@@ -3,30 +3,22 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Linq;
 using EdFi.Common;
-using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Models;
-using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators
 {
     public abstract class GeneratorBase : IGenerator
     {
-        protected ProfileResourceModelProvider ProfileResourceModelProvider;
-        protected IProfileResourceNamesProvider ProfileResourceNamesProvider;
         protected IResourceModelProvider ResourceModelProvider;
         protected TemplateContext TemplateContext;
-        protected ProfileMetadataProvider ProfileMetadataProvider;
 
         public object Generate(TemplateContext templateContext)
         {
             TemplateContext = Preconditions.ThrowIfNull(templateContext, nameof(templateContext));
             ResourceModelProvider = new ResourceModelProvider(TemplateContext.DomainModelProvider);
-
 
             Configure();
 

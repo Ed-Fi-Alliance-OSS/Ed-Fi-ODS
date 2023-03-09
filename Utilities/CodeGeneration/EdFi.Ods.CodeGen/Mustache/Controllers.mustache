@@ -32,9 +32,6 @@ namespace {{ControllersNamespace}}
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    {{#ProfileContentType}}
-    [ProfileContentType("{{ContentType}}")]
-    {{/ProfileContentType}}
     [Route("{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceReadModel}},
@@ -73,17 +70,7 @@ namespace {{ControllersNamespace}}
             return "{{ReadContentType}}";
         }
         {{/ReadContentType}}
-        {{#OverrideHttpFunctions}}
 
-        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IActionResult> {{MethodName}}({{MethodParameters}})
-        {
-            return Task.FromResult<IActionResult>(
-                StatusCode(StatusCodes.Status405MethodNotAllowed,
-                ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
-        }
-        {{/OverrideHttpFunctions}}
     }
 }
 {{/Controllers}}

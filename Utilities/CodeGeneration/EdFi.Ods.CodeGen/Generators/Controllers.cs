@@ -19,7 +19,6 @@ namespace EdFi.Ods.CodeGen.Generators
     public class Controllers : GeneratorBase
     {
         private const string NullRequest = "Null{0}Request";
-        private const string ProfileContentTypeBase = "application/vnd.ed-fi.{0}.{1}.{2}";
 
         private string BaseNamespaceName { get; set; }
 
@@ -66,11 +65,9 @@ namespace EdFi.Ods.CodeGen.Generators
                     resourceData,
                     r => r.AllRequestProperties()),
                 ResourceCollectionName = resourceData.ResolvedResource.PluralName.ToCamelCase(),
-                ReadContentType = FormatReadContentType(resourceData),
                 OverrideHttpFunctions = FormatHttpFunctionOverrides(resourceData),
                 ExtensionNamespacePrefix = FormatExtensionNamespacePrefix(resourceData),
-                IsExtensionContext = TemplateContext.IsExtension,
-                ProfileContentType = FormatProfileContentType(resourceData)
+                IsExtensionContext = TemplateContext.IsExtension
             };
         }
 
@@ -157,29 +154,6 @@ namespace EdFi.Ods.CodeGen.Generators
                             RequestProperty = y.PropertyName
                         })
             };
-        }
-
-        private static object FormatProfileContentType(StandardizedResourceProfileData resourceData)
-        {
-            return resourceData.ProfileName == null
-                ? null
-                : new {ContentType = $"application/vnd.ed-fi.{resourceData.ResolvedResource.Name}.{resourceData.ProfileName}".ToLower()};
-        }
-
-        private static string FormatReadContentType(StandardizedResourceProfileData resourceData)
-        {
-            return resourceData.ProfileName == null
-                ? null
-                : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource.Name, resourceData.ProfileName, "readable+json")
-                    .ToLower();
-        }
-
-        private static string FormatWriteContentType(StandardizedResourceProfileData resourceData)
-        {
-            return resourceData.ProfileName == null
-                ? null
-                : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource.Name, resourceData.ProfileName, "writable+json")
-                    .ToLower();
         }
 
         private string FormatControllersNamespace(StandardizedResourceProfileData resourceData)
@@ -350,7 +324,6 @@ namespace EdFi.Ods.CodeGen.Generators
                 ? null
                 : new
                 {
-                    ContentType = FormatReadContentType(resourceData),
                     ClassName = FormatNullReadRequest(resourceData)
                 };
 
@@ -358,7 +331,6 @@ namespace EdFi.Ods.CodeGen.Generators
                 ? null
                 : new
                 {
-                    ContentType = FormatWriteContentType(resourceData),
                     ClassName = FormatNullWriteRequest(resourceData)
                 };
 

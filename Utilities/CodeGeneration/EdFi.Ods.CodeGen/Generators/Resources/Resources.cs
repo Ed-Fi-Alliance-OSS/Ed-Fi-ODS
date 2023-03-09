@@ -33,9 +33,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         protected override void Configure()
         {
             _resourceProfileProvider = new ResourceProfileProvider(
-                new ResourceModelProvider(TemplateContext.DomainModelProvider),
-                TemplateContext,
-                new ProfileValidationReporter());
+                new ResourceModelProvider(TemplateContext.DomainModelProvider));
         }
 
         protected override object Build()
