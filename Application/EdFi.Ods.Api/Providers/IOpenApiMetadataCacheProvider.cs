@@ -14,6 +14,6 @@ namespace EdFi.Ods.Api.Providers
 
         OpenApiContent GetOpenApiContentByFeedName(string feedName);
 
-        void InitializeCache();
+        void ResetCacheInitialization();
     }
 }

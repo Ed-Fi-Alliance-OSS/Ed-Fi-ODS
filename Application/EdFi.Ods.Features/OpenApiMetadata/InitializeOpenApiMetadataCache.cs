@@ -22,7 +22,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata
         public void Execute()
         {
             // Populate the swagger metadata cache at runtime instead of per request.
-            _openApiMetadataCacheProvider.InitializeCache();
+            _openApiMetadataCacheProvider.ResetCacheInitialization();
         }
     }
 }
