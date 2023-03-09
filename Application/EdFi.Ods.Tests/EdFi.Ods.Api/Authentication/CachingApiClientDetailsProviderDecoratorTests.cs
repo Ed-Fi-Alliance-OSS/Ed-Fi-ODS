@@ -29,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             var cacheKeyProvider = A.Fake<IApiClientDetailsCacheKeyProvider>();
             A.CallTo(() => cacheKeyProvider.GetCacheKey(suppliedTokenString)).Returns("theCacheKey");
 
-            var cacheProvider = A.Fake<ICacheProvider>();
+            var cacheProvider = A.Fake<ICacheProvider<string>>();
             object outObject;
 
             A.CallTo(() => cacheProvider.TryGetCachedObject("theCacheKey", out outObject))
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             var cacheKeyProvider = A.Fake<IApiClientDetailsCacheKeyProvider>();
             A.CallTo(() => cacheKeyProvider.GetCacheKey(suppliedTokenString)).Returns("theCacheKey");
 
-            var cacheProvider = A.Fake<ICacheProvider>();
+            var cacheProvider = A.Fake<ICacheProvider<string>>();
             object outObject;
 
             A.CallTo(() => cacheProvider.TryGetCachedObject("theCacheKey", out outObject))

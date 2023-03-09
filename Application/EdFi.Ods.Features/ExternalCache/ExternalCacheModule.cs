@@ -89,7 +89,7 @@ namespace EdFi.Ods.Features.ExternalCache
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(ICacheProvider),
+                        (p, c) => p.ParameterType == typeof(ICacheProvider<string>),
                         (p, c) =>
                         {
                             int expirationPeriod = ApiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.ExternalCache
             .WithParameter(new NamedParameter("synchronousInitialization", false))
             .WithParameter(
                 new ResolvedParameter(
-                  (p, c) => p.Name.Equals("cacheProvider", StringComparison.InvariantCultureIgnoreCase),
+                  (p, c) => p.ParameterType == typeof(ICacheProvider<string>),
                   (p, c) =>
                   {
                       int period = ApiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;

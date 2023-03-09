@@ -27,9 +27,9 @@ namespace EdFi.Ods.Api.Caching
 
         private readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
         private readonly ISecurityContextFactory _securityContextFactory;
-        private readonly ICacheProvider _cacheProvider;
+        private readonly ICacheProvider<string> _cacheProvider;
 
-        public InstanceSecurityRepositoryCache(ISecurityContextFactory securityContextFactory, ICacheProvider cacheProvider)
+        public InstanceSecurityRepositoryCache(ISecurityContextFactory securityContextFactory, ICacheProvider<string> cacheProvider)
         {
             _securityContextFactory = Preconditions.ThrowIfNull(securityContextFactory, nameof(securityContextFactory));
             _cacheProvider = Preconditions.ThrowIfNull(cacheProvider, nameof(cacheProvider));

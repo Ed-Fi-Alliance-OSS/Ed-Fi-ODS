@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace EdFi.Ods.Api.Providers
 {
-    public class MemoryCacheProvider : ICacheProvider
+    public class MemoryCacheProvider : ICacheProvider<string>
     {
         private static readonly object _nullObject = new object();
         private readonly IMemoryCache _memoryCache;

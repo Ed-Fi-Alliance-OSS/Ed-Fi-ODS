@@ -46,17 +46,17 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<MemoryCacheProvider>()
-                .As<ICacheProvider>()
+                .As<ICacheProvider<string>>()
                 .SingleInstance();
 
-            builder.RegisterType<ConcurrentDictionaryCacheProvider>()
+            builder.RegisterType<ConcurrentDictionaryCacheProvider<string>>()
                 .AsSelf()
                 .SingleInstance();
 
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(ICacheProvider),
+                        (p, c) => p.ParameterType == typeof(ICacheProvider<string>),
                         (p, c) =>
                         {
                             var configuration = c.Resolve<IConfiguration>();
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int expirationPeriod =
                                 configuration.GetValue<int?>("ApiSettings:Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
 
-                            return new ExpiringConcurrentDictionaryCacheProvider("Descriptors", TimeSpan.FromSeconds(expirationPeriod));
+                            return new ExpiringConcurrentDictionaryCacheProvider<string>("Descriptors", TimeSpan.FromSeconds(expirationPeriod));
                         }))
                 .As<IDescriptorsCache>()
                 .SingleInstance();

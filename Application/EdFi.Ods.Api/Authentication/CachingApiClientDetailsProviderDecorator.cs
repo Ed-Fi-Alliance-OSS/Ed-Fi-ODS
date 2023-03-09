@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Authentication
     public class CachingApiClientDetailsProviderDecorator : IApiClientDetailsProvider
     {
         // Dependencies
-        private readonly ICacheProvider _cacheProvider;
+        private readonly ICacheProvider<string> _cacheProvider;
         private readonly IApiClientDetailsCacheKeyProvider _apiClientDetailsCacheKeyProvider;
         private readonly IApiClientDetailsProvider _next;
 
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.Authentication
         /// <param name="apiClientDetailsCacheKeyProvider">The cache key provider.</param>
         public CachingApiClientDetailsProviderDecorator(
             IApiClientDetailsProvider next,
-            ICacheProvider cacheProvider,
+            ICacheProvider<string> cacheProvider,
             IApiClientDetailsCacheKeyProvider apiClientDetailsCacheKeyProvider)
         {
             _next = next;

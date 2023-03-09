@@ -30,14 +30,14 @@ namespace EdFi.Ods.Api.Caching
         private readonly object _cacheInitializationLocker = new object();
 
         private readonly ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
-        private readonly ICacheProvider _cacheProvider;
+        private readonly ICacheProvider<string> _cacheProvider;
         private readonly IDescriptorLookupProvider _descriptorLookupProvider;
         private readonly IEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
         private readonly int _databaseSynchronizationExpirationSeconds;
 
         public DescriptorsCache(
             IDescriptorLookupProvider descriptorLookupProvider,
-            ICacheProvider cacheProvider,
+            ICacheProvider<string> cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
             ApiSettings apiSettings)
         {

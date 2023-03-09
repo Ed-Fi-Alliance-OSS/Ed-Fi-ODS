@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.Caching
         /// <remarks>This method exists to serve the cache to the NHibernate-generated entities in a way
         /// that does not require IoC component resolution, for performance reasons.</remarks>
         public static Func<IPersonUniqueIdToUsiCache> GetCache = () => null;
-        private readonly ICacheProvider _cacheProvider;
+        private readonly ICacheProvider<string> _cacheProvider;
         private readonly IEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
 
         private readonly ReaderWriterLockSlim _identityValueMapsLock = new ReaderWriterLockSlim();
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Api.Caching
         /// <param name="suppressStaffCache">Indicates whether staff UniqueId/USI mappings should be cached, or retrieved on demand with each request (caching is suppressed).</param>
         /// <param name="suppressParentCache">Indicates whether parent UniqueId/USI mappings should be cached, or retrieved on demand with each request (caching is suppressed).</param>
         public PersonUniqueIdToUsiCache(
-            ICacheProvider cacheProvider,
+            ICacheProvider<string> cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
             IUniqueIdToUsiValueMapper uniqueIdToUsiValueMapper,
             IPersonIdentifiersProvider personIdentifiersProvider,

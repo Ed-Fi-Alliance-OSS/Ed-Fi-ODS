@@ -7,12 +7,12 @@ using System;
 
 namespace EdFi.Ods.Common.Caching
 {
-    public interface ICacheProvider
+    public interface ICacheProvider<in TKey>
     {
-        bool TryGetCachedObject(string key, out object value);
+        bool TryGetCachedObject(TKey key, out object value);
 
-        void SetCachedObject(string keyName, object obj);
+        void SetCachedObject(TKey key, object obj);
 
-        void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration);
+        void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration);
     }
 }

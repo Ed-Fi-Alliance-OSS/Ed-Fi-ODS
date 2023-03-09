@@ -12,17 +12,17 @@ using log4net;
 
 namespace EdFi.Ods.Api.Caching
 {
-    public class ExpiringConcurrentDictionaryCacheProvider : ICacheProvider
+    public class ExpiringConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>
     {
-        private readonly IDictionary<string, object> _cacheDictionary = new ConcurrentDictionary<string, object>();
         private readonly string _description;
+        private readonly IDictionary<TKey, object> _cacheDictionary = new ConcurrentDictionary<TKey, object>();
 
-        private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringConcurrentDictionaryCacheProvider));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringConcurrentDictionaryCacheProvider<>));
 
         private Timer _timer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider" /> class using the
+        /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider{TKey}" /> class using the
         /// specified recurring expiration period.
         /// </summary>
         /// <param name="description">A description of the contents of the cached data for information/logging purposes.</param>
@@ -33,17 +33,17 @@ namespace EdFi.Ods.Api.Caching
             _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
         }
 
-        public bool TryGetCachedObject(string key, out object value)
+        public bool TryGetCachedObject(TKey key, out object value)
         {
             return _cacheDictionary.TryGetValue(key, out value);
         }
 
-        public void SetCachedObject(string keyName, object obj)
+        public void SetCachedObject(TKey key, object obj)
         {
-            _cacheDictionary[keyName] = obj;
+            _cacheDictionary[key] = obj;
         }
 
-        public void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+        public void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             _cacheDictionary[key] = value;
         }
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Api.Caching
         {
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider)} cache '{_description}' expired (all entries cleared).");
+                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' expired (all entries cleared).");
             }
 
             _cacheDictionary.Clear();
