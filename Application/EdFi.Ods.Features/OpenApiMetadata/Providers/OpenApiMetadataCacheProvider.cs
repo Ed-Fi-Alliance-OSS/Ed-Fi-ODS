@@ -118,7 +118,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             var sw = new Stopwatch();
             sw.Start();
 
-            var newCache = new ConcurrentDictionary<string, OpenApiContent>();
+            var newCache = new ConcurrentDictionary<string, OpenApiContent>(StringComparer.OrdinalIgnoreCase);
             
             foreach (IOpenApiMetadataRouteInformation openApiMetadataRouteInformation in _openApiMetadataRouteInformations)
             {
