@@ -2023,7 +2023,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2032,7 +2032,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2123,7 +2122,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2132,7 +2131,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2209,7 +2207,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2218,7 +2216,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2315,7 +2312,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2324,7 +2321,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2410,7 +2406,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2419,7 +2415,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								}
@@ -2508,7 +2503,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2517,7 +2512,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2608,7 +2602,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2617,7 +2611,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2686,7 +2679,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2695,7 +2688,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2792,7 +2784,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2801,7 +2793,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -5044,7 +5035,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks//{{supplied:{{scenarioId}}:academicWeeksGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{supplied:{{scenarioId}}:academicWeeksGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5053,7 +5044,6 @@
 										"v3",
 										"ed-fi",
 										"academicWeeks",
-										"",
 										"{{supplied:{{scenarioId}}:academicWeeksGuid}}"
 									]
 								},
@@ -6352,7 +6342,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students//{{known:studentGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:studentGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6361,7 +6351,6 @@
 										"v3",
 										"ed-fi",
 										"students",
-										"",
 										"{{known:studentGuid}}"
 									]
 								},
@@ -6460,7 +6449,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6468,8 +6457,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"students",
-										""
+										"students"
 									]
 								},
 								"description": "Scenario: The caller requests a resource not covered by any of their assigned profiles using the standard content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/json\"\r\n    Then the response should indicate success"
@@ -6663,7 +6651,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students//{{known:studentGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:studentGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -6672,7 +6660,6 @@
 										"v3",
 										"ed-fi",
 										"students",
-										"",
 										"{{known:studentGuid}}"
 									]
 								},
