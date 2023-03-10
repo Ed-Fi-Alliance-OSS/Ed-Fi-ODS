@@ -106,11 +106,18 @@ namespace EdFi.Ods.Api.Filters
                 {
                     var profileResourceModel = _profileResourceModelProvider.GetProfileResourceModel(profileContentTypeContext.ProfileName);
 
-                    if (!profileResourceModel.ResourceByName.TryGetValue(resourceFullName, out var contentTypes)
-                        || (relevantContentTypeUsage == ContentTypeUsage.Readable ? contentTypes.Readable : contentTypes.Writable) == null)
+                    if (!profileResourceModel.ResourceByName.TryGetValue(resourceFullName, out var contentTypes))
                     {
-                        string errorMessage = $"The '{dataManagementResourceContext.Resource.Name}' resource is not accessible through the '{profileContentTypeContext.ProfileName}' profile specified by the content type.";
+                        string errorMessage = $"The '{resourceFullName.Name}' resource is not accessible through the '{profileContentTypeContext.ProfileName}' profile specified by the content type.";
                         await WriteErrorResponse(StatusCodes.Status400BadRequest, errorMessage);
+
+                        return;
+                    }
+                    
+                    if ((relevantContentTypeUsage == ContentTypeUsage.Readable ? contentTypes.Readable : contentTypes.Writable) == null)
+                    {
+                        string errorMessage = $"The allowed methods for this resource with the '{profileContentTypeContext.ProfileName}' profile are {(relevantContentTypeUsage == ContentTypeUsage.Readable ? "PUT, POST" : "GET")}, DELETE and OPTIONS.";
+                        await WriteErrorResponse(StatusCodes.Status405MethodNotAllowed, errorMessage);
 
                         return;
                     }
