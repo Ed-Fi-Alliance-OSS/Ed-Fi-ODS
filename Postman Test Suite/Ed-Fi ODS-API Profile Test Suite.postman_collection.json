@@ -6812,8 +6812,6 @@
 					"",
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_StudentOnlyResourceIncludeAll\",\"AccessToken_ProfileTest_StudentOnlyResourceIncludeAll\",\"ApiKey_ProfileTest_StudentOnlyResourceIncludeAll\",\"ApiSecret_ProfileTest_StudentOnlyResourceIncludeAll\")",
 					"",
-					"CreateAccessToken(\"TokenExpiry_ProfileTest_StudentOnly_ResourceIncludeAll\",\"AccessToken_ProfileTest_StudentOnly_ResourceIncludeAll\",\"ApiKey_ProfileTest_StudentOnly_ResourceIncludeAll\",\"ApiSecret_ProfileTest_StudentOnly_ResourceIncludeAll\")",
-					"",
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"AccessToken_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"ApiKey_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"ApiSecret_ProfileTest_StaffOnlyStudentOnlyIncludeAll\")",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
