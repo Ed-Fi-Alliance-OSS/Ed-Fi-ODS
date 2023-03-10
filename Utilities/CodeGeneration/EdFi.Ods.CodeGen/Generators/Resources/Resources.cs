@@ -14,7 +14,6 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
@@ -400,7 +399,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .GetSchemaMapByPhysicalName(contextualParent.FullName.Schema)
                     .ProperCaseName;
 
-            var collections = _resourceCollectionRenderer.Collections(profileData, resourceClass, TemplateContext);
+            var collections = _resourceCollectionRenderer.Collections(profileData, resourceClass);
 
             return new
             {
@@ -424,7 +423,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 NonIdentifiers = _resourcePropertyRenderer.AssembleProperties(resourceClass),
                 InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(profileData, resourceClass),
                 InheritedCollections =
-                    _resourceCollectionRenderer.InheritedCollections(profileData, resourceClass, TemplateContext),
+                    _resourceCollectionRenderer.InheritedCollections(profileData, resourceClass),
                 OnDeserialize = _resourceCollectionRenderer.OnDeserialize(profileData, resourceClass, TemplateContext),
                 Guid =
                     resourceClass.IsAggregateRoot()
@@ -434,12 +433,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             GuidConverterTypeName = "GuidConverter"
                         }
                         : ResourceRenderer.DoNotRenderProperty,
-                NavigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(profileData, resourceClass),
-                InheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(profileData, resourceClass),
+                NavigableOneToOnes = _resourceCollectionRenderer.NavigableOneToOnes(resourceClass),
+                InheritedNavigableOneToOnes = _resourceCollectionRenderer.InheritedNavigableOneToOnes(resourceClass),
                 Versioning = resourceClass.IsAggregateRoot()
                     ? ResourceRenderer.DoRenderProperty
                     : ResourceRenderer.DoNotRenderProperty,
-                References = _resourceCollectionRenderer.References(profileData, resourceClass, TemplateContext),
+                References = _resourceCollectionRenderer.References(profileData, resourceClass),
                 FQName = resourceClass.FullName,
                 IsAbstract = resourceClass.IsAbstract(),
                 IsAggregateRoot = resourceClass.IsAggregateRoot(),
@@ -462,7 +461,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 DerivedBaseTypeName = resourceClass.IsDerived && resourceClass.Entity != null
                     ? resourceClass.Entity.BaseEntity?.Name
                     : ResourceRenderer.DoNotRenderProperty,
-                FilteredDelegates = _resourceCollectionRenderer.FilteredDelegates(profileData, resourceClass),
+                FilteredDelegates = _resourceCollectionRenderer.FilteredDelegates(resourceClass),
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
                 IsExtendable = resourceClass.IsExtendable(),

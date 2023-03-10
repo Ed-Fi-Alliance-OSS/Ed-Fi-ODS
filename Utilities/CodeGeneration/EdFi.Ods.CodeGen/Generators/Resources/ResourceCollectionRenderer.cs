@@ -20,8 +20,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         public object InheritedCollections(
             ResourceProfileData profileData,
-            ResourceClassBase resource,
-            TemplateContext templateContext)
+            ResourceClassBase resource)
         {
             if (resource.IsDescriptorEntity())
             {
@@ -73,8 +72,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public object Collections(
             ResourceProfileData profileData,
-            ResourceClassBase resourceClass,
-            TemplateContext TemplateContext)
+            ResourceClassBase resourceClass)
         {
             var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
 
@@ -127,7 +125,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 + ".";
         }
 
-        public object FilteredDelegates(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        public object FilteredDelegates(ResourceClassBase resourceClass)
         {
             var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
 
@@ -333,7 +331,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             };
         }
 
-        public object References(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)
+        public object References(ResourceProfileData profileData, ResourceClassBase resource)
         {
             var activeResource = profileData.GetProfileActiveResource(resource);
 
@@ -537,7 +535,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return ResourceRenderer.DoNotRenderProperty;
         }
 
-        public object NavigableOneToOnes(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        public object NavigableOneToOnes(ResourceClassBase resourceClass)
         {
             var embeddedObjectPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.EmbeddedObjects);
 
@@ -558,7 +556,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 .ToList();
         }
 
-        public object InheritedNavigableOneToOnes(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        public object InheritedNavigableOneToOnes(ResourceClassBase resourceClass)
         {
             var embeddedObjectPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.EmbeddedObjects);
 

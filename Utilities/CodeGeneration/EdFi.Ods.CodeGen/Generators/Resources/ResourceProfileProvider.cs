@@ -5,10 +5,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
