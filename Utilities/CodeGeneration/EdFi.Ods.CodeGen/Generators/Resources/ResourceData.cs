@@ -16,7 +16,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         /// <summary>
         /// Gets the version of the resource guaranteed not to have any filters applied.
         /// </summary>
-        /// <remarks>When generating a non-profile constrained resource, this will be the same as the <see cref="SuppliedResource" />.</remarks>
+        /// <remarks>When generating a non-profile constrained resource, this will be the same as the <see cref="Resource" />.</remarks>
         public Resource UnfilteredResource { get; set; }
 
         public string ProfileName { get; set; }
@@ -34,13 +34,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         public bool IsBaseResource { get; set; }
 
         /// <summary>
-        /// Gets the supplied resource class, which may or may not be filtered (Profile-based resources may be filtered).
+        /// Gets the supplied resource class.
         /// </summary>
-        public Resource SuppliedResource { get; set; }
-
-        public bool IsReadable { get; set; }
-
-        public bool IsWritable { get; set; }
+        public Resource Resource { get; set; }
 
         public string ResourceName
         {
@@ -83,12 +79,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 }
 
                 //TODO: JSM - Embedded convention -converting profile name to a C# property with namespace
-                return (ProfileNamespaceSegment + "." + SuppliedResource.Name + ".").TrimStart('.');
+                return (ProfileNamespaceSegment + "." + Resource.Name + ".").TrimStart('.');
             }
         }
 
         /// <summary>
-        /// Gets the contextual root resource, which may be the <see cref="SuppliedResource" /> or its base resource class (if applicable, and depending on the code generation context).
+        /// Gets the contextual root resource, which may be the <see cref="Resource" /> or its base resource class (if applicable, and depending on the code generation context).
         /// </summary>
         /// <returns>The contextual root resource, to be used only for evaluating whether to generate a class for the root.</returns>
         public Resource ContextualRootResource { get; set; }
@@ -105,10 +101,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public bool HasFilteredCollection()
         {
-            return SuppliedResource.Collections
+            return Resource.Collections
                 .Select(x => x)
                 .Concat(
-                    SuppliedResource.Collections
+                    Resource.Collections
                         .SelectMany(x => x.ItemType.Collections))
                 .Any(x => x.ValueFilters.Any());
         }
@@ -125,14 +121,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(property));
             }
 
-            if (IsBaseResource && SuppliedResource.IsDerived && resource.Entity.IsBase)
+            if (IsBaseResource && Resource.IsDerived && resource.Entity.IsBase)
             {
                 return true;
             }
 
-            if (resource.Name == SuppliedResource.Name)
+            if (resource.Name == Resource.Name)
             {
-                return SuppliedResource.AllProperties
+                return Resource.AllProperties
                     .Contains(property, ModelComparers.ResourceProperty);
             }
 
@@ -151,7 +147,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return true;
             }
 
-            if (SuppliedResource.Extensions.SelectMany(
+            if (Resource.Extensions.SelectMany(
                     e => e.ObjectType.AllProperties)
                 .Contains(
                     property,
@@ -241,7 +237,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(collection));
             }
 
-            if (IsBaseResource && SuppliedResource.IsDerived)
+            if (IsBaseResource && Resource.IsDerived)
             {
                 return true;
             }
@@ -278,8 +274,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            return SuppliedResource != null
-                ? SuppliedResource.AllContainedItemTypes.SingleOrDefault(
+            return Resource != null
+                ? Resource.AllContainedItemTypes.SingleOrDefault(
                     x => ModelComparers.Resource.Equals(x, resource))
                 : null;
         }
@@ -296,9 +292,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return resource.Entity.NavigableChildren.Any();
             }
 
-            if (resource.Name == SuppliedResource.Name)
+            if (resource.Name == Resource.Name)
             {
-                return SuppliedResource.Collections.Any();
+                return Resource.Collections.Any();
             }
 
             return resource.Collections.Any() || resource.HasBackReferences();
@@ -327,7 +323,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            return SuppliedResource.Name == resource.Name
+            return Resource.Name == resource.Name
                 ? UnfilteredResource
                 : resource;
         }
@@ -339,7 +335,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 throw new ArgumentNullException(nameof(resource));
             }
 
-            return resource.Name == SuppliedResource.Name
+            return resource.Name == Resource.Name
                 ? ProfilePropertyNamespaceSection
                 : null;
         }
@@ -353,8 +349,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             // We include the parent resource as included   
             // OR   check to see if any Extensions's ObjectTypes match the input resource.Name
-            if (SuppliedResource.Name == resource.Name
-                || SuppliedResource.Extensions.Select(x => x.ObjectType.Name)
+            if (Resource.Name == resource.Name
+                || Resource.Extensions.Select(x => x.ObjectType.Name)
                     .Any(x => x == resource.Name))
             {
                 return true;
@@ -363,12 +359,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             // we are looking if the resource is the parent resource, and if any of its children are referenced in the profile.
             if (IsBaseResource && (resource as ResourceChildItem)?.Parent == null)
             {
-                return SuppliedResource.AllContainedItemTypes
+                return Resource.AllContainedItemTypes
                     .Select(x => x.Entity)
                     .Contains(resource.Entity, ModelComparers.Entity);
             }
 
-            return SuppliedResource.AllContainedItemTypes
+            return Resource.AllContainedItemTypes
                 .Select(x => x.Entity)
                 .Contains(resource.Entity, ModelComparers.Entity);
         }
@@ -389,9 +385,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return false;
             }
 
-            if (resource.Name == SuppliedResource.Name)
+            if (resource.Name == Resource.Name)
             {
-                return SuppliedResource.AllMembers.Any(x => x.PropertyName == resourceMember.PropertyName);
+                return Resource.AllMembers.Any(x => x.PropertyName == resourceMember.PropertyName);
             }
 
             var filteredResource = GetContainedResource(resource);

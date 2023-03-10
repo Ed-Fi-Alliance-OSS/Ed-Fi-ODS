@@ -23,19 +23,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace {{ControllersNamespace}}
 {
-    {{#NullRequests}}
-    [ExcludeFromCodeCoverage]
-    public class {{ClassName}} : NullRequestBase { }
-
-    {{/NullRequests}}
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
     [Route("{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
-        {{ResourceReadModel}},
-        {{ResourceWriteModel}},
+        {{ResourceModel}},
         {{EntityInterface}},
         {{AggregateRoot}},
         {{PutRequest}},
