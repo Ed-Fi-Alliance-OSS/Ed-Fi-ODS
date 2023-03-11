@@ -19,11 +19,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
         
         /// <summary>
-        /// Indicates that the resource model representation is a "base" resource from which other resources are derived.
-        /// </summary>
-        public bool IsBaseResource { get; set; }
-
-        /// <summary>
         /// Gets the supplied resource class.
         /// </summary>
         public Resource Resource { get; }
@@ -59,11 +54,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             if (resource == null)
             {
                 throw new ArgumentNullException(nameof(resource));
-            }
-
-            if (IsBaseResource)
-            {
-                return resource.Entity.NavigableChildren.Any();
             }
 
             if (resource.Name == Resource.Name)

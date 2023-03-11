@@ -236,15 +236,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     return !x.IsInheritedChildItem;
                                 }
 
-                                // For contexts where the root resource class is a base class, only render its children
-                                // if the concrete version of the resource needs it.
-                                if (resourceData.IsBaseResource)
-                                {
-                                    return resourceData.Resource
-                                        .AllContainedItemTypes.Any(
-                                            i => x.FullName == i.FullName);
-                                }
-
                                 return true;
                             })
                         .OrderBy(x => x.Name)
@@ -328,13 +319,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             if (resourceChildItem == null)
             {
                 return null;
-            }
-
-            if (resourceData.IsBaseResource && resourceChildItem.IsInheritedChildItem)
-            {
-                return resourceData.Resource.AllContainedItemTypes.Single(
-                        x => x.FullName == resourceChildItem.FullName)
-                    .Parent;
             }
 
             return resourceChildItem.Parent;
