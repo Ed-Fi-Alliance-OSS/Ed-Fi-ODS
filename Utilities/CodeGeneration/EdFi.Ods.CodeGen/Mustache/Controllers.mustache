@@ -52,9 +52,6 @@ namespace {{ControllersNamespace}}
             {{#Properties}}
             specification.{{SpecificationProperty}} = request.{{RequestProperty}};
             {{/Properties}}
-            {{^HasProperties}}
-            throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-            {{/HasProperties}}
         {{/MapAllExpression}}
         }
         {{#ReadContentType}}

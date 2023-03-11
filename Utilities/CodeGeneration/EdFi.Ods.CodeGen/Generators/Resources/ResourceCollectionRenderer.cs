@@ -209,7 +209,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 ? string.Format(
                                     "{0}.{1}.",
                                     collection.ParentFullName.Name,
-                                    resource.Entity.BaseEntity.SchemaProperCaseName()) // TODO: Removed Profile argument here, is condition even used?
+                                    resource.Entity.BaseEntity.SchemaProperCaseName())
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
                 KeyUnificationValidations = new KeyUnificationValidation

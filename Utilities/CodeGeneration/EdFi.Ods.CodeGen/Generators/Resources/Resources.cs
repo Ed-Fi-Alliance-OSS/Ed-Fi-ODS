@@ -60,13 +60,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
 
         private IEnumerable<string> GetSchemaProperCaseNames(
-            List<ResourceData> profileDatas,
+            List<ResourceData> resourceDatas,
             ISchemaNameMapProvider schemaNameMapProvider)
         {
             return new[] {EdFiConventions.ProperCaseName}
                 .Concat(
                     TemplateContext.IsExtension
-                        ? profileDatas
+                        ? resourceDatas
                             .SelectMany(pd => pd.Resource.AllContainedItemTypes)
                             .Select(x => x.FullName.Schema)
                             .Except(EdFiConventions.PhysicalSchemaName)
@@ -247,7 +247,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        private object CreateContextSpecificResourceReferences(ResourceData resourceData, ResourceClassBase resource)
+        private object CreateContextSpecificResourceReferences(ResourceClassBase resource)
         {
             if (resource.IsAggregateRoot() || !resource.HasBackReferences())
             {
@@ -312,9 +312,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return refs;
         }
 
-        private ResourceClassBase GetContextualParent(
-            ResourceChildItem resourceChildItem,
-            ResourceData resourceData)
+        private ResourceClassBase GetContextualParent(ResourceChildItem resourceChildItem)
         {
             if (resourceChildItem == null)
             {
@@ -357,7 +355,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             // Contextual parent handling
             var resourceAsChildItem = resourceClass as ResourceChildItem;
-            var contextualParent = GetContextualParent(resourceAsChildItem, resourceData);
+            var contextualParent = GetContextualParent(resourceAsChildItem);
 
             var parentProperCaseSchemaName =
                 contextualParent?.ResourceModel.SchemaNameMapProvider
@@ -378,10 +376,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         Href = AssembleHref(resourceClass)
                     }
                     : ResourceRenderer.DoNotRenderProperty,
-                ContextSpecificResourceReferences = CreateContextSpecificResourceReferences(resourceData, resourceClass),
+                ContextSpecificResourceReferences = CreateContextSpecificResourceReferences(resourceClass),
                 ClassName = resourceClass.Name,
                 EntityName = resourceClass.Name,
-                Constructor = AssembleConstructor(resourceData, resourceClass),
+                Constructor = AssembleConstructor(resourceClass),
                 HasCollections = ((IList) collections).Count > 0,
                 Collections = collections,
                 Identifiers = _resourcePropertyRenderer.AssemblePrimaryKeys(resourceData, resourceClass, TemplateContext),
@@ -470,8 +468,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             ClassName = x.Association.ThisEntity.Name,
                             ReferenceName = x.Association.Name,
                             MappedReferenceDataHasDiscriminator = x.Association.OtherEntity.HasDiscriminator(),
-                            ReferenceIncluded = resourceClass.References.Select(r => r.Association.Association)
-                                .Contains(x.Association.Association),
 
                             // References to core entities for extension entities are on the interface of the extension entity
                             Namespace = resourceClass.Entity.IsEdFiStandardEntity
@@ -480,7 +476,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         });
         }
 
-        private object AssembleConstructor(ResourceData resourceData, ResourceClassBase resource)
+        private object AssembleConstructor(ResourceClassBase resource)
         {
             return resource.Collections.Any()
                 ? new
@@ -520,16 +516,16 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        private object AssembleHref(ResourceClassBase resource, AssociationView association = null)
+        private object AssembleHref(ResourceClassBase resourceClass, AssociationView association = null)
         {
-            if (resource.IsAggregateRoot())
+            if (resourceClass.IsAggregateRoot())
             {
                 return new
                 {
                     StandardLink = new
                     {
-                        ResourceName = resource.Name,
-                        ResourceBaseRoute = GetResourceCollectionRelativeRoute(resource as Resource),
+                        ResourceName = resourceClass.Name,
+                        ResourceBaseRoute = GetResourceCollectionRelativeRoute(resourceClass as Resource),
                     }
                 };
             }

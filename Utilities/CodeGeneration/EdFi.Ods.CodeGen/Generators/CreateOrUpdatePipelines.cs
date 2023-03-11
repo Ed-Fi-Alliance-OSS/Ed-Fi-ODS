@@ -58,14 +58,7 @@ namespace EdFi.Ods.CodeGen.Generators
         }
 
 
-        private static string FormatProfileNameForNamespace(string profileName)
-        {
-            return profileName == null
-                ? string.Empty
-                : string.Format(".{0}", profileName.Replace("-", "_"));
-        }
-
-        private string GetResourceTypeName(Resource resource, string profileName = null)
+        private string GetResourceTypeName(Resource resource)
         {
             string resourceNamespace = EdFiConventions.CreateResourceNamespace(resource);
 
@@ -78,7 +71,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 resource.SchemaProperCaseName);
         }
 
-        private string GetNamespace(string profileName = null)
+        private string GetNamespace()
         {
             var fullyQualifiedNamespace =
                 string.Format(
@@ -88,12 +81,7 @@ namespace EdFi.Ods.CodeGen.Generators
                         ? $".{TemplateContext.SchemaProperCaseName}"
                         : string.Empty);
 
-            return profileName == null
-                ? fullyQualifiedNamespace
-                : string.Format(
-                    "{0}{1}",
-                    fullyQualifiedNamespace,
-                    FormatProfileNameForNamespace(profileName));
+            return fullyQualifiedNamespace;
         }
     }
 }
