@@ -41,9 +41,6 @@ namespace EdFi.Ods.Common.Conventions
             string @namespace = EdFiConventions.CreateResourceNamespace(
                 EdFiConventions.ProperCaseName,
                 resourceName,
-                null,
-                null,
-                null,
                 extensionName);
 
             string extensionResourceClassTypeName = $"{@namespace}.{GetExtensionClassName(containingClassName)}";
@@ -77,34 +74,13 @@ namespace EdFi.Ods.Common.Conventions
             {
                 //If standard type exists in profile assembly, use edFiStandardType assembly name.
                 //Otherwise, use extension conventions to determine assembly name.
-                bool isProfileAssembly = EdFiConventions.IsProfileAssembly(edFiStandardType.Assembly);
-
-                extensionAssemblyName = isProfileAssembly
-                    ? edFiStandardType.Assembly.GetName()
-                        .Name
-                    : GetExtensionAssemblyName(extensionName);
-
-                var profileName = string.Empty;
-
-                if (isProfileAssembly)
-                {
-                    //In This case we are within a profile context
-                    //the profile name is on the end of the assembly name
-                    if (!string.IsNullOrWhiteSpace(edFiStandardType.Namespace))
-                    {
-                        profileName = edFiStandardType.Namespace.Split('.')
-                            .Last();
-                    }
-                }
+                extensionAssemblyName = GetExtensionAssemblyName(extensionName);
 
                 var aggregateName = ParseAggregateNameFromResourceType(edFiStandardType);
 
                 @namespace = EdFiConventions.CreateResourceNamespace(
                     EdFiConventions.ProperCaseName,
                     aggregateName,
-                    profileName,
-                    null,
-                    null,
                     extensionName);
 
                 extensionClassTypeName = $"{@namespace}.{GetExtensionClassName(edFiStandardType.Name)}";
