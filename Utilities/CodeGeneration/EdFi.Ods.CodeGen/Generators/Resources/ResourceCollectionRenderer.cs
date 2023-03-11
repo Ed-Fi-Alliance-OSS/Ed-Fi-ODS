@@ -266,7 +266,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         {
             var references = resource.References.ToList();
 
-            if (!references.Any(r => data.IsIncluded(resource, r, out var implicitOnly) || implicitOnly))
+            if (!references.Any())
             {
                 return ResourceRenderer.DoNotRenderProperty;
             }
@@ -276,7 +276,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return new
                 {
                     Collections = references
-                        .Where(r => data.IsIncluded(resource, r, out var implicitOnly) || implicitOnly)
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x =>
@@ -292,8 +291,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     ? x.ReferenceTypeName
                                     : $"{x.ReferencedResourceName}.{x.ReferencedResource.Entity.SchemaProperCaseName()}.{x.ReferenceTypeName}";
 
-                                data.IsIncluded(resource, x, out var implicitOnly);
-                                
                                 return new
                                 {
                                     Reference = new
@@ -317,7 +314,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                         PropertyFieldName = x.PropertyName.ToCamelCase(),
                                         IsRequired = x.IsRequired,
                                         IsIdentifying = x.Association.IsIdentifying,
-                                        ImplicitOnly = implicitOnly
                                     },
                                     Standard = ResourceRenderer.DoRenderProperty
                                 };
@@ -411,8 +407,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 };
             }
 
-            if (resource.Collections.Any(c => data.IsIncluded(resource, c))
-                || !resource.IsAggregateRoot() && resource.References.Any(x => data.IsIncluded(resource, x)))
+            if (resource.Collections.Any() || !resource.IsAggregateRoot() && resource.References.Any())
             {
                 return new
                 {
@@ -420,7 +415,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ? ResourceRenderer.DoRenderProperty
                         : ResourceRenderer.DoNotRenderProperty,
                     BackRefCollections = resource.References
-                        .Where(x => data.IsIncluded(resource, x))
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x => new

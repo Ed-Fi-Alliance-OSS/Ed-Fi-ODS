@@ -151,10 +151,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 ResourceName = resourceData.ResourceName,
                 ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
-                    resourceData.ContextualRootResource),
+                    resourceData.Resource),
                 ResourceClasses = CreateContextualResourceClasses(
                     resourceData,
-                    resourceData.ContextualRootResource.FullName.Schema),
+                    resourceData.Resource.FullName.Schema),
                 IsAbstract = resourceData.IsAbstract
             };
 
@@ -164,13 +164,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
 
             // Process resources based on Ed-Fi standard resources for possible resource extensions
-            if (resourceData.ContextualRootResource.IsEdFiStandardResource)
+            if (resourceData.Resource.IsEdFiStandardResource)
             {
                 // Get all the extension physical schema names present on the current resource model
                 string[] extensionSchemaPhysicalNames =
-                    !resourceData.ContextualRootResource.IsEdFiStandardResource
+                    !resourceData.Resource.IsEdFiStandardResource
                         ? new string[0]
-                        : resourceData.ContextualRootResource.AllContainedItemTypes
+                        : resourceData.Resource.AllContainedItemTypes
                             .Select(i => i.FullName.Schema)
                             .Except(
                                 new[] {EdFiConventions.PhysicalSchemaName})
@@ -188,7 +188,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     {
                         ResourceName = resourceData.ResourceName,
                         ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
-                            resourceData.ContextualRootResource,
+                            resourceData.Resource,
                             extensionSchemaProperCaseName),
                         ResourceClasses = CreateContextualResourceClasses(
                             resourceData,
@@ -209,14 +209,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             string contextualSchemaPhysicalName)
         {
             var contextualItemFullNames =
-                new HashSet<FullName>(resourceData.ContextualRootResource.AllContainedItemTypes.Select(x => x.FullName));
+                new HashSet<FullName>(resourceData.Resource.AllContainedItemTypes.Select(x => x.FullName));
 
             var resourceClasses =
 
                 // Create the model for the root class of the resource (if it should be rendered in the current context)
-                (TemplateContext.ShouldRenderResourceClass(resourceData.ContextualRootResource)
-                 && resourceData.ContextualRootResource.FullName.Schema == contextualSchemaPhysicalName
-                    ? new[] {CreateResourceClass(resourceData, resourceData.ContextualRootResource)}
+                (TemplateContext.ShouldRenderResourceClass(resourceData.Resource)
+                 && resourceData.Resource.FullName.Schema == contextualSchemaPhysicalName
+                    ? new[] {CreateResourceClass(resourceData, resourceData.Resource)}
                     : new object[0])
 
                 // Add in all the Contained Item Types for the resource
@@ -233,7 +233,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                         // When generating non-Ed-Fi schema for an Ed-Fi resource, only include resource extension classes, otherwise only include non-resource-extension classes.
                         .Where(
-                            x => x.IsResourceExtension == (resourceData.ContextualRootResource.IsEdFiStandardResource
+                            x => x.IsResourceExtension == (resourceData.Resource.IsEdFiStandardResource
                                                            && contextualSchemaPhysicalName != EdFiConventions.PhysicalSchemaName))
                         .Where(
                             x =>
@@ -343,7 +343,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             if (resourceData.IsBaseResource && resourceChildItem.IsInheritedChildItem)
             {
-                return resourceData.ContextualRootResource.AllContainedItemTypes.Single(
+                return resourceData.Resource.AllContainedItemTypes.Single(
                         x => x.FullName == resourceChildItem.FullName)
                     .Parent;
             }
@@ -534,7 +534,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         .Where(
                             x =>
                                 !x.IsInherited
-                                && resourceData.IsIncluded(resource, x)
                                 && TemplateContext.ShouldRenderResourceClass(
                                     x.ItemType))
                         .Select(
