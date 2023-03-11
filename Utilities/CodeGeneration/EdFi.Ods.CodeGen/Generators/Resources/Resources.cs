@@ -60,14 +60,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
 
         private IEnumerable<string> GetSchemaProperCaseNames(
-            List<ResourceProfileData> profileDatas,
+            List<ResourceData> profileDatas,
             ISchemaNameMapProvider schemaNameMapProvider)
         {
             return new[] {EdFiConventions.ProperCaseName}
                 .Concat(
                     TemplateContext.IsExtension
                         ? profileDatas
-                            .SelectMany(pd => pd.SuppliedResource.AllContainedItemTypes)
+                            .SelectMany(pd => pd.Resource.AllContainedItemTypes)
                             .Select(x => x.FullName.Schema)
                             .Except(EdFiConventions.PhysicalSchemaName)
                             .Distinct()
@@ -144,21 +144,18 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 .ToList();
         }
 
-        private IEnumerable<object> CreateResourceContextModels(ResourceProfileData profileData)
+        private IEnumerable<object> CreateResourceContextModels(ResourceData resourceData)
         {
             // Create the context for the main resource
             var resourceContext = new
             {
-                ResourceName = profileData.ResourceName,
+                ResourceName = resourceData.ResourceName,
                 ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
-                    profileData.ContextualRootResource,
-                    profileData.ProfileNamespaceName,
-                    profileData.ReadableWritableContext,
-                    profileData.ConcreteResourceContext),
+                    resourceData.ContextualRootResource),
                 ResourceClasses = CreateContextualResourceClasses(
-                    profileData,
-                    profileData.ContextualRootResource.FullName.Schema),
-                IsAbstract = profileData.IsAbstract
+                    resourceData,
+                    resourceData.ContextualRootResource.FullName.Schema),
+                IsAbstract = resourceData.IsAbstract
             };
 
             if (resourceContext.ResourceClasses != ResourceRenderer.DoNotRenderProperty)
@@ -167,13 +164,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
 
             // Process resources based on Ed-Fi standard resources for possible resource extensions
-            if (profileData.ContextualRootResource.IsEdFiStandardResource)
+            if (resourceData.ContextualRootResource.IsEdFiStandardResource)
             {
                 // Get all the extension physical schema names present on the current resource model
                 string[] extensionSchemaPhysicalNames =
-                    !profileData.ContextualRootResource.IsEdFiStandardResource
+                    !resourceData.ContextualRootResource.IsEdFiStandardResource
                         ? new string[0]
-                        : profileData.ContextualRootResource.AllContainedItemTypes
+                        : resourceData.ContextualRootResource.AllContainedItemTypes
                             .Select(i => i.FullName.Schema)
                             .Except(
                                 new[] {EdFiConventions.PhysicalSchemaName})
@@ -189,18 +186,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                     var extensionContext = new
                     {
-                        ResourceName = profileData.ResourceName,
-                        ResourceClassesNamespace =
-                            EdFiConventions.CreateResourceNamespace(
-                                profileData.ContextualRootResource,
-                                profileData.ProfileNamespaceName,
-                                profileData.ReadableWritableContext,
-                                profileData.ConcreteResourceContext,
-                                extensionSchemaProperCaseName),
+                        ResourceName = resourceData.ResourceName,
+                        ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
+                            resourceData.ContextualRootResource,
+                            extensionSchemaProperCaseName),
                         ResourceClasses = CreateContextualResourceClasses(
-                            profileData,
+                            resourceData,
                             extensionSchemaPhysicalName),
-                        IsAbstract = profileData.IsAbstract
+                        IsAbstract = resourceData.IsAbstract
                     };
 
                     if (extensionContext.ResourceClasses != ResourceRenderer.DoNotRenderProperty)
@@ -212,23 +205,23 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
 
         private object CreateContextualResourceClasses(
-            ResourceProfileData profileData,
+            ResourceData resourceData,
             string contextualSchemaPhysicalName)
         {
             var contextualItemFullNames =
-                new HashSet<FullName>(profileData.ContextualRootResource.AllContainedItemTypes.Select(x => x.FullName));
+                new HashSet<FullName>(resourceData.ContextualRootResource.AllContainedItemTypes.Select(x => x.FullName));
 
             var resourceClasses =
 
                 // Create the model for the root class of the resource (if it should be rendered in the current context)
-                (TemplateContext.ShouldRenderResourceClass(profileData.ContextualRootResource)
-                 && profileData.ContextualRootResource.FullName.Schema == contextualSchemaPhysicalName
-                    ? new[] {CreateResourceClass(profileData, profileData.ContextualRootResource)}
+                (TemplateContext.ShouldRenderResourceClass(resourceData.ContextualRootResource)
+                 && resourceData.ContextualRootResource.FullName.Schema == contextualSchemaPhysicalName
+                    ? new[] {CreateResourceClass(resourceData, resourceData.ContextualRootResource)}
                     : new object[0])
 
                 // Add in all the Contained Item Types for the resource
                 .Concat(
-                    profileData.SuppliedResource
+                    resourceData.Resource
                         .AllContainedItemTypes
 
                         // Where the item should be generated for the current resource namespace context
@@ -240,22 +233,22 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                         // When generating non-Ed-Fi schema for an Ed-Fi resource, only include resource extension classes, otherwise only include non-resource-extension classes.
                         .Where(
-                            x => x.IsResourceExtension == (profileData.ContextualRootResource.IsEdFiStandardResource
+                            x => x.IsResourceExtension == (resourceData.ContextualRootResource.IsEdFiStandardResource
                                                            && contextualSchemaPhysicalName != EdFiConventions.PhysicalSchemaName))
                         .Where(
                             x =>
                             {
                                 // For contexts where the root resource class is derived, don't render inherited children
-                                if (profileData.IsDerived)
+                                if (resourceData.IsDerived)
                                 {
                                     return !x.IsInheritedChildItem;
                                 }
 
                                 // For contexts where the root resource class is a base class, only render its children
                                 // if the concrete version of the resource needs it.
-                                if (profileData.IsBaseResource)
+                                if (resourceData.IsBaseResource)
                                 {
-                                    return profileData.SuppliedResource
+                                    return resourceData.Resource
                                         .AllContainedItemTypes.Any(
                                             i => x.FullName == i.FullName);
                                 }
@@ -263,7 +256,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 return true;
                             })
                         .OrderBy(x => x.Name)
-                        .Select(x => CreateResourceClass(profileData, x)))
+                        .Select(x => CreateResourceClass(resourceData, x)))
                 .ToList();
 
             return resourceClasses.Any()
@@ -274,7 +267,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        private object CreateContextSpecificResourceReferences(ResourceProfileData profileData, ResourceClassBase resource)
+        private object CreateContextSpecificResourceReferences(ResourceData resourceData, ResourceClassBase resource)
         {
             if (resource.IsAggregateRoot() || !resource.HasBackReferences())
             {
@@ -316,10 +309,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     }),
                             ReferenceIdentifiers =
                                 _resourcePropertyRenderer.AssembleIdentifiers(
-                                    profileData,
                                     resource,
                                     av),
-                            Href = AssembleHref(profileData, resource, av),
+                            Href = AssembleHref(resource, av),
                             HasDiscriminator = av.OtherEntity.HasDiscriminator(),
                             ThisEntityName = av.ThisEntity.Name,
                             OtherEntityName = av.OtherEntity.Name,
@@ -342,16 +334,16 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         private ResourceClassBase GetContextualParent(
             ResourceChildItem resourceChildItem,
-            ResourceProfileData profileData)
+            ResourceData resourceData)
         {
             if (resourceChildItem == null)
             {
                 return null;
             }
 
-            if (profileData.IsBaseResource && resourceChildItem.IsInheritedChildItem)
+            if (resourceData.IsBaseResource && resourceChildItem.IsInheritedChildItem)
             {
-                return profileData.ContextualRootResource.AllContainedItemTypes.Single(
+                return resourceData.ContextualRootResource.AllContainedItemTypes.Single(
                         x => x.FullName == resourceChildItem.FullName)
                     .Parent;
             }
@@ -359,7 +351,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return resourceChildItem.Parent;
         }
 
-        private object CreateResourceClass(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        private object CreateResourceClass(ResourceData resourceData, ResourceClassBase resourceClass)
         {
             // NOTE model matching
             if (resourceClass.IsAbstract())
@@ -370,8 +362,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     {
                         ReferenceName = resourceClass.Name,
                         ReferenceIdentifiers =
-                            _resourcePropertyRenderer.AssembleIdentifiers(profileData, resourceClass),
-                        Href = AssembleHref(profileData, resourceClass),
+                            _resourcePropertyRenderer.AssembleIdentifiers(resourceClass),
+                        Href = AssembleHref(resourceClass),
                         HasDiscriminator = resourceClass.Entity.HasDiscriminator()
                     },
                     ShouldRenderClass = false,
@@ -388,18 +380,18 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return new {ShouldRenderClass = false};
             }
 
-            object putPostRequestValidator = _resourceCollectionRenderer.CreatePutPostRequestValidator(profileData, resourceClass, TemplateContext);
+            object putPostRequestValidator = _resourceCollectionRenderer.CreatePutPostRequestValidator(resourceData, resourceClass, TemplateContext);
 
             // Contextual parent handling
             var resourceAsChildItem = resourceClass as ResourceChildItem;
-            var contextualParent = GetContextualParent(resourceAsChildItem, profileData);
+            var contextualParent = GetContextualParent(resourceAsChildItem, resourceData);
 
             var parentProperCaseSchemaName =
                 contextualParent?.ResourceModel.SchemaNameMapProvider
                     .GetSchemaMapByPhysicalName(contextualParent.FullName.Schema)
                     .ProperCaseName;
 
-            var collections = _resourceCollectionRenderer.Collections(profileData, resourceClass);
+            var collections = _resourceCollectionRenderer.Collections(resourceData, resourceClass);
 
             return new
             {
@@ -409,22 +401,22 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     {
                         ReferenceName = resourceClass.Name,
                         ReferenceIdentifiers = _resourcePropertyRenderer
-                            .AssembleIdentifiers(profileData, resourceClass),
-                        Href = AssembleHref(profileData, resourceClass)
+                            .AssembleIdentifiers(resourceClass),
+                        Href = AssembleHref(resourceClass)
                     }
                     : ResourceRenderer.DoNotRenderProperty,
-                ContextSpecificResourceReferences = CreateContextSpecificResourceReferences(profileData, resourceClass),
+                ContextSpecificResourceReferences = CreateContextSpecificResourceReferences(resourceData, resourceClass),
                 ClassName = resourceClass.Name,
                 EntityName = resourceClass.Name,
-                Constructor = AssembleConstructor(profileData, resourceClass),
+                Constructor = AssembleConstructor(resourceData, resourceClass),
                 HasCollections = ((IList) collections).Count > 0,
                 Collections = collections,
-                Identifiers = _resourcePropertyRenderer.AssemblePrimaryKeys(profileData, resourceClass, TemplateContext),
+                Identifiers = _resourcePropertyRenderer.AssemblePrimaryKeys(resourceData, resourceClass, TemplateContext),
                 NonIdentifiers = _resourcePropertyRenderer.AssembleProperties(resourceClass),
-                InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(profileData, resourceClass),
+                InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(resourceClass),
                 InheritedCollections =
-                    _resourceCollectionRenderer.InheritedCollections(profileData, resourceClass),
-                OnDeserialize = _resourceCollectionRenderer.OnDeserialize(profileData, resourceClass, TemplateContext),
+                    _resourceCollectionRenderer.InheritedCollections(resourceData, resourceClass),
+                OnDeserialize = _resourceCollectionRenderer.OnDeserialize(resourceData, resourceClass, TemplateContext),
                 Guid =
                     resourceClass.IsAggregateRoot()
                         ? new
@@ -438,7 +430,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 Versioning = resourceClass.IsAggregateRoot()
                     ? ResourceRenderer.DoRenderProperty
                     : ResourceRenderer.DoNotRenderProperty,
-                References = _resourceCollectionRenderer.References(profileData, resourceClass),
+                References = _resourceCollectionRenderer.References(resourceData, resourceClass),
                 FQName = resourceClass.FullName,
                 IsAbstract = resourceClass.IsAbstract(),
                 IsAggregateRoot = resourceClass.IsAggregateRoot(),
@@ -465,8 +457,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 ShouldRenderValidator = putPostRequestValidator != ResourceRenderer.DoNotRenderProperty,
                 Validator = putPostRequestValidator,
                 IsExtendable = resourceClass.IsExtendable(),
-                HasSupportedExtensions = profileData.SuppliedResource.Extensions.Any(),
-                SupportedExtensions = profileData.SuppliedResource.Extensions.OrderBy(f => f.PropertyName)
+                HasSupportedExtensions = resourceData.Resource.Extensions.Any(),
+                SupportedExtensions = resourceData.Resource.Extensions.OrderBy(f => f.PropertyName)
                     .Select(e => new {ExtensionName = TemplateContext.GetSchemaProperCaseNameForExtension(e)}),
                 IsEdFiResource = resourceClass.IsEdFiResource(),
                 NamespacePrefix = resourceClass.GetNamespacePrefix(),
@@ -515,16 +507,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         });
         }
 
-        private object AssembleConstructor(ResourceProfileData profileData, ResourceClassBase resource)
+        private object AssembleConstructor(ResourceData resourceData, ResourceClassBase resource)
         {
-            string ns = profileData.GetProfileNamespace(resource);
-
-            var activeResource = profileData.GetProfileActiveResource(resource);
-
-            return activeResource.Collections.Any()
+            return resource.Collections.Any()
                 ? new
                 {
-                    Inherited = resource.IsDerived && activeResource.Collections.Any(x => x.IsInherited)
+                    Inherited = resource.IsDerived && resource.Collections.Any(x => x.IsInherited)
                         ? ResourceRenderer.DoRenderProperty
                         : ResourceRenderer.DoNotRenderProperty,
                     InheritedCollections = resource.Collections
@@ -536,7 +524,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     BaseEntity =
                                         $"{resource.Entity.BaseEntity.Name}.{resource.Entity.BaseEntity.SchemaProperCaseName()}",
                                     PropertyName = x.ItemType.PluralName,
-                                    PropertyNamespace = ns,
                                     CollectionName = x.ItemType.Name
                                 })
                         .ToList(),
@@ -547,14 +534,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         .Where(
                             x =>
                                 !x.IsInherited
-                                && profileData.IsIncluded(resource, x)
+                                && resourceData.IsIncluded(resource, x)
                                 && TemplateContext.ShouldRenderResourceClass(
                                     x.ItemType))
                         .Select(
                             x => new
                             {
                                 PropertyName = x.ItemType.PluralName,
-                                PropertyNamespace = ns,
                                 CollectionName = x.ItemType.Name
                             })
                         .ToList()
@@ -562,10 +548,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        private object AssembleHref(
-            ResourceProfileData profileData,
-            ResourceClassBase resource,
-            AssociationView association = null)
+        private object AssembleHref(ResourceClassBase resource, AssociationView association = null)
         {
             if (resource.IsAggregateRoot())
             {

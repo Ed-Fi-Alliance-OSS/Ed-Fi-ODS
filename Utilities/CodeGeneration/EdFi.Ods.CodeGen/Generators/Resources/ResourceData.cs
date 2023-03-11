@@ -11,23 +11,8 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
-    public class ResourceProfileData
+    public class ResourceData
     {
-        /// <summary>
-        /// Gets the version of the resource guaranteed not to have any filters applied.
-        /// </summary>
-        /// <remarks>When generating a non-profile constrained resource, this will be the same as the <see cref="Resource" />.</remarks>
-        public Resource UnfilteredResource { get; set; }
-
-        public string ProfileName { get; set; }
-
-        /// <summary>
-        /// Gets the combined context of readable/writable and any concrete resource (for generating namespaces for inherited base child classes).
-        /// </summary>
-        /// <seealso cref="ConcreteResourceContext"/>
-        /// <seealso cref="ReadableWritableContext"/>
-        public string Context { private get; set; }
-
         /// <summary>
         /// Indicates that the resource model representation is a "base" resource from which other resources are derived.
         /// </summary>
@@ -53,111 +38,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             get { return ContextualRootResource.IsAbstract(); }
         }
 
-        //TODO: JSM - Embedded convention -converting profile name to a C# namespace segment
-        public string ProfileNamespaceName => ProfileName?.Replace("-", "_");
-
-        public string ProfileNamespaceSegment
-        {
-            get
-            {
-                if (ProfileName == null)
-                {
-                    return null;
-                }
-
-                return "." + ProfileNamespaceName + Context;
-            }
-        }
-
-        public string ProfilePropertyNamespaceSection
-        {
-            get
-            {
-                if (ProfileName == null)
-                {
-                    return null;
-                }
-
-                //TODO: JSM - Embedded convention -converting profile name to a C# property with namespace
-                return (ProfileNamespaceSegment + "." + Resource.Name + ".").TrimStart('.');
-            }
-        }
-
         /// <summary>
         /// Gets the contextual root resource, which may be the <see cref="Resource" /> or its base resource class (if applicable, and depending on the code generation context).
         /// </summary>
         /// <returns>The contextual root resource, to be used only for evaluating whether to generate a class for the root.</returns>
-        public Resource ContextualRootResource { get; set; }
-
-        /// <summary>
-        /// Gets the readable/writable context (if applicable) for Profile-based namespaces (in the form of "_Readable" or "_Writable").
-        /// </summary>
-        public string ReadableWritableContext { get; set; }
-
-        /// <summary>
-        /// Gets the concrete resource context (e.g. "School") for use in constructing the namespace for the child classes of a base resource.
-        /// </summary>
-        public string ConcreteResourceContext { get; set; }
-
-        public bool HasFilteredCollection()
-        {
-            return Resource.Collections
-                .Select(x => x)
-                .Concat(
-                    Resource.Collections
-                        .SelectMany(x => x.ItemType.Collections))
-                .Any(x => x.ValueFilters.Any());
-        }
-
-        public bool IsIncluded(ResourceClassBase resource, ResourceProperty property)
-        {
-            if (resource == null)
-            {
-                throw new ArgumentNullException(nameof(resource));
-            }
-
-            if (property == null)
-            {
-                throw new ArgumentNullException(nameof(property));
-            }
-
-            if (IsBaseResource && Resource.IsDerived && resource.Entity.IsBase)
-            {
-                return true;
-            }
-
-            if (resource.Name == Resource.Name)
-            {
-                return Resource.AllProperties
-                    .Contains(property, ModelComparers.ResourceProperty);
-            }
-
-            // if the resource is excluded we ignore all properties
-            if (!IsIncluded(resource))
-            {
-                return false;
-            }
-
-            var filteredResource = GetContainedResource(resource);
-
-            if (filteredResource != null
-                && filteredResource.AllProperties
-                    .Contains(property, ModelComparers.ResourcePropertyNameOnly))
-            {
-                return true;
-            }
-
-            if (Resource.Extensions.SelectMany(
-                    e => e.ObjectType.AllProperties)
-                .Contains(
-                    property,
-                    ModelComparers.ResourceProperty))
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public Resource ContextualRootResource => Resource; // TODO: REMOVE
 
         public bool IsIncluded(ResourceClassBase resource, Reference reference)
         {
@@ -316,30 +201,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return filteredResource.Collections.FirstOrDefault(x => ModelComparers.Collection.Equals(x, collection));
         }
 
-        public ResourceClassBase GetProfileActiveResource(ResourceClassBase resource)
-        {
-            if (resource == null)
-            {
-                throw new ArgumentNullException(nameof(resource));
-            }
-
-            return Resource.Name == resource.Name
-                ? UnfilteredResource
-                : resource;
-        }
-
-        public string GetProfileNamespace(ResourceClassBase resource)
-        {
-            if (resource == null)
-            {
-                throw new ArgumentNullException(nameof(resource));
-            }
-
-            return resource.Name == Resource.Name
-                ? ProfilePropertyNamespaceSection
-                : null;
-        }
-
         private bool IsIncluded(ResourceClassBase resource)
         {
             if (resource == null)
@@ -398,7 +259,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public override string ToString()
         {
-            return $"{ResourceName} ({ProfileName}";
+            return ResourceName;
         }
     }
 }

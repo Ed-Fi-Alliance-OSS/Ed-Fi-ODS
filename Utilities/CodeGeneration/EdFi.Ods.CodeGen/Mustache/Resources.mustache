@@ -291,7 +291,7 @@ namespace {{ResourceClassesNamespace}}
 
             // Inherited lists
             {{#InheritedCollections}}
-            {{PropertyName}} = new List<{{BaseEntity}}.{{PropertyNamespace}}{{CollectionName}}>();
+            {{PropertyName}} = new List<{{BaseEntity}}.{{CollectionName}}>();
             {{/InheritedCollections}}
             {{/Inherited}}
         }
@@ -1040,17 +1040,17 @@ namespace {{ResourceClassesNamespace}}
         {{#InheritedCollections}}
         {{#Inherited}}
         {{#Standard}}
-        private ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> _{{PropertyFieldName}};
+        private ICollection<{{BaseEntity}}.{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
         [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
-        public ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> {{Collection}}
+        public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
             set
             {
                 _{{PropertyFieldName}} = value;
-                _{{PropertyFieldName}}Covariant = new CovariantCollectionAdapter<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
+                _{{PropertyFieldName}}Covariant = new CovariantCollectionAdapter<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{ItemType}}>(value);
             }
         }
 
@@ -1058,22 +1058,22 @@ namespace {{ResourceClassesNamespace}}
         ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{ItemTypeNamespacePrefix}}I{{ParentName}}.{{Collection}}
         {
             get { return _{{PropertyFieldName}}Covariant; }
-            set { {{Collection}} = new List<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value.Cast<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>()); }
+            set { {{Collection}} = new List<{{BaseEntity}}.{{ItemType}}>(value.Cast<{{BaseEntity}}.{{ItemType}}>()); }
         }
         {{/Standard}}
         {{#Filtered}}
-        private ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> _{{PropertyFieldName}};
+        private ICollection<{{BaseEntity}}.{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
         [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
-        public ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> {{Collection}}
+        public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
             set
             {
                 _{{PropertyFieldName}} = value;
 
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{ItemType}}>(value);
                 _{{PropertyFieldName}}Covariant = covariantList;
             }
         }
@@ -1082,7 +1082,7 @@ namespace {{ResourceClassesNamespace}}
         ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{ItemTypeNamespacePrefix}}I{{ParentName}}.{{Collection}}
         {
             get { return _{{PropertyFieldName}}Covariant; }
-            set { {{Collection}} = new List<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value.Cast<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>()); }
+            set { {{Collection}} = new List<{{BaseEntity}}.{{ItemType}}>(value.Cast<{{BaseEntity}}.{{ItemType}}>()); }
         }
         {{/Filtered}}
         {{#Null}}

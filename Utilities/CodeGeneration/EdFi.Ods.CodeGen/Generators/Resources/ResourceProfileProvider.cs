@@ -14,7 +14,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         ResourceModel ResourceModel { get; }
 
-        IEnumerable<ResourceProfileData> GetResourceProfileData();
+        IEnumerable<ResourceData> GetResourceProfileData();
     }
 
     public class ResourceProfileProvider : IResourceProfileProvider
@@ -27,18 +27,16 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         public ResourceModel ResourceModel { get; }
 
-        public IEnumerable<ResourceProfileData> GetResourceProfileData()
+        public IEnumerable<ResourceData> GetResourceProfileData()
         {
             // sorting for template comparison.
             return ResourceModel
                 .GetAllResources()
                 .Select(
                     resource =>
-                        new ResourceProfileData
+                        new ResourceData
                         {
-                            SuppliedResource = resource,
-                            UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
-                            ContextualRootResource = resource
+                            Resource = resource,
                         })
                 .OrderBy(x => x.ResourceName);
         }

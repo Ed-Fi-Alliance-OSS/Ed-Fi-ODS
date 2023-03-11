@@ -67,12 +67,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private string GetResourceTypeName(Resource resource, string profileName = null)
         {
-            string resourceNamespace = EdFiConventions.CreateResourceNamespace(
-                resource,
-                profileName?.Replace('-', '_'),
-                profileName == null
-                    ? null
-                    : "_Writable");
+            string resourceNamespace = EdFiConventions.CreateResourceNamespace(resource);
 
             return $"{resourceNamespace}.{resource.Name}";
         }

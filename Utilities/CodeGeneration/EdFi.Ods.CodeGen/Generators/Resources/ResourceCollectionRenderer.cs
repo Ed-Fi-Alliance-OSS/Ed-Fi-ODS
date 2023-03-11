@@ -19,7 +19,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     public class ResourceCollectionRenderer
     {
         public object InheritedCollections(
-            ResourceProfileData profileData,
+            ResourceData data,
             ResourceClassBase resource)
         {
             if (resource.IsDescriptorEntity())
@@ -27,15 +27,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 return ResourceRenderer.DoRenderProperty;
             }
 
-            string ns = profileData.GetProfileNamespace(resource);
-
-            var activeResource = profileData.GetProfileActiveResource(resource);
-
-            return activeResource.IsDerived && activeResource.Collections.Any()
+            return resource.IsDerived && resource.Collections.Any()
                 ? new
                 {
                     Inherited =
-                        activeResource.Collections
+                        resource.Collections
                             .Where(x => x.IsInherited)
                             .OrderBy(x => x.PropertyName)
                             .Select(
@@ -54,14 +50,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                             : x.JsonPropertyName,
                                     PropertyFieldName = x.ItemType.PluralName.ToCamelCase(),
                                     ParentName = x.ParentFullName.Name,
-                                    PropertyNamespace = ns,
                                     ResourceName = resource.Name,
                                     Standard =
-                                        profileData.IsIncluded(resource, x)
-                                        && !profileData.IsFilteredCollection(resource, x),
-                                    Null = !profileData.IsIncluded(resource, x),
-                                    Filtered = profileData.IsIncluded(resource, x)
-                                        && profileData.IsFilteredCollection(
+                                        data.IsIncluded(resource, x)
+                                        && !data.IsFilteredCollection(resource, x),
+                                    Null = !data.IsIncluded(resource, x),
+                                    Filtered = data.IsIncluded(resource, x) // TODO: Revisit
+                                        && data.IsFilteredCollection(
                                             resource,
                                             x)
                                 })
@@ -71,12 +66,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
 
         public object Collections(
-            ResourceProfileData profileData,
+            ResourceData data,
             ResourceClassBase resourceClass)
         {
             var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
-
-            string ns = profileData.GetProfileNamespace(resourceClass);
 
             return collectionPairs
                 .Where(
@@ -93,7 +86,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         JsonPropertyName = itemPair.Underlying.JsonPropertyName,
                         PropertyFieldName = itemPair.Underlying.ItemType.PluralName.ToCamelCase(),
                         ParentName = itemPair.Underlying.ParentFullName.Name,
-                        PropertyNamespace = ns,
                         Standard =
 
                             // It's included
@@ -253,7 +245,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
 
         public object CreatePutPostRequestValidator(
-            ResourceProfileData profileData,
+            ResourceData data,
             ResourceClassBase resource,
             TemplateContext templateContext)
         {
@@ -275,10 +267,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             ItemTypeName = collection.ItemType.Name,
                             Namespace = collection.ParentFullName.Name != resource.Name
                                 ? string.Format(
-                                    "{0}.{1}.{2}",
+                                    "{0}.{1}.",
                                     collection.ParentFullName.Name,
-                                    resource.Entity.BaseEntity.SchemaProperCaseName(),
-                                    profileData.ProfilePropertyNamespaceSection)
+                                    resource.Entity.BaseEntity.SchemaProperCaseName()) // TODO: Removed Profile argument here, is condition even used?
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
                 KeyUnificationValidations = new KeyUnificationValidation
@@ -331,24 +322,21 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             };
         }
 
-        public object References(ResourceProfileData profileData, ResourceClassBase resource)
+        public object References(ResourceData data, ResourceClassBase resource)
         {
-            var activeResource = profileData.GetProfileActiveResource(resource);
+            var references = resource.References.ToList();
 
-            var references = activeResource.References
-                .ToList();
-
-            if (!references.Any(r => profileData.IsIncluded(resource, r, out var implicitOnly) || implicitOnly))
+            if (!references.Any(r => data.IsIncluded(resource, r, out var implicitOnly) || implicitOnly))
             {
                 return ResourceRenderer.DoNotRenderProperty;
             }
 
-            if (activeResource.IsAggregateRoot() || !activeResource.HasBackReferences())
+            if (resource.IsAggregateRoot() || !resource.HasBackReferences())
             {
                 return new
                 {
                     Collections = references
-                        .Where(r => profileData.IsIncluded(resource, r, out var implicitOnly) || implicitOnly)
+                        .Where(r => data.IsIncluded(resource, r, out var implicitOnly) || implicitOnly)
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x =>
@@ -364,7 +352,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     ? x.ReferenceTypeName
                                     : $"{x.ReferencedResourceName}.{x.ReferencedResource.Entity.SchemaProperCaseName()}.{x.ReferenceTypeName}";
 
-                                profileData.IsIncluded(resource, x, out var implicitOnly);
+                                data.IsIncluded(resource, x, out var implicitOnly);
                                 
                                 return new
                                 {
@@ -401,7 +389,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             return new
             {
-                Collections = activeResource.References
+                Collections = resource.References
                     .OrderBy(x => x.PropertyName)
                     .Select(
                         x => new
@@ -428,9 +416,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .ToList()
             };
         }
-        public object OnDeserialize(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)
+        public object OnDeserialize(ResourceData data, ResourceClassBase resource, TemplateContext TemplateContext)
         {
-            bool shouldRender = !(!profileData.HasNavigableChildren(resource));
+            bool shouldRender = !(!data.HasNavigableChildren(resource));
 
             if (!(resource.Collections.Any() || !resource.IsAggregateRoot() && resource.HasBackReferences()))
             {
@@ -483,8 +471,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 };
             }
 
-            if (resource.Collections.Any(c => profileData.IsIncluded(resource, c))
-                || !resource.IsAggregateRoot() && resource.References.Any(x => profileData.IsIncluded(resource, x)))
+            if (resource.Collections.Any(c => data.IsIncluded(resource, c))
+                || !resource.IsAggregateRoot() && resource.References.Any(x => data.IsIncluded(resource, x)))
             {
                 return new
                 {
@@ -492,7 +480,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ? ResourceRenderer.DoRenderProperty
                         : ResourceRenderer.DoNotRenderProperty,
                     BackRefCollections = resource.References
-                        .Where(x => profileData.IsIncluded(resource, x))
+                        .Where(x => data.IsIncluded(resource, x))
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x => new
