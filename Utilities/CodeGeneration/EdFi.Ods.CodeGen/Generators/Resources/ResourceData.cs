@@ -152,17 +152,15 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return filteredCollection.ValueFilters.Any();
         }
 
-        public ResourceChildItem GetContainedResource(ResourceClassBase resource)
+        public ResourceChildItem GetContainedResource(ResourceClassBase resourceClass)
         {
-            if (resource == null)
+            if (resourceClass == null)
             {
-                throw new ArgumentNullException(nameof(resource));
+                throw new ArgumentNullException(nameof(resourceClass));
             }
 
-            return Resource != null
-                ? Resource.AllContainedItemTypes.SingleOrDefault(
-                    x => ModelComparers.Resource.Equals(x, resource))
-                : null;
+            return Resource?.AllContainedItemTypes.SingleOrDefault(
+                x => ModelComparers.Resource.Equals(x, resourceClass));
         }
 
         public bool HasNavigableChildren(ResourceClassBase resource)

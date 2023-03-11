@@ -391,7 +391,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .GetSchemaMapByPhysicalName(contextualParent.FullName.Schema)
                     .ProperCaseName;
 
-            var collections = _resourceCollectionRenderer.Collections(resourceData, resourceClass);
+            var collections = _resourceCollectionRenderer.Collections(resourceClass);
 
             return new
             {
@@ -415,7 +415,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 NonIdentifiers = _resourcePropertyRenderer.AssembleProperties(resourceClass),
                 InheritedProperties = _resourcePropertyRenderer.AssembleInheritedProperties(resourceClass),
                 InheritedCollections =
-                    _resourceCollectionRenderer.InheritedCollections(resourceData, resourceClass),
+                    _resourceCollectionRenderer.InheritedCollections(resourceClass),
                 OnDeserialize = _resourceCollectionRenderer.OnDeserialize(resourceData, resourceClass, TemplateContext),
                 Guid =
                     resourceClass.IsAggregateRoot()
@@ -583,30 +583,16 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";
         }
 
-        internal static List<SemanticItemPair<TItem>> GetMemberItemPairs<TItem>(
+        internal static List<TItem> GetMemberItemPairs<TItem>(
             ResourceClassBase resourceClass,
             Func<ResourceClassBase, IReadOnlyList<TItem>> memberAccessor)
             where TItem : ResourceMemberBase
         {
-            // Collections
-            var allItems = memberAccessor(resourceClass.FilterContext.UnfilteredResourceClass)
-                           ?? memberAccessor(resourceClass);
-
-            var availableItems = memberAccessor(resourceClass);
-
-            var pairs =
-                (from all in allItems
-                    join avail in availableItems on all.PropertyName equals avail.PropertyName into leftJoin
-                    from _avail in leftJoin.DefaultIfEmpty()
-                    orderby all.PropertyName
-                    select new SemanticItemPair<TItem>
-                    {
-                        Underlying = all,
-                        Current = _avail
-                    })
+            var allItems = memberAccessor(resourceClass)
+                .OrderBy(i => i.PropertyName)
                 .ToList();
 
-            return pairs;
+            return allItems;
         }
     }
 }
