@@ -28,11 +28,6 @@ namespace EdFi.Ods.CodeGen
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            if (cancellationToken == null)
-            {
-                throw new ArgumentNullException(nameof(cancellationToken));
-            }
-
             _logger.Debug("Processing beginning.");
 
             foreach (var assemblyData in _assemblyDataProviders.SelectMany(x => x.Get()))
