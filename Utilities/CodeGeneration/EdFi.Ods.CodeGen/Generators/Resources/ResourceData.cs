@@ -13,6 +13,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 {
     public class ResourceData
     {
+        public ResourceData(Resource resource)
+        {
+            Resource = resource;
+        }
+        
         /// <summary>
         /// Indicates that the resource model representation is a "base" resource from which other resources are derived.
         /// </summary>
@@ -21,7 +26,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         /// <summary>
         /// Gets the supplied resource class.
         /// </summary>
-        public Resource Resource { get; set; }
+        public Resource Resource { get; }
 
         public string ResourceName
         {

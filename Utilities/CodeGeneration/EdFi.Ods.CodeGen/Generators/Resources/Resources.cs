@@ -21,7 +21,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     {
         private readonly ResourceCollectionRenderer _resourceCollectionRenderer;
         private readonly ResourcePropertyRenderer _resourcePropertyRenderer;
-        private IResourceProfileProvider _resourceProfileProvider;
 
         public Resources()
         {
@@ -31,27 +30,28 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         protected override void Configure()
         {
-            _resourceProfileProvider = new ResourceProfileProvider(
-                new ResourceModelProvider(TemplateContext.DomainModelProvider));
         }
 
         protected override object Build()
         {
-            var profileDatas = _resourceProfileProvider
-                .GetResourceProfileData()
-                .ToList();
-
             var schemaNameMapProvider = TemplateContext.DomainModelProvider.GetDomainModel()
                 .SchemaNameMapProvider;
 
             // NOTE: for model matching only we need to include abstract models
+            var resources = new ResourceModelProvider(TemplateContext.DomainModelProvider).GetResourceModel().GetAllResources();
+
+            var resourceDatas = resources
+                .Select(r => new ResourceData(r))
+                .OrderBy(r => r.ResourceName)
+                .ToList();
+
             return new
             {
-                ResourceContexts = profileDatas
+                ResourceContexts = resourceDatas
                     .SelectMany(CreateResourceContextModels)
                     .Where(rc => rc != null)
                     .ToList(),
-                SchemaNamespaces = GetSchemaProperCaseNames(profileDatas, schemaNameMapProvider)
+                SchemaNamespaces = GetSchemaProperCaseNames(resourceDatas, schemaNameMapProvider)
                     .Select(
                         x => new {Namespace = EdFiConventions.BuildNamespace(Namespaces.Entities.Common.BaseNamespace, x)}),
                 ProperCaseName = TemplateContext.SchemaProperCaseName,
@@ -71,7 +71,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             .Select(x => x.FullName.Schema)
                             .Except(EdFiConventions.PhysicalSchemaName)
                             .Distinct()
-                        : new string[0])
+                        : Array.Empty<string>())
                 .Select(
                     sch => schemaNameMapProvider.GetSchemaMapByPhysicalName(sch)
                         .ProperCaseName);
@@ -150,11 +150,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var resourceContext = new
             {
                 ResourceName = resourceData.ResourceName,
-                ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
-                    resourceData.Resource),
-                ResourceClasses = CreateContextualResourceClasses(
-                    resourceData,
-                    resourceData.Resource.FullName.Schema),
+                ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(resourceData.Resource),
+                ResourceClasses = CreateContextualResourceClasses(resourceData, resourceData.Resource.FullName.Schema),
                 IsAbstract = resourceData.IsAbstract
             };
 
@@ -169,11 +166,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 // Get all the extension physical schema names present on the current resource model
                 string[] extensionSchemaPhysicalNames =
                     !resourceData.Resource.IsEdFiStandardResource
-                        ? new string[0]
+                        ? Array.Empty<string>()
                         : resourceData.Resource.AllContainedItemTypes
-                            .Select(i => i.FullName.Schema)
-                            .Except(
-                                new[] {EdFiConventions.PhysicalSchemaName})
+                            .Select(rci => rci.FullName.Schema)
+                            .Except(new[] {EdFiConventions.PhysicalSchemaName})
                             .ToArray();
 
                 // Process each extension schema with an individual namespace
@@ -190,9 +186,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ResourceClassesNamespace = EdFiConventions.CreateResourceNamespace(
                             resourceData.Resource,
                             extensionSchemaProperCaseName),
-                        ResourceClasses = CreateContextualResourceClasses(
-                            resourceData,
-                            extensionSchemaPhysicalName),
+                        ResourceClasses = CreateContextualResourceClasses(resourceData, extensionSchemaPhysicalName),
                         IsAbstract = resourceData.IsAbstract
                     };
 
@@ -204,9 +198,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
         }
 
-        private object CreateContextualResourceClasses(
-            ResourceData resourceData,
-            string contextualSchemaPhysicalName)
+        private object CreateContextualResourceClasses(ResourceData resourceData, string contextualSchemaPhysicalName)
         {
             var contextualItemFullNames =
                 new HashSet<FullName>(resourceData.Resource.AllContainedItemTypes.Select(x => x.FullName));
@@ -215,14 +207,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                 // Create the model for the root class of the resource (if it should be rendered in the current context)
                 (TemplateContext.ShouldRenderResourceClass(resourceData.Resource)
-                 && resourceData.Resource.FullName.Schema == contextualSchemaPhysicalName
-                    ? new[] {CreateResourceClass(resourceData, resourceData.Resource)}
-                    : new object[0])
+                    && resourceData.Resource.FullName.Schema == contextualSchemaPhysicalName
+                        ? new[] { CreateResourceClass(resourceData, resourceData.Resource) }
+                        : Array.Empty<object>())
 
                 // Add in all the Contained Item Types for the resource
                 .Concat(
-                    resourceData.Resource
-                        .AllContainedItemTypes
+                    resourceData.Resource.AllContainedItemTypes
 
                         // Where the item should be generated for the current resource namespace context
                         .Where(x => contextualItemFullNames.Contains(x.FullName))
@@ -233,8 +224,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                         // When generating non-Ed-Fi schema for an Ed-Fi resource, only include resource extension classes, otherwise only include non-resource-extension classes.
                         .Where(
-                            x => x.IsResourceExtension == (resourceData.Resource.IsEdFiStandardResource
-                                                           && contextualSchemaPhysicalName != EdFiConventions.PhysicalSchemaName))
+                            x => x.IsResourceExtension
+                                == (resourceData.Resource.IsEdFiStandardResource
+                                    && contextualSchemaPhysicalName != EdFiConventions.PhysicalSchemaName))
                         .Where(
                             x =>
                             {
@@ -260,10 +252,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 .ToList();
 
             return resourceClasses.Any()
-                ? resourceClasses
-                    .Select(
-                        rc => new {ResourceClass = rc})
-                    .ToList()
+                ? resourceClasses.Select(rc => new { ResourceClass = rc }).ToList()
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
