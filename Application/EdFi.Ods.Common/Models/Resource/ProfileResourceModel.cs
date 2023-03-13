@@ -41,7 +41,7 @@ namespace EdFi.Ods.Common.Models.Resource
                 CreateResourceByName(
                     resourceModel, 
                     r => r.FullName));
-            
+
             ResourceByApiCollectionName = new ReadOnlyDictionary<FullName, ProfileResourceContentTypes>(
                 CreateResourceByName(
                     resourceModel, 

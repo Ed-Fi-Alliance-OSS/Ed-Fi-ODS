@@ -33,7 +33,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// <param name="resourceCollectionName">The pluralized collection name of the resource.</param>
         /// <returns>The matching resource.</returns>
         Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
-        
+
         /// <summary>
         /// Get a read-only list of all the resources available in the model.
         /// </summary>
