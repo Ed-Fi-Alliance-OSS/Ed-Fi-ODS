@@ -114,16 +114,18 @@ namespace EdFi.Ods.Common.Models.Resource
                     ?? UnderlyingResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
             }
 
-            private Resource GetByName(FullName fullName, Func<ProfileResourceModel, IReadOnlyDictionary<FullName, ProfileResourceContentTypes>> getContentTypesByFullName)
+            private Resource GetByName(
+                FullName fullName,
+                Func<ProfileResourceModel, IReadOnlyDictionary<FullName, ProfileResourceContentTypes>> contentTypesByFullName)
             {
                 var allProfileResources =
-                    (from m in _profileResourceModels
-                     let ct = getContentTypesByFullName(m).GetValueOrDefault(fullName)
-                     where ct != null
-                     select _usage == ContentTypeUsage.Readable
-                         ? ct.Readable
-                         : ct.Writable)
-                   .ToArray();
+                    _profileResourceModels.Select(m => contentTypesByFullName(m).GetValueOrDefault(fullName))
+                        .Where(ct => ct != null)
+                        .Select(ct => 
+                            _usage == ContentTypeUsage.Readable
+                                ? ct.Readable
+                                : ct.Writable)
+                        .ToArray();
 
                 // If we have any Profiles that apply to the requested resource
                 if (allProfileResources.Any())
@@ -132,16 +134,14 @@ namespace EdFi.Ods.Common.Models.Resource
                     // then we can't continue because the resource is inaccessible.
                     if (allProfileResources.All(x => x == null))
                     {
+                        var profileNames = _profileResourceModels.Select(m => m.ProfileName);
+
                         throw new ProfileContentTypeException(
-                            string.Format(
-                                "There is no {0} content type available to the caller for the requested resource.",
-                                _usage));
+                            $"There is no {_usage} content type available to the caller for the '{fullName}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
                     }
 
                     // Return all the profile-filtered versions of the resource
-                    return new Resource(
-                        allProfileResources.Where(x => x != null)
-                                           .ToArray());
+                    return new Resource(allProfileResources.Where(x => x != null).ToArray());
                 }
 
                 return null;
