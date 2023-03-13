@@ -444,6 +444,7 @@ namespace EdFi.Ods.Api.Controllers
 
             RequestResponseDetailsLogger.Error(new
             {
+                ClientId = LogicalThreadContext.Properties["ApiClientId"],
                 RequestURL = GetResourceUrl(),
                 RequestMethod = requestMethod,
                 ResponseCode = restError.Code,
@@ -459,6 +460,7 @@ namespace EdFi.Ods.Api.Controllers
 
             RequestResponseDetailsLogger.Info(new
             {
+                ClientId = LogicalThreadContext.Properties["ApiClientId"],
                 RequestURL = GetResourceUrl(),
                 RequestMethod = requestMethod,
                 ResponseCode = responseCode,
