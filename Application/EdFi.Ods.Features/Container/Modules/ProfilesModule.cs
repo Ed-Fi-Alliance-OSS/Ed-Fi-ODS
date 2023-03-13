@@ -5,6 +5,7 @@
 
 using Autofac;
 using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -39,6 +40,10 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ProfileNamePublisher>()
                 .As<IExternalTask>()
+                .SingleInstance();
+
+            builder.RegisterType<ProfileConfigurationActivity>()
+                .As<IApplicationConfigurationActivity>()
                 .SingleInstance();
         }
     }
