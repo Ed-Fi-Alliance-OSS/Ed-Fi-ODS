@@ -3,8 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -13,10 +15,15 @@ namespace EdFi.Ods.Common.Models.Resource
     public class ResourceSelector : IResourceSelector
     {
         private readonly IDictionary<FullName, Resource> _resourceByFullName;
+        private readonly Lazy<Dictionary<FullName, Resource>> _resourceByCollectionName;
 
         public ResourceSelector(IDictionary<FullName, Resource> resourceByFullName)
         {
             _resourceByFullName = resourceByFullName;
+            
+            _resourceByCollectionName = new Lazy<Dictionary<FullName, Resource>>(() => resourceByFullName.ToDictionary(
+                kvp => new FullName(kvp.Value.SchemaUriSegment(), kvp.Value.PluralName.ToCamelCase()),
+                kvp => kvp.Value));
         }
 
         public IReadOnlyList<Resource> GetAll()
@@ -27,6 +34,11 @@ namespace EdFi.Ods.Common.Models.Resource
         public Resource GetByName(FullName fullName)
         {
             return _resourceByFullName.GetValueOrThrow(fullName, "FullName {0} was not located in ResourceSelector.");
+        }
+
+        public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+        {
+            return _resourceByCollectionName.Value.GetValueOrThrow(new FullName(schemaUriSegment, resourceCollectionName), $"Resource for collection '/{schemaUriSegment}/{resourceCollectionName}' was not found.");
         }
 
         public Resource GetBySchemaProperCaseNameAndName(string properCaseName, string name)

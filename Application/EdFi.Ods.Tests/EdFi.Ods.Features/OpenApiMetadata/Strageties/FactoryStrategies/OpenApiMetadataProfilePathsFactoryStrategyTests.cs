@@ -51,9 +51,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             private IEnumerable<OpenApiMetadataResource> _actualFilteredResources;
             private IEnumerable<OpenApiMetadataResource> _expectedFilteredResources;
 
+            private const string TestProfileName = "Test-ParentNonAbstractBaseClass-ExcludeOnly";
+
             private class TestProfileResourceNamesProvider : IProfileMetadataProvider
             {
-                private readonly string _profileDefinition = @"<Profile name='Test-ParentNonAbstractBaseClass-ExcludeOnly'>
+                private readonly string _profileDefinition = $@"<Profile name='{TestProfileName}'>
                                                 <Resource name='StudentSpecialEducationProgramAssociation'>
                                                   <ReadContentType memberSelection='ExcludeOnly'>
                                                     <Property name='SpecialEducationHoursPerWeek'/>
@@ -66,6 +68,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                                               </Profile>";
 
                 bool IProfileMetadataProvider.HasProfileData => true;
+
+                public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName
+                    => new Dictionary<string, XElement> { { TestProfileName, XElement.Parse(_profileDefinition) } };
 
                 public XElement GetProfileDefinition(string profileName)
                 {

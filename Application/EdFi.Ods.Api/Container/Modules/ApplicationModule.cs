@@ -33,6 +33,7 @@ using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.IO;
+using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -54,6 +55,17 @@ namespace EdFi.Ods.Api.Container.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SchoolYearContextFilter>()
+                .As<IFilterMetadata>()
+                .SingleInstance();
+
+            builder.RegisterType<EnforceAssignedProfileUsageFilter>()
+                .SingleInstance();
+
+            builder.RegisterType<NullProfileMetadataProvider>()
+                .As<IProfileMetadataProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<DataManagementRequestContextFilter>()
                 .As<IFilterMetadata>()
                 .SingleInstance();
 
@@ -237,6 +249,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
+            builder.RegisterGeneric(typeof(ContextProvider<>))
+                .As(typeof(IContextProvider<>))
+                .SingleInstance();
+            
             RegisterPipeLineStepProviders();
             RegisterModels();
 
