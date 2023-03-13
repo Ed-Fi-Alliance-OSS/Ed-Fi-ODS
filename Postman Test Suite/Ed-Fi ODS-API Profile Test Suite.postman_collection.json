@@ -14,7 +14,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "40bcef56-312d-48d5-bec0-52197a37bff2",
 								"exec": [
 									""
 								],
@@ -24,11 +23,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "de3b9d52-9de9-45b5-b6d8-1008bbd574d4",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
@@ -107,7 +105,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "e6301122-875b-43f4-bdc1-062331fa5948",
 								"exec": [
 									""
 								],
@@ -117,11 +114,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "07d4c793-6076-44ff-87c4-a10e313f89c8",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
 									"});",
@@ -194,7 +190,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1c11d057-9034-4a54-be14-0d989730378a",
 								"exec": [
 									""
 								],
@@ -204,11 +199,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1af1e32e-5cfc-46a6-a6c6-67fb963062f8",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
@@ -280,7 +274,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7aa9083b-f7d3-4318-96ad-09a84ca63d4c",
 								"exec": [
 									""
 								],
@@ -290,11 +283,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "750a3ec7-97c9-4dca-81cc-5b51d982922b",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
@@ -365,7 +357,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "190f8cf5-7e83-438a-b894-91cda6c9928c",
 								"exec": [
 									""
 								],
@@ -375,11 +366,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "997aaf68-f99e-4690-9404-e46bc963af74",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    ",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
@@ -452,7 +442,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7dedb077-8aa4-43c4-a852-bd459d526461",
 								"exec": [
 									""
 								],
@@ -462,11 +451,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1ddcc6a7-cb13-4814-a98c-5e07caceba18",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
@@ -539,7 +527,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2a7963f3-80a8-4ec6-a9d8-9ae7832781d9",
 								"exec": [
 									""
 								],
@@ -549,11 +536,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d2b2ae36-4e9e-4618-a0fc-058291ed49c6",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
@@ -625,7 +611,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3e6e0416-feba-4203-b37d-6bbb3fe25628",
 								"exec": [
 									""
 								],
@@ -635,11 +620,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4ac1b6fc-8c0e-458f-835d-f654a5145543",
 								"exec": [
 									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
-									"if (profilesFeatureIsEnabled === 'true'){",
+									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
@@ -704,8 +688,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Embedded one to one references can be included and excluded",
@@ -719,7 +702,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9834df14-85b5-43cc-bc86-5cff642602d9",
 										"exec": [
 											""
 										],
@@ -729,11 +711,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8b689428-6043-4bca-8893-0779b3d8f6d4",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    const __ = require('lodash');",
 											"    const responseItems = pm.response.json();",
 											"    pm.environment.set('known:embedded:assessmentGuid', __.first(responseItems)[\"id\"]);",
@@ -767,9 +748,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type can include embedded one to one references",
@@ -780,11 +759,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "510d9e4d-92da-42c7-8bd6-479b6430f765",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -807,7 +785,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bb4d48b0-f44e-41ca-b987-5bd7210c7ff3",
 										"exec": [
 											""
 										],
@@ -816,16 +793,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_EmbeddedObject}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -857,7 +824,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "6b7866f1-fe18-4e0d-80be-7e977fd6d3f5",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -867,16 +833,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1be648c7-025c-413e-97b5-ee9146c73284",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type can exclude embedded one to one references",
@@ -887,11 +850,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6ab2d420-cef9-4bb8-8981-0f9fa5dac81e",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -911,7 +873,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "21af8609-34e4-4212-9897-18b2e1f59cca",
 										"exec": [
 											""
 										],
@@ -920,16 +881,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_Excludes_EmbeddedObject}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -961,7 +912,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f0bedc08-cb71-4719-a51f-05485e76be75",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -971,16 +921,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f648bcf1-bb4c-44c1-af56-785c76362879",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content type can exclude embedded one to one references",
@@ -991,11 +938,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "19ef6d81-9f09-430a-8a7a-de975783fa66",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -1008,7 +954,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8803b1ed-88b7-47e4-88d0-4d77f81068a5",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1024,16 +969,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_WritableExcludes_EmbeddedObject}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -1074,11 +1009,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4c781dec-8b65-4785-b113-748bbebac086",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -1097,7 +1031,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "226585f3-1d65-4910-90a5-dd98828e1984",
 										"exec": [
 											""
 										],
@@ -1131,7 +1064,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0c8a3b12-2f29-482e-92ca-31a082b70608",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1141,16 +1073,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6017cc37-6cc5-4183-9e01-d356429e6062",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content type can include embedded one to one references",
@@ -1161,11 +1090,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "72346c35-83cb-4569-9a93-114768047a47",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -1179,7 +1107,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "883f2d38-b508-49db-885e-e503a223656d",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1195,16 +1122,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_WritableIncludes_EmbeddedObject}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -1245,11 +1162,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5ae37a76-8159-4279-bdec-757a71e3b55f",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -1269,7 +1185,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e951babf-4db6-471d-b348-2f60ecb45aa7",
 										"exec": [
 											""
 										],
@@ -1303,7 +1218,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cc7d0825-35aa-4717-a172-35bfbbb69555",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1313,23 +1227,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e3b44b46-d90b-4c49-addb-af1e153c7dca",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "0cea2e35-d13a-41a2-9431-e9816ac6bac1",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1339,15 +1249,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3838e923-a442-4c7e-adaf-fc883cf1c7c7",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Profile definitions can be readable or writable only",
@@ -1361,11 +1269,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "705d6c11-89e3-4f28-9216-511679728dc7",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -1380,7 +1287,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5ee57c77-4041-4eae-ba3d-cc34811fcf77",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1396,16 +1302,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ResourceWriteOnly}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -1446,7 +1342,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3d5eb420-18cc-4fe6-8579-dcb7cd59633f",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1456,16 +1351,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a20296f-4ee3-42d3-9272-20a145c5f4bd",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "GET request is made with a read only profile",
@@ -1476,11 +1368,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a4cf28cd-6055-4377-8dae-b488b728a404",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -1492,7 +1383,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f8bd380a-f419-4221-b7eb-1dd3c9de2e6d",
 										"exec": [
 											""
 										],
@@ -1501,16 +1391,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ResourceReadOnly}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -1542,7 +1422,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "008bd3c4-275b-49d3-a4c9-20afa817911a",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1552,16 +1431,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5750778c-8776-4de4-9585-80ec17b80348",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "A GET request is made with a write only profile",
@@ -1572,11 +1448,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a07d7871-dde3-49c1-9faa-5d75a1ed2d33",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 405\", () => {",
 											"        pm.expect(pm.response.code).to.equal(405);",
 											"    });",
@@ -1585,7 +1460,7 @@
 											"    pm.test(\"Should return the item with The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS. string\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.\");",
+											"         pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'test-profile-resource-writeonly' profile are PUT, POST, DELETE and OPTIONS.\");",
 											"          ",
 											"    });",
 											"}",
@@ -1597,7 +1472,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2640a18b-e396-4eda-945c-a54a2db2ea67",
 										"exec": [
 											""
 										],
@@ -1606,16 +1480,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ResourceWriteOnly}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -1647,7 +1511,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "109f8f12-7d37-4ea8-8dca-6959fa5317da",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1657,16 +1520,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "690350a6-c920-4951-b6c4-1e003110d345",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "A PUT request is made with a read only profile",
@@ -1677,11 +1537,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "92dbed9e-9245-40ec-96fb-2cfdd7cab5de",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 405\", () => {",
 											"        pm.expect(pm.response.code).to.equal(405);",
 											"    });",
@@ -1690,7 +1549,7 @@
 											"    pm.test(\"Should return the item with The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS. string\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.\");",
+											"         pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'test-profile-resource-readonly' profile are GET, DELETE and OPTIONS.\");",
 											"          ",
 											"    });",
 											"}",
@@ -1702,7 +1561,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "851f8dcc-c5ec-46ee-ba2e-bcd4f5473d24",
 										"exec": [
 											"const __ = require('lodash');",
 											"const uuid = require('uuid');",
@@ -1721,16 +1579,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ResourceReadOnly}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -1771,7 +1619,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7e8101eb-61ba-4259-9897-bb732f6b1bf5",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1781,16 +1628,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4c5677ff-ef67-4ff2-9317-d5072108e154",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "A PUT request is made with a write only profile",
@@ -1801,11 +1645,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "b0b5c245-8204-44ea-8f0a-9e56968bcb59",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -1818,7 +1661,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f2947058-c943-485f-a089-c209a4bd0ee5",
 										"exec": [
 											"const __ = require('lodash');",
 											"const uuid = require('uuid');",
@@ -1835,16 +1677,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ResourceWriteOnly}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -1885,7 +1717,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2b90cda4-c9e1-4424-a1ba-090dd7bdbe09",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1895,16 +1726,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c6743bf2-c3d1-4373-affe-196497d8ab00",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "A POST request is made with a read only profile",
@@ -1915,11 +1743,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c6b16951-224d-493a-a8b2-595320aad1d9",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 405\", () => {",
 											"        pm.expect(pm.response.code).to.equal(405);",
 											"    });",
@@ -1927,7 +1754,7 @@
 											"    pm.test(\"Should return the item with The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS. string\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.\");",
+											"         pm.expect(responseItem.message).to.include(\"The allowed methods for this resource with the 'test-profile-resource-readonly' profile are GET, DELETE and OPTIONS.\");",
 											"          ",
 											"    });",
 											"}",
@@ -1939,7 +1766,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "89e117bb-2e78-4b7c-99c1-8b7f658fa884",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1955,16 +1781,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ResourceReadOnly}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -2005,7 +1821,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d94144ce-735b-4414-9482-7bed41f8b50a",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2015,23 +1830,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6d5bf32d-8a59-499c-a5ef-e5c248670a04",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "d8a5bf70-9568-4bcb-84e3-7de56f64318c",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -2041,15 +1852,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "615582ee-7190-4e42-a536-0df0888846c9",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Profile definitions can filter child collections to include or exclude items based on Descriptor values",
@@ -2063,7 +1872,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a09ac9d0-bd88-4347-b614-f675c8f32bee",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -2081,11 +1889,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1ee5b165-1917-4f74-be91-b1f5b5d3bcde",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -2126,9 +1933,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type filters a child collection to only include certain Descriptor values",
@@ -2139,11 +1944,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6e626467-02ec-4990-9f6e-71a2ed5d8d29",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -2202,7 +2006,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "178a944d-4cb6-4677-8d18-c42a34159d81",
 										"exec": [
 											""
 										],
@@ -2211,16 +2014,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_SpecificDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -2230,7 +2023,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2239,7 +2032,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2253,7 +2045,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8aa579cd-b88d-4542-a4ba-f1b3f68ba3a2",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2263,16 +2054,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "936abf91-1448-47f8-98bd-761e64792a9f",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a child collection to only include certain Descriptor values and only conforming values are supplied",
@@ -2283,11 +2071,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e4b4870d-fd72-4801-973d-f35b4df913cc",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -2301,7 +2088,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "90319c51-c96d-4f20-b439-77c0aa862c62",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2318,16 +2104,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_SpecificDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -2346,7 +2122,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2355,7 +2131,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2369,11 +2144,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "af3d0e21-3699-4b0e-805f-0c6e812f8473",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -2415,7 +2189,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b8aa1330-954d-4ad6-9cc4-00bdf1928a6f",
 										"exec": [
 											""
 										],
@@ -2434,7 +2207,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2443,7 +2216,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2457,7 +2229,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c654e1ed-c0f8-412e-a9cf-d1bc40482f91",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2467,16 +2238,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c24e8386-0631-44fd-8fd4-c08afe81b9bb",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a child collection to only include certain Descriptor values and non-conforming values are supplied",
@@ -2487,11 +2255,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f03fdc3d-d1a5-4d9c-983a-41e405083bed",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
@@ -2511,7 +2278,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0589d738-1fa9-44d9-8c0e-744405fe9a8b",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2528,16 +2294,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_SpecificDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -2556,7 +2312,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2565,7 +2321,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2579,7 +2334,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "76ff3bb1-b2fe-4999-9ebb-9ec58ba95e4d",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2589,16 +2343,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0a890ab7-9e3e-4938-9418-28d4d168d7df",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type filters a child collection to only exclude certain Descriptor values",
@@ -2609,7 +2360,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "cd8061fd-19ec-4f4d-95a2-a4f08a9b1a9e",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2627,11 +2377,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "019af1d6-e565-41db-9c7d-148dbb15fefb",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -2657,7 +2406,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2666,7 +2415,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								}
@@ -2679,11 +2427,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3355e563-0131-49f5-a8a7-61ba3c27fe15",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -2739,7 +2486,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "72e504ee-5a56-4f27-a214-c776886a854f",
 										"exec": [
 											""
 										],
@@ -2748,16 +2494,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ExcludeOnlySpecificDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -2767,7 +2503,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2776,7 +2512,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2790,7 +2525,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "358b7a01-905e-4965-b1cb-4b0d03f27da9",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2800,16 +2534,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "48ea3be1-1c99-4b2e-b1a3-fe9ed7c5f127",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a child collection to only exclude certain Descriptor values and only conforming values are supplied",
@@ -2820,11 +2551,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "99898469-c584-4371-84aa-a43b16082f16",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -2838,7 +2568,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5955e8e8-fc23-48a0-8072-fd70c75856dc",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2855,16 +2584,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ExcludeOnlySpecificDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -2883,7 +2602,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2892,7 +2611,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2906,11 +2624,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d9c49bba-ce6a-4def-af9a-66bde9be4019",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -2951,7 +2668,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e46d16f8-1035-4e44-b784-af54c2d2235f",
 										"exec": [
 											""
 										],
@@ -2963,7 +2679,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2972,7 +2688,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -2986,7 +2701,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c6b63309-8666-4824-8689-a3dabd47d3cc",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2996,16 +2710,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d7466893-4def-481e-8dad-151033a905ca",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a child collection to only exclude certain Descriptor values and non-conforming values are supplied",
@@ -3016,11 +2727,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "69bc2ded-2de7-499b-a653-cdac4c3a9ff4",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
@@ -3040,7 +2750,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "be6a18e5-9bbd-43a6-a581-418a3420bee2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3057,16 +2766,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ExcludeOnlySpecificDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -3085,7 +2784,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools//{{supplied:inculdeexculde:schoolGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:inculdeexculde:schoolGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -3094,7 +2793,6 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"",
 										"{{supplied:inculdeexculde:schoolGuid}}"
 									]
 								},
@@ -3108,7 +2806,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "9b6a0c9e-57b4-4cba-aedd-4cf1c379a8e3",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3118,23 +2815,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a53d2c35-5406-4cc8-9f1b-5f7fbeaa8ff2",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "12ccac93-ea78-47d8-9aaa-eacab1cd372e",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -3144,15 +2837,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "99d3ceb3-438a-4083-89ea-d8c974f1324d",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Profile definitions can filter nested child collections to include or exclude items based on Descriptor values",
@@ -3166,11 +2857,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "69c259ce-0ffe-4b5f-950c-a26a1180eb99",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3184,7 +2874,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7456cd8b-584a-41f4-ac60-65691ef1fddf",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3233,11 +2922,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c56a7214-1be6-4106-b045-f452f1f2e2f9",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3251,7 +2939,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2e8e53b3-11ea-4461-99e5-b2dc503804ed",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3300,11 +2987,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "becf6b36-f1e4-45e6-a340-abf62b6fc4a2",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3319,7 +3005,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "56fcadd8-0ccb-492b-b9a4-b34b43449e62",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3375,11 +3060,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "623b3526-75b2-4b43-8828-a094ca048bd7",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -3393,7 +3077,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "67e210d5-d4e3-4d09-b197-57d854c77b80",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3445,9 +3128,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type filters a nested child collection to only include certain Descriptor values",
@@ -3458,11 +3139,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "76f790b3-8a5e-49b3-810e-33a2c7299cd9",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -3505,7 +3185,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7915a8ac-a6c7-499d-b1a0-584303c0e842",
 										"exec": [
 											""
 										],
@@ -3514,16 +3193,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_SpecificTypesDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -3555,7 +3224,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d8a45dad-25f2-4912-a461-f295c411d5e8",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3565,16 +3233,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "01f2ff04-8138-46bd-82f1-7a7ccee5cdff",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a nested child collection to only include certain Descriptor values and only conforming values are supplied",
@@ -3585,11 +3250,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "eaf6b187-d373-42dc-8d7c-b7d8fb482735",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -3603,7 +3267,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "17beacb4-d36b-4450-9067-40d5742abe99",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -3620,16 +3283,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_SpecificTypesDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -3670,11 +3323,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "585e2b27-cb37-4a29-8778-5c64c1e25084",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -3724,7 +3376,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e4433ebf-b9fa-4533-809e-891997ece588",
 										"exec": [
 											""
 										],
@@ -3758,7 +3409,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3d535010-7700-4a17-b618-77b93b69d55e",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3768,16 +3418,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d4b1212e-7731-477d-ab0b-4b7a81392f0c",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a nested child collection to only include certain Descriptor values and non-conforming values are supplied",
@@ -3788,11 +3435,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "98038612-bf9c-4560-86ec-94483c4f54ed",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
@@ -3813,7 +3459,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0d6b45d2-188a-4e40-be50-a7788c31b347",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3832,16 +3477,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_SpecificTypesDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -3882,7 +3517,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1be4aa02-df6c-4f7f-9fb2-4184c1b25ef8",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3892,16 +3526,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "979d38c6-a65a-4e6d-8b24-acbfbdb9a791",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type filters a nested child collection to only exclude certain Descriptor values",
@@ -3912,11 +3543,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6d6e5633-91cb-4324-8dfd-78c9835cbec0",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -3930,7 +3560,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7cc0f15c-5679-4c30-b100-0ef5147c884d",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3989,11 +3618,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c10023be-7b4e-49f2-a25b-815cf5bcc785",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -4037,7 +3665,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "08bb8b78-4a05-49b7-8d60-cf302df25bfe",
 										"exec": [
 											""
 										],
@@ -4046,16 +3673,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ExcludeOnlySpecificTypesDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -4087,7 +3704,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cec185a5-58fb-4f4e-b48b-798a53b276b4",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4097,16 +3713,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fc98a9d5-2eda-4aa8-9524-61b3e5868852",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a nested child collection to only exclude certain Descriptor values and non-conforming values are supplied",
@@ -4117,11 +3730,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2da7f289-a6a2-4b21-af81-60325c23db14",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
@@ -4141,7 +3753,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8dc70990-f7d7-4f4b-92e8-8306eafe361d",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4160,16 +3771,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ExcludeOnlySpecificTypesDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -4211,7 +3812,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8418e07a-9451-429e-85cb-55d2030f6a2c",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4221,16 +3821,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a69617cf-0c34-4639-a59d-90c279db4489",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Write content Descriptor filters a nested child collection to only exclude certain Descriptor values and only conforming values are supplied",
@@ -4241,11 +3838,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "75314d32-e7ca-42a4-ac25-83c0c0e8934a",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 204\", () => {",
 											"        pm.expect(pm.response.code).to.equal(204);",
 											"    });",
@@ -4259,7 +3855,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8acdbd59-9858-4c57-bb72-c286efe40b87",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -4275,16 +3870,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_ExcludeOnlySpecificTypesDescriptors}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "PUT",
 								"header": [
 									{
@@ -4326,11 +3911,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "079e2214-be51-4cc2-80de-0a7ccce550b3",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');\r",
 											"\r",
-											"if (profilesFeatureIsEnabled === 'true'){\r",
+											"if (profilesFeatureIsEnabled === true){\r",
 											"    pm.test(\"Status code is 200\", () => {\r",
 											"        pm.expect(pm.response.code).to.equal(200);\r",
 											"    });\r",
@@ -4377,7 +3961,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1cc5f3dd-3fab-47b1-b2bb-aa5f6d7392d2",
 										"exec": [
 											""
 										],
@@ -4411,7 +3994,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ba6ede75-1947-415e-8cb0-0a72e779f987",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4421,23 +4003,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c8426d40-95ce-48f4-8fab-bfd1062b4d34",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "5b7727ee-475b-45f2-be0c-48305d1a5c8a",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -4447,15 +4025,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "93df44db-1561-4aa6-802d-c942b87e0761",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Profiles assigned to callers must be used for covered resources",
@@ -4469,7 +4045,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ce607bf2-e589-4890-b6bd-d5d2c6276b69",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4487,12 +4062,11 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1bc4c36d-aeb9-4bd0-baf6-9e78a0ead865",
 										"exec": [
 											"",
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4535,9 +4109,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller is assigned a profile and requests a covered resource using the correct content type header",
@@ -4548,11 +4120,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "02a67dd5-9836-4af3-89c0-ed526e69b350",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -4565,7 +4136,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a05bb8eb-58ea-458c-9c46-cf9ae0348dec",
 										"exec": [
 											""
 										],
@@ -4615,7 +4185,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "441d81b5-9b3a-4817-8190-b32790251ba5",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4625,16 +4194,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8035d1ab-040c-49bc-b4a4-2343bc232ca9",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller is assigned a profile and requests a covered resource using a different profile's content type",
@@ -4645,11 +4211,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "eaf67bda-65dc-4b80-81d5-d06a3f446763",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    const __ = require('lodash');",
 											"    const responseItems = pm.response.json();",
 											"    pm.environment.set('known:studentGuid', __.first(responseItems)[\"id\"]);",
@@ -4666,7 +4231,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b1a85fba-1a3b-4240-98b9-88293a2f61fc",
 										"exec": [
 											""
 										],
@@ -4699,11 +4263,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6d819aa8-a0cc-48a3-a886-2e87f5ec151d",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 403\", () => {",
 											"        pm.expect(pm.response.code).to.equal(403);",
 											"    });",
@@ -4711,7 +4274,7 @@
 											"    pm.test(\"Should return error message 'One of the following profile-specific content types is required when requesting this resource: application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json'\", () => {",
 											"    ",
 											"        const responseItem = pm.response.json();",
-											"        pm.expect(responseItem.message).to.include(\"One of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\\'\");",
+											"        pm.expect(responseItem.message).to.include(\"one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json\\'\");",
 											"        ",
 											"    });",
 											"}"
@@ -4722,7 +4285,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "dd18c2b5-685f-4990-b723-dbf77d454ab7",
 										"exec": [
 											""
 										],
@@ -4772,7 +4334,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "9d52c9d1-1647-4a93-80d3-a6c85d317b68",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4782,16 +4343,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "69986bb2-57c1-4c12-aa26-804a79d08958",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller is assigned a profile and requests a covered resource using the standard content type header",
@@ -4802,11 +4360,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "84435a4b-f53c-42a1-bc24-1acda7ddcd93",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 403\", () => {",
 											"        pm.expect(pm.response.code).to.equal(403);",
 											"    });",
@@ -4814,7 +4371,7 @@
 											"    pm.test(\"Should return error message 'One of the following profile-specific content types is required when requesting this resource: application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json'\", () => {",
 											"    ",
 											"        const responseItem = pm.response.json();",
-											"        pm.expect(responseItem.message).to.include(\"One of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\\'\");",
+											"        pm.expect(responseItem.message).to.include(\"one of the following profile-specific content types is required when requesting this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\\'\");",
 											"        ",
 											"    });",
 											"}"
@@ -4825,7 +4382,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "45d2f2d9-44c9-4110-a32b-3bc79bbdcdfd",
 										"exec": [
 											""
 										],
@@ -4880,7 +4436,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "43ed8ed4-af18-49af-8310-2f9516863024",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4890,16 +4445,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "195a1d6a-2537-4762-b6f3-8c46c4e171f4",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller is assigned a profile and attempts to update a covered resource using the correct content type header",
@@ -4910,7 +4462,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "16089711-50b8-4ec9-8579-d3493606d778",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4928,12 +4479,11 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "aa23d10a-88e3-4b22-8220-3963506c89ef",
 										"exec": [
 											"",
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -4999,7 +4549,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cb872b78-a22d-41d2-9497-96507ceec358",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5009,16 +4558,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "664eefe8-304b-496b-8577-d76669189aab",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller is assigned a profile and attempts to update a covered resource using a different profile's content type",
@@ -5029,7 +4575,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "934dfdda-fb0f-4368-83d6-6533558fedd0",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -5055,20 +4600,19 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ec081f12-fffc-43b3-9a96-2ec9dc644f5b",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 403\", () => {",
 											"        pm.expect(pm.response.code).to.equal(403);",
 											"    });",
 											"",
 											"",
-											"    pm.test(\"Should return error message 'Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\", () => {",
+											"    pm.test(\"Should return error message 'Based on profile assignments, one of the following profile-specific content types is required when updating this resource: application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json'\", () => {",
 											"    ",
 											"        const responseItem = pm.response.json();",
-											"        pm.expect(responseItem.message).to.include(\"Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\\'\");",
+											"        pm.expect(responseItem.message).to.include(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.writable+json\\'\");",
 											"        ",
 											"    });",
 											"}"
@@ -5127,7 +4671,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f065ae8c-c50b-45a1-9e12-f4949a3e8c2a",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5137,16 +4680,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f92f3ecb-6792-4157-a9bc-f3ee42cd34d7",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller is assigned a profile and attempts to update a covered resource using the standard content type header",
@@ -5157,7 +4697,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9913f1b8-4bda-4dad-9925-0a734e8858f2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -5175,20 +4714,19 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8dcbbcc8-a9e5-4cbd-b405-f73136e860b4",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"pm.test(\"Status code is 403\", () => {",
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
 											"",
 											"",
-											"    pm.test(\"Should return error message 'Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\", () => {",
+											"    pm.test(\"Should return error message 'Based on profile assignments, one of the following profile-specific content types is required when updating this resource: application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json'\", () => {",
 											"    ",
 											"        const responseItem = pm.response.json();",
-											"        pm.expect(responseItem.message).to.include(\"Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json\\'\");",
+											"        pm.expect(responseItem.message).to.include(\"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: \\'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json\\'\");",
 											"        ",
 											"    });",
 											"}"
@@ -5248,7 +4786,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3106338c-0052-4275-a1b0-aa4ee9a34ee8",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5258,23 +4795,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ef690cdc-81b8-4d61-a123-ac5fbc55ee17",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cb143865-5940-4a07-aa74-be0053d0939d",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -5284,15 +4817,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "42eb86fe-ae1c-47b9-b0a1-e6a47321c33e",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Profiles can exclude optional references",
@@ -5306,7 +4837,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8e36cbe5-f135-40b7-a23a-9e3cf5e0c5dd",
 										"exec": [
 											""
 										],
@@ -5316,7 +4846,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a34c2f4b-b224-4edf-aa5d-de47a2ac747c",
 										"exec": [
 											"const __ = require('lodash');",
 											"const responseItems = pm.response.json();",
@@ -5325,7 +4854,7 @@
 											"",
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5366,11 +4895,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "760be61a-56cf-43dc-92e7-d3f7c1a2da4a",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200 or 201\", () => {",
 											"        pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 											"    });",
@@ -5386,7 +4914,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2b81b0c5-120f-44b8-854b-e1484e204fb2",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -5445,9 +4972,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The Read content type can exclude optional references",
@@ -5458,11 +4983,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "43da89c9-7780-4b3e-bcbd-47a3d09c4e8e",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5484,7 +5008,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0732c998-066b-4e2f-8e49-8483d99bef64",
 										"exec": [
 											""
 										],
@@ -5512,7 +5035,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks//{{supplied:{{scenarioId}}:academicWeeksGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{supplied:{{scenarioId}}:academicWeeksGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -5521,7 +5044,6 @@
 										"v3",
 										"ed-fi",
 										"academicWeeks",
-										"",
 										"{{supplied:{{scenarioId}}:academicWeeksGuid}}"
 									]
 								},
@@ -5535,7 +5057,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d809b702-0479-4a50-8d9e-352f0ae367dc",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5545,23 +5066,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b402231f-020e-4da7-a1ef-5fdf6d6fae57",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "2abccccb-9ccd-42c6-b1f0-b8435ad5625b",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -5571,15 +5088,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b570ba3b-10dd-44c1-9b9d-4d55a36ef801",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Profile-specific content type headers in requests are validated to match target resources",
@@ -5593,7 +5108,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1afe50d1-8a67-4bb0-a85a-e796674a0305",
 										"exec": [
 											""
 										],
@@ -5603,11 +5117,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "60a452f4-20e8-44d3-ae6d-7630c3a59532",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5641,9 +5154,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "GET Request contains an accept header with a content type using a profile that does not include the targeted resource",
@@ -5654,11 +5165,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c949741b-03c8-4d83-923f-12f8fc97d5e3",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
@@ -5678,7 +5188,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "54147fab-2562-40fe-ab76-6247a9d0b570",
 										"exec": [
 											""
 										],
@@ -5687,16 +5196,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StaffOnlyIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -5728,7 +5227,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "21c19ad0-ccb4-4474-a020-a37838f35b72",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5738,16 +5236,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a48f4f21-33f8-499b-acd2-583aa50866c1",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "GET Request contains an accept header with a content type using a profile that includes the targeted resource",
@@ -5758,11 +5253,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ae90f92-19c8-474c-9915-6c006a19215d",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -5776,7 +5270,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "40b486bd-9f87-4ea7-871d-36caa661ea45",
 										"exec": [
 											""
 										],
@@ -5785,16 +5278,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -5826,7 +5309,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "56814bd5-6a70-45e7-b619-d27e5ccd71aa",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5836,16 +5318,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a6c1713-c3ca-4621-92af-ac02c09b6d83",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "GET Request contains a content type header with a resource that does not match the requested resource",
@@ -5856,19 +5335,18 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "31707054-e694-4bf9-ab8d-484a151b3dfb",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
 											"",
-											"    pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\", () => {",
+											"    pm.test(\"Should return error message 'The resource in the profile-based content type does not match the resource targeted by the request.\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+											"         pm.expect(responseItem.message).to.include(\"The resource in the profile-based content type does not match the resource targeted by the request.\");",
 											"    });",
 											"}",
 											""
@@ -5879,7 +5357,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "792af7ee-c83e-47a9-9798-c0b35c8bbb8b",
 										"exec": [
 											""
 										],
@@ -5888,16 +5365,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -5929,7 +5396,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "52d707ee-663a-4279-83b9-5d952f854b5d",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -5939,16 +5405,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "61d51a6e-bd1b-45aa-9981-c68ce3c9abce",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "GET Request contains a content type header with a read/write content that does not match the requested resource",
@@ -5959,19 +5422,18 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "b578899a-31b3-4f12-b94e-b94ca5ce55ca",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
 											"",
-											"    pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\", () => {",
+											"    pm.test(\"Should return error message 'A profile-based content type that is writable cannot be used with GET requests.\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+											"         pm.expect(responseItem.message).to.equal(\"A profile-based content type that is writable cannot be used with GET requests.\");",
 											"    });",
 											"}",
 											""
@@ -5982,7 +5444,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "66f7a51a-4f8a-4520-8209-b6d10ad23687",
 										"exec": [
 											""
 										],
@@ -5991,16 +5452,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -6032,7 +5483,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "002881b0-f6b3-4c44-9525-cc1ec4c8c36e",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6042,16 +5492,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2f701993-f983-477e-bf3d-ef42fc8513ea",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "POST Request contains a content type header using a profile that does not include the targeted resource",
@@ -6062,21 +5509,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "df90d509-b97e-4933-a7c7-1c4168e6011d",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
-											"    pm.test(\"Status code is 400\", () => {",
-											"        pm.expect(pm.response.code).to.equal(400);",
-											"    });",
+											"if (profilesFeatureIsEnabled === true) {",
+											"  pm.test(\"Status code is 400\", () => {",
+											"    pm.expect(pm.response.code).to.equal(400);",
+											"  });",
 											"",
+											"  pm.test(\"Should return error message 'The 'student' resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\", () => {",
 											"",
-											"    pm.test(\"Should return error message 'The 'student' resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\", () => {",
-											"         ",
-											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The 'student' resource is not accessible through the \\'test-profile-staffonly-resource-includeall\\' profile specified by the content type\");",
-											"    });",
+											"    const responseItem = pm.response.json();",
+											"",
+											"    const pattern = new RegExp(\"The 'student' resource is not accessible through the 'test-profile-staffonly-resource-includeall' profile specified by the content type\", \"i\");",
+											"",
+											"    pm.expect(responseItem.message).to.match(pattern);",
+											"  });",
 											"}"
 										],
 										"type": "text/javascript"
@@ -6085,7 +5533,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f709c2f8-6277-4a0c-8613-fa3f07335108",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6110,16 +5557,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StaffOnlyIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -6155,7 +5592,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "548f369a-9cfb-45bf-99c1-f22b3475d986",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6165,16 +5601,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0fae36cb-516d-493a-b741-9df99d7b633e",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "POST Request contains a content type header using a profile that includes the targeted resource",
@@ -6185,11 +5618,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1a903eea-cc40-435d-91c0-aabf1e98b0d0",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6202,7 +5634,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e2d5e901-a9cf-4b44-9722-e4b7b44a7a65",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6227,16 +5658,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -6272,7 +5693,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0a41261d-c9e6-4aff-aedf-ba618d90d8fc",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6282,16 +5702,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7b1efe7a-b131-4524-8775-6338c314c8b7",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "POST Request contains a content type header with a resource that does not match the requested resource",
@@ -6302,19 +5719,18 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "19dd6fdf-f9d5-40e5-aeaf-95a62a8c3127",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
 											"",
-											"    pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\", () => {",
+											"    pm.test(\"Should return error message 'The resource in the profile-based content type does not match the resource targeted by the request.'\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+											"         pm.expect(responseItem.message).to.include(\"The resource in the profile-based content type does not match the resource targeted by the request.\");",
 											"    });",
 											"}",
 											""
@@ -6325,7 +5741,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "14659cca-c8af-4345-9c3a-11ee027702de",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6350,16 +5765,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -6395,7 +5800,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2cea1b50-c7c5-42a2-a333-780f7bf5d9db",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6405,16 +5809,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "26a77f1a-4aee-44a8-a182-a7e8a50ed576",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "POST\t Request contains a content type header with a read/write content that does not match the requested resource",
@@ -6425,20 +5826,19 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "437e14f8-168e-4b31-9b64-a5ffddc1bbb3",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 400\", () => {",
 											"        pm.expect(pm.response.code).to.equal(400);",
 											"    });",
 											"",
 											"",
-											"    pm.test(\"Should return error message 'The resource is not accessible through the profile specified by the content type\", () => {",
+											"    pm.test(\"Should return error message 'A profile-based content type that is readable cannot be used with PUT or POST requests.'\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"The resource is not accessible through the profile specified by the content type\");",
+											"         pm.expect(responseItem.message).to.include(\"A profile-based content type that is readable cannot be used with PUT or POST requests.\");",
 											"    });",
 											"}",
 											""
@@ -6449,7 +5849,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f7dc62a6-7dcf-4f60-9f98-273367ff3075",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6474,16 +5873,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -6519,7 +5908,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "90ffbffc-7bc7-4ad6-af40-240c74628032",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6529,23 +5917,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7b912918-a6c5-467e-afac-fd3c9cb1af6b",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "843be43e-8554-48c9-8d63-b1e58e6fc30d",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -6555,15 +5939,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "888fed19-ad19-4d99-857d-6d5aa7d4e0af",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature:Requests using content types referencing undefined profiles will fail",
@@ -6577,7 +5959,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6a451cec-4aab-4b01-ac47-de3efca89c57",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6595,11 +5976,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8fa8be23-0e80-4862-9954-42d0edd7589b",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -6642,9 +6022,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller attempts to read a resource using a non-existing profile",
@@ -6655,20 +6033,19 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "55197f32-b94c-4ace-9042-c0cacd1deb4f",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 406\", () => {",
 											"        pm.expect(pm.response.code).to.equal(406);",
 											"    });",
 											"",
 											"",
-											"    pm.test(\"Should return error message the profile specified by the content type is not supported by this host\", () => {",
+											"    pm.test(\"Should return error message the profile specified by the content type in the Accept header is not supported by this host\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"the profile specified by the content type is not supported by this host\");",
+											"         pm.expect(responseItem.message).to.equal(\"The profile specified by the content type in the 'Accept' header is not supported by this host.\");",
 											"    });",
 											"}",
 											""
@@ -6679,7 +6056,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d5964125-7e21-4ace-9ce7-6800890aa59a",
 										"exec": [
 											""
 										],
@@ -6688,16 +6064,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_NonExisting}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -6729,7 +6095,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "b73c18b6-cd38-48dc-b9bb-1dc09cff0b7b",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6739,16 +6104,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c6e3bdae-9924-4eff-aca0-d9214ea1d3ae",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller attempts to update a resource using a non-existing profile",
@@ -6759,11 +6121,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "592df407-eb80-477d-a5e1-2d290bfc45ea",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    ",
 											"       pm.test(\"Status code is 415\", () => {",
 											"        pm.expect(pm.response.code).to.equal(415);",
@@ -6772,7 +6133,7 @@
 											"    pm.test(\"Should return error message the profile specified by the content type is not supported by this host\", () => {",
 											"         ",
 											"         const responseItem = pm.response.json();",
-											"         pm.expect(responseItem.message).to.include(\"the profile specified by the content type is not supported by this host\");",
+											"         pm.expect(responseItem.message).to.equal(\"The profile specified by the content type in the 'Content-Type' header is not supported by this host.\");",
 											"    });",
 											"    ",
 											"}",
@@ -6784,7 +6145,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "96961429-745f-451c-bd6c-364a1d46494f",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -6800,16 +6160,6 @@
 								}
 							],
 							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_ProfileTest_NonExisting}}",
-											"type": "string"
-										}
-									]
-								},
 								"method": "POST",
 								"header": [
 									{
@@ -6850,7 +6200,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7ad39b0e-69c7-4f3e-bf9f-4d536a4f4350",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -6860,23 +6209,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "eacc5031-d9f6-4d06-abce-589f43bf07f2",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "12406bcd-7b01-4a2c-9e17-130c3f9efe64",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -6886,15 +6231,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "912ac103-68d8-44a2-9173-0de9dd02988b",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Feature: Resources not covered by an assigned profile are accessible using either the standard JSON content type or a valid profile content type",
@@ -6908,7 +6251,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d4d566ef-3e19-4fbe-b862-58acb85d1722",
 										"exec": [
 											""
 										],
@@ -6918,18 +6260,17 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5d5596db-4d7b-4433-92a1-289a4e2b0ec1",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
 											"    ",
-											"    const __ = require('lodash');",
 											"    const responseItems = pm.response.json();",
-											"    pm.environment.set('known:studentGuid',__.first(responseItems)[\"id\"]);",
+											"    const responseItem = responseItems[0];",
+											"    pm.environment.set('known:studentGuid', responseItem.id);",
 											"}"
 										],
 										"type": "text/javascript"
@@ -6955,9 +6296,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller requests a resource not covered by any of their assigned profiles using the standard content type",
@@ -6968,11 +6307,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0fb9b33e-93e2-4ef9-a5cf-7b86f4ffb5b9",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -6985,7 +6323,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1462281b-5975-4c33-a9bb-7f091e173409",
 										"exec": [
 											""
 										],
@@ -7007,7 +6344,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students//{{known:studentGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:studentGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -7016,7 +6353,6 @@
 										"v3",
 										"ed-fi",
 										"students",
-										"",
 										"{{known:studentGuid}}"
 									]
 								},
@@ -7030,7 +6366,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "99628a95-e876-4dbf-8107-705f5beb1978",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -7040,16 +6375,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f8818b60-a0c1-48fb-a1f6-5207d9ca5364",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller updates a resource not covered by any of their assigned profiles using the standard content type",
@@ -7060,11 +6392,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5cf0cbc1-bb2a-4679-989f-2ef2174e7d2e",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7076,7 +6407,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7603e12d-88a5-4f1c-b685-c50a23e97134",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -7121,7 +6451,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -7129,8 +6459,7 @@
 										"data",
 										"v3",
 										"ed-fi",
-										"students",
-										""
+										"students"
 									]
 								},
 								"description": "Scenario: The caller requests a resource not covered by any of their assigned profiles using the standard content type\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is assigned the \"Test-Profile-StaffOnly-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to students with an accept header content type of \"application/json\"\r\n    Then the response should indicate success"
@@ -7143,7 +6472,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a83c00cb-fc55-4267-a10f-7ab5bc8d05c1",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -7153,16 +6481,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6acc7fd8-a977-4973-ab05-e6f84f0cf583",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller updates a resource not covered by any of their assigned profiles using a valid but unassigned profile-specific content type",
@@ -7173,11 +6498,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "44f44cf9-e829-4b42-85ca-68b6907ac0f1",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
 											"    });",
@@ -7189,7 +6513,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "123da0e2-1574-4b3e-b609-05e2a2770f33",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -7262,7 +6585,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7dfe806c-3bed-41db-80ad-a73b3af7d54a",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -7272,16 +6594,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e91ba403-7474-4eb6-8263-65d3d3eb4836",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "The caller requests a resource not covered by their assigned profiles using a valid but unassigned profile-specific content type",
@@ -7292,11 +6611,10 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "cc756f28-2d1d-49d3-b2c9-331d06be1802",
 										"exec": [
 											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
-											"if (profilesFeatureIsEnabled === 'true'){",
+											"if (profilesFeatureIsEnabled === true){",
 											"    pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
 											"    });",
@@ -7308,7 +6626,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "071dd2d2-4418-41af-893b-b46c4250a5be",
 										"exec": [
 											""
 										],
@@ -7336,7 +6653,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students//{{known:studentGuid}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:studentGuid}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -7345,7 +6662,6 @@
 										"v3",
 										"ed-fi",
 										"students",
-										"",
 										"{{known:studentGuid}}"
 									]
 								},
@@ -7359,7 +6675,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "65d9ce29-fb21-4d14-b6e2-311ed3ca5f87",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -7369,23 +6684,19 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cd4d3af4-bbec-48f3-a37d-768dac390641",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "33ebae51-7818-4199-bf74-93f3e9e937e8",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -7395,15 +6706,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "feef6636-119a-443a-95ed-4d255200d2f7",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Clean Up Test Data",
@@ -7414,7 +6723,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7fbad458-e79b-4ef0-942c-fd72a1c5e870",
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
@@ -7444,8 +6752,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
@@ -7462,7 +6769,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "384a821d-1924-4305-b183-0100567df7aa",
 				"type": "text/javascript",
 				"exec": [
 					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
@@ -7507,8 +6813,6 @@
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_ExcludeOnlySpecificTypesDescriptors\",\"AccessToken_ProfileTest_ExcludeOnlySpecificTypesDescriptors\",\"ApiKey_ProfileTest_ExcludeOnlySpecificTypesDescriptors\",\"ApiSecret_ProfileTest_ExcludeOnlySpecificTypesDescriptors\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_StudentOnlyResourceIncludeAll\",\"AccessToken_ProfileTest_StudentOnlyResourceIncludeAll\",\"ApiKey_ProfileTest_StudentOnlyResourceIncludeAll\",\"ApiSecret_ProfileTest_StudentOnlyResourceIncludeAll\")",
-					"",
-					"CreateAccessToken(\"TokenExpiry_ProfileTest_StudentOnly_ResourceIncludeAll\",\"AccessToken_ProfileTest_StudentOnly_ResourceIncludeAll\",\"ApiKey_ProfileTest_StudentOnly_ResourceIncludeAll\",\"ApiSecret_ProfileTest_StudentOnly_ResourceIncludeAll\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"AccessToken_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"ApiKey_ProfileTest_StaffOnlyStudentOnlyIncludeAll\",\"ApiSecret_ProfileTest_StaffOnlyStudentOnlyIncludeAll\")",
 					"",
@@ -7577,13 +6881,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "09b51731-02c0-4a74-8fe0-bfb22c6409c0",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

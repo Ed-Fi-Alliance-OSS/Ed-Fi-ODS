@@ -64,6 +64,11 @@ namespace EdFi.Ods.Common.Models.Resource
             return _resourceSelector.GetAll();
         }
 
+        public Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+        {
+            return _resourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
+        }
+
         /// <summary>
         /// Gets a provider capable of mapping schema names between logical, physical, proper case name and URI segment representations.
         /// </summary>
@@ -95,14 +100,32 @@ namespace EdFi.Ods.Common.Models.Resource
 
             public Resource GetByName(FullName fullName)
             {
+                return GetByName(fullName, model => model.ResourceByName)
+                    // No resources means there's no Profile in play so we should return the main ResourceModel's resource
+                    ??  UnderlyingResourceSelector.GetByName(fullName);               
+            }
+
+            public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+            {
+                return GetByName(
+                        new FullName(schemaUriSegment, resourceCollectionName),
+                        model => model.ResourceByApiCollectionName)
+                    // No resources means there's no Profile in play so we should return the main ResourceModel's resource
+                    ?? UnderlyingResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
+            }
+
+            private Resource GetByName(
+                FullName fullName,
+                Func<ProfileResourceModel, IReadOnlyDictionary<FullName, ProfileResourceContentTypes>> contentTypesByFullName)
+            {
                 var allProfileResources =
-                    (from m in _profileResourceModels
-                     let ct = m.ResourceByName.GetValueOrDefault(fullName)
-                     where ct != null
-                     select _usage == ContentTypeUsage.Readable
-                         ? ct.Readable
-                         : ct.Writable)
-                   .ToArray();
+                    _profileResourceModels.Select(m => contentTypesByFullName(m).GetValueOrDefault(fullName))
+                        .Where(ct => ct != null)
+                        .Select(ct => 
+                            _usage == ContentTypeUsage.Readable
+                                ? ct.Readable
+                                : ct.Writable)
+                        .ToArray();
 
                 // If we have any Profiles that apply to the requested resource
                 if (allProfileResources.Any())
@@ -111,20 +134,17 @@ namespace EdFi.Ods.Common.Models.Resource
                     // then we can't continue because the resource is inaccessible.
                     if (allProfileResources.All(x => x == null))
                     {
+                        var profileNames = _profileResourceModels.Select(m => m.ProfileName);
+
                         throw new ProfileContentTypeException(
-                            string.Format(
-                                "There is no {0} content type available to the caller for the requested resource.",
-                                _usage));
+                            $"There is no {_usage} content type available to the caller for the '{fullName}' resource in the following profiles: '{string.Join("', '", profileNames)}'.");
                     }
 
                     // Return all the profile-filtered versions of the resource
-                    return new Resource(
-                        allProfileResources.Where(x => x != null)
-                                           .ToArray());
+                    return new Resource(allProfileResources.Where(x => x != null).ToArray());
                 }
 
-                // No resources means there's no Profile in play so we should return the main ResourceModel's resource
-                return UnderlyingResourceSelector.GetByName(fullName);
+                return null;
             }
         }
     }
