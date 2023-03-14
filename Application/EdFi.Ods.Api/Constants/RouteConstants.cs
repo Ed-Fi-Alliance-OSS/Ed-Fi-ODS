@@ -26,5 +26,10 @@ namespace EdFi.Ods.Api.Constants
         {
             get => @"{instanceIdFromRoute:regex(^[[A-Za-z0-9-]]+$)}/";
         }
+        
+        public static string InstanceIdFromRouteForFilter
+        {
+            get => @"{instanceIdFromRoute:regex(^[A-Za-z0-9-]+$)}/";
+        }
     }
 }
