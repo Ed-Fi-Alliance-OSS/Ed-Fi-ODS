@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
 using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
+using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
@@ -59,7 +60,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISecurityRepository securityRepository,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementRequestContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
