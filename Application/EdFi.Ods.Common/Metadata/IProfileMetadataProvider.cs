@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace EdFi.Ods.Common.Metadata
@@ -18,5 +19,7 @@ namespace EdFi.Ods.Common.Metadata
         /// Gets the specified Profile definition by name.
         /// </summary>
         XElement GetProfileDefinition(string profileName);
+        
+        IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName { get; }
     }
 }
