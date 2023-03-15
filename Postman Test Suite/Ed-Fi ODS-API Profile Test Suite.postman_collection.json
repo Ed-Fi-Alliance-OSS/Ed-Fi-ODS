@@ -1,16 +1,15 @@
 {
 	"info": {
-		"_postman_id": "c0b4baa3-57b0-441a-856c-b53397e5292d",
+		"_postman_id": "94085c82-8a53-4cef-bc7b-7a1351f688a1",
 		"name": "Ed-Fi ODS/API Profile Test Suite",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1213570"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Test Suite Setup",
+			"name": "Load Descriptor Data",
 			"item": [
 				{
-					"name": "Create Test Descriptor Data",
+					"name": "Initiailze   addressTypeDescriptors List",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -25,15 +24,51 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", () => {",
-									"    pm.expect(pm.response.code).to.equal(200);",
-									"});",
+									"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 									"",
 									"if (profilesFeatureIsEnabled === true){",
 									"    pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
-									"});"
+									"    ",
+									"    const descriptorList=['A1','A2','A3','A4'];",
+									"    const __ = require('lodash');",
+									"     ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/AddressTypeDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/addressTypeDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"",
+									"}  \t"
 								],
 								"type": "text/javascript"
 							}
@@ -50,7 +85,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{ApiBaseUrl}}",
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/addressTypeDescriptors",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -656,13 +691,13 @@
 			]
 		},
 		{
-			"name": "Embedded objects included and excluded",
+			"name": "Feature:Embedded one to one references can be included and excluded",
 			"item": [
 				{
-					"name": "Setup",
+					"name": "Initial Setup",
 					"item": [
 						{
-							"name": "Identify Test Subject (Assessment)",
+							"name": "Initialize Known Assessment Data for Get Requests",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -677,9 +712,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
+											"const profilesFeatureIsEnabled = pm.environment.get('ProfilesFeatureIsEnabled');",
 											"",
 											"if (profilesFeatureIsEnabled === true){",
 											"    const __ = require('lodash');",
@@ -3098,11 +3131,11 @@
 					]
 				},
 				{
-					"name": "Read Content Type",
+					"name": "The Read content type filters a nested child collection to only include certain Descriptor values",
 					"item": [
 						{
-							"name": "Exclude Embedded Object",
-							"item": [
+							"name": "The Read content type filters a nested child collection to only include certain Descriptor values",
+							"event": [
 								{
 									"listen": "test",
 									"script": {
@@ -4375,73 +4408,30 @@
 										"value": "application/json",
 										"type": "text"
 									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Include Embedded Object",
-							"item": [
-								{
-									"name": "Embedded object should be present",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"pm.test(\"Should include the embedded object (contentStandard)\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem).to.include.all.keys('contentStandard');",
-													"});",
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{supplied:{{scenarioId}}:schoolGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
 									],
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Accept",
-												"value": "application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.readable+json",
-												"type": "text"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"assessments",
-												"{{known:assessment:id}}"
-											]
-										},
-										"description": "Scenario: The Read content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Includes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\t\r\n    Then the response should indicate success\r\n    And the response should contain the embedded object ContentStandard"
-									},
-									"response": []
-								}
-							]
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{supplied:{{scenarioId}}:schoolGuid}}"
+									]
+								},
+								"description": "Scenario: The caller is assigned a profile and requests a covered resource using the standard content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of \"application/json\"\r\n    Then the response should contain a 403 Forbidden failure indicating that \"one of the following profile-specific content types is required when requesting this resource\""
+							},
+							"response": []
 						}
 					],
-					"description": "Scenario: The Read content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Includes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\t\r\n    Then the response should indicate success\r\n    And the response should contain the embedded object ContentStandard",
+					"description": "Scenario: The caller is assigned a profile and requests a covered resource using the standard content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of \"application/json\"\r\n    Then the response should contain a 403 Forbidden failure indicating that \"one of the following profile-specific content types is required when requesting this resource\"",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -4464,266 +4454,10 @@
 					]
 				},
 				{
-					"name": "Write Content Type",
+					"name": "The caller is assigned a profile and attempts to update a covered resource using the correct content type header",
 					"item": [
 						{
-							"name": "Exclude Embedded Object",
-							"item": [
-								{
-									"name": "Update title on embedded contentStandard",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {",
-													"    pm.expect(pm.response.code).to.equal(204);",
-													"});",
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn('{{$guid}}'));",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.writable+json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"assessmentTitle\": \"4th Grade Reading 1st Six Weeks 2012-2013\",\r\n    \"contentStandard\": {\r\n        \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n    },\r\n    \"academicSubjects\": [\r\n        {\r\n            \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n        }\r\n    ]\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"assessments",
-												"{{known:assessment:id}}"
-											]
-										},
-										"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed"
-									},
-									"response": []
-								},
-								{
-									"name": "Embedded object should be unchanged",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"pm.test(\"Should not have updated the embedded object (contentStandard)\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem.contentStandard.title).to.equal(pm.environment.get('known:assessment:contentStandard:title'));",
-													"});",
-													""
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"assessments",
-												"{{known:assessment:id}}"
-											]
-										},
-										"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n"
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Include Embedded Object",
-							"item": [
-								{
-									"name": "Update title on embedded contentStandard",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {",
-													"    pm.expect(pm.response.code).to.equal(204);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set('supplied:assessment:contentStandard:title', pm.variables.replaceIn(\"{{$guid}}\"));",
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "PUT",
-										"header": [
-											{
-												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.writable+json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"assessmentTitle\": \"3rd Grade Reading 1st Six Weeks 2012-2013\",\r\n    \"contentStandard\": {\r\n        \"title\": \"{{supplied:assessment:contentStandard:title}}\"\r\n    },\r\n    \"academicSubjects\": [\r\n        {\r\n            \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n        }\r\n    ]\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"assessments",
-												"{{known:assessment:id}}"
-											]
-										},
-										"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n"
-									},
-									"response": []
-								},
-								{
-									"name": "Embedded object should be updated",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 200\", () => {",
-													"    pm.expect(pm.response.code).to.equal(200);",
-													"});",
-													"",
-													"pm.test(\"Should have updated the embedded object (contentStandard)\", () => {",
-													"    const responseItem = pm.response.json();",
-													"    pm.expect(responseItem.contentStandard.title).to.equal(pm.environment.get('supplied:assessment:contentStandard:title'));",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments/{{known:assessment:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"assessments",
-												"{{known:assessment:id}}"
-											]
-										},
-										"description": "Scenario: The Write content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Includes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should be changed\r\n"
-									},
-									"response": []
-								}
-							]
-						}
-					],
-					"description": "Scenario: The Write content type can exclude embedded one to one references\r\n    Given the caller is using the \"Assessment-Writable-Excludes-Embedded-Object\" profile\r\n    When a PUT request with a completely updated resource is submitted using raw JSON to assessments with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the persisted entity model embedded object AssessmentContentStandard should not be changed",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
-					"name": "Teardown",
-					"item": [
-						{
-							"name": "Clean up Environment Variables",
+							"name": "The caller is assigned a profile and attempts to update a covered resource using the correct content type header",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -4766,14 +4500,43 @@
 							],
 							"request": {
 								"auth": {
-									"type": "noauth"
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_ProfileTest_IncludeAll}}",
+											"type": "string"
+										}
+									]
 								},
-								"method": "GET",
-								"header": [],
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\r\n \t\"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": \"{{supplied:{{scenarioId}}:localEducationAgencyId}}\"\r\n    },\r\n    \"schoolId\": \"{{supplied:{{scenarioId}}:schoolId}}\",\r\n    \"nameOfInstitution\": \"Grand Bend Elementary School\",\r\n   \r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n      \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\":\"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n      }\r\n    ]\r\n  }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/",
 									"host": [
 										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										""
 									]
 								},
 								"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using the correct content type header\r\n    Given the caller is assigned the \"Test-Profile-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
@@ -4857,6 +4620,48 @@
 										"type": "text/javascript"
 									}
 								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_ProfileTest_StudentOnlyResourceIncludeAll}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								},
+								"description": "Scenario: The caller is assigned a profile and attempts to update a covered resource using a different profile's content type\r\n    Given the caller is assigned the \"Test-Profile-StudentOnly-Resource-IncludeAll\" profile\r\n    And the caller is using the \"Test-Profile-StudentOnly2-Resource-IncludeAll\" profile\r\n    When a POST request with a resource is submitted to students with a request body content type of the appropriate value for the profile in use\r\n    Then the response should contain a 403 Forbidden failure indicating that \"based on the assigned profiles, one of the following profile-specific content types is required when updating this resource\"\r\n"
 							},
 							"response": []
 						}
@@ -5021,14 +4826,14 @@
 			]
 		},
 		{
-			"name": "Item filtering",
+			"name": "Feature:Profiles can exclude optional references",
 			"item": [
 				{
-					"name": "Child collection item filtering based on Descriptor values",
+					"name": "Initital Setup",
 					"item": [
 						{
-							"name": "Setup",
-							"item": [
+							"name": "Initialize Known School Data for Get Requests",
+							"event": [
 								{
 									"listen": "prerequest",
 									"script": {
@@ -5076,60 +4881,17 @@
 									],
 									"query": [
 										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"pm.environment.set('supplied:school:schoolId', pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}\"));"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 201\", () => {",
-													"    pm.expect(pm.response.code).to.equal(201);",
-													"});",
-													"",
-													"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
-												],
-												"type": "text/javascript"
-											}
+											"key": "localEducationAgencyId",
+											"value": "255901"
 										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"Grand Bend Elementary School\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A1\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A2\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A3\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A4\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        }\r\n    ],\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"internationalAddresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A1\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C1\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A2\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C2\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A3\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C3\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A4\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C4\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G1\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G3\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G4\"\r\n        }\r\n    ],\r\n    \"schoolCategories\": [\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S1\"\r\n        },\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S2\"\r\n        },\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S3\"\r\n        },\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S4\"\r\n        }\r\n    ]\r\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"schools"
-											]
-										}
-									},
-									"response": []
+									]
 								}
-							]
+							},
+							"response": []
 						},
 						{
-							"name": "Read content type",
-							"item": [
+							"name": "Insert new academicWeeks",
+							"event": [
 								{
 									"listen": "test",
 									"script": {
@@ -5258,211 +5020,18 @@
 									"type": "bearer",
 									"bearer": [
 										{
-											"name": "Get the School",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"const __ = require('lodash');\r",
-															"\r",
-															"pm.test(\"Status code is 200\", () => {\r",
-															"    pm.expect(pm.response.code).to.equal(200);\r",
-															"});\r",
-															"\r",
-															"const responseItem = pm.response.json();\r",
-															"\r",
-															"// Based on profile definition\r",
-															"const expectedAddressTypeDescriptors = [\r",
-															"    'uri://ed-fi.org/AddressTypeDescriptor#A4',\r",
-															"    'uri://ed-fi.org/AddressTypeDescriptor#A2'];\r",
-															"const expectedCountryDescriptors = [\r",
-															"    'uri://ed-fi.org/CountryDescriptor#C2',\r",
-															"    'uri://ed-fi.org/CountryDescriptor#C4'];\r",
-															"const expectedSchoolCategoryDescriptors = [\r",
-															"    'uri://ed-fi.org/SchoolCategoryDescriptor#S2',\r",
-															"    'uri://ed-fi.org/SchoolCategoryDescriptor#S4'];\r",
-															"const expectedGradeLevelDescriptors = [\r",
-															"    'uri://ed-fi.org/GradeLevelDescriptor#G2',\r",
-															"    'uri://ed-fi.org/GradeLevelDescriptor#G4'];\r",
-															"\r",
-															"pm.test(\"Should return exactly the items in set of ['uri://ed-fi.org/AddressTypeDescriptor#A2','uri://ed-fi.org/AddressTypeDescriptor#A4'] for address.addressTypeDescriptor from addresses collection \", () => {\r",
-															"\r",
-															"    const actualAddressTypeDescriptors = __.map(responseItem.addresses, address => address.addressTypeDescriptor);\r",
-															"    pm.expect(actualAddressTypeDescriptors).to.have.length(expectedAddressTypeDescriptors.length);\r",
-															"    pm.expect(actualAddressTypeDescriptors).to.have.members(expectedAddressTypeDescriptors);\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Should return exactly the items in set of  ['uri://ed-fi.org/CountryDescriptor#C2','uri://ed-fi.org/CountryDescriptor#C4'] for countryDescriptor from internationalAddresses collection  \", () => {\r",
-															"    const actualCountryDescriptors = __.map(responseItem.internationalAddresses, address => address.countryDescriptor);\r",
-															"    pm.expect(actualCountryDescriptors).to.have.length(expectedCountryDescriptors.length);\r",
-															"    pm.expect(actualCountryDescriptors).to.have.members(expectedCountryDescriptors);\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Should return exactly the items in set of ['uri://ed-fi.org/SchoolCategoryDescriptor#S2','uri://ed-fi.org/SchoolCategoryDescriptor#S4'] for schoolCategoryDescriptor from schoolCategories collection  \", () => {\r",
-															"    const actualSchoolCategoryDescriptors = __.map(responseItem.schoolCategories, schoolCategory => schoolCategory.schoolCategoryDescriptor);\r",
-															"    pm.expect(actualSchoolCategoryDescriptors).to.have.length(expectedSchoolCategoryDescriptors.length);\r",
-															"    pm.expect(actualSchoolCategoryDescriptors).to.have.members(expectedSchoolCategoryDescriptors);\r",
-															"});\r",
-															"\r",
-															"pm.test(\"Should return exactly the items in set of ['uri://ed-fi.org/GradeLevelDescriptor#G2','uri://ed-fi.org/GradeLevelDescriptor#G4'] for gradeLevelDescriptor from gradeLevels collection  \", () => {\r",
-															"    const actualGradeLevelDescriptors = __.map(responseItem.gradeLevels, gradeLevel => gradeLevel.gradeLevelDescriptor);\r",
-															"    pm.expect(actualGradeLevelDescriptors).to.have.length(expectedGradeLevelDescriptors.length);\r",
-															"    pm.expect(actualGradeLevelDescriptors).to.have.members(expectedGradeLevelDescriptors);\r",
-															"});\r",
-															""
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "Accept",
-														"type": "text",
-														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.readable+json"
-													}
-												],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"schools",
-														"{{known:school:id}}"
-													]
-												},
-												"description": "Scenario: The Read content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Includes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\t\r\n    Then the response should indicate success\r\n    And the response should contain the embedded object ContentStandard"
-											},
-											"response": []
+											"key": "token",
+											"value": "{{AccessToken_ProfileTest_AcademicWeekReferences}}",
+											"type": "string"
 										}
 									]
 								},
-								{
-									"name": "Excludes child collection items",
-									"item": [
-										{
-											"name": "Get the School",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"const __ = require('lodash');",
-															"",
-															"pm.test(\"Status code is 200\", () => {",
-															"    pm.expect(pm.response.code).to.equal(200);",
-															"});",
-															"",
-															"const responseItem = pm.response.json();",
-															"",
-															"const excludedAddressTypeDescriptors = [",
-															"    'uri://ed-fi.org/AddressTypeDescriptor#A1',",
-															"    'uri://ed-fi.org/AddressTypeDescriptor#A3'];",
-															"",
-															"const excludedCountryDescriptors = [",
-															"    'uri://ed-fi.org/CountryDescriptor#C1',",
-															"    'uri://ed-fi.org/CountryDescriptor#C3'];",
-															"",
-															"const excludedSchoolCategoryDescriptors = [",
-															"    'uri://ed-fi.org/SchoolCategoryDescriptor#S1',",
-															"    'uri://ed-fi.org/SchoolCategoryDescriptor#S3'];",
-															"",
-															"const excludedGradeLevelDescriptors = [",
-															"    'uri://ed-fi.org/GradeLevelDescriptor#G1',",
-															"    'uri://ed-fi.org/GradeLevelDescriptor#G3'];",
-															"",
-															"pm.test(\"Should not return the addresses with excluded address type descriptors ['uri://ed-fi.org/AddressTypeDescriptor#A1','uri://ed-fi.org/AddressTypeDescriptor#A3']\", () => {",
-															"    const actualAddressTypeDescriptors = __.map(responseItem.addresses, address => address.addressTypeDescriptor);",
-															"    pm.expect(actualAddressTypeDescriptors).to.have.length(2);",
-															"    pm.expect(actualAddressTypeDescriptors).to.not.have.members(excludedAddressTypeDescriptors);",
-															"});",
-															"",
-															"pm.test(\"Should not return the international addresses with excluded country descriptors ['uri://ed-fi.org/CountryDescriptor#C1','uri://ed-fi.org/CountryDescriptor#C3']\", () => {",
-															"    const actualCountryDescriptors = __.map(responseItem.internationalAddresses, address => address.countryDescriptor);",
-															"    pm.expect(actualCountryDescriptors).to.have.length(2);",
-															"    pm.expect(actualCountryDescriptors).to.not.have.members(excludedCountryDescriptors);",
-															"});",
-															"",
-															"pm.test(\"Should not return the school categories with excluded school category descriptors ['uri://ed-fi.org/SchoolCategoryDescriptor#S1','uri://ed-fi.org/SchoolCategoryDescriptor#S3']\", () => {",
-															"    const actualSchoolCategoryDescriptors = __.map(responseItem.schoolCategories, schoolCategory => schoolCategory.schoolCategoryDescriptor);",
-															"    pm.expect(actualSchoolCategoryDescriptors).to.have.length(2);",
-															"    pm.expect(actualSchoolCategoryDescriptors).to.not.have.members(excludedSchoolCategoryDescriptors);",
-															"});",
-															"",
-															"pm.test(\"Should not return the grade levels with excluded grade level descriptors ['uri://ed-fi.org/GradeLevelDescriptor#G1','uri://ed-fi.org/GradeLevelDescriptor#G3']\", () => {",
-															"    const actualGradeLevelDescriptors = __.map(responseItem.gradeLevels, gradeLevel => gradeLevel.gradeLevelDescriptor);",
-															"    pm.expect(actualGradeLevelDescriptors).to.have.length(2);",
-															"    pm.expect(actualGradeLevelDescriptors).to.not.have.members(excludedGradeLevelDescriptors);",
-															"});",
-															""
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "GET",
-												"header": [
-													{
-														"key": "Accept",
-														"type": "text",
-														"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.readable+json"
-													}
-												],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"schools",
-														"{{known:school:id}}"
-													]
-												},
-												"description": "Scenario: The Read content type filters a child collection to only exclude certain Descriptor values\r\n    Given the caller is using the \"Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors\" profile\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the response model's collection items should not contain items matching the excluded Descriptor values"
-											},
-											"response": []
-										}
-									]
-								}
-							],
-							"description": "Scenario: A GET request is made with a read only profile \r\n    Given the caller is using the \"Test-Profile-Resource-ReadOnly\" profile\t\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											""
-										]
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"type": "text",
+										"value": "application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.readable+json"
 									}
 								],
 								"url": {
@@ -5478,328 +5047,12 @@
 										"{{supplied:{{scenarioId}}:academicWeeksGuid}}"
 									]
 								},
-								{
-									"name": "Excludes child collection items",
-									"item": [
-										{
-											"name": "Conforming Values",
-											"item": [
-												{
-													"name": "Update School",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Status code is 204\", () => {",
-																	"    pm.expect(pm.response.code).to.equal(204);",
-																	"});"
-																],
-																"type": "text/javascript"
-															}
-														},
-														{
-															"listen": "prerequest",
-															"script": {
-																"exec": [
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"method": "PUT",
-														"header": [
-															{
-																"key": "Content-Type",
-																"type": "text",
-																"value": "application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors.writable+json",
-																"description": "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors"
-															}
-														],
-														"body": {
-															"mode": "raw",
-															"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"Grand Bend Elementary School\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A1\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A3\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        }\r\n    ],\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"internationalAddresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A1\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C1\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A3\",\r\n            \"addressLine1\": \"X-String-34\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C3\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G1\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G3\"\r\n        }\r\n    ],\r\n    \"schoolCategories\": [\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S1\"\r\n        },\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S3\"\r\n        }\r\n    ]\r\n}",
-															"options": {
-																"raw": {
-																	"language": "json"
-																}
-															}
-														},
-														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"data",
-																"v3",
-																"ed-fi",
-																"schools",
-																"{{known:school:id}}"
-															]
-														},
-														"description": "Scenario: The Write content Descriptor filters a child collection to only exclude certain Descriptor values and only conforming values are supplied\r\n    Given the caller is using the \"Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors\" profile\r\n    When a PUT request with a collection containing only conforming excluded Descriptor values is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the submitted Descriptor values should be persisted to the School\r\n    And the pre-existing Descriptor values should be intact on the School"
-													},
-													"response": []
-												},
-												{
-													"name": "Get full School (no Profile)",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"const __ = require('lodash');\r",
-																	"\r",
-																	"pm.test(\"Status code is 200\", () => {\r",
-																	"    pm.expect(pm.response.code).to.equal(200);\r",
-																	"});\r",
-																	"\r",
-																	"const responseItem = pm.response.json();\r",
-																	"\r",
-																	"const expectedCountryDescriptors = [\r",
-																	"    'uri://ed-fi.org/CountryDescriptor#C1',\r",
-																	"    'uri://ed-fi.org/CountryDescriptor#C2',\r",
-																	"    'uri://ed-fi.org/CountryDescriptor#C3',\r",
-																	"    'uri://ed-fi.org/CountryDescriptor#C4'\r",
-																	"];\r",
-																	"\r",
-																	"const expectedgradeLevelDescriptor = [\r",
-																	"    'uri://ed-fi.org/GradeLevelDescriptor#G1',\r",
-																	"    'uri://ed-fi.org/GradeLevelDescriptor#G2',\r",
-																	"    'uri://ed-fi.org/GradeLevelDescriptor#G3',\r",
-																	"    'uri://ed-fi.org/GradeLevelDescriptor#G4'\r",
-																	"];\r",
-																	"\r",
-																	"pm.test(\"Should return internationalAddress items with countryDescriptors in ['uri://ed-fi.org/CountryDescriptor#C1','uri://ed-fi.org/CountryDescriptor#C2','uri://ed-fi.org/CountryDescriptor#C4']\", () => {\r",
-																	"\r",
-																	"    const actualcountryDescriptors = __.map(responseItem.internationalAddresses, address => address.countryDescriptor);\r",
-																	"    pm.expect(actualcountryDescriptors).to.have.members(expectedCountryDescriptors);\r",
-																	"});\r",
-																	"\r",
-																	"pm.test(\"Should return gradeLevels with gradeLevelDescriptors in ['uri://ed-fi.org/GradeLevelDescriptor#G1','uri://ed-fi.org/GradeLevelDescriptor#G2','uri://ed-fi.org/GradeLevelDescriptor#G3','uri://ed-fi.org/GradeLevelDescriptor#G4'] for gradeLevelDescriptor\", () => {\r",
-																	"\r",
-																	"    const actualgradeLevelDescriptors = __.map(responseItem.gradeLevels, gradeLevel => gradeLevel.gradeLevelDescriptor);\r",
-																	"    pm.expect(actualgradeLevelDescriptors).to.have.members(expectedgradeLevelDescriptor);\r",
-																	"\r",
-																	"});"
-																],
-																"type": "text/javascript"
-															}
-														},
-														{
-															"listen": "prerequest",
-															"script": {
-																"exec": [
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"method": "GET",
-														"header": [],
-														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"data",
-																"v3",
-																"ed-fi",
-																"schools",
-																"{{known:school:id}}"
-															]
-														},
-														"description": "Scenario: The Read content type can include embedded one to one references\r\n    Given the caller is using the \"Assessment-Readable-Includes-Embedded-Object\" profile\r\n    When a GET (by id) request is submitted using raw JSON to assessments with an accept header content type of the appropriate value for the profile in use\t\r\n    Then the response should indicate success\r\n    And the response should contain the embedded object ContentStandard"
-													},
-													"response": []
-												}
-											]
-										},
-										{
-											"name": "Non-Conforming Values",
-											"item": [
-												{
-													"name": "Update School",
-													"event": [
-														{
-															"listen": "test",
-															"script": {
-																"exec": [
-																	"pm.test(\"Status code is 400\", () => {",
-																	"    pm.expect(pm.response.code).to.equal(400);",
-																	"});",
-																	"",
-																	"pm.test(\"Should return the item with message does not conform with the filter values defined by profile 'Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors'\", () => {",
-																	"    const responseItem = pm.response.json();",
-																	"    pm.expect(responseItem.message).to.include(\"does not conform with the filter values defined by profile 'Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors'\");",
-																	"});"
-																],
-																"type": "text/javascript"
-															}
-														},
-														{
-															"listen": "prerequest",
-															"script": {
-																"exec": [
-																	""
-																],
-																"type": "text/javascript"
-															}
-														}
-													],
-													"request": {
-														"method": "PUT",
-														"header": [
-															{
-																"key": "Content-Type",
-																"type": "text",
-																"value": "application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors.writable+json",
-																"description": "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors"
-															}
-														],
-														"body": {
-															"mode": "raw",
-															"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": \"{{supplied:school:schoolId}}\",\r\n    \"nameOfInstitution\": \"Grand Bend Elementary School\",\r\n    \"addresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A2\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A4\",\r\n            \"city\": \"Grand Bend\",\r\n            \"postalCode\": \"73334-9376\",\r\n            \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n            \"streetNumberName\": \"P.O. Box 9376\"\r\n        }\r\n    ],\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"internationalAddresses\": [\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A2\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C2\"\r\n        },\r\n        {\r\n            \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#A4\",\r\n            \"addressLine1\": \"X-String-33\",\r\n            \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#C4\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G2\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#G4\"\r\n        }\r\n    ],\r\n    \"schoolCategories\": [\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S2\"\r\n        },\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#S4\"\r\n        }\r\n    ]\r\n}",
-															"options": {
-																"raw": {
-																	"language": "json"
-																}
-															}
-														},
-														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-															"host": [
-																"{{ApiBaseUrl}}"
-															],
-															"path": [
-																"data",
-																"v3",
-																"ed-fi",
-																"schools",
-																"{{known:school:id}}"
-															]
-														},
-														"description": "Scenario: The Write content Descriptor filters a child collection to only exclude certain Descriptor values and only conforming values are supplied\r\n    Given the caller is using the \"Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors\" profile\r\n    When a PUT request with a collection containing only conforming excluded Descriptor values is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the submitted Descriptor values should be persisted to the School\r\n    And the pre-existing Descriptor values should be intact on the School"
-													},
-													"response": []
-												}
-											]
-										}
-									]
-								}
-							],
-							"description": "Scenario: A GET request is made with a read only profile \r\n    Given the caller is using the \"Test-Profile-Resource-ReadOnly\" profile\t\r\n    When a GET (by id) request is submitted to schools with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											""
-										]
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											""
-										]
-									}
-								}
-							]
-						},
-						{
-							"name": "Teardown",
-							"item": [
-								{
-									"name": "Delete the School",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"pm.test(\"Status code is 204\", () => {",
-													"    pm.expect(pm.response.code).to.equal(204);",
-													"});"
-												],
-												"type": "text/javascript"
-											}
-										},
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													""
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "DELETE",
-										"header": [
-											{
-												"key": "Content-Type",
-												"type": "text",
-												"value": "application/vnd.ed-fi.school.test-profile-resource-writeonly.writable+json"
-											}
-										],
-										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											],
-											"path": [
-												"data",
-												"v3",
-												"ed-fi",
-												"schools",
-												"{{known:school:id}}"
-											]
-										},
-										"description": "Scenario: A POST request is made with a write only profile \r\n    Given the caller is using the \"Test-Profile-Resource-WriteOnly\" profile\t\r\n    When a POST request with a resource is submitted to schools with a request body content type of the appropriate value for the profile in use\r\n    Then the response should indicate success"
-									},
-									"response": []
-								},
-								{
-									"name": "Clean up Environment Variables",
-									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"exec": [
-													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-													"_.chain(_.keys(pm.environment.toObject()))\r",
-													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-													"  .each(k => pm.environment.unset(k)).value();"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{ApiBaseUrl}}",
-											"host": [
-												"{{ApiBaseUrl}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
+								"description": "cenario: The Read content type can exclude optional references\r\n    Given the caller is using the \"Academic-Week-Readable-Excludes-Optional-References\" profile\r\n    When a GET (by id) request is submitted using raw JSON to academicWeeks with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the response should only contain the included references"
+							},
+							"response": []
 						}
 					],
+					"description": "Scenario: The Read content type can exclude optional references\r\n    Given the caller is using the \"Academic-Week-Readable-Excludes-Optional-References\" profile\r\n    When a GET (by id) request is submitted using raw JSON to academicWeeks with an accept header content type of the appropriate value for the profile in use\r\n    Then the response should indicate success\r\n    And the response should only contain the included references",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -5844,7 +5097,7 @@
 			]
 		},
 		{
-			"name": "Test Suite Teardown",
+			"name": "Feature:Profile-specific content type headers in requests are validated to match target resources",
 			"item": [
 				{
 					"name": "Initial Setup",
@@ -7473,19 +6726,21 @@
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
-									"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
-									"_.chain(_.keys(pm.environment.toObject()))\r",
-									"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
-									"  .each(k => pm.environment.unset(k)).value();"
+									"const keys = __.keys(pm.environment.toObject());\r",
+									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+									"\r",
+									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+									"\r",
+									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+									"\r",
+									"const remainingKeys = __.keys(pm.environment.toObject());\r",
+									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -7516,17 +6771,10 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"CreateAccessToken(\"255901\");",
+					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
 					"",
-					"// Used for Assigned Profiles tests (maybe could be reduced further with additional analysis)",
-					"// Assigned profiles must be used for covered resources",
-					"CreateAccessToken(\"ProfileTest_IncludeOnly\");",
-					"CreateAccessToken(\"ProfileTest_IncludeAll\");",
-					"CreateAccessToken(\"ProfileTest_StudentOnlyResourceIncludeAll\");",
 					"",
-					"// Resources not covered by an assigned profile",
-					"CreateAccessToken(\"ProfileTest_IncludeAll_StaffOnlyIncludeAll\");",
-					"CreateAccessToken(\"ProfileTest_StaffOnlyStudentOnlyIncludeAll\");",
+					"CreateAccessToken(\"TokenExpiry_ProfileTest_EmbeddedObject\",\"AccessToken_ProfileTest_EmbeddedObject\",\"ApiKey_ProfileTest_EmbeddedObject\",\"ApiSecret_ProfileTest_EmbeddedObject\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_ResourceReadOnly\",\"AccessToken_ProfileTest_ResourceReadOnly\",\"ApiKey_ProfileTest_ResourceReadOnly\",\"ApiSecret_ProfileTest_ResourceReadOnly\")",
 					"CreateAccessToken(\"TokenExpiry_ProfileTest_SpecificDescriptors\",\"AccessToken_ProfileTest_SpecificDescriptors\",\"ApiKey_ProfileTest_SpecificDescriptors\",\"ApiSecret_ProfileTest_SpecificDescriptors\")",
@@ -7573,62 +6821,58 @@
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
 					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
 					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
-					"function CreateAccessToken(clientSuffix) {",
-					"  const apiKeyName = `ApiKey_${clientSuffix}`;",
-					"  const apiSecretName = `ApiSecret_${clientSuffix}`;",
-					"  const tokenExpiryName = `TokenExpiry_${clientSuffix}`;",
-					"  const accessTokenName = `AccessToken_${clientSuffix}`;",
-					"",
-					"  let tokenExpiration = pm.environment.get(tokenExpiryName);",
-					"  let currentToken = pm.environment.get(accessTokenName);",
-					"  let getToken = true;",
-					"  ",
-					"  if (!tokenExpiration || !currentToken) {",
+					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
+					"                  {",
+					"let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"let currentToken = pm.environment.get(AccessToken);",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
 					"    console.log('Token or expiry date are missing, retrieving new token')",
-					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
 					"    console.log('Token is expired, retrieving new token')",
-					"  } else {",
+					"} else {",
 					"    getToken = false;",
-					"  }",
-					"",
-					"  if (getToken === true) {",
+					"   // console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
-					"    let clientId = pm.environment.get(apiKeyName);",
-					"    let clientSecret = pm.environment.get(apiSecretName);",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
 					"    let grantType = 'client_credentials';",
-					"",
+					"    ",
 					"    let getTokenRequest = {",
-					"      method: 'POST',",
-					"      url: tokenUrl,",
-					"      auth: {",
-					"        type: \"basic\",",
-					"        basic: [",
-					"          { key: \"username\", value: clientId },",
-					"          { key: \"password\", value: clientSecret }",
-					"        ]",
-					"      },",
-					"      header: [",
-					"        \"content-type:application/x-www-form-urlencoded\"",
-					"      ],",
-					"      body: {",
-					"        mode: \"urlencoded\",",
-					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
-					"      }",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/x-www-form-urlencoded\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"urlencoded\",",
+					"            urlencoded: [{key: \"grant_type\", value: grantType}]",
+					"        }",
 					"    };",
-					"",
+					"    ",
 					"    pm.sendRequest(getTokenRequest, (err, response) => {",
-					"      let jsonResponse = response.json();",
-					"      let newAccessToken = jsonResponse.access_token;",
-					"",
-					"      // console.log({ err, jsonResponse, newAccessToken })",
-					"      console.log(`${accessTokenName} = ${newAccessToken}`);",
-					"      pm.environment.set(accessTokenName, newAccessToken);",
-					"",
-					"      let expiryDate = new Date();",
-					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
-					"      pm.environment.set(tokenExpiryName, expiryDate.getTime());",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(AccessToken, newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
 					"    });",
-					"  }",
+					"}",
 					"}",
 					""
 				]
