@@ -234,7 +234,7 @@ namespace EdFi.Ods.Api.Startup
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings, IApplicationConfigurationActivity[] configurationActivities)
         {
             loggerFactory.AddLog4Net();
 
@@ -271,6 +271,12 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseEdFiApiAuthentication();
             app.UseAuthorization();
+
+            // Perform additional registered configuration activities 
+            foreach (var configurationActivity in configurationActivities)
+            {
+                configurationActivity.Configure(app);
+            }
 
             // Serves Open API Metadata json files when enabled.
             if (ApiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
