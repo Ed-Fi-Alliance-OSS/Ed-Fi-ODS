@@ -163,6 +163,7 @@ namespace EdFi.Ods.Api.Controllers
         protected virtual string GetReadContentType() => MediaTypeNames.Application.Json;
 
         [HttpGet]
+        [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         public virtual async Task<IActionResult> GetAll(
             [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
             [FromQuery] TGetByExampleRequest request = default(TGetByExampleRequest))
@@ -215,6 +216,7 @@ namespace EdFi.Ods.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Get(Guid id)
@@ -237,11 +239,14 @@ namespace EdFi.Ods.Api.Controllers
             // Add ETag header for the resource
             Response.GetTypedHeaders().ETag = GetEtag(result.Resource.ETag);
 
+            Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());
+
             return Ok(result.Resource);
         }
 
         [CheckModelForNull]
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -286,6 +291,7 @@ namespace EdFi.Ods.Api.Controllers
 
         [CheckModelForNull]
         [HttpPost]
+        [ServiceFilter(typeof(EnforceAssignedProfileUsageFilter), IsReusable = true)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

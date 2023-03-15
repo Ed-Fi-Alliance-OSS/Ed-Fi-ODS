@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Metadata
           IProfileResourceNamesProvider,
           IProfileMetadataProvider
     {
-        private readonly Lazy<IDictionary<string, XElement>> _profileDefinitionByName;
+        private readonly Lazy<Dictionary<string, XElement>> _profileDefinitionByName;
         private readonly Lazy<List<ProfileAndResourceNames>> _profileResources;
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace EdFi.Ods.Common.Metadata
         /// </summary>
         public ProfileResourceNamesProvider()
         {
-            _profileDefinitionByName = new Lazy<IDictionary<string, XElement>>(LazyInitializeProfileDefinitions);
+            _profileDefinitionByName = new Lazy<Dictionary<string, XElement>>(LazyInitializeProfileDefinitions);
             _profileResources = new Lazy<List<ProfileAndResourceNames>>(LazyInitializeProfileResources);
         }
 
@@ -48,6 +48,8 @@ namespace EdFi.Ods.Common.Metadata
                 "Unable to find profile '{0}'.");
         }
 
+        public IReadOnlyDictionary<string, XElement> ProfileDefinitionsByName { get => _profileDefinitionByName.Value; }
+
         /// <summary>
         /// Gets a list of tuples containing the names of associated Profiles and Resources.
         /// </summary>
@@ -57,7 +59,7 @@ namespace EdFi.Ods.Common.Metadata
             return _profileResources.Value;
         }
 
-        private IDictionary<string, XElement> LazyInitializeProfileDefinitions()
+        private Dictionary<string, XElement> LazyInitializeProfileDefinitions()
         {
             return GetAllMetadataDocumentsInAppDomain(IsProfilesAssembly, "Profiles.xml")
                   .SelectMany(x => x.Descendants("Profile"))
