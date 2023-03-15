@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security;
 using NHibernate;
+using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
@@ -42,7 +43,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="sessionFactory"></param>
         /// <param name="apiKeyContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
-        /// <param name="dataManagementRequestContextProvider"></param>
+        /// <param name="dataManagementResourceContextProvider"></param>
         public CreateEntityAuthorizationDecorator(
             ICreateEntity<T> next,
             ISecurityRepository securityRepository,
@@ -54,7 +55,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -65,7 +66,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 sessionFactory,
                 apiKeyContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementRequestContextProvider)
+                dataManagementResourceContextProvider)
         {
             _next = next;
             _securityRepository = securityRepository;

@@ -60,10 +60,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IFilterMetadata>()
                 .SingleInstance();
             
-            builder.RegisterType<DataManagementRequestContextFilter>()
-                .As<IFilterMetadata>()
-                .SingleInstance();
-            
             builder.RegisterType<DataManagementRequestContextProvider>()
                 .As<IDataManagementRequestContextProvider>()
                 .SingleInstance();

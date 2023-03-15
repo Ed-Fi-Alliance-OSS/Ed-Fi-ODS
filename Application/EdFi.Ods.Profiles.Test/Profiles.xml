@@ -677,4 +677,11 @@
       </ReadContentType>
     </Resource>
   </Profile>
+  <Profile name="Academic-Week-Readable-Excludes-Optional-References">
+	<Resource name="AcademicWeek">
+	  <ReadContentType memberSelection="IncludeOnly">
+		<Property name="EndDate" />
+	  </ReadContentType>
+	</Resource>
+  </Profile>	
 </Profiles>
