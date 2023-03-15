@@ -40,8 +40,8 @@ namespace EdFi.Ods.Common.Database
         /// </summary>
         /// <remarks>
         /// To match case-sensitivity of the default database collation, this returns 
-        /// <see cref="StringComparer.OrdinalIgnoreCase" /> when Postgres is in use and 
-        /// <see cref="StringComparer.Ordinal" /> when SqlServer is in use.
+        /// <see cref="StringComparer.Ordinal" /> when Postgres is in use and 
+        /// <see cref="StringComparer.OrdinalIgnoreCase" /> when SqlServer is in use.
         /// </remarks>
         public IEqualityComparer<string> GetEqualityComparer()
         {
