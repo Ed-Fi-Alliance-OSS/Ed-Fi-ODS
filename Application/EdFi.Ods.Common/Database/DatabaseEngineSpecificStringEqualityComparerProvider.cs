@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EdFi.Common.Configuration;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Ods.Common.Database
 {
@@ -32,8 +32,6 @@ namespace EdFi.Ods.Common.Database
             {
                 throw new NotSupportedException($"The database engine '{databaseEngine.DisplayName}' is not supported.");
             }
-            
-           
         }
 
         /// <summary>
