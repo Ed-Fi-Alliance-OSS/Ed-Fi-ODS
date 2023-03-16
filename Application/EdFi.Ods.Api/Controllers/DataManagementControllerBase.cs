@@ -442,14 +442,9 @@ namespace EdFi.Ods.Api.Controllers
 
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
 
-            RequestResponseDetailsLogger.Error(new
-            {
-                ClientId = LogicalThreadContext.Properties["ApiClientId"],
-                RequestURL = GetResourceUrl(),
-                RequestMethod = requestMethod,
-                ResponseCode = restError.Code,
-                ResponseMessage = restError.Message
-            });
+            AddLoggerProperties(requestMethod, restError.Code);
+
+            RequestResponseDetailsLogger.Error(restError.Message);
         }
 
         private void LogRequestResponseDetailsInfo(string requestMethod, int responseCode = StatusCodes.Status200OK, string responseMessage = "Ok")
@@ -458,14 +453,16 @@ namespace EdFi.Ods.Api.Controllers
             if (!RequestResponseDetailsFileAppenderExists())
                 return;
 
-            RequestResponseDetailsLogger.Info(new
-            {
-                ClientId = LogicalThreadContext.Properties["ApiClientId"],
-                RequestURL = GetResourceUrl(),
-                RequestMethod = requestMethod,
-                ResponseCode = responseCode,
-                ResponseMessage = responseMessage
-            });
+            AddLoggerProperties(requestMethod, responseCode);
+
+            RequestResponseDetailsLogger.Info(responseMessage);
+        }
+
+        private void AddLoggerProperties(string requestMethod, int responseCode)
+        {
+            LogicalThreadContext.Properties["RequestUrl"] = GetResourceUrl();
+            LogicalThreadContext.Properties["RequestMethod"] = requestMethod;
+            LogicalThreadContext.Properties["ResponseCode"] = responseCode;
         }
 
         private bool RequestResponseDetailsFileAppenderExists() => 
