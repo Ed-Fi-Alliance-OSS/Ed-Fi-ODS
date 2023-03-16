@@ -35,13 +35,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         }
 
         public object AssemblePrimaryKeys(
-            ResourceProfileData profileData,
+            ResourceData resourceData,
             ResourceClassBase resourceClass,
             TemplateContext templateContext)
         {
-            if (profileData == null)
+            if (resourceData == null)
             {
-                throw new ArgumentNullException(nameof(profileData));
+                throw new ArgumentNullException(nameof(resourceData));
             }
 
             if (resourceClass == null)
@@ -56,9 +56,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             var pks = new List<object>();
 
-            var activeResource = profileData.GetProfileActiveResource(resourceClass);
-
-            var filteredResource = profileData.GetContainedResource(resourceClass) ?? resourceClass;
+            var filteredResource = resourceData.GetContainedResource(resourceClass) ?? resourceClass; // TODO: Revisit
 
             if (resourceClass is ResourceChildItem resourceChildItem)
             {
@@ -98,17 +96,17 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             var props = new List<PropertyData>();
 
-            foreach (var property in activeResource.AllProperties
+            foreach (var property in resourceClass.AllProperties
                 .Where(x => x.IsIdentifying)
                 .OrderBy(x => x.PropertyName))
             {
-                if (activeResource.IsDescriptorEntity())
+                if (resourceClass.IsDescriptorEntity())
                 {
                     props.Add(PropertyData.CreateDerivedProperty(property));
                     continue;
                 }
 
-                if (activeResource.IsAggregateRoot())
+                if (resourceClass.IsAggregateRoot())
                 {
                     if (resourceClass.IsDerived)
                     {
@@ -127,7 +125,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 else
                 {
                     // non aggregate root
-                    if (activeResource.References.Any())
+                    if (resourceClass.References.Any())
                     {
                         if (property.IsPersonOrUsi())
                         {
@@ -161,16 +159,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        public object AssembleIdentifiers(
-            ResourceProfileData profileData,
-            ResourceClassBase resource,
-            AssociationView association = null)
+        public object AssembleIdentifiers(ResourceClassBase resource, AssociationView association = null)
         {
-            if (profileData == null)
-            {
-                throw new ArgumentNullException(nameof(profileData));
-            }
-
             if (resource == null)
             {
                 throw new ArgumentNullException(nameof(resource));
@@ -183,11 +173,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             IList<ResourceProperty> properties;
 
-            var activeResource = profileData.GetProfileActiveResource(resource);
-
             if (resource.IsAggregateRoot())
             {
-                properties = activeResource.IdentifyingProperties
+                properties = resource.IdentifyingProperties
                     .OrderBy(x => x.PropertyName)
                     .ToList();
             }
@@ -228,15 +216,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        public object AssembleInheritedProperties(
-            ResourceProfileData profileData,
-            ResourceClassBase resource)
+        public object AssembleInheritedProperties(ResourceClassBase resource)
         {
-            if (profileData == null)
-            {
-                throw new ArgumentNullException(nameof(profileData));
-            }
-
             if (resource == null)
             {
                 throw new ArgumentNullException(nameof(resource));
@@ -244,25 +225,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             IList<ResourcePropertyData> includedProperties = null;
 
-            if (profileData.HasProfile)
-            {
-                includedProperties = (resource.Name == profileData.SuppliedResource.Name
-                        ? profileData.UnfilteredResource
-                        : resource).InheritedProperties()
-                    .Where(x => !x.IsIdentifying && !x.PropertyName.Equals("Id"))
-                    .OrderBy(x => x.PropertyName)
-                    .Select(
-                        x =>
-                            new ResourcePropertyData
-                            {
-                                Property = x,
-                                IsStandardProperty = !profileData.IsIncluded(resource, x)
-                            })
-                    .ToList();
-            }
-            else
-            {
-                includedProperties = resource.InheritedProperties()
+            includedProperties = resource.InheritedProperties()
                     .OrderBy(x => x.PropertyName)
                     .Where(x => !x.IsIdentifying && !x.PropertyName.Equals("Id"))
                     .Select(
@@ -272,7 +235,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             IsStandardProperty = false
                         })
                     .ToList();
-            }
 
             var propertiesToRender = new List<PropertyData>();
 

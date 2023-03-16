@@ -110,7 +110,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
         {
             protected override void Act()
             {
-                EdFiConventions.CreateResourceNamespace(null, "TestResource", null, null, null, null);
+                EdFiConventions.CreateResourceNamespace(
+                    null,
+                    "TestResource",
+                    null);
             }
 
             [Test]
@@ -128,7 +131,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
         {
             protected override void Act()
             {
-                EdFiConventions.CreateResourceNamespace("SchemaProperCaseName", null, null, null, null, null);
+                EdFiConventions.CreateResourceNamespace(
+                    "SchemaProperCaseName",
+                    null,
+                    null);
             }
 
             [Test]
@@ -142,28 +148,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             }
         }
 
-        public class
-            When_creating_a_resource_namespace_and_the_profileNamespaceName_is_null_but_the_profileNamespaceBaseChildrenConcreteContext_was_provided
-            : TestFixtureBase
-        {
-            protected override void Act()
-            {
-                EdFiConventions.CreateResourceNamespace("SchemaProperCaseName", "ResourceName", null, null, "ConcreteContext", null);
-            }
-
-            [Test]
-            public void Should_throw_Exception()
-            {
-                AssertHelper.All(
-                    () => Assert.That(ActualException.GetType(), Is.EqualTo(typeof(Exception))),
-                    () =>
-                        Assert.That(
-                            ActualException.Message.Replace(Environment.NewLine, " "),
-                            Is.EqualTo(
-                                @"profileNamespaceBaseChildrenConcreteContext was supplied without a value for profileNamespaceName.")));
-            }
-        }
-
         public class When_creating_a_resource_namespace_for_non_profile_filtered_standard_edfi_resource : TestFixtureBase
         {
             private string _actualResult;
@@ -173,9 +157,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                 _actualResult = EdFiConventions.CreateResourceNamespace(
                     "SchemaProperCaseName",
                     "ResourceName",
-                    null,
-                    null,
-                    null,
                     null);
             }
 
@@ -183,31 +164,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             public void Should_return_correctly_constructed_namespace()
             {
                 Assert.That(_actualResult, Is.EqualTo($"{Namespaces.Resources.BaseNamespace}.ResourceName.SchemaProperCaseName"));
-            }
-        }
-
-        public class When_creating_a_resource_namespace_for_profile_filtered_standard_edfi_resource_with_readable_writable_context : TestFixtureBase
-        {
-            private string _actualResult;
-
-            protected override void Act()
-            {
-                _actualResult = EdFiConventions.CreateResourceNamespace(
-                    "SchemaProperCaseName",
-                    "ResourceName",
-                    "ProfileNamespaceName",
-                    "ReadableWritableContext",
-                    null,
-                    null);
-            }
-
-            [Test]
-            public void Should_return_correctly_constructed_namespace()
-            {
-                Assert.That(
-                    _actualResult,
-                    Is.EqualTo(
-                        $"{Namespaces.Resources.BaseNamespace}.ResourceName.SchemaProperCaseName.ProfileNamespaceNameReadableWritableContext"));
             }
         }
 
@@ -220,9 +176,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                 _actualResult = EdFiConventions.CreateResourceNamespace(
                     "SchemaProperCaseName",
                     "ResourceName",
-                    null,
-                    null,
-                    null,
                     "ExtensionSchemaProperCaseName");
             }
 
@@ -232,31 +185,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                 Assert.That(
                     _actualResult,
                     Is.EqualTo($"{Namespaces.Resources.BaseNamespace}.ResourceName.SchemaProperCaseName.Extensions.ExtensionSchemaProperCaseName"));
-            }
-        }
-
-        public class When_creating_a_resource_namespace_for_profile_filtered_extension_resource : TestFixtureBase
-        {
-            private string _actualResult;
-
-            protected override void Act()
-            {
-                _actualResult = EdFiConventions.CreateResourceNamespace(
-                    "SchemaProperCaseName",
-                    "ResourceName",
-                    "ProfileNamespaceName",
-                    "ReadableWritableContext",
-                    null,
-                    "ExtensionSchemaProperCaseName");
-            }
-
-            [Test]
-            public void Should_return_correctly_constructed_namespace()
-            {
-                var expectedResult =
-                    $@"{Namespaces.Resources.BaseNamespace}.ResourceName.SchemaProperCaseName.ProfileNamespaceNameReadableWritableContext.Extensions.ExtensionSchemaProperCaseName";
-
-                Assert.That(_actualResult, Is.EqualTo(expectedResult));
             }
         }
 

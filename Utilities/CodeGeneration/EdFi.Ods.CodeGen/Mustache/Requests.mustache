@@ -34,30 +34,17 @@ namespace {{Namespace}}
         public List<Guid> Ids { get; set; }
     }
     {{/ReadableContentType}}
-    {{#WritableContentType}}
-    {{#ReadableContentType}}
 
-    {{/ReadableContentType}}
-    {{#GenerateWritableFormat}}
-    {{{ProfileContentWritableFormat}}}
-    {{/GenerateWritableFormat}}
     [ExcludeFromCodeCoverage]
     public class {{ResourceName}}Post : {{ResourceClassTypeName}}
     {
     }
 
-    {{#GenerateWritableFormat}}
-    {{{ProfileContentWritableFormat}}}
-    {{/GenerateWritableFormat}}
     [ExcludeFromCodeCoverage]
     public class {{ResourceName}}Put : {{ResourceClassTypeName}}
     {
     }
 
-    {{/WritableContentType}}
-    {{^WritableContentType}}
-
-    {{/WritableContentType}}
     [ExcludeFromCodeCoverage]
     public class {{ResourceName}}Delete : IHasIdentifier
     {

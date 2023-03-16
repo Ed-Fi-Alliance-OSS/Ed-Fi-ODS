@@ -23,22 +23,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace {{ControllersNamespace}}
 {
-    {{#NullRequests}}
-    [ExcludeFromCodeCoverage]
-    public class {{ClassName}} : NullRequestBase { }
-
-    {{/NullRequests}}
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    {{#ProfileContentType}}
-    [ProfileContentType("{{ContentType}}")]
-    {{/ProfileContentType}}
     [Route("{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
-        {{ResourceReadModel}},
-        {{ResourceWriteModel}},
+        {{ResourceModel}},
         {{EntityInterface}},
         {{AggregateRoot}},
         {{PutRequest}},
@@ -61,9 +52,6 @@ namespace {{ControllersNamespace}}
             {{#Properties}}
             specification.{{SpecificationProperty}} = request.{{RequestProperty}};
             {{/Properties}}
-            {{^HasProperties}}
-            throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-            {{/HasProperties}}
         {{/MapAllExpression}}
         }
         {{#ReadContentType}}
@@ -73,17 +61,6 @@ namespace {{ControllersNamespace}}
             return "{{ReadContentType}}";
         }
         {{/ReadContentType}}
-        {{#OverrideHttpFunctions}}
-
-        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IActionResult> {{MethodName}}({{MethodParameters}})
-        {
-            return Task.FromResult<IActionResult>(
-                StatusCode(StatusCodes.Status405MethodNotAllowed,
-                ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
-        }
-        {{/OverrideHttpFunctions}}
     }
 }
 {{/Controllers}}

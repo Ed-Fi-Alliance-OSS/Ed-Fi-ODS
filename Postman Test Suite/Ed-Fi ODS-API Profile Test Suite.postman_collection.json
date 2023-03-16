@@ -7140,11 +7140,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with assigned Profile's content type",
-													"//When an API client has exactly one Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client does supply an Accept header with a Profile-specific content type",
-													"//application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json",
-													"//The API should return profile constrained resource if the correct content type was passed"
+													""
 												]
 											}
 										},
@@ -7237,11 +7233,6 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with different Profile's content type",
-													"//When an API client has exactly one Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client does supply an Accept header with a differnt Profile-specific content type",
-													"//application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json",
-													"//The API should return an error if the wrong content-type was passed ",
 													""
 												]
 											}
@@ -7337,10 +7328,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with standard content type for one Assign Profile",
-													"//When an API client has exactly one Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client request doesnot  supply  an Accept header and  standard content type for one Assign Profile ",
-													"//The API should return 200 response with automaticallly applied proflle for that resource "
+													""
 												]
 											}
 										},
@@ -7438,10 +7426,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with standard content type for several Assigned Profile",
-													"//When an API client has multiple Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client request does supply without an Accept header and  without standard content type for multiple assigned Profile",
-													"//The API should return 403 error with message \"Based on profile assignments, one of the following profile-specific content types is required when requesting this resource: 'application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json', 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json'\"\""
+													""
 												]
 											}
 										},
@@ -7528,11 +7513,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with one of several assigned profiles",
-													"//When an API client has multiple Profile assigned in their API key context but out of which only one is exist for the requested resource:",
-													"//When the API client does supply an Accept header with a Profile-specific content type",
-													"//application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json",
-													"//The API should return profile constrained resource if the correct content type was passed"
+													""
 												]
 											}
 										},
@@ -7626,11 +7607,6 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with different Profile's content type for  several assigned profiles",
-													"//When an API client has multiple Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client does supply an Accept header with a differnt Profile-specific content type",
-													"//application/vnd.ed-fi.student.Test-Profile-StudentOnly2-Resource-IncludeAll.readable+json",
-													"//The API should return an 403 error if the wrong content-type was passed ",
 													""
 												]
 											}
@@ -7731,11 +7707,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with assigned Profile's content type",
-													"//When an API client has exactly one Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client does supply an Accept header with a same Profile-specific content type",
-													"//application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
-													"//The API should return 200 with  profile constrained resource is created/updated if the correct content type was passed"
+													""
 												]
 											}
 										},
@@ -7836,11 +7808,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with different Profile's content type",
-													"//When an API client has exactly one Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client does supply an Accept header with a different Profile-specific content type",
-													"//application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
-													"//The API should return an 403 error if the wrong content-type was passed "
+													""
 												]
 											}
 										},
@@ -7928,10 +7896,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with standard content type for one Assign Profile",
-													"//When an API client has exactly one Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client request doesnot  supply  an Accept header and  standard content type for one Assign Profile ",
-													"//The API should return 200 response with automaticallly applied proflle for that resource "
+													""
 												]
 											}
 										},
@@ -8032,10 +7997,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with standard content type for several Assigned Profile",
-													"//When an API client has multiple Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client request doesnot supply  content type for multiple assigned Profile",
-													"//The API should return 403 error with message \"Based on profile assignments, one of the following profile-specific content types is required when updating this resource: 'application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json', 'application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json'"
+													""
 												]
 											}
 										},
@@ -8135,11 +8097,7 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with one of several assigned profiles",
-													"//When an API client has multiple Profile assigned in their API key context but out of which only one is exist for the requested resource:",
-													"//When the API client does supply an Accept header with a Profile-specific content type",
-													"//application/vnd.ed-fi.school.Test-Profile-Resource-IncludeAll.writable+json",
-													"//The API should return profile constrained resource if the correct content type was passed"
+													""
 												]
 											}
 										},
@@ -8241,11 +8199,6 @@
 											"script": {
 												"type": "text/javascript",
 												"exec": [
-													"//Covered resource with different Profile's content type for  several assigned profiles",
-													"//When an API client has multiple Profile assigned in their API key context that includes the requested resource:",
-													"//When the API client does supply with a differnt Profile-specific content type",
-													"//application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json",
-													"//The API should return an 403 error if the wrong content-type was passed ",
 													""
 												]
 											}

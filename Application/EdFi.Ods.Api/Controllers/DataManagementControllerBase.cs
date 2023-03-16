@@ -42,16 +42,15 @@ namespace EdFi.Ods.Api.Controllers
     // TPutRequest,  (Requests.Students.StudentPut)
     // TDeleteRequest,  (TDeleteRequest)
     // TPatchRequest (Requests.Students.StudentPatch)
-    public abstract class DataManagementControllerBase<TResourceReadModel, TResourceWriteModel, TEntityInterface, TAggregateRoot,
+    public abstract class DataManagementControllerBase<TResourceModel, TEntityInterface, TAggregateRoot,
             TPutRequest, TPostRequest,
             TDeleteRequest, TGetByExampleRequest>
         : ControllerBase
-        where TResourceReadModel : IHasIdentifier, IHasETag, new()
-        where TResourceWriteModel : IHasIdentifier, IHasETag, new()
+        where TResourceModel : IHasIdentifier, IHasETag, new()
         where TEntityInterface : class
         where TAggregateRoot : class, IHasIdentifier, new()
-        where TPutRequest : TResourceWriteModel
-        where TPostRequest : TResourceWriteModel
+        where TPutRequest : TResourceModel
+        where TPostRequest : TResourceModel
         where TDeleteRequest : IHasIdentifier
     {
         private const string GetAllRequest = "GetAllRequest";
@@ -64,11 +63,11 @@ namespace EdFi.Ods.Api.Controllers
         private ILog _logger;
         private ILog _requestResponseDetailsLogger;
         protected Lazy<DeletePipeline> DeletePipeline;
-        protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> GetByIdPipeline;
+        protected Lazy<GetPipeline<TResourceModel, TAggregateRoot>> GetByIdPipeline;
 
-        protected Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>> GetManyPipeline;
+        protected Lazy<GetManyPipeline<TResourceModel, TAggregateRoot>> GetManyPipeline;
 
-        protected Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>> PutPipeline;
+        protected Lazy<PutPipeline<TResourceModel, TAggregateRoot>> PutPipeline;
 
         //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider SchoolYearContextProvider;
@@ -111,17 +110,17 @@ namespace EdFi.Ods.Api.Controllers
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
 
-            GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
-                (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
+            GetByIdPipeline = new Lazy<GetPipeline<TResourceModel, TAggregateRoot>>
+                (pipelineFactory.CreateGetPipeline<TResourceModel, TAggregateRoot>);
 
-            GetManyPipeline = new Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>>
-                (pipelineFactory.CreateGetManyPipeline<TResourceReadModel, TAggregateRoot>);
+            GetManyPipeline = new Lazy<GetManyPipeline<TResourceModel, TAggregateRoot>>
+                (pipelineFactory.CreateGetManyPipeline<TResourceModel, TAggregateRoot>);
 
-            PutPipeline = new Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>>
-                (pipelineFactory.CreatePutPipeline<TResourceWriteModel, TAggregateRoot>);
+            PutPipeline = new Lazy<PutPipeline<TResourceModel, TAggregateRoot>>
+                (pipelineFactory.CreatePutPipeline<TResourceModel, TAggregateRoot>);
 
             DeletePipeline = new Lazy<DeletePipeline>
-                (pipelineFactory.CreateDeletePipeline<TResourceReadModel, TAggregateRoot>);
+                (pipelineFactory.CreateDeletePipeline<TResourceModel, TAggregateRoot>);
         }
 
         protected ILog Logger
@@ -200,7 +199,7 @@ namespace EdFi.Ods.Api.Controllers
                         "Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
             }
 
-            var internalRequestAsResource = new TResourceReadModel();
+            var internalRequestAsResource = new TResourceModel();
             var internalRequest = internalRequestAsResource as TEntityInterface;
 
             if (request != null)
@@ -213,7 +212,7 @@ namespace EdFi.Ods.Api.Controllers
             // Execute the pipeline (synchronously)
             var result = await GetManyPipeline.Value
                 .ProcessAsync(
-                    new GetManyContext<TResourceReadModel, TAggregateRoot>(internalRequestAsResource, queryParameters),
+                    new GetManyContext<TResourceModel, TAggregateRoot>(internalRequestAsResource, queryParameters),
                     new CancellationToken());
 
             // Handle exception result
@@ -293,7 +292,7 @@ namespace EdFi.Ods.Api.Controllers
             // Execute the pipeline (synchronously)
             var result = await _retryPolicy.ExecuteAsync(
                 (ctx) => PutPipeline.Value.ProcessAsync(
-                    new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState),
+                    new PutContext<TResourceModel, TAggregateRoot>(request, validationState),
                     CancellationToken.None),
                 contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
 
@@ -348,7 +347,7 @@ namespace EdFi.Ods.Api.Controllers
 
             var result = await _retryPolicy.ExecuteAsync(
                 (ctx) => PutPipeline.Value.ProcessAsync(
-                    new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState),
+                    new PutContext<TResourceModel, TAggregateRoot>(request, validationState),
                     CancellationToken.None),
                 contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
 

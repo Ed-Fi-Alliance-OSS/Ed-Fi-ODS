@@ -3,18 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Helpers;
-using EdFi.Ods.CodeGen.Metadata;
-using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Models.Validation;
 
 namespace EdFi.Ods.CodeGen.Generators
 {
@@ -22,76 +17,11 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         protected override void Configure()
         {
-            var profileMetadataProvider = MetadataHelper.GetProfileMetadataProvider(ResourceModelProvider, TemplateContext.ProjectPath);
-            ProfileResourceNamesProvider = MetadataHelper.GetProfileResourceNamesProvider(ResourceModelProvider, TemplateContext.ProjectPath);
 
-            var profileValidationReporter = new ProfileValidationReporter();
-
-            ProfileResourceModelProvider = new ProfileResourceModelProvider(
-                ResourceModelProvider,
-                profileMetadataProvider,
-                profileValidationReporter);
-
-            ProjectHasProfileDefinition = profileMetadataProvider.ProfileDefinitionsByName.Any();
         }
 
         protected override object Build()
-            => ProjectHasProfileDefinition
-                ? GetTemplateModelFromProfileResourceModel()
-                : GetTemplateModelFromResourceModel();
-
-        private object GetTemplateModelFromProfileResourceModel()
-        {
-            var profileResourceModels = GetProfileResourceModels();
-
-            return new
-            {
-                RenderGroups = profileResourceModels
-                    .Select(
-                        model => new
-                        {
-                            Model = model,
-                            Namespace = GetNamespace(model.ProfileName)
-                        })
-                    .Select(
-                        x => new
-                        {
-                            x.Namespace,
-                            Resources = x.Model.ResourceByName
-                                .OrderBy(resourceEntry => resourceEntry.Key)
-                                .Where(
-                                    resource => !x.Model.GetResourceByName(resource.Key)
-                                                    .IsAbstract()
-                                                && x.Model.ResourceByName.Any(
-                                                    resourceInProfile
-                                                        => x.Model.ResourceIsWritable(
-                                                            resourceInProfile
-                                                                .Key)))
-                                .Select(
-                                    resource => new
-                                    {
-                                        ResourceName = resource.Key.Name,
-                                        ResourceTypeName =
-                                            NamespaceHelper
-                                                .GetRelativeNamespace(
-                                                    x.Namespace,
-                                                    GetResourceTypeName(
-                                                        x.Model
-                                                            .GetResourceByName(
-                                                                resource.Key),
-                                                        x.Model.ProfileName)),
-                                        EntityTypeName =
-                                            NamespaceHelper
-                                                .GetRelativeNamespace(
-                                                    x.Namespace,
-                                                    GetEntityTypeName(
-                                                        x.Model
-                                                            .GetResourceByName(
-                                                                resource.Key)))
-                                    })
-                        })
-            };
-        }
+            => GetTemplateModelFromResourceModel();
 
         private object GetTemplateModelFromResourceModel()
         {
@@ -127,32 +57,10 @@ namespace EdFi.Ods.CodeGen.Generators
             };
         }
 
-        private IEnumerable<ProfileResourceModel> GetProfileResourceModels()
-        {
-            return ProfileResourceNamesProvider
-                .GetProfileResourceNames()
-                .Select(prn => prn.ProfileName)
-                .Distinct()
-                .Select(
-                    profileName =>
-                        ProfileResourceModelProvider.GetProfileResourceModel(profileName));
-        }
 
-        private static string FormatProfileNameForNamespace(string profileName)
+        private string GetResourceTypeName(Resource resource)
         {
-            return profileName == null
-                ? string.Empty
-                : string.Format(".{0}", profileName.Replace("-", "_"));
-        }
-
-        private string GetResourceTypeName(Resource resource, string profileName = null)
-        {
-            string resourceNamespace = EdFiConventions.CreateResourceNamespace(
-                resource,
-                profileName?.Replace('-', '_'),
-                profileName == null
-                    ? null
-                    : "_Writable");
+            string resourceNamespace = EdFiConventions.CreateResourceNamespace(resource);
 
             return $"{resourceNamespace}.{resource.Name}";
         }
@@ -163,7 +71,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 resource.SchemaProperCaseName);
         }
 
-        private string GetNamespace(string profileName = null)
+        private string GetNamespace()
         {
             var fullyQualifiedNamespace =
                 string.Format(
@@ -173,12 +81,7 @@ namespace EdFi.Ods.CodeGen.Generators
                         ? $".{TemplateContext.SchemaProperCaseName}"
                         : string.Empty);
 
-            return profileName == null
-                ? fullyQualifiedNamespace
-                : string.Format(
-                    "{0}{1}",
-                    fullyQualifiedNamespace,
-                    FormatProfileNameForNamespace(profileName));
+            return fullyQualifiedNamespace;
         }
     }
 }

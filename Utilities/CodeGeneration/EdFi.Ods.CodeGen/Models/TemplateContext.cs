@@ -123,7 +123,6 @@ namespace EdFi.Ods.CodeGen.Models
                 .ProperCaseName;
         }
 
-        // Profiles-enabled projects include all resources / entities for template rendering.
         private bool ShouldRenderForSchema(string schema) => schema == SchemaPhysicalName;
     }
 }

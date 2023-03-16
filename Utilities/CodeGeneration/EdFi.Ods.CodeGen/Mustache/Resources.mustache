@@ -291,7 +291,7 @@ namespace {{ResourceClassesNamespace}}
 
             // Inherited lists
             {{#InheritedCollections}}
-            {{PropertyName}} = new List<{{BaseEntity}}.{{PropertyNamespace}}{{CollectionName}}>();
+            {{PropertyName}} = new List<{{BaseEntity}}.{{CollectionName}}>();
             {{/InheritedCollections}}
             {{/Inherited}}
         }
@@ -333,7 +333,6 @@ namespace {{ResourceClassesNamespace}}
                 return _{{PropertyFieldName}};
             }
         }
-        {{^ImplicitOnly}}
 
         [DataMember(Name="{{JsonPropertyName}}")]{{#IsIdentifying}}[NaturalKeyMember]{{/IsIdentifying}}
         public {{ReferenceTypeName}} {{PropertyName}}
@@ -353,7 +352,6 @@ namespace {{ResourceClassesNamespace}}
                 _{{PropertyFieldName}} = value;
             }
         }
-        {{/ImplicitOnly}}
         {{/Reference}}
         {{/Standard}}
         {{#Backref}}
@@ -980,7 +978,6 @@ namespace {{ResourceClassesNamespace}}
         //                     One-to-one relationships
         // -------------------------------------------------------------
         {{#NavigableOneToOnes}}
-        {{#Standard}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
@@ -993,15 +990,6 @@ namespace {{ResourceClassesNamespace}}
             set { {{PropertyName}} = ({{EmbeddedObjectType}}) value; }
         }
 
-        {{/Standard}}
-        {{#Null}}
-
-        {{EmbeddedObjectNamespacePrefix}}I{{EmbeddedObjectType}} {{NamespacePrefix}}I{{ParentName}}.{{PropertyName}}
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Null}}
         {{/NavigableOneToOnes}}
         // -------------------------------------------------------------
 
@@ -1009,7 +997,6 @@ namespace {{ResourceClassesNamespace}}
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
         {{#InheritedNavigableOneToOnes}}
-        {{#Standard}}
         /// <summary>
         /// {{JsonPropertyName}}
         /// </summary>
@@ -1022,15 +1009,6 @@ namespace {{ResourceClassesNamespace}}
             set { {{PropertyName}} = ({{EmbeddedObjectTypeNamespace}}{{EmbeddedObjectType}}) value; }
         }
 
-        {{/Standard}}
-        {{#Null}}
-
-        {{EmbeddedObjectInterfaceNamespacePrefix}}{{EmbeddedObjectInterfaceType}} {{BaseEntityNamespacePrefix}}I{{BaseEntityName}}.{{PropertyName}}
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Null}}
         {{/InheritedNavigableOneToOnes}}
         // -------------------------------------------------------------
 
@@ -1039,18 +1017,17 @@ namespace {{ResourceClassesNamespace}}
         // -------------------------------------------------------------
         {{#InheritedCollections}}
         {{#Inherited}}
-        {{#Standard}}
-        private ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> _{{PropertyFieldName}};
+        private ICollection<{{BaseEntity}}.{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
         [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
-        public ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> {{Collection}}
+        public ICollection<{{BaseEntity}}.{{ItemType}}> {{Collection}}
         {
             get { return _{{PropertyFieldName}}; }
             set
             {
                 _{{PropertyFieldName}} = value;
-                _{{PropertyFieldName}}Covariant = new CovariantCollectionAdapter<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
+                _{{PropertyFieldName}}Covariant = new CovariantCollectionAdapter<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{ItemType}}>(value);
             }
         }
 
@@ -1058,41 +1035,8 @@ namespace {{ResourceClassesNamespace}}
         ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{ItemTypeNamespacePrefix}}I{{ParentName}}.{{Collection}}
         {
             get { return _{{PropertyFieldName}}Covariant; }
-            set { {{Collection}} = new List<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value.Cast<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>()); }
+            set { {{Collection}} = new List<{{BaseEntity}}.{{ItemType}}>(value.Cast<{{BaseEntity}}.{{ItemType}}>()); }
         }
-        {{/Standard}}
-        {{#Filtered}}
-        private ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> _{{PropertyFieldName}};
-        private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
-
-        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
-        public ICollection<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}> {{Collection}}
-        {
-            get { return _{{PropertyFieldName}}; }
-            set
-            {
-                _{{PropertyFieldName}} = value;
-
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value);
-                _{{PropertyFieldName}}Covariant = covariantList;
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{ItemTypeNamespacePrefix}}I{{ParentName}}.{{Collection}}
-        {
-            get { return _{{PropertyFieldName}}Covariant; }
-            set { {{Collection}} = new List<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>(value.Cast<{{BaseEntity}}.{{PropertyNamespace}}{{ItemType}}>()); }
-        }
-        {{/Filtered}}
-        {{#Null}}
-        // Not supported by this model, so there's "null object pattern" style implementation
-        ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{ItemTypeNamespacePrefix}}{{BaseEntityInterfaceName}}.{{Collection}}
-        {
-            get { return null; }
-            set { }
-        }
-        {{/Null}}
         {{/Inherited}}
         {{/InheritedCollections}}
         // -------------------------------------------------------------
@@ -1118,7 +1062,6 @@ namespace {{ResourceClassesNamespace}}
         //                          Collections
         // -------------------------------------------------------------
         {{#Collections}}
-        {{#Standard}}
         private ICollection<{{ItemType}}> _{{PropertyFieldName}};
         private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
 
@@ -1148,49 +1091,6 @@ namespace {{ResourceClassesNamespace}}
             set { {{Collection}} = new List<{{ItemType}}>(value.Cast<{{ItemType}}>()); }
         }
 
-        {{/Standard}}
-        {{#Filtered}}
-        private ICollection<{{ItemType}}> _{{PropertyFieldName}};
-        private ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> _{{PropertyFieldName}}Covariant;
-
-        [DataMember(Name="{{JsonPropertyName}}"), NoDuplicateMembers]
-        public ICollection<{{ItemType}}> {{Collection}}
-        {
-            get { return _{{PropertyFieldName}}; }
-            set
-            {
-                if (value == null) return;
-            
-                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
-                var list = new CollectionAdapterWithAddNotifications<{{ItemType}}>(value,
-                    (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this);
-
-                _{{PropertyFieldName}} = list;
-
-                // Initialize covariant list with notifying adapter with deferred wireup so only new items are processed (optimization)
-                var covariantList = new CovariantCollectionAdapterWithAddNotifications<{{ItemTypeNamespacePrefix}}I{{ItemType}}, {{ItemType}}>(value);
-                covariantList.ItemAdded += (s, e) => (({{ItemTypeNamespacePrefix}}I{{ItemType}})e.Item).{{ParentName}} = this;
-                _{{PropertyFieldName}}Covariant = covariantList;
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{NamespacePrefix}}I{{ParentName}}.{{Collection}}
-        {
-            get { return _{{PropertyFieldName}}Covariant; }
-            set { {{Collection}} = new List<{{ItemType}}>(value.Cast<{{ItemType}}>()); }
-        }
-
-        {{/Filtered}}
-        {{#Null}}
-        // Not supported by this model, so there's "null object pattern" style implementation
-        ICollection<{{ItemTypeNamespacePrefix}}I{{ItemType}}> {{ItemTypeNamespacePrefix}}I{{BaseEntity}}.{{Collection}}
-        {
-            get { return null; }
-            set { }
-        }
-
-        {{/Null}}
         {{/Collections}}
         // -------------------------------------------------------------
 
@@ -1267,13 +1167,7 @@ namespace {{ResourceClassesNamespace}}
         Guid? {{Namespace}}.I{{ClassName}}.{{ReferenceName}}ResourceId
         {
             get { return null; }
-            {{^ReferenceIncluded}}
-            // Profile excluded the Reference
-            set { }
-            {{/ReferenceIncluded}}
-            {{#ReferenceIncluded}}
             set { Implicit{{ReferenceName}}Reference.ResourceId = value ?? default(Guid); }
-            {{/ReferenceIncluded}}
         }
 
         {{#MappedReferenceDataHasDiscriminator}}
@@ -1281,13 +1175,7 @@ namespace {{ResourceClassesNamespace}}
         {
             // Not supported for Resources
             get { return null; }
-            {{^ReferenceIncluded}}
-            // Profile excluded the Reference
-            set { }
-            {{/ReferenceIncluded}}
-            {{#ReferenceIncluded}}
             set { Implicit{{ReferenceName}}Reference.Discriminator = value; }
-            {{/ReferenceIncluded}}
         }
 
         {{/MappedReferenceDataHasDiscriminator}}

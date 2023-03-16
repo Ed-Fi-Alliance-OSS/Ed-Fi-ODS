@@ -18,25 +18,18 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 {
     public class ResourceCollectionRenderer
     {
-        public object InheritedCollections(
-            ResourceProfileData profileData,
-            ResourceClassBase resource,
-            TemplateContext templateContext)
+        public object InheritedCollections(ResourceClassBase resource)
         {
             if (resource.IsDescriptorEntity())
             {
                 return ResourceRenderer.DoRenderProperty;
             }
 
-            string ns = profileData.GetProfileNamespace(resource);
-
-            var activeResource = profileData.GetProfileActiveResource(resource);
-
-            return activeResource.IsDerived && activeResource.Collections.Any()
+            return resource.IsDerived && resource.Collections.Any()
                 ? new
                 {
                     Inherited =
-                        activeResource.Collections
+                        resource.Collections
                             .Where(x => x.IsInherited)
                             .OrderBy(x => x.PropertyName)
                             .Select(
@@ -55,62 +48,30 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                             : x.JsonPropertyName,
                                     PropertyFieldName = x.ItemType.PluralName.ToCamelCase(),
                                     ParentName = x.ParentFullName.Name,
-                                    PropertyNamespace = ns,
                                     ResourceName = resource.Name,
-                                    Standard =
-                                        profileData.IsIncluded(resource, x)
-                                        && !profileData.IsFilteredCollection(resource, x),
-                                    Null = !profileData.IsIncluded(resource, x),
-                                    Filtered = profileData.IsIncluded(resource, x)
-                                        && profileData.IsFilteredCollection(
-                                            resource,
-                                            x)
                                 })
                             .ToList()
                 }
                 : ResourceRenderer.DoNotRenderProperty;
         }
 
-        public object Collections(
-            ResourceProfileData profileData,
-            ResourceClassBase resourceClass,
-            TemplateContext TemplateContext)
+        public object Collections(ResourceClassBase resourceClass)
         {
             var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
 
-            string ns = profileData.GetProfileNamespace(resourceClass);
-
             return collectionPairs
-                .Where(
-                    itemPair =>
-                        !itemPair.Underlying.IsInherited)
-                .OrderBy(x => x.Underlying.PropertyName)
+                .Where( c => !c.IsInherited)
+                .OrderBy(c => c.PropertyName)
                 .Select(
-                    itemPair => new
+                    c => new
                     {
-                        ItemTypeNamespacePrefix = GetContextualNamespacePrefix(itemPair.Underlying.ItemType),
-                        ItemType = itemPair.Underlying.ItemType.Name,
-                        Collection = itemPair.Underlying.ItemType.PluralName,
-                        PropertyName = itemPair.Underlying.PropertyName,
-                        JsonPropertyName = itemPair.Underlying.JsonPropertyName,
-                        PropertyFieldName = itemPair.Underlying.ItemType.PluralName.ToCamelCase(),
-                        ParentName = itemPair.Underlying.ParentFullName.Name,
-                        PropertyNamespace = ns,
-                        Standard =
-
-                            // It's included
-                            itemPair.Current != null
-
-                            // It's not filtered
-                            && !itemPair.Current.ValueFilters.Any(),
-                        Null = itemPair.Current == null,
-                        Filtered =
-
-                            // It's included
-                            itemPair.Current != null
-
-                            // It's filtered
-                            && itemPair.Current.ValueFilters.Any(),
+                        ItemTypeNamespacePrefix = GetContextualNamespacePrefix(c.ItemType),
+                        ItemType = c.ItemType.Name,
+                        Collection = c.ItemType.PluralName,
+                        PropertyName = c.PropertyName,
+                        JsonPropertyName = c.JsonPropertyName,
+                        PropertyFieldName = c.ItemType.PluralName.ToCamelCase(),
+                        ParentName = c.ParentFullName.Name,
                         BaseEntity = resourceClass.Name
                     })
                 .ToList();
@@ -127,11 +88,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 + ".";
         }
 
-        public object FilteredDelegates(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        public object FilteredDelegates(ResourceClassBase resourceClass)
         {
-            var collectionPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
+            var collections = Resources.GetMemberItemPairs(resourceClass, r => r?.Collections);
 
-            if (!collectionPairs.Any())
+            if (!collections.Any())
             {
                 return ResourceRenderer.DoNotRenderProperty;
             }
@@ -140,49 +101,18 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             //unfiltered objects
             toRender.AddRange(
-                collectionPairs.Where(x => x.Current == null || !x.Current.ValueFilters.Any())
+                collections
                     .Select(
-                        x => new
+                        c => new
                         {
-                            ItemTypeNamespacePrefix = x.Underlying.ItemType.GetNamespacePrefix(),
-                            ItemType = x.Underlying.ItemType.Name,
-                            PropertyName = x.Underlying.ItemType.Name,
+                            ItemTypeNamespacePrefix = c.ItemType.GetNamespacePrefix(),
+                            ItemType = c.ItemType.Name,
+                            PropertyName = c.ItemType.Name,
                             ParentName =
                                 resourceClass.IsDerived && !resourceClass.IsDescriptorEntity()
                                     ? resourceClass.Entity.Aggregate.Name
-                                    : x.Underlying.ParentFullName.Name,
-                            Standard = ResourceRenderer.DoRenderProperty
+                                    : c.ParentFullName.Name,
                         }));
-
-            // filtered objects
-            toRender.AddRange(
-                collectionPairs
-                    .Where(x => x.Current != null && x.Current.ValueFilters.Any())
-                    .OrderBy(x => x.Underlying.PropertyName)
-                    .Select(
-                        x =>
-                            new
-                            {
-                                ItemTypeNamespacePrefix = x.Underlying.ItemType.GetNamespacePrefix(),
-                                ItemType = x.Underlying.ItemType.Name,
-                                PropertyName = x.Underlying.ItemType.Name,
-                                ParentName =
-                                    resourceClass.IsDerived && !resourceClass.IsDescriptorEntity()
-                                        ? resourceClass.Entity.Aggregate.Name
-                                        : x.Underlying.ParentFullName.Name,
-                                FilteredValues = x.Current.ValueFilters
-                                    .SelectMany(
-                                        y => y.Values.Select(
-                                            z => new
-                                            {
-                                                FilteredPropertyName = y.PropertyName,
-                                                FilteredValue = z,
-                                                NotFirst = z != y.Values.First(),
-                                                IsIncluded = y.FilterMode == ItemFilterMode.IncludeOnly,
-                                                IsLast = z == y.Values.Last()
-                                            })),
-                                Filtered = ResourceRenderer.DoRenderProperty
-                            }));
 
             return toRender.Any()
                 ? toRender
@@ -254,22 +184,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             public string ExtensionNamespacePrefix { get; set; }
         }
 
-        public class ItemFilterValidation {
-            public string PropertyName { get; set; }
-
-            public string ValidatorName { get; set; }
-
-            public string ValidatorPropertyName { get; set; }
-
-            public string PropertyFieldName { get; set; }
-
-            public string Filters { get; set; }
-
-            public string ProfileName { get; set; }
-        }
-
         public object CreatePutPostRequestValidator(
-            ResourceProfileData profileData,
+            ResourceData data,
             ResourceClassBase resource,
             TemplateContext templateContext)
         {
@@ -291,10 +207,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             ItemTypeName = collection.ItemType.Name,
                             Namespace = collection.ParentFullName.Name != resource.Name
                                 ? string.Format(
-                                    "{0}.{1}.{2}",
+                                    "{0}.{1}.",
                                     collection.ParentFullName.Name,
-                                    profileData.HasProfile ? resource.SchemaProperCaseName : resource.Entity.BaseEntity.SchemaProperCaseName(),
-                                    profileData.ProfilePropertyNamespaceSection)
+                                    resource.Entity.BaseEntity.SchemaProperCaseName())
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
                 KeyUnificationValidations = new KeyUnificationValidation
@@ -324,8 +239,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
                                     OtherEntityPropertyName = a.PropertyMappings.Where(pm => pm.ThisProperty.Equals(rp.EntityProperty)).Select(pm => pm.OtherProperty.PropertyName).Single(),
                                 })
-                                // TODO: Remove this filter with dynamic profiles
-                                .Where(x => !profileData.HasProfile || profileData.IsIncluded(resource, x.Reference))
                                 .Select(x => new
                                 {
                                     Reference = x.Reference,
@@ -349,24 +262,20 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             };
         }
 
-        public object References(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)
+        public object References(ResourceData data, ResourceClassBase resource)
         {
-            var activeResource = profileData.GetProfileActiveResource(resource);
+            var references = resource.References.ToList();
 
-            var references = activeResource.References
-                .ToList();
-
-            if (!references.Any(r => profileData.IsIncluded(resource, r, out var implicitOnly) || implicitOnly))
+            if (!references.Any())
             {
                 return ResourceRenderer.DoNotRenderProperty;
             }
 
-            if (activeResource.IsAggregateRoot() || !activeResource.HasBackReferences())
+            if (resource.IsAggregateRoot() || !resource.HasBackReferences())
             {
                 return new
                 {
                     Collections = references
-                        .Where(r => profileData.IsIncluded(resource, r, out var implicitOnly) || implicitOnly)
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x =>
@@ -382,8 +291,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     ? x.ReferenceTypeName
                                     : $"{x.ReferencedResourceName}.{x.ReferencedResource.Entity.SchemaProperCaseName()}.{x.ReferenceTypeName}";
 
-                                profileData.IsIncluded(resource, x, out var implicitOnly);
-                                
                                 return new
                                 {
                                     Reference = new
@@ -407,7 +314,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                         PropertyFieldName = x.PropertyName.ToCamelCase(),
                                         IsRequired = x.IsRequired,
                                         IsIdentifying = x.Association.IsIdentifying,
-                                        ImplicitOnly = implicitOnly
                                     },
                                     Standard = ResourceRenderer.DoRenderProperty
                                 };
@@ -419,7 +325,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             return new
             {
-                Collections = activeResource.References
+                Collections = resource.References
                     .OrderBy(x => x.PropertyName)
                     .Select(
                         x => new
@@ -446,12 +352,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     .ToList()
             };
         }
-        public object OnDeserialize(ResourceProfileData profileData, ResourceClassBase resource, TemplateContext TemplateContext)
+        public object OnDeserialize(ResourceData data, ResourceClassBase resource, TemplateContext TemplateContext)
         {
-            bool shouldRender = !(profileData.HasProfile && !profileData.HasNavigableChildren(resource));
+            bool shouldRender = !(!data.HasNavigableChildren(resource));
 
-            if (!profileData.HasProfile
-                && !(resource.Collections.Any() || !resource.IsAggregateRoot() && resource.HasBackReferences()))
+            if (!(resource.Collections.Any() || !resource.IsAggregateRoot() && resource.HasBackReferences()))
             {
                 shouldRender = false;
             }
@@ -502,8 +407,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 };
             }
 
-            if (resource.Collections.Any(c => profileData.IsIncluded(resource, c))
-                || !resource.IsAggregateRoot() && resource.References.Any(x => profileData.IsIncluded(resource, x)))
+            if (resource.Collections.Any() || !resource.IsAggregateRoot() && resource.References.Any())
             {
                 return new
                 {
@@ -511,7 +415,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         ? ResourceRenderer.DoRenderProperty
                         : ResourceRenderer.DoNotRenderProperty,
                     BackRefCollections = resource.References
-                        .Where(x => profileData.IsIncluded(resource, x))
                         .OrderBy(x => x.PropertyName)
                         .Select(
                             x => new
@@ -554,49 +457,45 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             return ResourceRenderer.DoNotRenderProperty;
         }
 
-        public object NavigableOneToOnes(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        public object NavigableOneToOnes(ResourceClassBase resourceClass)
         {
-            var embeddedObjectPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.EmbeddedObjects);
+            var embeddedObjects = Resources.GetMemberItemPairs(resourceClass, r => r?.EmbeddedObjects);
 
-            return embeddedObjectPairs
-                .Where(x => !x.Underlying.IsInherited)
-                .OrderBy(x => x.Underlying.PropertyName)
+            return embeddedObjects
+                .Where(eo => !eo.IsInherited)
+                .OrderBy(eo => eo.PropertyName)
                 .Select(
-                    x => new
+                    eo => new
                     {
-                        JsonPropertyName = x.Underlying.JsonPropertyName,
-                        EmbeddedObjectNamespacePrefix = GetContextualNamespacePrefix(x.Underlying.ObjectType),
-                        EmbeddedObjectType = x.Underlying.PropertyName,
-                        PropertyName = x.Underlying.PropertyName,
+                        JsonPropertyName = eo.JsonPropertyName,
+                        EmbeddedObjectNamespacePrefix = GetContextualNamespacePrefix(eo.ObjectType),
+                        EmbeddedObjectType = eo.PropertyName,
+                        PropertyName = eo.PropertyName,
                         ParentName = resourceClass.Name,
-                        Standard = x.Current != null,
-                        Null = x.Current == null
                     })
                 .ToList();
         }
 
-        public object InheritedNavigableOneToOnes(ResourceProfileData profileData, ResourceClassBase resourceClass)
+        public object InheritedNavigableOneToOnes(ResourceClassBase resourceClass)
         {
-            var embeddedObjectPairs = Resources.GetMemberItemPairs(resourceClass, r => r?.EmbeddedObjects);
+            var embeddedObjects = Resources.GetMemberItemPairs(resourceClass, r => r?.EmbeddedObjects);
 
-            return embeddedObjectPairs
-                .Where(x => x.Underlying.IsInherited)
-                .OrderBy(x => x.Underlying.PropertyName)
+            return embeddedObjects
+                .Where(eo => eo.IsInherited)
+                .OrderBy(eo => eo.PropertyName)
                 .Select(
-                    x => new
+                    eo => new
                     {
-                        JsonPropertyName = x.Underlying.JsonPropertyName,
-                        EmbeddedObjectInterfaceNamespacePrefix = GetContextualNamespacePrefix(x.Underlying.ObjectType),
-                        EmbeddedObjectInterfaceType = "I" + x.Underlying.PropertyName,
+                        JsonPropertyName = eo.JsonPropertyName,
+                        EmbeddedObjectInterfaceNamespacePrefix = GetContextualNamespacePrefix(eo.ObjectType),
+                        EmbeddedObjectInterfaceType = "I" + eo.PropertyName,
                         EmbeddedObjectTypeNamespace =
                             $"{Namespaces.Resources.RelativeNamespace}.{resourceClass.Entity.BaseEntity.Name}.{resourceClass.Entity.BaseEntity.SchemaProperCaseName()}.",
-                        EmbeddedObjectType = x.Underlying.PropertyName,
-                        PropertyName = x.Underlying.PropertyName,
+                        EmbeddedObjectType = eo.PropertyName,
+                        PropertyName = eo.PropertyName,
                         BaseEntityNamespacePrefix =
                             $"{Namespaces.Entities.Common.RelativeNamespace}.{resourceClass.Entity.BaseEntity.SchemaProperCaseName()}.",
                         BaseEntityName = resourceClass.Entity.BaseEntity.Name,
-                        Standard = x.Current != null,
-                        Null = x.Current == null
                     })
                 .ToList();
         }
