@@ -72,8 +72,7 @@ namespace EdFi.Ods.Common.Conventions
             }
             else
             {
-                //If standard type exists in profile assembly, use edFiStandardType assembly name.
-                //Otherwise, use extension conventions to determine assembly name.
+                // Use extension conventions to determine assembly name.
                 extensionAssemblyName = GetExtensionAssemblyName(extensionName);
 
                 var aggregateName = ParseAggregateNameFromResourceType(edFiStandardType);
