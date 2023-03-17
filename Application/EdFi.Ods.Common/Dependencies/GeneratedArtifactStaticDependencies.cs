@@ -5,6 +5,7 @@
 
 using System;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Security;
@@ -23,6 +24,7 @@ namespace EdFi.Ods.Common.Dependencies
         private static Lazy<IETagProvider> _etagProvider;
         private static Lazy<IMappingContractProvider> _mappingContractProvider;
         private static Lazy<IContextProvider<ProfileContentTypeContext>> _profileContentTypeContextProvider;
+        private static Lazy<IDatabaseEngineSpecificEqualityComparerProvider<string>> _databaseEngineSpecificStringComparerProvider;
 
         public static IAuthorizationContextProvider AuthorizationContextProvider => _authorizationContextProvider?.Value;
         public static IResourceModelProvider ResourceModelProvider => _resourceModelProvider?.Value;
@@ -30,6 +32,7 @@ namespace EdFi.Ods.Common.Dependencies
         public static IETagProvider ETagProvider => _etagProvider?.Value;
         public static IMappingContractProvider MappingContractProvider => _mappingContractProvider?.Value;
         public static IContextProvider<ProfileContentTypeContext> ProfileContentTypeContextProvider => _profileContentTypeContextProvider?.Value;
+        public static IDatabaseEngineSpecificEqualityComparerProvider<string> DatabaseEngineSpecificStringComparerProvider => _databaseEngineSpecificStringComparerProvider?.Value;
 
         /// <summary>
         /// Provides a mechanism for providing resolution of container managed components (intended for use only
@@ -65,6 +68,11 @@ namespace EdFi.Ods.Common.Dependencies
             public static void Set(Func<IContextProvider<ProfileContentTypeContext>> resolver)
             {
                 _profileContentTypeContextProvider = new Lazy<IContextProvider<ProfileContentTypeContext>>(resolver);
+            }
+
+            public static void Set(Func<IDatabaseEngineSpecificEqualityComparerProvider<string>> resolver)
+            {
+                _databaseEngineSpecificStringComparerProvider = new Lazy<IDatabaseEngineSpecificEqualityComparerProvider<string>>(resolver);
             }
         }
     }

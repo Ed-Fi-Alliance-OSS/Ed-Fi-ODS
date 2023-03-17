@@ -34,6 +34,7 @@ using System.Security.Claims;
 using System.Threading;
 using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
@@ -432,6 +433,13 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 builder.RegisterInstance(mappingContractProvider).As<IMappingContractProvider>();
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => mappingContractProvider); 
+
+                // Mock the database engine specific string comparison provider
+                var databaseEngineSpecificStringComparisonProvider = A.Fake<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
+                A.CallTo(() => databaseEngineSpecificStringComparisonProvider.GetEqualityComparer()).Returns(apiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+
+                builder.RegisterInstance(databaseEngineSpecificStringComparisonProvider).As<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => databaseEngineSpecificStringComparisonProvider); 
 
                 _container = builder.Build();
             }

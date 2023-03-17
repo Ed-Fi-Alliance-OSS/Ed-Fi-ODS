@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
@@ -112,6 +113,9 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     public class Name : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Name()
@@ -200,7 +204,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -228,7 +232,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -344,6 +348,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class Parent : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IParent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Parent()
@@ -552,7 +559,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -580,7 +587,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -613,6 +620,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class ParentAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IParentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentAddress()
@@ -707,7 +717,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -735,7 +745,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -772,6 +782,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class ParentStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IParentStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentStudentSchoolAssociation()
@@ -892,7 +905,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -920,7 +933,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1038,6 +1051,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     public class School : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public School()
@@ -1205,7 +1221,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1233,7 +1249,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1266,6 +1282,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     public class SchoolAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolAddress()
@@ -1359,7 +1378,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1387,7 +1406,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1505,6 +1524,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     public class SchoolYearType : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolYearType()
@@ -1590,7 +1612,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1618,7 +1640,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -1734,6 +1756,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class Staff : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Staff()
@@ -1940,7 +1965,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1968,7 +1993,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2001,6 +2026,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class StaffAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffAddress()
@@ -2095,7 +2123,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2123,7 +2151,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2160,6 +2188,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class StaffStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffStudentSchoolAssociation()
@@ -2280,7 +2311,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2308,7 +2339,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2428,6 +2459,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     public class Student : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Student()
@@ -2607,7 +2641,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2635,7 +2669,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2668,6 +2702,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     public class StudentAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentAddress()
@@ -2762,7 +2799,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2790,7 +2827,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
@@ -2912,6 +2949,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     public class StudentSchoolAssociation : AggregateRootWithCompositeKey, IHasCascadableKeyValues,
         Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentSchoolAssociation()
@@ -3049,7 +3089,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3077,7 +3117,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             {
                 if (entry.Value is string)
                 {
-                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                    hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                 }
                 else
                 {
