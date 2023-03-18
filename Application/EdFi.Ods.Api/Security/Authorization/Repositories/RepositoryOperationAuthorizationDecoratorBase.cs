@@ -17,6 +17,7 @@ using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -44,7 +45,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly ISessionFactory _sessionFactory;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
-        private readonly IDataManagementRequestContextProvider _dataManagementRequestContextProvider;
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
 
         private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
 
@@ -67,7 +68,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
@@ -77,7 +78,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _sessionFactory = sessionFactory;
             _apiKeyContextProvider = apiKeyContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
-            _dataManagementRequestContextProvider = dataManagementRequestContextProvider;
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
 
             // Lazy initialization
             _bitValuesByAction = new Lazy<Dictionary<string, Actions>>(
@@ -118,7 +119,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
-                _dataManagementRequestContextProvider.GetResource(),
+                _dataManagementResourceContextProvider.Get().Resource,
                 _authorizationContextProvider.GetResourceUris(),
                 actionUri,
                 entity);
@@ -410,7 +411,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
-                _dataManagementRequestContextProvider.GetResource(),
+                _dataManagementResourceContextProvider.Get().Resource,
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),
                 typeof(TEntity));

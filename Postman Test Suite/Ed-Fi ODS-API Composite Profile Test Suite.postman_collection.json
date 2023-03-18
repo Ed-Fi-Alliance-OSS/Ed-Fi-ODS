@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "86a369cf-a102-4188-8261-89d86151c926",
+		"_postman_id": "a5fe4586-3fd1-4c61-a1f3-9e8e5be886f5",
 		"name": "Ed-Fi ODS/API Composite Profile Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1213570"
+		"_exporter_id": "26378282"
 	},
 	"item": [
 		{
@@ -1724,10 +1724,10 @@
 											"    pm.expect(pm.response.code).to.equal(405);",
 											"});",
 											"",
-											"pm.test(\"Should the item return with message There is no Readable content type available to the caller for the requested resource\", () => {",
+											"pm.test(\"Should the item return with message There is no Readable content type available to the caller for the 'edfi.School' resource in the following profiles: 'Test-Profile-Resource-WriteOnly'\", () => {",
 											"",
 											"    const responseItem = pm.response.json();",
-											"    pm.expect(responseItem.message).to.equal(\"There is no Readable content type available to the caller for the requested resource.\");",
+											"    pm.expect(responseItem.message).to.equal(\"There is no Readable content type available to the caller for the 'edfi.School' resource in the following profiles: 'Test-Profile-Resource-WriteOnly'.\");",
 											"});"
 										],
 										"type": "text/javascript"
