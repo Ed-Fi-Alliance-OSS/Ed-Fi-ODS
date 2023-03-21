@@ -3,7 +3,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Tests</AssemblyName>
     <RootNamespace>EdFi.Ods.Tests</RootNamespace>
-    <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>

@@ -5,7 +5,6 @@
     <RootNamespace>EdFi.Ods.Composites.Test</RootNamespace>
     <RestorePackages>true</RestorePackages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
   </PropertyGroup>
   <PropertyGroup>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>

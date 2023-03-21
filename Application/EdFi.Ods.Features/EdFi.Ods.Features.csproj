@@ -8,7 +8,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
-    <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>

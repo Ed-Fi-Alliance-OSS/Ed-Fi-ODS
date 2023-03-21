@@ -4,7 +4,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.XmlLookup.Console</AssemblyName>
     <RootNamespace>EdFi.XmlLookup.Console</RootNamespace>
-    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <Version>0.0.0</Version>
     <FileVersion>0.0.0</FileVersion>
     <Configurations>Debug;Release</Configurations>

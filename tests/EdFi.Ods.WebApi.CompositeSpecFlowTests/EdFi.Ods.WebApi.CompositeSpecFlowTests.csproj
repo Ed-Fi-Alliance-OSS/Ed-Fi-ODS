@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>EdFi.Ods.WebApi.CompositeSpecFlowTests</RootNamespace>
-    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
