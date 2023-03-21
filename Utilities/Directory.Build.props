@@ -1,8 +1,5 @@
 <Project>
   <PropertyGroup>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
-    <InformationalVersion>1.0.0</InformationalVersion>
     <Copyright>Copyright © $([System.DateTime]::Now.ToString(`yyyy`)) Ed-Fi Alliance, LLC and Contributors</Copyright>
   </PropertyGroup>
 </Project>

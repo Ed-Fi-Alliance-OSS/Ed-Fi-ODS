@@ -4,7 +4,6 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Api.IntegrationTests</AssemblyName>
     <RootNamespace>EdFi.Ods.Api.IntegrationTests</RootNamespace>
-    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
