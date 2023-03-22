@@ -54,6 +54,7 @@ Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Versions/1.1.0/Standard/4.0
 Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Versions/1.1.0/Standard/4.0.0/Requests/Requests.generated.cs
 Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/Versions/1.1.0/Standard/4.0.0/Resources/Resources.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Artifacts/MsSql/Data/Security/0001-ResourceClaimMetadata_generated.sql
+Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Artifacts/PgSql/Data/Security/0001-ResourceClaimMetadata_generated.sql
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Controllers/Controllers.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/EntityOrmMappings/MsSql/EntityOrmMappings.generated.hbm.xml
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/EntityOrmMappings/MsSql/EntityOrmMappingsForQueries.generated.hbm.xml
@@ -71,5 +72,3 @@ Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Pipelines/CreateOrUpdateP
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Requests/Requests.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Resources/Resources.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Security/Authorization/EntityAuthorizationContextProviders.generated.cs
-Ed-Fi-ODS/Artifacts/MsSql/Data/Security/0001-ResourceClaimMetadata_generated.sql
-Ed-Fi-ODS/Artifacts/PgSql/Data/Security/0001-ResourceClaimMetadata_generated.sql

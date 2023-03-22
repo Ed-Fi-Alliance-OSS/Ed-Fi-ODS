@@ -6,7 +6,7 @@
     },
     "EdFi.CodeGen - PostgreSQL": {
       "commandName": "Project",
-      "commandLineArgs": "-e PostgreSQL -i"
+      "commandLineArgs": "-e PostgreSQL --standardVersion 4.0.0"
     }
   }
 }

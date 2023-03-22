@@ -40,7 +40,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim:studentAssessmentEducationOrganizationAssociation';
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('educationOrganizationAssociationTypeDescriptor', 'educationOrganizationAssociationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/educationOrganizationAssociationTypeDescriptor', relationshipBasedDataResourceClaim_Id, application_Id);
+        VALUES ('studentAssessmentEducationOrganizationAssociation', 'studentAssessmentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/studentAssessmentEducationOrganizationAssociation', relationshipBasedDataResourceClaim_Id, application_Id);
 
     END IF;
 
