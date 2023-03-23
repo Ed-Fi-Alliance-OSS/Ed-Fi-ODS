@@ -13,7 +13,9 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots;
+using EdFi.Security.DataAccess.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Route("snapshots")]
     public class SnapshotsController : ControllerBase
     {
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly ISecurityRepository _securityRepository;
         private readonly IGetSnapshots _getSnapshots;
         private readonly ILog _logger = LogManager.GetLogger(typeof(SnapshotsController));
         private readonly bool _isEnabled;
@@ -36,8 +40,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
         // when the feature is disabled (and the IGetSnapshots service is not registered).
         public SnapshotsController(ApiSettings apiSettings,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            IAuthorizationContextProvider authorizationContextProvider,
+            ISecurityRepository securityRepository,
             IGetSnapshots getSnapshots = null)
         {
+            _authorizationContextProvider = authorizationContextProvider;
+            _securityRepository = securityRepository;
             _getSnapshots = getSnapshots;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
@@ -66,6 +74,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 var count = await _getSnapshots.GetTotalCountAsync();
                 Response.Headers.Add("Total-Count", count.ToString());
             }
+
+            // Set the authorization context for action (to ensure read-replica connection is used, if defined)
+            _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
             var snapshots = await _getSnapshots.GetAllAsync(new QueryParameters(urlQueryParametersRequest));
             return Ok(snapshots);
