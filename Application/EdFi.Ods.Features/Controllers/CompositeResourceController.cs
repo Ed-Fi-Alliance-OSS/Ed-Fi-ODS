@@ -16,7 +16,9 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
+using EdFi.Security.DataAccess.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -50,17 +52,23 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ICompositeResourceResponseProvider _compositeResourceResponseProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceController));
         private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly ISecurityRepository _securityRepository;
         private readonly bool _isEnabled;
 
         public CompositeResourceController(
             ICompositeResourceResponseProvider compositeResourceResponseProvider,
             ICompositesMetadataProvider compositeMetadataProvider,
             IRESTErrorProvider restErrorProvider,
-            ApiSettings apiSettings)
+            ApiSettings apiSettings,
+            IAuthorizationContextProvider authorizationContextProvider,
+            ISecurityRepository securityRepository)
         {
             _compositeResourceResponseProvider = compositeResourceResponseProvider;
             _compositeMetadataProvider = compositeMetadataProvider;
             _restErrorProvider = restErrorProvider;
+            _authorizationContextProvider = authorizationContextProvider;
+            _securityRepository = securityRepository;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName());
         }
 
@@ -136,6 +144,9 @@ namespace EdFi.Ods.Features.Controllers
                 }
 
                 AddInherentSupportForIdParameter();
+
+                // Set the authorization context for action (to ensure read-replica connection is used, if defined)
+                _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("Read").ActionUri);
 
                 json = _compositeResourceResponseProvider.Get(
                     compositeDefinition,
