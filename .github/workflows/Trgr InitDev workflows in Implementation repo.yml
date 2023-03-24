@@ -7,6 +7,7 @@ on:
 
 env:
   EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
   build:
@@ -14,7 +15,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check for Repo Dispatch Token
+      if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.EDFI_ODS_IMP_TOKEN == '' }}
+      run: | 
+        echo "Missing GitHub Token" 
+        exit 1
     - name: Dispatch to Implementation repo
+      if: ${{ env.EDFI_ODS_IMP_TOKEN != '' }}
       uses: peter-evans/repository-dispatch@11ba7d3f32dc7cc919d1c43f1fec1c05260c26b5 # v2
       with:
         token: ${{ env.EDFI_ODS_IMP_TOKEN }}
