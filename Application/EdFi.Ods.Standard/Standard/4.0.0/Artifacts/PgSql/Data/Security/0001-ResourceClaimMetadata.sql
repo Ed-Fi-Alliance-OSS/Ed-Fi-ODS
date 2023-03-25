@@ -25,6 +25,10 @@ begin
         INSERT INTO dbo.Actions (ActionName, ActionUri) VALUES ('Delete' , 'http://ed-fi.org/odsapi/actions/delete');
     END IF;
 
+    IF NOT EXISTS(SELECT 1 FROM dbo.Actions WHERE ActionName = 'ReadChanges' AND ActionUri = 'http://ed-fi.org/odsapi/actions/readChanges') THEN
+        INSERT INTO dbo.Actions (ActionName, ActionUri) VALUES ('ReadChanges' , 'http://ed-fi.org/odsapi/actions/readChanges');
+    END IF;
+
 end $$;
 
 /* --------------------------------- */
@@ -65,14 +69,19 @@ begin
         VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly', application_Id);
     END IF;
 
-    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation' AND Application_ApplicationId = application_Id) THEN
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyThroughResponsibility' AND Application_ApplicationId = application_Id) THEN
         INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-        VALUES ('Relationships with Students only (through StudentEducationOrganizationAssociation)', 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation', application_Id);
+        VALUES ('Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)', 'RelationshipsWithStudentsOnlyThroughResponsibility', application_Id);
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'OwnershipBased' AND Application_ApplicationId = application_Id) THEN
         INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
         VALUES ('Ownership Based', 'OwnershipBased', application_Id);
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes' AND Application_ApplicationId = application_Id) THEN
+        INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+        VALUES ('Relationships with Education Organizations and People (including deletes)', 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes', application_Id);
     END IF;
 
 end $$;
@@ -86,34 +95,45 @@ begin
     SELECT Applicationid INTO application_Id FROM dbo.Applications WHERE ApplicationName = 'Ed-Fi ODS API';
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='SIS Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-        VALUES ('SIS Vendor', application_Id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
+        VALUES ('SIS Vendor', application_Id, 'TRUE');
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ed-Fi Sandbox' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-        VALUES ('Ed-Fi Sandbox', application_Id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
+        VALUES ('Ed-Fi Sandbox', application_Id, 'TRUE');
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Roster Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-        VALUES ('Roster Vendor', application_Id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
+        VALUES ('Roster Vendor', application_Id, 'TRUE');
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Vendor' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-        VALUES ('Assessment Vendor', application_Id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
+        VALUES ('Assessment Vendor', application_Id, 'TRUE');
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Assessment Read' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-        VALUES ('Assessment Read', application_Id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
+        VALUES ('Assessment Read', application_Id, 'TRUE');
     END IF;
 
     IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Bootstrap Descriptors and EdOrgs' AND Application_ApplicationId = application_Id) THEN
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-        VALUES ('Bootstrap Descriptors and EdOrgs', application_Id);
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, ForApplicationUseOnly, IsEdfiPreset)
+        VALUES ('Bootstrap Descriptors and EdOrgs', application_Id, 'TRUE', 'TRUE');
     END IF;
+    
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='Ownership Based Test' AND Application_ApplicationId = application_Id) THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, ForApplicationUseOnly, IsEdfiPreset)
+        VALUES ('Ownership Based Test', application_Id, 'TRUE', 'TRUE');
+    END IF;
+
+    IF NOT EXISTS(SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName ='District Hosted SIS Vendor' AND Application_ApplicationId = application_Id) THEN
+        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset)
+        VALUES ('District Hosted SIS Vendor', application_Id, 'TRUE');
+    END IF;
+
 
 end $$;
 

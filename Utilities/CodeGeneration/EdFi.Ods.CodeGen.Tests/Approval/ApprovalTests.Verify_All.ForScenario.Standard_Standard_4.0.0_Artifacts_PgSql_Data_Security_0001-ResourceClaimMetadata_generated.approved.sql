@@ -32,6 +32,10 @@ begin
     select ResourceClaimId into primaryRelationshipsResourceClaimId from dbo.ResourceClaims where ResourceName = 'primaryRelationships';
     select ResourceClaimId into surveyDomainResourceClaimId from dbo.ResourceClaims where ResourceName = 'surveyDomain';
 
+/* ------------------------------------------------- */
+/*     Resource Claims      */
+/* ------------------------------------------------ */
+
     IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='absenceEventCategoryDescriptor') THEN
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('absenceEventCategoryDescriptor', 'absenceEventCategoryDescriptor', 'http://ed-fi.org/ods/identity/claims/absenceEventCategoryDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -1770,7 +1774,7 @@ begin
             (select ActionId
             from dbo.Actions
             where ActionName IN ('Create','Read','Update','Delete')) as ac on true
-        where ResourceName IN ('assessmentMetadata')
+        where ResourceName IN ('academicSubjectDescriptor', 'assessmentMetadata', 'learningObjective', 'managedDescriptors', 'learningStandard')
         union
         select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
         from dbo.ResourceClaims
@@ -1778,7 +1782,7 @@ begin
             (select ActionId
             from dbo.Actions
             where ActionName IN ('Read')) as ac on true
-        where ResourceName IN ('learningObjective', 'learningStandard', 'student')
+        where ResourceName IN ('student', 'systemDescriptors', 'types')
     )
     insert into dbo.ClaimSetResourceClaimActions
         (ActionId
@@ -1858,6 +1862,53 @@ begin
         ,ValidationRuleSetNameOverride)
     select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
     from BootstrapDescriptorsAndEdOrgsClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
+
+    /* District Hosted SIS Vendor Claims */
+
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'District Hosted SIS Vendor Claims';
+
+    WITH DistrictHostedSisVendorClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'localEducationAgency')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Update')) as ac on true
+        where ResourceName IN ('localEducationAgency')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        where ResourceName IN ('assessmentMetadata'
+            , 'educationContent'
+            , 'educationStandards'
+            , 'managedDescriptors'
+            , 'people'
+            , 'primaryRelationships'
+            , 'relationshipBasedData'
+            , 'school'
+            , 'organizationDepartment')
+    )
+    insert into dbo.ClaimSetResourceClaimActions
+        (ActionId
+        ,ClaimSetId
+        ,ResourceClaimId
+        ,ValidationRuleSetNameOverride)
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from DistrictHostedSisVendorClaims claims
     where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
         and ResourceClaimId = claims.ResourceClaimId);
 
@@ -1949,7 +2000,7 @@ begin
             (select ActionId
             from dbo.Actions
             where ActionName IN ('Read', 'Update')) as ac on true
-        where ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
+        where ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData', 'organizationDepartment')
         union
         select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
         from dbo.ResourceClaims
@@ -1957,7 +2008,7 @@ begin
             (select ActionId
             from dbo.Actions
             where ActionName IN ('Create')) as ac on true
-        where ResourceName IN ('relationshipBasedData')
+        where ResourceName IN ('relationshipBasedData', 'organizationDepartment')
         union
         select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
         from dbo.ResourceClaims
@@ -1965,7 +2016,7 @@ begin
             (select ActionId
             from dbo.Actions
             where ActionName IN ('Delete')) as ac on true
-        where ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships')
+        where ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships', 'organizationDepartment')
     )
     insert into dbo.ResourceClaimActions
         (ActionId
@@ -2073,7 +2124,7 @@ begin
             inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
             inner join dbo.Actions A on A.ActionId = RCAA.ActionId
             where A.ActionName in ('Read')
-            and RC.ResourceName in ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
+            and RC.ResourceName in ('assessmentMetadata', 'educationContent', 'surveyDomain' )
         union
         select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
             inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
@@ -2100,19 +2151,19 @@ begin
             inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
             inner join dbo.Actions A on A.ActionId = RCAA.ActionId
             where A.ActionName in ('Read', 'Update')
-            and RC.ResourceName in ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
+            and RC.ResourceName in ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData', 'organizationDepartment')
 	    union
 	    select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
             inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
             inner join dbo.Actions A on A.ActionId = RCAA.ActionId
             where A.ActionName in ('Create')
-            and RC.ResourceName in ('relationshipBasedData')
+            and RC.ResourceName in ('relationshipBasedData', 'organizationDepartment')
 	    union
         select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
             inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
             inner join dbo.Actions A on A.ActionId = RCAA.ActionId
             where A.ActionName in ('Delete')
-            and RC.ResourceName in ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships')
+            and RC.ResourceName in ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships', 'organizationDepartment')
     )
     insert into dbo.ResourceClaimActionAuthorizationStrategies
         (ResourceClaimActionId
