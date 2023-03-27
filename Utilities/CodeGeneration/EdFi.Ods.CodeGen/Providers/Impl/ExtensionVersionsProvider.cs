@@ -24,7 +24,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             if (basePath == null)
                 return _extensionVersionsPath;
 
-            switch (Directory.GetDirectories(basePath, "Versions\\*", SearchOption.AllDirectories))
+            switch (Directory.GetDirectories(basePath, "Versions/*", SearchOption.AllDirectories))
             {
                 // When path contains version passed as param
                 case string[] d when d.Any(x => x.Contains(_extensionVersionsPath)):
