@@ -336,7 +336,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private string GetDescription(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            return openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable
+            return openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable 
+                   || openApiMetadataResource.Resource.Entity.IsDescriptorEntity
                 ? "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, if natural key values are being updated by the JSON body, those changes will be applied to the resource and will also cascade through to dependent resources."
                 : "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation and will not be modified in the database, and so recommendation is to use POST as that supports upsert behavior.";
         }
