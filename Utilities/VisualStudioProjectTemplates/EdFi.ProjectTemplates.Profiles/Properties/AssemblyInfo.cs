@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Ed-Fi API Profiles Project Template")]
-[assembly: AssemblyCopyright("Copyright © Ed-Fi Alliance 2018")]
+[assembly: AssemblyCopyright("Copyright © Ed-Fi Alliance  + DateTime.now().year")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
