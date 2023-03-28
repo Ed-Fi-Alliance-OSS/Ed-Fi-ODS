@@ -26,7 +26,7 @@ jobs:
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
-        echo "Missing Azure Access Token" 
+        echo "::error::Missing Azure Token"
         exit 1 
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Setup .NET

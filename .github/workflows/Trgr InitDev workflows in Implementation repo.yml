@@ -18,7 +18,7 @@ jobs:
     - name: Check for Repo Dispatch Token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.EDFI_ODS_IMP_TOKEN == '' }}
       run: | 
-        echo "Missing GitHub Token" 
+        echo "::error::Missing GitHub Token"
         exit 1
     - name: Dispatch to Implementation repo
       if: ${{ env.EDFI_ODS_IMP_TOKEN != '' }}
