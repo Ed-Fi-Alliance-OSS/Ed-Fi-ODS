@@ -1,0 +1,124 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/managedDescriptors">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationOrganizations">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/communityProviderLicense">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi API Publisher - Reader">
+              <Actions>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                  </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/person">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi API Publisher - Reader">
+              <Actions>
+                <Action name="Read" />
+                <Action name="ReadChanges" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationStandards">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>

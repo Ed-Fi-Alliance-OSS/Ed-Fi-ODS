@@ -26,7 +26,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
     [Route("tpdm/accreditationStatusDescriptors")]
     public partial class AccreditationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
-        Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
         Entities.Common.TPDM.IAccreditationStatusDescriptor,
         Entities.NHibernate.AccreditationStatusDescriptorAggregate.TPDM.AccreditationStatusDescriptor,
         Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorPut,
@@ -57,7 +56,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
     [Route("tpdm/aidTypeDescriptors")]
     public partial class AidTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor,
-        Api.Common.Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor,
         Entities.Common.TPDM.IAidTypeDescriptor,
         Entities.NHibernate.AidTypeDescriptorAggregate.TPDM.AidTypeDescriptor,
         Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorPut,
@@ -87,7 +85,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Candidates
     [Authorize]
     [Route("tpdm/candidates")]
     public partial class CandidatesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Candidate.TPDM.Candidate,
         Api.Common.Models.Resources.Candidate.TPDM.Candidate,
         Entities.Common.TPDM.ICandidate,
         Entities.NHibernate.CandidateAggregate.TPDM.Candidate,
@@ -144,7 +141,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CandidateEducatorPreparationPro
     [Route("tpdm/candidateEducatorPreparationProgramAssociations")]
     public partial class CandidateEducatorPreparationProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation,
-        Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation,
         Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociation,
         Api.Common.Models.Requests.TPDM.CandidateEducatorPreparationProgramAssociations.CandidateEducatorPreparationProgramAssociationPut,
@@ -183,7 +179,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
     [Route("tpdm/certificationRouteDescriptors")]
     public partial class CertificationRouteDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
-        Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
         Entities.Common.TPDM.ICertificationRouteDescriptor,
         Entities.NHibernate.CertificationRouteDescriptorAggregate.TPDM.CertificationRouteDescriptor,
         Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorPut,
@@ -213,7 +208,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
     [Authorize]
     [Route("tpdm/coteachingStyleObservedDescriptors")]
     public partial class CoteachingStyleObservedDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor,
         Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor,
         Entities.Common.TPDM.ICoteachingStyleObservedDescriptor,
         Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.TPDM.CoteachingStyleObservedDescriptor,
@@ -245,7 +239,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
     [Route("tpdm/credentialStatusDescriptors")]
     public partial class CredentialStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
-        Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
         Entities.Common.TPDM.ICredentialStatusDescriptor,
         Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM.CredentialStatusDescriptor,
         Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorPut,
@@ -275,7 +268,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorPreparationPrograms
     [Authorize]
     [Route("tpdm/educatorPreparationPrograms")]
     public partial class EducatorPreparationProgramsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram,
         Api.Common.Models.Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram,
         Entities.Common.TPDM.IEducatorPreparationProgram,
         Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgram,
@@ -312,7 +304,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
     [Route("tpdm/educatorRoleDescriptors")]
     public partial class EducatorRoleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
-        Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
         Entities.Common.TPDM.IEducatorRoleDescriptor,
         Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM.EducatorRoleDescriptor,
         Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorPut,
@@ -342,7 +333,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
     [Authorize]
     [Route("tpdm/englishLanguageExamDescriptors")]
     public partial class EnglishLanguageExamDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor,
         Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor,
         Entities.Common.TPDM.IEnglishLanguageExamDescriptor,
         Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TPDM.EnglishLanguageExamDescriptor,
@@ -374,7 +364,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EPPProgramPathwayDescriptors
     [Route("tpdm/eppProgramPathwayDescriptors")]
     public partial class EPPProgramPathwayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor,
-        Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor,
         Entities.Common.TPDM.IEPPProgramPathwayDescriptor,
         Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM.EPPProgramPathwayDescriptor,
         Api.Common.Models.Requests.TPDM.EPPProgramPathwayDescriptors.EPPProgramPathwayDescriptorPut,
@@ -404,7 +393,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
     [Authorize]
     [Route("tpdm/evaluations")]
     public partial class EvaluationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Evaluation.TPDM.Evaluation,
         Api.Common.Models.Resources.Evaluation.TPDM.Evaluation,
         Entities.Common.TPDM.IEvaluation,
         Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation,
@@ -448,7 +436,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
     [Route("tpdm/evaluationElements")]
     public partial class EvaluationElementsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElement.TPDM.EvaluationElement,
-        Api.Common.Models.Resources.EvaluationElement.TPDM.EvaluationElement,
         Entities.Common.TPDM.IEvaluationElement,
         Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement,
         Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementPut,
@@ -491,7 +478,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
     [Authorize]
     [Route("tpdm/evaluationElementRatings")]
     public partial class EvaluationElementRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
         Api.Common.Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
         Entities.Common.TPDM.IEvaluationElementRating,
         Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating,
@@ -540,7 +526,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
     [Route("tpdm/evaluationElementRatingLevelDescriptors")]
     public partial class EvaluationElementRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
-        Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
         Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor,
         Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.TPDM.EvaluationElementRatingLevelDescriptor,
         Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPut,
@@ -570,7 +555,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
     [Authorize]
     [Route("tpdm/evaluationObjectives")]
     public partial class EvaluationObjectivesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
         Api.Common.Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
         Entities.Common.TPDM.IEvaluationObjective,
         Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective,
@@ -615,7 +599,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
     [Route("tpdm/evaluationObjectiveRatings")]
     public partial class EvaluationObjectiveRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
-        Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
         Entities.Common.TPDM.IEvaluationObjectiveRating,
         Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating,
         Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingPut,
@@ -659,7 +642,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
     [Route("tpdm/evaluationPeriodDescriptors")]
     public partial class EvaluationPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
-        Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
         Entities.Common.TPDM.IEvaluationPeriodDescriptor,
         Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM.EvaluationPeriodDescriptor,
         Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPut,
@@ -689,7 +671,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
     [Authorize]
     [Route("tpdm/evaluationRatings")]
     public partial class EvaluationRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationRating.TPDM.EvaluationRating,
         Api.Common.Models.Resources.EvaluationRating.TPDM.EvaluationRating,
         Entities.Common.TPDM.IEvaluationRating,
         Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating,
@@ -737,7 +718,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
     [Route("tpdm/evaluationRatingLevelDescriptors")]
     public partial class EvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
-        Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
         Entities.Common.TPDM.IEvaluationRatingLevelDescriptor,
         Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.TPDM.EvaluationRatingLevelDescriptor,
         Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPut,
@@ -767,7 +747,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescripto
     [Authorize]
     [Route("tpdm/evaluationRatingStatusDescriptors")]
     public partial class EvaluationRatingStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
         Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
         Entities.Common.TPDM.IEvaluationRatingStatusDescriptor,
         Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.TPDM.EvaluationRatingStatusDescriptor,
@@ -799,7 +778,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
     [Route("tpdm/evaluationTypeDescriptors")]
     public partial class EvaluationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
-        Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
         Entities.Common.TPDM.IEvaluationTypeDescriptor,
         Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM.EvaluationTypeDescriptor,
         Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorPut,
@@ -829,7 +807,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FinancialAids
     [Authorize]
     [Route("tpdm/financialAids")]
     public partial class FinancialAidsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.FinancialAid.TPDM.FinancialAid,
         Api.Common.Models.Resources.FinancialAid.TPDM.FinancialAid,
         Entities.Common.TPDM.IFinancialAid,
         Entities.NHibernate.FinancialAidAggregate.TPDM.FinancialAid,
@@ -868,7 +845,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
     [Route("tpdm/genderDescriptors")]
     public partial class GenderDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GenderDescriptor.TPDM.GenderDescriptor,
-        Api.Common.Models.Resources.GenderDescriptor.TPDM.GenderDescriptor,
         Entities.Common.TPDM.IGenderDescriptor,
         Entities.NHibernate.GenderDescriptorAggregate.TPDM.GenderDescriptor,
         Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorPut,
@@ -899,7 +875,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
     [Route("tpdm/objectiveRatingLevelDescriptors")]
     public partial class ObjectiveRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
-        Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
         Entities.Common.TPDM.IObjectiveRatingLevelDescriptor,
         Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.TPDM.ObjectiveRatingLevelDescriptor,
         Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPut,
@@ -929,7 +904,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
     [Authorize]
     [Route("tpdm/performanceEvaluations")]
     public partial class PerformanceEvaluationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
         Api.Common.Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
         Entities.Common.TPDM.IPerformanceEvaluation,
         Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation,
@@ -968,7 +942,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
     [Authorize]
     [Route("tpdm/performanceEvaluationRatings")]
     public partial class PerformanceEvaluationRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
         Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
         Entities.Common.TPDM.IPerformanceEvaluationRating,
         Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating,
@@ -1016,7 +989,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
     [Route("tpdm/performanceEvaluationRatingLevelDescriptors")]
     public partial class PerformanceEvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
-        Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
         Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor,
         Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.TPDM.PerformanceEvaluationRatingLevelDescriptor,
         Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPut,
@@ -1047,7 +1019,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
     [Route("tpdm/performanceEvaluationTypeDescriptors")]
     public partial class PerformanceEvaluationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
-        Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
         Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor,
         Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.TPDM.PerformanceEvaluationTypeDescriptor,
         Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPut,
@@ -1077,7 +1048,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
     [Authorize]
     [Route("tpdm/rubricDimensions")]
     public partial class RubricDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.RubricDimension.TPDM.RubricDimension,
         Api.Common.Models.Resources.RubricDimension.TPDM.RubricDimension,
         Entities.Common.TPDM.IRubricDimension,
         Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension,
@@ -1122,7 +1092,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
     [Route("tpdm/rubricRatingLevelDescriptors")]
     public partial class RubricRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
-        Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
         Entities.Common.TPDM.IRubricRatingLevelDescriptor,
         Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM.RubricRatingLevelDescriptor,
         Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPut,
@@ -1152,7 +1121,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponsePersonTargetAssoc
     [Authorize]
     [Route("tpdm/surveyResponsePersonTargetAssociations")]
     public partial class SurveyResponsePersonTargetAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation,
         Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation,
         Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation,
         Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociation,
@@ -1188,7 +1156,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponsePersonTarg
     [Authorize]
     [Route("tpdm/surveySectionResponsePersonTargetAssociations")]
     public partial class SurveySectionResponsePersonTargetAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation,
         Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation,
         Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation,
         Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociation,

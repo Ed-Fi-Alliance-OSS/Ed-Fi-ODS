@@ -26,7 +26,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
     [Route("sample/artMediumDescriptors")]
     public partial class ArtMediumDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
-        Api.Common.Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
         Entities.Common.Sample.IArtMediumDescriptor,
         Entities.NHibernate.ArtMediumDescriptorAggregate.Sample.ArtMediumDescriptor,
         Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorPut,
@@ -56,7 +55,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
     [Authorize]
     [Route("sample/buses")]
     public partial class BusesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Bus.Sample.Bus,
         Api.Common.Models.Resources.Bus.Sample.Bus,
         Entities.Common.Sample.IBus,
         Entities.NHibernate.BusAggregate.Sample.Bus,
@@ -88,7 +86,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
     [Authorize]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.BusRoute.Sample.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
@@ -136,7 +133,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
     [Route("sample/favoriteBookCategoryDescriptors")]
     public partial class FavoriteBookCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
-        Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
         Entities.Common.Sample.IFavoriteBookCategoryDescriptor,
         Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.Sample.FavoriteBookCategoryDescriptor,
         Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorPut,
@@ -167,7 +163,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
     [Route("sample/membershipTypeDescriptors")]
     public partial class MembershipTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
-        Api.Common.Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
         Entities.Common.Sample.IMembershipTypeDescriptor,
         Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample.MembershipTypeDescriptor,
         Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorPut,
@@ -197,7 +192,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
     [Authorize]
     [Route("sample/studentArtProgramAssociations")]
     public partial class StudentArtProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
         Api.Common.Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
         Entities.Common.Sample.IStudentArtProgramAssociation,
         Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociation,
@@ -244,7 +238,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
     [Authorize]
     [Route("sample/studentGraduationPlanAssociations")]
     public partial class StudentGraduationPlanAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
         Api.Common.Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
         Entities.Common.Sample.IStudentGraduationPlanAssociation,
         Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociation,
