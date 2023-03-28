@@ -13,7 +13,6 @@
     <Company>Ed-Fi Alliance</Company>
     <Product>Ed-Fi Smoke Test Console</Product>
     <Description>Smoke Test utility for the Ed-Fi ODS/API solution.</Description>
-    <Copyright>Copyright © 2021 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackAsTool>true</PackAsTool>
