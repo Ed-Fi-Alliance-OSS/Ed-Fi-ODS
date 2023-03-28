@@ -1,125 +1,6 @@
 begin transaction;
 
 /* --------------------------------- */
-/*      Applications and Actions     */
-/* --------------------------------- */
-do $$
-begin
-    insert into dbo.Applications (ApplicationName) values ('Ed-Fi ODS API');
-
-    insert into dbo.Actions (ActionName, ActionUri) values ('Create' , 'http://ed-fi.org/odsapi/actions/create');
-    insert into dbo.Actions (ActionName, ActionUri) values ('Read' , 'http://ed-fi.org/odsapi/actions/read');
-    insert into dbo.Actions (ActionName, ActionUri) values ('Update' , 'http://ed-fi.org/odsapi/actions/update');
-    insert into dbo.Actions (ActionName, ActionUri) values ('Delete' , 'http://ed-fi.org/odsapi/actions/delete');
-end;
-$$;
-
-/* --------------------------------- */
-/*      Authorization Strategies     */
-/* --------------------------------- */
-do $$
-    DECLARE application_id INT;
-begin
-    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('No Further Authorization Required', 'NoFurtherAuthorizationRequired', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Namespace Based', 'NamespaceBased', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Relationships with People only', 'RelationshipsWithPeopleOnly', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Relationships with Students only', 'RelationshipsWithStudentsOnly', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Relationships with Students only (through StudentEducationOrganizationAssociation)', 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation', application_id);
-
-    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
-    values ('Ownership Based', 'OwnershipBased', application_id);
-
-end $$;
-
-/* --------------------------------- */
-/*           Claimsets               */
-/* --------------------------------- */
-do $$
-    declare application_id int;
-begin
-    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
-
-    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('SIS Vendor', application_id);
-
-    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('Ed-Fi Sandbox', application_id);
-
-    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('Roster Vendor', application_id);
-
-    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('Assessment Vendor', application_id);
-
-    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('Assessment Read', application_id);
-
-    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('Bootstrap Descriptors and EdOrgs', application_id);
-
-end $$;
-
-/* --------------------------------- */
-/*     Parent resource claims        */
-/* --------------------------------- */
-do $$
-    declare application_id int;
-begin
-    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('types', 'types', 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('systemDescriptors', 'systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('managedDescriptors', 'managedDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('educationOrganizations', 'educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('relationshipBasedData', 'relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('assessmentMetadata', 'assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('identity', 'identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('educationStandards', 'educationStandards', 'http://ed-fi.org/ods/identity/claims/domains/educationStandards', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('primaryRelationships', 'primaryRelationships', 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', null, application_id);
-
-    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('surveyDomain', 'surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', null, application_id);
-
-end $$;
-
-/* --------------------------------- */
 /*        Resource Claims            */
 /* --------------------------------- */
 do $$
@@ -151,10 +32,16 @@ begin
     select ResourceClaimId into primaryRelationshipsResourceClaimId from dbo.ResourceClaims where ResourceName = 'primaryRelationships';
     select ResourceClaimId into surveyDomainResourceClaimId from dbo.ResourceClaims where ResourceName = 'surveyDomain';
 
-{{#Aggregates}}
+/* ------------------------------------------------- */
+/*     Resource Claims      */
+/* ------------------------------------------------ */
 
+{{#Aggregates}}
+    IF NOT EXISTS(SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName ='{{ResourceName}}') THEN
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('{{DisplayName}}', '{{ResourceName}}', 'http://ed-fi.org/ods/identity/claims/{{ResourceName}}', {{#HasParent}}{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}null{{/HasParent}}, application_id);
+    END IF;
+
 {{/Aggregates}}
 end $$;
 
@@ -163,202 +50,304 @@ end $$;
 /* ------------------------------------------------ */
 do $$
     declare claim_set_id int;
-    declare authorization_strategy_id int;
 begin
 
     /* SIS Vendors Claims */
+
     select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'SIS Vendor';
 
-    insert into dbo.ClaimSetResourceClaimActions
-        (ActionId
-        ,ClaimSetId
-        ,ResourceClaimId
-        ,ValidationRuleSetNameOverride)
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-       (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations')
-    union
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read','Update','Delete')) as ac on true
-    where ResourceName IN ('people'
+    WITH SisVendorClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+           (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read','Update','Delete')) as ac on true
+        where ResourceName IN ('people'
+            , 'relationshipBasedData'
+            , 'assessmentMetadata'
+            , 'managedDescriptors'
+            , 'primaryRelationships'
+            , 'educationStandards'
+            , 'educationContent')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN ('people'
         , 'relationshipBasedData'
         , 'assessmentMetadata'
         , 'managedDescriptors'
         , 'primaryRelationships'
         , 'educationStandards'
         , 'educationContent')
-    union
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('people'
-    , 'relationshipBasedData'
-    , 'assessmentMetadata'
-    , 'managedDescriptors'
-    , 'primaryRelationships'
-    , 'educationStandards'
-    , 'educationContent');
-
-    /* EdFi Sandbox Claims */
-    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Ed-Fi Sandbox';
-
+    )
     insert into dbo.ClaimSetResourceClaimActions
         (ActionId
         ,ClaimSetId
         ,ResourceClaimId
         ,ValidationRuleSetNameOverride)
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('types', 'identity')
-    union
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create', 'Update')) as ac on true
-    where ResourceName IN ('identity')
-    union
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read','Update','Delete')) as ac on true
-    where ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
-        'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from SisVendorClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
+
+    /* EdFi Sandbox Claims */
+
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Ed-Fi Sandbox';
+
+    WITH EdFiSandboxClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('types', 'identity')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create', 'Update')) as ac on true
+        where ResourceName IN ('identity')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read','Update','Delete')) as ac on true
+        where ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
+            'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
+            'educationContent', 'surveyDomain')
+         union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN ('systemDescriptors','educationOrganizations','people', 'relationshipBasedData',
+        'assessmentMetadata', 'managedDescriptors',  'primaryRelationships', 'educationStandards',
         'educationContent', 'surveyDomain')
-     union
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('systemDescriptors','educationOrganizations','people', 'relationshipBasedData',
-    'assessmentMetadata', 'managedDescriptors',  'primaryRelationships', 'educationStandards',
-    'educationContent', 'surveyDomain');
+    )
+    insert into dbo.ClaimSetResourceClaimActions
+        (ActionId
+        ,ClaimSetId
+        ,ResourceClaimId
+        ,ValidationRuleSetNameOverride)
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from EdFiSandboxClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
 
     /* EdFi Sandbox Claims with Overrides */
 
-     insert into dbo.ClaimSetResourceClaimActions
+    WITH EdFiSandboxClaimsWithOverrides AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast (null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        where ResourceName IN ('communityProviderLicense')
+    )
+    insert into dbo.ClaimSetResourceClaimActions
         (ActionId
         ,ClaimSetId
         ,ResourceClaimId
         ,ValidationRuleSetNameOverride)
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast (null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
-    where ResourceName IN ('communityProviderLicense');
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from EdFiSandboxClaimsWithOverrides claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
 
     /* Roster Vendor Claims */
+
     select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'Roster Vendor';
 
+    WITH RosterVendorClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('educationOrganizations', 'section', 'student', 'staff', 'courseOffering',
+            'session', 'classPeriod', 'location', 'course', 'staffSectionAssociation',
+            'staffEducationOrganizationAssignmentAssociation', 'studentSectionAssociation', 'studentSchoolAssociation')
+    )
     insert into dbo.ClaimSetResourceClaimActions
         (ActionId
         ,ClaimSetId
         ,ResourceClaimId
         ,ValidationRuleSetNameOverride)
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'section', 'student', 'staff', 'courseOffering',
-        'session', 'classPeriod', 'location', 'course', 'staffSectionAssociation',
-        'staffEducationOrganizationAssignmentAssociation', 'studentSectionAssociation', 'studentSchoolAssociation');
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from RosterVendorClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
 
     /* Assessment Vendor Claims */
+
     select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'Assessment Vendor';
 
+    WITH AssessmentVendorClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        where ResourceName IN ('academicSubjectDescriptor', 'assessmentMetadata', 'learningObjective', 'managedDescriptors', 'learningStandard')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('student', 'systemDescriptors', 'types')
+    )
     insert into dbo.ClaimSetResourceClaimActions
         (ActionId
         ,ClaimSetId
         ,ResourceClaimId
         ,ValidationRuleSetNameOverride)
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
-    where ResourceName IN ('assessmentMetadata')
-    union
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('learningObjective', 'learningStandard', 'student');
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from AssessmentVendorClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
 
     /* Assessment Read Resource Claims */
+
     select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'Assessment Read';
 
- insert into dbo.ClaimSetResourceClaimActions
+    WITH AssessmentReadResourceClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('assessmentMetadata', 'learningObjective', 'learningStandard', 'student')
+    )
+    insert into dbo.ClaimSetResourceClaimActions
         (ActionId
         ,ClaimSetId
         ,ResourceClaimId
         ,ValidationRuleSetNameOverride)
- select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('assessmentMetadata', 'learningObjective', 'learningStandard', 'student');
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from AssessmentReadResourceClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
 
     /* Bootstrap Descriptors and EdOrgs Claims */
 
     select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs';
+
+    WITH BootstrapDescriptorsAndEdOrgsClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast (null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN (
+            'systemDescriptors',
+            'managedDescriptors',
+            'educationOrganizations',
+            -- from Interchange-Standards.xml
+            'learningObjective',
+            'learningStandard',
+            'learningStandardEquivalenceAssociation',
+            -- from Interchange-EducationOrganization.xml
+            'accountabilityRating',
+            'classPeriod',
+            'communityOrganization',
+            'communityProvider',
+            'communityProviderLicense',
+            'course',
+            'educationOrganizationNetwork',
+            'educationOrganizationNetworkAssociation',
+            'educationOrganizationPeerAssociation',
+            'educationServiceCenter',
+            'feederSchoolAssociation',
+            'localEducationAgency',
+            'location',
+            'postSecondaryInstitution',
+            'program',
+            'school',
+            'stateEducationAgency')
+    )
     insert into dbo.ClaimSetResourceClaimActions
         (ActionId
         ,ClaimSetId
         ,ResourceClaimId
         ,ValidationRuleSetNameOverride)
-    select ac.ActionId, claim_set_id, ResourceClaimId, cast (null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN (
-    'systemDescriptors',
-    'managedDescriptors',
-    'educationOrganizations',
-    -- from Interchange-Standards.xml
-    'learningObjective',
-    'learningStandard',
-    'learningStandardEquivalenceAssociation',
-    -- from Interchange-EducationOrganization.xml
-    'accountabilityRating',
-    'classPeriod',
-    'communityProviderLicense',
-    'course',
-    'educationOrganizationPeerAssociation',
-    'feederSchoolAssociation',
-    'location',
-    'program'
-    );
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from BootstrapDescriptorsAndEdOrgsClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
+
+    /* District Hosted SIS Vendor Claims */
+
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'District Hosted SIS Vendor';
+
+    WITH DistrictHostedSisVendorClaims AS (
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'localEducationAgency')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Update')) as ac on true
+        where ResourceName IN ('localEducationAgency')
+        union
+        select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        where ResourceName IN ('assessmentMetadata'
+            , 'educationContent'
+            , 'educationStandards'
+            , 'managedDescriptors'
+            , 'people'
+            , 'primaryRelationships'
+            , 'relationshipBasedData'
+            , 'school'
+            , 'organizationDepartment')
+    )
+    insert into dbo.ClaimSetResourceClaimActions
+        (ActionId
+        ,ClaimSetId
+        ,ResourceClaimId
+        ,ValidationRuleSetNameOverride)
+    select ActionId, ClaimSetId, ResourceClaimId, ValidationRuleSetNameOverride
+    from DistrictHostedSisVendorClaims claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActions where actionId = claims.actionId AND ClaimSetId = claims.ClaimSetId
+        and ResourceClaimId = claims.ResourceClaimId);
 
 end $$;
 
@@ -371,120 +360,146 @@ begin
 
     /* NoFurtherAuthorizationRequired */
 
+    WITH NoFurtherAuthorizationRequiredResourceClaims AS (
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
+        union
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+        union
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Update')) as ac on true
+        where ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+        union
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Delete')) as ac on true
+        where ResourceName IN ('educationOrganizations', 'people', 'credential', 'person')
+    )
     insert into dbo.ResourceClaimActions
         (ActionId
         ,ResourceClaimId
         ,ValidationRuleSetName)
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
-    union
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
-    union
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Update')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
-    union
-    select ac.ActionId, ResourceClaimId, cast(null as int) from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Delete')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
+    select ActionId, ResourceClaimId, ValidationRuleSetName
+    from NoFurtherAuthorizationRequiredResourceClaims claims
+    where not exists (select 1 from dbo.ResourceClaimActions where actionId = claims.actionId AND ResourceClaimId = claims.ResourceClaimId);
 
     /* NamespaceBased */
 
+    WITH NamespaceBasedResourceClaims AS (
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read')) as ac on true
+        where ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
+        union
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create', 'Update', 'Delete')) as ac on true
+        where ResourceName IN ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain')
+    )
     insert into dbo.ResourceClaimActions
         (ActionId
         ,ResourceClaimId
         ,ValidationRuleSetName)
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
-    union
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create', 'Update', 'Delete')) as ac on true
-    where ResourceName IN ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain');
+    select ActionId, ResourceClaimId, ValidationRuleSetName
+    from NamespaceBasedResourceClaims claims
+    where not exists (select 1 from dbo.ResourceClaimActions where actionId = claims.actionId AND ResourceClaimId = claims.ResourceClaimId);
 
     /* RelationshipsWithEdOrgsAndPeople */
 
+    WITH RelationshipsWithEdOrgsAndPeopleResourceClaims AS (
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Read', 'Update')) as ac on true
+        where ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData', 'organizationDepartment')
+        union
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN ('relationshipBasedData', 'organizationDepartment')
+        union
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Delete')) as ac on true
+        where ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships', 'organizationDepartment')
+    )
     insert into dbo.ResourceClaimActions
         (ActionId
         ,ResourceClaimId
         ,ValidationRuleSetName)
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Read', 'Update')) as ac on true
-    where ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
-    union
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('relationshipBasedData')
-    union
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Delete')) as ac on true
-    where ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships');
+    select ActionId, ResourceClaimId, ValidationRuleSetName
+    from RelationshipsWithEdOrgsAndPeopleResourceClaims claims
+    where not exists (select 1 from dbo.ResourceClaimActions where actionId = claims.actionId AND ResourceClaimId = claims.ResourceClaimId);
 
     /* RelationshipsWithStudentsOnly */
 
+    WITH RelationshipsWithStudentsOnlyResourceClaims AS (
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN ('studentParentAssociation')
+    )
     insert into dbo.ResourceClaimActions
         (ActionId
         ,ResourceClaimId
         ,ValidationRuleSetName)
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('studentParentAssociation');
+    select ActionId, ResourceClaimId, ValidationRuleSetName
+    from RelationshipsWithStudentsOnlyResourceClaims claims
+    where not exists (select 1 from dbo.ResourceClaimActions where actionId = claims.actionId AND ResourceClaimId = claims.ResourceClaimId);
 
     /* RelationshipsWithEdOrgsOnly */
 
+    WITH RelationshipsWithEdOrgsOnlyResourceClaims AS (
+        select ac.ActionId, ResourceClaimId, cast(null as int) as ValidationRuleSetName
+        from dbo.ResourceClaims
+        inner join lateral
+            (select ActionId
+            from dbo.Actions
+            where ActionName IN ('Create')) as ac on true
+        where ResourceName IN ('primaryRelationships')
+    )
     insert into dbo.ResourceClaimActions
         (ActionId
         ,ResourceClaimId
         ,ValidationRuleSetName)
-    select ac.ActionId, ResourceClaimId, cast(null as int)
-    from dbo.ResourceClaims
-    inner join lateral
-        (select ActionId
-        from dbo.Actions
-        where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('primaryRelationships');
+    select ActionId, ResourceClaimId, ValidationRuleSetName
+    from RelationshipsWithEdOrgsOnlyResourceClaims claims
+    where not exists (select 1 from dbo.ResourceClaimActions where actionId = claims.actionId AND ResourceClaimId = claims.ResourceClaimId);
 
 end $$;
 
@@ -492,50 +507,48 @@ end $$;
 /* ResourceClaimActionAuthorizationStrategies */
 /* ------------------------------------------ */
 
-/* NoFurtherAuthorizationRequired */
-
 do $$
     declare authorization_strategy_id int;
 begin
+
+    /* NoFurtherAuthorizationRequired */
 
     select AuthorizationStrategyId into authorization_strategy_id
     from dbo.AuthorizationStrategies
     where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
+    WITH NoFurtherAuthorizationRequiredAuthorizationStrategies AS (
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName IN ('Read')
+            and RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person')
+        union
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName IN ('Create')
+            and RC.ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+        union
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName IN ('Update')
+            and RC.ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+        union
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName IN ('Delete')
+            and RC.ResourceName IN ('educationOrganizations', 'people', 'credential', 'person')
+    )
     insert into dbo.ResourceClaimActionAuthorizationStrategies
-    (ResourceClaimActionId
-    ,AuthorizationStrategyId)
-
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName IN ('Read')
-    and RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person')
-
-    union
-
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-        inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
-        inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-        where A.ActionName IN ('Create')
-        and RC.ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
-
-    union
-
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-        inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
-        inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-        where A.ActionName IN ('Update')
-        and RC.ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
-
-    union
-
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-        inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
-        inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-        where A.ActionName IN ('Delete')
-        and RC.ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
-
+        (ResourceClaimActionId
+        ,AuthorizationStrategyId)
+    select ResourceClaimActionId,AuthorizationStrategyId
+    from NoFurtherAuthorizationRequiredAuthorizationStrategies claims
+    where not exists (select 1 from dbo.ResourceClaimActionAuthorizationStrategies where ResourceClaimActionId = claims.ResourceClaimActionId
+        and AuthorizationStrategyId = claims.AuthorizationStrategyId);
 
 /* NamespaceBased */
 
@@ -543,24 +556,26 @@ begin
     from dbo.AuthorizationStrategies
     where AuthorizationStrategyName = 'NamespaceBased';
 
+    WITH NamespaceBasedAuthorizationStrategies AS (
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Read')
+            and RC.ResourceName in ('assessmentMetadata', 'educationContent', 'surveyDomain' )
+        union
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Create', 'Update', 'Delete')
+            and RC.ResourceName in ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain')
+    )
     insert into dbo.ResourceClaimActionAuthorizationStrategies
-    (ResourceClaimActionId
-    ,AuthorizationStrategyId)
-
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Read')
-    and RC.ResourceName in ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
-    union
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Create', 'Update', 'Delete')
-    and RC.ResourceName in ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain');
-
-
-
+        (ResourceClaimActionId
+        ,AuthorizationStrategyId)
+    select ResourceClaimActionId,AuthorizationStrategyId
+    from NamespaceBasedAuthorizationStrategies claims
+    where not exists (select 1 from dbo.ResourceClaimActionAuthorizationStrategies where ResourceClaimActionId = claims.ResourceClaimActionId
+        and AuthorizationStrategyId = claims.AuthorizationStrategyId);
 
 /* RelationshipsWithEdOrgsAndPeople */
 
@@ -568,57 +583,74 @@ begin
     from dbo.AuthorizationStrategies
     where AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople';
 
+    WITH RelationshipsWithEdOrgsAndPeopleAuthorizationStrategies AS (
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Read', 'Update')
+            and RC.ResourceName in ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData', 'organizationDepartment')
+	    union
+	    select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Create')
+            and RC.ResourceName in ('relationshipBasedData', 'organizationDepartment')
+	    union
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Delete')
+            and RC.ResourceName in ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships', 'organizationDepartment')
+    )
     insert into dbo.ResourceClaimActionAuthorizationStrategies
-    (ResourceClaimActionId
-    ,AuthorizationStrategyId)
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Read', 'Update')
-    and RC.ResourceName in ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
-	union
-	select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Create')
-    and RC.ResourceName in ('relationshipBasedData')
-	union
-    select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Delete')
-    and RC.ResourceName in ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships');
-
+        (ResourceClaimActionId
+        ,AuthorizationStrategyId)
+    select ResourceClaimActionId,AuthorizationStrategyId
+    from RelationshipsWithEdOrgsAndPeopleAuthorizationStrategies claims
+    where not exists (select 1 from dbo.ResourceClaimActionAuthorizationStrategies where ResourceClaimActionId = claims.ResourceClaimActionId
+        and AuthorizationStrategyId = claims.AuthorizationStrategyId);
 
 /* RelationshipsWithStudentsOnly */
 
-select AuthorizationStrategyId into authorization_strategy_id
-from dbo.AuthorizationStrategies
-where AuthorizationStrategyName = 'RelationshipsWithStudentsOnly';
+    select AuthorizationStrategyId into authorization_strategy_id
+    from dbo.AuthorizationStrategies
+    where AuthorizationStrategyName = 'RelationshipsWithStudentsOnly';
 
-insert into dbo.ResourceClaimActionAuthorizationStrategies
-    (ResourceClaimActionId
-    ,AuthorizationStrategyId)
-select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Create')
-    and RC.ResourceName in ('studentParentAssociation');
+    WITH RelationshipsWithStudentsOnlyAuthorizationStrategies AS (
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Create')
+            and RC.ResourceName in ('studentParentAssociation')
+    )
+    insert into dbo.ResourceClaimActionAuthorizationStrategies
+        (ResourceClaimActionId
+        ,AuthorizationStrategyId)
+    select ResourceClaimActionId,AuthorizationStrategyId
+    from RelationshipsWithStudentsOnlyAuthorizationStrategies claims
+    where not exists (select 1 from dbo.ResourceClaimActionAuthorizationStrategies where ResourceClaimActionId = claims.ResourceClaimActionId
+        and AuthorizationStrategyId = claims.AuthorizationStrategyId);
 
 /* RelationshipsWithEdOrgsOnly */
 
-select AuthorizationStrategyId into authorization_strategy_id
-from dbo.AuthorizationStrategies
-where AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly';
+    select AuthorizationStrategyId into authorization_strategy_id
+    from dbo.AuthorizationStrategies
+    where AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly';
 
-insert into dbo.ResourceClaimActionAuthorizationStrategies
-    (ResourceClaimActionId
-    ,AuthorizationStrategyId)
-select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
-    where A.ActionName in ('Create')
-    and RC.ResourceName in ('primaryRelationships');
+    WITH RelationshipsWithEdOrgsOnlyAuthorizationStrategies AS (
+        select RCAA.ResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ResourceClaimActions RCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = RCAA.ActionId
+            where A.ActionName in ('Create')
+            and RC.ResourceName in ('primaryRelationships')
+    )
+    insert into dbo.ResourceClaimActionAuthorizationStrategies
+        (ResourceClaimActionId
+        ,AuthorizationStrategyId)
+    select ResourceClaimActionId,AuthorizationStrategyId
+    from RelationshipsWithEdOrgsOnlyAuthorizationStrategies claims
+    where not exists (select 1 from dbo.ResourceClaimActionAuthorizationStrategies where ResourceClaimActionId = claims.ResourceClaimActionId
+        and AuthorizationStrategyId = claims.AuthorizationStrategyId);
 
 end $$;
 
@@ -633,47 +665,54 @@ do $$
     declare authorization_strategy_id int;
 begin
 
-select AuthorizationStrategyId into authorization_strategy_id
-from dbo.AuthorizationStrategies
-where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+    select AuthorizationStrategyId into authorization_strategy_id
+    from dbo.AuthorizationStrategies
+    where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
-select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs';
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs';
 
-insert into dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-    (ClaimSetResourceClaimActionId
-    ,AuthorizationStrategyId)
-select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.ClaimSetResourceClaimActions CSRCAA
-    inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =CSRCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
-    inner join dbo.ClaimSets CS on CS.ClaimSetId = CSRCAA.ClaimSetId
-    where CS.ClaimSetId = claim_set_id
-    and A.ActionName in ('Create')
-    and RC.ResourceName in (
-	'systemDescriptors',
-    'managedDescriptors',
-    'educationOrganizations',
-    -- from Interchange-Standards.xml
-    'learningObjective',
-    'learningStandard',
-    'learningStandardEquivalenceAssociation',
-    -- from Interchange-EducationOrganization.xml
-    'accountabilityRating',
-    'classPeriod',
-    'communityOrganization',
-    'communityProvider',
-    'communityProviderLicense',
-    'course',
-    'educationOrganizationNetwork',
-    'educationOrganizationNetworkAssociation',
-    'educationOrganizationPeerAssociation',
-    'educationServiceCenter',
-    'feederSchoolAssociation',
-    'localEducationAgency',
-    'location',
-    'postSecondaryInstitution',
-    'program',
-    'school',
-    'stateEducationAgency');
+    WITH ActionAuthorizationStrategyOverrides AS (
+        select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id as AuthorizationStrategyId FROM  dbo.ClaimSetResourceClaimActions CSRCAA
+            inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =CSRCAA.ResourceClaimId
+            inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
+            inner join dbo.ClaimSets CS on CS.ClaimSetId = CSRCAA.ClaimSetId
+            where CS.ClaimSetId = claim_set_id
+            and A.ActionName in ('Create')
+            and RC.ResourceName in (
+	            'systemDescriptors',
+                'managedDescriptors',
+                'educationOrganizations',
+                -- from Interchange-Standards.xml
+                'learningObjective',
+                'learningStandard',
+                'learningStandardEquivalenceAssociation',
+                -- from Interchange-EducationOrganization.xml
+                'accountabilityRating',
+                'classPeriod',
+                'communityOrganization',
+                'communityProvider',
+                'communityProviderLicense',
+                'course',
+                'educationOrganizationNetwork',
+                'educationOrganizationNetworkAssociation',
+                'educationOrganizationPeerAssociation',
+                'educationServiceCenter',
+                'feederSchoolAssociation',
+                'localEducationAgency',
+                'location',
+                'postSecondaryInstitution',
+                'program',
+                'school',
+                'stateEducationAgency')
+    )
+    insert into dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+        (ClaimSetResourceClaimActionId
+        ,AuthorizationStrategyId)
+    select ClaimSetResourceClaimActionId,AuthorizationStrategyId
+    from ActionAuthorizationStrategyOverrides claims
+    where not exists (select 1 from dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides where ClaimSetResourceClaimActionId = claims.ClaimSetResourceClaimActionId
+        and AuthorizationStrategyId = claims.AuthorizationStrategyId);
+
 end $$;
 
 commit;

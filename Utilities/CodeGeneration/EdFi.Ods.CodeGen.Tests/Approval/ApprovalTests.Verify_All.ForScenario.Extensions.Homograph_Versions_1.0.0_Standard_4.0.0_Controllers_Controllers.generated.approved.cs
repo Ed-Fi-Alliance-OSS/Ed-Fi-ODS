@@ -26,7 +26,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
     [Route("homograph/names")]
     public partial class NamesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Name.Homograph.Name,
-        Api.Common.Models.Resources.Name.Homograph.Name,
         Entities.Common.Homograph.IName,
         Entities.NHibernate.NameAggregate.Homograph.Name,
         Api.Common.Models.Requests.Homograph.Names.NamePut,
@@ -58,7 +57,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
     [Authorize]
     [Route("homograph/parents")]
     public partial class ParentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Parent.Homograph.Parent,
         Api.Common.Models.Resources.Parent.Homograph.Parent,
         Entities.Common.Homograph.IParent,
         Entities.NHibernate.ParentAggregate.Homograph.Parent,
@@ -92,7 +90,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
     [Route("homograph/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.Homograph.School,
-        Api.Common.Models.Resources.School.Homograph.School,
         Entities.Common.Homograph.ISchool,
         Entities.NHibernate.SchoolAggregate.Homograph.School,
         Api.Common.Models.Requests.Homograph.Schools.SchoolPut,
@@ -125,7 +122,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
     [Route("homograph/schoolYearTypes")]
     public partial class SchoolYearTypesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolYearType.Homograph.SchoolYearType,
-        Api.Common.Models.Resources.SchoolYearType.Homograph.SchoolYearType,
         Entities.Common.Homograph.ISchoolYearType,
         Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearType,
         Api.Common.Models.Requests.Homograph.SchoolYearTypes.SchoolYearTypePut,
@@ -156,7 +152,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
     [Authorize]
     [Route("homograph/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Staff.Homograph.Staff,
         Api.Common.Models.Resources.Staff.Homograph.Staff,
         Entities.Common.Homograph.IStaff,
         Entities.NHibernate.StaffAggregate.Homograph.Staff,
@@ -190,7 +185,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
     [Route("homograph/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.Homograph.Student,
-        Api.Common.Models.Resources.Student.Homograph.Student,
         Entities.Common.Homograph.IStudent,
         Entities.NHibernate.StudentAggregate.Homograph.Student,
         Api.Common.Models.Requests.Homograph.Students.StudentPut,
@@ -223,7 +217,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
     [Authorize]
     [Route("homograph/studentSchoolAssociations")]
     public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentSchoolAssociation.Homograph.StudentSchoolAssociation,
         Api.Common.Models.Resources.StudentSchoolAssociation.Homograph.StudentSchoolAssociation,
         Entities.Common.Homograph.IStudentSchoolAssociation,
         Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociation,

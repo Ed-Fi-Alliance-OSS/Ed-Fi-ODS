@@ -26,7 +26,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionC
     [Route("sample-student-transcript/institutionControlDescriptors")]
     public partial class InstitutionControlDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstitutionControlDescriptor.SampleStudentTranscript.InstitutionControlDescriptor,
-        Api.Common.Models.Resources.InstitutionControlDescriptor.SampleStudentTranscript.InstitutionControlDescriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor,
         Entities.NHibernate.InstitutionControlDescriptorAggregate.SampleStudentTranscript.InstitutionControlDescriptor,
         Api.Common.Models.Requests.SampleStudentTranscript.InstitutionControlDescriptors.InstitutionControlDescriptorPut,
@@ -57,7 +56,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.InstitutionL
     [Route("sample-student-transcript/institutionLevelDescriptors")]
     public partial class InstitutionLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstitutionLevelDescriptor.SampleStudentTranscript.InstitutionLevelDescriptor,
-        Api.Common.Models.Resources.InstitutionLevelDescriptor.SampleStudentTranscript.InstitutionLevelDescriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor,
         Entities.NHibernate.InstitutionLevelDescriptorAggregate.SampleStudentTranscript.InstitutionLevelDescriptor,
         Api.Common.Models.Requests.SampleStudentTranscript.InstitutionLevelDescriptors.InstitutionLevelDescriptorPut,
@@ -87,7 +85,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.PostSecondar
     [Authorize]
     [Route("sample-student-transcript/postSecondaryOrganizations")]
     public partial class PostSecondaryOrganizationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PostSecondaryOrganization.SampleStudentTranscript.PostSecondaryOrganization,
         Api.Common.Models.Resources.PostSecondaryOrganization.SampleStudentTranscript.PostSecondaryOrganization,
         Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization,
         Entities.NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganization,
@@ -123,7 +120,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SpecialEduca
     [Route("sample-student-transcript/specialEducationGraduationStatusDescriptors")]
     public partial class SpecialEducationGraduationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationGraduationStatusDescriptor.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptor,
-        Api.Common.Models.Resources.SpecialEducationGraduationStatusDescriptor.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptor,
         Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor,
         Entities.NHibernate.SpecialEducationGraduationStatusDescriptorAggregate.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptor,
         Api.Common.Models.Requests.SampleStudentTranscript.SpecialEducationGraduationStatusDescriptors.SpecialEducationGraduationStatusDescriptorPut,
@@ -153,7 +149,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTranscript.SubmissionCe
     [Authorize]
     [Route("sample-student-transcript/submissionCertificationDescriptors")]
     public partial class SubmissionCertificationDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SubmissionCertificationDescriptor.SampleStudentTranscript.SubmissionCertificationDescriptor,
         Api.Common.Models.Resources.SubmissionCertificationDescriptor.SampleStudentTranscript.SubmissionCertificationDescriptor,
         Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor,
         Entities.NHibernate.SubmissionCertificationDescriptorAggregate.SampleStudentTranscript.SubmissionCertificationDescriptor,
