@@ -26,7 +26,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTransportation.StudentT
     [Route("sample-student-transportation/studentTransportations")]
     public partial class StudentTransportationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentTransportation.SampleStudentTransportation.StudentTransportation,
-        Api.Common.Models.Resources.StudentTransportation.SampleStudentTransportation.StudentTransportation,
         Entities.Common.SampleStudentTransportation.IStudentTransportation,
         Entities.NHibernate.StudentTransportationAggregate.SampleStudentTransportation.StudentTransportation,
         Api.Common.Models.Requests.SampleStudentTransportation.StudentTransportations.StudentTransportationPut,

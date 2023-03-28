@@ -26,7 +26,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
     [Route("ed-fi/absenceEventCategoryDescriptors")]
     public partial class AbsenceEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AbsenceEventCategoryDescriptor.EdFi.AbsenceEventCategoryDescriptor,
-        Api.Common.Models.Resources.AbsenceEventCategoryDescriptor.EdFi.AbsenceEventCategoryDescriptor,
         Entities.Common.EdFi.IAbsenceEventCategoryDescriptor,
         Entities.NHibernate.AbsenceEventCategoryDescriptorAggregate.EdFi.AbsenceEventCategoryDescriptor,
         Api.Common.Models.Requests.AbsenceEventCategoryDescriptors.EdFi.AbsenceEventCategoryDescriptorPut,
@@ -56,7 +55,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
     [Authorize]
     [Route("ed-fi/academicHonorCategoryDescriptors")]
     public partial class AcademicHonorCategoryDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AcademicHonorCategoryDescriptor.EdFi.AcademicHonorCategoryDescriptor,
         Api.Common.Models.Resources.AcademicHonorCategoryDescriptor.EdFi.AcademicHonorCategoryDescriptor,
         Entities.Common.EdFi.IAcademicHonorCategoryDescriptor,
         Entities.NHibernate.AcademicHonorCategoryDescriptorAggregate.EdFi.AcademicHonorCategoryDescriptor,
@@ -88,7 +86,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
     [Route("ed-fi/academicSubjectDescriptors")]
     public partial class AcademicSubjectDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicSubjectDescriptor.EdFi.AcademicSubjectDescriptor,
-        Api.Common.Models.Resources.AcademicSubjectDescriptor.EdFi.AcademicSubjectDescriptor,
         Entities.Common.EdFi.IAcademicSubjectDescriptor,
         Entities.NHibernate.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptor,
         Api.Common.Models.Requests.AcademicSubjectDescriptors.EdFi.AcademicSubjectDescriptorPut,
@@ -118,7 +115,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
     [Authorize]
     [Route("ed-fi/academicWeeks")]
     public partial class AcademicWeeksController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AcademicWeek.EdFi.AcademicWeek,
         Api.Common.Models.Resources.AcademicWeek.EdFi.AcademicWeek,
         Entities.Common.EdFi.IAcademicWeek,
         Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek,
@@ -155,7 +151,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
     [Route("ed-fi/accommodationDescriptors")]
     public partial class AccommodationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccommodationDescriptor.EdFi.AccommodationDescriptor,
-        Api.Common.Models.Resources.AccommodationDescriptor.EdFi.AccommodationDescriptor,
         Entities.Common.EdFi.IAccommodationDescriptor,
         Entities.NHibernate.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptor,
         Api.Common.Models.Requests.AccommodationDescriptors.EdFi.AccommodationDescriptorPut,
@@ -185,7 +180,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
     [Authorize]
     [Route("ed-fi/accountabilityRatings")]
     public partial class AccountabilityRatingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AccountabilityRating.EdFi.AccountabilityRating,
         Api.Common.Models.Resources.AccountabilityRating.EdFi.AccountabilityRating,
         Entities.Common.EdFi.IAccountabilityRating,
         Entities.NHibernate.AccountabilityRatingAggregate.EdFi.AccountabilityRating,
@@ -224,7 +218,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountTypeDescriptors.EdFi
     [Route("ed-fi/accountTypeDescriptors")]
     public partial class AccountTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor,
-        Api.Common.Models.Resources.AccountTypeDescriptor.EdFi.AccountTypeDescriptor,
         Entities.Common.EdFi.IAccountTypeDescriptor,
         Entities.NHibernate.AccountTypeDescriptorAggregate.EdFi.AccountTypeDescriptor,
         Api.Common.Models.Requests.AccountTypeDescriptors.EdFi.AccountTypeDescriptorPut,
@@ -254,7 +247,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/achievementCategoryDescriptors")]
     public partial class AchievementCategoryDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AchievementCategoryDescriptor.EdFi.AchievementCategoryDescriptor,
         Api.Common.Models.Resources.AchievementCategoryDescriptor.EdFi.AchievementCategoryDescriptor,
         Entities.Common.EdFi.IAchievementCategoryDescriptor,
         Entities.NHibernate.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptor,
@@ -286,7 +278,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
     [Route("ed-fi/additionalCreditTypeDescriptors")]
     public partial class AdditionalCreditTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdditionalCreditTypeDescriptor.EdFi.AdditionalCreditTypeDescriptor,
-        Api.Common.Models.Resources.AdditionalCreditTypeDescriptor.EdFi.AdditionalCreditTypeDescriptor,
         Entities.Common.EdFi.IAdditionalCreditTypeDescriptor,
         Entities.NHibernate.AdditionalCreditTypeDescriptorAggregate.EdFi.AdditionalCreditTypeDescriptor,
         Api.Common.Models.Requests.AdditionalCreditTypeDescriptors.EdFi.AdditionalCreditTypeDescriptorPut,
@@ -316,7 +307,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/addressTypeDescriptors")]
     public partial class AddressTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AddressTypeDescriptor.EdFi.AddressTypeDescriptor,
         Api.Common.Models.Resources.AddressTypeDescriptor.EdFi.AddressTypeDescriptor,
         Entities.Common.EdFi.IAddressTypeDescriptor,
         Entities.NHibernate.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptor,
@@ -348,7 +338,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
     [Route("ed-fi/administrationEnvironmentDescriptors")]
     public partial class AdministrationEnvironmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdministrationEnvironmentDescriptor.EdFi.AdministrationEnvironmentDescriptor,
-        Api.Common.Models.Resources.AdministrationEnvironmentDescriptor.EdFi.AdministrationEnvironmentDescriptor,
         Entities.Common.EdFi.IAdministrationEnvironmentDescriptor,
         Entities.NHibernate.AdministrationEnvironmentDescriptorAggregate.EdFi.AdministrationEnvironmentDescriptor,
         Api.Common.Models.Requests.AdministrationEnvironmentDescriptors.EdFi.AdministrationEnvironmentDescriptorPut,
@@ -378,7 +367,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
     [Authorize]
     [Route("ed-fi/administrativeFundingControlDescriptors")]
     public partial class AdministrativeFundingControlDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AdministrativeFundingControlDescriptor.EdFi.AdministrativeFundingControlDescriptor,
         Api.Common.Models.Resources.AdministrativeFundingControlDescriptor.EdFi.AdministrativeFundingControlDescriptor,
         Entities.Common.EdFi.IAdministrativeFundingControlDescriptor,
         Entities.NHibernate.AdministrativeFundingControlDescriptorAggregate.EdFi.AdministrativeFundingControlDescriptor,
@@ -410,7 +398,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AncestryEthnicOriginDescriptors.EdFi
     [Route("ed-fi/ancestryEthnicOriginDescriptors")]
     public partial class AncestryEthnicOriginDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor,
-        Api.Common.Models.Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor,
         Entities.Common.EdFi.IAncestryEthnicOriginDescriptor,
         Entities.NHibernate.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptor,
         Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi.AncestryEthnicOriginDescriptorPut,
@@ -440,7 +427,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
     [Authorize]
     [Route("ed-fi/assessments")]
     public partial class AssessmentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Assessment.EdFi.Assessment,
         Api.Common.Models.Resources.Assessment.EdFi.Assessment,
         Entities.Common.EdFi.IAssessment,
         Entities.NHibernate.AssessmentAggregate.EdFi.Assessment,
@@ -484,7 +470,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
     [Route("ed-fi/assessmentCategoryDescriptors")]
     public partial class AssessmentCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentCategoryDescriptor.EdFi.AssessmentCategoryDescriptor,
-        Api.Common.Models.Resources.AssessmentCategoryDescriptor.EdFi.AssessmentCategoryDescriptor,
         Entities.Common.EdFi.IAssessmentCategoryDescriptor,
         Entities.NHibernate.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptor,
         Api.Common.Models.Requests.AssessmentCategoryDescriptors.EdFi.AssessmentCategoryDescriptorPut,
@@ -515,7 +500,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
     [Route("ed-fi/assessmentIdentificationSystemDescriptors")]
     public partial class AssessmentIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentIdentificationSystemDescriptor.EdFi.AssessmentIdentificationSystemDescriptor,
-        Api.Common.Models.Resources.AssessmentIdentificationSystemDescriptor.EdFi.AssessmentIdentificationSystemDescriptor,
         Entities.Common.EdFi.IAssessmentIdentificationSystemDescriptor,
         Entities.NHibernate.AssessmentIdentificationSystemDescriptorAggregate.EdFi.AssessmentIdentificationSystemDescriptor,
         Api.Common.Models.Requests.AssessmentIdentificationSystemDescriptors.EdFi.AssessmentIdentificationSystemDescriptorPut,
@@ -545,7 +529,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
     [Authorize]
     [Route("ed-fi/assessmentItems")]
     public partial class AssessmentItemsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AssessmentItem.EdFi.AssessmentItem,
         Api.Common.Models.Resources.AssessmentItem.EdFi.AssessmentItem,
         Entities.Common.EdFi.IAssessmentItem,
         Entities.NHibernate.AssessmentItemAggregate.EdFi.AssessmentItem,
@@ -586,7 +569,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
     [Route("ed-fi/assessmentItemCategoryDescriptors")]
     public partial class AssessmentItemCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItemCategoryDescriptor.EdFi.AssessmentItemCategoryDescriptor,
-        Api.Common.Models.Resources.AssessmentItemCategoryDescriptor.EdFi.AssessmentItemCategoryDescriptor,
         Entities.Common.EdFi.IAssessmentItemCategoryDescriptor,
         Entities.NHibernate.AssessmentItemCategoryDescriptorAggregate.EdFi.AssessmentItemCategoryDescriptor,
         Api.Common.Models.Requests.AssessmentItemCategoryDescriptors.EdFi.AssessmentItemCategoryDescriptorPut,
@@ -616,7 +598,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/assessmentItemResultDescriptors")]
     public partial class AssessmentItemResultDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AssessmentItemResultDescriptor.EdFi.AssessmentItemResultDescriptor,
         Api.Common.Models.Resources.AssessmentItemResultDescriptor.EdFi.AssessmentItemResultDescriptor,
         Entities.Common.EdFi.IAssessmentItemResultDescriptor,
         Entities.NHibernate.AssessmentItemResultDescriptorAggregate.EdFi.AssessmentItemResultDescriptor,
@@ -648,7 +629,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
     [Route("ed-fi/assessmentPeriodDescriptors")]
     public partial class AssessmentPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor,
-        Api.Common.Models.Resources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor,
         Entities.Common.EdFi.IAssessmentPeriodDescriptor,
         Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptor,
         Api.Common.Models.Requests.AssessmentPeriodDescriptors.EdFi.AssessmentPeriodDescriptorPut,
@@ -679,7 +659,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
     [Route("ed-fi/assessmentReportingMethodDescriptors")]
     public partial class AssessmentReportingMethodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentReportingMethodDescriptor.EdFi.AssessmentReportingMethodDescriptor,
-        Api.Common.Models.Resources.AssessmentReportingMethodDescriptor.EdFi.AssessmentReportingMethodDescriptor,
         Entities.Common.EdFi.IAssessmentReportingMethodDescriptor,
         Entities.NHibernate.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptor,
         Api.Common.Models.Requests.AssessmentReportingMethodDescriptors.EdFi.AssessmentReportingMethodDescriptorPut,
@@ -709,7 +688,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentScoreRangeLearningStandard
     [Authorize]
     [Route("ed-fi/assessmentScoreRangeLearningStandards")]
     public partial class AssessmentScoreRangeLearningStandardsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard,
         Api.Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard,
         Entities.Common.EdFi.IAssessmentScoreRangeLearningStandard,
         Entities.NHibernate.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandard,
@@ -748,7 +726,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssignmentLateStatusDescriptors.EdFi
     [Route("ed-fi/assignmentLateStatusDescriptors")]
     public partial class AssignmentLateStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor,
-        Api.Common.Models.Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor,
         Entities.Common.EdFi.IAssignmentLateStatusDescriptor,
         Entities.NHibernate.AssignmentLateStatusDescriptorAggregate.EdFi.AssignmentLateStatusDescriptor,
         Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi.AssignmentLateStatusDescriptorPut,
@@ -778,7 +755,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/attemptStatusDescriptors")]
     public partial class AttemptStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.AttemptStatusDescriptor.EdFi.AttemptStatusDescriptor,
         Api.Common.Models.Resources.AttemptStatusDescriptor.EdFi.AttemptStatusDescriptor,
         Entities.Common.EdFi.IAttemptStatusDescriptor,
         Entities.NHibernate.AttemptStatusDescriptorAggregate.EdFi.AttemptStatusDescriptor,
@@ -810,7 +786,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
     [Route("ed-fi/attendanceEventCategoryDescriptors")]
     public partial class AttendanceEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AttendanceEventCategoryDescriptor.EdFi.AttendanceEventCategoryDescriptor,
-        Api.Common.Models.Resources.AttendanceEventCategoryDescriptor.EdFi.AttendanceEventCategoryDescriptor,
         Entities.Common.EdFi.IAttendanceEventCategoryDescriptor,
         Entities.NHibernate.AttendanceEventCategoryDescriptorAggregate.EdFi.AttendanceEventCategoryDescriptor,
         Api.Common.Models.Requests.AttendanceEventCategoryDescriptors.EdFi.AttendanceEventCategoryDescriptorPut,
@@ -840,7 +815,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BalanceSheetDimensions.EdFi
     [Authorize]
     [Route("ed-fi/balanceSheetDimensions")]
     public partial class BalanceSheetDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension,
         Api.Common.Models.Resources.BalanceSheetDimension.EdFi.BalanceSheetDimension,
         Entities.Common.EdFi.IBalanceSheetDimension,
         Entities.NHibernate.BalanceSheetDimensionAggregate.EdFi.BalanceSheetDimension,
@@ -875,7 +849,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BarrierToInternetAccessInResidenceDe
     [Route("ed-fi/barrierToInternetAccessInResidenceDescriptors")]
     public partial class BarrierToInternetAccessInResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor,
-        Api.Common.Models.Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor,
         Entities.Common.EdFi.IBarrierToInternetAccessInResidenceDescriptor,
         Entities.NHibernate.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptor,
         Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi.BarrierToInternetAccessInResidenceDescriptorPut,
@@ -906,7 +879,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
     [Route("ed-fi/behaviorDescriptors")]
     public partial class BehaviorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BehaviorDescriptor.EdFi.BehaviorDescriptor,
-        Api.Common.Models.Resources.BehaviorDescriptor.EdFi.BehaviorDescriptor,
         Entities.Common.EdFi.IBehaviorDescriptor,
         Entities.NHibernate.BehaviorDescriptorAggregate.EdFi.BehaviorDescriptor,
         Api.Common.Models.Requests.BehaviorDescriptors.EdFi.BehaviorDescriptorPut,
@@ -936,7 +908,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
     [Authorize]
     [Route("ed-fi/bellSchedules")]
     public partial class BellSchedulesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.BellSchedule.EdFi.BellSchedule,
         Api.Common.Models.Resources.BellSchedule.EdFi.BellSchedule,
         Entities.Common.EdFi.IBellSchedule,
         Entities.NHibernate.BellScheduleAggregate.EdFi.BellSchedule,
@@ -974,7 +945,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
     [Route("ed-fi/calendars")]
     public partial class CalendarsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Calendar.EdFi.Calendar,
-        Api.Common.Models.Resources.Calendar.EdFi.Calendar,
         Entities.Common.EdFi.ICalendar,
         Entities.NHibernate.CalendarAggregate.EdFi.Calendar,
         Api.Common.Models.Requests.Calendars.EdFi.CalendarPut,
@@ -1008,7 +978,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
     [Authorize]
     [Route("ed-fi/calendarDates")]
     public partial class CalendarDatesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CalendarDate.EdFi.CalendarDate,
         Api.Common.Models.Resources.CalendarDate.EdFi.CalendarDate,
         Entities.Common.EdFi.ICalendarDate,
         Entities.NHibernate.CalendarDateAggregate.EdFi.CalendarDate,
@@ -1044,7 +1013,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
     [Route("ed-fi/calendarEventDescriptors")]
     public partial class CalendarEventDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarEventDescriptor.EdFi.CalendarEventDescriptor,
-        Api.Common.Models.Resources.CalendarEventDescriptor.EdFi.CalendarEventDescriptor,
         Entities.Common.EdFi.ICalendarEventDescriptor,
         Entities.NHibernate.CalendarEventDescriptorAggregate.EdFi.CalendarEventDescriptor,
         Api.Common.Models.Requests.CalendarEventDescriptors.EdFi.CalendarEventDescriptorPut,
@@ -1074,7 +1042,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/calendarTypeDescriptors")]
     public partial class CalendarTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CalendarTypeDescriptor.EdFi.CalendarTypeDescriptor,
         Api.Common.Models.Resources.CalendarTypeDescriptor.EdFi.CalendarTypeDescriptor,
         Entities.Common.EdFi.ICalendarTypeDescriptor,
         Entities.NHibernate.CalendarTypeDescriptorAggregate.EdFi.CalendarTypeDescriptor,
@@ -1106,7 +1073,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
     [Route("ed-fi/careerPathwayDescriptors")]
     public partial class CareerPathwayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CareerPathwayDescriptor.EdFi.CareerPathwayDescriptor,
-        Api.Common.Models.Resources.CareerPathwayDescriptor.EdFi.CareerPathwayDescriptor,
         Entities.Common.EdFi.ICareerPathwayDescriptor,
         Entities.NHibernate.CareerPathwayDescriptorAggregate.EdFi.CareerPathwayDescriptor,
         Api.Common.Models.Requests.CareerPathwayDescriptors.EdFi.CareerPathwayDescriptorPut,
@@ -1136,7 +1102,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
     [Authorize]
     [Route("ed-fi/charterApprovalAgencyTypeDescriptors")]
     public partial class CharterApprovalAgencyTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CharterApprovalAgencyTypeDescriptor.EdFi.CharterApprovalAgencyTypeDescriptor,
         Api.Common.Models.Resources.CharterApprovalAgencyTypeDescriptor.EdFi.CharterApprovalAgencyTypeDescriptor,
         Entities.Common.EdFi.ICharterApprovalAgencyTypeDescriptor,
         Entities.NHibernate.CharterApprovalAgencyTypeDescriptorAggregate.EdFi.CharterApprovalAgencyTypeDescriptor,
@@ -1168,7 +1133,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
     [Route("ed-fi/charterStatusDescriptors")]
     public partial class CharterStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CharterStatusDescriptor.EdFi.CharterStatusDescriptor,
-        Api.Common.Models.Resources.CharterStatusDescriptor.EdFi.CharterStatusDescriptor,
         Entities.Common.EdFi.ICharterStatusDescriptor,
         Entities.NHibernate.CharterStatusDescriptorAggregate.EdFi.CharterStatusDescriptor,
         Api.Common.Models.Requests.CharterStatusDescriptors.EdFi.CharterStatusDescriptorPut,
@@ -1198,7 +1162,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ChartOfAccounts.EdFi
     [Authorize]
     [Route("ed-fi/chartOfAccounts")]
     public partial class ChartOfAccountsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ChartOfAccount.EdFi.ChartOfAccount,
         Api.Common.Models.Resources.ChartOfAccount.EdFi.ChartOfAccount,
         Entities.Common.EdFi.IChartOfAccount,
         Entities.NHibernate.ChartOfAccountAggregate.EdFi.ChartOfAccount,
@@ -1243,7 +1206,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
     [Route("ed-fi/citizenshipStatusDescriptors")]
     public partial class CitizenshipStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CitizenshipStatusDescriptor.EdFi.CitizenshipStatusDescriptor,
-        Api.Common.Models.Resources.CitizenshipStatusDescriptor.EdFi.CitizenshipStatusDescriptor,
         Entities.Common.EdFi.ICitizenshipStatusDescriptor,
         Entities.NHibernate.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptor,
         Api.Common.Models.Requests.CitizenshipStatusDescriptors.EdFi.CitizenshipStatusDescriptorPut,
@@ -1273,7 +1235,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
     [Authorize]
     [Route("ed-fi/classPeriods")]
     public partial class ClassPeriodsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ClassPeriod.EdFi.ClassPeriod,
         Api.Common.Models.Resources.ClassPeriod.EdFi.ClassPeriod,
         Entities.Common.EdFi.IClassPeriod,
         Entities.NHibernate.ClassPeriodAggregate.EdFi.ClassPeriod,
@@ -1308,7 +1269,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
     [Route("ed-fi/classroomPositionDescriptors")]
     public partial class ClassroomPositionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ClassroomPositionDescriptor.EdFi.ClassroomPositionDescriptor,
-        Api.Common.Models.Resources.ClassroomPositionDescriptor.EdFi.ClassroomPositionDescriptor,
         Entities.Common.EdFi.IClassroomPositionDescriptor,
         Entities.NHibernate.ClassroomPositionDescriptorAggregate.EdFi.ClassroomPositionDescriptor,
         Api.Common.Models.Requests.ClassroomPositionDescriptors.EdFi.ClassroomPositionDescriptorPut,
@@ -1338,7 +1298,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
     [Authorize]
     [Route("ed-fi/cohorts")]
     public partial class CohortsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Cohort.EdFi.Cohort,
         Api.Common.Models.Resources.Cohort.EdFi.Cohort,
         Entities.Common.EdFi.ICohort,
         Entities.NHibernate.CohortAggregate.EdFi.Cohort,
@@ -1376,7 +1335,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
     [Route("ed-fi/cohortScopeDescriptors")]
     public partial class CohortScopeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortScopeDescriptor.EdFi.CohortScopeDescriptor,
-        Api.Common.Models.Resources.CohortScopeDescriptor.EdFi.CohortScopeDescriptor,
         Entities.Common.EdFi.ICohortScopeDescriptor,
         Entities.NHibernate.CohortScopeDescriptorAggregate.EdFi.CohortScopeDescriptor,
         Api.Common.Models.Requests.CohortScopeDescriptors.EdFi.CohortScopeDescriptorPut,
@@ -1406,7 +1364,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/cohortTypeDescriptors")]
     public partial class CohortTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CohortTypeDescriptor.EdFi.CohortTypeDescriptor,
         Api.Common.Models.Resources.CohortTypeDescriptor.EdFi.CohortTypeDescriptor,
         Entities.Common.EdFi.ICohortTypeDescriptor,
         Entities.NHibernate.CohortTypeDescriptorAggregate.EdFi.CohortTypeDescriptor,
@@ -1438,7 +1395,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
     [Route("ed-fi/cohortYearTypeDescriptors")]
     public partial class CohortYearTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortYearTypeDescriptor.EdFi.CohortYearTypeDescriptor,
-        Api.Common.Models.Resources.CohortYearTypeDescriptor.EdFi.CohortYearTypeDescriptor,
         Entities.Common.EdFi.ICohortYearTypeDescriptor,
         Entities.NHibernate.CohortYearTypeDescriptorAggregate.EdFi.CohortYearTypeDescriptor,
         Api.Common.Models.Requests.CohortYearTypeDescriptors.EdFi.CohortYearTypeDescriptorPut,
@@ -1469,7 +1425,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
     [Route("ed-fi/communityOrganizations")]
     public partial class CommunityOrganizationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization,
-        Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization,
         Entities.Common.EdFi.ICommunityOrganization,
         Entities.NHibernate.CommunityOrganizationAggregate.EdFi.CommunityOrganization,
         Api.Common.Models.Requests.CommunityOrganizations.EdFi.CommunityOrganizationPut,
@@ -1499,7 +1454,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
     [Authorize]
     [Route("ed-fi/communityProviders")]
     public partial class CommunityProvidersController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider,
         Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider,
         Entities.Common.EdFi.ICommunityProvider,
         Entities.NHibernate.CommunityProviderAggregate.EdFi.CommunityProvider,
@@ -1536,7 +1490,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
     [Authorize]
     [Route("ed-fi/communityProviderLicenses")]
     public partial class CommunityProviderLicensesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CommunityProviderLicense.EdFi.CommunityProviderLicense,
         Api.Common.Models.Resources.CommunityProviderLicense.EdFi.CommunityProviderLicense,
         Entities.Common.EdFi.ICommunityProviderLicense,
         Entities.NHibernate.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicense,
@@ -1579,7 +1532,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
     [Route("ed-fi/competencyLevelDescriptors")]
     public partial class CompetencyLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor,
-        Api.Common.Models.Resources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor,
         Entities.Common.EdFi.ICompetencyLevelDescriptor,
         Entities.NHibernate.CompetencyLevelDescriptorAggregate.EdFi.CompetencyLevelDescriptor,
         Api.Common.Models.Requests.CompetencyLevelDescriptors.EdFi.CompetencyLevelDescriptorPut,
@@ -1609,7 +1561,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
     [Authorize]
     [Route("ed-fi/competencyObjectives")]
     public partial class CompetencyObjectivesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CompetencyObjective.EdFi.CompetencyObjective,
         Api.Common.Models.Resources.CompetencyObjective.EdFi.CompetencyObjective,
         Entities.Common.EdFi.ICompetencyObjective,
         Entities.NHibernate.CompetencyObjectiveAggregate.EdFi.CompetencyObjective,
@@ -1647,7 +1598,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
     [Route("ed-fi/contactTypeDescriptors")]
     public partial class ContactTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor,
-        Api.Common.Models.Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor,
         Entities.Common.EdFi.IContactTypeDescriptor,
         Entities.NHibernate.ContactTypeDescriptorAggregate.EdFi.ContactTypeDescriptor,
         Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorPut,
@@ -1677,7 +1627,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/contentClassDescriptors")]
     public partial class ContentClassDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ContentClassDescriptor.EdFi.ContentClassDescriptor,
         Api.Common.Models.Resources.ContentClassDescriptor.EdFi.ContentClassDescriptor,
         Entities.Common.EdFi.IContentClassDescriptor,
         Entities.NHibernate.ContentClassDescriptorAggregate.EdFi.ContentClassDescriptor,
@@ -1709,7 +1658,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
     [Route("ed-fi/continuationOfServicesReasonDescriptors")]
     public partial class ContinuationOfServicesReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContinuationOfServicesReasonDescriptor.EdFi.ContinuationOfServicesReasonDescriptor,
-        Api.Common.Models.Resources.ContinuationOfServicesReasonDescriptor.EdFi.ContinuationOfServicesReasonDescriptor,
         Entities.Common.EdFi.IContinuationOfServicesReasonDescriptor,
         Entities.NHibernate.ContinuationOfServicesReasonDescriptorAggregate.EdFi.ContinuationOfServicesReasonDescriptor,
         Api.Common.Models.Requests.ContinuationOfServicesReasonDescriptors.EdFi.ContinuationOfServicesReasonDescriptorPut,
@@ -1739,7 +1687,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/costRateDescriptors")]
     public partial class CostRateDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CostRateDescriptor.EdFi.CostRateDescriptor,
         Api.Common.Models.Resources.CostRateDescriptor.EdFi.CostRateDescriptor,
         Entities.Common.EdFi.ICostRateDescriptor,
         Entities.NHibernate.CostRateDescriptorAggregate.EdFi.CostRateDescriptor,
@@ -1771,7 +1718,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
     [Route("ed-fi/countryDescriptors")]
     public partial class CountryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CountryDescriptor.EdFi.CountryDescriptor,
-        Api.Common.Models.Resources.CountryDescriptor.EdFi.CountryDescriptor,
         Entities.Common.EdFi.ICountryDescriptor,
         Entities.NHibernate.CountryDescriptorAggregate.EdFi.CountryDescriptor,
         Api.Common.Models.Requests.CountryDescriptors.EdFi.CountryDescriptorPut,
@@ -1801,7 +1747,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
     [Authorize]
     [Route("ed-fi/courses")]
     public partial class CoursesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Course.EdFi.Course,
         Api.Common.Models.Resources.Course.EdFi.Course,
         Entities.Common.EdFi.ICourse,
         Entities.NHibernate.CourseAggregate.EdFi.Course,
@@ -1852,7 +1797,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
     [Route("ed-fi/courseAttemptResultDescriptors")]
     public partial class CourseAttemptResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseAttemptResultDescriptor.EdFi.CourseAttemptResultDescriptor,
-        Api.Common.Models.Resources.CourseAttemptResultDescriptor.EdFi.CourseAttemptResultDescriptor,
         Entities.Common.EdFi.ICourseAttemptResultDescriptor,
         Entities.NHibernate.CourseAttemptResultDescriptorAggregate.EdFi.CourseAttemptResultDescriptor,
         Api.Common.Models.Requests.CourseAttemptResultDescriptors.EdFi.CourseAttemptResultDescriptorPut,
@@ -1882,7 +1826,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/courseDefinedByDescriptors")]
     public partial class CourseDefinedByDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CourseDefinedByDescriptor.EdFi.CourseDefinedByDescriptor,
         Api.Common.Models.Resources.CourseDefinedByDescriptor.EdFi.CourseDefinedByDescriptor,
         Entities.Common.EdFi.ICourseDefinedByDescriptor,
         Entities.NHibernate.CourseDefinedByDescriptorAggregate.EdFi.CourseDefinedByDescriptor,
@@ -1914,7 +1857,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
     [Route("ed-fi/courseGPAApplicabilityDescriptors")]
     public partial class CourseGPAApplicabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseGPAApplicabilityDescriptor.EdFi.CourseGPAApplicabilityDescriptor,
-        Api.Common.Models.Resources.CourseGPAApplicabilityDescriptor.EdFi.CourseGPAApplicabilityDescriptor,
         Entities.Common.EdFi.ICourseGPAApplicabilityDescriptor,
         Entities.NHibernate.CourseGPAApplicabilityDescriptorAggregate.EdFi.CourseGPAApplicabilityDescriptor,
         Api.Common.Models.Requests.CourseGPAApplicabilityDescriptors.EdFi.CourseGPAApplicabilityDescriptorPut,
@@ -1944,7 +1886,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
     [Authorize]
     [Route("ed-fi/courseIdentificationSystemDescriptors")]
     public partial class CourseIdentificationSystemDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CourseIdentificationSystemDescriptor.EdFi.CourseIdentificationSystemDescriptor,
         Api.Common.Models.Resources.CourseIdentificationSystemDescriptor.EdFi.CourseIdentificationSystemDescriptor,
         Entities.Common.EdFi.ICourseIdentificationSystemDescriptor,
         Entities.NHibernate.CourseIdentificationSystemDescriptorAggregate.EdFi.CourseIdentificationSystemDescriptor,
@@ -1976,7 +1917,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
     [Route("ed-fi/courseLevelCharacteristicDescriptors")]
     public partial class CourseLevelCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseLevelCharacteristicDescriptor.EdFi.CourseLevelCharacteristicDescriptor,
-        Api.Common.Models.Resources.CourseLevelCharacteristicDescriptor.EdFi.CourseLevelCharacteristicDescriptor,
         Entities.Common.EdFi.ICourseLevelCharacteristicDescriptor,
         Entities.NHibernate.CourseLevelCharacteristicDescriptorAggregate.EdFi.CourseLevelCharacteristicDescriptor,
         Api.Common.Models.Requests.CourseLevelCharacteristicDescriptors.EdFi.CourseLevelCharacteristicDescriptorPut,
@@ -2006,7 +1946,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
     [Authorize]
     [Route("ed-fi/courseOfferings")]
     public partial class CourseOfferingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CourseOffering.EdFi.CourseOffering,
         Api.Common.Models.Resources.CourseOffering.EdFi.CourseOffering,
         Entities.Common.EdFi.ICourseOffering,
         Entities.NHibernate.CourseOfferingAggregate.EdFi.CourseOffering,
@@ -2046,7 +1985,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
     [Route("ed-fi/courseRepeatCodeDescriptors")]
     public partial class CourseRepeatCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseRepeatCodeDescriptor.EdFi.CourseRepeatCodeDescriptor,
-        Api.Common.Models.Resources.CourseRepeatCodeDescriptor.EdFi.CourseRepeatCodeDescriptor,
         Entities.Common.EdFi.ICourseRepeatCodeDescriptor,
         Entities.NHibernate.CourseRepeatCodeDescriptorAggregate.EdFi.CourseRepeatCodeDescriptor,
         Api.Common.Models.Requests.CourseRepeatCodeDescriptors.EdFi.CourseRepeatCodeDescriptorPut,
@@ -2076,7 +2014,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
     [Authorize]
     [Route("ed-fi/courseTranscripts")]
     public partial class CourseTranscriptsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CourseTranscript.EdFi.CourseTranscript,
         Api.Common.Models.Resources.CourseTranscript.EdFi.CourseTranscript,
         Entities.Common.EdFi.ICourseTranscript,
         Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscript,
@@ -2133,7 +2070,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
     [Route("ed-fi/credentials")]
     public partial class CredentialsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Credential.EdFi.Credential,
-        Api.Common.Models.Resources.Credential.EdFi.Credential,
         Entities.Common.EdFi.ICredential,
         Entities.NHibernate.CredentialAggregate.EdFi.Credential,
         Api.Common.Models.Requests.Credentials.EdFi.CredentialPut,
@@ -2174,7 +2110,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
     [Route("ed-fi/credentialFieldDescriptors")]
     public partial class CredentialFieldDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialFieldDescriptor.EdFi.CredentialFieldDescriptor,
-        Api.Common.Models.Resources.CredentialFieldDescriptor.EdFi.CredentialFieldDescriptor,
         Entities.Common.EdFi.ICredentialFieldDescriptor,
         Entities.NHibernate.CredentialFieldDescriptorAggregate.EdFi.CredentialFieldDescriptor,
         Api.Common.Models.Requests.CredentialFieldDescriptors.EdFi.CredentialFieldDescriptorPut,
@@ -2204,7 +2139,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/credentialTypeDescriptors")]
     public partial class CredentialTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CredentialTypeDescriptor.EdFi.CredentialTypeDescriptor,
         Api.Common.Models.Resources.CredentialTypeDescriptor.EdFi.CredentialTypeDescriptor,
         Entities.Common.EdFi.ICredentialTypeDescriptor,
         Entities.NHibernate.CredentialTypeDescriptorAggregate.EdFi.CredentialTypeDescriptor,
@@ -2236,7 +2170,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
     [Route("ed-fi/creditCategoryDescriptors")]
     public partial class CreditCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CreditCategoryDescriptor.EdFi.CreditCategoryDescriptor,
-        Api.Common.Models.Resources.CreditCategoryDescriptor.EdFi.CreditCategoryDescriptor,
         Entities.Common.EdFi.ICreditCategoryDescriptor,
         Entities.NHibernate.CreditCategoryDescriptorAggregate.EdFi.CreditCategoryDescriptor,
         Api.Common.Models.Requests.CreditCategoryDescriptors.EdFi.CreditCategoryDescriptorPut,
@@ -2266,7 +2199,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/creditTypeDescriptors")]
     public partial class CreditTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CreditTypeDescriptor.EdFi.CreditTypeDescriptor,
         Api.Common.Models.Resources.CreditTypeDescriptor.EdFi.CreditTypeDescriptor,
         Entities.Common.EdFi.ICreditTypeDescriptor,
         Entities.NHibernate.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptor,
@@ -2298,7 +2230,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
     [Route("ed-fi/cteProgramServiceDescriptors")]
     public partial class CTEProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CTEProgramServiceDescriptor.EdFi.CTEProgramServiceDescriptor,
-        Api.Common.Models.Resources.CTEProgramServiceDescriptor.EdFi.CTEProgramServiceDescriptor,
         Entities.Common.EdFi.ICTEProgramServiceDescriptor,
         Entities.NHibernate.CTEProgramServiceDescriptorAggregate.EdFi.CTEProgramServiceDescriptor,
         Api.Common.Models.Requests.CTEProgramServiceDescriptors.EdFi.CTEProgramServiceDescriptorPut,
@@ -2328,7 +2259,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/curriculumUsedDescriptors")]
     public partial class CurriculumUsedDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.CurriculumUsedDescriptor.EdFi.CurriculumUsedDescriptor,
         Api.Common.Models.Resources.CurriculumUsedDescriptor.EdFi.CurriculumUsedDescriptor,
         Entities.Common.EdFi.ICurriculumUsedDescriptor,
         Entities.NHibernate.CurriculumUsedDescriptorAggregate.EdFi.CurriculumUsedDescriptor,
@@ -2360,7 +2290,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
     [Route("ed-fi/deliveryMethodDescriptors")]
     public partial class DeliveryMethodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DeliveryMethodDescriptor.EdFi.DeliveryMethodDescriptor,
-        Api.Common.Models.Resources.DeliveryMethodDescriptor.EdFi.DeliveryMethodDescriptor,
         Entities.Common.EdFi.IDeliveryMethodDescriptor,
         Entities.NHibernate.DeliveryMethodDescriptorAggregate.EdFi.DeliveryMethodDescriptor,
         Api.Common.Models.Requests.DeliveryMethodDescriptors.EdFi.DeliveryMethodDescriptorPut,
@@ -2390,7 +2319,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DescriptorMappings.EdFi
     [Authorize]
     [Route("ed-fi/descriptorMappings")]
     public partial class DescriptorMappingsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.DescriptorMapping.EdFi.DescriptorMapping,
         Api.Common.Models.Resources.DescriptorMapping.EdFi.DescriptorMapping,
         Entities.Common.EdFi.IDescriptorMapping,
         Entities.NHibernate.DescriptorMappingAggregate.EdFi.DescriptorMapping,
@@ -2426,7 +2354,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
     [Route("ed-fi/diagnosisDescriptors")]
     public partial class DiagnosisDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor,
-        Api.Common.Models.Resources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor,
         Entities.Common.EdFi.IDiagnosisDescriptor,
         Entities.NHibernate.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptor,
         Api.Common.Models.Requests.DiagnosisDescriptors.EdFi.DiagnosisDescriptorPut,
@@ -2456,7 +2383,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/diplomaLevelDescriptors")]
     public partial class DiplomaLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.DiplomaLevelDescriptor.EdFi.DiplomaLevelDescriptor,
         Api.Common.Models.Resources.DiplomaLevelDescriptor.EdFi.DiplomaLevelDescriptor,
         Entities.Common.EdFi.IDiplomaLevelDescriptor,
         Entities.NHibernate.DiplomaLevelDescriptorAggregate.EdFi.DiplomaLevelDescriptor,
@@ -2488,7 +2414,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
     [Route("ed-fi/diplomaTypeDescriptors")]
     public partial class DiplomaTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiplomaTypeDescriptor.EdFi.DiplomaTypeDescriptor,
-        Api.Common.Models.Resources.DiplomaTypeDescriptor.EdFi.DiplomaTypeDescriptor,
         Entities.Common.EdFi.IDiplomaTypeDescriptor,
         Entities.NHibernate.DiplomaTypeDescriptorAggregate.EdFi.DiplomaTypeDescriptor,
         Api.Common.Models.Requests.DiplomaTypeDescriptors.EdFi.DiplomaTypeDescriptorPut,
@@ -2518,7 +2443,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/disabilityDescriptors")]
     public partial class DisabilityDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.DisabilityDescriptor.EdFi.DisabilityDescriptor,
         Api.Common.Models.Resources.DisabilityDescriptor.EdFi.DisabilityDescriptor,
         Entities.Common.EdFi.IDisabilityDescriptor,
         Entities.NHibernate.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptor,
@@ -2550,7 +2474,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
     [Route("ed-fi/disabilityDesignationDescriptors")]
     public partial class DisabilityDesignationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDesignationDescriptor.EdFi.DisabilityDesignationDescriptor,
-        Api.Common.Models.Resources.DisabilityDesignationDescriptor.EdFi.DisabilityDesignationDescriptor,
         Entities.Common.EdFi.IDisabilityDesignationDescriptor,
         Entities.NHibernate.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptor,
         Api.Common.Models.Requests.DisabilityDesignationDescriptors.EdFi.DisabilityDesignationDescriptorPut,
@@ -2581,7 +2504,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
     [Route("ed-fi/disabilityDeterminationSourceTypeDescriptors")]
     public partial class DisabilityDeterminationSourceTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDeterminationSourceTypeDescriptor.EdFi.DisabilityDeterminationSourceTypeDescriptor,
-        Api.Common.Models.Resources.DisabilityDeterminationSourceTypeDescriptor.EdFi.DisabilityDeterminationSourceTypeDescriptor,
         Entities.Common.EdFi.IDisabilityDeterminationSourceTypeDescriptor,
         Entities.NHibernate.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptor,
         Api.Common.Models.Requests.DisabilityDeterminationSourceTypeDescriptors.EdFi.DisabilityDeterminationSourceTypeDescriptorPut,
@@ -2611,7 +2533,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
     [Authorize]
     [Route("ed-fi/disciplineActions")]
     public partial class DisciplineActionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.DisciplineAction.EdFi.DisciplineAction,
         Api.Common.Models.Resources.DisciplineAction.EdFi.DisciplineAction,
         Entities.Common.EdFi.IDisciplineAction,
         Entities.NHibernate.DisciplineActionAggregate.EdFi.DisciplineAction,
@@ -2654,7 +2575,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
     [Route("ed-fi/disciplineActionLengthDifferenceReasonDescriptors")]
     public partial class DisciplineActionLengthDifferenceReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineActionLengthDifferenceReasonDescriptor.EdFi.DisciplineActionLengthDifferenceReasonDescriptor,
-        Api.Common.Models.Resources.DisciplineActionLengthDifferenceReasonDescriptor.EdFi.DisciplineActionLengthDifferenceReasonDescriptor,
         Entities.Common.EdFi.IDisciplineActionLengthDifferenceReasonDescriptor,
         Entities.NHibernate.DisciplineActionLengthDifferenceReasonDescriptorAggregate.EdFi.DisciplineActionLengthDifferenceReasonDescriptor,
         Api.Common.Models.Requests.DisciplineActionLengthDifferenceReasonDescriptors.EdFi.DisciplineActionLengthDifferenceReasonDescriptorPut,
@@ -2685,7 +2605,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
     [Route("ed-fi/disciplineDescriptors")]
     public partial class DisciplineDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineDescriptor.EdFi.DisciplineDescriptor,
-        Api.Common.Models.Resources.DisciplineDescriptor.EdFi.DisciplineDescriptor,
         Entities.Common.EdFi.IDisciplineDescriptor,
         Entities.NHibernate.DisciplineDescriptorAggregate.EdFi.DisciplineDescriptor,
         Api.Common.Models.Requests.DisciplineDescriptors.EdFi.DisciplineDescriptorPut,
@@ -2715,7 +2634,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
     [Authorize]
     [Route("ed-fi/disciplineIncidents")]
     public partial class DisciplineIncidentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.DisciplineIncident.EdFi.DisciplineIncident,
         Api.Common.Models.Resources.DisciplineIncident.EdFi.DisciplineIncident,
         Entities.Common.EdFi.IDisciplineIncident,
         Entities.NHibernate.DisciplineIncidentAggregate.EdFi.DisciplineIncident,
@@ -2759,7 +2677,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
     [Route("ed-fi/disciplineIncidentParticipationCodeDescriptors")]
     public partial class DisciplineIncidentParticipationCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineIncidentParticipationCodeDescriptor.EdFi.DisciplineIncidentParticipationCodeDescriptor,
-        Api.Common.Models.Resources.DisciplineIncidentParticipationCodeDescriptor.EdFi.DisciplineIncidentParticipationCodeDescriptor,
         Entities.Common.EdFi.IDisciplineIncidentParticipationCodeDescriptor,
         Entities.NHibernate.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptor,
         Api.Common.Models.Requests.DisciplineIncidentParticipationCodeDescriptors.EdFi.DisciplineIncidentParticipationCodeDescriptorPut,
@@ -2790,7 +2707,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
     [Route("ed-fi/educationalEnvironmentDescriptors")]
     public partial class EducationalEnvironmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationalEnvironmentDescriptor.EdFi.EducationalEnvironmentDescriptor,
-        Api.Common.Models.Resources.EducationalEnvironmentDescriptor.EdFi.EducationalEnvironmentDescriptor,
         Entities.Common.EdFi.IEducationalEnvironmentDescriptor,
         Entities.NHibernate.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptor,
         Api.Common.Models.Requests.EducationalEnvironmentDescriptors.EdFi.EducationalEnvironmentDescriptorPut,
@@ -2820,7 +2736,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
     [Authorize]
     [Route("ed-fi/educationContents")]
     public partial class EducationContentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducationContent.EdFi.EducationContent,
         Api.Common.Models.Resources.EducationContent.EdFi.EducationContent,
         Entities.Common.EdFi.IEducationContent,
         Entities.NHibernate.EducationContentAggregate.EdFi.EducationContent,
@@ -2869,7 +2784,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationAssociationType
     [Route("ed-fi/educationOrganizationAssociationTypeDescriptors")]
     public partial class EducationOrganizationAssociationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor,
-        Api.Common.Models.Resources.EducationOrganizationAssociationTypeDescriptor.EdFi.EducationOrganizationAssociationTypeDescriptor,
         Entities.Common.EdFi.IEducationOrganizationAssociationTypeDescriptor,
         Entities.NHibernate.EducationOrganizationAssociationTypeDescriptorAggregate.EdFi.EducationOrganizationAssociationTypeDescriptor,
         Api.Common.Models.Requests.EducationOrganizationAssociationTypeDescriptors.EdFi.EducationOrganizationAssociationTypeDescriptorPut,
@@ -2899,7 +2813,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
     [Authorize]
     [Route("ed-fi/educationOrganizationCategoryDescriptors")]
     public partial class EducationOrganizationCategoryDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducationOrganizationCategoryDescriptor.EdFi.EducationOrganizationCategoryDescriptor,
         Api.Common.Models.Resources.EducationOrganizationCategoryDescriptor.EdFi.EducationOrganizationCategoryDescriptor,
         Entities.Common.EdFi.IEducationOrganizationCategoryDescriptor,
         Entities.NHibernate.EducationOrganizationCategoryDescriptorAggregate.EdFi.EducationOrganizationCategoryDescriptor,
@@ -2931,7 +2844,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
     [Route("ed-fi/educationOrganizationIdentificationSystemDescriptors")]
     public partial class EducationOrganizationIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationIdentificationSystemDescriptor.EdFi.EducationOrganizationIdentificationSystemDescriptor,
-        Api.Common.Models.Resources.EducationOrganizationIdentificationSystemDescriptor.EdFi.EducationOrganizationIdentificationSystemDescriptor,
         Entities.Common.EdFi.IEducationOrganizationIdentificationSystemDescriptor,
         Entities.NHibernate.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptor,
         Api.Common.Models.Requests.EducationOrganizationIdentificationSystemDescriptors.EdFi.EducationOrganizationIdentificationSystemDescriptorPut,
@@ -2961,7 +2873,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
     [Authorize]
     [Route("ed-fi/educationOrganizationInterventionPrescriptionAssociations")]
     public partial class EducationOrganizationInterventionPrescriptionAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducationOrganizationInterventionPrescriptionAssociation.EdFi.EducationOrganizationInterventionPrescriptionAssociation,
         Api.Common.Models.Resources.EducationOrganizationInterventionPrescriptionAssociation.EdFi.EducationOrganizationInterventionPrescriptionAssociation,
         Entities.Common.EdFi.IEducationOrganizationInterventionPrescriptionAssociation,
         Entities.NHibernate.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi.EducationOrganizationInterventionPrescriptionAssociation,
@@ -2998,7 +2909,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
     [Route("ed-fi/educationOrganizationNetworks")]
     public partial class EducationOrganizationNetworksController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork,
-        Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork,
         Entities.Common.EdFi.IEducationOrganizationNetwork,
         Entities.NHibernate.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetwork,
         Api.Common.Models.Requests.EducationOrganizationNetworks.EdFi.EducationOrganizationNetworkPut,
@@ -3029,7 +2939,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
     [Authorize]
     [Route("ed-fi/educationOrganizationNetworkAssociations")]
     public partial class EducationOrganizationNetworkAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation,
         Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation,
         Entities.Common.EdFi.IEducationOrganizationNetworkAssociation,
         Entities.NHibernate.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociation,
@@ -3065,7 +2974,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
     [Route("ed-fi/educationOrganizationPeerAssociations")]
     public partial class EducationOrganizationPeerAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationPeerAssociation.EdFi.EducationOrganizationPeerAssociation,
-        Api.Common.Models.Resources.EducationOrganizationPeerAssociation.EdFi.EducationOrganizationPeerAssociation,
         Entities.Common.EdFi.IEducationOrganizationPeerAssociation,
         Entities.NHibernate.EducationOrganizationPeerAssociationAggregate.EdFi.EducationOrganizationPeerAssociation,
         Api.Common.Models.Requests.EducationOrganizationPeerAssociations.EdFi.EducationOrganizationPeerAssociationPut,
@@ -3098,7 +3006,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
     [Route("ed-fi/educationPlanDescriptors")]
     public partial class EducationPlanDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationPlanDescriptor.EdFi.EducationPlanDescriptor,
-        Api.Common.Models.Resources.EducationPlanDescriptor.EdFi.EducationPlanDescriptor,
         Entities.Common.EdFi.IEducationPlanDescriptor,
         Entities.NHibernate.EducationPlanDescriptorAggregate.EdFi.EducationPlanDescriptor,
         Api.Common.Models.Requests.EducationPlanDescriptors.EdFi.EducationPlanDescriptorPut,
@@ -3128,7 +3035,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
     [Authorize]
     [Route("ed-fi/educationServiceCenters")]
     public partial class EducationServiceCentersController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter,
         Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter,
         Entities.Common.EdFi.IEducationServiceCenter,
         Entities.NHibernate.EducationServiceCenterAggregate.EdFi.EducationServiceCenter,
@@ -3161,7 +3067,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
     [Route("ed-fi/electronicMailTypeDescriptors")]
     public partial class ElectronicMailTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ElectronicMailTypeDescriptor.EdFi.ElectronicMailTypeDescriptor,
-        Api.Common.Models.Resources.ElectronicMailTypeDescriptor.EdFi.ElectronicMailTypeDescriptor,
         Entities.Common.EdFi.IElectronicMailTypeDescriptor,
         Entities.NHibernate.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptor,
         Api.Common.Models.Requests.ElectronicMailTypeDescriptors.EdFi.ElectronicMailTypeDescriptorPut,
@@ -3191,7 +3096,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/employmentStatusDescriptors")]
     public partial class EmploymentStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EmploymentStatusDescriptor.EdFi.EmploymentStatusDescriptor,
         Api.Common.Models.Resources.EmploymentStatusDescriptor.EdFi.EmploymentStatusDescriptor,
         Entities.Common.EdFi.IEmploymentStatusDescriptor,
         Entities.NHibernate.EmploymentStatusDescriptorAggregate.EdFi.EmploymentStatusDescriptor,
@@ -3223,7 +3127,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
     [Route("ed-fi/entryGradeLevelReasonDescriptors")]
     public partial class EntryGradeLevelReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EntryGradeLevelReasonDescriptor.EdFi.EntryGradeLevelReasonDescriptor,
-        Api.Common.Models.Resources.EntryGradeLevelReasonDescriptor.EdFi.EntryGradeLevelReasonDescriptor,
         Entities.Common.EdFi.IEntryGradeLevelReasonDescriptor,
         Entities.NHibernate.EntryGradeLevelReasonDescriptorAggregate.EdFi.EntryGradeLevelReasonDescriptor,
         Api.Common.Models.Requests.EntryGradeLevelReasonDescriptors.EdFi.EntryGradeLevelReasonDescriptorPut,
@@ -3253,7 +3156,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/entryTypeDescriptors")]
     public partial class EntryTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.EntryTypeDescriptor.EdFi.EntryTypeDescriptor,
         Api.Common.Models.Resources.EntryTypeDescriptor.EdFi.EntryTypeDescriptor,
         Entities.Common.EdFi.IEntryTypeDescriptor,
         Entities.NHibernate.EntryTypeDescriptorAggregate.EdFi.EntryTypeDescriptor,
@@ -3285,7 +3187,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
     [Route("ed-fi/eventCircumstanceDescriptors")]
     public partial class EventCircumstanceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EventCircumstanceDescriptor.EdFi.EventCircumstanceDescriptor,
-        Api.Common.Models.Resources.EventCircumstanceDescriptor.EdFi.EventCircumstanceDescriptor,
         Entities.Common.EdFi.IEventCircumstanceDescriptor,
         Entities.NHibernate.EventCircumstanceDescriptorAggregate.EdFi.EventCircumstanceDescriptor,
         Api.Common.Models.Requests.EventCircumstanceDescriptors.EdFi.EventCircumstanceDescriptorPut,
@@ -3316,7 +3217,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
     [Route("ed-fi/exitWithdrawTypeDescriptors")]
     public partial class ExitWithdrawTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ExitWithdrawTypeDescriptor.EdFi.ExitWithdrawTypeDescriptor,
-        Api.Common.Models.Resources.ExitWithdrawTypeDescriptor.EdFi.ExitWithdrawTypeDescriptor,
         Entities.Common.EdFi.IExitWithdrawTypeDescriptor,
         Entities.NHibernate.ExitWithdrawTypeDescriptorAggregate.EdFi.ExitWithdrawTypeDescriptor,
         Api.Common.Models.Requests.ExitWithdrawTypeDescriptors.EdFi.ExitWithdrawTypeDescriptorPut,
@@ -3346,7 +3246,6 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
     [Authorize]
     [Route("ed-fi/feederSchoolAssociations")]
     public partial class FeederSchoolAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.FeederSchoolAssociation.EdFi.FeederSchoolAssociation,
         Api.Common.Models.Resources.FeederSchoolAssociation.EdFi.FeederSchoolAssociation,
         Entities.Common.EdFi.IFeederSchoolAssociation,
         Entities.NHibernate.FeederSchoolAssociationAggregate.EdFi.FeederSchoolAssociation,
@@ -3383,7 +3282,6 @@ namespace EdFi.Ods.Api.Services.Controllers.FinancialCollectionDescriptors.EdFi
     [Route("ed-fi/financialCollectionDescriptors")]
     public partial class FinancialCollectionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor,
-        Api.Common.Models.Resources.FinancialCollectionDescriptor.EdFi.FinancialCollectionDescriptor,
         Entities.Common.EdFi.IFinancialCollectionDescriptor,
         Entities.NHibernate.FinancialCollectionDescriptorAggregate.EdFi.FinancialCollectionDescriptor,
         Api.Common.Models.Requests.FinancialCollectionDescriptors.EdFi.FinancialCollectionDescriptorPut,
@@ -3413,7 +3311,6 @@ namespace EdFi.Ods.Api.Services.Controllers.FunctionDimensions.EdFi
     [Authorize]
     [Route("ed-fi/functionDimensions")]
     public partial class FunctionDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.FunctionDimension.EdFi.FunctionDimension,
         Api.Common.Models.Resources.FunctionDimension.EdFi.FunctionDimension,
         Entities.Common.EdFi.IFunctionDimension,
         Entities.NHibernate.FunctionDimensionAggregate.EdFi.FunctionDimension,
@@ -3448,7 +3345,6 @@ namespace EdFi.Ods.Api.Services.Controllers.FundDimensions.EdFi
     [Route("ed-fi/fundDimensions")]
     public partial class FundDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FundDimension.EdFi.FundDimension,
-        Api.Common.Models.Resources.FundDimension.EdFi.FundDimension,
         Entities.Common.EdFi.IFundDimension,
         Entities.NHibernate.FundDimensionAggregate.EdFi.FundDimension,
         Api.Common.Models.Requests.FundDimensions.EdFi.FundDimensionPut,
@@ -3481,7 +3377,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
     [Authorize]
     [Route("ed-fi/grades")]
     public partial class GradesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Grade.EdFi.Grade,
         Api.Common.Models.Resources.Grade.EdFi.Grade,
         Entities.Common.EdFi.IGrade,
         Entities.NHibernate.GradeAggregate.EdFi.Grade,
@@ -3530,7 +3425,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
     [Route("ed-fi/gradebookEntries")]
     public partial class GradebookEntriesController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradebookEntry.EdFi.GradebookEntry,
-        Api.Common.Models.Resources.GradebookEntry.EdFi.GradebookEntry,
         Entities.Common.EdFi.IGradebookEntry,
         Entities.NHibernate.GradebookEntryAggregate.EdFi.GradebookEntry,
         Api.Common.Models.Requests.GradebookEntries.EdFi.GradebookEntryPut,
@@ -3578,7 +3472,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
     [Route("ed-fi/gradebookEntryTypeDescriptors")]
     public partial class GradebookEntryTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradebookEntryTypeDescriptor.EdFi.GradebookEntryTypeDescriptor,
-        Api.Common.Models.Resources.GradebookEntryTypeDescriptor.EdFi.GradebookEntryTypeDescriptor,
         Entities.Common.EdFi.IGradebookEntryTypeDescriptor,
         Entities.NHibernate.GradebookEntryTypeDescriptorAggregate.EdFi.GradebookEntryTypeDescriptor,
         Api.Common.Models.Requests.GradebookEntryTypeDescriptors.EdFi.GradebookEntryTypeDescriptorPut,
@@ -3608,7 +3501,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/gradeLevelDescriptors")]
     public partial class GradeLevelDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.GradeLevelDescriptor.EdFi.GradeLevelDescriptor,
         Api.Common.Models.Resources.GradeLevelDescriptor.EdFi.GradeLevelDescriptor,
         Entities.Common.EdFi.IGradeLevelDescriptor,
         Entities.NHibernate.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptor,
@@ -3640,7 +3532,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
     [Route("ed-fi/gradePointAverageTypeDescriptors")]
     public partial class GradePointAverageTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradePointAverageTypeDescriptor.EdFi.GradePointAverageTypeDescriptor,
-        Api.Common.Models.Resources.GradePointAverageTypeDescriptor.EdFi.GradePointAverageTypeDescriptor,
         Entities.Common.EdFi.IGradePointAverageTypeDescriptor,
         Entities.NHibernate.GradePointAverageTypeDescriptorAggregate.EdFi.GradePointAverageTypeDescriptor,
         Api.Common.Models.Requests.GradePointAverageTypeDescriptors.EdFi.GradePointAverageTypeDescriptorPut,
@@ -3671,7 +3562,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
     [Route("ed-fi/gradeTypeDescriptors")]
     public partial class GradeTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradeTypeDescriptor.EdFi.GradeTypeDescriptor,
-        Api.Common.Models.Resources.GradeTypeDescriptor.EdFi.GradeTypeDescriptor,
         Entities.Common.EdFi.IGradeTypeDescriptor,
         Entities.NHibernate.GradeTypeDescriptorAggregate.EdFi.GradeTypeDescriptor,
         Api.Common.Models.Requests.GradeTypeDescriptors.EdFi.GradeTypeDescriptorPut,
@@ -3701,7 +3591,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
     [Authorize]
     [Route("ed-fi/gradingPeriods")]
     public partial class GradingPeriodsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.GradingPeriod.EdFi.GradingPeriod,
         Api.Common.Models.Resources.GradingPeriod.EdFi.GradingPeriod,
         Entities.Common.EdFi.IGradingPeriod,
         Entities.NHibernate.GradingPeriodAggregate.EdFi.GradingPeriod,
@@ -3740,7 +3629,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
     [Route("ed-fi/gradingPeriodDescriptors")]
     public partial class GradingPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradingPeriodDescriptor.EdFi.GradingPeriodDescriptor,
-        Api.Common.Models.Resources.GradingPeriodDescriptor.EdFi.GradingPeriodDescriptor,
         Entities.Common.EdFi.IGradingPeriodDescriptor,
         Entities.NHibernate.GradingPeriodDescriptorAggregate.EdFi.GradingPeriodDescriptor,
         Api.Common.Models.Requests.GradingPeriodDescriptors.EdFi.GradingPeriodDescriptorPut,
@@ -3770,7 +3658,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
     [Authorize]
     [Route("ed-fi/graduationPlans")]
     public partial class GraduationPlansController : DataManagementControllerBase<
-        Api.Common.Models.Resources.GraduationPlan.EdFi.GraduationPlan,
         Api.Common.Models.Resources.GraduationPlan.EdFi.GraduationPlan,
         Entities.Common.EdFi.IGraduationPlan,
         Entities.NHibernate.GraduationPlanAggregate.EdFi.GraduationPlan,
@@ -3809,7 +3696,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
     [Route("ed-fi/graduationPlanTypeDescriptors")]
     public partial class GraduationPlanTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GraduationPlanTypeDescriptor.EdFi.GraduationPlanTypeDescriptor,
-        Api.Common.Models.Resources.GraduationPlanTypeDescriptor.EdFi.GraduationPlanTypeDescriptor,
         Entities.Common.EdFi.IGraduationPlanTypeDescriptor,
         Entities.NHibernate.GraduationPlanTypeDescriptorAggregate.EdFi.GraduationPlanTypeDescriptor,
         Api.Common.Models.Requests.GraduationPlanTypeDescriptors.EdFi.GraduationPlanTypeDescriptorPut,
@@ -3839,7 +3725,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
     [Authorize]
     [Route("ed-fi/gunFreeSchoolsActReportingStatusDescriptors")]
     public partial class GunFreeSchoolsActReportingStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.GunFreeSchoolsActReportingStatusDescriptor.EdFi.GunFreeSchoolsActReportingStatusDescriptor,
         Api.Common.Models.Resources.GunFreeSchoolsActReportingStatusDescriptor.EdFi.GunFreeSchoolsActReportingStatusDescriptor,
         Entities.Common.EdFi.IGunFreeSchoolsActReportingStatusDescriptor,
         Entities.NHibernate.GunFreeSchoolsActReportingStatusDescriptorAggregate.EdFi.GunFreeSchoolsActReportingStatusDescriptor,
@@ -3871,7 +3756,6 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
     [Route("ed-fi/homelessPrimaryNighttimeResidenceDescriptors")]
     public partial class HomelessPrimaryNighttimeResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HomelessPrimaryNighttimeResidenceDescriptor.EdFi.HomelessPrimaryNighttimeResidenceDescriptor,
-        Api.Common.Models.Resources.HomelessPrimaryNighttimeResidenceDescriptor.EdFi.HomelessPrimaryNighttimeResidenceDescriptor,
         Entities.Common.EdFi.IHomelessPrimaryNighttimeResidenceDescriptor,
         Entities.NHibernate.HomelessPrimaryNighttimeResidenceDescriptorAggregate.EdFi.HomelessPrimaryNighttimeResidenceDescriptor,
         Api.Common.Models.Requests.HomelessPrimaryNighttimeResidenceDescriptors.EdFi.HomelessPrimaryNighttimeResidenceDescriptorPut,
@@ -3901,7 +3785,6 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
     [Authorize]
     [Route("ed-fi/homelessProgramServiceDescriptors")]
     public partial class HomelessProgramServiceDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.HomelessProgramServiceDescriptor.EdFi.HomelessProgramServiceDescriptor,
         Api.Common.Models.Resources.HomelessProgramServiceDescriptor.EdFi.HomelessProgramServiceDescriptor,
         Entities.Common.EdFi.IHomelessProgramServiceDescriptor,
         Entities.NHibernate.HomelessProgramServiceDescriptorAggregate.EdFi.HomelessProgramServiceDescriptor,
@@ -3933,7 +3816,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
     [Route("ed-fi/identificationDocumentUseDescriptors")]
     public partial class IdentificationDocumentUseDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IdentificationDocumentUseDescriptor.EdFi.IdentificationDocumentUseDescriptor,
-        Api.Common.Models.Resources.IdentificationDocumentUseDescriptor.EdFi.IdentificationDocumentUseDescriptor,
         Entities.Common.EdFi.IIdentificationDocumentUseDescriptor,
         Entities.NHibernate.IdentificationDocumentUseDescriptorAggregate.EdFi.IdentificationDocumentUseDescriptor,
         Api.Common.Models.Requests.IdentificationDocumentUseDescriptors.EdFi.IdentificationDocumentUseDescriptorPut,
@@ -3963,7 +3845,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/incidentLocationDescriptors")]
     public partial class IncidentLocationDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.IncidentLocationDescriptor.EdFi.IncidentLocationDescriptor,
         Api.Common.Models.Resources.IncidentLocationDescriptor.EdFi.IncidentLocationDescriptor,
         Entities.Common.EdFi.IIncidentLocationDescriptor,
         Entities.NHibernate.IncidentLocationDescriptorAggregate.EdFi.IncidentLocationDescriptor,
@@ -3995,7 +3876,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
     [Route("ed-fi/indicatorDescriptors")]
     public partial class IndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor,
-        Api.Common.Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor,
         Entities.Common.EdFi.IIndicatorDescriptor,
         Entities.NHibernate.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptor,
         Api.Common.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorPut,
@@ -4025,7 +3905,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/indicatorGroupDescriptors")]
     public partial class IndicatorGroupDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor,
         Api.Common.Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor,
         Entities.Common.EdFi.IIndicatorGroupDescriptor,
         Entities.NHibernate.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptor,
@@ -4057,7 +3936,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
     [Route("ed-fi/indicatorLevelDescriptors")]
     public partial class IndicatorLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor,
-        Api.Common.Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor,
         Entities.Common.EdFi.IIndicatorLevelDescriptor,
         Entities.NHibernate.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptor,
         Api.Common.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorPut,
@@ -4087,7 +3965,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
     [Authorize]
     [Route("ed-fi/institutionTelephoneNumberTypeDescriptors")]
     public partial class InstitutionTelephoneNumberTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.InstitutionTelephoneNumberTypeDescriptor.EdFi.InstitutionTelephoneNumberTypeDescriptor,
         Api.Common.Models.Resources.InstitutionTelephoneNumberTypeDescriptor.EdFi.InstitutionTelephoneNumberTypeDescriptor,
         Entities.Common.EdFi.IInstitutionTelephoneNumberTypeDescriptor,
         Entities.NHibernate.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi.InstitutionTelephoneNumberTypeDescriptor,
@@ -4119,7 +3996,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
     [Route("ed-fi/interactivityStyleDescriptors")]
     public partial class InteractivityStyleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InteractivityStyleDescriptor.EdFi.InteractivityStyleDescriptor,
-        Api.Common.Models.Resources.InteractivityStyleDescriptor.EdFi.InteractivityStyleDescriptor,
         Entities.Common.EdFi.IInteractivityStyleDescriptor,
         Entities.NHibernate.InteractivityStyleDescriptorAggregate.EdFi.InteractivityStyleDescriptor,
         Api.Common.Models.Requests.InteractivityStyleDescriptors.EdFi.InteractivityStyleDescriptorPut,
@@ -4149,7 +4025,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/internetAccessDescriptors")]
     public partial class InternetAccessDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.InternetAccessDescriptor.EdFi.InternetAccessDescriptor,
         Api.Common.Models.Resources.InternetAccessDescriptor.EdFi.InternetAccessDescriptor,
         Entities.Common.EdFi.IInternetAccessDescriptor,
         Entities.NHibernate.InternetAccessDescriptorAggregate.EdFi.InternetAccessDescriptor,
@@ -4181,7 +4056,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessTypeInResidenceDescrip
     [Route("ed-fi/internetAccessTypeInResidenceDescriptors")]
     public partial class InternetAccessTypeInResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor,
-        Api.Common.Models.Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor,
         Entities.Common.EdFi.IInternetAccessTypeInResidenceDescriptor,
         Entities.NHibernate.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptor,
         Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi.InternetAccessTypeInResidenceDescriptorPut,
@@ -4212,7 +4086,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetPerformanceInResidenceDescri
     [Route("ed-fi/internetPerformanceInResidenceDescriptors")]
     public partial class InternetPerformanceInResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor,
-        Api.Common.Models.Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor,
         Entities.Common.EdFi.IInternetPerformanceInResidenceDescriptor,
         Entities.NHibernate.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptor,
         Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi.InternetPerformanceInResidenceDescriptorPut,
@@ -4242,7 +4115,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
     [Authorize]
     [Route("ed-fi/interventions")]
     public partial class InterventionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Intervention.EdFi.Intervention,
         Api.Common.Models.Resources.Intervention.EdFi.Intervention,
         Entities.Common.EdFi.IIntervention,
         Entities.NHibernate.InterventionAggregate.EdFi.Intervention,
@@ -4283,7 +4155,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
     [Route("ed-fi/interventionClassDescriptors")]
     public partial class InterventionClassDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionClassDescriptor.EdFi.InterventionClassDescriptor,
-        Api.Common.Models.Resources.InterventionClassDescriptor.EdFi.InterventionClassDescriptor,
         Entities.Common.EdFi.IInterventionClassDescriptor,
         Entities.NHibernate.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptor,
         Api.Common.Models.Requests.InterventionClassDescriptors.EdFi.InterventionClassDescriptorPut,
@@ -4314,7 +4185,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
     [Route("ed-fi/interventionEffectivenessRatingDescriptors")]
     public partial class InterventionEffectivenessRatingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionEffectivenessRatingDescriptor.EdFi.InterventionEffectivenessRatingDescriptor,
-        Api.Common.Models.Resources.InterventionEffectivenessRatingDescriptor.EdFi.InterventionEffectivenessRatingDescriptor,
         Entities.Common.EdFi.IInterventionEffectivenessRatingDescriptor,
         Entities.NHibernate.InterventionEffectivenessRatingDescriptorAggregate.EdFi.InterventionEffectivenessRatingDescriptor,
         Api.Common.Models.Requests.InterventionEffectivenessRatingDescriptors.EdFi.InterventionEffectivenessRatingDescriptorPut,
@@ -4344,7 +4214,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
     [Authorize]
     [Route("ed-fi/interventionPrescriptions")]
     public partial class InterventionPrescriptionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.InterventionPrescription.EdFi.InterventionPrescription,
         Api.Common.Models.Resources.InterventionPrescription.EdFi.InterventionPrescription,
         Entities.Common.EdFi.IInterventionPrescription,
         Entities.NHibernate.InterventionPrescriptionAggregate.EdFi.InterventionPrescription,
@@ -4383,7 +4252,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
     [Route("ed-fi/interventionStudies")]
     public partial class InterventionStudiesController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionStudy.EdFi.InterventionStudy,
-        Api.Common.Models.Resources.InterventionStudy.EdFi.InterventionStudy,
         Entities.Common.EdFi.IInterventionStudy,
         Entities.NHibernate.InterventionStudyAggregate.EdFi.InterventionStudy,
         Api.Common.Models.Requests.InterventionStudies.EdFi.InterventionStudyPut,
@@ -4421,7 +4289,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
     [Route("ed-fi/languageDescriptors")]
     public partial class LanguageDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageDescriptor.EdFi.LanguageDescriptor,
-        Api.Common.Models.Resources.LanguageDescriptor.EdFi.LanguageDescriptor,
         Entities.Common.EdFi.ILanguageDescriptor,
         Entities.NHibernate.LanguageDescriptorAggregate.EdFi.LanguageDescriptor,
         Api.Common.Models.Requests.LanguageDescriptors.EdFi.LanguageDescriptorPut,
@@ -4451,7 +4318,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
     [Authorize]
     [Route("ed-fi/languageInstructionProgramServiceDescriptors")]
     public partial class LanguageInstructionProgramServiceDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LanguageInstructionProgramServiceDescriptor.EdFi.LanguageInstructionProgramServiceDescriptor,
         Api.Common.Models.Resources.LanguageInstructionProgramServiceDescriptor.EdFi.LanguageInstructionProgramServiceDescriptor,
         Entities.Common.EdFi.ILanguageInstructionProgramServiceDescriptor,
         Entities.NHibernate.LanguageInstructionProgramServiceDescriptorAggregate.EdFi.LanguageInstructionProgramServiceDescriptor,
@@ -4483,7 +4349,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
     [Route("ed-fi/languageUseDescriptors")]
     public partial class LanguageUseDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageUseDescriptor.EdFi.LanguageUseDescriptor,
-        Api.Common.Models.Resources.LanguageUseDescriptor.EdFi.LanguageUseDescriptor,
         Entities.Common.EdFi.ILanguageUseDescriptor,
         Entities.NHibernate.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptor,
         Api.Common.Models.Requests.LanguageUseDescriptors.EdFi.LanguageUseDescriptorPut,
@@ -4513,7 +4378,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
     [Authorize]
     [Route("ed-fi/learningObjectives")]
     public partial class LearningObjectivesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective,
         Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective,
         Entities.Common.EdFi.ILearningObjective,
         Entities.NHibernate.LearningObjectiveAggregate.EdFi.LearningObjective,
@@ -4552,7 +4416,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
     [Authorize]
     [Route("ed-fi/learningStandards")]
     public partial class LearningStandardsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard,
         Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard,
         Entities.Common.EdFi.ILearningStandard,
         Entities.NHibernate.LearningStandardAggregate.EdFi.LearningStandard,
@@ -4594,7 +4457,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
     [Route("ed-fi/learningStandardCategoryDescriptors")]
     public partial class LearningStandardCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardCategoryDescriptor.EdFi.LearningStandardCategoryDescriptor,
-        Api.Common.Models.Resources.LearningStandardCategoryDescriptor.EdFi.LearningStandardCategoryDescriptor,
         Entities.Common.EdFi.ILearningStandardCategoryDescriptor,
         Entities.NHibernate.LearningStandardCategoryDescriptorAggregate.EdFi.LearningStandardCategoryDescriptor,
         Api.Common.Models.Requests.LearningStandardCategoryDescriptors.EdFi.LearningStandardCategoryDescriptorPut,
@@ -4624,7 +4486,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
     [Authorize]
     [Route("ed-fi/learningStandardEquivalenceAssociations")]
     public partial class LearningStandardEquivalenceAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LearningStandardEquivalenceAssociation.EdFi.LearningStandardEquivalenceAssociation,
         Api.Common.Models.Resources.LearningStandardEquivalenceAssociation.EdFi.LearningStandardEquivalenceAssociation,
         Entities.Common.EdFi.ILearningStandardEquivalenceAssociation,
         Entities.NHibernate.LearningStandardEquivalenceAssociationAggregate.EdFi.LearningStandardEquivalenceAssociation,
@@ -4662,7 +4523,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
     [Route("ed-fi/learningStandardEquivalenceStrengthDescriptors")]
     public partial class LearningStandardEquivalenceStrengthDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardEquivalenceStrengthDescriptor.EdFi.LearningStandardEquivalenceStrengthDescriptor,
-        Api.Common.Models.Resources.LearningStandardEquivalenceStrengthDescriptor.EdFi.LearningStandardEquivalenceStrengthDescriptor,
         Entities.Common.EdFi.ILearningStandardEquivalenceStrengthDescriptor,
         Entities.NHibernate.LearningStandardEquivalenceStrengthDescriptorAggregate.EdFi.LearningStandardEquivalenceStrengthDescriptor,
         Api.Common.Models.Requests.LearningStandardEquivalenceStrengthDescriptors.EdFi.LearningStandardEquivalenceStrengthDescriptorPut,
@@ -4692,7 +4552,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
     [Authorize]
     [Route("ed-fi/learningStandardScopeDescriptors")]
     public partial class LearningStandardScopeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LearningStandardScopeDescriptor.EdFi.LearningStandardScopeDescriptor,
         Api.Common.Models.Resources.LearningStandardScopeDescriptor.EdFi.LearningStandardScopeDescriptor,
         Entities.Common.EdFi.ILearningStandardScopeDescriptor,
         Entities.NHibernate.LearningStandardScopeDescriptorAggregate.EdFi.LearningStandardScopeDescriptor,
@@ -4724,7 +4583,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
     [Route("ed-fi/levelOfEducationDescriptors")]
     public partial class LevelOfEducationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LevelOfEducationDescriptor.EdFi.LevelOfEducationDescriptor,
-        Api.Common.Models.Resources.LevelOfEducationDescriptor.EdFi.LevelOfEducationDescriptor,
         Entities.Common.EdFi.ILevelOfEducationDescriptor,
         Entities.NHibernate.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptor,
         Api.Common.Models.Requests.LevelOfEducationDescriptors.EdFi.LevelOfEducationDescriptorPut,
@@ -4754,7 +4612,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/licenseStatusDescriptors")]
     public partial class LicenseStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LicenseStatusDescriptor.EdFi.LicenseStatusDescriptor,
         Api.Common.Models.Resources.LicenseStatusDescriptor.EdFi.LicenseStatusDescriptor,
         Entities.Common.EdFi.ILicenseStatusDescriptor,
         Entities.NHibernate.LicenseStatusDescriptorAggregate.EdFi.LicenseStatusDescriptor,
@@ -4786,7 +4643,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
     [Route("ed-fi/licenseTypeDescriptors")]
     public partial class LicenseTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LicenseTypeDescriptor.EdFi.LicenseTypeDescriptor,
-        Api.Common.Models.Resources.LicenseTypeDescriptor.EdFi.LicenseTypeDescriptor,
         Entities.Common.EdFi.ILicenseTypeDescriptor,
         Entities.NHibernate.LicenseTypeDescriptorAggregate.EdFi.LicenseTypeDescriptor,
         Api.Common.Models.Requests.LicenseTypeDescriptors.EdFi.LicenseTypeDescriptorPut,
@@ -4817,7 +4673,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
     [Route("ed-fi/limitedEnglishProficiencyDescriptors")]
     public partial class LimitedEnglishProficiencyDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LimitedEnglishProficiencyDescriptor.EdFi.LimitedEnglishProficiencyDescriptor,
-        Api.Common.Models.Resources.LimitedEnglishProficiencyDescriptor.EdFi.LimitedEnglishProficiencyDescriptor,
         Entities.Common.EdFi.ILimitedEnglishProficiencyDescriptor,
         Entities.NHibernate.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptor,
         Api.Common.Models.Requests.LimitedEnglishProficiencyDescriptors.EdFi.LimitedEnglishProficiencyDescriptorPut,
@@ -4847,7 +4702,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalAccounts.EdFi
     [Authorize]
     [Route("ed-fi/localAccounts")]
     public partial class LocalAccountsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LocalAccount.EdFi.LocalAccount,
         Api.Common.Models.Resources.LocalAccount.EdFi.LocalAccount,
         Entities.Common.EdFi.ILocalAccount,
         Entities.NHibernate.LocalAccountAggregate.EdFi.LocalAccount,
@@ -4885,7 +4739,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalActuals.EdFi
     [Route("ed-fi/localActuals")]
     public partial class LocalActualsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalActual.EdFi.LocalActual,
-        Api.Common.Models.Resources.LocalActual.EdFi.LocalActual,
         Entities.Common.EdFi.ILocalActual,
         Entities.NHibernate.LocalActualAggregate.EdFi.LocalActual,
         Api.Common.Models.Requests.LocalActuals.EdFi.LocalActualPut,
@@ -4922,7 +4775,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalBudgets.EdFi
     [Route("ed-fi/localBudgets")]
     public partial class LocalBudgetsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalBudget.EdFi.LocalBudget,
-        Api.Common.Models.Resources.LocalBudget.EdFi.LocalBudget,
         Entities.Common.EdFi.ILocalBudget,
         Entities.NHibernate.LocalBudgetAggregate.EdFi.LocalBudget,
         Api.Common.Models.Requests.LocalBudgets.EdFi.LocalBudgetPut,
@@ -4958,7 +4810,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalContractedStaffs.EdFi
     [Authorize]
     [Route("ed-fi/localContractedStaffs")]
     public partial class LocalContractedStaffsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LocalContractedStaff.EdFi.LocalContractedStaff,
         Api.Common.Models.Resources.LocalContractedStaff.EdFi.LocalContractedStaff,
         Entities.Common.EdFi.ILocalContractedStaff,
         Entities.NHibernate.LocalContractedStaffAggregate.EdFi.LocalContractedStaff,
@@ -4997,7 +4848,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
     [Route("ed-fi/localeDescriptors")]
     public partial class LocaleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocaleDescriptor.EdFi.LocaleDescriptor,
-        Api.Common.Models.Resources.LocaleDescriptor.EdFi.LocaleDescriptor,
         Entities.Common.EdFi.ILocaleDescriptor,
         Entities.NHibernate.LocaleDescriptorAggregate.EdFi.LocaleDescriptor,
         Api.Common.Models.Requests.LocaleDescriptors.EdFi.LocaleDescriptorPut,
@@ -5027,7 +4877,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
     [Authorize]
     [Route("ed-fi/localEducationAgencies")]
     public partial class LocalEducationAgenciesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency,
         Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency,
         Entities.Common.EdFi.ILocalEducationAgency,
         Entities.NHibernate.LocalEducationAgencyAggregate.EdFi.LocalEducationAgency,
@@ -5064,7 +4913,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
     [Route("ed-fi/localEducationAgencyCategoryDescriptors")]
     public partial class LocalEducationAgencyCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalEducationAgencyCategoryDescriptor.EdFi.LocalEducationAgencyCategoryDescriptor,
-        Api.Common.Models.Resources.LocalEducationAgencyCategoryDescriptor.EdFi.LocalEducationAgencyCategoryDescriptor,
         Entities.Common.EdFi.ILocalEducationAgencyCategoryDescriptor,
         Entities.NHibernate.LocalEducationAgencyCategoryDescriptorAggregate.EdFi.LocalEducationAgencyCategoryDescriptor,
         Api.Common.Models.Requests.LocalEducationAgencyCategoryDescriptors.EdFi.LocalEducationAgencyCategoryDescriptorPut,
@@ -5094,7 +4942,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEncumbrances.EdFi
     [Authorize]
     [Route("ed-fi/localEncumbrances")]
     public partial class LocalEncumbrancesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LocalEncumbrance.EdFi.LocalEncumbrance,
         Api.Common.Models.Resources.LocalEncumbrance.EdFi.LocalEncumbrance,
         Entities.Common.EdFi.ILocalEncumbrance,
         Entities.NHibernate.LocalEncumbranceAggregate.EdFi.LocalEncumbrance,
@@ -5131,7 +4978,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalPayrolls.EdFi
     [Authorize]
     [Route("ed-fi/localPayrolls")]
     public partial class LocalPayrollsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.LocalPayroll.EdFi.LocalPayroll,
         Api.Common.Models.Resources.LocalPayroll.EdFi.LocalPayroll,
         Entities.Common.EdFi.ILocalPayroll,
         Entities.NHibernate.LocalPayrollAggregate.EdFi.LocalPayroll,
@@ -5170,7 +5016,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
     [Route("ed-fi/locations")]
     public partial class LocationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Location.EdFi.Location,
-        Api.Common.Models.Resources.Location.EdFi.Location,
         Entities.Common.EdFi.ILocation,
         Entities.NHibernate.LocationAggregate.EdFi.Location,
         Api.Common.Models.Requests.Locations.EdFi.LocationPut,
@@ -5205,7 +5050,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
     [Route("ed-fi/magnetSpecialProgramEmphasisSchoolDescriptors")]
     public partial class MagnetSpecialProgramEmphasisSchoolDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MagnetSpecialProgramEmphasisSchoolDescriptor.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor,
-        Api.Common.Models.Resources.MagnetSpecialProgramEmphasisSchoolDescriptor.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor,
         Entities.Common.EdFi.IMagnetSpecialProgramEmphasisSchoolDescriptor,
         Entities.NHibernate.MagnetSpecialProgramEmphasisSchoolDescriptorAggregate.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor,
         Api.Common.Models.Requests.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptorPut,
@@ -5235,7 +5079,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/mediumOfInstructionDescriptors")]
     public partial class MediumOfInstructionDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.MediumOfInstructionDescriptor.EdFi.MediumOfInstructionDescriptor,
         Api.Common.Models.Resources.MediumOfInstructionDescriptor.EdFi.MediumOfInstructionDescriptor,
         Entities.Common.EdFi.IMediumOfInstructionDescriptor,
         Entities.NHibernate.MediumOfInstructionDescriptorAggregate.EdFi.MediumOfInstructionDescriptor,
@@ -5267,7 +5110,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
     [Route("ed-fi/methodCreditEarnedDescriptors")]
     public partial class MethodCreditEarnedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MethodCreditEarnedDescriptor.EdFi.MethodCreditEarnedDescriptor,
-        Api.Common.Models.Resources.MethodCreditEarnedDescriptor.EdFi.MethodCreditEarnedDescriptor,
         Entities.Common.EdFi.IMethodCreditEarnedDescriptor,
         Entities.NHibernate.MethodCreditEarnedDescriptorAggregate.EdFi.MethodCreditEarnedDescriptor,
         Api.Common.Models.Requests.MethodCreditEarnedDescriptors.EdFi.MethodCreditEarnedDescriptorPut,
@@ -5297,7 +5139,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
     [Authorize]
     [Route("ed-fi/migrantEducationProgramServiceDescriptors")]
     public partial class MigrantEducationProgramServiceDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.MigrantEducationProgramServiceDescriptor.EdFi.MigrantEducationProgramServiceDescriptor,
         Api.Common.Models.Resources.MigrantEducationProgramServiceDescriptor.EdFi.MigrantEducationProgramServiceDescriptor,
         Entities.Common.EdFi.IMigrantEducationProgramServiceDescriptor,
         Entities.NHibernate.MigrantEducationProgramServiceDescriptorAggregate.EdFi.MigrantEducationProgramServiceDescriptor,
@@ -5329,7 +5170,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ModelEntityDescriptors.EdFi
     [Route("ed-fi/modelEntityDescriptors")]
     public partial class ModelEntityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor,
-        Api.Common.Models.Resources.ModelEntityDescriptor.EdFi.ModelEntityDescriptor,
         Entities.Common.EdFi.IModelEntityDescriptor,
         Entities.NHibernate.ModelEntityDescriptorAggregate.EdFi.ModelEntityDescriptor,
         Api.Common.Models.Requests.ModelEntityDescriptors.EdFi.ModelEntityDescriptorPut,
@@ -5359,7 +5199,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/monitoredDescriptors")]
     public partial class MonitoredDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.MonitoredDescriptor.EdFi.MonitoredDescriptor,
         Api.Common.Models.Resources.MonitoredDescriptor.EdFi.MonitoredDescriptor,
         Entities.Common.EdFi.IMonitoredDescriptor,
         Entities.NHibernate.MonitoredDescriptorAggregate.EdFi.MonitoredDescriptor,
@@ -5391,7 +5230,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
     [Route("ed-fi/neglectedOrDelinquentProgramDescriptors")]
     public partial class NeglectedOrDelinquentProgramDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NeglectedOrDelinquentProgramDescriptor.EdFi.NeglectedOrDelinquentProgramDescriptor,
-        Api.Common.Models.Resources.NeglectedOrDelinquentProgramDescriptor.EdFi.NeglectedOrDelinquentProgramDescriptor,
         Entities.Common.EdFi.INeglectedOrDelinquentProgramDescriptor,
         Entities.NHibernate.NeglectedOrDelinquentProgramDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramDescriptor,
         Api.Common.Models.Requests.NeglectedOrDelinquentProgramDescriptors.EdFi.NeglectedOrDelinquentProgramDescriptorPut,
@@ -5421,7 +5259,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
     [Authorize]
     [Route("ed-fi/neglectedOrDelinquentProgramServiceDescriptors")]
     public partial class NeglectedOrDelinquentProgramServiceDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.NeglectedOrDelinquentProgramServiceDescriptor.EdFi.NeglectedOrDelinquentProgramServiceDescriptor,
         Api.Common.Models.Resources.NeglectedOrDelinquentProgramServiceDescriptor.EdFi.NeglectedOrDelinquentProgramServiceDescriptor,
         Entities.Common.EdFi.INeglectedOrDelinquentProgramServiceDescriptor,
         Entities.NHibernate.NeglectedOrDelinquentProgramServiceDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramServiceDescriptor,
@@ -5453,7 +5290,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
     [Route("ed-fi/networkPurposeDescriptors")]
     public partial class NetworkPurposeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NetworkPurposeDescriptor.EdFi.NetworkPurposeDescriptor,
-        Api.Common.Models.Resources.NetworkPurposeDescriptor.EdFi.NetworkPurposeDescriptor,
         Entities.Common.EdFi.INetworkPurposeDescriptor,
         Entities.NHibernate.NetworkPurposeDescriptorAggregate.EdFi.NetworkPurposeDescriptor,
         Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi.NetworkPurposeDescriptorPut,
@@ -5483,7 +5319,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectDimensions.EdFi
     [Authorize]
     [Route("ed-fi/objectDimensions")]
     public partial class ObjectDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ObjectDimension.EdFi.ObjectDimension,
         Api.Common.Models.Resources.ObjectDimension.EdFi.ObjectDimension,
         Entities.Common.EdFi.IObjectDimension,
         Entities.NHibernate.ObjectDimensionAggregate.EdFi.ObjectDimension,
@@ -5517,7 +5352,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
     [Authorize]
     [Route("ed-fi/objectiveAssessments")]
     public partial class ObjectiveAssessmentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ObjectiveAssessment.EdFi.ObjectiveAssessment,
         Api.Common.Models.Resources.ObjectiveAssessment.EdFi.ObjectiveAssessment,
         Entities.Common.EdFi.IObjectiveAssessment,
         Entities.NHibernate.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessment,
@@ -5558,7 +5392,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
     [Route("ed-fi/oldEthnicityDescriptors")]
     public partial class OldEthnicityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OldEthnicityDescriptor.EdFi.OldEthnicityDescriptor,
-        Api.Common.Models.Resources.OldEthnicityDescriptor.EdFi.OldEthnicityDescriptor,
         Entities.Common.EdFi.IOldEthnicityDescriptor,
         Entities.NHibernate.OldEthnicityDescriptorAggregate.EdFi.OldEthnicityDescriptor,
         Api.Common.Models.Requests.OldEthnicityDescriptors.EdFi.OldEthnicityDescriptorPut,
@@ -5588,7 +5421,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
     [Authorize]
     [Route("ed-fi/openStaffPositions")]
     public partial class OpenStaffPositionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.OpenStaffPosition.EdFi.OpenStaffPosition,
         Api.Common.Models.Resources.OpenStaffPosition.EdFi.OpenStaffPosition,
         Entities.Common.EdFi.IOpenStaffPosition,
         Entities.NHibernate.OpenStaffPositionAggregate.EdFi.OpenStaffPosition,
@@ -5629,7 +5461,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
     [Route("ed-fi/operationalStatusDescriptors")]
     public partial class OperationalStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OperationalStatusDescriptor.EdFi.OperationalStatusDescriptor,
-        Api.Common.Models.Resources.OperationalStatusDescriptor.EdFi.OperationalStatusDescriptor,
         Entities.Common.EdFi.IOperationalStatusDescriptor,
         Entities.NHibernate.OperationalStatusDescriptorAggregate.EdFi.OperationalStatusDescriptor,
         Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi.OperationalStatusDescriptorPut,
@@ -5659,7 +5490,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalUnitDimensions.EdFi
     [Authorize]
     [Route("ed-fi/operationalUnitDimensions")]
     public partial class OperationalUnitDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension,
         Api.Common.Models.Resources.OperationalUnitDimension.EdFi.OperationalUnitDimension,
         Entities.Common.EdFi.IOperationalUnitDimension,
         Entities.NHibernate.OperationalUnitDimensionAggregate.EdFi.OperationalUnitDimension,
@@ -5694,7 +5524,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OrganizationDepartments.EdFi
     [Route("ed-fi/organizationDepartments")]
     public partial class OrganizationDepartmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OrganizationDepartment.EdFi.OrganizationDepartment,
-        Api.Common.Models.Resources.OrganizationDepartment.EdFi.OrganizationDepartment,
         Entities.Common.EdFi.IOrganizationDepartment,
         Entities.NHibernate.OrganizationDepartmentAggregate.EdFi.OrganizationDepartment,
         Api.Common.Models.Requests.OrganizationDepartments.EdFi.OrganizationDepartmentPut,
@@ -5727,7 +5556,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
     [Route("ed-fi/otherNameTypeDescriptors")]
     public partial class OtherNameTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OtherNameTypeDescriptor.EdFi.OtherNameTypeDescriptor,
-        Api.Common.Models.Resources.OtherNameTypeDescriptor.EdFi.OtherNameTypeDescriptor,
         Entities.Common.EdFi.IOtherNameTypeDescriptor,
         Entities.NHibernate.OtherNameTypeDescriptorAggregate.EdFi.OtherNameTypeDescriptor,
         Api.Common.Models.Requests.OtherNameTypeDescriptors.EdFi.OtherNameTypeDescriptorPut,
@@ -5757,7 +5585,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
     [Authorize]
     [Route("ed-fi/parents")]
     public partial class ParentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Parent.EdFi.Parent,
         Api.Common.Models.Resources.Parent.EdFi.Parent,
         Entities.Common.EdFi.IParent,
         Entities.NHibernate.ParentAggregate.EdFi.Parent,
@@ -5801,7 +5628,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
     [Route("ed-fi/participationDescriptors")]
     public partial class ParticipationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ParticipationDescriptor.EdFi.ParticipationDescriptor,
-        Api.Common.Models.Resources.ParticipationDescriptor.EdFi.ParticipationDescriptor,
         Entities.Common.EdFi.IParticipationDescriptor,
         Entities.NHibernate.ParticipationDescriptorAggregate.EdFi.ParticipationDescriptor,
         Api.Common.Models.Requests.ParticipationDescriptors.EdFi.ParticipationDescriptorPut,
@@ -5831,7 +5657,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/participationStatusDescriptors")]
     public partial class ParticipationStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ParticipationStatusDescriptor.EdFi.ParticipationStatusDescriptor,
         Api.Common.Models.Resources.ParticipationStatusDescriptor.EdFi.ParticipationStatusDescriptor,
         Entities.Common.EdFi.IParticipationStatusDescriptor,
         Entities.NHibernate.ParticipationStatusDescriptorAggregate.EdFi.ParticipationStatusDescriptor,
@@ -5863,7 +5688,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
     [Route("ed-fi/performanceBaseConversionDescriptors")]
     public partial class PerformanceBaseConversionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceBaseConversionDescriptor.EdFi.PerformanceBaseConversionDescriptor,
-        Api.Common.Models.Resources.PerformanceBaseConversionDescriptor.EdFi.PerformanceBaseConversionDescriptor,
         Entities.Common.EdFi.IPerformanceBaseConversionDescriptor,
         Entities.NHibernate.PerformanceBaseConversionDescriptorAggregate.EdFi.PerformanceBaseConversionDescriptor,
         Api.Common.Models.Requests.PerformanceBaseConversionDescriptors.EdFi.PerformanceBaseConversionDescriptorPut,
@@ -5894,7 +5718,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
     [Route("ed-fi/performanceLevelDescriptors")]
     public partial class PerformanceLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor,
-        Api.Common.Models.Resources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor,
         Entities.Common.EdFi.IPerformanceLevelDescriptor,
         Entities.NHibernate.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptor,
         Api.Common.Models.Requests.PerformanceLevelDescriptors.EdFi.PerformanceLevelDescriptorPut,
@@ -5924,7 +5747,6 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
     [Authorize]
     [Route("ed-fi/people")]
     public partial class PeopleController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Person.EdFi.Person,
         Api.Common.Models.Resources.Person.EdFi.Person,
         Entities.Common.EdFi.IPerson,
         Entities.NHibernate.PersonAggregate.EdFi.Person,
@@ -5958,7 +5780,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
     [Route("ed-fi/personalInformationVerificationDescriptors")]
     public partial class PersonalInformationVerificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PersonalInformationVerificationDescriptor.EdFi.PersonalInformationVerificationDescriptor,
-        Api.Common.Models.Resources.PersonalInformationVerificationDescriptor.EdFi.PersonalInformationVerificationDescriptor,
         Entities.Common.EdFi.IPersonalInformationVerificationDescriptor,
         Entities.NHibernate.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptor,
         Api.Common.Models.Requests.PersonalInformationVerificationDescriptors.EdFi.PersonalInformationVerificationDescriptorPut,
@@ -5988,7 +5809,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/platformTypeDescriptors")]
     public partial class PlatformTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PlatformTypeDescriptor.EdFi.PlatformTypeDescriptor,
         Api.Common.Models.Resources.PlatformTypeDescriptor.EdFi.PlatformTypeDescriptor,
         Entities.Common.EdFi.IPlatformTypeDescriptor,
         Entities.NHibernate.PlatformTypeDescriptorAggregate.EdFi.PlatformTypeDescriptor,
@@ -6020,7 +5840,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
     [Route("ed-fi/populationServedDescriptors")]
     public partial class PopulationServedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PopulationServedDescriptor.EdFi.PopulationServedDescriptor,
-        Api.Common.Models.Resources.PopulationServedDescriptor.EdFi.PopulationServedDescriptor,
         Entities.Common.EdFi.IPopulationServedDescriptor,
         Entities.NHibernate.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptor,
         Api.Common.Models.Requests.PopulationServedDescriptors.EdFi.PopulationServedDescriptorPut,
@@ -6051,7 +5870,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
     [Route("ed-fi/postingResultDescriptors")]
     public partial class PostingResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostingResultDescriptor.EdFi.PostingResultDescriptor,
-        Api.Common.Models.Resources.PostingResultDescriptor.EdFi.PostingResultDescriptor,
         Entities.Common.EdFi.IPostingResultDescriptor,
         Entities.NHibernate.PostingResultDescriptorAggregate.EdFi.PostingResultDescriptor,
         Api.Common.Models.Requests.PostingResultDescriptors.EdFi.PostingResultDescriptorPut,
@@ -6081,7 +5899,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
     [Authorize]
     [Route("ed-fi/postSecondaryEvents")]
     public partial class PostSecondaryEventsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PostSecondaryEvent.EdFi.PostSecondaryEvent,
         Api.Common.Models.Resources.PostSecondaryEvent.EdFi.PostSecondaryEvent,
         Entities.Common.EdFi.IPostSecondaryEvent,
         Entities.NHibernate.PostSecondaryEventAggregate.EdFi.PostSecondaryEvent,
@@ -6117,7 +5934,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
     [Route("ed-fi/postSecondaryEventCategoryDescriptors")]
     public partial class PostSecondaryEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryEventCategoryDescriptor.EdFi.PostSecondaryEventCategoryDescriptor,
-        Api.Common.Models.Resources.PostSecondaryEventCategoryDescriptor.EdFi.PostSecondaryEventCategoryDescriptor,
         Entities.Common.EdFi.IPostSecondaryEventCategoryDescriptor,
         Entities.NHibernate.PostSecondaryEventCategoryDescriptorAggregate.EdFi.PostSecondaryEventCategoryDescriptor,
         Api.Common.Models.Requests.PostSecondaryEventCategoryDescriptors.EdFi.PostSecondaryEventCategoryDescriptorPut,
@@ -6147,7 +5963,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
     [Authorize]
     [Route("ed-fi/postSecondaryInstitutions")]
     public partial class PostSecondaryInstitutionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution,
         Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution,
         Entities.Common.EdFi.IPostSecondaryInstitution,
         Entities.NHibernate.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitution,
@@ -6181,7 +5996,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
     [Route("ed-fi/postSecondaryInstitutionLevelDescriptors")]
     public partial class PostSecondaryInstitutionLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryInstitutionLevelDescriptor.EdFi.PostSecondaryInstitutionLevelDescriptor,
-        Api.Common.Models.Resources.PostSecondaryInstitutionLevelDescriptor.EdFi.PostSecondaryInstitutionLevelDescriptor,
         Entities.Common.EdFi.IPostSecondaryInstitutionLevelDescriptor,
         Entities.NHibernate.PostSecondaryInstitutionLevelDescriptorAggregate.EdFi.PostSecondaryInstitutionLevelDescriptor,
         Api.Common.Models.Requests.PostSecondaryInstitutionLevelDescriptors.EdFi.PostSecondaryInstitutionLevelDescriptorPut,
@@ -6211,7 +6025,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAccessDescripto
     [Authorize]
     [Route("ed-fi/primaryLearningDeviceAccessDescriptors")]
     public partial class PrimaryLearningDeviceAccessDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor,
         Api.Common.Models.Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor,
         Entities.Common.EdFi.IPrimaryLearningDeviceAccessDescriptor,
         Entities.NHibernate.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptor,
@@ -6243,7 +6056,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAwayFromSchoolD
     [Route("ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors")]
     public partial class PrimaryLearningDeviceAwayFromSchoolDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
-        Api.Common.Models.Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
         Entities.Common.EdFi.IPrimaryLearningDeviceAwayFromSchoolDescriptor,
         Entities.NHibernate.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
         Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorPut,
@@ -6273,7 +6085,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceProviderDescrip
     [Authorize]
     [Route("ed-fi/primaryLearningDeviceProviderDescriptors")]
     public partial class PrimaryLearningDeviceProviderDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor,
         Api.Common.Models.Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor,
         Entities.Common.EdFi.IPrimaryLearningDeviceProviderDescriptor,
         Entities.NHibernate.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptor,
@@ -6305,7 +6116,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
     [Route("ed-fi/proficiencyDescriptors")]
     public partial class ProficiencyDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProficiencyDescriptor.EdFi.ProficiencyDescriptor,
-        Api.Common.Models.Resources.ProficiencyDescriptor.EdFi.ProficiencyDescriptor,
         Entities.Common.EdFi.IProficiencyDescriptor,
         Entities.NHibernate.ProficiencyDescriptorAggregate.EdFi.ProficiencyDescriptor,
         Api.Common.Models.Requests.ProficiencyDescriptors.EdFi.ProficiencyDescriptorPut,
@@ -6335,7 +6145,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
     [Authorize]
     [Route("ed-fi/programs")]
     public partial class ProgramsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Program.EdFi.Program,
         Api.Common.Models.Resources.Program.EdFi.Program,
         Entities.Common.EdFi.IProgram,
         Entities.NHibernate.ProgramAggregate.EdFi.Program,
@@ -6371,7 +6180,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
     [Route("ed-fi/programAssignmentDescriptors")]
     public partial class ProgramAssignmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramAssignmentDescriptor.EdFi.ProgramAssignmentDescriptor,
-        Api.Common.Models.Resources.ProgramAssignmentDescriptor.EdFi.ProgramAssignmentDescriptor,
         Entities.Common.EdFi.IProgramAssignmentDescriptor,
         Entities.NHibernate.ProgramAssignmentDescriptorAggregate.EdFi.ProgramAssignmentDescriptor,
         Api.Common.Models.Requests.ProgramAssignmentDescriptors.EdFi.ProgramAssignmentDescriptorPut,
@@ -6402,7 +6210,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
     [Route("ed-fi/programCharacteristicDescriptors")]
     public partial class ProgramCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramCharacteristicDescriptor.EdFi.ProgramCharacteristicDescriptor,
-        Api.Common.Models.Resources.ProgramCharacteristicDescriptor.EdFi.ProgramCharacteristicDescriptor,
         Entities.Common.EdFi.IProgramCharacteristicDescriptor,
         Entities.NHibernate.ProgramCharacteristicDescriptorAggregate.EdFi.ProgramCharacteristicDescriptor,
         Api.Common.Models.Requests.ProgramCharacteristicDescriptors.EdFi.ProgramCharacteristicDescriptorPut,
@@ -6432,7 +6239,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramDimensions.EdFi
     [Authorize]
     [Route("ed-fi/programDimensions")]
     public partial class ProgramDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ProgramDimension.EdFi.ProgramDimension,
         Api.Common.Models.Resources.ProgramDimension.EdFi.ProgramDimension,
         Entities.Common.EdFi.IProgramDimension,
         Entities.NHibernate.ProgramDimensionAggregate.EdFi.ProgramDimension,
@@ -6467,7 +6273,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
     [Route("ed-fi/programSponsorDescriptors")]
     public partial class ProgramSponsorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramSponsorDescriptor.EdFi.ProgramSponsorDescriptor,
-        Api.Common.Models.Resources.ProgramSponsorDescriptor.EdFi.ProgramSponsorDescriptor,
         Entities.Common.EdFi.IProgramSponsorDescriptor,
         Entities.NHibernate.ProgramSponsorDescriptorAggregate.EdFi.ProgramSponsorDescriptor,
         Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi.ProgramSponsorDescriptorPut,
@@ -6497,7 +6302,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/programTypeDescriptors")]
     public partial class ProgramTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ProgramTypeDescriptor.EdFi.ProgramTypeDescriptor,
         Api.Common.Models.Resources.ProgramTypeDescriptor.EdFi.ProgramTypeDescriptor,
         Entities.Common.EdFi.IProgramTypeDescriptor,
         Entities.NHibernate.ProgramTypeDescriptorAggregate.EdFi.ProgramTypeDescriptor,
@@ -6529,7 +6333,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
     [Route("ed-fi/progressDescriptors")]
     public partial class ProgressDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgressDescriptor.EdFi.ProgressDescriptor,
-        Api.Common.Models.Resources.ProgressDescriptor.EdFi.ProgressDescriptor,
         Entities.Common.EdFi.IProgressDescriptor,
         Entities.NHibernate.ProgressDescriptorAggregate.EdFi.ProgressDescriptor,
         Api.Common.Models.Requests.ProgressDescriptors.EdFi.ProgressDescriptorPut,
@@ -6560,7 +6363,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
     [Route("ed-fi/progressLevelDescriptors")]
     public partial class ProgressLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgressLevelDescriptor.EdFi.ProgressLevelDescriptor,
-        Api.Common.Models.Resources.ProgressLevelDescriptor.EdFi.ProgressLevelDescriptor,
         Entities.Common.EdFi.IProgressLevelDescriptor,
         Entities.NHibernate.ProgressLevelDescriptorAggregate.EdFi.ProgressLevelDescriptor,
         Api.Common.Models.Requests.ProgressLevelDescriptors.EdFi.ProgressLevelDescriptorPut,
@@ -6590,7 +6392,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProjectDimensions.EdFi
     [Authorize]
     [Route("ed-fi/projectDimensions")]
     public partial class ProjectDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ProjectDimension.EdFi.ProjectDimension,
         Api.Common.Models.Resources.ProjectDimension.EdFi.ProjectDimension,
         Entities.Common.EdFi.IProjectDimension,
         Entities.NHibernate.ProjectDimensionAggregate.EdFi.ProjectDimension,
@@ -6625,7 +6426,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
     [Route("ed-fi/providerCategoryDescriptors")]
     public partial class ProviderCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderCategoryDescriptor.EdFi.ProviderCategoryDescriptor,
-        Api.Common.Models.Resources.ProviderCategoryDescriptor.EdFi.ProviderCategoryDescriptor,
         Entities.Common.EdFi.IProviderCategoryDescriptor,
         Entities.NHibernate.ProviderCategoryDescriptorAggregate.EdFi.ProviderCategoryDescriptor,
         Api.Common.Models.Requests.ProviderCategoryDescriptors.EdFi.ProviderCategoryDescriptorPut,
@@ -6655,7 +6455,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
     [Authorize]
     [Route("ed-fi/providerProfitabilityDescriptors")]
     public partial class ProviderProfitabilityDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ProviderProfitabilityDescriptor.EdFi.ProviderProfitabilityDescriptor,
         Api.Common.Models.Resources.ProviderProfitabilityDescriptor.EdFi.ProviderProfitabilityDescriptor,
         Entities.Common.EdFi.IProviderProfitabilityDescriptor,
         Entities.NHibernate.ProviderProfitabilityDescriptorAggregate.EdFi.ProviderProfitabilityDescriptor,
@@ -6687,7 +6486,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
     [Route("ed-fi/providerStatusDescriptors")]
     public partial class ProviderStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderStatusDescriptor.EdFi.ProviderStatusDescriptor,
-        Api.Common.Models.Resources.ProviderStatusDescriptor.EdFi.ProviderStatusDescriptor,
         Entities.Common.EdFi.IProviderStatusDescriptor,
         Entities.NHibernate.ProviderStatusDescriptorAggregate.EdFi.ProviderStatusDescriptor,
         Api.Common.Models.Requests.ProviderStatusDescriptors.EdFi.ProviderStatusDescriptorPut,
@@ -6717,7 +6515,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/publicationStatusDescriptors")]
     public partial class PublicationStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.PublicationStatusDescriptor.EdFi.PublicationStatusDescriptor,
         Api.Common.Models.Resources.PublicationStatusDescriptor.EdFi.PublicationStatusDescriptor,
         Entities.Common.EdFi.IPublicationStatusDescriptor,
         Entities.NHibernate.PublicationStatusDescriptorAggregate.EdFi.PublicationStatusDescriptor,
@@ -6749,7 +6546,6 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
     [Route("ed-fi/questionFormDescriptors")]
     public partial class QuestionFormDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuestionFormDescriptor.EdFi.QuestionFormDescriptor,
-        Api.Common.Models.Resources.QuestionFormDescriptor.EdFi.QuestionFormDescriptor,
         Entities.Common.EdFi.IQuestionFormDescriptor,
         Entities.NHibernate.QuestionFormDescriptorAggregate.EdFi.QuestionFormDescriptor,
         Api.Common.Models.Requests.QuestionFormDescriptors.EdFi.QuestionFormDescriptorPut,
@@ -6779,7 +6575,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/raceDescriptors")]
     public partial class RaceDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.RaceDescriptor.EdFi.RaceDescriptor,
         Api.Common.Models.Resources.RaceDescriptor.EdFi.RaceDescriptor,
         Entities.Common.EdFi.IRaceDescriptor,
         Entities.NHibernate.RaceDescriptorAggregate.EdFi.RaceDescriptor,
@@ -6811,7 +6606,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
     [Route("ed-fi/reasonExitedDescriptors")]
     public partial class ReasonExitedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReasonExitedDescriptor.EdFi.ReasonExitedDescriptor,
-        Api.Common.Models.Resources.ReasonExitedDescriptor.EdFi.ReasonExitedDescriptor,
         Entities.Common.EdFi.IReasonExitedDescriptor,
         Entities.NHibernate.ReasonExitedDescriptorAggregate.EdFi.ReasonExitedDescriptor,
         Api.Common.Models.Requests.ReasonExitedDescriptors.EdFi.ReasonExitedDescriptorPut,
@@ -6841,7 +6635,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/reasonNotTestedDescriptors")]
     public partial class ReasonNotTestedDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ReasonNotTestedDescriptor.EdFi.ReasonNotTestedDescriptor,
         Api.Common.Models.Resources.ReasonNotTestedDescriptor.EdFi.ReasonNotTestedDescriptor,
         Entities.Common.EdFi.IReasonNotTestedDescriptor,
         Entities.NHibernate.ReasonNotTestedDescriptorAggregate.EdFi.ReasonNotTestedDescriptor,
@@ -6873,7 +6666,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
     [Route("ed-fi/recognitionTypeDescriptors")]
     public partial class RecognitionTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RecognitionTypeDescriptor.EdFi.RecognitionTypeDescriptor,
-        Api.Common.Models.Resources.RecognitionTypeDescriptor.EdFi.RecognitionTypeDescriptor,
         Entities.Common.EdFi.IRecognitionTypeDescriptor,
         Entities.NHibernate.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptor,
         Api.Common.Models.Requests.RecognitionTypeDescriptors.EdFi.RecognitionTypeDescriptorPut,
@@ -6903,7 +6695,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/relationDescriptors")]
     public partial class RelationDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.RelationDescriptor.EdFi.RelationDescriptor,
         Api.Common.Models.Resources.RelationDescriptor.EdFi.RelationDescriptor,
         Entities.Common.EdFi.IRelationDescriptor,
         Entities.NHibernate.RelationDescriptorAggregate.EdFi.RelationDescriptor,
@@ -6935,7 +6726,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
     [Route("ed-fi/repeatIdentifierDescriptors")]
     public partial class RepeatIdentifierDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RepeatIdentifierDescriptor.EdFi.RepeatIdentifierDescriptor,
-        Api.Common.Models.Resources.RepeatIdentifierDescriptor.EdFi.RepeatIdentifierDescriptor,
         Entities.Common.EdFi.IRepeatIdentifierDescriptor,
         Entities.NHibernate.RepeatIdentifierDescriptorAggregate.EdFi.RepeatIdentifierDescriptor,
         Api.Common.Models.Requests.RepeatIdentifierDescriptors.EdFi.RepeatIdentifierDescriptorPut,
@@ -6965,7 +6755,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
     [Authorize]
     [Route("ed-fi/reportCards")]
     public partial class ReportCardsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ReportCard.EdFi.ReportCard,
         Api.Common.Models.Resources.ReportCard.EdFi.ReportCard,
         Entities.Common.EdFi.IReportCard,
         Entities.NHibernate.ReportCardAggregate.EdFi.ReportCard,
@@ -7008,7 +6797,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
     [Route("ed-fi/reporterDescriptionDescriptors")]
     public partial class ReporterDescriptionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReporterDescriptionDescriptor.EdFi.ReporterDescriptionDescriptor,
-        Api.Common.Models.Resources.ReporterDescriptionDescriptor.EdFi.ReporterDescriptionDescriptor,
         Entities.Common.EdFi.IReporterDescriptionDescriptor,
         Entities.NHibernate.ReporterDescriptionDescriptorAggregate.EdFi.ReporterDescriptionDescriptor,
         Api.Common.Models.Requests.ReporterDescriptionDescriptors.EdFi.ReporterDescriptionDescriptorPut,
@@ -7038,7 +6826,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportingTagDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/reportingTagDescriptors")]
     public partial class ReportingTagDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor,
         Api.Common.Models.Resources.ReportingTagDescriptor.EdFi.ReportingTagDescriptor,
         Entities.Common.EdFi.IReportingTagDescriptor,
         Entities.NHibernate.ReportingTagDescriptorAggregate.EdFi.ReportingTagDescriptor,
@@ -7070,7 +6857,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
     [Route("ed-fi/residencyStatusDescriptors")]
     public partial class ResidencyStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResidencyStatusDescriptor.EdFi.ResidencyStatusDescriptor,
-        Api.Common.Models.Resources.ResidencyStatusDescriptor.EdFi.ResidencyStatusDescriptor,
         Entities.Common.EdFi.IResidencyStatusDescriptor,
         Entities.NHibernate.ResidencyStatusDescriptorAggregate.EdFi.ResidencyStatusDescriptor,
         Api.Common.Models.Requests.ResidencyStatusDescriptors.EdFi.ResidencyStatusDescriptorPut,
@@ -7100,7 +6886,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/responseIndicatorDescriptors")]
     public partial class ResponseIndicatorDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ResponseIndicatorDescriptor.EdFi.ResponseIndicatorDescriptor,
         Api.Common.Models.Resources.ResponseIndicatorDescriptor.EdFi.ResponseIndicatorDescriptor,
         Entities.Common.EdFi.IResponseIndicatorDescriptor,
         Entities.NHibernate.ResponseIndicatorDescriptorAggregate.EdFi.ResponseIndicatorDescriptor,
@@ -7132,7 +6917,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
     [Route("ed-fi/responsibilityDescriptors")]
     public partial class ResponsibilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResponsibilityDescriptor.EdFi.ResponsibilityDescriptor,
-        Api.Common.Models.Resources.ResponsibilityDescriptor.EdFi.ResponsibilityDescriptor,
         Entities.Common.EdFi.IResponsibilityDescriptor,
         Entities.NHibernate.ResponsibilityDescriptorAggregate.EdFi.ResponsibilityDescriptor,
         Api.Common.Models.Requests.ResponsibilityDescriptors.EdFi.ResponsibilityDescriptorPut,
@@ -7162,7 +6946,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
     [Authorize]
     [Route("ed-fi/restraintEvents")]
     public partial class RestraintEventsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.RestraintEvent.EdFi.RestraintEvent,
         Api.Common.Models.Resources.RestraintEvent.EdFi.RestraintEvent,
         Entities.Common.EdFi.IRestraintEvent,
         Entities.NHibernate.RestraintEventAggregate.EdFi.RestraintEvent,
@@ -7199,7 +6982,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
     [Route("ed-fi/restraintEventReasonDescriptors")]
     public partial class RestraintEventReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RestraintEventReasonDescriptor.EdFi.RestraintEventReasonDescriptor,
-        Api.Common.Models.Resources.RestraintEventReasonDescriptor.EdFi.RestraintEventReasonDescriptor,
         Entities.Common.EdFi.IRestraintEventReasonDescriptor,
         Entities.NHibernate.RestraintEventReasonDescriptorAggregate.EdFi.RestraintEventReasonDescriptor,
         Api.Common.Models.Requests.RestraintEventReasonDescriptors.EdFi.RestraintEventReasonDescriptorPut,
@@ -7229,7 +7011,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/resultDatatypeTypeDescriptors")]
     public partial class ResultDatatypeTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.ResultDatatypeTypeDescriptor.EdFi.ResultDatatypeTypeDescriptor,
         Api.Common.Models.Resources.ResultDatatypeTypeDescriptor.EdFi.ResultDatatypeTypeDescriptor,
         Entities.Common.EdFi.IResultDatatypeTypeDescriptor,
         Entities.NHibernate.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptor,
@@ -7261,7 +7042,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
     [Route("ed-fi/retestIndicatorDescriptors")]
     public partial class RetestIndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RetestIndicatorDescriptor.EdFi.RetestIndicatorDescriptor,
-        Api.Common.Models.Resources.RetestIndicatorDescriptor.EdFi.RetestIndicatorDescriptor,
         Entities.Common.EdFi.IRetestIndicatorDescriptor,
         Entities.NHibernate.RetestIndicatorDescriptorAggregate.EdFi.RetestIndicatorDescriptor,
         Api.Common.Models.Requests.RetestIndicatorDescriptors.EdFi.RetestIndicatorDescriptorPut,
@@ -7291,7 +7071,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
     [Authorize]
     [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.School.EdFi.School,
         Api.Common.Models.Resources.School.EdFi.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
@@ -7332,7 +7111,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
     [Route("ed-fi/schoolCategoryDescriptors")]
     public partial class SchoolCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolCategoryDescriptor.EdFi.SchoolCategoryDescriptor,
-        Api.Common.Models.Resources.SchoolCategoryDescriptor.EdFi.SchoolCategoryDescriptor,
         Entities.Common.EdFi.ISchoolCategoryDescriptor,
         Entities.NHibernate.SchoolCategoryDescriptorAggregate.EdFi.SchoolCategoryDescriptor,
         Api.Common.Models.Requests.SchoolCategoryDescriptors.EdFi.SchoolCategoryDescriptorPut,
@@ -7362,7 +7140,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
     [Authorize]
     [Route("ed-fi/schoolChoiceImplementStatusDescriptors")]
     public partial class SchoolChoiceImplementStatusDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SchoolChoiceImplementStatusDescriptor.EdFi.SchoolChoiceImplementStatusDescriptor,
         Api.Common.Models.Resources.SchoolChoiceImplementStatusDescriptor.EdFi.SchoolChoiceImplementStatusDescriptor,
         Entities.Common.EdFi.ISchoolChoiceImplementStatusDescriptor,
         Entities.NHibernate.SchoolChoiceImplementStatusDescriptorAggregate.EdFi.SchoolChoiceImplementStatusDescriptor,
@@ -7394,7 +7171,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
     [Route("ed-fi/schoolFoodServiceProgramServiceDescriptors")]
     public partial class SchoolFoodServiceProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolFoodServiceProgramServiceDescriptor.EdFi.SchoolFoodServiceProgramServiceDescriptor,
-        Api.Common.Models.Resources.SchoolFoodServiceProgramServiceDescriptor.EdFi.SchoolFoodServiceProgramServiceDescriptor,
         Entities.Common.EdFi.ISchoolFoodServiceProgramServiceDescriptor,
         Entities.NHibernate.SchoolFoodServiceProgramServiceDescriptorAggregate.EdFi.SchoolFoodServiceProgramServiceDescriptor,
         Api.Common.Models.Requests.SchoolFoodServiceProgramServiceDescriptors.EdFi.SchoolFoodServiceProgramServiceDescriptorPut,
@@ -7425,7 +7201,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
     [Route("ed-fi/schoolTypeDescriptors")]
     public partial class SchoolTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolTypeDescriptor.EdFi.SchoolTypeDescriptor,
-        Api.Common.Models.Resources.SchoolTypeDescriptor.EdFi.SchoolTypeDescriptor,
         Entities.Common.EdFi.ISchoolTypeDescriptor,
         Entities.NHibernate.SchoolTypeDescriptorAggregate.EdFi.SchoolTypeDescriptor,
         Api.Common.Models.Requests.SchoolTypeDescriptors.EdFi.SchoolTypeDescriptorPut,
@@ -7455,7 +7230,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
     [Authorize]
     [Route("ed-fi/schoolYearTypes")]
     public partial class SchoolYearTypesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SchoolYearType.EdFi.SchoolYearType,
         Api.Common.Models.Resources.SchoolYearType.EdFi.SchoolYearType,
         Entities.Common.EdFi.ISchoolYearType,
         Entities.NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearType,
@@ -7489,7 +7263,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
     [Authorize]
     [Route("ed-fi/sections")]
     public partial class SectionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Section.EdFi.Section,
         Api.Common.Models.Resources.Section.EdFi.Section,
         Entities.Common.EdFi.ISection,
         Entities.NHibernate.SectionAggregate.EdFi.Section,
@@ -7538,7 +7311,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
     [Route("ed-fi/sectionAttendanceTakenEvents")]
     public partial class SectionAttendanceTakenEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SectionAttendanceTakenEvent.EdFi.SectionAttendanceTakenEvent,
-        Api.Common.Models.Resources.SectionAttendanceTakenEvent.EdFi.SectionAttendanceTakenEvent,
         Entities.Common.EdFi.ISectionAttendanceTakenEvent,
         Entities.NHibernate.SectionAttendanceTakenEventAggregate.EdFi.SectionAttendanceTakenEvent,
         Api.Common.Models.Requests.SectionAttendanceTakenEvents.EdFi.SectionAttendanceTakenEventPut,
@@ -7578,7 +7350,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
     [Route("ed-fi/sectionCharacteristicDescriptors")]
     public partial class SectionCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SectionCharacteristicDescriptor.EdFi.SectionCharacteristicDescriptor,
-        Api.Common.Models.Resources.SectionCharacteristicDescriptor.EdFi.SectionCharacteristicDescriptor,
         Entities.Common.EdFi.ISectionCharacteristicDescriptor,
         Entities.NHibernate.SectionCharacteristicDescriptorAggregate.EdFi.SectionCharacteristicDescriptor,
         Api.Common.Models.Requests.SectionCharacteristicDescriptors.EdFi.SectionCharacteristicDescriptorPut,
@@ -7608,7 +7379,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/separationDescriptors")]
     public partial class SeparationDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SeparationDescriptor.EdFi.SeparationDescriptor,
         Api.Common.Models.Resources.SeparationDescriptor.EdFi.SeparationDescriptor,
         Entities.Common.EdFi.ISeparationDescriptor,
         Entities.NHibernate.SeparationDescriptorAggregate.EdFi.SeparationDescriptor,
@@ -7640,7 +7410,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
     [Route("ed-fi/separationReasonDescriptors")]
     public partial class SeparationReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SeparationReasonDescriptor.EdFi.SeparationReasonDescriptor,
-        Api.Common.Models.Resources.SeparationReasonDescriptor.EdFi.SeparationReasonDescriptor,
         Entities.Common.EdFi.ISeparationReasonDescriptor,
         Entities.NHibernate.SeparationReasonDescriptorAggregate.EdFi.SeparationReasonDescriptor,
         Api.Common.Models.Requests.SeparationReasonDescriptors.EdFi.SeparationReasonDescriptorPut,
@@ -7671,7 +7440,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
     [Route("ed-fi/serviceDescriptors")]
     public partial class ServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ServiceDescriptor.EdFi.ServiceDescriptor,
-        Api.Common.Models.Resources.ServiceDescriptor.EdFi.ServiceDescriptor,
         Entities.Common.EdFi.IServiceDescriptor,
         Entities.NHibernate.ServiceDescriptorAggregate.EdFi.ServiceDescriptor,
         Api.Common.Models.Requests.ServiceDescriptors.EdFi.ServiceDescriptorPut,
@@ -7701,7 +7469,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
     [Authorize]
     [Route("ed-fi/sessions")]
     public partial class SessionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Session.EdFi.Session,
         Api.Common.Models.Resources.Session.EdFi.Session,
         Entities.Common.EdFi.ISession,
         Entities.NHibernate.SessionAggregate.EdFi.Session,
@@ -7740,7 +7507,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
     [Route("ed-fi/sexDescriptors")]
     public partial class SexDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SexDescriptor.EdFi.SexDescriptor,
-        Api.Common.Models.Resources.SexDescriptor.EdFi.SexDescriptor,
         Entities.Common.EdFi.ISexDescriptor,
         Entities.NHibernate.SexDescriptorAggregate.EdFi.SexDescriptor,
         Api.Common.Models.Requests.SexDescriptors.EdFi.SexDescriptorPut,
@@ -7770,7 +7536,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceDimensions.EdFi
     [Authorize]
     [Route("ed-fi/sourceDimensions")]
     public partial class SourceDimensionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SourceDimension.EdFi.SourceDimension,
         Api.Common.Models.Resources.SourceDimension.EdFi.SourceDimension,
         Entities.Common.EdFi.ISourceDimension,
         Entities.NHibernate.SourceDimensionAggregate.EdFi.SourceDimension,
@@ -7805,7 +7570,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
     [Route("ed-fi/sourceSystemDescriptors")]
     public partial class SourceSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor,
-        Api.Common.Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor,
         Entities.Common.EdFi.ISourceSystemDescriptor,
         Entities.NHibernate.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptor,
         Api.Common.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorPut,
@@ -7835,7 +7599,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
     [Authorize]
     [Route("ed-fi/specialEducationProgramServiceDescriptors")]
     public partial class SpecialEducationProgramServiceDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SpecialEducationProgramServiceDescriptor.EdFi.SpecialEducationProgramServiceDescriptor,
         Api.Common.Models.Resources.SpecialEducationProgramServiceDescriptor.EdFi.SpecialEducationProgramServiceDescriptor,
         Entities.Common.EdFi.ISpecialEducationProgramServiceDescriptor,
         Entities.NHibernate.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptor,
@@ -7867,7 +7630,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
     [Route("ed-fi/specialEducationSettingDescriptors")]
     public partial class SpecialEducationSettingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationSettingDescriptor.EdFi.SpecialEducationSettingDescriptor,
-        Api.Common.Models.Resources.SpecialEducationSettingDescriptor.EdFi.SpecialEducationSettingDescriptor,
         Entities.Common.EdFi.ISpecialEducationSettingDescriptor,
         Entities.NHibernate.SpecialEducationSettingDescriptorAggregate.EdFi.SpecialEducationSettingDescriptor,
         Api.Common.Models.Requests.SpecialEducationSettingDescriptors.EdFi.SpecialEducationSettingDescriptorPut,
@@ -7897,7 +7659,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
     [Authorize]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Staff.EdFi.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
@@ -7948,7 +7709,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
     [Route("ed-fi/staffAbsenceEvents")]
     public partial class StaffAbsenceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffAbsenceEvent.EdFi.StaffAbsenceEvent,
-        Api.Common.Models.Resources.StaffAbsenceEvent.EdFi.StaffAbsenceEvent,
         Entities.Common.EdFi.IStaffAbsenceEvent,
         Entities.NHibernate.StaffAbsenceEventAggregate.EdFi.StaffAbsenceEvent,
         Api.Common.Models.Requests.StaffAbsenceEvents.EdFi.StaffAbsenceEventPut,
@@ -7984,7 +7744,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
     [Route("ed-fi/staffClassificationDescriptors")]
     public partial class StaffClassificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffClassificationDescriptor.EdFi.StaffClassificationDescriptor,
-        Api.Common.Models.Resources.StaffClassificationDescriptor.EdFi.StaffClassificationDescriptor,
         Entities.Common.EdFi.IStaffClassificationDescriptor,
         Entities.NHibernate.StaffClassificationDescriptorAggregate.EdFi.StaffClassificationDescriptor,
         Api.Common.Models.Requests.StaffClassificationDescriptors.EdFi.StaffClassificationDescriptorPut,
@@ -8014,7 +7773,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
     [Authorize]
     [Route("ed-fi/staffCohortAssociations")]
     public partial class StaffCohortAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffCohortAssociation.EdFi.StaffCohortAssociation,
         Api.Common.Models.Resources.StaffCohortAssociation.EdFi.StaffCohortAssociation,
         Entities.Common.EdFi.IStaffCohortAssociation,
         Entities.NHibernate.StaffCohortAssociationAggregate.EdFi.StaffCohortAssociation,
@@ -8052,7 +7810,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
     [Route("ed-fi/staffDisciplineIncidentAssociations")]
     public partial class StaffDisciplineIncidentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffDisciplineIncidentAssociation.EdFi.StaffDisciplineIncidentAssociation,
-        Api.Common.Models.Resources.StaffDisciplineIncidentAssociation.EdFi.StaffDisciplineIncidentAssociation,
         Entities.Common.EdFi.IStaffDisciplineIncidentAssociation,
         Entities.NHibernate.StaffDisciplineIncidentAssociationAggregate.EdFi.StaffDisciplineIncidentAssociation,
         Api.Common.Models.Requests.StaffDisciplineIncidentAssociations.EdFi.StaffDisciplineIncidentAssociationPut,
@@ -8085,7 +7842,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
     [Authorize]
     [Route("ed-fi/staffEducationOrganizationAssignmentAssociations")]
     public partial class StaffEducationOrganizationAssignmentAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociation,
         Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociation,
         Entities.Common.EdFi.IStaffEducationOrganizationAssignmentAssociation,
         Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociation,
@@ -8130,7 +7886,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
     [Route("ed-fi/staffEducationOrganizationContactAssociations")]
     public partial class StaffEducationOrganizationContactAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation,
-        Api.Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation,
         Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation,
         Entities.NHibernate.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociation,
         Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationPut,
@@ -8165,7 +7920,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
     [Authorize]
     [Route("ed-fi/staffEducationOrganizationEmploymentAssociations")]
     public partial class StaffEducationOrganizationEmploymentAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation,
         Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation,
         Entities.Common.EdFi.IStaffEducationOrganizationEmploymentAssociation,
         Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociation,
@@ -8210,7 +7964,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
     [Route("ed-fi/staffIdentificationSystemDescriptors")]
     public partial class StaffIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffIdentificationSystemDescriptor.EdFi.StaffIdentificationSystemDescriptor,
-        Api.Common.Models.Resources.StaffIdentificationSystemDescriptor.EdFi.StaffIdentificationSystemDescriptor,
         Entities.Common.EdFi.IStaffIdentificationSystemDescriptor,
         Entities.NHibernate.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptor,
         Api.Common.Models.Requests.StaffIdentificationSystemDescriptors.EdFi.StaffIdentificationSystemDescriptorPut,
@@ -8240,7 +7993,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
     [Authorize]
     [Route("ed-fi/staffLeaves")]
     public partial class StaffLeavesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffLeave.EdFi.StaffLeave,
         Api.Common.Models.Resources.StaffLeave.EdFi.StaffLeave,
         Entities.Common.EdFi.IStaffLeave,
         Entities.NHibernate.StaffLeaveAggregate.EdFi.StaffLeave,
@@ -8278,7 +8030,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
     [Route("ed-fi/staffLeaveEventCategoryDescriptors")]
     public partial class StaffLeaveEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffLeaveEventCategoryDescriptor.EdFi.StaffLeaveEventCategoryDescriptor,
-        Api.Common.Models.Resources.StaffLeaveEventCategoryDescriptor.EdFi.StaffLeaveEventCategoryDescriptor,
         Entities.Common.EdFi.IStaffLeaveEventCategoryDescriptor,
         Entities.NHibernate.StaffLeaveEventCategoryDescriptorAggregate.EdFi.StaffLeaveEventCategoryDescriptor,
         Api.Common.Models.Requests.StaffLeaveEventCategoryDescriptors.EdFi.StaffLeaveEventCategoryDescriptorPut,
@@ -8308,7 +8059,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
     [Authorize]
     [Route("ed-fi/staffProgramAssociations")]
     public partial class StaffProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffProgramAssociation.EdFi.StaffProgramAssociation,
         Api.Common.Models.Resources.StaffProgramAssociation.EdFi.StaffProgramAssociation,
         Entities.Common.EdFi.IStaffProgramAssociation,
         Entities.NHibernate.StaffProgramAssociationAggregate.EdFi.StaffProgramAssociation,
@@ -8347,7 +8097,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
     [Route("ed-fi/staffSchoolAssociations")]
     public partial class StaffSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffSchoolAssociation.EdFi.StaffSchoolAssociation,
-        Api.Common.Models.Resources.StaffSchoolAssociation.EdFi.StaffSchoolAssociation,
         Entities.Common.EdFi.IStaffSchoolAssociation,
         Entities.NHibernate.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociation,
         Api.Common.Models.Requests.StaffSchoolAssociations.EdFi.StaffSchoolAssociationPut,
@@ -8382,7 +8131,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
     [Authorize]
     [Route("ed-fi/staffSectionAssociations")]
     public partial class StaffSectionAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StaffSectionAssociation.EdFi.StaffSectionAssociation,
         Api.Common.Models.Resources.StaffSectionAssociation.EdFi.StaffSectionAssociation,
         Entities.Common.EdFi.IStaffSectionAssociation,
         Entities.NHibernate.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociation,
@@ -8426,7 +8174,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
     [Route("ed-fi/stateAbbreviationDescriptors")]
     public partial class StateAbbreviationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StateAbbreviationDescriptor.EdFi.StateAbbreviationDescriptor,
-        Api.Common.Models.Resources.StateAbbreviationDescriptor.EdFi.StateAbbreviationDescriptor,
         Entities.Common.EdFi.IStateAbbreviationDescriptor,
         Entities.NHibernate.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptor,
         Api.Common.Models.Requests.StateAbbreviationDescriptors.EdFi.StateAbbreviationDescriptorPut,
@@ -8457,7 +8204,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
     [Route("ed-fi/stateEducationAgencies")]
     public partial class StateEducationAgenciesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency,
-        Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency,
         Entities.Common.EdFi.IStateEducationAgency,
         Entities.NHibernate.StateEducationAgencyAggregate.EdFi.StateEducationAgency,
         Api.Common.Models.Requests.StateEducationAgencies.EdFi.StateEducationAgencyPut,
@@ -8487,7 +8233,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
     [Authorize]
     [Route("ed-fi/students")]
     public partial class StudentsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Student.EdFi.Student,
         Api.Common.Models.Resources.Student.EdFi.Student,
         Entities.Common.EdFi.IStudent,
         Entities.NHibernate.StudentAggregate.EdFi.Student,
@@ -8536,7 +8281,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
     [Authorize]
     [Route("ed-fi/studentAcademicRecords")]
     public partial class StudentAcademicRecordsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentAcademicRecord.EdFi.StudentAcademicRecord,
         Api.Common.Models.Resources.StudentAcademicRecord.EdFi.StudentAcademicRecord,
         Entities.Common.EdFi.IStudentAcademicRecord,
         Entities.NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecord,
@@ -8590,7 +8334,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
     [Route("ed-fi/studentAssessments")]
     public partial class StudentAssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessment,
-        Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessment,
         Entities.Common.EdFi.IStudentAssessment,
         Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessment,
         Api.Common.Models.Requests.StudentAssessments.EdFi.StudentAssessmentPut,
@@ -8640,7 +8383,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessmentEducationOrganizati
     [Route("ed-fi/studentAssessmentEducationOrganizationAssociations")]
     public partial class StudentAssessmentEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation,
-        Api.Common.Models.Resources.StudentAssessmentEducationOrganizationAssociation.EdFi.StudentAssessmentEducationOrganizationAssociation,
         Entities.Common.EdFi.IStudentAssessmentEducationOrganizationAssociation,
         Entities.NHibernate.StudentAssessmentEducationOrganizationAssociationAggregate.EdFi.StudentAssessmentEducationOrganizationAssociation,
         Api.Common.Models.Requests.StudentAssessmentEducationOrganizationAssociations.EdFi.StudentAssessmentEducationOrganizationAssociationPut,
@@ -8678,7 +8420,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
     [Route("ed-fi/studentCharacteristicDescriptors")]
     public partial class StudentCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCharacteristicDescriptor.EdFi.StudentCharacteristicDescriptor,
-        Api.Common.Models.Resources.StudentCharacteristicDescriptor.EdFi.StudentCharacteristicDescriptor,
         Entities.Common.EdFi.IStudentCharacteristicDescriptor,
         Entities.NHibernate.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptor,
         Api.Common.Models.Requests.StudentCharacteristicDescriptors.EdFi.StudentCharacteristicDescriptorPut,
@@ -8708,7 +8449,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
     [Authorize]
     [Route("ed-fi/studentCohortAssociations")]
     public partial class StudentCohortAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentCohortAssociation.EdFi.StudentCohortAssociation,
         Api.Common.Models.Resources.StudentCohortAssociation.EdFi.StudentCohortAssociation,
         Entities.Common.EdFi.IStudentCohortAssociation,
         Entities.NHibernate.StudentCohortAssociationAggregate.EdFi.StudentCohortAssociation,
@@ -8744,7 +8484,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
     [Authorize]
     [Route("ed-fi/studentCompetencyObjectives")]
     public partial class StudentCompetencyObjectivesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentCompetencyObjective.EdFi.StudentCompetencyObjective,
         Api.Common.Models.Resources.StudentCompetencyObjective.EdFi.StudentCompetencyObjective,
         Entities.Common.EdFi.IStudentCompetencyObjective,
         Entities.NHibernate.StudentCompetencyObjectiveAggregate.EdFi.StudentCompetencyObjective,
@@ -8786,7 +8525,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
     [Route("ed-fi/studentCTEProgramAssociations")]
     public partial class StudentCTEProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi.StudentCTEProgramAssociation,
-        Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi.StudentCTEProgramAssociation,
         Entities.Common.EdFi.IStudentCTEProgramAssociation,
         Entities.NHibernate.StudentCTEProgramAssociationAggregate.EdFi.StudentCTEProgramAssociation,
         Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi.StudentCTEProgramAssociationPut,
@@ -8825,7 +8563,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
     [Route("ed-fi/studentDisciplineIncidentAssociations")]
     public partial class StudentDisciplineIncidentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentDisciplineIncidentAssociation.EdFi.StudentDisciplineIncidentAssociation,
-        Api.Common.Models.Resources.StudentDisciplineIncidentAssociation.EdFi.StudentDisciplineIncidentAssociation,
         Entities.Common.EdFi.IStudentDisciplineIncidentAssociation,
         Entities.NHibernate.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociation,
         Api.Common.Models.Requests.StudentDisciplineIncidentAssociations.EdFi.StudentDisciplineIncidentAssociationPut,
@@ -8859,7 +8596,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentBehaviorAss
     [Authorize]
     [Route("ed-fi/studentDisciplineIncidentBehaviorAssociations")]
     public partial class StudentDisciplineIncidentBehaviorAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation,
         Api.Common.Models.Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation,
         Entities.Common.EdFi.IStudentDisciplineIncidentBehaviorAssociation,
         Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociation,
@@ -8896,7 +8632,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentNonOffender
     [Route("ed-fi/studentDisciplineIncidentNonOffenderAssociations")]
     public partial class StudentDisciplineIncidentNonOffenderAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
-        Api.Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
         Entities.Common.EdFi.IStudentDisciplineIncidentNonOffenderAssociation,
         Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
         Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi.StudentDisciplineIncidentNonOffenderAssociationPut,
@@ -8929,7 +8664,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
     [Authorize]
     [Route("ed-fi/studentEducationOrganizationAssociations")]
     public partial class StudentEducationOrganizationAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.StudentEducationOrganizationAssociation,
         Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.StudentEducationOrganizationAssociation,
         Entities.Common.EdFi.IStudentEducationOrganizationAssociation,
         Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociation,
@@ -8976,7 +8710,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
     [Route("ed-fi/studentEducationOrganizationResponsibilityAssociations")]
     public partial class StudentEducationOrganizationResponsibilityAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentEducationOrganizationResponsibilityAssociation.EdFi.StudentEducationOrganizationResponsibilityAssociation,
-        Api.Common.Models.Resources.StudentEducationOrganizationResponsibilityAssociation.EdFi.StudentEducationOrganizationResponsibilityAssociation,
         Entities.Common.EdFi.IStudentEducationOrganizationResponsibilityAssociation,
         Entities.NHibernate.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi.StudentEducationOrganizationResponsibilityAssociation,
         Api.Common.Models.Requests.StudentEducationOrganizationResponsibilityAssociations.EdFi.StudentEducationOrganizationResponsibilityAssociationPut,
@@ -9011,7 +8744,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
     [Authorize]
     [Route("ed-fi/studentGradebookEntries")]
     public partial class StudentGradebookEntriesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentGradebookEntry.EdFi.StudentGradebookEntry,
         Api.Common.Models.Resources.StudentGradebookEntry.EdFi.StudentGradebookEntry,
         Entities.Common.EdFi.IStudentGradebookEntry,
         Entities.NHibernate.StudentGradebookEntryAggregate.EdFi.StudentGradebookEntry,
@@ -9055,7 +8787,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
     [Route("ed-fi/studentHomelessProgramAssociations")]
     public partial class StudentHomelessProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentHomelessProgramAssociation.EdFi.StudentHomelessProgramAssociation,
-        Api.Common.Models.Resources.StudentHomelessProgramAssociation.EdFi.StudentHomelessProgramAssociation,
         Entities.Common.EdFi.IStudentHomelessProgramAssociation,
         Entities.NHibernate.StudentHomelessProgramAssociationAggregate.EdFi.StudentHomelessProgramAssociation,
         Api.Common.Models.Requests.StudentHomelessProgramAssociations.EdFi.StudentHomelessProgramAssociationPut,
@@ -9094,7 +8825,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
     [Route("ed-fi/studentIdentificationSystemDescriptors")]
     public partial class StudentIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor,
-        Api.Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor,
         Entities.Common.EdFi.IStudentIdentificationSystemDescriptor,
         Entities.NHibernate.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptor,
         Api.Common.Models.Requests.StudentIdentificationSystemDescriptors.EdFi.StudentIdentificationSystemDescriptorPut,
@@ -9124,7 +8854,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
     [Authorize]
     [Route("ed-fi/studentInterventionAssociations")]
     public partial class StudentInterventionAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentInterventionAssociation.EdFi.StudentInterventionAssociation,
         Api.Common.Models.Resources.StudentInterventionAssociation.EdFi.StudentInterventionAssociation,
         Entities.Common.EdFi.IStudentInterventionAssociation,
         Entities.NHibernate.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociation,
@@ -9162,7 +8891,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
     [Authorize]
     [Route("ed-fi/studentInterventionAttendanceEvents")]
     public partial class StudentInterventionAttendanceEventsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentInterventionAttendanceEvent.EdFi.StudentInterventionAttendanceEvent,
         Api.Common.Models.Resources.StudentInterventionAttendanceEvent.EdFi.StudentInterventionAttendanceEvent,
         Entities.Common.EdFi.IStudentInterventionAttendanceEvent,
         Entities.NHibernate.StudentInterventionAttendanceEventAggregate.EdFi.StudentInterventionAttendanceEvent,
@@ -9203,7 +8931,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
     [Route("ed-fi/studentLanguageInstructionProgramAssociations")]
     public partial class StudentLanguageInstructionProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentLanguageInstructionProgramAssociation.EdFi.StudentLanguageInstructionProgramAssociation,
-        Api.Common.Models.Resources.StudentLanguageInstructionProgramAssociation.EdFi.StudentLanguageInstructionProgramAssociation,
         Entities.Common.EdFi.IStudentLanguageInstructionProgramAssociation,
         Entities.NHibernate.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociation,
         Api.Common.Models.Requests.StudentLanguageInstructionProgramAssociations.EdFi.StudentLanguageInstructionProgramAssociationPut,
@@ -9240,7 +8967,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
     [Authorize]
     [Route("ed-fi/studentLearningObjectives")]
     public partial class StudentLearningObjectivesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentLearningObjective.EdFi.StudentLearningObjective,
         Api.Common.Models.Resources.StudentLearningObjective.EdFi.StudentLearningObjective,
         Entities.Common.EdFi.IStudentLearningObjective,
         Entities.NHibernate.StudentLearningObjectiveAggregate.EdFi.StudentLearningObjective,
@@ -9280,7 +9006,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
     [Authorize]
     [Route("ed-fi/studentMigrantEducationProgramAssociations")]
     public partial class StudentMigrantEducationProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentMigrantEducationProgramAssociation.EdFi.StudentMigrantEducationProgramAssociation,
         Api.Common.Models.Resources.StudentMigrantEducationProgramAssociation.EdFi.StudentMigrantEducationProgramAssociation,
         Entities.Common.EdFi.IStudentMigrantEducationProgramAssociation,
         Entities.NHibernate.StudentMigrantEducationProgramAssociationAggregate.EdFi.StudentMigrantEducationProgramAssociation,
@@ -9326,7 +9051,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
     [Route("ed-fi/studentNeglectedOrDelinquentProgramAssociations")]
     public partial class StudentNeglectedOrDelinquentProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentNeglectedOrDelinquentProgramAssociation.EdFi.StudentNeglectedOrDelinquentProgramAssociation,
-        Api.Common.Models.Resources.StudentNeglectedOrDelinquentProgramAssociation.EdFi.StudentNeglectedOrDelinquentProgramAssociation,
         Entities.Common.EdFi.IStudentNeglectedOrDelinquentProgramAssociation,
         Entities.NHibernate.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociation,
         Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgramAssociations.EdFi.StudentNeglectedOrDelinquentProgramAssociationPut,
@@ -9364,7 +9088,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
     [Authorize]
     [Route("ed-fi/studentParentAssociations")]
     public partial class StudentParentAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentParentAssociation.EdFi.StudentParentAssociation,
         Api.Common.Models.Resources.StudentParentAssociation.EdFi.StudentParentAssociation,
         Entities.Common.EdFi.IStudentParentAssociation,
         Entities.NHibernate.StudentParentAssociationAggregate.EdFi.StudentParentAssociation,
@@ -9405,7 +9128,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
     [Route("ed-fi/studentParticipationCodeDescriptors")]
     public partial class StudentParticipationCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor,
-        Api.Common.Models.Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor,
         Entities.Common.EdFi.IStudentParticipationCodeDescriptor,
         Entities.NHibernate.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptor,
         Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorPut,
@@ -9435,7 +9157,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
     [Authorize]
     [Route("ed-fi/studentProgramAssociations")]
     public partial class StudentProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentProgramAssociation.EdFi.StudentProgramAssociation,
         Api.Common.Models.Resources.StudentProgramAssociation.EdFi.StudentProgramAssociation,
         Entities.Common.EdFi.IStudentProgramAssociation,
         Entities.NHibernate.StudentProgramAssociationAggregate.EdFi.StudentProgramAssociation,
@@ -9471,7 +9192,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
     [Authorize]
     [Route("ed-fi/studentProgramAttendanceEvents")]
     public partial class StudentProgramAttendanceEventsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentProgramAttendanceEvent.EdFi.StudentProgramAttendanceEvent,
         Api.Common.Models.Resources.StudentProgramAttendanceEvent.EdFi.StudentProgramAttendanceEvent,
         Entities.Common.EdFi.IStudentProgramAttendanceEvent,
         Entities.NHibernate.StudentProgramAttendanceEventAggregate.EdFi.StudentProgramAttendanceEvent,
@@ -9513,7 +9233,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
     [Authorize]
     [Route("ed-fi/studentSchoolAssociations")]
     public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation,
         Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation,
         Entities.Common.EdFi.IStudentSchoolAssociation,
         Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation,
@@ -9566,7 +9285,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
     [Route("ed-fi/studentSchoolAttendanceEvents")]
     public partial class StudentSchoolAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi.StudentSchoolAttendanceEvent,
-        Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi.StudentSchoolAttendanceEvent,
         Entities.Common.EdFi.IStudentSchoolAttendanceEvent,
         Entities.NHibernate.StudentSchoolAttendanceEventAggregate.EdFi.StudentSchoolAttendanceEvent,
         Api.Common.Models.Requests.StudentSchoolAttendanceEvents.EdFi.StudentSchoolAttendanceEventPut,
@@ -9609,7 +9327,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
     [Route("ed-fi/studentSchoolFoodServiceProgramAssociations")]
     public partial class StudentSchoolFoodServiceProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolFoodServiceProgramAssociation.EdFi.StudentSchoolFoodServiceProgramAssociation,
-        Api.Common.Models.Resources.StudentSchoolFoodServiceProgramAssociation.EdFi.StudentSchoolFoodServiceProgramAssociation,
         Entities.Common.EdFi.IStudentSchoolFoodServiceProgramAssociation,
         Entities.NHibernate.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi.StudentSchoolFoodServiceProgramAssociation,
         Api.Common.Models.Requests.StudentSchoolFoodServiceProgramAssociations.EdFi.StudentSchoolFoodServiceProgramAssociationPut,
@@ -9645,7 +9362,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
     [Authorize]
     [Route("ed-fi/studentSectionAssociations")]
     public partial class StudentSectionAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentSectionAssociation.EdFi.StudentSectionAssociation,
         Api.Common.Models.Resources.StudentSectionAssociation.EdFi.StudentSectionAssociation,
         Entities.Common.EdFi.IStudentSectionAssociation,
         Entities.NHibernate.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociation,
@@ -9688,7 +9404,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
     [Authorize]
     [Route("ed-fi/studentSectionAttendanceEvents")]
     public partial class StudentSectionAttendanceEventsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentSectionAttendanceEvent.EdFi.StudentSectionAttendanceEvent,
         Api.Common.Models.Resources.StudentSectionAttendanceEvent.EdFi.StudentSectionAttendanceEvent,
         Entities.Common.EdFi.IStudentSectionAttendanceEvent,
         Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEvent,
@@ -9733,7 +9448,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     [Authorize]
     [Route("ed-fi/studentSpecialEducationProgramAssociations")]
     public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation,
         Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
         Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation,
@@ -9780,7 +9494,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
     [Route("ed-fi/studentTitleIPartAProgramAssociations")]
     public partial class StudentTitleIPartAProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentTitleIPartAProgramAssociation.EdFi.StudentTitleIPartAProgramAssociation,
-        Api.Common.Models.Resources.StudentTitleIPartAProgramAssociation.EdFi.StudentTitleIPartAProgramAssociation,
         Entities.Common.EdFi.IStudentTitleIPartAProgramAssociation,
         Entities.NHibernate.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociation,
         Api.Common.Models.Requests.StudentTitleIPartAProgramAssociations.EdFi.StudentTitleIPartAProgramAssociationPut,
@@ -9817,7 +9530,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SubmissionStatusDescriptors.EdFi
     [Route("ed-fi/submissionStatusDescriptors")]
     public partial class SubmissionStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor,
-        Api.Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor,
         Entities.Common.EdFi.ISubmissionStatusDescriptor,
         Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor,
         Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi.SubmissionStatusDescriptorPut,
@@ -9847,7 +9559,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
     [Authorize]
     [Route("ed-fi/surveys")]
     public partial class SurveysController : DataManagementControllerBase<
-        Api.Common.Models.Resources.Survey.EdFi.Survey,
         Api.Common.Models.Resources.Survey.EdFi.Survey,
         Entities.Common.EdFi.ISurvey,
         Entities.NHibernate.SurveyAggregate.EdFi.Survey,
@@ -9888,7 +9599,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
     [Route("ed-fi/surveyCategoryDescriptors")]
     public partial class SurveyCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyCategoryDescriptor.EdFi.SurveyCategoryDescriptor,
-        Api.Common.Models.Resources.SurveyCategoryDescriptor.EdFi.SurveyCategoryDescriptor,
         Entities.Common.EdFi.ISurveyCategoryDescriptor,
         Entities.NHibernate.SurveyCategoryDescriptorAggregate.EdFi.SurveyCategoryDescriptor,
         Api.Common.Models.Requests.SurveyCategoryDescriptors.EdFi.SurveyCategoryDescriptorPut,
@@ -9918,7 +9628,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
     [Authorize]
     [Route("ed-fi/surveyCourseAssociations")]
     public partial class SurveyCourseAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyCourseAssociation.EdFi.SurveyCourseAssociation,
         Api.Common.Models.Resources.SurveyCourseAssociation.EdFi.SurveyCourseAssociation,
         Entities.Common.EdFi.ISurveyCourseAssociation,
         Entities.NHibernate.SurveyCourseAssociationAggregate.EdFi.SurveyCourseAssociation,
@@ -9954,7 +9663,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
     [Route("ed-fi/surveyLevelDescriptors")]
     public partial class SurveyLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyLevelDescriptor.EdFi.SurveyLevelDescriptor,
-        Api.Common.Models.Resources.SurveyLevelDescriptor.EdFi.SurveyLevelDescriptor,
         Entities.Common.EdFi.ISurveyLevelDescriptor,
         Entities.NHibernate.SurveyLevelDescriptorAggregate.EdFi.SurveyLevelDescriptor,
         Api.Common.Models.Requests.SurveyLevelDescriptors.EdFi.SurveyLevelDescriptorPut,
@@ -9984,7 +9692,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
     [Authorize]
     [Route("ed-fi/surveyProgramAssociations")]
     public partial class SurveyProgramAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyProgramAssociation.EdFi.SurveyProgramAssociation,
         Api.Common.Models.Resources.SurveyProgramAssociation.EdFi.SurveyProgramAssociation,
         Entities.Common.EdFi.ISurveyProgramAssociation,
         Entities.NHibernate.SurveyProgramAssociationAggregate.EdFi.SurveyProgramAssociation,
@@ -10020,7 +9727,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
     [Authorize]
     [Route("ed-fi/surveyQuestions")]
     public partial class SurveyQuestionsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyQuestion.EdFi.SurveyQuestion,
         Api.Common.Models.Resources.SurveyQuestion.EdFi.SurveyQuestion,
         Entities.Common.EdFi.ISurveyQuestion,
         Entities.NHibernate.SurveyQuestionAggregate.EdFi.SurveyQuestion,
@@ -10058,7 +9764,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
     [Route("ed-fi/surveyQuestionResponses")]
     public partial class SurveyQuestionResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyQuestionResponse.EdFi.SurveyQuestionResponse,
-        Api.Common.Models.Resources.SurveyQuestionResponse.EdFi.SurveyQuestionResponse,
         Entities.Common.EdFi.ISurveyQuestionResponse,
         Entities.NHibernate.SurveyQuestionResponseAggregate.EdFi.SurveyQuestionResponse,
         Api.Common.Models.Requests.SurveyQuestionResponses.EdFi.SurveyQuestionResponsePut,
@@ -10094,7 +9799,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
     [Authorize]
     [Route("ed-fi/surveyResponses")]
     public partial class SurveyResponsesController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyResponse.EdFi.SurveyResponse,
         Api.Common.Models.Resources.SurveyResponse.EdFi.SurveyResponse,
         Entities.Common.EdFi.ISurveyResponse,
         Entities.NHibernate.SurveyResponseAggregate.EdFi.SurveyResponse,
@@ -10137,7 +9841,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
     [Route("ed-fi/surveyResponseEducationOrganizationTargetAssociations")]
     public partial class SurveyResponseEducationOrganizationTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponseEducationOrganizationTargetAssociation.EdFi.SurveyResponseEducationOrganizationTargetAssociation,
-        Api.Common.Models.Resources.SurveyResponseEducationOrganizationTargetAssociation.EdFi.SurveyResponseEducationOrganizationTargetAssociation,
         Entities.Common.EdFi.ISurveyResponseEducationOrganizationTargetAssociation,
         Entities.NHibernate.SurveyResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveyResponseEducationOrganizationTargetAssociation,
         Api.Common.Models.Requests.SurveyResponseEducationOrganizationTargetAssociations.EdFi.SurveyResponseEducationOrganizationTargetAssociationPut,
@@ -10171,7 +9874,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
     [Authorize]
     [Route("ed-fi/surveyResponseStaffTargetAssociations")]
     public partial class SurveyResponseStaffTargetAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveyResponseStaffTargetAssociation.EdFi.SurveyResponseStaffTargetAssociation,
         Api.Common.Models.Resources.SurveyResponseStaffTargetAssociation.EdFi.SurveyResponseStaffTargetAssociation,
         Entities.Common.EdFi.ISurveyResponseStaffTargetAssociation,
         Entities.NHibernate.SurveyResponseStaffTargetAssociationAggregate.EdFi.SurveyResponseStaffTargetAssociation,
@@ -10207,7 +9909,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
     [Route("ed-fi/surveySections")]
     public partial class SurveySectionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySection.EdFi.SurveySection,
-        Api.Common.Models.Resources.SurveySection.EdFi.SurveySection,
         Entities.Common.EdFi.ISurveySection,
         Entities.NHibernate.SurveySectionAggregate.EdFi.SurveySection,
         Api.Common.Models.Requests.SurveySections.EdFi.SurveySectionPut,
@@ -10240,7 +9941,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
     [Authorize]
     [Route("ed-fi/surveySectionAssociations")]
     public partial class SurveySectionAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveySectionAssociation.EdFi.SurveySectionAssociation,
         Api.Common.Models.Resources.SurveySectionAssociation.EdFi.SurveySectionAssociation,
         Entities.Common.EdFi.ISurveySectionAssociation,
         Entities.NHibernate.SurveySectionAssociationAggregate.EdFi.SurveySectionAssociation,
@@ -10279,7 +9979,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
     [Route("ed-fi/surveySectionResponses")]
     public partial class SurveySectionResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponse.EdFi.SurveySectionResponse,
-        Api.Common.Models.Resources.SurveySectionResponse.EdFi.SurveySectionResponse,
         Entities.Common.EdFi.ISurveySectionResponse,
         Entities.NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponse,
         Api.Common.Models.Requests.SurveySectionResponses.EdFi.SurveySectionResponsePut,
@@ -10314,7 +10013,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
     [Authorize]
     [Route("ed-fi/surveySectionResponseEducationOrganizationTargetAssociations")]
     public partial class SurveySectionResponseEducationOrganizationTargetAssociationsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.SurveySectionResponseEducationOrganizationTargetAssociation.EdFi.SurveySectionResponseEducationOrganizationTargetAssociation,
         Api.Common.Models.Resources.SurveySectionResponseEducationOrganizationTargetAssociation.EdFi.SurveySectionResponseEducationOrganizationTargetAssociation,
         Entities.Common.EdFi.ISurveySectionResponseEducationOrganizationTargetAssociation,
         Entities.NHibernate.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi.SurveySectionResponseEducationOrganizationTargetAssociation,
@@ -10351,7 +10049,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
     [Route("ed-fi/surveySectionResponseStaffTargetAssociations")]
     public partial class SurveySectionResponseStaffTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponseStaffTargetAssociation.EdFi.SurveySectionResponseStaffTargetAssociation,
-        Api.Common.Models.Resources.SurveySectionResponseStaffTargetAssociation.EdFi.SurveySectionResponseStaffTargetAssociation,
         Entities.Common.EdFi.ISurveySectionResponseStaffTargetAssociation,
         Entities.NHibernate.SurveySectionResponseStaffTargetAssociationAggregate.EdFi.SurveySectionResponseStaffTargetAssociation,
         Api.Common.Models.Requests.SurveySectionResponseStaffTargetAssociations.EdFi.SurveySectionResponseStaffTargetAssociationPut,
@@ -10387,7 +10084,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
     [Route("ed-fi/teachingCredentialBasisDescriptors")]
     public partial class TeachingCredentialBasisDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeachingCredentialBasisDescriptor.EdFi.TeachingCredentialBasisDescriptor,
-        Api.Common.Models.Resources.TeachingCredentialBasisDescriptor.EdFi.TeachingCredentialBasisDescriptor,
         Entities.Common.EdFi.ITeachingCredentialBasisDescriptor,
         Entities.NHibernate.TeachingCredentialBasisDescriptorAggregate.EdFi.TeachingCredentialBasisDescriptor,
         Api.Common.Models.Requests.TeachingCredentialBasisDescriptors.EdFi.TeachingCredentialBasisDescriptorPut,
@@ -10417,7 +10113,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/teachingCredentialDescriptors")]
     public partial class TeachingCredentialDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.TeachingCredentialDescriptor.EdFi.TeachingCredentialDescriptor,
         Api.Common.Models.Resources.TeachingCredentialDescriptor.EdFi.TeachingCredentialDescriptor,
         Entities.Common.EdFi.ITeachingCredentialDescriptor,
         Entities.NHibernate.TeachingCredentialDescriptorAggregate.EdFi.TeachingCredentialDescriptor,
@@ -10449,7 +10144,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
     [Route("ed-fi/technicalSkillsAssessmentDescriptors")]
     public partial class TechnicalSkillsAssessmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TechnicalSkillsAssessmentDescriptor.EdFi.TechnicalSkillsAssessmentDescriptor,
-        Api.Common.Models.Resources.TechnicalSkillsAssessmentDescriptor.EdFi.TechnicalSkillsAssessmentDescriptor,
         Entities.Common.EdFi.ITechnicalSkillsAssessmentDescriptor,
         Entities.NHibernate.TechnicalSkillsAssessmentDescriptorAggregate.EdFi.TechnicalSkillsAssessmentDescriptor,
         Api.Common.Models.Requests.TechnicalSkillsAssessmentDescriptors.EdFi.TechnicalSkillsAssessmentDescriptorPut,
@@ -10479,7 +10173,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/telephoneNumberTypeDescriptors")]
     public partial class TelephoneNumberTypeDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.TelephoneNumberTypeDescriptor.EdFi.TelephoneNumberTypeDescriptor,
         Api.Common.Models.Resources.TelephoneNumberTypeDescriptor.EdFi.TelephoneNumberTypeDescriptor,
         Entities.Common.EdFi.ITelephoneNumberTypeDescriptor,
         Entities.NHibernate.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptor,
@@ -10511,7 +10204,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
     [Route("ed-fi/termDescriptors")]
     public partial class TermDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TermDescriptor.EdFi.TermDescriptor,
-        Api.Common.Models.Resources.TermDescriptor.EdFi.TermDescriptor,
         Entities.Common.EdFi.ITermDescriptor,
         Entities.NHibernate.TermDescriptorAggregate.EdFi.TermDescriptor,
         Api.Common.Models.Requests.TermDescriptors.EdFi.TermDescriptorPut,
@@ -10541,7 +10233,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
     [Authorize]
     [Route("ed-fi/titleIPartAParticipantDescriptors")]
     public partial class TitleIPartAParticipantDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.TitleIPartAParticipantDescriptor.EdFi.TitleIPartAParticipantDescriptor,
         Api.Common.Models.Resources.TitleIPartAParticipantDescriptor.EdFi.TitleIPartAParticipantDescriptor,
         Entities.Common.EdFi.ITitleIPartAParticipantDescriptor,
         Entities.NHibernate.TitleIPartAParticipantDescriptorAggregate.EdFi.TitleIPartAParticipantDescriptor,
@@ -10573,7 +10264,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
     [Route("ed-fi/titleIPartAProgramServiceDescriptors")]
     public partial class TitleIPartAProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartAProgramServiceDescriptor.EdFi.TitleIPartAProgramServiceDescriptor,
-        Api.Common.Models.Resources.TitleIPartAProgramServiceDescriptor.EdFi.TitleIPartAProgramServiceDescriptor,
         Entities.Common.EdFi.ITitleIPartAProgramServiceDescriptor,
         Entities.NHibernate.TitleIPartAProgramServiceDescriptorAggregate.EdFi.TitleIPartAProgramServiceDescriptor,
         Api.Common.Models.Requests.TitleIPartAProgramServiceDescriptors.EdFi.TitleIPartAProgramServiceDescriptorPut,
@@ -10603,7 +10293,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
     [Authorize]
     [Route("ed-fi/titleIPartASchoolDesignationDescriptors")]
     public partial class TitleIPartASchoolDesignationDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.TitleIPartASchoolDesignationDescriptor.EdFi.TitleIPartASchoolDesignationDescriptor,
         Api.Common.Models.Resources.TitleIPartASchoolDesignationDescriptor.EdFi.TitleIPartASchoolDesignationDescriptor,
         Entities.Common.EdFi.ITitleIPartASchoolDesignationDescriptor,
         Entities.NHibernate.TitleIPartASchoolDesignationDescriptorAggregate.EdFi.TitleIPartASchoolDesignationDescriptor,
@@ -10635,7 +10324,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
     [Route("ed-fi/tribalAffiliationDescriptors")]
     public partial class TribalAffiliationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TribalAffiliationDescriptor.EdFi.TribalAffiliationDescriptor,
-        Api.Common.Models.Resources.TribalAffiliationDescriptor.EdFi.TribalAffiliationDescriptor,
         Entities.Common.EdFi.ITribalAffiliationDescriptor,
         Entities.NHibernate.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptor,
         Api.Common.Models.Requests.TribalAffiliationDescriptors.EdFi.TribalAffiliationDescriptorPut,
@@ -10666,7 +10354,6 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
     [Route("ed-fi/visaDescriptors")]
     public partial class VisaDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.VisaDescriptor.EdFi.VisaDescriptor,
-        Api.Common.Models.Resources.VisaDescriptor.EdFi.VisaDescriptor,
         Entities.Common.EdFi.IVisaDescriptor,
         Entities.NHibernate.VisaDescriptorAggregate.EdFi.VisaDescriptor,
         Api.Common.Models.Requests.VisaDescriptors.EdFi.VisaDescriptorPut,
@@ -10696,7 +10383,6 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
     [Authorize]
     [Route("ed-fi/weaponDescriptors")]
     public partial class WeaponDescriptorsController : DataManagementControllerBase<
-        Api.Common.Models.Resources.WeaponDescriptor.EdFi.WeaponDescriptor,
         Api.Common.Models.Resources.WeaponDescriptor.EdFi.WeaponDescriptor,
         Entities.Common.EdFi.IWeaponDescriptor,
         Entities.NHibernate.WeaponDescriptorAggregate.EdFi.WeaponDescriptor,
