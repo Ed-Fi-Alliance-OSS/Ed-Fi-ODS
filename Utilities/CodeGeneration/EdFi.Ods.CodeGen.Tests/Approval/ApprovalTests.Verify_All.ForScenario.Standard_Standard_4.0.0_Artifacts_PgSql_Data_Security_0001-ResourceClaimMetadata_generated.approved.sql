@@ -1867,7 +1867,7 @@ begin
 
     /* District Hosted SIS Vendor Claims */
 
-    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'District Hosted SIS Vendor Claims';
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'District Hosted SIS Vendor';
 
     WITH DistrictHostedSisVendorClaims AS (
         select ac.ActionId, claim_set_id as ClaimSetId, ResourceClaimId, cast(null as int) as ValidationRuleSetNameOverride
