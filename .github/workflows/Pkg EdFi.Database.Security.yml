@@ -90,9 +90,9 @@ jobs:
         $SecurityNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Security.nuspec"
         $SecurityBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Security.BACPAC.nuspec"
         $SecurityPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Security.PostgreSQL.nuspec"
-        nuget pack $SecurityNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. $(date +'%Y')" -NoPackageAnalysis -NoDefaultExcludes
-        nuget pack $SecurityBACPACNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. $(date +'%Y')" -NoPackageAnalysis -NoDefaultExcludes
-        nuget pack $SecurityPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. $(date +'%Y')" -NoPackageAnalysis -NoDefaultExcludes
+        nuget pack $SecurityNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
+        nuget pack $SecurityBACPACNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
+        nuget pack $SecurityPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
