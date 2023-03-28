@@ -37,8 +37,6 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             Path.Combine(_extensionRepository, CodeRepositoryConventions.Extensions);
         private static readonly string _odsRepository =
             _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods);
-        private static readonly string _odsRepositoryArtifacts = Path.Combine(
-            _odsRepository, CodeRepositoryConventions.Database);
         private static readonly string _odsRepositoryProjects = Path.Combine(
             _odsRepository, CodeRepositoryConventions.Application);
 
@@ -79,7 +77,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 
             files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories));
             files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedHbm, SearchOption.AllDirectories));
-            files.AddRange(Directory.GetFiles(_odsRepositoryArtifacts, GeneratedSql, SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedSql, SearchOption.AllDirectories));
             files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedCs, SearchOption.AllDirectories));
             files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedHbm, SearchOption.AllDirectories));
 
