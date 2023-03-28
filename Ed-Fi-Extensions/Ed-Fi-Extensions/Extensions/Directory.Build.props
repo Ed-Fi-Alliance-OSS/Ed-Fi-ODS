@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup>
+    <Copyright>Copyright © $([System.DateTime]::Now.ToString(`yyyy`)) Ed-Fi Alliance, LLC and Contributors</Copyright>
+  </PropertyGroup>
+</Project>

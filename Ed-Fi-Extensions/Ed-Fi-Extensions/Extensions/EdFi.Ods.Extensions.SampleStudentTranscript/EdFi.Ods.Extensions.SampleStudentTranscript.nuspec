@@ -5,6 +5,7 @@
     <version>0.0.0</version>
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
+    <copyright>$copyright$</copyright>
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>EdFi.Ods.Extensions.SampleStudentTranscript</description>

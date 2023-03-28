@@ -55,7 +55,10 @@ param(
     $NuspecFilePath,
 
     [string]
-    $RelativeRepoPath
+    $RelativeRepoPath,
+
+    [string]
+    $Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"
 )
 
 $ErrorActionPreference = 'Stop'
@@ -143,7 +146,7 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
-       nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
+       nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -Properties copyright=$Copyright -NoPackageAnalysis -NoDefaultExcludes
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
         Invoke-Execute {

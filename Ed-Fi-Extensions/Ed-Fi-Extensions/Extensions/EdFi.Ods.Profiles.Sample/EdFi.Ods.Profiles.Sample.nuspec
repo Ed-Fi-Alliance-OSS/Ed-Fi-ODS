@@ -5,6 +5,7 @@
 <version>5.1.0</version>
 <authors>Ed-Fi Alliance</authors>
 <owners>Ed-Fi Alliance</owners>
+<copyright>$copyright$</copyright>
 <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
 <requireLicenseAcceptance>false</requireLicenseAcceptance>
 <description>EdFi.Ods.Profiles.Sample</description>
