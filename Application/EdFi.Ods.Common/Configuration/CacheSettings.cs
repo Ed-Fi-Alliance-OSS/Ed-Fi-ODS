@@ -19,7 +19,6 @@ namespace EdFi.Ods.Common.Configuration
         public class DescriptorsCacheConfiguration
         {
             public bool UseExternalCache { get; set; }
-
             public int AbsoluteExpirationSeconds { get; set; } = 1800;
         }
 

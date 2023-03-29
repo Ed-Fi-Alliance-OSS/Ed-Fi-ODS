@@ -55,6 +55,16 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DescriptorsCache>()
+                .WithParameter(
+                ctx =>
+                {
+                    var apiSettings = ctx.Resolve<ApiSettings>(); 
+
+                    return (ICacheProvider<string>)
+                        new ExpiringConcurrentDictionaryCacheProvider<string>(
+                            "Descriptors", 
+                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
+                })
                 .WithParameter(new ResolvedParameter(
                     (p, c) => p.Name.Equals("expirationPeriodSeconds", StringComparison.OrdinalIgnoreCase),
                     (p, c) =>
