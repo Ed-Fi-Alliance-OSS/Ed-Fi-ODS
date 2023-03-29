@@ -91,7 +91,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(_container);
 
                 IDescriptorsCache cache = null;
-                DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>();
+                DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>(new NamedParameter("expirationPeriodSeconds", 300));
 
                 IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
 

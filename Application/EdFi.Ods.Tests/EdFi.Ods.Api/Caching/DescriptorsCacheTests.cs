@@ -78,25 +78,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                         }
                     });
 
-            Dictionary<string, IList<DescriptorLookup>> values = new Dictionary<string, IList<DescriptorLookup>>
-            {
-                {
-                    TestDescriptorName, new List<DescriptorLookup>
-                    {
-                        TestDescriptorNormal,
-                        TestDescriptorCustom,
-                        TestDescriptorWithCodeValue
-                    }
-                }
-            };
-
-            var memorycacheoption = A.Fake<IOptions<MemoryCacheOptions>>();
-
-            MemoryCache memoryCache = new MemoryCache(memorycacheoption);
-
-            CacheProvider = new MemoryCacheProvider(memoryCache);
-            CacheProvider.Insert(TestDescriptorName, values, DateTime.MaxValue, TimeSpan.FromMinutes(5));
-
             MockEdFiOdsInstanceIdentificationProvider =
                 A.Fake<IEdFiOdsInstanceIdentificationProvider>();
 
@@ -107,7 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds = CacheExpirationSeconds;
 
             return new DescriptorsCache(
-                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider, apiSettings);
+                MockDescriptorCacheDataProvider, MockEdFiOdsInstanceIdentificationProvider, CacheExpirationSeconds);
         }
 
         [Test]
