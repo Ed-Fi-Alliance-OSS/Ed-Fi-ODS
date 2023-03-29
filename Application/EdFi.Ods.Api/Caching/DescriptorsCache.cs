@@ -37,14 +37,14 @@ namespace EdFi.Ods.Api.Caching
 
         public DescriptorsCache(
             IDescriptorLookupProvider descriptorLookupProvider,
-            ICacheProvider<string> cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
-            ApiSettings apiSettings)
+            int expirationPeriodSeconds)
         {
             _descriptorLookupProvider = descriptorLookupProvider;
-            _cacheProvider = cacheProvider;
+            _cacheProvider = new ExpiringConcurrentDictionaryCacheProvider<string>("Descriptors", 
+                    TimeSpan.FromSeconds(expirationPeriodSeconds));
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
-            _databaseSynchronizationExpirationSeconds = apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
+            _databaseSynchronizationExpirationSeconds = expirationPeriodSeconds;
         }
 
         private bool HasLastDatabaseSynchronizationExpired
