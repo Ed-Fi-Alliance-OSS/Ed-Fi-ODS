@@ -19,14 +19,15 @@ namespace EdFi.Ods.Common.Configuration
         public class DescriptorsCacheConfiguration
         {
             public bool UseExternalCache { get; set; }
-            public int AbsoluteExpirationSeconds { get; set; }
+
+            public int AbsoluteExpirationSeconds { get; set; } = 1800;
         }
 
         public class PersonUniqueIdToUsiCacheConfiguration
         {
             public bool UseExternalCache { get; set; }
-            public int AbsoluteExpirationSeconds { get; set; }
-            public int SlidingExpirationSeconds { get; set; }
+            public int AbsoluteExpirationSeconds { get; set; } = 0; //Will be set to 0 during instantiation of PersonUniqueIdToUsiCache if SlidingExpirationSeconds > 0
+            public int SlidingExpirationSeconds { get; set; } = 14400;
             public bool SuppressStudentCache { get; set; }
             public bool SuppressStaffCache { get; set; }
             public bool SuppressParentCache { get; set; }
@@ -39,7 +40,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public class SecurityCacheConfiguration
         {
-            public int AbsoluteExpirationMinutes { get; set; }
+            public int AbsoluteExpirationMinutes { get; set; } = 10;
         }
 
         public class RedisCacheSettings
@@ -57,7 +58,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public class ProfilesCacheConfiguration
         {
-            public int AbsoluteExpirationSeconds { get; set; }
+            public int AbsoluteExpirationSeconds { get; set; } = 1800;
         }
     }
 }
