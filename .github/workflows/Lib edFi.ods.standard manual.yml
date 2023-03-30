@@ -20,10 +20,31 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
 
 jobs:
+  FindStandardVersions:
+    runs-on: ubuntu-latest    
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+    steps:
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/   
+    - name: Set StandardVersions
+      id: Set_StandardVersions
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
+        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+        Write-host "StandardVersions is  $output"
+      shell: pwsh
   build:
-
+    if: ${{ always() }}
+    needs: FindStandardVersions
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
@@ -62,7 +83,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/
+          Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/ -StandardVersion ${{ matrix.StandardVersion }}
     - name: build
       working-directory: ./Ed-Fi-ODS/
       run: |
@@ -76,7 +97,7 @@ jobs:
     - name: pack
       working-directory: ./Ed-Fi-ODS/
       run: |
-        ./build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard"
+        ./build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh
     - name: Install-credential-handler
       working-directory: ./Ed-Fi-ODS/
@@ -86,7 +107,7 @@ jobs:
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       run: |
-        ./build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard"
+        ./build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard.${{ matrix.StandardVersion }}"
       shell: pwsh      
     - name: Upload EdFi.Ods.Standard Artifacts
       if: success()
