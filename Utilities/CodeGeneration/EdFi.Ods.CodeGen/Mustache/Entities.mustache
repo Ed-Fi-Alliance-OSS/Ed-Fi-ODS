@@ -191,7 +191,7 @@ namespace {{AggregateNamespace}}
             {{#NonParentProperties}}
                 {{^IsAbstract}}
         {{#DisplayName}}[Display(Name="{{DisplayName}}")]
-        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsString}}, StringLength({{MaxLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]
+        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsString}}, StringLength({{MaxLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]{{RangeAttribute}}
                 {{/IsAbstract}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
                 {{#PropertyAccessors}}
@@ -223,7 +223,7 @@ namespace {{AggregateNamespace}}
         [{{Attributes}}]
             {{/Attributes}}
             {{#RangeAttribute}}
-        [Range(typeof({{CSharpBaseType}}), "{{MinimumRangeValue}}", "{{MaximumRangeValue}}")]
+        {{RangeAttribute}}
             {{/RangeAttribute}}
         public virtual {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
             {{#PropertyAccessors}}
