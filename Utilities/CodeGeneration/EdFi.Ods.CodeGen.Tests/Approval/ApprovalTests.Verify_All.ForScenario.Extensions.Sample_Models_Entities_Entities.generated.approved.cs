@@ -626,7 +626,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         public virtual string ExpectedTransitTime  { get; set; }
         [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal HoursPerWeek  { get; set; }
-        [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal OperatingCost  { get; set; }
         [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? OptimalCapacity  { get; set; }
@@ -2946,7 +2946,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set { Parent.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature]
+        [DomainSignature][Range(typeof(decimal), "-9999.9", "9999.9")]
         public virtual decimal CeilingHeight  { get; set; }
         // -------------------------------------------------------------
 
@@ -4095,7 +4095,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         [StringLength(30), NoDangerousText]
         public virtual string AverageCarLineWait  { get; set; }
         public virtual short? BecameParent  { get; set; }
-        [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? CoffeeSpend  { get; set; }
         public virtual int? CredentialFieldDescriptorId 
         {
@@ -7143,7 +7143,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         public virtual decimal? NumberOfDaysInAttendance  { get; set; }
         public virtual int? PortfolioPieces  { get; set; }
         public virtual bool PrivateArtProgram  { get; set; }
-        [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? ProgramFees  { get; set; }
         // -------------------------------------------------------------
 
@@ -9473,7 +9473,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
         private DateTime _effectiveDate;
         
-        [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? GraduationFee  { get; set; }
         [StringLength(30), NoDangerousText]
         public virtual string HighSchoolDuration  { get; set; }
@@ -11922,7 +11922,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             set { StudentParentAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature]
+        [DomainSignature][Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal HoursPerWeek  { get; set; }
         // -------------------------------------------------------------
 
@@ -12084,7 +12084,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             set { StudentParentAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature]
+        [DomainSignature][Range(typeof(decimal), "-9999999999999999.99", "9999999999999999.99")]
         public virtual decimal PagesRead  { get; set; }
         // -------------------------------------------------------------
 
@@ -12728,7 +12728,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         public virtual bool BedtimeReader  { get; set; }
         [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? BedtimeReadingRate  { get; set; }
-        [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
+        [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? BookBudget  { get; set; }
         public virtual int? BooksBorrowed  { get; set; }
         public virtual int? EducationOrganizationId  { get; set; }
