@@ -8,7 +8,6 @@ using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;

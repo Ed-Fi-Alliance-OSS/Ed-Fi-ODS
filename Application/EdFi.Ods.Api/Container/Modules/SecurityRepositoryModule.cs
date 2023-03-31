@@ -9,7 +9,6 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Security.DataAccess.Repositories;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
