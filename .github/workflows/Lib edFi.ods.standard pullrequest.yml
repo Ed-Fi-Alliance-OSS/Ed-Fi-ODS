@@ -13,8 +13,32 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
 
 jobs:
+  FindStandardVersions:
+    runs-on: ubuntu-latest    
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+    steps:
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/   
+    - name: Set StandardVersions
+      id: Set_StandardVersions
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
+        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+        Write-host "StandardVersions is  $output"
+      shell: pwsh
   build:
+    if: ${{ always() }}
+    needs: FindStandardVersions
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+    name: build (Standard ${{ matrix.StandardVersion }})         
     steps:
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
@@ -50,7 +74,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE
+          Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE  -StandardVersion ${{ matrix.StandardVersion }}
     - name: build
       working-directory: ./Ed-Fi-ODS/
       run: |

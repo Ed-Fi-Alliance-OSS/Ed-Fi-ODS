@@ -6,16 +6,12 @@
 [CmdLetBinding()]
 param(
     [string]
-    [ValidateSet("Get-Versions", "Get-StandardTag", "Get-TpdmTag")]
-    $Command = "Get-Versions",
+    [ValidateSet("Get-StandardTag", "Get-TpdmTag")]
+    $Command = "Get-StandardTag",
 
     [string]
     $StandardVersion
 )
-
-function Get-Versions {
-    Get-ChildItem -Path ./Standard -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name
-}
 
 function Get-StandardTag {
     param (
@@ -37,7 +33,6 @@ function Get-TpdmTag {
 
 try {
     switch ($Command) {
-        Get-Versions { Get-Versions }
         Get-StandardTag { Get-StandardTag($standardversion) }
         Get-TpdmTag { Get-TpdmTag($standardversion) }
     }
