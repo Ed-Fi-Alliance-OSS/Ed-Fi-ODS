@@ -10,10 +10,8 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Utils;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
@@ -103,11 +101,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             A.CallTo(() => MockEdFiOdsInstanceIdentificationProvider.GetInstanceIdentification())
                 .Returns(1UL);
 
-            var apiSettings = new ApiSettings();
-            apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds = CacheExpirationSeconds;
-
             return new DescriptorsCache(
-                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider, apiSettings);
+                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider, CacheExpirationSeconds);
         }
 
         [Test]

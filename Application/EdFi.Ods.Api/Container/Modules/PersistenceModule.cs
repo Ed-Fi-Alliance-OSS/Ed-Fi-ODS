@@ -56,18 +56,22 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
-                        ctx =>
-                        {
-                            var configuration = ctx.Resolve<IConfiguration>();
+                ctx =>
+                {
+                    var apiSettings = ctx.Resolve<ApiSettings>(); 
 
-                            int expirationPeriod =
-                                configuration.GetValue<int?>("ApiSettings:Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
-
-                            return (ICacheProvider<string>)
-                                new ExpiringConcurrentDictionaryCacheProvider<string>(
-                                    "Descriptors", 
-                                    TimeSpan.FromSeconds(expirationPeriod));
-                        })
+                    return (ICacheProvider<string>)
+                        new ExpiringConcurrentDictionaryCacheProvider<string>(
+                            "Descriptors", 
+                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
+                })
+                .WithParameter(new ResolvedParameter(
+                    (p, c) => p.Name.Equals("expirationPeriodSeconds", StringComparison.OrdinalIgnoreCase),
+                    (p, c) =>
+                    {
+                        var apiSettings = c.Resolve<ApiSettings>(); 
+                        return apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
+                    }))
                 .As<IDescriptorsCache>()
                 .SingleInstance();
 
@@ -140,10 +144,9 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
-                            var configuration = c.Resolve<IConfiguration>();
+                            var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = configuration.GetValue<int?>("ApiSettings:Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ??
-                                         14400;
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
 
                             return TimeSpan.FromSeconds(period);
                         }))
@@ -152,10 +155,9 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
-                            var configuration = c.Resolve<IConfiguration>();
+                            var apiSettings = c.Resolve<ApiSettings>();
 
-                            int period = configuration.GetValue<int?>("ApiSettings:Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ??
-                                         86400;
+                            int period = apiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
                             return TimeSpan.FromSeconds(period);
                         }))

@@ -9,7 +9,6 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Security.DataAccess.Repositories;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -30,10 +29,9 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => p.Name == "cacheTimeoutInMinutes",
                         (p, c) =>
                         {
-                            var configuration = c.Resolve<IConfiguration>();
-                            int period = configuration.GetValue<int?>("ApiSettings:Caching:Security:AbsoluteExpirationMinutes") ?? 10;
+                            var apiSettings = c.Resolve<ApiSettings>();
 
-                            return period;
+                            return apiSettings.Caching.Security.AbsoluteExpirationMinutes;
                         }))
                 .SingleInstance();
         }

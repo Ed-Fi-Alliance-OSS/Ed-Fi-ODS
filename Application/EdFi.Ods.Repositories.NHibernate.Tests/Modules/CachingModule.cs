@@ -26,6 +26,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                     new ResolvedParameter(
                         (p, c) => p.ParameterType == typeof(IDescriptorsCache),
                         (p, c) => c.Resolve<ConcurrentDictionaryCacheProvider<string>>()))
+                .WithParameter(new NamedParameter("expirationPeriodSeconds", 3600))
                 .As<IDescriptorsCache>()
                 .SingleInstance();
         }

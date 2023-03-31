@@ -8,7 +8,6 @@ using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
@@ -39,12 +38,12 @@ namespace EdFi.Ods.Api.Caching
             IDescriptorLookupProvider descriptorLookupProvider,
             ICacheProvider<string> cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
-            ApiSettings apiSettings)
+            int expirationPeriodSeconds)
         {
             _descriptorLookupProvider = descriptorLookupProvider;
             _cacheProvider = cacheProvider;
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
-            _databaseSynchronizationExpirationSeconds = apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
+            _databaseSynchronizationExpirationSeconds = expirationPeriodSeconds;
         }
 
         private bool HasLastDatabaseSynchronizationExpired
