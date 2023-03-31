@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-      - 'ODS-*'
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -33,7 +32,7 @@ env:
 jobs:
 
   FindStandardVersions:
-     runs-on: ubuntu-latest    
+     runs-on: ubuntu-latest
      outputs:
        StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
      steps:
