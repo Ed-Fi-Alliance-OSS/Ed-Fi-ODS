@@ -38,6 +38,7 @@ jobs:
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+    name: build (Standard ${{ matrix.StandardVersion }})         
     steps:
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
