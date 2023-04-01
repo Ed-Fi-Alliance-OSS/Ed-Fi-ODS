@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-      - 'ODS-*'
   workflow_dispatch:
     inputs:
       distinct_id:
