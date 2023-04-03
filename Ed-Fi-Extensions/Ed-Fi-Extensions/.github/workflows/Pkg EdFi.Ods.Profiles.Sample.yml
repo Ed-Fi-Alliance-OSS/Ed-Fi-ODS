@@ -21,6 +21,7 @@ env:
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
   build:
@@ -28,6 +29,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check for Azure token
+      if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
+      run: | 
+        echo "::error::Missing Azure Token"
+        exit 1   
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
       with:
@@ -85,6 +91,7 @@ jobs:
         .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh     
     - name: publish
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh
       run: |
