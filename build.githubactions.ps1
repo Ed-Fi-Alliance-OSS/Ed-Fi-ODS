@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler", "StandardVersions")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler", "StandardVersions", "StandardTag")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -55,7 +55,10 @@ param(
     $NuspecFilePath,
 
     [string]
-    $RelativeRepoPath
+    $RelativeRepoPath,
+
+    [string]
+    $StandardVersion
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -259,8 +262,19 @@ function StandardVersions {
     $standardProjectDirectory = Split-Path $Solution  -Resolve
     $standardProjectPath = Join-Path $standardProjectDirectory "/Standard/"
     $versions = (Get-ChildItem -Path $standardProjectPath -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name | %{ "'" + $_ + "'" }) -Join ','
-    $standardVersions = "[$versions]"    
+    $standardVersions = "[$versions]"
     return $standardVersions
+}
+
+function StandardTag {
+
+    if (-not $StandardVersion) {
+        throw "StandardVersion is required."
+    }
+    $standardProjectDirectory = Split-Path $Solution  -Resolve
+    $versionMapPath = Join-Path $standardProjectDirectory "/versionmap.json"
+    $standardTag = (Get-Content $versionMapPath | ConvertFrom-Json).'Ed-Fi-Standard'.$StandardVersion
+    return $standardTag
 }
 
 function Invoke-Build {
@@ -298,7 +312,11 @@ function Invoke-InstallCredentialHandler {
 }
 
 function Invoke-StandardVersions {
-    Invoke-Step { StandardVersions }
+     Invoke-Step { StandardVersions }
+}
+
+function Invoke-StandardTag {
+     Invoke-Step { StandardTag }
 }
 
 Invoke-Main {
@@ -311,7 +329,8 @@ Invoke-Main {
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
         InstallCredentialHandler { Invoke-InstallCredentialHandler }
-        StandardVersions { Invoke-StandardVersions }          
+        StandardVersions { Invoke-StandardVersions }
+        StandardTag { Invoke-StandardTag }
         default { throw "Command '$Command' is not recognized" }
     }
 }

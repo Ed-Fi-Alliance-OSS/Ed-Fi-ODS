@@ -6,21 +6,12 @@
 [CmdLetBinding()]
 param(
     [string]
-    [ValidateSet("Get-StandardTag", "Get-TpdmTag")]
-    $Command = "Get-StandardTag",
+    [ValidateSet("Get-TpdmTag")]
+    $Command = "Get-TpdmTag",
 
     [string]
     $StandardVersion
 )
-
-function Get-StandardTag {
-    param (
-        [string]
-        $StandardVersion
-    )
-
-    (Get-Content versionmap.json | ConvertFrom-Json).'Ed-Fi-Standard'.$StandardVersion
-}
 
 function Get-TpdmTag {
     param (
@@ -33,7 +24,6 @@ function Get-TpdmTag {
 
 try {
     switch ($Command) {
-        Get-StandardTag { Get-StandardTag($standardversion) }
         Get-TpdmTag { Get-TpdmTag($standardversion) }
     }
     exit 0
