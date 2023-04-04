@@ -8,12 +8,22 @@ on:
   pull_request:
     branches: [main, 'ODS-*']
     types: [ closed ]
+  
+env:
+  GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
   cleanup:
     runs-on: ubuntu-latest
     steps:
+      - name: Check for Repo Dispatch Token
+        if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.GH_TOKEN == '' }}
+        run: | 
+          echo "::error::Missing GitHub Token"
+          exit 1 
       - name: Check out code
+        if: ${{ env.GH_TOKEN != '' }}
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
       - name: Cleanup
         run: |
@@ -42,5 +52,3 @@ jobs:
               gh actions-cache delete $cacheKey -R $REPO -B $WORKINGBRANCH --confirm
           done          
           echo "Done"
-        env:
-          GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
