@@ -927,21 +927,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The number of hours per week in which the bus route is operational.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="hoursPerWeek")][Range(typeof(decimal), "-999.99", "999.99")]
+        [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek { get; set; }
 
         /// <summary>
         /// The approximate annual cost for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="operatingCost")][Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
+        [DataMember(Name="operatingCost")]
         public decimal OperatingCost { get; set; }
 
         /// <summary>
         /// The percentage of seats filled under optimal conditions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="optimalCapacity")][Range(typeof(decimal), "-9.9999", "9.9999")]
+        [DataMember(Name="optimalCapacity")]
         public decimal? OptimalCapacity { get; set; }
 
         /// <summary>
@@ -1005,7 +1005,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// The approximate weekly mileage for the bus route.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="weeklyMileage")][Range(typeof(decimal), "-999.99", "999.99")]
+        [DataMember(Name="weeklyMileage")]
         public decimal? WeeklyMileage { get; set; }
         // -------------------------------------------------------------
 
@@ -5138,7 +5138,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// How much the parent spends on coffee in a week.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="coffeeSpend")][Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
+        [DataMember(Name="coffeeSpend")]
         public decimal? CoffeeSpend { get; set; }
 
         /// <summary>
@@ -5159,7 +5159,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The parent's high school GPA.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="gpa")][Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
+        [DataMember(Name="gpa")]
         public decimal? GPA { get; set; }
 
         /// <summary>
@@ -5194,7 +5194,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// The percent likelihood that it will rain when the parent volunteers to chaperone a field trip.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="rainCertainty")][Range(typeof(decimal), "-9.9999", "9.9999")]
+        [DataMember(Name="rainCertainty")]
         public decimal? RainCertainty { get; set; }
         // -------------------------------------------------------------
 
@@ -10220,7 +10220,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// The number of hours a student spends in the program each school day.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="hoursPerDay")][Range(typeof(decimal), "-999.99", "999.99")]
+        [DataMember(Name="hoursPerDay")]
         public decimal? HoursPerDay { get; set; }
 
         /// <summary>
@@ -10248,14 +10248,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Percentage of the mediums taught in the program which the student mastered.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="masteredMediums")][Range(typeof(decimal), "-9.9999", "9.9999")]
+        [DataMember(Name="masteredMediums")]
         public decimal? MasteredMediums { get; set; }
 
         /// <summary>
         /// Number of days the student is in attendance at the program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="numberOfDaysInAttendance")][Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
+        [DataMember(Name="numberOfDaysInAttendance")]
         public decimal? NumberOfDaysInAttendance { get; set; }
 
         /// <summary>
@@ -10276,7 +10276,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// Required program fees to purchase materials for the student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="programFees")][Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
+        [DataMember(Name="programFees")]
         public decimal? ProgramFees { get; set; }
         // -------------------------------------------------------------
 
@@ -13614,7 +13614,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// Any fees the student must resolve prior to graduation, such as library fines and overdue lunch accounts.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="graduationFee")][Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
+        [DataMember(Name="graduationFee")]
         public decimal? GraduationFee { get; set; }
 
         /// <summary>
@@ -13628,7 +13628,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The number of hours per week the student will attend to graduate.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="hoursPerWeek")][Range(typeof(decimal), "-999.99", "999.99")]
+        [DataMember(Name="hoursPerWeek")]
         public decimal HoursPerWeek { get; set; }
 
         /// <summary>
@@ -13642,7 +13642,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The percentage of time the student must attend to graduate, relative to a full-time student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="requiredAttendance")][Range(typeof(decimal), "-9.9999", "9.9999")]
+        [DataMember(Name="requiredAttendance")]
         public decimal? RequiredAttendance { get; set; }
 
         /// <summary>
@@ -13676,7 +13676,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// The GPA the student is working toward.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="targetGPA")][Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
+        [DataMember(Name="targetGPA")]
         public decimal TargetGPA { get; set; }
         // -------------------------------------------------------------
 
@@ -16631,14 +16631,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// The average number of pages the parent reads with the student each day.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="bedtimeReadingRate")][Range(typeof(decimal), "-9.9999", "9.9999")]
+        [DataMember(Name="bedtimeReadingRate")]
         public decimal? BedtimeReadingRate { get; set; }
 
         /// <summary>
         /// The parent's estimated monthly budget dedicated to books for the student.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="bookBudget")][Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
+        [DataMember(Name="bookBudget")]
         public decimal? BookBudget { get; set; }
 
         /// <summary>
