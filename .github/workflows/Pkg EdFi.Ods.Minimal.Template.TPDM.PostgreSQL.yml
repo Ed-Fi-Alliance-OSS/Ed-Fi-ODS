@@ -175,7 +175,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment -UsePlugins -NoDeploy -Engine PostgreSQL -NoRestore -extensionVersion ${{ matrix.ExtensionVersion }} -StandardVersion ${{ matrix.StandardVersion }}
       shell: pwsh
     - name: Create Database Template (no extensions)
       working-directory: ./
