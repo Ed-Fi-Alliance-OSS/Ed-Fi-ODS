@@ -34,7 +34,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                         Array.Empty<string>(),
                         Array.Empty<string>(),
                         string.Empty,
-                        null, null,0));
+                        null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,0));
+                    null, null,null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,0));
+                    null, null,null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,0));
+                    null, null,null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -177,7 +177,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,0));
+                    null, null,null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -210,7 +210,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,0));
+                    null, null,null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);

@@ -43,6 +43,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 2
             };
 
+            private readonly int[] _suppliedOdsInstanceIds = {};
+
             private readonly int _suppliedApiClientId = 7;
 
             private readonly ApiKeyContext _suppliedApiKeyContext = ApiKeyContext.Empty;
@@ -75,6 +77,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         SuppliedStudentIdentificationSystemDescriptor,
                         _suppliedCreatorOwnershipTokenId,
                         _suppliedOwnershipTokenIds,
+                        _suppliedOdsInstanceIds,
                         _suppliedApiClientId));
 
                 var gettingProvider = new ApiKeyContextProvider(_contextStorage);

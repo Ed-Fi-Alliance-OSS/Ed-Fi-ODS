@@ -29,6 +29,8 @@ namespace EdFi.Ods.Api.Security.Authentication
 
         public short? OwnershipTokenId { get; set; }
 
+        public int? OdsInstanceId { get; set; }
+
         public DateTime Expiration { get; set; }
         
         public string Secret { get; set; }
