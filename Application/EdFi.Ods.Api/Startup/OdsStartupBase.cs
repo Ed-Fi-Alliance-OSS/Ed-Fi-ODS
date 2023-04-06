@@ -304,6 +304,8 @@ namespace EdFi.Ods.Api.Startup
                 app.UseXsdMetadata();
             }
 
+            app.UseRequestResponseDetailsLogger();
+
             // required to get the base controller working
             app.UseEndpoints(endpoints =>
             {

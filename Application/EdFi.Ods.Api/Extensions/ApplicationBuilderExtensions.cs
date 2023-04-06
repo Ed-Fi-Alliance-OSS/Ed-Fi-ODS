@@ -31,5 +31,8 @@ namespace EdFi.Ods.Api.Extensions
 
         public static IApplicationBuilder UseXsdMetadata(this IApplicationBuilder builder)
             => builder.UseMiddleware<XsdMetadataFileMiddleware>();
+
+        public static IApplicationBuilder UseRequestResponseDetailsLogger(this IApplicationBuilder builder)
+            => builder.UseMiddleware<RequestResponseDetailsLoggerMiddleware>();
     }
 }

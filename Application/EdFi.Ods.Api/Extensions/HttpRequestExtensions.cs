@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.Extensions
                 request.Scheme(reverseProxySettings),
                 request.Host(reverseProxySettings),
                 request.Port(reverseProxySettings),
-                request.PathBase);
+                request.PathBase.HasValue ? request.PathBase : request.Path);
 
             return uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
         }
