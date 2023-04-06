@@ -37,6 +37,7 @@ RETURNS TABLE (
     ,CreatorOwnershipTokenId SMALLINT
     ,OwnershipTokenId SMALLINT
     ,OdsInstanceId INT
+    ,ApiClientId INT
     ,Expiration TIMESTAMP
 )
 AS
@@ -54,6 +55,7 @@ BEGIN
         ,ac.CreatorOwnershipTokenId_OwnershipTokenId as CreatorOwnershipTokenId
         ,acot.OwnershipToken_OwnershipTokenId as OwnershipTokenId
         ,acoi.OdsInstance_OdsInstanceId as OdsInstanceId
+        ,cat.ApiClient_ApiClientId as ApiClientId
         ,cat.Expiration
     FROM dbo.ClientAccessTokens cat
          INNER JOIN dbo.ApiClients ac ON

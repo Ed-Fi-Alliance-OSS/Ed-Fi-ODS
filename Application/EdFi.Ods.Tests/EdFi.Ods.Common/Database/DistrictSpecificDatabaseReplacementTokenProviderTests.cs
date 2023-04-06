@@ -143,7 +143,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -244,7 +244,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
