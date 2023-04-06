@@ -59,6 +59,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             private HashtableContextStorage _contextStorage;
             private short? _actualCreatorOwnershipTokenId;
             private IEnumerable<short> _actualOwnershipTokenIds;
+            private IEnumerable<int> _actualOdsInstanceIds;
             private int _actualApiClientId;
 
             protected override void Act()
@@ -103,6 +104,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 _actualCreatorOwnershipTokenId = gettingProvider.GetApiKeyContext().CreatorOwnershipTokenId;
 
                 _actualOwnershipTokenIds = gettingProvider.GetApiKeyContext().OwnershipTokenIds;
+
+                _actualOdsInstanceIds = gettingProvider.GetApiKeyContext().OdsInstanceIds;
 
                 _actualApiClientId = gettingProvider.GetApiKeyContext().ApiClientId;
 
@@ -169,6 +172,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             public virtual void Should_return_the_supplied_Ownership_TokenIds()
             {
                 _actualOwnershipTokenIds.ShouldBe(_suppliedOwnershipTokenIds);
+            }
+
+            [Assert]
+            public virtual void Should_return_the_supplied_Ods_InstanceIds()
+            {
+                _actualOdsInstanceIds.ShouldBe(_suppliedOdsInstanceIds);
             }
 
             [Assert]

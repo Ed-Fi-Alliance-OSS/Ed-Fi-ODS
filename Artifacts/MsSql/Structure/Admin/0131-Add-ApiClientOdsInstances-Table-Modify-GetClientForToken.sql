@@ -46,8 +46,8 @@ RETURN
         ,ac.[CreatorOwnershipTokenId_OwnershipTokenId] as CreatorOwnershipTokenId
         ,acot.[OwnershipToken_OwnershipTokenId] as OwnershipTokenId
         ,acoi.[OdsInstance_OdsInstanceId] as OdsInstanceId
-        ,cat.Expiration
-        ,cat.ApiClient_ApiClientId as ApiClientId
+        ,cat.[ApiClient_ApiClientId] as ApiClientId
+        ,cat.[Expiration]
     FROM ClientAccessTokens cat
     INNER JOIN ApiClients ac ON
         cat.[ApiClient_ApiClientId] = ac.[ApiClientId]
@@ -69,8 +69,8 @@ RETURN
     LEFT OUTER JOIN [dbo].[Profiles] p on
         p.[ProfileId] = ap.[Profile_ProfileId]
     LEFT OUTER JOIN [dbo].[ApiClientOwnershipTokens] acot ON
-        ac.ApiClientId = acot.ApiClient_ApiClientId
+        ac.[ApiClientId] = acot.[ApiClient_ApiClientId]
     LEFT OUTER JOIN [dbo].[ApiClientOdsInstances] acoi ON
-        acoi.ApiClient_ApiClientId = ac.ApiClientId
+        acoi.[ApiClient_ApiClientId] = ac.[ApiClientId]
     WHERE cat.Expiration > GETUTCDATE()
 GO

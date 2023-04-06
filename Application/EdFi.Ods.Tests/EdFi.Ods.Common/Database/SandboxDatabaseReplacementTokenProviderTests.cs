@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Linq;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
@@ -78,7 +77,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -111,7 +110,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -144,7 +143,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -177,7 +176,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
@@ -210,7 +209,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     Array.Empty<string>(),
                     Array.Empty<string>(),
                     string.Empty,
-                    null, null,null, 0));
+                    null, null, null, 0));
 
             _databaseReplacementTokenProvider =
                 new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
