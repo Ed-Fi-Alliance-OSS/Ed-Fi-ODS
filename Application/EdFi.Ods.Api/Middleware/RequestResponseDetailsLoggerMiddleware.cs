@@ -32,11 +32,6 @@ namespace EdFi.Ods.Api.Middleware
         {
             await next(context);
 
-            if (!context.Request.Path.StartsWithSegments("/data"))
-            {
-                return;
-            }
-
             if (context.Response.StatusCode == StatusCodes.Status500InternalServerError)
             {
                 if(context.Items["Exception"] is Exception exception) 
