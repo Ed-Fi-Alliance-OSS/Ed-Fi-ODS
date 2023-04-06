@@ -101,7 +101,7 @@ namespace EdFi.Ods.Api.Providers
                             apiClientDetails.StudentIdentificationSystemDescriptor,
                             apiClientDetails.CreatorOwnershipTokenId,
                             apiClientDetails.OwnershipTokenIds,
-                            null,
+                            apiClientDetails.OdsInstanceIds,
                             apiClientDetails.ApiClientId)
                     }
                 };

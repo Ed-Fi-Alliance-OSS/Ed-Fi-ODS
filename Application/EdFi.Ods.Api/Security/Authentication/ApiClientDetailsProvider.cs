@@ -89,8 +89,8 @@ namespace EdFi.Ods.Api.Security.Authentication
                 educationOrganizationIds: GetEducationOrganizationIds().ToArray(),
                 namespacePrefixes: GetVendorNamespacePrefixes().ToArray(),
                 profiles: GetProfileNames().ToArray(),
-                ownershipTokenIds: GetOwnershipTokenIds().ToArray()
-                //odsInstanceIds: GetOdsInstanceIds().ToArray()
+                ownershipTokenIds: GetOwnershipTokenIds().ToArray(),
+                odsInstanceIds: GetOdsInstanceIds().ToArray()
             );
 
             return apiClientDetails;
