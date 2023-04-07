@@ -43,7 +43,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 2
             };
 
-            private readonly int[] _suppliedOdsInstanceIds = {};
+            private readonly int[] _suppliedOdsInstanceIds = 
+            {
+                1, 
+                2
+            };
 
             private readonly int _suppliedApiClientId = 7;
 
