@@ -89,7 +89,8 @@ namespace EdFi.Ods.Api.Security.Authentication
                 educationOrganizationIds: GetEducationOrganizationIds().ToArray(),
                 namespacePrefixes: GetVendorNamespacePrefixes().ToArray(),
                 profiles: GetProfileNames().ToArray(),
-                ownershipTokenIds: GetOwnershipTokenIds().ToArray()
+                ownershipTokenIds: GetOwnershipTokenIds().ToArray(),
+                odsInstanceIds: GetOdsInstanceIds().ToArray()
             );
 
             return apiClientDetails;
@@ -124,6 +125,14 @@ namespace EdFi.Ods.Api.Security.Authentication
                     .Where(x => x.OwnershipTokenId.HasValue)
                     .Select(x => x.OwnershipTokenId.Value)
                     .Distinct();
+            }
+
+            IEnumerable<int> GetOdsInstanceIds()
+            {
+                return apiClientRawDataRows
+                    .Where(x => x.OdsInstanceId.HasValue)
+                    .Select(x => x.OdsInstanceId.Value)
+                    .Distinct();    
             }
         }
     }

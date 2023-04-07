@@ -8,10 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
-using EdFi.Ods.Tests._Builders;
 using FakeItEasy;
 using NHibernate;
 using NHibernate.Transform;
@@ -31,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
 
             return new ApiKeyContext(
                 Guid.NewGuid().ToString("n"), "Claim Set", educationOrganizationIds, namespacePrefixes, new List<string>(),
-                "descriptor", null, null,0);
+                "descriptor", null, null, null, 0);
         }
 
         private List<TokenInfoEducationOrganizationData> CreateEducationOrganizationIdentifiers()

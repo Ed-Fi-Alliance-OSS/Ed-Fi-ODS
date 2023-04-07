@@ -30,6 +30,7 @@ namespace EdFi.Ods.Common.Security
             string studentIdentificationSystemDescriptor,
             short? creatorOwnershipTokenId,
             IList<short> ownershipTokenIds,
+            IList<int> odsInstanceIds,
             int apiClientId)
         {
             ApiKey = apiKey;
@@ -40,10 +41,13 @@ namespace EdFi.Ods.Common.Security
             Profiles = profiles ?? new List<string>();
             CreatorOwnershipTokenId = creatorOwnershipTokenId;
             OwnershipTokenIds = ownershipTokenIds ?? Array.Empty<short>();
+            OdsInstanceIds = odsInstanceIds ?? Array.Empty<int>();
             ApiClientId = apiClientId;
         }
 
         public IList<short> OwnershipTokenIds { get; }
+
+        public IList<int> OdsInstanceIds { get; }
 
         public short? CreatorOwnershipTokenId { get; }
 

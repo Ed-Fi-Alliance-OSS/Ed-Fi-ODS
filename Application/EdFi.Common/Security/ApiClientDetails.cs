@@ -23,7 +23,7 @@ namespace EdFi.Common.Security
             Profiles = new List<string>();
             OwnershipTokenIds = new List<short>();
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClientDetails"/> class using the supplied values.
         /// </summary>
@@ -39,6 +39,7 @@ namespace EdFi.Common.Security
         /// <param name="studentIdentificationSystemDescriptor"></param>
         /// <param name="creatorOwnershipTokenId"></param>
         /// <param name="ownershipTokenIds"></param>
+        /// <param name="odsInstanceIds"></param>
         /// <param name="expiresUtc"></param>
         public ApiClientDetails(
             int apiClientId,
@@ -53,6 +54,7 @@ namespace EdFi.Common.Security
             string studentIdentificationSystemDescriptor,
             short? creatorOwnershipTokenId,
             IList<short> ownershipTokenIds,
+            IList<int> odsInstanceIds,
             DateTime expiresUtc)
         {
             ApiClientId = apiClientId;
@@ -67,6 +69,7 @@ namespace EdFi.Common.Security
             StudentIdentificationSystemDescriptor = studentIdentificationSystemDescriptor;
             CreatorOwnershipTokenId = creatorOwnershipTokenId;
             OwnershipTokenIds = ownershipTokenIds;
+            OdsInstanceIds = odsInstanceIds;
             ExpiresUtc = expiresUtc;
         }
 
@@ -142,5 +145,10 @@ namespace EdFi.Common.Security
         /// Gets or sets the OwnershipTokenIDs of the api client of the application for the client
         /// </summary>
         public IList<short> OwnershipTokenIds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the OdsInstanceIds for the client
+        /// </summary>
+        public IList<int> OdsInstanceIds { get; set; }
     }
 }

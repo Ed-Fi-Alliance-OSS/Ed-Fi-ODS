@@ -18,6 +18,7 @@ public static class ApiKeyContextHelper
             string.Empty,
             null,
             Array.Empty<short>(),
+            Array.Empty<int>(),
             0);
     }
 }
