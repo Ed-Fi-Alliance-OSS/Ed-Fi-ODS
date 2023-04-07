@@ -61,7 +61,6 @@ namespace EdFi.Ods.Api.Controllers
         private readonly int _defaultPageLimitSize;
         private readonly ReverseProxySettings _reverseProxySettings;
         private ILog _logger;
-        private ILog _requestResponseDetailsLogger;
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceModel, TAggregateRoot>> GetByIdPipeline;
 
@@ -136,24 +135,12 @@ namespace EdFi.Ods.Api.Controllers
             }
         }
 
-        protected ILog RequestResponseDetailsLogger
-        {
-            get
-            {
-                if (_requestResponseDetailsLogger == null)
-                {
-                    _requestResponseDetailsLogger = LogManager.GetLogger("RequestResponseDetailsLogger");
-                }
-
-                return _requestResponseDetailsLogger;
-            }
-        }
-
         private IActionResult CreateActionResultFromException(
             Exception exception,
             bool enforceOptimisticLock = false)
         {
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
+            HttpContext.Items.Add("Exception", exception);
 
             if (exception is ConcurrencyException && enforceOptimisticLock)
             {
@@ -219,7 +206,6 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error(GetAllRequest, result.Exception);
-                LogRequestResponseDetailsOnException(nameof(this.GetAll), result.Exception);
                 return CreateActionResultFromException(result.Exception);
             }
 
@@ -230,7 +216,6 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());
-            LogRequestResponseDetailsInfo(nameof(this.GetAll));
             return Ok(result.Resources);
         }
 
@@ -251,7 +236,6 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error(GetByIdRequest, result.Exception);
-                LogRequestResponseDetailsOnException(nameof(this.Get), result.Exception);
                 return CreateActionResultFromException(result.Exception);
             }
 
@@ -263,7 +247,6 @@ namespace EdFi.Ods.Api.Controllers
             
             // Add ETag header for the resource
             responseHeaders.ETag = GetEtag(result.Resource.ETag);
-            LogRequestResponseDetailsInfo(nameof(this.Get));
             return Ok(result.Resource);
         }
 
@@ -300,7 +283,6 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Put", result.Exception);
-                LogRequestResponseDetailsOnException(nameof(this.Put), result.Exception);
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
@@ -310,12 +292,11 @@ namespace EdFi.Ods.Api.Controllers
 
             if (result.ResourceWasCreated)
             {
-                LogRequestResponseDetailsInfo(nameof(this.Put), StatusCodes.Status201Created, resourceUri.ToString());
+                HttpContext.Items.Add("createdResourceUri", resourceUri.ToString());
                 return (IActionResult)Created(resourceUri, null);
             }
             else
             {
-                LogRequestResponseDetailsInfo(nameof(this.Put), StatusCodes.Status204NoContent, "No Content");
                 return NoContent();
             }
         }
@@ -355,7 +336,6 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Post", result.Exception);
-                LogRequestResponseDetailsOnException(nameof(this.Post), result.Exception);
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
@@ -365,12 +345,10 @@ namespace EdFi.Ods.Api.Controllers
 
             if (result.ResourceWasCreated)
             {
-                LogRequestResponseDetailsInfo(nameof(this.Post), StatusCodes.Status201Created, resourceUri.ToString());
                 return (IActionResult)Created(resourceUri, null);
             }
             else
             {
-                LogRequestResponseDetailsInfo(nameof(this.Post), StatusCodes.Status200OK);
                 return Ok();
             }
         }
@@ -397,11 +375,9 @@ namespace EdFi.Ods.Api.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Delete", result.Exception);
-                LogRequestResponseDetailsOnException(nameof(this.Delete), result.Exception);
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
-            LogRequestResponseDetailsInfo(nameof(this.Delete), StatusCodes.Status204NoContent, "No Content");
             //Return 204 (according to RFC 2616, if the delete action has been enacted but the response does not include an entity, the return code should be 204).
             return NoContent();
         }
@@ -432,39 +408,5 @@ namespace EdFi.Ods.Api.Controllers
         private static string Quoted(string text) => "\"" + text + "\"";
 
         private static string Unquoted(string text) => text?.Trim('"');
-
-        private void LogRequestResponseDetailsOnException(string requestMethod, Exception exception)
-        {
-            // Check the Appender exists to avoid duplicated log messages on both controller(root) and detailed loggers
-            if (!RequestResponseDetailsFileAppenderExists())
-                return;
-
-            var restError = _restErrorProvider.GetRestErrorFromException(exception);
-
-            AddLoggerProperties(requestMethod, restError.Code);
-
-            RequestResponseDetailsLogger.Error(restError.Message);
-        }
-
-        private void LogRequestResponseDetailsInfo(string requestMethod, int responseCode = StatusCodes.Status200OK, string responseMessage = "Ok")
-        {
-            // Check the Appender exists to avoid duplicated log messages on both controller(root) and detailed loggers
-            if (!RequestResponseDetailsFileAppenderExists())
-                return;
-
-            AddLoggerProperties(requestMethod, responseCode);
-
-            RequestResponseDetailsLogger.Info(responseMessage);
-        }
-
-        private void AddLoggerProperties(string requestMethod, int responseCode)
-        {
-            LogicalThreadContext.Properties["RequestUrl"] = GetResourceUrl();
-            LogicalThreadContext.Properties["RequestMethod"] = requestMethod;
-            LogicalThreadContext.Properties["ResponseCode"] = responseCode;
-        }
-
-        private bool RequestResponseDetailsFileAppenderExists() => 
-            RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender");
     }
 }

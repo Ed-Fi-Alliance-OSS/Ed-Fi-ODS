@@ -26,6 +26,17 @@ namespace EdFi.Ods.Api.Extensions
             return uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
         }
 
+        public static string ResourceUri(this HttpRequest request, ReverseProxySettings reverseProxySettings)
+        {
+            var uriBuilder = new UriBuilder(
+                    request.Scheme(reverseProxySettings),
+                    request.Host(reverseProxySettings),
+                    request.Port(reverseProxySettings),
+                    request.PathBase.Add(request.Path));
+
+            return uriBuilder.Uri.ToString().TrimEnd('/');
+        }
+
         public static string Scheme(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             string scheme = request.Scheme;

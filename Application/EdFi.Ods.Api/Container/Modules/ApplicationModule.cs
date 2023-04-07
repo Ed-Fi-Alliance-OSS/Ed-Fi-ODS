@@ -378,6 +378,11 @@ namespace EdFi.Ods.Api.Container.Modules
                     .As<IMiddleware>()
                     .AsSelf()
                     .SingleInstance();
+
+                builder.RegisterType<RequestResponseDetailsLoggerMiddleware>()
+                    .As<IMiddleware>()
+                    .AsSelf()
+                    .SingleInstance();
             }
         }
     }
