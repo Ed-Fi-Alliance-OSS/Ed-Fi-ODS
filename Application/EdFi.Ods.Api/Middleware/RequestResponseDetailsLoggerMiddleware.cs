@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Context;
 using log4net;
 using Microsoft.AspNetCore.Http;
 
@@ -32,26 +31,22 @@ namespace EdFi.Ods.Api.Middleware
         {
             await next(context);
 
-            if (context.Response.StatusCode == StatusCodes.Status500InternalServerError)
+            switch (context.Response.StatusCode)
             {
-                if(context.Items["Exception"] is Exception exception) 
-                    LogRequestResponseDetailsOnException(context, exception);
-                return;
-            }
-
-            var statusCodeDescription = tryGetStatusCodeDescription(context.Response.StatusCode);
-
-            if (context.Response.StatusCode == StatusCodes.Status201Created)
-            {
-                LogRequestResponseDetailsInfo(context, (context.Items["createdResourceUri"] as string) ?? "Created resource URI missing");
-            }
-            else
-            {
-                LogRequestResponseDetailsInfo(context);
+                case StatusCodes.Status500InternalServerError:
+                    if(context.Items["Exception"] is Exception exception) 
+                        LogRequestResponseDetailsOnException(context, exception);
+                    break;
+                case StatusCodes.Status201Created:
+                    LogRequestResponseDetailsInfo(context, (context.Items["createdResourceUri"] as string) ?? "Created resource URI missing");
+                    break;
+                default:
+                    LogRequestResponseDetailsInfo(context);
+                    break;
             }
         }
 
-        private static string tryGetStatusCodeDescription(int statusCode)
+        private static string TryGetStatusCodeDescription(int statusCode)
         {
             var httpStatusCodeParsed = Enum.TryParse(statusCode.ToString(), out HttpStatusCode httpStatusCode);
 
@@ -68,7 +63,7 @@ namespace EdFi.Ods.Api.Middleware
 
             AddLoggerProperties(context.Request.Method, context.Response.StatusCode, context);
 
-            RequestResponseDetailsLogger.Info(tryGetStatusCodeDescription(context.Response.StatusCode));
+            RequestResponseDetailsLogger.Info(TryGetStatusCodeDescription(context.Response.StatusCode));
         }
 
         private void LogRequestResponseDetailsOnException(HttpContext context, Exception exception)
@@ -83,6 +78,7 @@ namespace EdFi.Ods.Api.Middleware
 
             RequestResponseDetailsLogger.Error(restError.Message);
         }
+
         protected ILog RequestResponseDetailsLogger
         {
             get => _requestResponseDetailsLogger ??= LogManager.GetLogger("RequestResponseDetailsLogger");
@@ -90,7 +86,7 @@ namespace EdFi.Ods.Api.Middleware
 
         private void AddLoggerProperties(string requestMethod, int responseCode, HttpContext context)
         {
-            LogicalThreadContext.Properties["RequestUrl"] = context.Request.RootUrl(_reverseProxySettings);
+            LogicalThreadContext.Properties["RequestUrl"] = context.Request.ResourceUri(_reverseProxySettings);
             LogicalThreadContext.Properties["RequestMethod"] = requestMethod;
             LogicalThreadContext.Properties["ResponseCode"] = responseCode;
         }
