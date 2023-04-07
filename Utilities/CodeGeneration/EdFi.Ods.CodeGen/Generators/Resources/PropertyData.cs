@@ -132,7 +132,6 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 IsFirstProperty = IsFirstProperty,
                 IsLastProperty = IsLastProperty,
                 IsUnique = IsUnique,
-                RangeAttribute = Property.ToRangeAttributeCSharp(),
                 IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
                 IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
                 ClassName = this[ResourceRenderer.ClassName]

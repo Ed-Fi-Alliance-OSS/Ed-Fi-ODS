@@ -3239,10 +3239,10 @@
 							"name": "When_posting_a_resource_with_decimal_overflow",
 							"item": [
 								{
-									"name": "api_should_fail_with_500_code",
+									"name": "api_should_fail_with_400_code",
 									"item": [
 										{
-											"name": "api_should_fail_with_500_code",
+											"name": "api_should_fail_with_400_code",
 											"event": [
 												{
 													"listen": "test",
@@ -3252,9 +3252,9 @@
 															"    pm.expect(pm.response.code).to.equal(400);",
 															"});",
 															"",
-															"pm.test(\"Should return a message indicating that The request is invalid.\", () => {",
+															"pm.test(\"Should return a message indicating that The field YearsOfPriorProfessionalExperience must be between -999.99 and 999.99.\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.contains(\"The request is invalid.\");",
+															"    pm.expect(responseItem.message).to.contains(\"The field YearsOfPriorProfessionalExperience must be between -999.99 and 999.99\");",
 															"});",
 															"",
 															"",
@@ -3278,6 +3278,7 @@
 															"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
 															"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
 															"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+															"pm.environment.set('supplied:'+scenarioId+':yearsOfPriorProfessionalExperience', 1000);",
 															""
 														],
 														"type": "text/javascript"
@@ -3296,7 +3297,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"YearsOfPriorProfessionalExperience\":\"{{supplied:{{scenarioId}}:YearsOfPriorProfessionalExperience}}\"\r\n}\r\n"
+													"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\",\r\n  \"YearsOfPriorProfessionalExperience\":\"{{supplied:{{scenarioId}}:yearsOfPriorProfessionalExperience}}\"\r\n}\r\n"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
