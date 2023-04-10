@@ -34,7 +34,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
         IDbSet<OwnershipToken> OwnershipTokens { get; set; }
-
+        
         DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
 
         DbSet<ApiClientOdsInstance> ApiClientOdsInstances { get; set; }
