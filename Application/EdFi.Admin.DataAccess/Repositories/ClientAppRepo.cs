@@ -286,7 +286,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return context.Clients.FirstOrDefault(c => c.Key == key);
             }
         }
-
+        
         public ApiClient UpdateClient(ApiClient client)
         {
             using (var context = _contextFactory.CreateContext())
@@ -588,6 +588,33 @@ namespace EdFi.Admin.DataAccess.Repositories
                 context.SaveChanges();
 
                 return app;
+            }
+        }
+        
+        public OdsInstance CreateOdsInstance(OdsInstance odsInstance)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                context.OdsInstances.Add(odsInstance);
+                context.SaveChanges();
+                return odsInstance;
+            }
+        }
+
+        public void AddOdsInstanceToApiClient(int apiClientId, int odsInstanceId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var apiClient = context.Clients.Single(a => a.ApiClientId == apiClientId);
+                var odsInstance = context.OdsInstances.Single(o => o.OdsInstanceId == odsInstanceId);
+                var apiClientOdsInstance = new ApiClientOdsInstance()
+                {
+                    ApiClient = apiClient,
+                    OdsInstance = odsInstance
+                };
+
+                context.ApiClientOdsInstances.Add(apiClientOdsInstance);
+                context.SaveChanges();
             }
         }
 

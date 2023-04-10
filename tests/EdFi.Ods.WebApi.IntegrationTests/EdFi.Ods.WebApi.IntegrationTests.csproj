@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.56" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.67" />
     <PackageReference Include="NHibernate" Version="5.4.0" />
     <PackageReference Include="ApprovalTests" Version="5.8.0" />
     <PackageReference Include="ApprovalUtilities" Version="5.8.0" />

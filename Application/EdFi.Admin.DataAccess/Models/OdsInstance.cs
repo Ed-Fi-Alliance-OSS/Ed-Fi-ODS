@@ -54,6 +54,12 @@ namespace EdFi.Admin.DataAccess.Models
         [StringLength(20)]
         public string Version { get; set; }
 
+        /// <summary>
+        /// The connection string for the ODS database
+        /// </summary>
+        [Required]
+        public string ConnectionString { get; set; }
+        
         public virtual ICollection<OdsInstanceComponent> OdsInstanceComponents { get; set; }
     }
 }
