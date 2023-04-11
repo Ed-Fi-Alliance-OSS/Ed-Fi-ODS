@@ -164,7 +164,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     resourceChildItem.EmbeddedObjects.Select(
                         e => new
                         {
-                            IsRequired = false,
+                            IsRequired = e.Association.IsRequired,
                             Key = e.JsonPropertyName,
                             Schema = CreateEmbeddedObjectSchema(e, openApiMetadataResource)
                         })).ToList();
