@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler", "StandardVersions", "StandardTag")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler", "StandardVersions", "StandardTag", "TpdmTag")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -271,10 +271,27 @@ function StandardTag {
     if (-not $StandardVersion) {
         throw "StandardVersion is required."
     }
+    return RepositoryTag('Ed-Fi-Standard')
+}
+
+function TpdmTag {
+
+    if (-not $StandardVersion) {
+        throw "StandardVersion is required."
+    }
+    return RepositoryTag('Ed-Fi-TPDM-Artifacts')
+}
+
+function RepositoryTag {
+    param (
+        [string]
+        $Repository
+    )
+
     $standardProjectDirectory = Split-Path $Solution  -Resolve
     $versionMapPath = Join-Path $standardProjectDirectory "/versionmap.json"
-    $standardTag = (Get-Content $versionMapPath | ConvertFrom-Json).'Ed-Fi-Standard'.$StandardVersion
-    return $standardTag
+    $versionTag = (Get-Content $versionMapPath | ConvertFrom-Json).$Repository.$StandardVersion
+    return $versionTag
 }
 
 function Invoke-Build {
@@ -319,6 +336,10 @@ function Invoke-StandardTag {
      Invoke-Step { StandardTag }
 }
 
+function Invoke-TpdmTag {
+     Invoke-Step { TpdmTag }
+}
+
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
@@ -331,6 +352,7 @@ Invoke-Main {
         InstallCredentialHandler { Invoke-InstallCredentialHandler }
         StandardVersions { Invoke-StandardVersions }
         StandardTag { Invoke-StandardTag }
+        TpdmTag { Invoke-TpdmTag }
         default { throw "Command '$Command' is not recognized" }
     }
 }
