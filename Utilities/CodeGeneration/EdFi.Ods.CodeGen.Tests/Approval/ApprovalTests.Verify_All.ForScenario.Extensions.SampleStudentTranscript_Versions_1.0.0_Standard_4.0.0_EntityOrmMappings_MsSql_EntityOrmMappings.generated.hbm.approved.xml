@@ -1,4 +1,4 @@
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="4.0.0" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Extensions.SampleStudentTranscript" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
 
     <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.SampleStudentTranscript.PostSecondaryOrganizationReferenceData" table="PostSecondaryOrganization" lazy="true"  schema="samplestudenttranscript" >

@@ -9390,14 +9390,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// The maximum summary numerical rating or score for the evaluation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum summary numerical rating or score for the evaluation. If omitted, assumed to be 0.0.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -9721,14 +9721,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// The maximum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -10347,14 +10347,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// The maximum summary numerical rating or score for the evaluation element.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum summary numerical rating or score for the evaluation element. If omitted, assumed to be 0.0.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
 
         /// <summary>
@@ -10685,14 +10685,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// The maximum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -12940,14 +12940,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// The maximum summary numerical rating or score for the evaluation Objective.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum summary numerical rating or score for the evaluation Objective. If omitted, assumed to be 0.0.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
 
         /// <summary>
@@ -13278,14 +13278,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// The maximum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 
@@ -18056,7 +18056,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// The amount of financial aid awarded to a person for the term/year.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="aidAmount")][Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
+        [DataMember(Name="aidAmount")]
         public decimal? AidAmount { get; set; }
 
         /// <summary>
@@ -19750,14 +19750,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// The maximum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="maxRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="maxRating")]
         public decimal? MaxRating { get; set; }
 
         /// <summary>
         /// The minimum numerical rating or score to achieve the evaluation rating level.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="minRating")][Range(typeof(decimal), "-999.999", "999.999")]
+        [DataMember(Name="minRating")]
         public decimal? MinRating { get; set; }
         // -------------------------------------------------------------
 

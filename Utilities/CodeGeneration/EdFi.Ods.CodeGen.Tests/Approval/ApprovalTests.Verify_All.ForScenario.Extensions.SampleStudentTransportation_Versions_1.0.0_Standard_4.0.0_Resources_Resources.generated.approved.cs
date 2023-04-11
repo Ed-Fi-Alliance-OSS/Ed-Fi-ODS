@@ -366,7 +366,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// The estimated distance, in miles, the student lives from the school.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="estimatedMilesFromSchool")][Range(typeof(decimal), "-999.99", "999.99")]
+        [DataMember(Name="estimatedMilesFromSchool")]
         public decimal EstimatedMilesFromSchool { get; set; }
         // -------------------------------------------------------------
 

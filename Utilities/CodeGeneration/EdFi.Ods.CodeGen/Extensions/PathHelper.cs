@@ -12,6 +12,12 @@ namespace EdFi.Ods.CodeGen.Extensions
     {
         public static string GetProjectNameFromProjectPath(string projectPath)
         {
+            // Return Extension project name
+            if(projectPath.Contains("Versions"))
+            {
+                return projectPath.TrimEnd(Path.DirectorySeparatorChar)
+                    .Split(Path.DirectorySeparatorChar).First(x => x.Contains("Extensions."));
+            }
             //Split project path and obtain final segment. (Project Name) 
             //eg EdFi.Ods.Standard or EdFi.Ods.Extensions.TalentMgmt)
             return
