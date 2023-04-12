@@ -301,16 +301,35 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = context.Clients.First(x => x.Key == key);
+                var client = context.Clients.Include(x=>x.ClientAccessTokens).First(x => x.Key == key);
+
+                var apiClientOdsInstances = context.ApiClientOdsInstances.Include(x => x.ApiClient).Include(x => x.OdsInstance)
+                    .Where(x => x.ApiClient.ApiClientId == client.ApiClientId);
+
+                foreach (var clientAccessToken in client.ClientAccessTokens)
+                {
+                    context.ClientAccessTokens.Remove(clientAccessToken);
+                }
+
+                foreach (var apiClientOdsInstance in apiClientOdsInstances)
+                {
+
+                    context.ApiClientOdsInstances.Remove(apiClientOdsInstance);
+                    context.OdsInstances.Remove(apiClientOdsInstance.OdsInstance);
+                }
+
+                context.Clients.Remove(client);
+
+                context.SaveChanges();
 
                 // TODO SF: AA-518
                 // Assuming that this is used by Admin App, although that will not actually be clear
                 // until we are able to start testing Admin App thoroughly.
                 // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
                 // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
-                context.ExecuteSqlCommandAsync(
-                    @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0",
-                    client.ApiClientId).Wait();
+                //context.ExecuteSqlCommandAsync(
+                //    @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0;  delete from dbo.ApiClientOdsInstances where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0; delete from dbo.OdsInstances where OdsInstanceId not in (select OdsInstance_OdsInstanceId from dbo.ApiClientOdsInstances)",
+                //    client.ApiClientId).Wait();
             }
         }
 
