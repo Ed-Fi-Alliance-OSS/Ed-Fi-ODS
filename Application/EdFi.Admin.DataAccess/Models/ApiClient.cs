@@ -140,7 +140,7 @@ namespace EdFi.Admin.DataAccess.Models
         public virtual User User { get; set; }
 
         public ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
-        
+
         public List<ClientAccessToken> ClientAccessTokens { get; set; }
 
         /// <summary>

@@ -20,8 +20,7 @@ GO
 
 ALTER TABLE [dbo].[ApiClientOdsInstances]  WITH CHECK
     ADD  CONSTRAINT [FK_ApiClientOdsInstances_ApiClients_ApiClient_ApiClientId] FOREIGN KEY([ApiClient_ApiClientId])
-REFERENCES [dbo].[ApiClients] ([ApiClientId])
-ON DELETE CASCADE;
+REFERENCES [dbo].[ApiClients] ([ApiClientId]);
 GO
 
 ALTER TABLE [dbo].[ApiClientOdsInstances] CHECK CONSTRAINT [FK_ApiClientOdsInstances_ApiClients_ApiClient_ApiClientId];
@@ -29,8 +28,7 @@ GO
 
 ALTER TABLE [dbo].[ApiClientOdsInstances]  WITH CHECK
     ADD  CONSTRAINT [FK_ApiClientOdsInstances_OdsInstances_OdsInstance_OdsInstanceId] FOREIGN KEY([OdsInstance_OdsInstanceId])
-REFERENCES [dbo].[OdsInstances] ([OdsInstanceId])
-ON DELETE CASCADE;
+REFERENCES [dbo].[OdsInstances] ([OdsInstanceId]);
 GO
 
 ALTER TABLE [dbo].[ApiClientOdsInstances] CHECK CONSTRAINT [FK_ApiClientOdsInstances_OdsInstances_OdsInstance_OdsInstanceId];

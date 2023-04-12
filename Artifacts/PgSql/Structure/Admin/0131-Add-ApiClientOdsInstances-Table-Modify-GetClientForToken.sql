@@ -15,13 +15,11 @@ CREATE TABLE dbo.ApiClientOdsInstances
 
 ALTER TABLE dbo.ApiClientOdsInstances
     ADD  CONSTRAINT FK_ApiClientOdsInstances_ApiClients_ApiClient_ApiClientId FOREIGN KEY(ApiClient_ApiClientId)
-REFERENCES dbo.ApiClients (ApiClientId)
-ON DELETE CASCADE;
+REFERENCES dbo.ApiClients (ApiClientId);
 
 ALTER TABLE dbo.ApiClientOdsInstances
     ADD  CONSTRAINT FK_ApiClientOdsInstances_OdsInstances_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId)
-REFERENCES dbo.OdsInstances (OdsInstanceId)
-ON DELETE CASCADE;
+REFERENCES dbo.OdsInstances (OdsInstanceId);
 
 DROP FUNCTION IF EXISTS dbo.GetClientForToken;
 
