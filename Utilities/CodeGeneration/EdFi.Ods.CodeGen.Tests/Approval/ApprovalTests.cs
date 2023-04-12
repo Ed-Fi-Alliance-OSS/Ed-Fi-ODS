@@ -63,7 +63,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                     "--ExtensionVersion",
                     "1.1.0",
                     "--StandardVersion",
-                    "4.0.0"
+                    StandardVersion
                 });
         }
 
@@ -98,7 +98,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         /// </summary>
         /// <param name="approvalFileInfo"></param>
         [Test, TestCaseSource(nameof(_approvalFileInfos))]
-        public void Verify_All(ApprovalFileInfo approvalFileInfo)
+        public void Verify(ApprovalFileInfo approvalFileInfo)
         {
             Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
 
@@ -110,7 +110,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             // need to backup the file as the approval test deletes the original file
             File.Copy(approvalFileInfo.SourcePath, approvalFileInfo.SourcePath + ".bak", true);
 
-            using (ApprovalResults.ForScenario(approvalFileInfo.Scenario))
+            using (var _ = NamerFactory.AsEnvironmentSpecificTest($"{approvalFileInfo.Scenario}"))
             {
                 Approvals.VerifyFile(approvalFileInfo.SourcePath);
             }
@@ -158,7 +158,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                         string destFileName = Path.Combine(
                             _odsRepository
                             , "Utilities", "CodeGeneration", "EdFi.Ods.CodeGen.Tests", "Approval"
-                            , $"ApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
+                            , $"ApprovalTests.Verify.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
 
@@ -194,7 +194,9 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                     .Replace("_Application_", string.Empty)
                     .Replace("_Extensions_", string.Empty)
                     .Replace("_Database_", string.Empty)
+                    .Replace("_Versions_", ".")
                     .Replace("EdFi.Ods.", string.Empty)
+                    .Replace("_Standard_", "_Std_")
                     .Replace(Path.GetExtension(sourcePath), string.Empty)
                     .Trim('_');
 
