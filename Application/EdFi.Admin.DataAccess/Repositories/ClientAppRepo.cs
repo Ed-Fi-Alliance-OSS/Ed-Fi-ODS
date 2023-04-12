@@ -284,7 +284,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return context.Clients.FirstOrDefault(c => c.Key == key);
             }
         }
-        
+
         public ApiClient UpdateClient(ApiClient client)
         {
             using (var context = _contextFactory.CreateContext())
