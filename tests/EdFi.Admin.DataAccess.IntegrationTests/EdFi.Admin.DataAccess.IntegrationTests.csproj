@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Admin.DataAccess.IntegrationTests</Product>
     <Assembly>EdFi.Admin.DataAccess.IntegrationTests</Assembly>
@@ -21,7 +21,7 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="NUnit" Version="3.12.0" />
@@ -30,7 +30,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Shouldly" Version="3.0.2" />
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.22" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.23" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />

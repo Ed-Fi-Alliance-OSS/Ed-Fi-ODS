@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Tests.FakeExtension</AssemblyName>
     <RootNamespace>EdFi.Ods.Tests.FakeExtension</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId>EdFi.Ods.Standard</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Standard</AssemblyName>
     <RootNamespace>EdFi.Ods.Standard</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -14,9 +14,13 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <NoWarn>1701;1702;8073 </NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;8073 </NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
   </ItemGroup>
   <ItemGroup>

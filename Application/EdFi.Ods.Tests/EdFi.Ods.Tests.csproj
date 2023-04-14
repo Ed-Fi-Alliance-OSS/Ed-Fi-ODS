@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Tests</AssemblyName>
     <RootNamespace>EdFi.Ods.Tests</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -29,9 +29,9 @@
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
-    <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="log4net" Version="2.0.15" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="4.1.5" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Security.DataAccess.UnitTests</AssemblyName>
     <RootNamespace>EdFi.Security.DataAccess.UnitTests</RootNamespace>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>

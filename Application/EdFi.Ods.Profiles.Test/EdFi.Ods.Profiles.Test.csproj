@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyTitle>EdFi.Ods.Profiles.Test</AssemblyTitle>
     <Product>EdFi.Ods.Profiles.Test</Product>
     <RestorePackages>true</RestorePackages>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
+	<NoWarn>8073 </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -15,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
