@@ -77,7 +77,7 @@ jobs:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
-    name: build (Standard Version ${{ matrix.StandardVersion }}, Extension Version ${{ matrix.ExtensionVersion }})
+    name: build (${{ matrix.StandardVersion }}, ${{ matrix.ExtensionVersion }})
     steps:
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
