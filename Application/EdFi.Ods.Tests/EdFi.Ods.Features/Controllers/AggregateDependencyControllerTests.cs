@@ -148,7 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,
             bool isGraphRequest = false)
         {
-            var apiSettings = new ApiSettings { Mode = ApiMode.SharedInstance.Value };
+            var apiSettings = new ApiSettings();
             Feature item = new Feature();
             item.IsEnabled = true;
             item.Name = "aggregateDependencies";

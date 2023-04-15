@@ -10,8 +10,6 @@ namespace EdFi.Security.DataAccess.Repositories
 {
     public interface ISecurityRepository
     {
-        Action GetActionByHttpVerb(string httpVerb);
-
         Action GetActionByName(string actionName);
 
         AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName);

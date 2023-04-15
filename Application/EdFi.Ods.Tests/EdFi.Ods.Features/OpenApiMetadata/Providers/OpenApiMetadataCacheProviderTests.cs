@@ -52,14 +52,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
         protected static IOpenApiContentProvider[] TestOpenApiContentProviders = { new IdentityOpenApiContentProvider() };
 
-        private static IEnumerable<IOpenApiMetadataRouteInformation> GetTestRouteInformation(ApiSettings apiSettings)
+        private static IEnumerable<IOpenApiMetadataRouteInformation> GetTestRouteInformation()
         {
-            yield return new AllOpenApiMetadataRouteInformation(apiSettings);
-            yield return new CompositesOpenApiMetadataRouteInformation(apiSettings);
-            yield return new ResourceTypeOpenMetadataRouteInformation(apiSettings);
-            yield return new SchemaOpenApiMetadataRouteInformation(apiSettings);
-            yield return new ChangeQueriesOpenApiMetadataRouteInformation(apiSettings);
-            yield return new IdentityOpenApiMetadataRouteInformation(apiSettings);
+            yield return new AllOpenApiMetadataRouteInformation();
+            yield return new CompositesOpenApiMetadataRouteInformation();
+            yield return new ResourceTypeOpenMetadataRouteInformation();
+            yield return new SchemaOpenApiMetadataRouteInformation();
+            yield return new ChangeQueriesOpenApiMetadataRouteInformation();
+            yield return new IdentityOpenApiMetadataRouteInformation();
         }
 
         private static IConfiguration GetConfiguration()
@@ -75,7 +75,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         {
             return new ApiSettings
             {
-                Mode = "sandbox",
                 Features = new List<Feature>
                 {
                     new Feature
@@ -157,7 +156,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 openApiContentProviders.Add(extensionsOpenApiContentProvider);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openApiContentProviders, openApiMetadataDocumentFactory);
+                    ResourceModelProvider,
+                    GetTestRouteInformation().ToList(),
+                    openApiContentProviders,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -244,7 +246,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourceModel);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    resourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), TestOpenApiContentProviders, openApiMetadataDocumentFactory);
+                    resourceModelProvider,
+                    GetTestRouteInformation().ToList(),
+                    TestOpenApiContentProviders,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -317,7 +322,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourceModel);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    resourceModelProvider, GetTestRouteInformation(CreateApiSettings()).ToList(), TestOpenApiContentProviders, openApiMetadataDocumentFactory);
+                    resourceModelProvider,
+                    GetTestRouteInformation().ToList(),
+                    TestOpenApiContentProviders,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -406,7 +414,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourceModel);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    resourceModelProvider, GetTestRouteInformation(CreateApiSettings()).ToList(), TestOpenApiContentProviders, openApiMetadataDocumentFactory);
+                    resourceModelProvider,
+                    GetTestRouteInformation().ToList(),
+                    TestOpenApiContentProviders,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -506,7 +517,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 openapicontentproviderlist.Add(extensionsOpenApiContentProvider);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist, openApiMetadataDocumentFactory);
+                    ResourceModelProvider,
+                    GetTestRouteInformation().ToList(),
+                    openapicontentproviderlist,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -609,7 +623,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 openapicontentproviderlist.Add(extensionsOpenApiContentProvider);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist, openApiMetadataDocumentFactory);
+                    ResourceModelProvider,
+                    GetTestRouteInformation().ToList(),
+                    openapicontentproviderlist,
+                    openApiMetadataDocumentFactory);
             }
 
             protected override void Act()

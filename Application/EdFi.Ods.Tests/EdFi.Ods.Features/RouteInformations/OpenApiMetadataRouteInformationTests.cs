@@ -18,135 +18,48 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.RouteInformations
         public class When_Getting_the_route_information_for_all
         {
             [Test]
-            public void Should_return_the_correct_route_for_sandbox()
+            public void Should_return_the_correct_route()
             {
                 // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.Sandbox.Value};
 
                 // Act
-                var result = new AllOpenApiMetadataRouteInformation(apiSettings).GetRouteInformation();
+                var result = new AllOpenApiMetadataRouteInformation().GetRouteInformation();
 
                 // Assert
                 result.Name.ShouldBe(MetadataRouteConstants.All);
                 result.Template.ShouldBe("metadata/data/v3/swagger.json");
-            }
-
-            [Test]
-            public void Should_return_the_correct_route_for_shared_instance()
-            {
-                // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.SharedInstance.Value};
-
-                // Act
-                var result = new AllOpenApiMetadataRouteInformation(apiSettings).GetRouteInformation();
-
-                // Assert
-                result.Name.ShouldBe(MetadataRouteConstants.All);
-                result.Template.ShouldBe("metadata/data/v3/swagger.json");
-            }
-
-            [Test]
-            public void Should_return_the_correct_route_for_year_specific()
-            {
-                // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.YearSpecific.Value};
-
-                // Act
-                var result = new AllOpenApiMetadataRouteInformation(apiSettings).GetRouteInformation();
-
-                // Assert
-                result.Name.ShouldBe(MetadataRouteConstants.All);
-                result.Template.ShouldBe("metadata/data/v3/{schoolYearFromRoute:regex(^\\d{{4}}$)}/swagger.json");
             }
         }
 
         public class When_Getting_the_route_information_for_schema
         {
             [Test]
-            public void Should_return_the_correct_route_for_sandbox()
+            public void Should_return_the_correct_route()
             {
                 // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.Sandbox.Value};
 
                 // Act
-                var result = new SchemaOpenApiMetadataRouteInformation(apiSettings).GetRouteInformation();
+                var result = new SchemaOpenApiMetadataRouteInformation().GetRouteInformation();
 
                 // Assert
                 result.Name.ShouldBe(MetadataRouteConstants.Schema);
                 result.Template.ShouldBe("metadata/data/v3/{document}/swagger.json");
-            }
-
-            [Test]
-            public void Should_return_the_correct_route_for_shared_instance()
-            {
-                // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.SharedInstance.Value};
-
-                // Act
-                var result = new SchemaOpenApiMetadataRouteInformation(apiSettings).GetRouteInformation();
-
-                // Assert
-                result.Name.ShouldBe(MetadataRouteConstants.Schema);
-                result.Template.ShouldBe("metadata/data/v3/{document}/swagger.json");
-            }
-
-            [Test]
-            public void Should_return_the_correct_route_for_year_specific()
-            {
-                // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.YearSpecific.Value};
-
-                // Act
-                var result = new SchemaOpenApiMetadataRouteInformation(apiSettings).GetRouteInformation();
-
-                // Assert
-                result.Name.ShouldBe(MetadataRouteConstants.Schema);
-                result.Template.ShouldBe("metadata/data/v3/{schoolYearFromRoute:regex(^\\d{{4}}$)}/{document}/swagger.json");
             }
         }
 
         public class When_Getting_the_route_information_for_resource_type
         {
             [Test]
-            public void Should_return_the_correct_route_for_sandbox()
+            public void Should_return_the_correct_route()
             {
                 // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.Sandbox.Value};
 
                 // Act
-                var result = new ResourceTypeOpenMetadataRouteInformation(apiSettings).GetRouteInformation();
+                var result = new ResourceTypeOpenMetadataRouteInformation().GetRouteInformation();
 
                 // Assert
                 result.Name.ShouldBe(MetadataRouteConstants.ResourceTypes);
                 result.Template.ShouldBe("metadata/data/v3/{document}/swagger.json");
-            }
-
-            [Test]
-            public void Should_return_the_correct_route_for_shared_instance()
-            {
-                // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.SharedInstance.Value};
-
-                // Act
-                var result = new ResourceTypeOpenMetadataRouteInformation(apiSettings).GetRouteInformation();
-
-                // Assert
-                result.Name.ShouldBe(MetadataRouteConstants.ResourceTypes);
-                result.Template.ShouldBe("metadata/data/v3/{document}/swagger.json");
-            }
-
-            [Test]
-            public void Should_return_the_correct_route_for_year_specific()
-            {
-                // Arrange
-                var apiSettings = new ApiSettings {Mode = ApiMode.YearSpecific.Value};
-
-                // Act
-                var result = new ResourceTypeOpenMetadataRouteInformation(apiSettings).GetRouteInformation();
-
-                // Assert
-                result.Name.ShouldBe(MetadataRouteConstants.ResourceTypes);
-                result.Template.ShouldBe("metadata/data/v3/{schoolYearFromRoute:regex(^\\d{{4}}$)}/{document}/swagger.json");
             }
         }
     }
