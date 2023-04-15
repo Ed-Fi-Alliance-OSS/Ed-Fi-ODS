@@ -5,10 +5,12 @@
 
 using System.Collections.Generic;
 using System.Xml.Linq;
+using Autofac.Extras.DynamicProxy;
 using FluentValidation.Results;
 
 namespace EdFi.Ods.Common.Metadata.Profiles;
 
+[Intercept("cache-profile-metadata")]
 public interface IProfileMetadataProvider
 {
     /// <summary>

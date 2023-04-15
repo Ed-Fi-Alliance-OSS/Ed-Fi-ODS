@@ -4,10 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using Autofac.Extras.DynamicProxy;
 using EdFi.Security.DataAccess.Models;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
+    [Intercept("cache-security")]
     public interface ISecurityRepository
     {
         Action GetActionByName(string actionName);

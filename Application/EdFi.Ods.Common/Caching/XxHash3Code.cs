@@ -95,6 +95,34 @@ public static class XxHash3Code
             ArrayPool<byte>.Shared.Return(buffer);
         }
     }
+    
+    public static ulong Combine<T1, T2, T3, T4, T5>(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
+    {
+        var value1Bytes = value1.GetBytes();
+        var value2Bytes = value2.GetBytes();
+        var value3Bytes = value3.GetBytes();
+        var value4Bytes = value4.GetBytes();
+        var value5Bytes = value5.GetBytes();
+
+        int bufferLength = value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length + value5Bytes.Length;
+        
+        var buffer = ArrayPool<byte>.Shared.Rent(bufferLength);
+
+        try
+        {
+            value1Bytes.AsSpan().CopyTo(buffer);
+            value2Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length));
+            value3Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length));
+            value4Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length));
+            value5Bytes.AsSpan().CopyTo(buffer.AsSpan(value1Bytes.Length + value2Bytes.Length + value3Bytes.Length + value4Bytes.Length));
+
+            return xxHash3.ComputeHash(buffer, bufferLength);
+        }
+        finally
+        {
+            ArrayPool<byte>.Shared.Return(buffer);
+        }
+    }
 }
 
 internal static class BytesExtensions
@@ -105,12 +133,22 @@ internal static class BytesExtensions
         {
             return BitConverter.GetBytes(intValue);
         }
-            
+
         if (value is string stringValue)
         {
             return Encoding.UTF8.GetBytes(stringValue);
         }
 
-        throw new NotImplementedException($"Support for extracting bytes from type '{nameof(T)}' has not been implemented.");
+        if (value is ulong ulongValue)
+        {
+            return BitConverter.GetBytes(ulongValue);
+        }
+
+        if (value is byte[] bytesValue)
+        {
+            return bytesValue;
+        }
+        
+        throw new NotImplementedException($"Support for extracting bytes from type '{typeof(T)}' has not been implemented.");
     }
 }

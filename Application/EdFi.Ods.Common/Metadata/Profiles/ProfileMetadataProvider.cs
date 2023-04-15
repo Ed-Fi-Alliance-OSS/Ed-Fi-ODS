@@ -12,7 +12,6 @@ using log4net;
 
 namespace EdFi.Ods.Common.Metadata.Profiles
 {
-    [Intercept("cache-profile-metadata")]
     public class ProfileMetadataProvider : IProfileMetadataProvider
     {
         private readonly IProfileDefinitionsProvider[] _profileDefinitionsProviders;
