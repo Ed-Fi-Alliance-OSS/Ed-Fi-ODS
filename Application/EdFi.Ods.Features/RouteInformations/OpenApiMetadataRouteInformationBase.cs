@@ -3,49 +3,34 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 
-namespace EdFi.Ods.Features.RouteInformations {
+namespace EdFi.Ods.Features.RouteInformations
+{
     public abstract class OpenApiMetadataRouteInformationBase : IOpenApiMetadataRouteInformation
     {
-        private readonly ApiSettings _apiSettings;
         private readonly string _routeName;
         private readonly string _template;
 
-        public OpenApiMetadataRouteInformationBase(ApiSettings apiSettings, string routeName, string template)
+        public OpenApiMetadataRouteInformationBase(string routeName, string template)
         {
-            _apiSettings = apiSettings;
             _routeName = routeName;
             _template = template;
         }
 
         public RouteInformation GetRouteInformation()
-            => new RouteInformation
+            => new()
             {
                 Name = _routeName,
                 Template = $"{CreateRoute()}/swagger.json"
             };
 
-        string CreateRoute()
+        private string CreateRoute()
         {
             string prefix = $"metadata/{RouteConstants.DataManagementRoutePrefix}/";
-
-            if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-            {
-                prefix += RouteConstants.SchoolYearFromRoute;
-            }
-
-            if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-            {
-                prefix += RouteConstants.InstanceIdFromRoute;
-                prefix += RouteConstants.SchoolYearFromRoute;
-            }
 
             if (!string.IsNullOrEmpty(_template))
             {

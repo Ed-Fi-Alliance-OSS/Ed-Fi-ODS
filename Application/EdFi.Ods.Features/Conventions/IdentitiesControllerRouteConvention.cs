@@ -48,11 +48,6 @@ namespace EdFi.Ods.Features.Conventions
             {
                 string template = $"{IdentityManagementConstants.IdentityRoutePrefix}/";
 
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
                 return template;
             }
         }

@@ -68,9 +68,6 @@ namespace EdFi.Ods.Api.Controllers
 
         protected Lazy<PutPipeline<TResourceModel, TAggregateRoot>> PutPipeline;
 
-        //protected IRepository<TAggregateRoot> repository;
-        protected ISchoolYearContextProvider SchoolYearContextProvider;
-
         // ReSharper disable once StaticMemberInGenericType
         private static readonly AsyncRetryPolicy<PutResult> _retryPolicy;
 
@@ -96,14 +93,12 @@ namespace EdFi.Ods.Api.Controllers
 
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
-            ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             ApiSettings apiSettings,
             IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider)
         {
             //this.repository = repository;
-            SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
             _profileContentTypeContextProvider = profileContentTypeContextProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();

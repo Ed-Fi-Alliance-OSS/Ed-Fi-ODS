@@ -15,13 +15,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Conventions
 {
     public class DeletesRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public DeletesRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var controller =
@@ -46,17 +39,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Conventions
             string CreateRouteTemplate()
             {
                 string template = $"{RouteConstants.DataManagementRoutePrefix}/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template;
             }

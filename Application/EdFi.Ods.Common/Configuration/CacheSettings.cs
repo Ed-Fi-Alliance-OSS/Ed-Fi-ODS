@@ -15,6 +15,7 @@ namespace EdFi.Ods.Common.Configuration
         public ApiClientDetailsConfiguration ApiClientDetails { get; set; } = new ApiClientDetailsConfiguration();
         public SecurityCacheConfiguration Security { get; set; } = new SecurityCacheConfiguration();
         public ProfilesCacheConfiguration Profiles { get; set; } = new ProfilesCacheConfiguration();
+        public OdsInstancesCacheConfiguration OdsInstances { get; set; } = new OdsInstancesCacheConfiguration();
 
         public class DescriptorsCacheConfiguration
         {
@@ -58,6 +59,11 @@ namespace EdFi.Ods.Common.Configuration
         public class ProfilesCacheConfiguration
         {
             public int AbsoluteExpirationSeconds { get; set; } = 1800;
+        }
+
+        public class OdsInstancesCacheConfiguration
+        {
+            public int AbsoluteExpirationSeconds { get; set; } = 300;
         }
     }
 }

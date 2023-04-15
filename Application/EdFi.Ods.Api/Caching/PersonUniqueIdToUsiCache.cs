@@ -100,13 +100,6 @@ namespace EdFi.Ods.Api.Caching
         }
 
         /// <summary>
-        /// Gets or sets the optional dependency for when the cache is being used in the scope of an HttpContext and
-        /// specific context values (see <see cref="IHttpContextStorageTransferKeys"/>) must be transferred to CallContext for
-        /// a worker thread to perform background initialization of the cache.
-        /// </summary>
-        public IHttpContextStorageTransfer HttpContextStorageTransfer { get; set; }
-
-        /// <summary>
         /// Gets the externally defined UniqueId for the specified type of person and the ODS-specific surrogate identifier.
         /// </summary>
         /// <param name="personType">The type of the person (e.g. Staff, Student, Parent).</param>
@@ -277,12 +270,6 @@ namespace EdFi.Ods.Api.Caching
                         "Invalid person type '{0}'. Valid person types are: {1}",
                         personType,
                         "'" + string.Join("','", PersonEntitySpecification.ValidPersonTypes) + "'"));
-            }
-
-            // In web application scenarios, copy pertinent context from HttpContext to CallContext
-            if (HttpContextStorageTransfer != null)
-            {
-                HttpContextStorageTransfer.TransferContext();
             }
 
             var task = InitializePersonTypeValueMapsAsync(entry, personType, context);

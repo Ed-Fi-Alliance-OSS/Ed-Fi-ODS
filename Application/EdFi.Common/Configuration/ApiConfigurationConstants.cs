@@ -7,12 +7,6 @@ namespace EdFi.Common.Configuration
 {
     public static class ApiConfigurationConstants
     {
-        public const string Sandbox = "sandbox";
-        public const string YearSpecific = "yearspecific";
-        public const string InstanceYearSpecific = "instanceyearspecific";
-        public const string SharedInstance = "sharedinstance";
-        public const string DistrictSpecific = "districtspecific";
-
         public const string SqlServerProviderName = "System.Data.SqlClient";
         public const string PostgresProviderName = "Npgsql";
 

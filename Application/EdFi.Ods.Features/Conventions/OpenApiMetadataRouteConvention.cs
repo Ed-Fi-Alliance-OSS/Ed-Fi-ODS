@@ -5,8 +5,6 @@
 
 using System.Linq;
 using System.Reflection;
-using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -15,13 +13,6 @@ namespace EdFi.Ods.Features.Conventions
 {
     public class OpenApiMetadataRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public OpenApiMetadataRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var controller =
@@ -29,7 +20,7 @@ namespace EdFi.Ods.Features.Conventions
 
             if (controller != null)
             {
-                var routeSuffix = new AttributeRouteModel {Template = CreateRouteTemplate()};
+                var routeSuffix = new AttributeRouteModel { Template = CreateRouteTemplate() };
 
                 foreach (var selector in controller.Selectors)
                 {
@@ -45,17 +36,6 @@ namespace EdFi.Ods.Features.Conventions
             string CreateRouteTemplate()
             {
                 string template = string.Empty;
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template;
             }

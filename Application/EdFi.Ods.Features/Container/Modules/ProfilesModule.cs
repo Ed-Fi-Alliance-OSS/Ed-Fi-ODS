@@ -48,18 +48,17 @@ namespace EdFi.Ods.Features.Container.Modules
                     .SingleInstance();
 
             builder.RegisterType<CachingInterceptor>()
-                .WithParameter(ctx =>
+                .Named<IInterceptor>("cache-profile-metadata")
+                .WithParameter(
+                    ctx =>
                     {
                         var mediator = ctx.Resolve<IMediator>();
 
-                        return (ICacheProvider<ulong>)
-                            new ExpiringConcurrentDictionaryCacheProvider<ulong>(
-                                "Profile Metadata", 
-                                TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds), 
-                                () => mediator.Publish(new ProfileMetadataCacheExpired()));
-                    }
-                )
-                .Named<IInterceptor>("cache-profile-metadata");
+                        return (ICacheProvider<ulong>)new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            "Profile Metadata",
+                            TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
+                            () => mediator.Publish(new ProfileMetadataCacheExpired()));
+                    });
 
             builder.RegisterType<ProfileResourceNamesProvider>()
                 .AsImplementedInterfaces()

@@ -24,21 +24,15 @@ namespace EdFi.Ods.Features.XsdMetadata
     public class XsdMetadataController : ControllerBase
     {
         private readonly ApiSettings _apiSettings;
-        private readonly IInstanceIdContextProvider _instanceIdContextProvider;
         private readonly bool _isEnabled;
-        private readonly ISchoolYearContextProvider _schoolYearContextProvider;
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
 
         public XsdMetadataController(ApiSettings apiSettings,
-            IXsdFileInformationProvider xsdFileInformationProvider,
-            ISchoolYearContextProvider schoolYearContextProvider = null,
-            IInstanceIdContextProvider instanceIdContextProvider = null)
+            IXsdFileInformationProvider xsdFileInformationProvider)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
-            _schoolYearContextProvider = schoolYearContextProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
             _apiSettings = apiSettings;
-            _instanceIdContextProvider = instanceIdContextProvider;
         }
 
         [HttpGet]
@@ -54,7 +48,7 @@ namespace EdFi.Ods.Features.XsdMetadata
 
             if (!uriSegments.Any())
             {
-                return Ok(new Dictionary<string, object>[0]);
+                return Ok(Array.Empty<Dictionary<string, object>>());
             }
 
             return Ok(
@@ -108,20 +102,8 @@ namespace EdFi.Ods.Features.XsdMetadata
 
         private string GetMetadataAbsoluteUrl(string schemaFile, string uriSegment)
         {
-            bool isInstanceYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
-
-            bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
-                                  || isInstanceYearSpecific;
-
             string basicPath = Request.RootUrl(_apiSettings.GetReverseProxySettings()) 
-                                + "/metadata/" +
-                               (isInstanceYearSpecific
-                                   ? $"{_instanceIdContextProvider.GetInstanceId()}/"
-                                   : string.Empty) +
-                               (isYearSpecific
-                                   ? $"{_schoolYearContextProvider.GetSchoolYear()}/"
-                                   : string.Empty) +
-                               "xsd";
+                                + "/metadata/xsd";
 
             return $"{basicPath}/{uriSegment}/{schemaFile}";
         }

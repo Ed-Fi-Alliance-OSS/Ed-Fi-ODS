@@ -16,13 +16,6 @@ namespace EdFi.Ods.Features.Conventions
 {
     public class AvailableChangeVersionsRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public AvailableChangeVersionsRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var controller =
@@ -47,17 +40,6 @@ namespace EdFi.Ods.Features.Conventions
             string CreateRouteTemplate()
             {
                 string template = $"v{ChangeQueriesConstants.FeatureVersion}/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template + "availablechangeversions/";
             }

@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Configuration;
 
-namespace EdFi.Ods.Features.RouteInformations {
+namespace EdFi.Ods.Features.RouteInformations
+{
     public class SchemaOpenApiMetadataRouteInformation : OpenApiMetadataRouteInformationBase
     {
-        public SchemaOpenApiMetadataRouteInformation(ApiSettings apiSettings)
-            : base(apiSettings, MetadataRouteConstants.Schema, "{document}") { }
+        public SchemaOpenApiMetadataRouteInformation()
+            : base(MetadataRouteConstants.Schema, "{document}") { }
     }
 }

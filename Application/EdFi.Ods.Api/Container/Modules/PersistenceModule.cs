@@ -6,6 +6,7 @@
 using System;
 using Autofac;
 using Autofac.Core;
+using Autofac.Extras.DynamicProxy;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Ods.Api.Caching;
@@ -16,6 +17,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Providers;
@@ -25,6 +27,7 @@ using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
+using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -54,27 +57,31 @@ namespace EdFi.Ods.Api.Container.Modules
                 .AsSelf()
                 .SingleInstance();
 
-            builder.RegisterType<DescriptorsCache>()
-                .WithParameter(
-                ctx =>
-                {
-                    var apiSettings = ctx.Resolve<ApiSettings>(); 
-
-                    return (ICacheProvider<string>)
-                        new ExpiringConcurrentDictionaryCacheProvider<string>(
-                            "Descriptors", 
-                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
-                })
-                .WithParameter(new ResolvedParameter(
-                    (p, c) => p.Name.Equals("expirationPeriodSeconds", StringComparison.OrdinalIgnoreCase),
-                    (p, c) =>
-                    {
-                        var apiSettings = c.Resolve<ApiSettings>(); 
-                        return apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
-                    }))
-                .As<IDescriptorsCache>()
+            builder.RegisterType<DescriptorResolver>()
+                .As<IDescriptorResolver>()
                 .SingleInstance();
 
+            builder.RegisterType<DescriptorMapsProvider>()
+                .As<IDescriptorMapsProvider>()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<ContextualCachingInterceptor<OdsInstanceConfiguration>>()
+                .Named<IInterceptor>("cache-descriptors")
+                .WithParameter(
+                    ctx =>
+                    {
+                        var apiSettings = ctx.Resolve<ApiSettings>();
+            
+                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            "Descriptors",
+                            TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
+                    });
+
+            builder.RegisterType<DescriptorDetailsProvider>()
+                .As<IDescriptorDetailsProvider>()
+                .SingleInstance();
+            
             builder.Register(c => c.Resolve<ApiSettings>().GetDatabaseEngine())
                 .SingleInstance();
 
@@ -82,9 +89,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IDbConnectionStringBuilderAdapterFactory>()
                 .SingleInstance();
 
-            builder.RegisterType<PrototypeTokenReplacementConnectionStringProvider>()
-                .WithParameter(new NamedParameter("prototypeConnectionStringName", "EdFi_Ods"))
-                .WithParameter(new NamedParameter("readOnlyPrototypeConnectionStringName", "EdFi_Ods_ReadOnly"))
+            builder.RegisterType<OdsDatabaseConnectionStringProvider>()
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 

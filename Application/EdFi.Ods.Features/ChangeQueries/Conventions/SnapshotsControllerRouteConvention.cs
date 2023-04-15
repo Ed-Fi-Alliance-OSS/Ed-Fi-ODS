@@ -15,13 +15,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Conventions
 {
     public class SnapshotsControllerRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public SnapshotsControllerRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var controller =
@@ -45,17 +38,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Conventions
             string CreateRouteTemplate()
             {
                 string template = $"{ChangeQueriesConstants.RoutePrefix}/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template;
             }

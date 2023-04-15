@@ -5,22 +5,12 @@
 
 using System.Linq;
 using System.Reflection;
-using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Features.XsdMetadata
 {
     public class XsdMetadataRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public XsdMetadataRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var controller =
@@ -28,7 +18,7 @@ namespace EdFi.Ods.Features.XsdMetadata
 
             if (controller != null)
             {
-                var routePrefix = new AttributeRouteModel {Template = CreateRouteTemplate()};
+                var routePrefix = new AttributeRouteModel { Template = CreateRouteTemplate() };
 
                 foreach (var selector in controller.Selectors)
                 {
@@ -44,17 +34,6 @@ namespace EdFi.Ods.Features.XsdMetadata
             string CreateRouteTemplate()
             {
                 string template = $"metadata/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template;
             }
