@@ -3,7 +3,7 @@
             get
             {
                 if ({{IdFieldName}} == default({{CSharpDeclaredType}}))
-                    {{IdFieldName}} = {{#IsNullable}}string.IsNullOrWhiteSpace({{ValueFieldName}}) ? default({{CSharpDeclaredType}}) : {{/IsNullable}}DescriptorsCache.GetCache().GetId("{{LookupEntityName}}", {{ValueFieldName}});
+                    {{IdFieldName}} = {{#IsNullable}}string.IsNullOrWhiteSpace({{ValueFieldName}}) ? default({{CSharpDeclaredType}}) : {{/IsNullable}}GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("{{LookupEntityName}}", {{ValueFieldName}});
 
                 return {{IdFieldName}};
             } 
@@ -22,7 +22,7 @@
             get
             {
                 if ({{ValueFieldName}} == null)
-                    {{ValueFieldName}} = {{#IsNullable}}{{IdFieldName}} == null ? null : {{/IsNullable}}DescriptorsCache.GetCache().GetValue("{{LookupEntityName}}", {{IdFieldname}}{{#IsNullable}}.Value{{/IsNullable}});
+                    {{ValueFieldName}} = {{#IsNullable}}{{IdFieldName}} == null ? null : {{/IsNullable}}GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("{{LookupEntityName}}", {{IdFieldname}}{{#IsNullable}}.Value{{/IsNullable}});
                     
                 return {{ValueFieldName}};
             }
