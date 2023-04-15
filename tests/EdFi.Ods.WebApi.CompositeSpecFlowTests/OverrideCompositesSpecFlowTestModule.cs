@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
+    // TODO: Remove?
     public class OverrideCompositesSpecFlowTestModule : Module
     {
         protected override void Load(ContainerBuilder builder)

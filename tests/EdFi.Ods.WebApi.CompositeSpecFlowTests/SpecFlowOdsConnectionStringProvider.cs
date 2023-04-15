@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
+    // TODO: Remove?
     public class SpecFlowOdsConnectionStringProvider : IOdsDatabaseConnectionStringProvider
     {
         private readonly IConfiguration _configuration;
@@ -20,6 +21,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public string GetConnectionString()
             => _configuration.GetConnectionString("EdFi_Ods");
 
-        public string GetReadOnlyConnectionString() => GetConnectionString(); // No read-only connection support here
+        public string GetReadReplicaConnectionString() => GetConnectionString(); // No read-only connection support here
     }
 }

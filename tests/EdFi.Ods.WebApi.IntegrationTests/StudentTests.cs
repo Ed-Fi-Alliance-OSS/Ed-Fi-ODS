@@ -16,17 +16,17 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     [TestFixture]
-    public class SandboxStudentTests
+    public class StudentTests
     {
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
             _cancellationToken = GlobalWebApiIntegrationTestFixture.Instance.CancellationToken;
-            _uriHelper = new EdFiTestUriHelper(TestConstants.SandboxBaseUrl);
-            _httpClient = SandboxHostGlobalFixture.Instance.HttpClient;
+            _uriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
+            _httpClient = HostGlobalFixture.Instance.HttpClient;
         }
 
         private CancellationToken _cancellationToken;
@@ -34,7 +34,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
         private HttpClient _httpClient;
 
         [Test]
-        public async Task Should_update_the_sandbox_db()
+        public async Task Should_update_the_db()
         {
             string uniqueId1 = Guid.NewGuid().ToString("N");
             string uniqueId2 = Guid.NewGuid().ToString("N");
@@ -54,7 +54,15 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                     Encoding.UTF8,
                     "application/json"), _cancellationToken);
 
-            createResponse1.EnsureSuccessStatusCode();
+            try
+            {
+                createResponse1.EnsureSuccessStatusCode();
+            }
+            catch
+            {
+                Console.WriteLine(createResponse1.ToString());
+                throw;
+            }
 
             var createResponse2 = await _httpClient.PostAsync(
                 _uriHelper.BuildOdsUri("students", null),
@@ -68,7 +76,15 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                     Encoding.UTF8,
                     "application/json"), _cancellationToken);
 
-            createResponse2.EnsureSuccessStatusCode();
+            try
+            {
+                createResponse2.EnsureSuccessStatusCode();
+            }
+            catch
+            {
+                Console.WriteLine(createResponse2.ToString());
+                throw;
+            }
 
             int? exists1 = await StudentExistsAsync(uniqueId1);
             int? exists2 = await StudentExistsAsync(uniqueId2);
@@ -79,7 +95,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
 
         private async Task<int?> StudentExistsAsync(string uniqueId)
         {
-            using var conn = SandboxHostGlobalFixture.Instance.BuildOdsConnection();
+            using var conn = HostGlobalFixture.Instance.BuildOdsConnection();
             
             return await conn.QuerySingleOrDefaultAsync<int?>(
                 $"SELECT 1 FROM edfi.Student WHERE StudentUniqueId = '{uniqueId}'", _cancellationToken);

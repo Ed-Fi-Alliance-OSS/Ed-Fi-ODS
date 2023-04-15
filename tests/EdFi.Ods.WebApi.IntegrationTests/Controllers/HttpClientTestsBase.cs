@@ -19,7 +19,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
         public void Setup()
         {
             HttpClient = new HttpClient();
-            UriHelper = new EdFiTestUriHelper(TestConstants.SandboxBaseUrl);
+            UriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
         }
 
         [OneTimeTearDown]

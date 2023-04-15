@@ -21,7 +21,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
         [Test]
         public async Task VersionEndpointGetShouldBeValid()
         {
-            var response = await HttpClient.GetAsync(TestConstants.SandboxBaseUrl);
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl);
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -38,7 +38,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
             results["informationalVersion"].ShouldBe(ApiVersionConstants.Version);
             results["suite"].ShouldBe(ApiVersionConstants.Suite);
             results["build"].ShouldNotBeNull();
-            results["apiMode"].ShouldNotBeNull();
             results["dataModels"].ShouldNotBeNull();
             results["urls"].ShouldNotBeNull();
 

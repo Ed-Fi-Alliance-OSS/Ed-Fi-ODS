@@ -20,7 +20,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
         [Test]
         public async Task HealthCheckEndpointGetShouldBeValid()
         {
-            var response = await HttpClient.GetAsync(TestConstants.SandboxBaseUrl + "health/");
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + "health/");
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 

@@ -13,14 +13,14 @@ using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 using Test.Common;
 
-namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     [SetUpFixture]
-    public class SandboxHostGlobalFixture : OneTimeGlobalDatabaseSetupBase
+    public class HostGlobalFixture : OneTimeGlobalDatabaseSetupBase
     {
-        public static SandboxHostGlobalFixture Instance { get; private set; }
+        public static HostGlobalFixture Instance { get; private set; }
 
-        public SandboxHostGlobalFixture()
+        public HostGlobalFixture()
         {
             Instance = this;
         }
@@ -49,13 +49,13 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                     webBuilder =>
                     {
                         webBuilder.UseStartup<Startup>();
-                        webBuilder.UseUrls(TestConstants.SandboxBaseUrl);
+                        webBuilder.UseUrls(TestConstants.BaseUrl);
                     })
                 .Build();
 
             await Host.StartAsync(GlobalWebApiIntegrationTestFixture.Instance.CancellationToken);
 
-            HttpClient = new HttpClient {BaseAddress = new Uri(TestConstants.SandboxBaseUrl)};
+            HttpClient = new HttpClient {BaseAddress = new Uri(TestConstants.BaseUrl)};
         }
 
         [OneTimeTearDown]

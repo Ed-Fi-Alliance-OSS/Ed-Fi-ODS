@@ -20,7 +20,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
         [Test]
         public async Task MetadataEndpointGetShouldBeValid()
         {
-            var response = await HttpClient.GetAsync(TestConstants.SandboxBaseUrl + "metadata/");
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
