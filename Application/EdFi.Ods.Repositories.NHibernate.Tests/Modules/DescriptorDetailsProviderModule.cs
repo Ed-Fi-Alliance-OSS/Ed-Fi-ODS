@@ -4,17 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Database;
+using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Descriptors;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {
-    public class OdsConnectionStringProviderModule : Module
+    public class DescriptorDetailsProviderModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<OdsDatabaseConnectionStringProvider>()
-                .As<IOdsDatabaseConnectionStringProvider>()
-                .SingleInstance();
+            builder.RegisterType<DescriptorDetailsProvider>().As<IDescriptorDetailsProvider>().SingleInstance();
         }
     }
 }

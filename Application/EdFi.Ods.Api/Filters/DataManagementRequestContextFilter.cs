@@ -129,17 +129,6 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
     {
         string template = $"{RouteConstants.DataManagementRoutePrefix}/";
 
-        if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-        {
-            template += RouteConstants.SchoolYearFromRoute;
-        }
-
-        if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-        {
-            template += RouteConstants.InstanceIdFromRouteForFilter;
-            template += RouteConstants.SchoolYearFromRoute;
-        }
-
         return template;
     }
 }

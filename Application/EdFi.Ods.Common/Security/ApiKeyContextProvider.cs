@@ -10,6 +10,7 @@ namespace EdFi.Ods.Common.Security
     public class ApiKeyContextProvider : IApiKeyContextProvider
     {
         private const string ApiKeyContextKeyName = "ApiKeyContextProvider.ApiKeyContext";
+
         private readonly IContextStorage _contextStorage;
 
         public ApiKeyContextProvider(IContextStorage contextStorage)

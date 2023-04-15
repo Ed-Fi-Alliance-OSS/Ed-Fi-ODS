@@ -13,6 +13,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CallContextStorage>().As<IContextStorage>();
+            
+            builder.RegisterGeneric(typeof(ContextProvider<>))
+                .As(typeof(IContextProvider<>))
+                .SingleInstance();
         }
     }
 }

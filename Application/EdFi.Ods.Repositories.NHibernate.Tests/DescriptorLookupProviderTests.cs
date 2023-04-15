@@ -4,16 +4,19 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.DescriptorAggregate.EdFi;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -23,6 +26,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
     [TestFixture]
     public class DescriptorLookupProviderTests : BaseDatabaseTest
     {
+        private Descriptor[] _suppliedDescriptors;
+
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -62,6 +67,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 EffectiveBeginDate = DateTime.Now
             };
 
+            _suppliedDescriptors = new Descriptor[]
+            {
+                CountryTestDescriptor1,
+                CountryTestDescriptor2,
+                CountryTestDescriptor3,
+                AssessmentPeriodTestDescriptor1
+            };
+            
             using (var session = SessionFactory.OpenSession())
             {
                 session.Save(CountryTestDescriptor1);
@@ -127,9 +140,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             A.CallTo(() => domainModelProvider.GetDomainModel())
                 .Returns(domainModel);
 
-            DescriptorLookupProvider = new DescriptorLookupProvider(
+            DescriptorDetailsProvider = new DescriptorDetailsProvider(
                 SessionFactory, 
-                new EdFiDescriptorReflectionProvider(domainModelProvider),
+                domainModelProvider,
                 new HashtableContextStorage());
 
             AssociationDefinition CreateDescriptorInheritanceAssociation(string descriptorName)
@@ -156,14 +169,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
         private AssessmentPeriodDescriptor AssessmentPeriodTestDescriptor1 { get; set; }
 
-        private IDescriptorLookupProvider DescriptorLookupProvider { get; set; }
+        private IDescriptorDetailsProvider DescriptorDetailsProvider { get; set; }
 
         [Test]
         public void When_getting_invalid_descriptor_name_by_id_should_throw_argument_exception()
         {
             Assert.Throws<ArgumentException>(
                 () =>
-                    DescriptorLookupProvider.GetSingleDescriptorLookupById(
+                    DescriptorDetailsProvider.GetDescriptorDetails(
                         "Invalid",
                         CountryTestDescriptor1.CountryDescriptorId));
         }
@@ -171,15 +184,15 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [Test]
         public void When_getting_valid_descriptor_by_id_should_return_lookup_data()
         {
-            var testLookup = DescriptorLookupProvider.GetSingleDescriptorLookupById(
+            var testLookup = DescriptorDetailsProvider.GetDescriptorDetails(
                 CountryDescriptorName,
                 CountryTestDescriptor1.CountryDescriptorId);
 
             testLookup.ShouldNotBeNull();
-            testLookup.Id.ShouldBe(CountryTestDescriptor1.CountryDescriptorId);
+            testLookup.DescriptorId.ShouldBe(CountryTestDescriptor1.CountryDescriptorId);
 
-            testLookup.DescriptorValue.ShouldBe(
-                EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
+            testLookup.Uri.ShouldBe(
+                DescriptorHelper.GetUri(
                     CountryTestDescriptor1.Namespace,
                     CountryTestDescriptor1.CodeValue));
         }
@@ -187,87 +200,32 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [Test]
         public void When_getting_invalid_descriptor_by_id_should_return_null()
         {
-            var testLookup = DescriptorLookupProvider.GetSingleDescriptorLookupById(CountryDescriptorName, 999999999);
+            var testLookup = DescriptorDetailsProvider.GetDescriptorDetails(CountryDescriptorName, 999999999);
             testLookup.ShouldBeNull();
         }
 
         [Test]
-        public void When_getting_all_descriptor_lookups_by_descriptor_name_should_only_return_descriptors_for_that_name()
-        {
-            var descriptorsLookup = DescriptorLookupProvider.GetDescriptorLookupsByDescriptorName(AssessmentPeriodDescriptorName);
-
-            descriptorsLookup.All(dl => dl.DescriptorName == AssessmentPeriodDescriptorName)
-                .ShouldBeTrue();
-        }
-
-        [Test]
-        public void When_getting_all_descriptor_lookups_by_invalid_descriptor_name_should_throw_argument_exception()
+        public void When_getting_descriptor_details_by_invalid_descriptor_name_should_throw_argument_exception()
         {
             Assert.Throws<ArgumentException>(
                 () =>
-                    DescriptorLookupProvider.GetDescriptorLookupsByDescriptorName("Invalid"));
+                    DescriptorDetailsProvider.GetDescriptorDetails("Invalid", 99));
         }
 
         [Test]
-        public void When_getting_all_descriptor_lookups_should_return_all_entries()
+        public void When_getting_all_descriptor_details_should_return_all_entries()
         {
-            var descriptorsLookup = DescriptorLookupProvider.GetAllDescriptorLookups();
+            var allDescriptorDetails = DescriptorDetailsProvider.GetAllDescriptorDetails();
 
-            var testLookup1 =
-                descriptorsLookup.Values.SelectMany(tlv => tlv)
-                    .SingleOrDefault(
-                        dl => dl.DescriptorName == CountryDescriptorName && dl.Id == CountryTestDescriptor1.CountryDescriptorId);
+            var expectedDescriptorDetails = _suppliedDescriptors.Select(
+                d => new DescriptorDetails
+                {
+                    DescriptorId = d.DescriptorId,
+                    CodeValue = d.CodeValue,
+                    Namespace = d.Namespace
+                });
 
-            testLookup1.ShouldNotBeNull();
-            testLookup1.Id.ShouldBe(CountryTestDescriptor1.CountryDescriptorId);
-
-            testLookup1.DescriptorValue.ShouldBe(
-                EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
-                    CountryTestDescriptor1.Namespace,
-                    CountryTestDescriptor1.CodeValue));
-
-            var testLookup2 =
-                descriptorsLookup.Values.SelectMany(tlv => tlv)
-                    .SingleOrDefault(
-                        dl => dl.DescriptorName == CountryDescriptorName && dl.Id == CountryTestDescriptor2.CountryDescriptorId);
-
-            testLookup2.ShouldNotBeNull();
-            testLookup2.Id.ShouldBe(CountryTestDescriptor2.CountryDescriptorId);
-
-            testLookup2.DescriptorValue.ShouldBe(
-                EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
-                    CountryTestDescriptor2.Namespace,
-                    CountryTestDescriptor2.CodeValue));
-
-            var testLookup3 =
-                descriptorsLookup.Values.SelectMany(tlv => tlv)
-                    .SingleOrDefault(
-                        dl =>
-                            dl.DescriptorName == CountryDescriptorName &&
-                            dl.Id == CountryTestDescriptor3.CountryDescriptorId);
-
-            testLookup3.ShouldNotBeNull();
-            testLookup3.Id.ShouldBe(CountryTestDescriptor3.CountryDescriptorId);
-
-            testLookup3.DescriptorValue.ShouldBe(
-                EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
-                    CountryTestDescriptor3.Namespace,
-                    CountryTestDescriptor3.CodeValue));
-
-            var testLookup4 =
-                descriptorsLookup.Values.SelectMany(tlv => tlv)
-                    .SingleOrDefault(
-                        dl =>
-                            dl.DescriptorName == AssessmentPeriodDescriptorName &&
-                            dl.Id == AssessmentPeriodTestDescriptor1.AssessmentPeriodDescriptorId);
-
-            testLookup4.ShouldNotBeNull();
-            testLookup4.Id.ShouldBe(AssessmentPeriodTestDescriptor1.AssessmentPeriodDescriptorId);
-
-            testLookup4.DescriptorValue.ShouldBe(
-                EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
-                    AssessmentPeriodTestDescriptor1.Namespace,
-                    AssessmentPeriodTestDescriptor1.CodeValue));
+            expectedDescriptorDetails.ShouldBeSubsetOf(allDescriptorDetails);
         }
     }
 }
