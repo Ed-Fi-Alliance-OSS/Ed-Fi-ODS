@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.Caching
 {
     public class PersonUniqueIdToUsiCache : IPersonUniqueIdToUsiCache
     {
-        private const string CacheKeyPrefix = "IdentityValueMaps_";
+        public const string CacheKeyPrefix = "IdentityValueMaps_";
 
         /// <summary>
         /// Gets or sets a static delegate to obtain the cache.
@@ -401,16 +401,6 @@ namespace EdFi.Ods.Api.Caching
                 GetUniqueIdByUsiMap(personType, context)
                    .AddOrUpdate(valueMap.Usi, uniqueId, (x, y) => uniqueId);
             }
-
-            //NOTE: This code is here for future use.
-            //// Handle opportunistic cache value assignment of alternate value
-            //if (valueMap.Id != default(Guid))
-            //{
-            //    var extraEntyKey = string.Format("{0}{1}_id_by_uniqueid_{2}", CacheKeyPrefix, personTypeName, uniqueId);
-
-            //    if (!_cacheProvider.TryGetCachedObject(extraEntyKey, out obj))
-            //        _cacheProvider.Insert(extraEntyKey, valueMap.Id, DateTime.MaxValue, _cacheItemPolicy.SlidingExpiration);
-            //}
 
             return valueMap.Usi;
         }

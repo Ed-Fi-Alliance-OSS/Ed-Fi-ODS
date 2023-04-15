@@ -10,7 +10,9 @@ namespace EdFi.Ods.Api.Authentication;
 /// </summary>
 public class ApiClientDetailsCacheKeyProvider : IApiClientDetailsCacheKeyProvider
 {
-    private const string CacheKeyFormat = "ApiClientDetails.{0}";
+    public const string CacheKeyPrefix = "ApiClientDetails.";
+    
+    private const string CacheKeyFormat = $"{CacheKeyPrefix}{{0}}";
 
     /// <inheritdoc cref="IApiClientDetailsCacheKeyProvider.GetCacheKey" />
     public string GetCacheKey(string token)
