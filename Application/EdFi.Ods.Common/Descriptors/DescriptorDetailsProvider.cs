@@ -17,6 +17,9 @@ using NHibernate.Transform;
 
 namespace EdFi.Ods.Common.Descriptors;
 
+/// <summary>
+/// Loads descriptor details using NHibernate queries against the ODS.
+/// </summary>
 public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 {
     private readonly IContextStorage _contextStorage;
@@ -42,7 +45,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
                     e => e.EntityTypeFullName(e.SchemaProperCaseName())));
     }
 
-    // public IDictionary<string, IList<DescriptorDetails>> GetAllDescriptorDetails()
+    /// <inheritdoc cref="IDescriptorDetailsProvider.GetAllDescriptorDetails" />
     public IList<DescriptorDetails> GetAllDescriptorDetails()
     {
         try
@@ -53,18 +56,12 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
             {
                 var queries = GetQueries(session).ToList();
 
-                var results = queries.SelectMany(x => x.futureQuery.ToList()).ToList();
+                var results = queries.SelectMany(x => x.ToList()).ToList();
 
                 return results;
-
-                //     {
-                //         DescriptorName = queryTuple.descriptorName,
-                //         Data = queryTuple.futureQuery.ToList().ToList() as IList<DescriptorDetails>
-                //     })
-                // .ToDictionary(x => x.DescriptorName, x => x.Data);
             }
 
-            IEnumerable<(string descriptorName, IEnumerable<DescriptorDetails> futureQuery)> GetQueries(ISession session)
+            IEnumerable<IEnumerable<DescriptorDetails>> GetQueries(ISession session)
             {
                 foreach (string descriptorName in _descriptorTypeNameByEntityName.Value.Keys)
                 {
@@ -72,7 +69,7 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
                         GetDescriptorCriteria(descriptorName, session)
                         .Future<DescriptorDetails>();
 
-                    yield return (descriptorName, query);
+                    yield return query;
                 }
             }
         }
@@ -88,13 +85,15 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
         }
     }
 
-    public DescriptorDetails GetDescriptorDetails(string descriptorName, int id)
+    /// <inheritdoc cref="IDescriptorDetailsProvider.GetDescriptorDetails(string,int)" />
+    public DescriptorDetails GetDescriptorDetails(string descriptorName, int descriptorId)
     {
         using var session = _sessionFactory.OpenSession();
         
-        return GetDescriptorCriteria(descriptorName, session, id).UniqueResult<DescriptorDetails>();
+        return GetDescriptorCriteria(descriptorName, session, descriptorId).UniqueResult<DescriptorDetails>();
     }
 
+    /// <inheritdoc cref="IDescriptorDetailsProvider.GetDescriptorDetails(string,string)" />
     public DescriptorDetails GetDescriptorDetails(string descriptorName, string uri)
     {
         using var session = _sessionFactory.OpenSession();

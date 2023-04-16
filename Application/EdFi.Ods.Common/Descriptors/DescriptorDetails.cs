@@ -64,11 +64,7 @@ public class DescriptorDetails : IEquatable<DescriptorDetails>
     {
         unchecked
         {
-            return ((_uri != null
-                        ? _uri.GetHashCode()
-                        : 0)
-                    * 397)
-                ^ DescriptorId;
+            return ((_uri != null ? _uri.GetHashCode() : 0) * 397) ^ DescriptorId;
         }
     }
 

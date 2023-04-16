@@ -7,8 +7,15 @@ using Autofac.Extras.DynamicProxy;
 
 namespace EdFi.Ods.Common.Descriptors;
 
+/// <summary>
+/// Defines a method for getting the dictionaries that map descriptors to and from DescriptorId and Uri values.
+/// </summary>
 [Intercept("cache-descriptors")]
 public interface IDescriptorMapsProvider
 {
+    /// <summary>
+    /// Gets the dictionaries that map descriptors to and from DescriptorId and Uri values.
+    /// </summary>
+    /// <returns>The object containing the descriptor maps.</returns>
     DescriptorMaps GetMaps();
 }

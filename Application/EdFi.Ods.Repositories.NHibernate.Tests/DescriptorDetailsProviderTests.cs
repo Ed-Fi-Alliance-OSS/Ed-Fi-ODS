@@ -24,7 +24,7 @@ using Shouldly;
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
     [TestFixture]
-    public class DescriptorLookupProviderTests : BaseDatabaseTest
+    public class DescriptorDetailsProviderTests : BaseDatabaseTest
     {
         private Descriptor[] _suppliedDescriptors;
 
@@ -187,6 +187,22 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             var testLookup = DescriptorDetailsProvider.GetDescriptorDetails(
                 CountryDescriptorName,
                 CountryTestDescriptor1.CountryDescriptorId);
+
+            testLookup.ShouldNotBeNull();
+            testLookup.DescriptorId.ShouldBe(CountryTestDescriptor1.CountryDescriptorId);
+
+            testLookup.Uri.ShouldBe(
+                DescriptorHelper.GetUri(
+                    CountryTestDescriptor1.Namespace,
+                    CountryTestDescriptor1.CodeValue));
+        }
+        
+        [Test]
+        public void When_getting_valid_descriptor_by_uri_should_return_lookup_data()
+        {
+            var testLookup = DescriptorDetailsProvider.GetDescriptorDetails(
+                CountryDescriptorName,
+                DescriptorHelper.GetUri(CountryTestDescriptor1.Namespace, CountryTestDescriptor1.CodeValue));
 
             testLookup.ShouldNotBeNull();
             testLookup.DescriptorId.ShouldBe(CountryTestDescriptor1.CountryDescriptorId);
