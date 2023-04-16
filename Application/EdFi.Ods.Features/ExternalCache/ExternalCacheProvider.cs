@@ -51,6 +51,22 @@ namespace EdFi.Ods.Features.ExternalCache
 
                 if (!string.IsNullOrEmpty(cachedValue))
                 {
+                    // NOTE: This code doesn't follow SOLID principles. If this logic ever needs to change again, should introduce
+                    // an interface (e.g. IDistributeCacheDeserializationHandler) with a method signature as follows:
+                    //    bool TryHandle(string key, string cachedValue, out object deserializedValue)
+                    // Implementations should return true if it handled the deserialization.
+                    //
+                    // Inject an array of handlers into the constructor and iterate through them and if deserialization is not
+                    // handled, then just deserialize using JsonConvert.DeserializeObject method as is done at the end of the
+                    // Deserialize method below.
+                    //
+                    // Suggested handler implementations: 
+                    //   - PersonIdentityValueMapDistributeCacheDeserializationHandler
+                    //   - ApiClientDetailsDistributeCacheDeserializationHandler
+                    //   - GuidDistributeCacheDeserializationHandler
+                    //   - IntDistributeCacheDeserializationHandler
+                    //
+                    // A similar approach is recommended for serialization, though implementations are only needed for int/guid.
                     if (keyAsString.StartsWith(PersonUniqueIdToUsiCache.CacheKeyPrefix))
                     {
                         var identityValueMaps = JsonConvert.DeserializeObject<PersonUniqueIdToUsiCache.IdentityValueMaps>(cachedValue); 
@@ -64,7 +80,6 @@ namespace EdFi.Ods.Features.ExternalCache
                         {
                             value = identityValueMaps;
                         }
-
                     }
                     else if (keyAsString.StartsWith(ApiClientDetailsCacheKeyProvider.CacheKeyPrefix))
                     {
