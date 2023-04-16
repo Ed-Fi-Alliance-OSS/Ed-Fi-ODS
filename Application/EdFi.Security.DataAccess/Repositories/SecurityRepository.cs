@@ -6,12 +6,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac.Extras.DynamicProxy;
 using EdFi.Security.DataAccess.Models;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
+    /// <summary>
+    /// Provides higher level access to raw security metadata.
+    /// </summary>
     public class SecurityRepository : ISecurityRepository
     {
         private readonly ISecurityTableGateway _securityTableGateway;
@@ -123,7 +125,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 .FirstOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.OrdinalIgnoreCase));
 
             // if there's a parent resource, recurse
-            if (resourceClaim != null && resourceClaim.ParentResourceClaim != null)
+            if (resourceClaim is { ParentResourceClaim: not null })
             {
                 AddStrategiesForResourceClaimLineage(strategies, resourceClaim.ParentResourceClaim.ClaimName, action);
             }
