@@ -423,7 +423,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new DomainModelModule());
                 builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
                 builder.RegisterModule(new PostgresSpecificModule(apiSettings));
-                builder.RegisterModule(new DescriptorDetailsProviderModule());
+                builder.RegisterModule(new DescriptorsModule());
 
                 builder.RegisterType<AuthorizationContextProvider>()
                     .As<IAuthorizationContextProvider>()
