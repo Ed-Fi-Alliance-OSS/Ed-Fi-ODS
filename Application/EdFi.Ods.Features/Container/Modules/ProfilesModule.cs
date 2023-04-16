@@ -58,7 +58,8 @@ namespace EdFi.Ods.Features.Container.Modules
                             "Profile Metadata",
                             TimeSpan.FromSeconds(ApiSettings.Caching.Profiles.AbsoluteExpirationSeconds),
                             () => mediator.Publish(new ProfileMetadataCacheExpired()));
-                    });
+                    })
+                .SingleInstance();
 
             builder.RegisterType<ProfileResourceNamesProvider>()
                 .AsImplementedInterfaces()

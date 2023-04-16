@@ -25,6 +25,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
+            builder.RegisterType<SecurityTableGateway>()
+                .As<ISecurityTableGateway>()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
             builder.RegisterType<CachingInterceptor>()
                 .Named<IInterceptor>("cache-security")
                 .WithParameter(
@@ -35,10 +40,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                             "Security",
                             TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes));
-                    });
-            
-            builder.RegisterType<SecurityTableGateway>()
-                .As<ISecurityTableGateway>()
+                    })
                 .SingleInstance();
         }
     }

@@ -76,7 +76,8 @@ namespace EdFi.Ods.Api.Container.Modules
                         return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                             "Descriptors",
                             TimeSpan.FromSeconds(apiSettings.Caching.Descriptors.AbsoluteExpirationSeconds));
-                    });
+                    })
+                .SingleInstance();
 
             builder.RegisterType<DescriptorDetailsProvider>()
                 .As<IDescriptorDetailsProvider>()

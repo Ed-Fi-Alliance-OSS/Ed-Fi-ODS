@@ -104,7 +104,8 @@ namespace EdFi.Ods.Features.ExternalCache
                             ctx.Resolve<IDistributedCache>(),
                             TimeSpan.Zero,
                             TimeSpan.FromSeconds(absoluteExpirationSeconds));
-                    });
+                    })
+                .SingleInstance();
         }
 
         public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
