@@ -32,9 +32,12 @@ public class ContextualCachingInterceptor<TContext> : CachingInterceptor
 
             case 2:
                 return XxHash3Code.Combine(_contextProvider.Get().HashBytes, method.DeclaringType.FullName, method.Name, arguments[0], arguments[1]);
+
+            case 3:
+                return XxHash3Code.Combine(_contextProvider.Get().HashBytes, method.DeclaringType.FullName, method.Name, arguments[0], arguments[1], arguments[2]);
         }
 
         throw new NotImplementedException(
-            "Support for generating contextual cache keys with more than 2 arguments has not been implemented.");
+            "Support for generating contextual cache keys with more than 3 arguments has not been implemented.");
     }
 }
