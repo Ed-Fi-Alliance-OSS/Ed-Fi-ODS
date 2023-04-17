@@ -8,20 +8,18 @@ ALTER TABLE dbo.OdsInstances
 
 CREATE TABLE dbo.ApiClientOdsInstances
 (
+    ApiClientOdsInstanceId SERIAL PRIMARY KEY NOT NULL,
     ApiClient_ApiClientId INT NOT NULL,
-    OdsInstance_OdsInstanceId INT NOT NULL,
-    PRIMARY KEY(ApiClient_ApiClientId, OdsInstance_OdsInstanceId)
+    OdsInstance_OdsInstanceId INT NOT NULL
 );
 
 ALTER TABLE dbo.ApiClientOdsInstances
-    ADD CONSTRAINT FK_ApiClientOdsInstances_ApiClient FOREIGN KEY (ApiClient_ApiClientId) 
-    REFERENCES dbo.ApiClients(ApiClientId)
-    ON DELETE CASCADE;
+    ADD  CONSTRAINT FK_ApiClientOdsInstances_ApiClients_ApiClient_ApiClientId FOREIGN KEY(ApiClient_ApiClientId)
+REFERENCES dbo.ApiClients (ApiClientId);
 
 ALTER TABLE dbo.ApiClientOdsInstances
-    ADD CONSTRAINT FK_ApiClientOdsInstances_OdsInstance FOREIGN KEY (OdsInstance_OdsInstanceId) 
-    REFERENCES dbo.OdsInstances(OdsInstanceId)
-    ON DELETE CASCADE;
+    ADD  CONSTRAINT FK_ApiClientOdsInstances_OdsInstances_OdsInstance_OdsInstanceId FOREIGN KEY(OdsInstance_OdsInstanceId)
+REFERENCES dbo.OdsInstances (OdsInstanceId);
 
 DROP FUNCTION IF EXISTS dbo.GetClientForToken;
 

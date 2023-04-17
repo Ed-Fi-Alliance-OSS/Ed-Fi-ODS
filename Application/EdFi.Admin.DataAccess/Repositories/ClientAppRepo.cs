@@ -250,7 +250,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return context.Clients.Include(c => c.Application)
                     .Include(c => c.Application.Vendor)
                     .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
-                    .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipTokenId)
                     .FirstOrDefault(c => c.Key == key);
@@ -264,7 +263,6 @@ namespace EdFi.Admin.DataAccess.Repositories
                 return await context.Clients.Include(c => c.Application)
                     .Include(c => c.Application.Vendor)
                     .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
-                    .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
                     .Include(c => c.CreatorOwnershipTokenId)
                     .FirstOrDefaultAsync(c => c.Key == key);
@@ -301,16 +299,25 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = context.Clients.First(x => x.Key == key);
+                var client = context.Clients.Include(x=>x.ClientAccessTokens).First(x => x.Key == key);
 
-                // TODO SF: AA-518
-                // Assuming that this is used by Admin App, although that will not actually be clear
-                // until we are able to start testing Admin App thoroughly.
-                // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
-                // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
-                context.ExecuteSqlCommandAsync(
-                    @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0",
-                    client.ApiClientId).Wait();
+                var apiClientOdsInstances = context.ApiClientOdsInstances.Include(x => x.ApiClient).Include(x => x.OdsInstance)
+                    .Where(x => x.ApiClient.ApiClientId == client.ApiClientId);
+
+                foreach (var clientAccessToken in client.ClientAccessTokens)
+                {
+                    context.ClientAccessTokens.Remove(clientAccessToken);
+                }
+
+                foreach (var apiClientOdsInstance in apiClientOdsInstances)
+                {
+                    context.OdsInstances.Remove(apiClientOdsInstance.OdsInstance);
+                    context.ApiClientOdsInstances.Remove(apiClientOdsInstance);
+                }
+
+                context.Clients.Remove(client);
+
+                context.SaveChanges();
             }
         }
 
@@ -588,6 +595,33 @@ namespace EdFi.Admin.DataAccess.Repositories
                 context.SaveChanges();
 
                 return app;
+            }
+        }
+        
+        public OdsInstance CreateOdsInstance(OdsInstance odsInstance)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                context.OdsInstances.Add(odsInstance);
+                context.SaveChanges();
+                return odsInstance;
+            }
+        }
+
+        public void AddOdsInstanceToApiClient(int apiClientId, int odsInstanceId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var apiClient = context.Clients.Single(a => a.ApiClientId == apiClientId);
+                var odsInstance = context.OdsInstances.Single(o => o.OdsInstanceId == odsInstanceId);
+                var apiClientOdsInstance = new ApiClientOdsInstance()
+                {
+                    ApiClient = apiClient,
+                    OdsInstance = odsInstance
+                };
+
+                context.ApiClientOdsInstances.Add(apiClientOdsInstance);
+                context.SaveChanges();
             }
         }
 

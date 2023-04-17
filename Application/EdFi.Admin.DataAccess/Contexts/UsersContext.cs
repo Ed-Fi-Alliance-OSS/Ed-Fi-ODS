@@ -60,6 +60,8 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
 
+        public DbSet<ApiClientOdsInstance> ApiClientOdsInstances { get; set; }
+
         public IDbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

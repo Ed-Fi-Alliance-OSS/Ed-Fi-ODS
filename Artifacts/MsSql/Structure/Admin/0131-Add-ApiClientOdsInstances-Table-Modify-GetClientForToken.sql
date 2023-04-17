@@ -11,17 +11,27 @@ GO
 ALTER TABLE [dbo].[OdsInstances]
     ADD [ConnectionString] NVARCHAR(MAX);
 
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'dbo.ApiClientOdsInstances') AND type in (N'U'))
-BEGIN
 CREATE TABLE [dbo].[ApiClientOdsInstances](
-    [ApiClient_ApiClientId] [int] NOT NULL FOREIGN KEY REFERENCES [dbo].[ApiClients](ApiClientId),
-    [OdsInstance_OdsInstanceId] [int] NOT NULL FOREIGN KEY REFERENCES [dbo].[OdsInstances](OdsInstanceId),
-    CONSTRAINT [ApiClientOdsInstances_PK] PRIMARY KEY CLUSTERED (
-        [ApiClient_ApiClientId] ASC,
-        [OdsInstance_OdsInstanceId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-END
+    [ApiClientOdsInstanceId] INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    [ApiClient_ApiClientId] INT NOT NULL,
+    [OdsInstance_OdsInstanceId] INT NOT NULL,
+);
+GO
+
+ALTER TABLE [dbo].[ApiClientOdsInstances]  WITH CHECK
+    ADD  CONSTRAINT [FK_ApiClientOdsInstances_ApiClients_ApiClient_ApiClientId] FOREIGN KEY([ApiClient_ApiClientId])
+REFERENCES [dbo].[ApiClients] ([ApiClientId]);
+GO
+
+ALTER TABLE [dbo].[ApiClientOdsInstances] CHECK CONSTRAINT [FK_ApiClientOdsInstances_ApiClients_ApiClient_ApiClientId];
+GO
+
+ALTER TABLE [dbo].[ApiClientOdsInstances]  WITH CHECK
+    ADD  CONSTRAINT [FK_ApiClientOdsInstances_OdsInstances_OdsInstance_OdsInstanceId] FOREIGN KEY([OdsInstance_OdsInstanceId])
+REFERENCES [dbo].[OdsInstances] ([OdsInstanceId]);
+GO
+
+ALTER TABLE [dbo].[ApiClientOdsInstances] CHECK CONSTRAINT [FK_ApiClientOdsInstances_OdsInstances_OdsInstance_OdsInstanceId];
 GO
 
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'dbo.GetClientForToken') AND OBJECTPROPERTY(id, N'IsTableFunction') = 1 )

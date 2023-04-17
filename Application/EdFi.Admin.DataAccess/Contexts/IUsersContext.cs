@@ -36,8 +36,9 @@ namespace EdFi.Admin.DataAccess.Contexts
         IDbSet<OwnershipToken> OwnershipTokens { get; set; }
 
         DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
-        
 
+        DbSet<ApiClientOdsInstance> ApiClientOdsInstances { get; set; }
+        
         int SaveChanges();
 
         Task<int> SaveChangesAsync();
