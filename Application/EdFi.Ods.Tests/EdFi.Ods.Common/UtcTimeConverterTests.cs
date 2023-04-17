@@ -217,5 +217,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                     @"{""TimeWithoutSeconds"":null,""TimeWithSeconds"":null,""TimeWithPositiveUtcOffset"":null,""TimeWithNegativeUtcOffset"":null,""TimeWithZSuffix"":null,""TimeWithZSuffixWithoutSeconds"":null}");
             }
         }
+
+        [TestFixture]
+        public class When_deserializing_invalid_time_format : TestFixtureBase
+        {
+            [Test]
+            public void Should_throw_FormatException()
+            {
+                Assert.Throws<FormatException>(() => JsonConvert.DeserializeObject<NullableTimes>(
+                    @"
+{
+    ""TimeWithoutSeconds"":""3:29 PM"", 
+    ""TimeWithSeconds"":""3:29:00 PM"", 
+    ""TimeWithPositiveUtcOffset"":null, 
+    ""TimeWithNegativeUtcOffset"":null, 
+    ""TimeWithZSuffix"":null, 
+    ""TimeWithZSuffixWithoutSeconds"":null 
+}"));
+
+            }
+        }
     }
 }

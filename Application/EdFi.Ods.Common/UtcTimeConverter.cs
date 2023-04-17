@@ -12,7 +12,7 @@ namespace EdFi.Ods.Common
 {
     public class UtcTimeConverter : DateTimeConverterBase
     {
-        private readonly Regex timeParser = new Regex(
+        private static readonly Regex _timeParser = new Regex(
             @"^(?<Hours>[0-9]{2}):(?<Minutes>[0-9]{2})(:(?<Seconds>[0-9]{2}))?((?<UTC>Z)|((?<OffsetHours>[\-\+][0-9]{2})(:(?<OffsetMinutes>[0-9]{2}))?)?)$",
             RegexOptions.Compiled);
 
@@ -38,11 +38,11 @@ namespace EdFi.Ods.Common
 
             string valueText = (string) reader.Value;
 
-            var match = timeParser.Match(valueText);
+            var match = _timeParser.Match(valueText);
 
             if (!match.Success)
             {
-                throw new Exception("Unexpected time value format found '" + valueText + "'.");
+                throw new FormatException("Unexpected time value format found '" + valueText + "'.");
             }
 
             int hours, minutes, seconds, offsetHours, offsetMinutes;
