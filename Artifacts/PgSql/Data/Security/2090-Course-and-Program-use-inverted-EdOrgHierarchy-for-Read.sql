@@ -118,11 +118,11 @@ BEGIN
     WHERE ResourceClaimId = claim_id;
 
     
-    -- Default Create authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
 
     INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, Create_action_id)
+    VALUES (claim_id, Read_action_id)
     RETURNING ResourceClaimActionId
     INTO resource_claim_action_id;
 
@@ -194,11 +194,11 @@ BEGIN
     WHERE ResourceClaimId = claim_id;
 
     
-    -- Default Create authorization
-    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
 
     INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (claim_id, Create_action_id)
+    VALUES (claim_id, Read_action_id)
     RETURNING ResourceClaimActionId
     INTO resource_claim_action_id;
 

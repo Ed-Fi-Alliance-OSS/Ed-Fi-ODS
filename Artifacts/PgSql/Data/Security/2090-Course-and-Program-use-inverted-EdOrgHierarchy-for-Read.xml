@@ -6,7 +6,7 @@
         <Claim name="http://ed-fi.org/ods/identity/claims/course">
           <!-- Default authorization here -->
           <DefaultAuthorization>
-            <Action name="Create">
+            <Action name="Read">
               <AuthorizationStrategies>
                 <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
                 <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleInverted" />
@@ -17,7 +17,7 @@
         <Claim name="http://ed-fi.org/ods/identity/claims/program">
           <!-- Default authorization here -->
           <DefaultAuthorization>
-            <Action name="Create">
+            <Action name="Read">
               <AuthorizationStrategies>
                 <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
                 <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleInverted" />

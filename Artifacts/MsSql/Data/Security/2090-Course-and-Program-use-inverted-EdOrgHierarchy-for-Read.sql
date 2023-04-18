@@ -132,10 +132,10 @@ BEGIN
     DELETE FROM dbo.ResourceClaimActions
     WHERE ResourceClaimId = @claimId
     
-    -- Default Create authorization
-    PRINT 'Creating action ''Create'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    -- Default Read authorization
+    PRINT 'Creating action ''Read'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (@claimId, @CreateActionId)
+    VALUES (@claimId, @ReadActionId)
 
     SET @resourceClaimActionId = SCOPE_IDENTITY()
 
@@ -218,10 +218,10 @@ BEGIN
     DELETE FROM dbo.ResourceClaimActions
     WHERE ResourceClaimId = @claimId
     
-    -- Default Create authorization
-    PRINT 'Creating action ''Create'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    -- Default Read authorization
+    PRINT 'Creating action ''Read'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
     INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
-    VALUES (@claimId, @CreateActionId)
+    VALUES (@claimId, @ReadActionId)
 
     SET @resourceClaimActionId = SCOPE_IDENTITY()
 
