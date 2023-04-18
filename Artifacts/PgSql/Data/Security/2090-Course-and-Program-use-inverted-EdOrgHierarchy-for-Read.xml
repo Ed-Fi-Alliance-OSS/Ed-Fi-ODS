@@ -1,0 +1,31 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <!-- Default authorization here -->
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/course">
+          <!-- Default authorization here -->
+          <DefaultAuthorization>
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleInverted" />
+              </AuthorizationStrategies>
+            </Action>
+          </DefaultAuthorization>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/program">
+          <!-- Default authorization here -->
+          <DefaultAuthorization>
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleInverted" />
+              </AuthorizationStrategies>
+            </Action>
+          </DefaultAuthorization>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
