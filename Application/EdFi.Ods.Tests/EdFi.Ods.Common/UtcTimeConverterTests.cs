@@ -56,6 +56,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             public TimeSpan? TimeWithZSuffixWithoutSeconds { get; set; }
         }
 
+        public class TimeFormatTimes
+        {
+            [JsonConverter(typeof(UtcTimeConverter))]
+            public TimeSpan? TimeToTest { get; set; }
+        }
+
+        public class IllFormattedTimes
+        {
+            [JsonConverter(typeof(UtcTimeConverter))]
+            public TimeSpan TimeToTest { get; set; }
+            public bool ShouldDeserialize { get; set; }
+        }
+
         [TestFixture]
         public class When_serializing_and_deserializing_time_values_from_JSON_to_nullable_or_non_nullable_times : TestFixtureBase
         {
@@ -219,22 +232,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
 
         [TestFixture]
-        public class When_deserializing_invalid_time_format : TestFixtureBase
+        public class When_deserializing_time_format : TestFixtureBase
         {
-            [Test]
-            public void Should_throw_FormatException()
+            [TestCase("07:57:32", false)]
+            [TestCase("07:57:32+05:00", false)]
+            [TestCase("20:57:32-05:00", false)]
+            [TestCase("3:29 PM", true)]
+            [TestCase("3:29:00 AM", true)]
+            public void Should_throw_FormatException_on_bad_input(string input, bool shouldThrowFormatException)
             {
-                Assert.Throws<FormatException>(() => JsonConvert.DeserializeObject<NullableTimes>(
-                    @"
-{
-    ""TimeWithoutSeconds"":""3:29 PM"", 
-    ""TimeWithSeconds"":""3:29:00 PM"", 
-    ""TimeWithPositiveUtcOffset"":null, 
-    ""TimeWithNegativeUtcOffset"":null, 
-    ""TimeWithZSuffix"":null, 
-    ""TimeWithZSuffixWithoutSeconds"":null 
-}"));
-
+                Assert.Throws<FormatException>(
+                    () =>
+                    {
+                        JsonConvert.DeserializeObject<TimeFormatTimes>(
+                            @"{""TimeToTest"":""{input}""}"
+                        );
+                    });
             }
         }
     }
