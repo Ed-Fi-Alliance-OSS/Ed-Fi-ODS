@@ -60,6 +60,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 new ViewBasedAuthorizationFilterDefinition(
                     $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}{authorizationPathModifier}",
                     $"EducationOrganizationIdTo{usiName}{authorizationPathModifier}",
+                    EducationOrganizationAuthorizationViewConstants.SourceColumnName,
                     usiName,
                     ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance,
@@ -78,10 +79,23 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     new ViewBasedAuthorizationFilterDefinition(
                         $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{concreteEdOrgId}",
                         "EducationOrganizationIdToEducationOrganizationId",
-                        "TargetEducationOrganizationId",
+                        $"{EducationOrganizationAuthorizationViewConstants.SourceColumnName}",
+                        $"{EducationOrganizationAuthorizationViewConstants.TargetColumnName}",
                         ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
-                        _viewBasedSingleItemAuthorizationQuerySupport));
+                        _viewBasedSingleItemAuthorizationQuerySupport))
+                .Concat(concreteEdOrgIdNames
+                    // Sort the edorg id names to ensure a determinate alias generation during filter definition
+                    .OrderBy(n => n)
+                    .Select(concreteEdOrgId => 
+                        new ViewBasedAuthorizationFilterDefinition(
+                            $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{concreteEdOrgId}{RelationshipAuthorizationConventions.InvertedSuffix}",
+                            "EducationOrganizationIdToEducationOrganizationId",
+                            EducationOrganizationAuthorizationViewConstants.TargetColumnName,
+                            EducationOrganizationAuthorizationViewConstants.SourceColumnName,
+                            ApplyTrackedChangesAuthorizationCriteria,
+                            AuthorizeInstance,
+                            _viewBasedSingleItemAuthorizationQuerySupport)));
         }
 
         private InstanceAuthorizationResult AuthorizeInstance(
@@ -123,9 +137,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             QueryBuilder queryBuilder,
             bool useOuterJoins)
         {
-            var viewBasedFilterDefinition = (ViewBasedAuthorizationFilterDefinition) filterDefinition;
-
-            if (viewBasedFilterDefinition == null)
+            if (filterDefinition is not ViewBasedAuthorizationFilterDefinition viewBasedFilterDefinition)
             {
                  throw new Exception($"Expected a view-based filter definition of type '{typeof(ViewBasedAuthorizationFilterDefinition)}'.");
             }
@@ -144,7 +156,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
                 // Apply claim value criteria
-                queryBuilder.OrWhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+                queryBuilder.OrWhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
             }
             else
             {
@@ -154,7 +166,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
                 // Apply claim value criteria
-                queryBuilder.WhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+                queryBuilder.WhereIn($"rba{filterIndex}.{viewBasedFilterDefinition.ViewSourceEndpointName}", filterContext.ClaimParameterValues);
             }
             
             string GetBasePropertyNameForSubjectEndpointName()

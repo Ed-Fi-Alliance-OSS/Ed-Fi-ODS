@@ -18,6 +18,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public ViewBasedAuthorizationFilterDefinition(
             string filterName,
             string viewName,
+            string viewSourceEndpointName,
             string viewTargetEndpointName,
             Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
@@ -27,12 +28,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 $@"{{currentAlias}}.{{subjectEndpointName}} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM {GetFullNameForView($"auth_{viewName}")} {{newAlias1}} 
-                    WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
+                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
                 (criteria, @where, subjectEndpointName, parameters, joinType) => criteria.ApplyJoinFilter(
                     @where,
                     parameters,
                     viewName,
                     subjectEndpointName,
+                    viewSourceEndpointName,
                     viewTargetEndpointName,
                     joinType,
                     Guid.NewGuid().ToString("N")),
@@ -40,12 +42,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 authorizeInstance)
         {
             ViewName = viewName;
+            ViewSourceEndpointName = viewSourceEndpointName;
             ViewTargetEndpointName = viewTargetEndpointName;
             ViewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         public string ViewName { get; }
 
+        public string ViewSourceEndpointName { get; }
         public string ViewTargetEndpointName { get; }
 
         public IViewBasedSingleItemAuthorizationQuerySupport ViewBasedSingleItemAuthorizationQuerySupport { get; set; }

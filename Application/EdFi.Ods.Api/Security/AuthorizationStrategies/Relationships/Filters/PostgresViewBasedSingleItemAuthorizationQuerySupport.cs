@@ -20,7 +20,7 @@ public class PostgresViewBasedSingleItemAuthorizationQuerySupport : IViewBasedSi
             : "NULL";
 
         return
-            $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw WHERE authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName} AND authvw.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN ({edOrgIdsList})";  
+            $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw WHERE authvw.{filterDefinition.ViewTargetEndpointName} = @{filterContext.SubjectEndpointName} AND authvw.{filterDefinition.ViewSourceEndpointName} IN ({edOrgIdsList})";  
     }
 
     public void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext)
