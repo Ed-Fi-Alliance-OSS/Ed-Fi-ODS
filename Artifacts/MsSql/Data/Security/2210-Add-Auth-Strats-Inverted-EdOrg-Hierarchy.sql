@@ -1,3 +1,7 @@
+DECLARE @applicationId INT;
+
+SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API');
+
 IF NOT EXISTS(SELECT 1 FROM [dbo].[AuthorizationStrategies] WHERE [AuthorizationStrategyName] ='RelationshipsWithEdOrgsOnlyInverted')
 BEGIN
     INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])

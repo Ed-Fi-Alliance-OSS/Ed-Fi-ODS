@@ -1,5 +1,9 @@
 DO language plpgsql $$
+DECLARE application_Id INT;
+
 BEGIN
+    SELECT applicationid INTO application_Id FROM dbo.Applications WHERE ApplicationName = 'Ed-Fi ODS API';
+
     IF NOT EXISTS(SELECT 1 FROM dbo.AuthorizationStrategies WHERE AuthorizationStrategyName ='RelationshipsWithEdOrgsOnlyInverted') THEN
 
         INSERT INTO dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
