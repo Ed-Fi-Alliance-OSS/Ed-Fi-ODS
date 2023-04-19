@@ -98,7 +98,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>._))
                     .Returns(openApiMetadataResources);
 
-                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
@@ -210,7 +210,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>._))
                     .Returns(openApiMetadataResources);
 
-                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
