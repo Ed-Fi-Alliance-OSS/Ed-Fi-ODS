@@ -20,8 +20,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 
         private const string SourceTableAlias = "src";
 
-        private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName =
-            new ConcurrentDictionary<FullName, QueryBuilder>();
+        private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName = new();
 
         private readonly Func<QueryBuilder> _createQueryBuilder;
 
@@ -57,6 +56,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}")
                 .Select(QueryFactoryHelper.IdentifyingColumns(identifierProjections, columnGroups: ColumnGroups.OldValue))
+                .Distinct()
                 .OrderBy(
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
 
