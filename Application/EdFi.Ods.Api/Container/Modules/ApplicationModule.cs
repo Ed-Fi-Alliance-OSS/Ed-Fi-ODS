@@ -53,8 +53,6 @@ namespace EdFi.Ods.Api.Container.Modules
 {
     public class ApplicationModule : Module
     {
-        private const int DefaultBearerTokenDurationMinutes = 60;
-            
         protected override void Load(ContainerBuilder builder)
         {
             RegisterMiddleware();
@@ -147,6 +145,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DefaultPageSizeLimitProvider>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(int) && p.Name == "defaultPageSizeLimit",
+                        (p, c) => c.Resolve<ApiSettings>().DefaultPageSizeLimit))
                 .As<IDefaultPageSizeLimitProvider>()
                 .SingleInstance();
 
@@ -229,20 +231,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.Name == "tokenDurationMinutes",
-                        (p, c) =>
-                        {
-                            var configuration = c.Resolve<IConfiguration>();
-
-                            // Get the config value, defaulting to 1 hour
-                            if (!int.TryParse(
-                                    configuration.GetSection("BearerTokenTimeoutMinutes").Value,
-                                    out int tokenDurationMinutes))
-                            {
-                                tokenDurationMinutes = DefaultBearerTokenDurationMinutes;
-                            }
-
-                            return tokenDurationMinutes;
-                        }))
+                        (p, c) => c.Resolve<ApiSettings>().BearerTokenTimeoutMinutes))
                 .SingleInstance();
 
             builder.RegisterType<PackedHashConverter>()

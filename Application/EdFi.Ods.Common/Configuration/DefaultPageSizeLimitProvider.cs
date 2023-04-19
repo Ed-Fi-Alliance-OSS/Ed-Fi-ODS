@@ -9,16 +9,13 @@ namespace EdFi.Ods.Common.Configuration
 {
     public class DefaultPageSizeLimitProvider : IDefaultPageSizeLimitProvider
     {
-        private readonly IConfiguration _configuration;
+        private readonly int _defaultPageSizeLimit;
 
-        public DefaultPageSizeLimitProvider(IConfiguration configuration)
+        public DefaultPageSizeLimitProvider(int defaultPageSizeLimit)
         {
-            _configuration = configuration;
+            _defaultPageSizeLimit = defaultPageSizeLimit;
         }
 
-        public int GetDefaultPageSizeLimit()
-            => int.TryParse(_configuration.GetSection("DefaultPageSizeLimit").Value, out int defaultPageSizeLimit)
-                ? defaultPageSizeLimit
-                : 500;
+        public int GetDefaultPageSizeLimit() => _defaultPageSizeLimit;
     }
 }
