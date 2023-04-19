@@ -33,7 +33,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 _swaggerParameters =
                     new OpenApiMetadataParametersFactory(defaultPageSieLimitProvider).Create(false);

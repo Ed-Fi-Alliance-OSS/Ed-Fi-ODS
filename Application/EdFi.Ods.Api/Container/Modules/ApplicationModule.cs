@@ -27,17 +27,14 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using MediatR;
@@ -45,7 +42,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
 
@@ -53,8 +49,6 @@ namespace EdFi.Ods.Api.Container.Modules
 {
     public class ApplicationModule : Module
     {
-        private const int DefaultBearerTokenDurationMinutes = 60;
-            
         protected override void Load(ContainerBuilder builder)
         {
             RegisterMiddleware();
@@ -147,6 +141,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DefaultPageSizeLimitProvider>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(int) && p.Name == "defaultPageSizeLimit",
+                        (p, c) => c.Resolve<ApiSettings>().DefaultPageSizeLimit))
                 .As<IDefaultPageSizeLimitProvider>()
                 .SingleInstance();
 
@@ -229,20 +227,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.Name == "tokenDurationMinutes",
-                        (p, c) =>
-                        {
-                            var configuration = c.Resolve<IConfiguration>();
-
-                            // Get the config value, defaulting to 1 hour
-                            if (!int.TryParse(
-                                    configuration.GetSection("BearerTokenTimeoutMinutes").Value,
-                                    out int tokenDurationMinutes))
-                            {
-                                tokenDurationMinutes = DefaultBearerTokenDurationMinutes;
-                            }
-
-                            return tokenDurationMinutes;
-                        }))
+                        (p, c) => c.Resolve<ApiSettings>().BearerTokenTimeoutMinutes))
                 .SingleInstance();
 
             builder.RegisterType<PackedHashConverter>()

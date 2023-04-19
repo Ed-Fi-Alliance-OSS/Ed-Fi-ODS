@@ -3,22 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using Microsoft.Extensions.Configuration;
-
 namespace EdFi.Ods.Common.Configuration
 {
     public class DefaultPageSizeLimitProvider : IDefaultPageSizeLimitProvider
     {
-        private readonly IConfiguration _configuration;
+        private readonly int _defaultPageSizeLimit;
 
-        public DefaultPageSizeLimitProvider(IConfiguration configuration)
+        public DefaultPageSizeLimitProvider(int defaultPageSizeLimit)
         {
-            _configuration = configuration;
+            _defaultPageSizeLimit = defaultPageSizeLimit;
         }
 
-        public int GetDefaultPageSizeLimit()
-            => int.TryParse(_configuration.GetSection("DefaultPageSizeLimit").Value, out int defaultPageSizeLimit)
-                ? defaultPageSizeLimit
-                : 500;
+        public int GetDefaultPageSizeLimit() => _defaultPageSizeLimit;
     }
 }

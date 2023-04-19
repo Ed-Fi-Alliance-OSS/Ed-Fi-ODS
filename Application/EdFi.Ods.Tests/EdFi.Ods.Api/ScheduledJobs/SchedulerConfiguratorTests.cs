@@ -24,7 +24,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
             ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting();
             var configurator = new DeleteExpiredTokensSchedulerConfigurator();
 
-            var expectedResult = SchedulerConfiguratorBase<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
+            var expectedResult = ScheduledJobSetting.DefaultCronExpression;
             var actualResult = configurator.GetCronExpression(scheduledJobSetting);
 
             Assert.AreEqual(expectedResult, actualResult);
@@ -37,7 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
 
             var configurator = new DeleteExpiredTokensSchedulerConfigurator();
 
-            var expectedResult = SchedulerConfiguratorBase<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
+            var expectedResult = ScheduledJobSetting.DefaultCronExpression;
             var actualResult = configurator.GetCronExpression(scheduledJobSetting);
 
             Assert.AreEqual(expectedResult, actualResult);
@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
 
             var configurator = new DeleteExpiredTokensSchedulerConfigurator();
 
-            var expectedResult = SchedulerConfiguratorBase<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
+            var expectedResult = ScheduledJobSetting.DefaultCronExpression;
             var actualResult = configurator.GetCronExpression(scheduledJobSetting);
 
             Assert.AreEqual(expectedResult, actualResult);

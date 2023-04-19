@@ -136,7 +136,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var compositesMetadataProvider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
@@ -232,7 +232,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
@@ -303,7 +303,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var _openApiContentProviders = Stub<List<IOpenApiContentProvider>>();
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
@@ -393,7 +393,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
-                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSizeLimitProvider,
@@ -485,7 +485,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var compositemetadataprovider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
@@ -588,7 +588,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var compositemetadataprovider = new CompositesMetadataProvider(compositesMetadataStreamsProviders);
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     apiSettings, defaultPageSieLimitProvider,
@@ -665,7 +665,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var _openApiContentProviders = Stub<IList<IOpenApiContentProvider>>();
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,

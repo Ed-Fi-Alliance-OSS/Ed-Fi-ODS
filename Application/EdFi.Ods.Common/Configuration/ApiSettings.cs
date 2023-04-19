@@ -34,6 +34,10 @@ namespace EdFi.Ods.Common.Configuration
             );
         }
 
+        public int BearerTokenTimeoutMinutes { get; set; } = 60;
+
+        public int DefaultPageSizeLimit { get; set; } = 500;
+
         public string Mode { get; set; }
 
         public string Engine { get; set; }

@@ -95,7 +95,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
                     .First();
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
@@ -206,7 +206,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
                     .First();
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration().GetValue<int>("DefaultPageSizeLimit"));
 
                 _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
                     CreateApiSettings(), defaultPageSieLimitProvider,
