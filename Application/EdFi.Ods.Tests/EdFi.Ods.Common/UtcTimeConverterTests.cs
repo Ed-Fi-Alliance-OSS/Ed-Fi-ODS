@@ -59,14 +59,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         public class TimeFormatTimes
         {
             [JsonConverter(typeof(UtcTimeConverter))]
-            public TimeSpan? TimeToTest { get; set; }
-        }
-
-        public class IllFormattedTimes
-        {
-            [JsonConverter(typeof(UtcTimeConverter))]
             public TimeSpan TimeToTest { get; set; }
-            public bool ShouldDeserialize { get; set; }
         }
 
         [TestFixture]
