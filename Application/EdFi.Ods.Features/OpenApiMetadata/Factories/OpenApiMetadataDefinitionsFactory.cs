@@ -51,6 +51,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = "A unique system-generated value that identifies the version of the resource."
             };
 
+        private static Schema LastModifiedDateSchema
+            => new Schema
+            {
+                type = "string",
+                format = "date-time",
+                description = "The date and time the resource was last modified."
+            };
+
         public IDictionary<string, Schema> Create(IList<OpenApiMetadataResource> openApiMetadataResources)
         {
             var definitions = BoilerPlateDefinitions();
@@ -356,8 +364,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .ToDictionary(x => x.PropertyName.ToCamelCase(), x => x.Schema);
 
             propertyDict.Add("_etag", EtagSchema);
-            var bridgeSchema = GetEdFiExtensionBridgeReferenceSchema(resource, openApiMetadataResource);
+            propertyDict.Add("_lastModifiedDate", LastModifiedDateSchema);
 
+            var bridgeSchema = GetEdFiExtensionBridgeReferenceSchema(resource, openApiMetadataResource);
             if (bridgeSchema != null)
             {
                 propertyDict.Add(ExtensionCollectionKey, bridgeSchema);
