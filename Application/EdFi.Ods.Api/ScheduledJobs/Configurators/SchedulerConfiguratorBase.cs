@@ -57,7 +57,7 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
                 return scheduledJobSetting.CronExpression;
             }
             
-            _logger.Warn($"Invalid cron expression provided for scheduled job: {scheduledJobSetting.Name}");
+            _logger.Warn($"Invalid cron expression provided for scheduled job: {scheduledJobSetting.Name}. Using default value: {ScheduledJobSetting.DefaultCronExpression}");
             return ScheduledJobSetting.DefaultCronExpression;
         }
     }
