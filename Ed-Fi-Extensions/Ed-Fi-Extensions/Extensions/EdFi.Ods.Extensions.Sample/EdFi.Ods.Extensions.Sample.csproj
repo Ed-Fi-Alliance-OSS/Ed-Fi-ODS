@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <StandardVersion Condition="'$(StandardVersion)' == '' ">4.0.0</StandardVersion>
+    <ExtensionVersion Condition="'$(ExtensionVersion)' == '' ">1.0.0</ExtensionVersion>
+  </PropertyGroup>
+  <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
     <RootNamespace>EdFi.Ods.Extensions.Sample</RootNamespace>
     <AssemblyName>EdFi.Ods.Extensions.Sample</AssemblyName>
@@ -16,17 +20,23 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Artifacts\**\Metadata\*.xml">
+    <Compile Remove="Versions\*\Standard\**" />
+    <EmbeddedResource Remove="Versions\*\Standard\**" />
+    <None Remove="Versions\*\Standard\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\**\Metadata\*.xml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="Artifacts\**\Database\*.sql">
+    <Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\**\*.sql">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Schemas\*.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <LogicalName>$(RootNamespace).Artifacts.Schemas.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -37,15 +47,18 @@
     <EmbeddedResource Include="assemblyMetadata.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Artifacts\Metadata\**\ApiModel-EXTENSION.json">
+    <Compile Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\**\*.cs" />
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Metadata\ApiModel-EXTENSION.json">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
+      <LogicalName>$(RootNamespace).Artifacts.Metadata.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="**\*.generated.hbm.xml">
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\**\*.generated.hbm.xml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
+      <LogicalName>$(RootNamespace).$([System.String]::Copy('%(RecursiveDir)').Replace('/', '.').Replace('\', '.'))%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

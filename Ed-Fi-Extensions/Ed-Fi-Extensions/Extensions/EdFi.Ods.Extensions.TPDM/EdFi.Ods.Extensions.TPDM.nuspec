@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>EdFi.Suite3.Ods.Extensions.TPDM.Core.1.1.0</id>
+    <id>EdFi.Suite3.Ods.Extensions.TPDM.Core</id>
     <version>0.0.0</version>
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
     <copyright>$copyright$</copyright>
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>EdFi.Ods.Extensions.TPDM.Core</description>
+    <description>EdFi.Suite3.Ods.Extensions.TPDM.Core</description>
     <releaseNotes></releaseNotes>
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
     <file src="../../LICENSE.txt" />
-    <file src="Artifacts/**/*.json" target="Artifacts/." />
-    <file src="Artifacts/**/*.sql" target="Artifacts/." />
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="Artifacts/." />
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="Artifacts/." />
     <file src="bin\$Configuration$\net6.0\EdFi.Ods.Extensions.TPDM.dll" target="." />
   </files>
 </package>

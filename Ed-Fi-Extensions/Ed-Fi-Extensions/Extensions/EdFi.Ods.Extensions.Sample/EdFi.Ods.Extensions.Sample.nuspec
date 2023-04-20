@@ -8,14 +8,14 @@
     <copyright>$copyright$</copyright>
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>EdFi.Ods.Extensions.Sample</description>
+    <description>EdFi.Suite3.Ods.Extensions.Sample</description>
     <releaseNotes></releaseNotes>
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
     <file src="../../LICENSE.txt" />
     <file src="bin\$configuration$\net6.0\EdFi.Ods.Extensions.Sample.dll" target="."/>
-    <file src="Artifacts/**/*.sql" target="Artifacts/."/>
-    <file src="Artifacts/**/*.json" target="Artifacts/."/> 
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="Artifacts/."/>
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="Artifacts/."/> 
   </files>
 </package>
