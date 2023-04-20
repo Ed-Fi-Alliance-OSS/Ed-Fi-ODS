@@ -11,6 +11,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         public const string ClaimsParameterName = "ClaimEducationOrganizationIds";
         
-        public const string ViewSourceColumnName = "SourceEducationOrganizationId";
+        public const string InvertedSuffix = "Inverted";
     }
 }

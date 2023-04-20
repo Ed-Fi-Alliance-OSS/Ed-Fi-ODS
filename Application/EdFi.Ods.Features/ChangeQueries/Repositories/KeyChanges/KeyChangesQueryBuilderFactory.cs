@@ -18,8 +18,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         private readonly IDatabaseNamingConvention _namingConvention;
         private readonly Func<QueryBuilder> _createQueryBuilder;
 
-        private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName =
-            new ConcurrentDictionary<FullName, QueryBuilder>();
+        private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName = new();
 
         public KeyChangesQueryBuilderFactory(IDatabaseNamingConvention namingConvention, Func<QueryBuilder> createQueryBuilder)
         {
@@ -56,6 +55,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 .Select(idColumnFqn)
                 .SelectRaw($"MIN({changeVersionColumnFqn}) AS {initialChangeVersionColumnName}")
                 .SelectRaw($"MAX({changeVersionColumnFqn}) AS {finalChangeVersionColumnName}")
+                .Distinct()
                 .GroupBy(idColumnFqn);
 
             QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(

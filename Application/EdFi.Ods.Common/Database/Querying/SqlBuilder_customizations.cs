@@ -36,6 +36,9 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        public SqlBuilder Distinct() =>
+            SetClause("distinct", "DISTINCT", null);
+
         public SqlBuilder LimitOffset(string sql, dynamic parameters = null) =>
             SetClause("paging", sql, parameters);
 

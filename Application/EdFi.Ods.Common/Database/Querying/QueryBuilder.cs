@@ -318,6 +318,14 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
+        public QueryBuilder Distinct()
+        {
+            // Apply distinct keyword
+            _sqlBuilder.Distinct();
+
+            return this;
+        }
+        
         public QueryBuilder LimitOffset(int limit, int offset = 0)
         {
             // Apply paging
