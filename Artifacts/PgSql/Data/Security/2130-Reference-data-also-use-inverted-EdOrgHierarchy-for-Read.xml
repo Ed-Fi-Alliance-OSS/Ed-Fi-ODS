@@ -1,10 +1,8 @@
 <SecurityMetadata>
   <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
-      <!-- Default authorization here -->
       <Claims>
         <Claim name="http://ed-fi.org/ods/identity/claims/course">
-          <!-- Default authorization here -->
           <DefaultAuthorization>
             <Action name="Read">
               <AuthorizationStrategies>
@@ -15,7 +13,6 @@
           </DefaultAuthorization>
         </Claim>
         <Claim name="http://ed-fi.org/ods/identity/claims/program">
-          <!-- Default authorization here -->
           <DefaultAuthorization>
             <Action name="Read">
               <AuthorizationStrategies>
@@ -24,6 +21,24 @@
               </AuthorizationStrategies>
             </Action>
           </DefaultAuthorization>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/finance">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/domains/finance/locals">
+          <Claims>
+            <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/chartOfAccount">
+              <DefaultAuthorization>
+                <Action name="Read">
+                  <AuthorizationStrategies>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleInverted" />
+                  </AuthorizationStrategies>
+                </Action>
+              </DefaultAuthorization>
+            </Claim>
+          </Claims>
         </Claim>
       </Claims>
     </Claim>
