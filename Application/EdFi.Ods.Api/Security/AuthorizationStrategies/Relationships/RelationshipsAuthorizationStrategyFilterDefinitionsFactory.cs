@@ -145,7 +145,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                 // Apply claim value criteria
                 queryBuilder.OrWhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
-                queryBuilder.OrWhereNull($"rba{filterIndex}.SourceEducationOrganizationId");
             }
             else
             {
