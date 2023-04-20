@@ -79,11 +79,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     new ViewBasedAuthorizationFilterDefinition(
                         $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{concreteEdOrgId}",
                         "EducationOrganizationIdToEducationOrganizationId",
-                        $"{EducationOrganizationAuthorizationViewConstants.SourceColumnName}",
-                        $"{EducationOrganizationAuthorizationViewConstants.TargetColumnName}",
+                        EducationOrganizationAuthorizationViewConstants.SourceColumnName,
+                        EducationOrganizationAuthorizationViewConstants.TargetColumnName,
                         ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
                         _viewBasedSingleItemAuthorizationQuerySupport))
+                // Add filter definitions for using the EdOrg hierarchy inverted
                 .Concat(concreteEdOrgIdNames
                     // Sort the edorg id names to ensure a determinate alias generation during filter definition
                     .OrderBy(n => n)
