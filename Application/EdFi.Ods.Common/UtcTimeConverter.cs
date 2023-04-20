@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -12,9 +13,12 @@ namespace EdFi.Ods.Common
 {
     public class UtcTimeConverter : DateTimeConverterBase
     {
-        private readonly Regex timeParser = new Regex(
+        private static readonly Regex _timeParser = new Regex(
             @"^(?<Hours>[0-9]{2}):(?<Minutes>[0-9]{2})(:(?<Seconds>[0-9]{2}))?((?<UTC>Z)|((?<OffsetHours>[\-\+][0-9]{2})(:(?<OffsetMinutes>[0-9]{2}))?)?)$",
             RegexOptions.Compiled);
+        
+        // NOTE: https://en.wikipedia.org/wiki/List_of_UTC_offsets
+        private static readonly int[] _validMinuteOffsets = {0, 30, 45};
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
@@ -22,7 +26,7 @@ namespace EdFi.Ods.Common
             {
                 if (objectType != typeof(TimeSpan?))
                 {
-                    throw new Exception("Unable to convert Null value to non-nullable TimeSpan.");
+                    throw new FormatException("Unable to convert null value to non-nullable TimeSpan.");
                 }
 
                 return null;
@@ -30,7 +34,7 @@ namespace EdFi.Ods.Common
 
             if (reader.TokenType != JsonToken.String)
             {
-                throw new Exception(
+                throw new FormatException(
                     string.Format(
                         "Unexpected token parsing time. Expected string, found '{0}'.",
                         reader.TokenType));
@@ -38,40 +42,50 @@ namespace EdFi.Ods.Common
 
             string valueText = (string) reader.Value;
 
-            var match = timeParser.Match(valueText);
+            var match = _timeParser.Match(valueText);
 
             if (!match.Success)
             {
-                throw new Exception("Unexpected time value format found '" + valueText + "'.");
+                throw new FormatException("Unexpected time value format found '" + valueText + "'.");
             }
 
-            int hours, minutes, seconds, offsetHours, offsetMinutes;
+            int.TryParse(match.Groups["Hours"].Value, out int hours);
 
-            int.TryParse(
-                match.Groups["Hours"]
-                     .Value,
-                out hours);
+            if (hours > 23)
+            {
+                throw new FormatException("The hours component of the time must be between 0 and 23.");
+            }
+            
+            int.TryParse(match.Groups["Minutes"].Value, out int minutes);
 
-            int.TryParse(
-                match.Groups["Minutes"]
-                     .Value,
-                out minutes);
+            if (minutes > 59)
+            {
+                throw new FormatException("The minutes component of the time must be between 0 and 59.");
+            }
+            
+            int.TryParse(match.Groups["Seconds"].Value, out int seconds);
+            
+            if (seconds > 59)
+            {
+                throw new FormatException("The seconds component of the time must be between 0 and 59.");
+            }
 
-            int.TryParse(
-                match.Groups["Seconds"]
-                     .Value,
-                out seconds);
+            int.TryParse(match.Groups["OffsetHours"].Value, out int offsetHours);
 
-            int.TryParse(
-                match.Groups["OffsetHours"]
-                     .Value,
-                out offsetHours);
+            if (offsetHours < -12 || offsetHours > 14)
+            {
+                // NOTE: https://en.wikipedia.org/wiki/List_of_UTC_offsets
+                throw new FormatException("The hours offset of the time must be between -12 and 14.");
+            }
+            
+            int.TryParse(match.Groups["OffsetMinutes"].Value, out int offsetMinutes);
 
-            int.TryParse(
-                match.Groups["OffsetMinutes"]
-                     .Value,
-                out offsetMinutes);
-
+            if (!_validMinuteOffsets.Contains(offsetMinutes))
+            {
+                // NOTE: https://en.wikipedia.org/wiki/List_of_UTC_offsets
+                throw new FormatException("The minutes offset of the time must be 0, 30 or 45.");
+            }
+            
             var baseTime = new TimeSpan(hours, minutes, seconds);
             var offset = new TimeSpan(offsetHours, offsetMinutes, 0);
 
