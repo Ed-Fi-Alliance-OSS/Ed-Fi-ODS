@@ -67,6 +67,8 @@ namespace EdFi.Ods.Api.Startup
 
         private const string EmptyClientId = "";
 
+        private const string EmptyProfilesContentTypeHeader = "";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
@@ -82,6 +84,8 @@ namespace EdFi.Ods.Api.Startup
             Configuration.Bind("Plugin", Plugin);
 
             GlobalContext.Properties["ApiClientId"] = EmptyClientId;
+
+            GlobalContext.Properties["ProfilesHeader"] = EmptyProfilesContentTypeHeader;
 
             _logger.Debug($"built configuration = {Configuration}");
         }
