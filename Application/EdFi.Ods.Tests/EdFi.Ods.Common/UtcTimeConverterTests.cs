@@ -225,22 +225,62 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
 
         [TestFixture]
-        public class When_deserializing_time_format : TestFixtureBase
+        public class When_deserializing_time_format
         {
-            [TestCase("07:57:32", false)]
-            [TestCase("07:57:32+05:00", false)]
-            [TestCase("20:57:32-05:00", false)]
-            [TestCase("3:29 PM", true)]
-            [TestCase("3:29:00 AM", true)]
-            public void Should_throw_FormatException_on_bad_input(string input, bool shouldThrowFormatException)
+            [TestCase("07:57")] 
+            [TestCase("07:57:32")] 
+            [TestCase("03:57:32+05:00")] 
+            [TestCase("20:57:32-05:00")] 
+            [TestCase("07:57:32Z")] 
+            [TestCase("07:57Z")] 
+            [TestCase("23:59:59+14:00")]
+            [TestCase("23:59:59+14:30")]
+            [TestCase("23:59:59+14:45")]
+            public void Should_NOT_throw_FormatException_on_UTC_compliant_input(string input)
             {
-                Assert.Throws<FormatException>(
+                Should.NotThrow(
                     () =>
                     {
                         JsonConvert.DeserializeObject<TimeFormatTimes>(
-                            @"{""TimeToTest"":""{input}""}"
+                            @$"{{""TimeToTest"":""{input}""}}"
                         );
                     });
+            }
+
+            [TestCase("3:29 PM", "Unexpected time value format found '3:29 PM'.")]
+            [TestCase("3:29:01 AM", "Unexpected time value format found '3:29:01 AM'.")]
+            [TestCase("99:99:99-99:99", "The hours component of the time must be between 0 and 23.")]
+            [TestCase("23:99:99-99:99", "The minutes component of the time must be between 0 and 59.")]
+            [TestCase("23:59:99-99:99", "The seconds component of the time must be between 0 and 59.")]
+            [TestCase("23:59:59-99:99", "The hours offset of the time must be between -12 and 14.")]
+            [TestCase("23:59:59+99:99", "The hours offset of the time must be between -12 and 14.")]
+            [TestCase("23:59:59-12:99", "The minutes offset of the time must be 0, 30 or 45.")]
+            [TestCase("23:59:59+14:99", "The minutes offset of the time must be 0, 30 or 45.")]
+            [TestCase("23:59:59+14:15", "The minutes offset of the time must be 0, 30 or 45.")]
+            public void Should_throw_FormatException_on_non_UTC_compliant_input(string input, string expectedErrorMessage)
+            {
+                Should.Throw<FormatException>(
+                    () =>
+                    {
+                        JsonConvert.DeserializeObject<TimeFormatTimes>(
+                            @$"{{""TimeToTest"":""{input}""}}"
+                        );
+                    })
+                    .Message.ShouldBe(expectedErrorMessage);
+            }
+            
+            [TestCase("null", "Unable to convert null value to non-nullable TimeSpan.")]
+            [TestCase("7", "Unexpected token parsing time. Expected string, found 'Integer'.")]
+            public void Should_throw_FormatException_on_invalid_input_JSON_types(string rawJsonInput, string expectedErrorMessage)
+            {
+                Should.Throw<FormatException>(
+                        () =>
+                        {
+                            JsonConvert.DeserializeObject<TimeFormatTimes>(
+                                @$"{{""TimeToTest"":{rawJsonInput}}}"
+                            );
+                        })
+                    .Message.ShouldBe(expectedErrorMessage);
             }
         }
     }
