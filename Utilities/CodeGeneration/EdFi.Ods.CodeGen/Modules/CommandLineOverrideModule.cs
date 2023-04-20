@@ -42,6 +42,14 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterType<JsonViewsProvider>()
                 .As<IAuthorizationDatabaseTableViewsProvider>()
                 .OnlyIf(x => !Options.ViewsFromDatabase);
+
+            builder.RegisterType<ExtensionVersionsPathProvider>()
+                .WithParameter(new NamedParameter("extensionVersion", Options.ExtensionVersion))
+                .As<IExtensionVersionsPathProvider>();
+
+            builder.RegisterType<StandardVersionPathProvider>()
+                .WithParameter(new NamedParameter("standardVersion", Options.StandardVersion))
+                .As<IStandardVersionPathProvider>();
         }
     }
 }

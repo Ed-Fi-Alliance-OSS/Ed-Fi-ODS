@@ -28,7 +28,10 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 
             protected override void Arrange()
             {
-                var container = ContainerHelper.CreateContainer(new Options());
+                var container = ContainerHelper.CreateContainer(new Options {
+                        StandardVersion = "4.0.0",
+                        ExtensionVersion = "1.1.0"
+                });
 
                 _assemblyDataProviders = container.Resolve<IEnumerable<IAssemblyDataProvider>>();
             }
@@ -63,7 +66,9 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                         {
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
-                        }
+                        },
+                        StandardVersion = "4.0.0",
+                        ExtensionVersion = "1.1.0"
                     });
 
                 _assemblyDataProviders = container.Resolve<IEnumerable<IAssemblyDataProvider>>();
@@ -96,7 +101,11 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 
             protected override void Arrange()
             {
-                var container = ContainerHelper.CreateContainer(new Options());
+                var container = ContainerHelper.CreateContainer(new Options
+                {
+                    StandardVersion = "4.0.0",
+                    ExtensionVersion = "1.1.0"
+                });
 
                 _assemblyDataProvider = container.Resolve<IEnumerable<IAssemblyDataProvider>>()
                     .Single(x => x is AssemblyDataProvider);
@@ -131,7 +140,9 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                         {
                             new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
                                 CodeRepositoryConventions.ExtensionsRepositoryName]
-                        }
+                        },
+                        StandardVersion = "4.0.0",
+                        ExtensionVersion = "1.1.0"
                     });
 
                 _assemblyDataProvider = container.Resolve<IEnumerable<IAssemblyDataProvider>>()

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.IO;
 using EdFi.Common;
 using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Models;
@@ -18,10 +19,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssembliesProvider));
 
         private readonly ICodeRepositoryProvider _codeRepositoryProvider;
+        private readonly IStandardVersionPathProvider _standardVersionPathProvider;
 
-        public LegacyDatabaseSpecificAssemblyDataProvider(ICodeRepositoryProvider codeRepositoryProvider)
+        public LegacyDatabaseSpecificAssemblyDataProvider(ICodeRepositoryProvider codeRepositoryProvider,
+            IStandardVersionPathProvider standardVersionPathProvider)
         {
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
+            _standardVersionPathProvider = standardVersionPathProvider;
         }
 
         public IEnumerable<AssemblyData> Get()
@@ -29,9 +33,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             var assemblyData = new AssemblyData
             {
                 AssemblyName = "ODS Database Specific",
-                Path = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                    CodeRepositoryConventions.Ods,
-                    CodeRepositoryConventions.Database),
+                Path = GetPath(),
                 TemplateSet = TemplateSetConventions.Database,
                 IsExtension = false,
                 SchemaName = EdFiConventions.ProperCaseName
@@ -40,6 +42,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             _logger.Debug($"Created '{assemblyData.AssemblyName}' assembly data for '{assemblyData.Path}'");
 
             return new List<AssemblyData> { assemblyData };
+
+            string GetPath()
+            {
+                var repositoryPath = _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods);
+                return Path.Combine(repositoryPath, CodeRepositoryConventions.Application, "EdFi.Ods.Standard",
+                        _standardVersionPathProvider.StandardVersionPath(), CodeRepositoryConventions.Database);
+            }
         }
     }
 }

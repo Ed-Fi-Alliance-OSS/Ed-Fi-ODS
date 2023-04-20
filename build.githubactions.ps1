@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch", "InstallCredentialHandler", "StandardVersions", "StandardTag", "TpdmTag")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -55,7 +55,10 @@ param(
     $NuspecFilePath,
 
     [string]
-    $RelativeRepoPath
+    $RelativeRepoPath,
+
+    [string]
+    $StandardVersion
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -136,10 +139,10 @@ function Pack {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     }
-    if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
+    if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName){
        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
     }
-    if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
+    if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
         Invoke-Execute {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
         }
@@ -254,6 +257,43 @@ function InstallCredentialHandler {
 
 }
 
+function StandardVersions {
+
+    $standardProjectDirectory = Split-Path $Solution  -Resolve
+    $standardProjectPath = Join-Path $standardProjectDirectory "/Standard/"
+    $versions = (Get-ChildItem -Path $standardProjectPath -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name | %{ "'" + $_ + "'" }) -Join ','
+    $standardVersions = "[$versions]"
+    return $standardVersions
+}
+
+function StandardTag {
+
+    if (-not $StandardVersion) {
+        throw "StandardVersion is required."
+    }
+    return RepositoryTag('Ed-Fi-Standard')
+}
+
+function TpdmTag {
+
+    if (-not $StandardVersion) {
+        throw "StandardVersion is required."
+    }
+    return RepositoryTag('Ed-Fi-TPDM-Artifacts')
+}
+
+function RepositoryTag {
+    param (
+        [string]
+        $Repository
+    )
+
+    $standardProjectDirectory = Split-Path $Solution  -Resolve
+    $versionMapPath = Join-Path $standardProjectDirectory "/versionmap.json"
+    $versionTag = (Get-Content $versionMapPath | ConvertFrom-Json).$Repository.$StandardVersion
+    return $versionTag
+}
+
 function Invoke-Build {
     Write-Host "Building Version $version" -ForegroundColor Cyan
     Invoke-Step { DotnetClean }
@@ -288,6 +328,18 @@ function Invoke-InstallCredentialHandler {
     Invoke-Step { InstallCredentialHandler }
 }
 
+function Invoke-StandardVersions {
+     Invoke-Step { StandardVersions }
+}
+
+function Invoke-StandardTag {
+     Invoke-Step { StandardTag }
+}
+
+function Invoke-TpdmTag {
+     Invoke-Step { TpdmTag }
+}
+
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
@@ -298,6 +350,9 @@ Invoke-Main {
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
         InstallCredentialHandler { Invoke-InstallCredentialHandler }
+        StandardVersions { Invoke-StandardVersions }
+        StandardTag { Invoke-StandardTag }
+        TpdmTag { Invoke-TpdmTag }
         default { throw "Command '$Command' is not recognized" }
     }
 }
