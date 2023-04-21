@@ -592,7 +592,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_disabilityDescriptorId == default(int?))
-                    _disabilityDescriptorId = string.IsNullOrWhiteSpace(_disabilityDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("DisabilityDescriptor", _disabilityDescriptor);
+                    _disabilityDescriptorId = string.IsNullOrWhiteSpace(_disabilityDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDescriptor", _disabilityDescriptor);
 
                 return _disabilityDescriptorId;
             } 
@@ -611,7 +611,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_disabilityDescriptor == null)
-                    _disabilityDescriptor = _disabilityDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("DisabilityDescriptor", _disabilityDescriptorId.Value);
+                    _disabilityDescriptor = _disabilityDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDescriptor", _disabilityDescriptorId.Value);
                     
                 return _disabilityDescriptor;
             }
@@ -635,7 +635,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_staffClassificationDescriptorId == default(int?))
-                    _staffClassificationDescriptorId = string.IsNullOrWhiteSpace(_staffClassificationDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("StaffClassificationDescriptor", _staffClassificationDescriptor);
+                    _staffClassificationDescriptorId = string.IsNullOrWhiteSpace(_staffClassificationDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StaffClassificationDescriptor", _staffClassificationDescriptor);
 
                 return _staffClassificationDescriptorId;
             } 
@@ -654,7 +654,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_staffClassificationDescriptor == null)
-                    _staffClassificationDescriptor = _staffClassificationDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("StaffClassificationDescriptor", _staffClassificationDescriptorId.Value);
+                    _staffClassificationDescriptor = _staffClassificationDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("StaffClassificationDescriptor", _staffClassificationDescriptorId.Value);
                     
                 return _staffClassificationDescriptor;
             }
@@ -1305,7 +1305,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_programTypeDescriptorId == default(int))
-                    _programTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _programTypeDescriptor);
+                    _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
 
                 return _programTypeDescriptorId;
             } 
@@ -1324,7 +1324,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_programTypeDescriptor == null)
-                    _programTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _programTypeDescriptorId);
+                    _programTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _programTypeDescriptorId);
                     
                 return _programTypeDescriptor;
             }
@@ -1849,7 +1849,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_telephoneNumberTypeDescriptorId == default(int))
-                    _telephoneNumberTypeDescriptorId = DescriptorsCache.GetCache().GetId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
+                    _telephoneNumberTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
 
                 return _telephoneNumberTypeDescriptorId;
             } 
@@ -1868,7 +1868,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             get
             {
                 if (_telephoneNumberTypeDescriptor == null)
-                    _telephoneNumberTypeDescriptor = DescriptorsCache.GetCache().GetValue("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptorId);
+                    _telephoneNumberTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptorId);
                     
                 return _telephoneNumberTypeDescriptor;
             }
@@ -2592,7 +2592,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -2611,7 +2611,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -3124,7 +3124,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_careerPathwayDescriptorId == default(int))
-                    _careerPathwayDescriptorId = DescriptorsCache.GetCache().GetId("CareerPathwayDescriptor", _careerPathwayDescriptor);
+                    _careerPathwayDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CareerPathwayDescriptor", _careerPathwayDescriptor);
 
                 return _careerPathwayDescriptorId;
             } 
@@ -3143,7 +3143,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_careerPathwayDescriptor == null)
-                    _careerPathwayDescriptor = DescriptorsCache.GetCache().GetValue("CareerPathwayDescriptor", _careerPathwayDescriptorId);
+                    _careerPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CareerPathwayDescriptor", _careerPathwayDescriptorId);
                     
                 return _careerPathwayDescriptor;
             }
@@ -3673,7 +3673,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_programTypeDescriptorId == default(int))
-                    _programTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _programTypeDescriptor);
+                    _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
 
                 return _programTypeDescriptorId;
             } 
@@ -3692,7 +3692,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_programTypeDescriptor == null)
-                    _programTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _programTypeDescriptorId);
+                    _programTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _programTypeDescriptorId);
                     
                 return _programTypeDescriptor;
             }
@@ -4102,7 +4102,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_credentialFieldDescriptorId == default(int?))
-                    _credentialFieldDescriptorId = string.IsNullOrWhiteSpace(_credentialFieldDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("CredentialFieldDescriptor", _credentialFieldDescriptor);
+                    _credentialFieldDescriptorId = string.IsNullOrWhiteSpace(_credentialFieldDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CredentialFieldDescriptor", _credentialFieldDescriptor);
 
                 return _credentialFieldDescriptorId;
             } 
@@ -4121,7 +4121,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             get
             {
                 if (_credentialFieldDescriptor == null)
-                    _credentialFieldDescriptor = _credentialFieldDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("CredentialFieldDescriptor", _credentialFieldDescriptorId.Value);
+                    _credentialFieldDescriptor = _credentialFieldDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CredentialFieldDescriptor", _credentialFieldDescriptorId.Value);
                     
                 return _credentialFieldDescriptor;
             }
@@ -4744,7 +4744,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             get
             {
                 if (_careerPathwayDescriptorId == default(int))
-                    _careerPathwayDescriptorId = DescriptorsCache.GetCache().GetId("CareerPathwayDescriptor", _careerPathwayDescriptor);
+                    _careerPathwayDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CareerPathwayDescriptor", _careerPathwayDescriptor);
 
                 return _careerPathwayDescriptorId;
             } 
@@ -4763,7 +4763,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             get
             {
                 if (_careerPathwayDescriptor == null)
-                    _careerPathwayDescriptor = DescriptorsCache.GetCache().GetValue("CareerPathwayDescriptor", _careerPathwayDescriptorId);
+                    _careerPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CareerPathwayDescriptor", _careerPathwayDescriptorId);
                     
                 return _careerPathwayDescriptor;
             }
@@ -6076,7 +6076,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             get
             {
                 if (_favoriteBookCategoryDescriptorId == default(int))
-                    _favoriteBookCategoryDescriptorId = DescriptorsCache.GetCache().GetId("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptor);
+                    _favoriteBookCategoryDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptor);
 
                 return _favoriteBookCategoryDescriptorId;
             } 
@@ -6095,7 +6095,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             get
             {
                 if (_favoriteBookCategoryDescriptor == null)
-                    _favoriteBookCategoryDescriptor = DescriptorsCache.GetCache().GetValue("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptorId);
+                    _favoriteBookCategoryDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("FavoriteBookCategoryDescriptor", _favoriteBookCategoryDescriptorId);
                     
                 return _favoriteBookCategoryDescriptor;
             }
@@ -6322,7 +6322,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             get
             {
                 if (_artMediumDescriptorId == default(int))
-                    _artMediumDescriptorId = DescriptorsCache.GetCache().GetId("ArtMediumDescriptor", _artMediumDescriptor);
+                    _artMediumDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ArtMediumDescriptor", _artMediumDescriptor);
 
                 return _artMediumDescriptorId;
             } 
@@ -6341,7 +6341,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             get
             {
                 if (_artMediumDescriptor == null)
-                    _artMediumDescriptor = DescriptorsCache.GetCache().GetValue("ArtMediumDescriptor", _artMediumDescriptorId);
+                    _artMediumDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ArtMediumDescriptor", _artMediumDescriptorId);
                     
                 return _artMediumDescriptor;
             }
@@ -7018,7 +7018,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_programTypeDescriptorId == default(int))
-                    _programTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _programTypeDescriptor);
+                    _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
 
                 return _programTypeDescriptorId;
             } 
@@ -7037,7 +7037,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_programTypeDescriptor == null)
-                    _programTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _programTypeDescriptorId);
+                    _programTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _programTypeDescriptorId);
                     
                 return _programTypeDescriptor;
             }
@@ -7496,7 +7496,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_artMediumDescriptorId == default(int))
-                    _artMediumDescriptorId = DescriptorsCache.GetCache().GetId("ArtMediumDescriptor", _artMediumDescriptor);
+                    _artMediumDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ArtMediumDescriptor", _artMediumDescriptor);
 
                 return _artMediumDescriptorId;
             } 
@@ -7515,7 +7515,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_artMediumDescriptor == null)
-                    _artMediumDescriptor = DescriptorsCache.GetCache().GetValue("ArtMediumDescriptor", _artMediumDescriptorId);
+                    _artMediumDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ArtMediumDescriptor", _artMediumDescriptorId);
                     
                 return _artMediumDescriptor;
             }
@@ -7856,7 +7856,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_serviceDescriptorId == default(int))
-                    _serviceDescriptorId = DescriptorsCache.GetCache().GetId("ServiceDescriptor", _serviceDescriptor);
+                    _serviceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ServiceDescriptor", _serviceDescriptor);
 
                 return _serviceDescriptorId;
             } 
@@ -7875,7 +7875,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             get
             {
                 if (_serviceDescriptor == null)
-                    _serviceDescriptor = DescriptorsCache.GetCache().GetValue("ServiceDescriptor", _serviceDescriptorId);
+                    _serviceDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ServiceDescriptor", _serviceDescriptorId);
                     
                 return _serviceDescriptor;
             }
@@ -8607,7 +8607,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -8626,7 +8626,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -9383,7 +9383,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_graduationPlanTypeDescriptorId == default(int))
-                    _graduationPlanTypeDescriptorId = DescriptorsCache.GetCache().GetId("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptor);
+                    _graduationPlanTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptor);
 
                 return _graduationPlanTypeDescriptorId;
             } 
@@ -9402,7 +9402,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_graduationPlanTypeDescriptor == null)
-                    _graduationPlanTypeDescriptor = DescriptorsCache.GetCache().GetValue("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptorId);
+                    _graduationPlanTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GraduationPlanTypeDescriptor", _graduationPlanTypeDescriptorId);
                     
                 return _graduationPlanTypeDescriptor;
             }
@@ -10134,7 +10134,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_academicSubjectDescriptorId == default(int))
-                    _academicSubjectDescriptorId = DescriptorsCache.GetCache().GetId("AcademicSubjectDescriptor", _academicSubjectDescriptor);
+                    _academicSubjectDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AcademicSubjectDescriptor", _academicSubjectDescriptor);
 
                 return _academicSubjectDescriptorId;
             } 
@@ -10153,7 +10153,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_academicSubjectDescriptor == null)
-                    _academicSubjectDescriptor = DescriptorsCache.GetCache().GetValue("AcademicSubjectDescriptor", _academicSubjectDescriptorId);
+                    _academicSubjectDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AcademicSubjectDescriptor", _academicSubjectDescriptorId);
                     
                 return _academicSubjectDescriptor;
             }
@@ -10504,7 +10504,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_careerPathwayDescriptorId == default(int))
-                    _careerPathwayDescriptorId = DescriptorsCache.GetCache().GetId("CareerPathwayDescriptor", _careerPathwayDescriptor);
+                    _careerPathwayDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CareerPathwayDescriptor", _careerPathwayDescriptor);
 
                 return _careerPathwayDescriptorId;
             } 
@@ -10523,7 +10523,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             get
             {
                 if (_careerPathwayDescriptor == null)
-                    _careerPathwayDescriptor = DescriptorsCache.GetCache().GetValue("CareerPathwayDescriptor", _careerPathwayDescriptorId);
+                    _careerPathwayDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CareerPathwayDescriptor", _careerPathwayDescriptorId);
                     
                 return _careerPathwayDescriptor;
             }
@@ -11570,7 +11570,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_disciplineDescriptorId == default(int))
-                    _disciplineDescriptorId = DescriptorsCache.GetCache().GetId("DisciplineDescriptor", _disciplineDescriptor);
+                    _disciplineDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisciplineDescriptor", _disciplineDescriptor);
 
                 return _disciplineDescriptorId;
             } 
@@ -11589,7 +11589,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_disciplineDescriptor == null)
-                    _disciplineDescriptor = DescriptorsCache.GetCache().GetValue("DisciplineDescriptor", _disciplineDescriptorId);
+                    _disciplineDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisciplineDescriptor", _disciplineDescriptorId);
                     
                 return _disciplineDescriptor;
             }
@@ -12254,7 +12254,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_employmentStatusDescriptorId == default(int))
-                    _employmentStatusDescriptorId = DescriptorsCache.GetCache().GetId("EmploymentStatusDescriptor", _employmentStatusDescriptor);
+                    _employmentStatusDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EmploymentStatusDescriptor", _employmentStatusDescriptor);
 
                 return _employmentStatusDescriptorId;
             } 
@@ -12273,7 +12273,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_employmentStatusDescriptor == null)
-                    _employmentStatusDescriptor = DescriptorsCache.GetCache().GetValue("EmploymentStatusDescriptor", _employmentStatusDescriptorId);
+                    _employmentStatusDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EmploymentStatusDescriptor", _employmentStatusDescriptorId);
                     
                 return _employmentStatusDescriptor;
             }
@@ -12535,7 +12535,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_telephoneNumberTypeDescriptorId == default(int))
-                    _telephoneNumberTypeDescriptorId = DescriptorsCache.GetCache().GetId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
+                    _telephoneNumberTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
 
                 return _telephoneNumberTypeDescriptorId;
             } 
@@ -12554,7 +12554,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             get
             {
                 if (_telephoneNumberTypeDescriptor == null)
-                    _telephoneNumberTypeDescriptor = DescriptorsCache.GetCache().GetValue("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptorId);
+                    _telephoneNumberTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptorId);
                     
                 return _telephoneNumberTypeDescriptor;
             }
@@ -13116,7 +13116,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
             get
             {
                 if (_membershipTypeDescriptorId == default(int?))
-                    _membershipTypeDescriptorId = string.IsNullOrWhiteSpace(_membershipTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("MembershipTypeDescriptor", _membershipTypeDescriptor);
+                    _membershipTypeDescriptorId = string.IsNullOrWhiteSpace(_membershipTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("MembershipTypeDescriptor", _membershipTypeDescriptor);
 
                 return _membershipTypeDescriptorId;
             } 
@@ -13135,7 +13135,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
             get
             {
                 if (_membershipTypeDescriptor == null)
-                    _membershipTypeDescriptor = _membershipTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("MembershipTypeDescriptor", _membershipTypeDescriptorId.Value);
+                    _membershipTypeDescriptor = _membershipTypeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("MembershipTypeDescriptor", _membershipTypeDescriptorId.Value);
                     
                 return _membershipTypeDescriptor;
             }
@@ -13322,7 +13322,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             get
             {
                 if (_relatedProgramTypeDescriptorId == default(int))
-                    _relatedProgramTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
+                    _relatedProgramTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
 
                 return _relatedProgramTypeDescriptorId;
             } 
@@ -13341,7 +13341,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
             get
             {
                 if (_relatedProgramTypeDescriptor == null)
-                    _relatedProgramTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _relatedProgramTypeDescriptorId);
+                    _relatedProgramTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _relatedProgramTypeDescriptorId);
                     
                 return _relatedProgramTypeDescriptor;
             }
