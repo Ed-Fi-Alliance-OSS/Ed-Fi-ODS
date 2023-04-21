@@ -1,4 +1,6 @@
-CREATE OR ALTER FUNCTION dbo.GetOdsInstanceConfigurationById (OdsInstanceId INT)
+DROP FUNCTION IF EXISTS dbo.GetOdsInstanceConfigurationById;
+
+CREATE FUNCTION dbo.GetOdsInstanceConfigurationById (OdsInstanceId INT)
 RETURNS TABLE (
     OdsInstanceId INT
     ,ConnectionString TEXT
