@@ -130,7 +130,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment  -NoDeploy  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }}
       shell: powershell
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/

@@ -137,7 +137,7 @@ jobs:
         [Environment]::SetEnvironmentVariable('msbuild_buildConfiguration', '${{ env.CONFIGURATION }}')
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
+        Initialize-DevelopmentEnvironment  -NoDeploy -Engine PostgreSQL -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
       shell: pwsh
     - name: Remove Plug-Ins
       working-directory: ./Ed-Fi-ODS-Implementation/
