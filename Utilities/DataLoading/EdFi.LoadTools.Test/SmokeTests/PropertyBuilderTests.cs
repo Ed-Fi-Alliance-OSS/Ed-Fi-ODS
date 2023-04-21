@@ -231,6 +231,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
             public object link { get; set; }
 
             public string _etag { get; set; }
+
+            public string _lastModifiedDate { get;set; }
         }
 
         private class Class2
@@ -282,6 +284,16 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var builder = new IgnorePropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsNull(obj.link);
+        }
+
+        [Test]
+        public void IgnorePropertyBuilder_should_ignore_lastModifiedDate_property()
+        {
+            var obj = new Class1();
+            var propInfo = typeof(Class1).GetProperty("_lastModifiedDate");
+            var builder = new IgnorePropertyBuilder(Mock.Of<IPropertyInfoMetadataLookup>());
+            Assert.IsTrue(builder.BuildProperty(obj, propInfo));
+            Assert.IsNull(obj._lastModifiedDate);
         }
 
 #endregion

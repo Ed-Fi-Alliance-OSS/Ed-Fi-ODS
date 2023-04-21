@@ -30,6 +30,7 @@ namespace EdFi.LoadTools.Engine.Factories
                          && j.Property != "id"
                          && j.Property != "link"
                          && j.Property != "priorDescriptorId"
+                         && j.Property != "_lastModifiedDate"
                          && !(j.Model.EndsWith("Descriptor") && j.Property == $"{j.Model}Id")
                 )
                 .Distinct(new ModelMetadataEqualityComparer<JsonModelMetadata>());

@@ -19,7 +19,8 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         {
             "id",
             "_etag",
-            "link"
+            "link",
+            "_lastModifiedDate"
         };
 
         public IgnorePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup)

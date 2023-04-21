@@ -13,7 +13,6 @@ using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Metadata.Composites;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
@@ -109,6 +108,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                             {
                                 "_ext",
                                 "_etag",
+                                "_lastModifiedDate",
                                 "link"
                             }).ToList()
                     }).ToDictionary(k => k.DefinitionName, v => v.Properties);
