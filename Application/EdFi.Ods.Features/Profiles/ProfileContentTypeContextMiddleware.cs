@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Metadata.Profiles;
 using EdFi.Ods.Common.Profiles;
 using EdFi.Ods.Common.Utils.Profiles;
+using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
@@ -55,6 +56,7 @@ public class ProfileContentTypeContextMiddleware
 
             if (profileContentType != null)
             {
+                LogicalThreadContext.Properties["ProfilesHeader"] = profileContentType;
                 var (continueInvocation, profileContentTypeContext) = await TryProcessProfileContentTypeAsync(
                     "Accept",
                     profileContentType,
@@ -76,6 +78,8 @@ public class ProfileContentTypeContextMiddleware
 
             if (profileContentType?.StartsWith(ProfileContentTypePrefix) ?? false)
             {
+                LogicalThreadContext.Properties["ProfilesHeader"] = profileContentType;
+
                 var (continueInvocation, profileContentTypeContext) = await TryProcessProfileContentTypeAsync(
                     "Content-Type",
                     profileContentType,
