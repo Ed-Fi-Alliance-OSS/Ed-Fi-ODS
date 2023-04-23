@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Common.Descriptors;
@@ -33,13 +32,18 @@ public class DescriptorMapsProvider : IDescriptorMapsProvider
 
         var descriptorIdByUri = new ConcurrentDictionary<string, int>(
             Environment.ProcessorCount,
+
             // Allow for 10% growth of known entries before resizing
             (int)(allDescriptors.Count * 1.1),
+
+            // TODO: Need to decide whether to use database collation for this or not
+            StringComparer.OrdinalIgnoreCase);
             // Use same collation as the database engine
-            _equalityComparerProvider.GetEqualityComparer()); 
+            // _equalityComparerProvider.GetEqualityComparer()); 
 
         var uriByDescriptorId = new ConcurrentDictionary<int, string>(
             Environment.ProcessorCount,
+
             // Allow for 10% growth of known entries before resizing
             (int)(allDescriptors.Count * 1.1));
 
