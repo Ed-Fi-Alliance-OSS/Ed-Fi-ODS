@@ -6,7 +6,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using NHibernate.Driver;
 using NHibernate.SqlTypes;
 
@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
         /// Search for use of SQL Server table-value parameters in the SqlCommand, and modify
         /// the SQL so that they are used correctly.
         /// </summary>
-        /// <param name="command">The <see cref="System.Data.SqlClient.SqlCommand"/> prepared by NHibernate.</param>
+        /// <param name="command">The <see cref="Microsoft.Data.SqlClient.SqlCommand"/> prepared by NHibernate.</param>
         protected override void OnBeforePrepare(DbCommand command)
         {
             // Defensive check against accidental use of this client driver with a non-SQL Server back end

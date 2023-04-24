@@ -8,9 +8,9 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Data.SqlClient;
 
 namespace Test.Common
 {

@@ -123,7 +123,7 @@ namespace EdFi.Ods.Api.Helpers
                    && !assemblyName.StartsWithIgnoreCase("Autofac")
                    && !assemblyName.StartsWithIgnoreCase("nunit")
                    // Additional assembly included based on target runtime during publish
-                   // Needed by System.Data.SqlClient, which is used by Entity Framework
+                   // Needed by Microsoft.Data.SqlClient, which is used by Entity Framework
                    && assemblyName != "sni.dll";
         }
 
