@@ -12,16 +12,13 @@ using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Providers.Criteria;
-using EdFi.Ods.Common.Utils.Extensions;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
-using NHibernate.Mapping;
+using NHibernate.Driver;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
@@ -122,6 +119,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             }
 
             configuration.AddCreateDateHooks();
+
+            configuration.SetProperty("connection.driver_class", typeof(MicrosoftDataSqlClientDriver).AssemblyQualifiedName);
 
             return configuration;
 
