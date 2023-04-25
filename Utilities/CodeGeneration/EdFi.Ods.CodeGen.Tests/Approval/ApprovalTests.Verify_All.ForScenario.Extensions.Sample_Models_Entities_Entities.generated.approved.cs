@@ -183,7 +183,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -200,7 +200,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -343,17 +343,17 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -484,7 +484,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -501,7 +501,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -597,17 +597,17 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1170,7 +1170,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1187,7 +1187,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1510,7 +1510,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1527,7 +1527,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1746,7 +1746,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1763,7 +1763,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1922,7 +1922,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1939,7 +1939,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2098,7 +2098,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2115,7 +2115,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2314,7 +2314,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2331,7 +2331,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2540,7 +2540,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2557,7 +2557,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2790,7 +2790,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2807,7 +2807,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3018,7 +3018,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3035,7 +3035,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3230,7 +3230,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3247,7 +3247,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3406,7 +3406,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3423,7 +3423,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3582,7 +3582,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3599,7 +3599,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3795,7 +3795,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3812,7 +3812,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -4019,7 +4019,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -4036,7 +4036,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -4195,7 +4195,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -4212,7 +4212,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -4475,7 +4475,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -4492,7 +4492,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -4654,7 +4654,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -4671,7 +4671,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -5117,7 +5117,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -5134,7 +5134,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -5506,7 +5506,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -5523,7 +5523,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -5766,7 +5766,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -5783,7 +5783,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -5990,7 +5990,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -6007,7 +6007,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -6225,7 +6225,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -6242,7 +6242,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -6435,7 +6435,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -6452,7 +6452,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -6617,7 +6617,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -6634,7 +6634,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -6885,7 +6885,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -6902,7 +6902,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -7098,7 +7098,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -7115,7 +7115,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -7366,7 +7366,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -7383,7 +7383,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -7599,7 +7599,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -7616,7 +7616,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -7783,7 +7783,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -7800,7 +7800,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -7965,7 +7965,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -7982,7 +7982,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -8661,7 +8661,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -8678,7 +8678,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -9043,7 +9043,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -9060,7 +9060,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -9220,7 +9220,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -9237,7 +9237,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -9472,7 +9472,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -9489,7 +9489,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -9670,7 +9670,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -9687,7 +9687,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -9868,7 +9868,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -9885,7 +9885,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -10065,7 +10065,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -10082,7 +10082,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -10277,7 +10277,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -10294,7 +10294,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -10483,7 +10483,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -10500,7 +10500,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -10725,7 +10725,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -10742,7 +10742,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -10979,17 +10979,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -11723,7 +11723,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -11740,7 +11740,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -12098,7 +12098,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -12115,7 +12115,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -12275,7 +12275,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -12292,7 +12292,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -12489,7 +12489,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -12506,7 +12506,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -12694,7 +12694,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -12711,7 +12711,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -12871,7 +12871,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -12888,7 +12888,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -13048,7 +13048,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -13065,7 +13065,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -13281,7 +13281,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -13298,7 +13298,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -13458,7 +13458,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -13475,7 +13475,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -13673,7 +13673,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -13690,7 +13690,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -13849,7 +13849,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -13866,7 +13866,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -14025,7 +14025,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -14042,7 +14042,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -14201,7 +14201,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -14218,7 +14218,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -14484,7 +14484,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -14501,7 +14501,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -14698,7 +14698,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -14715,7 +14715,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -15129,7 +15129,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -15146,7 +15146,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -15510,7 +15510,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -15527,7 +15527,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -15772,7 +15772,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -15789,7 +15789,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion

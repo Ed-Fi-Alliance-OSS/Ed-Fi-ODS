@@ -94,17 +94,17 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -238,7 +238,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -255,7 +255,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -351,17 +351,17 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -615,7 +615,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -632,7 +632,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -815,7 +815,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -832,7 +832,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1017,7 +1017,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1034,7 +1034,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1132,17 +1132,17 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1355,7 +1355,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1372,7 +1372,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1540,7 +1540,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1557,7 +1557,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1662,17 +1662,17 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1803,7 +1803,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1820,7 +1820,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1916,17 +1916,17 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2178,7 +2178,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2195,7 +2195,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2378,7 +2378,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2395,7 +2395,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2580,7 +2580,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2597,7 +2597,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2697,17 +2697,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2932,7 +2932,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2949,7 +2949,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3125,7 +3125,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3142,7 +3142,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3244,17 +3244,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3437,7 +3437,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3454,7 +3454,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
