@@ -20,6 +20,11 @@ public class DescriptorResolver : IDescriptorResolver
 
     public int GetDescriptorId(string descriptorName, string uri)
     {
+        if (uri == null)
+        {
+            return default;
+        }
+        
         var descriptorMaps = _descriptorMapsProvider.GetMaps();
 
         if (!descriptorMaps.DescriptorIdByUri.TryGetValue(uri, out int descriptorId))
@@ -43,6 +48,11 @@ public class DescriptorResolver : IDescriptorResolver
 
     public string GetUri(string descriptorName, int descriptorId)
     {
+        if (descriptorId == default)
+        {
+            return default;
+        }
+        
         var descriptorMaps = _descriptorMapsProvider.GetMaps();
 
         if (!descriptorMaps.UriByDescriptorId.TryGetValue(descriptorId, out string uri))

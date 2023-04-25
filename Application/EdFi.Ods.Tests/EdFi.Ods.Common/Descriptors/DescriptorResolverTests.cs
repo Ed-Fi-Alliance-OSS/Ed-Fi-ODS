@@ -28,6 +28,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Descriptors
         }
 
         [Test]
+        public void GetDescriptorId_Should_return_0_When_descriptor_uri_is_null()
+        {
+            // Act
+            var result = _resolver.GetDescriptorId("TestDescriptor", null);
+            
+            result.ShouldBe(0);
+        }
+
+        [Test]
+        public void GetUri_Should_return_null_When_descriptorId_is_0()
+        {
+            // Act
+            var result = _resolver.GetUri("TestDescriptor", 0);
+            
+            result.ShouldBe(null);
+        }
+
+        [Test]
         public void GetDescriptorId_Should_return_0_When_descriptor_does_not_exist()
         {
             // Arrange
