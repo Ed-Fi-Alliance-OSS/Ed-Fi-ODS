@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
     /// Overrides the NHibernate SQL client driver's OnBeforePrepare method to modify
     /// the generated SQL to correctly use any table-valued parameters that are present.
     /// </summary>
-    public class EdFiSql2008ClientDriver : Sql2008ClientDriver
+    public class EdFiMicrosoftDataSqlClientDriver : MicrosoftDataSqlClientDriver
     {
         /// <summary>
         /// Search for use of SQL Server table-value parameters in the SqlCommand, and modify
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
             if (!(command is SqlCommand))
             {
                 throw new NotSupportedException(
-                    $"The configured client driver ({typeof(EdFiSql2008ClientDriver).Name}) was expecting a '{typeof(SqlCommand).FullName}' but encountered a command of type '{command.GetType().FullName}'.");
+                    $"The configured client driver ({typeof(EdFiMicrosoftDataSqlClientDriver).Name}) was expecting a '{typeof(SqlCommand).FullName}' but encountered a command of type '{command.GetType().FullName}'.");
             }
 
             // Find any usages of SQL Server "structured" parameters in the prepared command
