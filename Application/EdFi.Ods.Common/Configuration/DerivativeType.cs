@@ -18,10 +18,10 @@ public class DerivativeType : Enumeration<DerivativeType>
     /// <summary>
     /// A read-replica of the primary ODS database that is continuously kept up-to-date.
     /// </summary>
-    public static readonly DerivativeType ReadReplica = new DerivativeType(2, "ReadReplica");
+    public static readonly DerivativeType ReadReplica = new(2, "ReadReplica");
     
     /// <summary>
     /// A read-only, point-in-time snapshot or clone of the primary ODS instance.
     /// </summary>
-    public static readonly DerivativeType Snapshot = new DerivativeType(1, "Snapshot");
+    public static readonly DerivativeType Snapshot = new(1, "Snapshot");
 }

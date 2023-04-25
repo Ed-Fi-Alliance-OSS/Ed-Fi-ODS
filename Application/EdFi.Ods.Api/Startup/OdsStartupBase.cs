@@ -274,15 +274,15 @@ namespace EdFi.Ods.Api.Startup
             app.UseEdFiApiAuthentication();
             app.UseAuthorization();
 
+            // Identifies the current ODS instance for the request
+            app.UseOdsInstanceIdentification();
+
             // Perform additional registered configuration activities 
             foreach (var configurationActivity in configurationActivities)
             {
                 configurationActivity.Configure(app);
             }
 
-            // Identifies the current ODS instance for the request
-            app.UseOdsInstanceIdentification();
-            
             // Serves Open API Metadata json files when enabled.
             if (ApiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
             {

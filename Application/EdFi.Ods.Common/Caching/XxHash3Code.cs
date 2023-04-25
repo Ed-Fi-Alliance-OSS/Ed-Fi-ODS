@@ -6,7 +6,6 @@
 using System;
 using System.Buffers;
 using System.Security.Policy;
-using System.Text;
 using Standart.Hash.xxHash;
 
 namespace EdFi.Ods.Common.Caching;
@@ -157,33 +156,5 @@ public static class XxHash3Code
         {
             ArrayPool<byte>.Shared.Return(buffer);
         }
-    }
-}
-
-internal static class BytesExtensions
-{
-    public static byte[] GetBytes<T>(this T value)
-    {
-        if (value is int intValue)
-        {
-            return BitConverter.GetBytes(intValue);
-        }
-
-        if (value is string stringValue)
-        {
-            return Encoding.UTF8.GetBytes(stringValue);
-        }
-
-        if (value is ulong ulongValue)
-        {
-            return BitConverter.GetBytes(ulongValue);
-        }
-
-        if (value is byte[] bytesValue)
-        {
-            return bytesValue;
-        }
-        
-        throw new NotImplementedException($"Support for extracting bytes from type '{typeof(T)}' has not been implemented.");
     }
 }
