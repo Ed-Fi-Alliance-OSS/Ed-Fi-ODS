@@ -71,6 +71,9 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             => ProfileXDocument.Nodes()
                 .Any();
 
+
+        IReadOnlyDictionary<string, XElement> IProfileMetadataProvider.ProfileDefinitionsByName => throw new NotImplementedException();
+
         /// <summary>
         /// Gets the specified Profile definition by name.
         /// </summary>

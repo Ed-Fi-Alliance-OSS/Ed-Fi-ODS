@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
@@ -35,6 +36,9 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
     public class AccreditationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IAccreditationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -153,7 +157,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -188,11 +192,11 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -282,6 +286,9 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
     public class AidTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IAidTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -400,7 +407,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -435,11 +442,11 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -613,6 +620,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class Candidate : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ICandidate, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Candidate()
@@ -1445,7 +1455,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1480,11 +1490,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -1800,6 +1810,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateAddressSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateAddress()
@@ -2073,7 +2086,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2108,11 +2121,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -2229,6 +2242,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateAddressPeriod : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateAddressPeriod, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateAddressPeriodSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateAddressPeriod()
@@ -2353,7 +2369,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2388,11 +2404,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -2439,6 +2455,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateDisability : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateDisability, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateDisabilitySynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateDisability()
@@ -2654,7 +2673,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2689,11 +2708,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -2768,6 +2787,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateDisabilityDesignation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateDisabilityDesignation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateDisabilityDesignationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateDisabilityDesignation()
@@ -2897,7 +2919,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2932,11 +2954,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -2976,6 +2998,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateElectronicMail : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateElectronicMail, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateElectronicMailSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateElectronicMail()
@@ -3109,7 +3134,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3144,11 +3169,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -3202,6 +3227,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateLanguage : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateLanguage, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateLanguageSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateLanguage()
@@ -3379,7 +3407,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3414,11 +3442,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -3472,6 +3500,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateLanguageUse : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateLanguageUse, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateLanguageUseSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateLanguageUse()
@@ -3601,7 +3632,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3636,11 +3667,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -3680,6 +3711,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateOtherName : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateOtherName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateOtherNameSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateOtherName()
@@ -3818,7 +3852,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3853,11 +3887,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -3932,6 +3966,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidatePersonalIdentificationDocument : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidatePersonalIdentificationDocument, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidatePersonalIdentificationDocumentSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidatePersonalIdentificationDocument()
@@ -4158,7 +4195,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4193,11 +4230,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -4272,6 +4309,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateRace : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateRace, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateRaceSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateRace()
@@ -4400,7 +4440,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4435,11 +4475,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -4479,6 +4519,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
     public class CandidateTelephone : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateTelephoneSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateTelephone()
@@ -4613,7 +4656,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -4648,11 +4691,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -4810,6 +4853,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     public class CandidateEducatorPreparationProgramAssociation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateEducatorPreparationProgramAssociation()
@@ -5177,7 +5223,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5212,11 +5258,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -5301,6 +5347,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     public class CandidateEducatorPreparationProgramAssociationCohortYear : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYearSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateEducatorPreparationProgramAssociationCohortYear()
@@ -5479,7 +5528,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5514,11 +5563,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -5565,6 +5614,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
     public class CandidateEducatorPreparationProgramAssociationDegreeSpecialization : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecializationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CandidateEducatorPreparationProgramAssociationDegreeSpecialization()
@@ -5682,7 +5734,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5717,11 +5769,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -5780,6 +5832,9 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
     public class CertificationRouteDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.ICertificationRouteDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -5898,7 +5953,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -5933,11 +5988,11 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -6027,6 +6082,9 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
     public class CoteachingStyleObservedDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -6145,7 +6203,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6180,11 +6238,11 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -6274,6 +6332,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
     public class CredentialStudentAcademicRecord : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICredentialStudentAcademicRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICredentialStudentAcademicRecordSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CredentialStudentAcademicRecord()
@@ -6468,7 +6529,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6503,11 +6564,11 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -6547,6 +6608,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
     public class CredentialExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ICredentialExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public CredentialExtension()
@@ -6849,7 +6913,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -6884,11 +6948,11 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -7003,6 +7067,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
     public class CredentialStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.ICredentialStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -7121,7 +7188,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -7156,11 +7223,11 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -7338,6 +7405,9 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     public class EducatorPreparationProgram : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEducatorPreparationProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EducatorPreparationProgram()
@@ -7569,7 +7639,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -7604,11 +7674,11 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -7672,6 +7742,9 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
     public class EducatorPreparationProgramGradeLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducatorPreparationProgramGradeLevelSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EducatorPreparationProgramGradeLevel()
@@ -7801,7 +7874,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -7836,11 +7909,11 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -7885,6 +7958,9 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
     public class EducatorRoleDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEducatorRoleDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -8003,7 +8079,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8038,11 +8114,11 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -8132,6 +8208,9 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
     public class EnglishLanguageExamDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEnglishLanguageExamDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -8250,7 +8329,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8285,11 +8364,11 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -8379,6 +8458,9 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
     public class EPPProgramPathwayDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEPPProgramPathwayDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -8497,7 +8579,7 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -8532,11 +8614,11 @@ namespace EdFi.Ods.Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -8722,6 +8804,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     public class Evaluation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Evaluation()
@@ -9038,7 +9123,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -9073,11 +9158,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -9162,6 +9247,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
     public class EvaluationRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingLevelSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationRatingLevel()
@@ -9297,7 +9385,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -9332,11 +9420,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -9495,6 +9583,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     public class EvaluationElement : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationElement, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationElement()
@@ -9815,7 +9906,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -9850,11 +9941,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -9932,6 +10023,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
     public class EvaluationElementRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationElementRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingLevelSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationElementRatingLevel()
@@ -10067,7 +10161,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10102,11 +10196,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -10271,6 +10365,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     public class EvaluationElementRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationElementRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationElementRating()
@@ -10674,7 +10771,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10709,11 +10806,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -10798,6 +10895,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
     public class EvaluationElementRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationElementRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingResultSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationElementRatingResult()
@@ -10935,7 +11035,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -10970,11 +11070,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -11026,6 +11126,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
     public class EvaluationElementRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -11144,7 +11247,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11179,11 +11282,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -11371,6 +11474,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     public class EvaluationObjective : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationObjective, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationObjective()
@@ -11690,7 +11796,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11725,11 +11831,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -11814,6 +11920,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
     public class EvaluationObjectiveRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationObjectiveRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveRatingLevelSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationObjectiveRatingLevel()
@@ -11949,7 +12058,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -11984,11 +12093,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -12151,6 +12260,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     public class EvaluationObjectiveRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationObjectiveRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationObjectiveRating()
@@ -12545,7 +12657,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -12580,11 +12692,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -12648,6 +12760,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
     public class EvaluationObjectiveRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationObjectiveRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationObjectiveRatingResultSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationObjectiveRatingResult()
@@ -12785,7 +12900,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -12820,11 +12935,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -12876,6 +12991,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
     public class EvaluationPeriodDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationPeriodDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -12994,7 +13112,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -13029,11 +13147,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -13225,6 +13343,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     public class EvaluationRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationRating()
@@ -13725,7 +13846,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -13760,11 +13881,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -13870,6 +13991,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     public class EvaluationRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingResultSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationRatingResult()
@@ -14007,7 +14131,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -14042,11 +14166,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -14093,6 +14217,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     public class EvaluationRatingReviewer : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationRatingReviewer()
@@ -14311,7 +14438,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -14346,11 +14473,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -14411,6 +14538,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
     public class EvaluationRatingReviewerReceivedTraining : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public EvaluationRatingReviewerReceivedTraining()
@@ -14527,7 +14657,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -14562,11 +14692,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -14625,6 +14755,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
     public class EvaluationRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -14743,7 +14876,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -14778,11 +14911,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -14872,6 +15005,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
     public class EvaluationRatingStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -14990,7 +15126,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -15025,11 +15161,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -15119,6 +15255,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
     public class EvaluationTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -15237,7 +15376,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -15272,11 +15411,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -15454,6 +15593,9 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
     public class FinancialAid : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IFinancialAid, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public FinancialAid()
@@ -15668,7 +15810,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -15703,11 +15845,11 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -15776,6 +15918,9 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
     public class GenderDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IGenderDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -15894,7 +16039,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -15929,11 +16074,11 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -16023,6 +16168,9 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
     public class ObjectiveRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -16141,7 +16289,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -16176,11 +16324,11 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -16364,6 +16512,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     public class PerformanceEvaluation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IPerformanceEvaluation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluation()
@@ -16732,7 +16883,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -16767,11 +16918,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -16849,6 +17000,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     public class PerformanceEvaluationGradeLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationGradeLevelSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluationGradeLevel()
@@ -16980,7 +17134,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -17015,11 +17169,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -17059,6 +17213,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
     public class PerformanceEvaluationRatingLevel : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingLevel, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluationRatingLevel()
@@ -17194,7 +17351,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -17229,11 +17386,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -17390,6 +17547,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     public class PerformanceEvaluationRating : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IPerformanceEvaluationRating, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluationRating()
@@ -17875,7 +18035,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -17910,11 +18070,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -18034,6 +18194,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     public class PerformanceEvaluationRatingResult : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingResult, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingResultSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluationRatingResult()
@@ -18171,7 +18334,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -18206,11 +18369,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -18257,6 +18420,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     public class PerformanceEvaluationRatingReviewer : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluationRatingReviewer()
@@ -18475,7 +18641,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -18510,11 +18676,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -18575,6 +18741,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
     public class PerformanceEvaluationRatingReviewerReceivedTraining : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PerformanceEvaluationRatingReviewerReceivedTraining()
@@ -18691,7 +18860,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -18726,11 +18895,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -18789,6 +18958,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
     public class PerformanceEvaluationRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -18907,7 +19079,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -18942,11 +19114,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -19036,6 +19208,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
     public class PerformanceEvaluationTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -19154,7 +19329,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -19189,11 +19364,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -19385,6 +19560,9 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
     public class RubricDimension : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.IRubricDimension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public RubricDimension()
@@ -19657,7 +19835,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -19692,11 +19870,11 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -19758,6 +19936,9 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
     public class RubricRatingLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.TPDM.IRubricRatingLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -19876,7 +20057,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -19911,11 +20092,11 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -20005,6 +20186,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolExtension()
@@ -20108,7 +20292,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -20143,11 +20327,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -20199,6 +20383,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
     public class SurveyResponseExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.TPDM.ISurveyResponseExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SurveyResponseExtension()
@@ -20347,7 +20534,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -20382,11 +20569,11 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -20537,6 +20724,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
     public class SurveyResponsePersonTargetAssociation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SurveyResponsePersonTargetAssociation()
@@ -20708,7 +20898,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -20743,11 +20933,11 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -20882,6 +21072,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
     public class SurveySectionResponsePersonTargetAssociation : AggregateRootWithCompositeKey,
         Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SurveySectionResponsePersonTargetAssociation()
@@ -21056,7 +21249,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -21091,11 +21284,11 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 

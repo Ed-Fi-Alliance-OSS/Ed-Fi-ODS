@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
@@ -35,6 +36,9 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
     public class InstitutionControlDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -153,7 +157,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -188,11 +192,11 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -282,6 +286,9 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
     public class InstitutionLevelDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -400,7 +407,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -435,11 +442,11 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -613,6 +620,9 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
     public class PostSecondaryOrganization : AggregateRootWithCompositeKey,
         Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public PostSecondaryOrganization()
@@ -771,7 +781,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -806,11 +816,11 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -872,6 +882,9 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
     public class SpecialEducationGraduationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -990,7 +1003,7 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1025,11 +1038,11 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -1119,6 +1132,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     public class StudentAcademicRecordExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IStudentAcademicRecordExtensionSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentAcademicRecordExtension()
@@ -1267,7 +1283,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1302,11 +1318,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -1360,6 +1376,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
     public class StudentAcademicRecordClassRankingExtension : EntityWithCompositeKey, IChildEntity,
         Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.IStudentAcademicRecordClassRankingExtensionSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentAcademicRecordClassRankingExtension()
@@ -1487,7 +1506,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1522,11 +1541,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
@@ -1578,6 +1597,9 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
     public class SubmissionCertificationDescriptor : DescriptorAggregate.EdFi.Descriptor,
         Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
 
         // =============================================================
         //                         Primary Key
@@ -1696,7 +1718,7 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1731,11 +1753,11 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
