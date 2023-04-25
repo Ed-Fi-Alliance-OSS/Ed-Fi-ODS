@@ -9,6 +9,9 @@ using EdFi.Security.DataAccess.Models;
 
 namespace EdFi.Security.DataAccess.Repositories;
 
+/// <summary>
+/// Defines methods for accessing security metadata as entities.
+/// </summary>
 [Intercept("cache-security")]
 public interface ISecurityTableGateway
 {

@@ -196,7 +196,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     CountryTestDescriptor1.Namespace,
                     CountryTestDescriptor1.CodeValue));
         }
-        
+
         [Test]
         public void When_getting_valid_descriptor_by_uri_should_return_lookup_data()
         {
