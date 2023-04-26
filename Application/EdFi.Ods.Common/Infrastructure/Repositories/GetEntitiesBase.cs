@@ -103,7 +103,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             bool isReadRequest = (httpMethod == HttpMethods.Get);
             bool isShallow = (httpMethod == HttpMethods.Delete);
-            
+
             string mainHql = BuildMainHql();
 
             using (new SessionScope(SessionFactory))
@@ -124,6 +124,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                         var childQuery = Session.CreateQuery(string.Concat(hql, whereClause));
                         applyParameters(childQuery);
                         childQuery.Future<TEntity>();
+                    }
                     }
                 }
 

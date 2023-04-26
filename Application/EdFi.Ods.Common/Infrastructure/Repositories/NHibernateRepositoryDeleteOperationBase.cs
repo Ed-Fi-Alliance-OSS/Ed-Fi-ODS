@@ -98,7 +98,6 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (entity.IsDerived)
                 {
                     int i = 0;
-
                     foreach (var property in entity.Identifier.Properties)
                     {
                         var getter = _propertyGetterByPropertyName.GetOrAdd(
