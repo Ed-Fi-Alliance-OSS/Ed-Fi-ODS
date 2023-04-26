@@ -18,6 +18,7 @@ using EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.DescriptorAggregate.EdFi;
 using FakeItEasy;
+using Microsoft.Data.SqlClient.Server;
 using NUnit.Framework;
 using Shouldly;
 
@@ -172,13 +173,24 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         private IDescriptorDetailsProvider DescriptorDetailsProvider { get; set; }
 
         [Test]
-        public void When_getting_invalid_descriptor_name_by_id_should_throw_argument_exception()
+        public void When_getting_descriptor_with_invalid_name_by_id_should_throw_argument_exception()
         {
             Assert.Throws<ArgumentException>(
                 () =>
                     DescriptorDetailsProvider.GetDescriptorDetails(
                         "Invalid",
                         CountryTestDescriptor1.CountryDescriptorId));
+        }
+
+        [Test]
+        public void When_getting_descriptor_with_invalid_uri_format_should_throw_format_exception()
+        {
+            Assert.Throws<FormatException>(
+                () =>
+                    DescriptorDetailsProvider.GetDescriptorDetails(
+                        CountryDescriptorName,
+                        "Not-A-Valid-URI"))
+                .Message.ShouldBe("Unable to resolve value 'Not-A-Valid-URI' to an existing 'CountryDescriptor' resource.");
         }
 
         [Test]
@@ -214,7 +226,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         }
 
         [Test]
-        public void When_getting_invalid_descriptor_by_id_should_return_null()
+        public void When_getting_non_existing_descriptor_by_id_should_return_null()
         {
             var testLookup = DescriptorDetailsProvider.GetDescriptorDetails(CountryDescriptorName, 999999999);
             testLookup.ShouldBeNull();

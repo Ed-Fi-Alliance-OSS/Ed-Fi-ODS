@@ -480,7 +480,9 @@ namespace EdFi.Admin.DataAccess.Repositories
                     catch (Exception) { }
 
                     dbContext.DeleteAll<ClientAccessToken>();
+                    dbContext.DeleteAll<ApiClientOdsInstance>();
                     dbContext.DeleteAll<ApiClient>();
+                    dbContext.DeleteAll<OdsInstance>();
                     dbContext.DeleteAll<User>();
                     dbContext.DeleteAll<ApplicationEducationOrganization>();
                     dbContext.DeleteAll<Application>();

@@ -132,9 +132,9 @@ public class DescriptorDetailsProvider : IDescriptorDetailsProvider
 
             if (pos < 0)
             {
-                throw new ArgumentException("Descriptor value is not in the correct format ('#' not found).", nameof(uri));
+                throw new FormatException($"Unable to resolve value '{uri}' to an existing '{descriptorName}' resource.");
             }
-            
+
             criteria.Add(Restrictions.Eq("Namespace", uri.Substring(0, pos)));
             criteria.Add(Restrictions.Eq("CodeValue", uri.Substring(pos + 1)));
         }
