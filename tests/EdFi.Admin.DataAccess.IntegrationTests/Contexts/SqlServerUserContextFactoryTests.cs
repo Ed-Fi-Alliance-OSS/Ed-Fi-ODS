@@ -23,7 +23,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext_make_a_change_and_save_it()
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
-            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;trusted_connection=True;");
 
             DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.SqlServer));
             var context = new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
