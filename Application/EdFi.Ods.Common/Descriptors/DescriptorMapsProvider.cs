@@ -15,14 +15,10 @@ namespace EdFi.Ods.Common.Descriptors;
 public class DescriptorMapsProvider : IDescriptorMapsProvider
 {
     private readonly IDescriptorDetailsProvider _descriptorDetailsProvider;
-    private readonly IDatabaseEngineSpecificEqualityComparerProvider<string> _equalityComparerProvider;
 
-    public DescriptorMapsProvider(
-        IDescriptorDetailsProvider descriptorDetailsProvider,
-        IDatabaseEngineSpecificEqualityComparerProvider<string> equalityComparerProvider)
+    public DescriptorMapsProvider(IDescriptorDetailsProvider descriptorDetailsProvider)
     {
         _descriptorDetailsProvider = descriptorDetailsProvider;
-        _equalityComparerProvider = equalityComparerProvider;
     }
 
     /// <inheritdoc cref="IDescriptorMapsProvider.GetMaps" />
@@ -30,21 +26,15 @@ public class DescriptorMapsProvider : IDescriptorMapsProvider
     {
         var allDescriptors = _descriptorDetailsProvider.GetAllDescriptorDetails();
 
+        // Create dictionary, allowing for 10% growth of known entries before resizing
         var descriptorIdByUri = new ConcurrentDictionary<string, int>(
             Environment.ProcessorCount,
-
-            // Allow for 10% growth of known entries before resizing
             (int)(allDescriptors.Count * 1.1),
-
-            // TODO: Need to decide whether to use database collation for this or not
             StringComparer.OrdinalIgnoreCase);
-            // Use same collation as the database engine
-            // _equalityComparerProvider.GetEqualityComparer()); 
 
+        // Create dictionary, allowing for 10% growth of known entries before resizing
         var uriByDescriptorId = new ConcurrentDictionary<int, string>(
             Environment.ProcessorCount,
-
-            // Allow for 10% growth of known entries before resizing
             (int)(allDescriptors.Count * 1.1));
 
         foreach (var descriptorDetails in allDescriptors)

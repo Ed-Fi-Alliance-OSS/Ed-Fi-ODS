@@ -17,20 +17,15 @@ using NUnit.Framework;
 [TestFixture]
 public class DescriptorMapsProviderTests
 {
-    [TestCase(true)]
-    [TestCase(false)]
-    public void GetMaps_ReturnsExpectedDescriptorMaps(bool useCaseInsensitiveCollation)
+    [Test]
+    public void GetMaps_ReturnsExpectedDescriptorMaps()
     {
         // Arrange
         var descriptorDetailsProvider = A.Fake<IDescriptorDetailsProvider>();
-        var equalityComparerProvider = A.Fake<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
         
         A.CallTo(() => descriptorDetailsProvider.GetAllDescriptorDetails()).Returns(GetSampleDescriptorDetails());
         
-        A.CallTo(() => equalityComparerProvider.GetEqualityComparer())
-            .Returns(useCaseInsensitiveCollation ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
-        
-        var provider = new DescriptorMapsProvider(descriptorDetailsProvider, equalityComparerProvider);
+        var provider = new DescriptorMapsProvider(descriptorDetailsProvider);
 
         // Act
         var maps = provider.GetMaps();
@@ -46,9 +41,9 @@ public class DescriptorMapsProviderTests
         maps.DescriptorIdByUri["http://ed-fi.org/TestDescriptor#1"].ShouldBe(1);
         maps.DescriptorIdByUri["http://ed-fi.org/TestDescriptor#2"].ShouldBe(2);
 
-        // Ensure correct collation was used
-        maps.DescriptorIdByUri.ContainsKey("http://ed-fi.org/TestDescriptor#1".ToUpper()).ShouldBe(useCaseInsensitiveCollation);
-        maps.DescriptorIdByUri.ContainsKey("http://ed-fi.org/TestDescriptor#2".ToUpper()).ShouldBe(useCaseInsensitiveCollation);
+        // Ensure case-insensitive matching on descriptor values
+        maps.DescriptorIdByUri.ContainsKey("HTTP://ED-FI.ORG/TESTDESCRIPTOR#1").ShouldBe(true);
+        maps.DescriptorIdByUri.ContainsKey("HTTP://ED-FI.ORG/TESTDESCRIPTOR#2").ShouldBe(true);
         
         maps.UriByDescriptorId[1].ShouldBe("http://ed-fi.org/TestDescriptor#1");
         maps.UriByDescriptorId[2].ShouldBe("http://ed-fi.org/TestDescriptor#2");
