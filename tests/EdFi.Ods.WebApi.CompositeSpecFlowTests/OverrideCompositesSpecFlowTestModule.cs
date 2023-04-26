@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
-    // TODO: Remove?
     public class OverrideCompositesSpecFlowTestModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -18,6 +18,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 .SingleInstance();
 
             builder.RegisterType<FakedOAuthTokenAuthenticator>().As<IOAuthTokenAuthenticator>();
+            
+            builder.RegisterType<FakeOdsInstanceConfigurationProvider>().As<IOdsInstanceConfigurationProvider>();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     null,
                     null,
                     null,
-                    null,
+                    new[] { 1 },
                     0));
         }
 
