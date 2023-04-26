@@ -14,12 +14,16 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SpecFlowOdsConnectionStringProvider>().As<IOdsDatabaseConnectionStringProvider>()
+            builder.RegisterType<SpecFlowOdsConnectionStringProvider>()
+                .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<FakedOAuthTokenAuthenticator>().As<IOAuthTokenAuthenticator>();
-            
-            builder.RegisterType<FakeOdsInstanceConfigurationProvider>().As<IOdsInstanceConfigurationProvider>();
+            builder.RegisterType<FakedOAuthTokenAuthenticator>()
+                .As<IOAuthTokenAuthenticator>();
+
+            builder.RegisterType<FakeOdsInstanceConfigurationProvider>()
+                .As<IOdsInstanceConfigurationProvider>()
+                .SingleInstance();
         }
     }
 }

@@ -9,7 +9,7 @@ using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.WebApi.CompositeSpecFlowTests;
+namespace EdFi.Ods.WebApi.IntegrationTests;
 
 public class FakeOdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvider
 {
