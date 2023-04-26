@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -30,6 +31,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     {
         private readonly Lazy<Aggregate> _aggregate;
         private readonly IDomainModelProvider _domainModelProvider;
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
         private readonly Lazy<List<string>> _aggregateHqlStatementsForReads;
         private readonly Lazy<List<string>> _aggregateHqlStatementsForWrites;
         private readonly Lazy<string> _mainHqlStatementBaseForReads;
@@ -50,10 +52,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
         protected GetEntitiesBase(
             ISessionFactory sessionFactory, 
-            IDomainModelProvider domainModelProvider)
+            IDomainModelProvider domainModelProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(sessionFactory)
         {
             _domainModelProvider = domainModelProvider;
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
             _aggregate = new Lazy<Aggregate>(GetAggregate);
 
             _aggregateHqlStatementsForReads = new Lazy<List<string>>(
@@ -91,15 +95,16 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             string orderByClause = null)
         {
             // Determine if this is a Read or Write request (default to "read" behavior if authorization context isn't available)
-            var action = AuthorizationContextProvider?.GetAction() ?? RequestActions.ReadActionUri;
+            string httpMethod = _dataManagementResourceContextProvider.Get().HttpMethod;
 
-            bool isReadRequest = (action == RequestActions.ReadActionUri);
-
+            bool isReadRequest = (httpMethod == "GET");
+            bool isShallow = (httpMethod == "DELETE");
+            
             string mainHqlBase = isReadRequest
                 ? _mainHqlStatementBaseForReads.Value
                 : _mainHqlStatementBaseForWrites.Value;
 
-            string mainHql = $"{mainHqlBase} {whereClause} {orderByClause}".TrimEnd();
+            string mainHql = $"{mainHqlBase} {whereClause} {orderByClause}";
 
             using (new SessionScope(SessionFactory))
             {
@@ -108,15 +113,18 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                 var futureEnumerable = query.Future<TEntity>();
 
-                var aggregateStatements = isReadRequest
-                    ? _aggregateHqlStatementsForReads.Value
-                    : _aggregateHqlStatementsForWrites.Value;
-
-                foreach (string hql in aggregateStatements)
+                if (!isShallow)
                 {
-                    var childQuery = Session.CreateQuery(hql + whereClause);
-                    applyParameters(childQuery);
-                    childQuery.Future<TEntity>();
+                    var aggregateStatements = isReadRequest
+                        ? _aggregateHqlStatementsForReads.Value
+                        : _aggregateHqlStatementsForWrites.Value;
+
+                    foreach (string hql in aggregateStatements)
+                    {
+                        var childQuery = Session.CreateQuery(hql + whereClause);
+                        applyParameters(childQuery);
+                        childQuery.Future<TEntity>();
+                    }
                 }
 
                 return await futureEnumerable.GetEnumerableAsync(cancellationToken);

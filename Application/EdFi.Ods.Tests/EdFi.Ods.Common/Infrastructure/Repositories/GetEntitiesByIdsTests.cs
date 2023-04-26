@@ -13,12 +13,14 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi;
@@ -44,6 +46,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
 
             private readonly List<string> _actualHqlQueries = new List<string>();
             private IParameterListSetter _parameterListSetter;
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
@@ -52,6 +55,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                 _sessionFactory = GetSessionFactoryStub<School>(_actualHqlQueries);
 
                 _parameterListSetter = Stub<IParameterListSetter>();
+
+                _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(null, "GET"));
             }
 
             protected override void Act()
@@ -59,7 +65,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                 var getEntitiesByIds = new GetEntitiesByIds<School>(
                     _sessionFactory,
                     _domainModelProvider,
-                    _parameterListSetter);
+                    _parameterListSetter,
+                    _contextProvider);
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -133,6 +140,7 @@ Actual:
             private IParameterListSetter _parameterListSetter;
 
             private readonly List<string> _actualHqlQueries = new List<string>();
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
@@ -141,6 +149,9 @@ Actual:
                 _sessionFactory = GetSessionFactoryStub<Student>(_actualHqlQueries);
 
                 _parameterListSetter = Stub<IParameterListSetter>();
+                
+                _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(null, "GET"));
             }
 
             protected override void Act()
@@ -148,7 +159,8 @@ Actual:
                 var getEntitiesByIds = new GetEntitiesByIds<Student>(
                     _sessionFactory,
                     _domainModelProvider,
-                    _parameterListSetter);
+                    _parameterListSetter,
+                    _contextProvider);
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]
@@ -205,6 +217,7 @@ Actual:
             private IParameterListSetter _parameterListSetter;
 
             private readonly List<string> _actualHqlQueries = new List<string>();
+            private IContextProvider<DataManagementResourceContext> _contextProvider;
 
             protected override void Arrange()
             {
@@ -217,6 +230,9 @@ Actual:
                 _sessionFactory = GetSessionFactoryStub<StudentEducationOrganizationAssociation>(_actualHqlQueries);
 
                 _parameterListSetter = Stub<IParameterListSetter>();
+                
+                _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
+                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(null, "GET"));
             }
 
             protected override void Act()
@@ -224,7 +240,8 @@ Actual:
                 var getEntitiesByIds = new GetEntitiesByIds<StudentEducationOrganizationAssociation>(
                     _sessionFactory,
                     _domainModelProvider,
-                    _parameterListSetter);
+                    _parameterListSetter,
+                    _contextProvider);
 
                 getEntitiesByIds.GetByIdsAsync(
                     new[]

@@ -97,7 +97,7 @@
     <one-to-one name="{{Name}}" class="{{ClassName}}" />
             {{/IsQueryModelMapping}}
             {{^IsQueryModelMapping}}
-    <set name="{{Name}}" access="{{Access}}" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="{{Name}}" access="{{Access}}" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
                 {{#Columns}}
         <column name="{{Name}}" />
@@ -130,7 +130,7 @@
 
     <!-- Collections -->
         {{#Collections}}
-    <set name="{{BagName}}"{{#IsEmbeddedCollection}} cascade="all-delete-orphan" inverse="true" lazy="false"{{/IsEmbeddedCollection}}{{^IsEmbeddedCollection}} cascade="none" lazy="true"{{/IsEmbeddedCollection}}>
+    <set name="{{BagName}}"{{#IsEmbeddedCollection}} cascade="all-delete-orphan" inverse="true" lazy="true"{{/IsEmbeddedCollection}}{{^IsEmbeddedCollection}} cascade="none" lazy="true"{{/IsEmbeddedCollection}}>
       <key>
             {{#Columns}}
         <column name="{{Name}}" />
@@ -189,7 +189,7 @@
 
           <!-- Collections -->
                     {{#Collections}}
-          <set name="{{BagName}}"{{#IsEmbeddedCollection}} cascade="all-delete-orphan" inverse="true" lazy="false"{{/IsEmbeddedCollection}}{{^IsEmbeddedCollection}} cascade="none" lazy="true"{{/IsEmbeddedCollection}}>
+          <set name="{{BagName}}"{{#IsEmbeddedCollection}} cascade="all-delete-orphan" inverse="true" lazy="true"{{/IsEmbeddedCollection}}{{^IsEmbeddedCollection}} cascade="none" lazy="true"{{/IsEmbeddedCollection}}>
             <key>
                         {{#Columns}}
               <column name="{{Name}}" />
