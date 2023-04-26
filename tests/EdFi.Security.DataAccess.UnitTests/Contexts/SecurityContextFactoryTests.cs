@@ -22,7 +22,7 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
             var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
 
             A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
-                          "Server=(local); Database=EdFi_Security; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;");
+                          "Server=(local); Database=EdFi_Security; trusted_connection=True; Application Name=EdFi.Ods.WebApi;");
 
             new SecurityContextFactory(connectionstringProvider, DatabaseEngine.SqlServer)
                  .CreateContext()

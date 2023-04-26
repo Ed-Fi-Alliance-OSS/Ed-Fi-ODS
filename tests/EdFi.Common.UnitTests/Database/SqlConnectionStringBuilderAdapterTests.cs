@@ -22,7 +22,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             private string _actualModifiedDatabaseName;
             private string _actualFinalConnectionString;
 
-            private const string SqlServerConnectionStringFormat = @"Server=(local);Database={0};Trusted_Connection=True;Application Name=EdFi.Ods.WebApi;";
+            private const string SqlServerConnectionStringFormat = @"Server=(local);Database={0};trusted_connection=True;Application Name=EdFi.Ods.WebApi;";
 
             protected override void Act()
             {
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             {
                 var adapter = new SqlConnectionStringBuilderAdapter();
 
-                adapter.ConnectionString = @"Server=(local);Database=SomeDatabase;Trusted_Connection=True;Application Name=EdFi.Ods.WebApi;";
+                adapter.ConnectionString = @"Server=(local);Database=SomeDatabase;trusted_connection=True;Application Name=EdFi.Ods.WebApi;";
                 _actualServerName = adapter.ServerName;
 
                 adapter.ServerName = "ModifiedServerName";
