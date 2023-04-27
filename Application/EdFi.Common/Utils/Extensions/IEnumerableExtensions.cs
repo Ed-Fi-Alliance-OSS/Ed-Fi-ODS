@@ -29,6 +29,16 @@ namespace EdFi.Common.Utils.Extensions
             }
         }
 
+        public static void ForEach<T, TArg>(this IEnumerable<T> enumerable, Action<T, int, TArg> action, TArg argument)
+        {
+            int i = 0;
+
+            foreach (var element in enumerable)
+            {
+                action(element, i++, argument);
+            }
+        }
+        
         public static bool None<T>(this IEnumerable<T> enumerable)
         {
             return !enumerable.Any();
