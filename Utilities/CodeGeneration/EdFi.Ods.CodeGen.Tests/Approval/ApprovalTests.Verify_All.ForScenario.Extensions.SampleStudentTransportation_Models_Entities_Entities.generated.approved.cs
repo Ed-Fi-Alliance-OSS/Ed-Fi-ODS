@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
@@ -97,17 +98,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -124,6 +125,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
     public class StudentTransportation : AggregateRootWithCompositeKey,
         Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentTransportation()
@@ -287,7 +291,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -313,7 +317,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -322,15 +326,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion

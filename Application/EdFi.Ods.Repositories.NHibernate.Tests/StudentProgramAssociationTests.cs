@@ -33,6 +33,14 @@ using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
+using EdFi.Ods.Api.Container.Modules;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using Npgsql;
 using Test.Common.DataConstants;
 
 
@@ -413,7 +421,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 builder.Register(c => apiSettings.GetDatabaseEngine()).As<DatabaseEngine>();
 
-                builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
+                builder.RegisterModule(new Api.Container.Modules.SandboxDatabaseReplacementTokenProviderModule(apiSettings));
                 builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
                 builder.RegisterModule(new ContextProviderModule());
                 builder.RegisterModule(new ContextStorageModule());
@@ -422,11 +430,18 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new EdFiOdsInstanceIdentificationProviderModule());
                 builder.RegisterModule(new PersonIdentifiersModule());
                 builder.RegisterModule(new DomainModelModule());
-                builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
+                builder.RegisterModule(new Api.Container.Modules.SqlServerSpecificModule(apiSettings));
                 builder.RegisterModule(new DescriptorLookupProviderModule());
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
 
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
+
+                // Mock the database engine specific string comparison provider
+                var databaseEngineSpecificStringComparisonProvider = A.Fake<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
+                A.CallTo(() => databaseEngineSpecificStringComparisonProvider.GetEqualityComparer()).Returns(apiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
+
+                builder.RegisterInstance(databaseEngineSpecificStringComparisonProvider).As<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => databaseEngineSpecificStringComparisonProvider); 
 
                 _container = builder.Build();
             }

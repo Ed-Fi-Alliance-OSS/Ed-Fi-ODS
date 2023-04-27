@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
@@ -93,17 +94,17 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -120,6 +121,9 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     public class Name : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.INameSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Name()
@@ -208,7 +212,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -234,7 +238,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -243,15 +247,15 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -347,17 +351,17 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -374,6 +378,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class Parent : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IParent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Parent()
@@ -582,7 +589,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -608,7 +615,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -617,15 +624,15 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -685,6 +692,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class ParentAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IParentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentAddressSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentAddress()
@@ -779,7 +789,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -805,7 +815,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -814,15 +824,15 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -858,6 +868,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     public class ParentStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IParentStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentStudentSchoolAssociationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public ParentStudentSchoolAssociation()
@@ -978,7 +991,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1004,7 +1017,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1013,15 +1026,15 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1119,17 +1132,17 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1146,6 +1159,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     public class School : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public School()
@@ -1313,7 +1329,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1339,7 +1355,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1348,15 +1364,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1402,6 +1418,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     public class SchoolAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolAddress()
@@ -1495,7 +1514,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1521,7 +1540,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1530,15 +1549,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1643,17 +1662,17 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1670,6 +1689,9 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     public class SchoolYearType : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public SchoolYearType()
@@ -1755,7 +1777,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -1781,7 +1803,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -1790,15 +1812,15 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1894,17 +1916,17 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -1921,6 +1943,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class Staff : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Staff()
@@ -2127,7 +2152,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2153,7 +2178,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2162,15 +2187,15 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2230,6 +2255,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class StaffAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffAddressSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffAddress()
@@ -2324,7 +2352,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2350,7 +2378,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2359,15 +2387,15 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2403,6 +2431,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     public class StaffStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffStudentSchoolAssociationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StaffStudentSchoolAssociation()
@@ -2523,7 +2554,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2549,7 +2580,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2558,15 +2589,15 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2666,17 +2697,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2693,6 +2724,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     public class Student : AggregateRootWithCompositeKey,
         Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public Student()
@@ -2872,7 +2906,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -2898,7 +2932,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -2907,15 +2941,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -2968,6 +3002,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     public class StudentAddress : EntityWithCompositeKey, IChildEntity,
         Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentAddressSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentAddress()
@@ -3062,7 +3099,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3088,7 +3125,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3097,15 +3134,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3207,17 +3244,17 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -3234,6 +3271,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     public class StudentSchoolAssociation : AggregateRootWithCompositeKey, IHasCascadableKeyValues,
         Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         public virtual void SuspendReferenceAssignmentCheck() { }
 
         public StudentSchoolAssociation()
@@ -3371,7 +3411,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -3397,7 +3437,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -3406,15 +3446,15 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion

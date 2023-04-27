@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
@@ -118,17 +119,17 @@ namespace {{AggregateNamespace}}
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode.Add(entry.Value);
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion
@@ -146,6 +147,9 @@ namespace {{AggregateNamespace}}
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}},{{^IsAggregateRoot}} IChildEntity,{{/IsAggregateRoot}}{{#AllowsPrimaryKeyUpdates}} IHasCascadableKeyValues,{{/AllowsPrimaryKeyUpdates}}
         {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{^IsAbstract}}, {{NamespacePrefix}}I{{ClassName}}SynchronizationSourceSupport{{/IsAbstract}}{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}
     {
+        private static readonly IEqualityComparer<string> _databaseEngineSpecificStringComparer = GeneratedArtifactStaticDependencies
+                                                                                                    .DatabaseEngineSpecificStringComparerProvider
+                                                                                                    .GetEqualityComparer();
         {{^IsDerived}}
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -584,7 +588,7 @@ namespace {{AggregateNamespace}}
             {
                 if (entry.Value is string)
                 {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    if (!_databaseEngineSpecificStringComparer.Equals((string) entry.Value,(string) thoseKeys[entry.Key]))
                     {
                         return false;
                     }
@@ -610,7 +614,7 @@ namespace {{AggregateNamespace}}
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                var hashCode = new HashCode();
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
@@ -619,15 +623,15 @@ namespace {{AggregateNamespace}}
 
                     if (entry.Value is string)
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                        hashCode.Add(entry.Value as string, _databaseEngineSpecificStringComparer);
                     }
                     else
                     {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                        hashCode.Add(entry.Value);
                     }
                 }
 
-                return hashCode;
+                return hashCode.ToHashCode();
             }
         }
         #endregion

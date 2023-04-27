@@ -25,6 +25,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.IO;
@@ -248,6 +250,10 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterGeneric(typeof(ContextProvider<>))
                 .As(typeof(IContextProvider<>))
+                .SingleInstance();
+
+            builder.RegisterType<DatabaseEngineSpecificStringComparerProvider>()
+                .As(typeof(IDatabaseEngineSpecificEqualityComparerProvider<string>))
                 .SingleInstance();
             
             RegisterPipeLineStepProviders();

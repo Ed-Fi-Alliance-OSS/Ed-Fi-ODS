@@ -53,6 +53,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Profiles;
+using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -311,6 +316,9 @@ namespace EdFi.Ods.Api.Startup
                 // Make this dependency available to generated artifacts
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IResourceModelProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IContextProvider<ProfileContentTypeContext>>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IDatabaseEngineSpecificEqualityComparerProvider<string>>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.
