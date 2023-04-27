@@ -126,20 +126,22 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 var builder = new StringBuilder($"DELETE FROM {e.FullName} WHERE ");
 
                 e.Identifier.Properties.ForEach(
-                    (property, i) =>
+                    (property, i, args) =>
                     {
+                        var (c, sb) = args;
+                        
                         if (i > 0)
                         {
-                            builder.Append(" AND ");
+                            sb.Append(" AND ");
                         }
 
-                        builder.Append($"{property.PropertyName} = @pk{i}");
+                        sb.Append($"{property.PropertyName} = @pk{i}");
 
-                        var idParm = cmd.CreateParameter();
+                        var idParm = c.CreateParameter();
                         idParm.ParameterName = $"pk{i}";
                         idParm.DbType = property.PropertyType.DbType;
-                        cmd.Parameters.Add(idParm);
-                    });
+                        c.Parameters.Add(idParm);
+                    }, (cmd, builder));
 
                 cmd.CommandText = builder.ToString();
             }
