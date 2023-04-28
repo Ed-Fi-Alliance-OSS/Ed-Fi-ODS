@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.32" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
     <PackageReference Include="Autofac" Version="6.5.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="7.3.1" />

@@ -17,7 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="6.0.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.32" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="MediatR" Version="12.0.1" />
