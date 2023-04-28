@@ -5,7 +5,6 @@
 
 using System;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.Common.Serialization
@@ -17,7 +16,10 @@ namespace EdFi.Ods.Common.Serialization
             serializer.Serialize(writer, value.Value);
         }
 
-        public override DatabaseEngine ReadJson(JsonReader reader, Type objectType, DatabaseEngine existingValue,
+        public override DatabaseEngine ReadJson(
+            JsonReader reader,
+            Type objectType,
+            DatabaseEngine existingValue,
             bool hasExistingValue,
             JsonSerializer serializer)
         {
