@@ -28,15 +28,15 @@ namespace EdFi.Ods.Api.Middleware
         private ILog _requestResponseDetailsLogger;
         private ILog _requestResponseContentLogger;
 
-        public RequestResponseDetailsLoggerMiddleware(ApiSettings apiSettings, IRESTErrorProvider restErrorProvider, IOdsDatabaseConnectionStringProvider connectionStringProvider)
+        public RequestResponseDetailsLoggerMiddleware(ReverseProxySettings reverseProxySettings, int logRequestResponseContentForSeconds,IRESTErrorProvider restErrorProvider, IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
-            _reverseProxySettings = apiSettings.GetReverseProxySettings();
+            _reverseProxySettings = reverseProxySettings;
             _restErrorProvider = restErrorProvider;
             _connectionStringProvider = connectionStringProvider;
-            _logRequestResponseContent = apiSettings.LogRequestResponseContentForSeconds > 0 && RequestResponseContentDatabaseAppenderExists();
+            _logRequestResponseContent = logRequestResponseContentForSeconds > 0 && RequestResponseContentDatabaseAppenderExists();
 
             if(_logRequestResponseContent)
-                _logRequestResponseContentUntil = DateTime.UtcNow.AddSeconds(apiSettings.LogRequestResponseContentForSeconds);
+                _logRequestResponseContentUntil = DateTime.UtcNow.AddSeconds(logRequestResponseContentForSeconds);
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
