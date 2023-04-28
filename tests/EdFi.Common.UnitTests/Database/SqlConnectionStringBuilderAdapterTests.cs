@@ -123,5 +123,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 ActualException.ShouldBeOfType<InvalidOperationException>();
             }
         }
+
+        public class When_getting_and_setting_the_applicatuon_name_in_a_SQL_connection_string
+            : TestFixtureBase
+        {
+            private string _actualApplicationName;
+            private string _actualModifiedApplicationName;
+
+            protected override void Act()
+            {
+                var adapter = new SqlConnectionStringBuilderAdapter
+                {
+                    ConnectionString = @"Server=(local);Database=SomeDatabase;Trusted_Connection=True;Application Name=EdFi.Ods.WebApi;"
+                };
+                _actualApplicationName = adapter.ApplicationName;
+
+                adapter.ApplicationName = "ModifiedApplicationName";
+                _actualModifiedApplicationName = adapter.ApplicationName;
+            }
+
+            [Test]
+            public void Should_initially_return_the_application_name_from_the_connection_string()
+            {
+                _actualApplicationName.ShouldBe("EdFi.Ods.WebApi");
+            }
+
+            [Test]
+            public void Should_return_the_modified_application_name_after_it_has_been_changed()
+            {
+                _actualModifiedApplicationName.ShouldBe("ModifiedApplicationName");
+            }
+        }
     }
 }

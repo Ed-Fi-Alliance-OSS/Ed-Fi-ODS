@@ -28,5 +28,10 @@ namespace EdFi.Common.Database
         /// Gets or sets the server name in the connection string.
         /// </summary>
         string ServerName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Application Name in the connection string.
+        /// </summary>
+        string ApplicationName { get; set; }
     }
 }
