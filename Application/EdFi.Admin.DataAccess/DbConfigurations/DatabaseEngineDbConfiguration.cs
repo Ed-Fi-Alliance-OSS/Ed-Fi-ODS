@@ -8,7 +8,7 @@ using Npgsql;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.SqlServer;
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 
 namespace EdFi.Admin.DataAccess.DbConfigurations
 {

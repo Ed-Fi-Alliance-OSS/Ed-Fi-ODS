@@ -18,7 +18,6 @@ using EdFi.Ods.Common.Providers;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
-using NHibernate.Driver;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
