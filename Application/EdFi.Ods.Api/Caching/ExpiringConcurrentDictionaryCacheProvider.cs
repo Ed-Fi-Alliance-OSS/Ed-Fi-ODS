@@ -21,6 +21,7 @@ namespace EdFi.Ods.Api.Caching
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringConcurrentDictionaryCacheProvider<>));
 
         private Timer _timer;
+        private readonly bool _cacheEnabled = true;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider{TKey}" /> class using the
@@ -41,23 +42,46 @@ namespace EdFi.Ods.Api.Caching
         public ExpiringConcurrentDictionaryCacheProvider(string description, TimeSpan expirationPeriod, Action expirationCallback)
         {
             _description = description;
-            _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
-            _expirationCallback = expirationCallback;
+
+            // If expiration period is less than 0 disable caching behavior.
+            if (expirationPeriod.TotalSeconds < 0)
+            {
+                _logger.Debug($"Cache '{description}' is disabled...");
+                _cacheEnabled = false;
+            }
+            // Set expiration period only if expiration period is not the default (0)
+            else if (expirationPeriod.TotalSeconds > 0)
+            {
+                _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
+                _expirationCallback = expirationCallback;
+            }
         }
 
         public bool TryGetCachedObject(TKey key, out object value)
         {
-            return _cacheDictionary.TryGetValue(key, out value);
+            if (_cacheEnabled)
+            {
+                return _cacheDictionary.TryGetValue(key, out value);
+            }
+
+            value = null;
+            return false;
         }
 
         public void SetCachedObject(TKey key, object obj)
         {
-            _cacheDictionary[key] = obj;
+            if (_cacheEnabled)
+            {
+                _cacheDictionary[key] = obj;
+            }
         }
 
         public void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
-            _cacheDictionary[key] = value;
+            if (_cacheEnabled)
+            {
+                _cacheDictionary[key] = value;
+            }
         }
 
         private void CacheExpired(object state)

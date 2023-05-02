@@ -194,7 +194,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
                         return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                             "API Client Details",
-                            TimeSpan.FromMinutes(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
+                            TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
                     })
                 .SingleInstance();
 

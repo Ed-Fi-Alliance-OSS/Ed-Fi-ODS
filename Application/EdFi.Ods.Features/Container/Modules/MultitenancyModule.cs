@@ -92,7 +92,7 @@ public class MultiTenancyModule : ConditionalModule
 
                     return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "API Client Details",
-                        TimeSpan.FromMinutes(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
+                        TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
                 })
             .SingleInstance();
         
@@ -105,7 +105,7 @@ public class MultiTenancyModule : ConditionalModule
 
                     return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "Profile Metadata",
-                        TimeSpan.FromMinutes(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds));
+                        TimeSpan.FromSeconds(apiSettings.Caching.Profiles.AbsoluteExpirationSeconds));
                 })
             .SingleInstance();
         
