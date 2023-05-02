@@ -11,16 +11,16 @@
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
   <Choose>
-    <When Condition="'$(IsBuildServer)' == 'true'">
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'">
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.73" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
+        <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
+        <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
       </ItemGroup>
     </When>
     <Otherwise>
       <ItemGroup>
-        <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
-        <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.0.73" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
       </ItemGroup>
     </Otherwise>
   </Choose>
