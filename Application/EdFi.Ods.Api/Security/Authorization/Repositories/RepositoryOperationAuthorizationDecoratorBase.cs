@@ -316,24 +316,24 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 sql.Append("SELECT CASE WHEN ");
 
                 resultsWithPendingExistenceChecks.ForEach(
-                    (x, i) =>
+                    (x, i, s) =>
                     {
                         if (i > 0)
                         {
                             if (x.Operator == FilterOperator.And)
                             {
-                                sql.Append(" AND ");
+                                s.Append(" AND ");
                             }
                             else
                             {
-                                sql.Append(" OR ");
+                                s.Append(" OR ");
                             }
                         }
 
-                        sql.Append('(');
+                        s.Append('(');
 
                         x.FilterResults.ForEach(
-                            (y, j) =>
+                            (y, j, s) =>
                             {
                                 var viewBasedFilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition
                                     ?? throw new InvalidOperationException(
@@ -344,16 +344,16 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                                 if (j > 0)
                                 {
                                     // NOTE: Individual filters (segments) are always combined with AND
-                                    sql.Append(" AND ");
+                                    s.Append(" AND ");
                                 }
 
-                                sql.Append("EXISTS (");
-                                sql.Append(viewSqlSupport.GetItemExistenceCheckSql(viewBasedFilterDefinition, y.FilterContext));
-                                sql.Append(')');
-                            });
+                                s.Append("EXISTS (");
+                                s.Append(viewSqlSupport.GetItemExistenceCheckSql(viewBasedFilterDefinition, y.FilterContext));
+                                s.Append(')');
+                            }, s);
 
-                        sql.Append(')');
-                    });
+                        s.Append(')');
+                    }, sql);
 
                 sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
 
