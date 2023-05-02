@@ -6,12 +6,9 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.FileProviders;
@@ -20,19 +17,17 @@ namespace EdFi.Ods.Api.Middleware
 {
     public class XsdMetadataFileMiddleware : IMiddleware
     {
-        private readonly ApiSettings _apiSettings;
         private readonly IAssembliesProvider _assembliesProvider;
         private readonly ConcurrentDictionary<string, EmbeddedFileProvider> _embeddedFileProviderByAssemblyName =
-            new ConcurrentDictionary<string, EmbeddedFileProvider>(StringComparer.InvariantCultureIgnoreCase);
+            new(StringComparer.InvariantCultureIgnoreCase);
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
 
-        public XsdMetadataFileMiddleware(IXsdFileInformationProvider xsdFileInformationProvider,
-            IAssembliesProvider assembliesProvider,
-            ApiSettings apiSettings)
+        public XsdMetadataFileMiddleware(
+            IXsdFileInformationProvider xsdFileInformationProvider,
+            IAssembliesProvider assembliesProvider)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
             _assembliesProvider = assembliesProvider;
-            _apiSettings = apiSettings;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -40,6 +35,7 @@ namespace EdFi.Ods.Api.Middleware
             if (context.Request.Method != HttpMethods.Get)
             {
                 await next(context);
+
                 return;
             }
 
@@ -48,6 +44,7 @@ namespace EdFi.Ods.Api.Middleware
             if (!routeMatcher.TryMatch(CreateRouteTemplate(), context.Request.Path, out RouteValueDictionary routeValues))
             {
                 await next(context);
+
                 return;
             }
 
@@ -58,6 +55,7 @@ namespace EdFi.Ods.Api.Middleware
             if (xsdFileInformationByUriSegment == default)
             {
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
+
                 return;
             }
 
@@ -65,7 +63,8 @@ namespace EdFi.Ods.Api.Middleware
             string fullQualifiedFileName = $"Artifacts/Schemas/{routeValues["file"]}.xsd";
 
             var embeddedFileProvider = _embeddedFileProviderByAssemblyName.GetOrAdd(
-                assemblyName, key => new EmbeddedFileProvider(_assembliesProvider.Get(assemblyName)));
+                assemblyName,
+                key => new EmbeddedFileProvider(_assembliesProvider.Get(assemblyName)));
 
             context.Response.ContentType = "application/xml";
             context.Response.StatusCode = StatusCodes.Status200OK;
@@ -75,17 +74,6 @@ namespace EdFi.Ods.Api.Middleware
             string CreateRouteTemplate()
             {
                 string template = $"metadata/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template + "xsd/{schema}/{file}.xsd";
             }

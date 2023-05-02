@@ -3,14 +3,18 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using EdFi.Admin.DataAccess.Security;
 using EdFi.Common.Configuration;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
@@ -23,6 +27,7 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
@@ -44,6 +49,8 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
+using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Descriptors;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -79,20 +86,10 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ApiKeyContextProvider>()
                 .As<IApiKeyContextProvider>()
-                .As<IHttpContextStorageTransferKeys>()
-                .SingleInstance();
-
-            builder.RegisterType<SchoolYearContextProvider>()
-                .As<ISchoolYearContextProvider>()
-                .As<IHttpContextStorageTransferKeys>()
                 .SingleInstance();
 
             builder.RegisterType<CallContextStorage>()
                 .As<IContextStorage>()
-                .SingleInstance();
-
-            builder.RegisterType<DescriptorLookupProvider>()
-                .As<IDescriptorLookupProvider>()
                 .SingleInstance();
 
             builder.RegisterType<DomainModelProvider>()
@@ -155,10 +152,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
                 .PreserveExistingDefaults()
-                .SingleInstance();
-
-            builder.RegisterType<EdFiDescriptorReflectionProvider>()
-                .As<IEdFiDescriptorReflectionProvider>()
                 .SingleInstance();
 
             builder.RegisterType<EdFiOdsInstanceIdentificationProvider>()
@@ -282,7 +275,33 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<Mediator>()
                 .As<IMediator>()
                 .SingleInstance();
+
+            builder.RegisterType<OdsInstanceConfigurationProvider>()
+                .As<IOdsInstanceConfigurationProvider>()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<OdsInstanceHashIdGenerator>()
+                .As<IOdsInstanceHashIdGenerator>()
+                .SingleInstance();
+
+            builder.RegisterType<OdsDatabaseConnectionStringProvider>()
+                .As<IOdsDatabaseConnectionStringProvider>()
+                .SingleInstance();
             
+            builder.RegisterType<CachingInterceptor>()
+                .Named<IInterceptor>("cache-ods-instances")
+                .WithParameter(
+                    ctx =>
+                    {
+                        var apiSettings = ctx.Resolve<ApiSettings>();
+
+                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            "ODS Instance Configuration",
+                            TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
+                    })
+                .SingleInstance();
+
             RegisterPipeLineStepProviders();
             RegisterModels();
 
@@ -354,19 +373,18 @@ namespace EdFi.Ods.Api.Container.Modules
 
             void RegisterMiddleware()
             {
-                builder.RegisterType<SchoolYearRouteContextMiddleware>()
-                    .As<IMiddleware>()
-                    .AsSelf()
-                    .SingleInstance();
-
-                builder.RegisterType<InstanceIdSpecificRouteContextMiddleware>()
-                    .As<IMiddleware>()
-                    .AsSelf()
-                    .SingleInstance();
-
                 builder.RegisterType<RequestResponseDetailsLoggerMiddleware>()
                     .As<IMiddleware>()
                     .AsSelf()
+                    .SingleInstance();
+
+                builder.RegisterType<OdsInstanceIdentificationMiddleware>()
+                    .As<IMiddleware>()
+                    .AsSelf()
+                    .SingleInstance();
+
+                builder.RegisterType<OdsInstanceSelector>()
+                    .As<IOdsInstanceSelector>()
                     .SingleInstance();
             }
         }

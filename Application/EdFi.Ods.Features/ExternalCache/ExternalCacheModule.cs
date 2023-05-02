@@ -12,7 +12,9 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
+using Castle.DynamicProxy;
 using EdFi.Common.Security;
+using EdFi.Ods.Common.Descriptors;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
@@ -43,7 +45,7 @@ namespace EdFi.Ods.Features.ExternalCache
 
             if (ApiSettings.Caching.PersonUniqueIdToUsi.UseExternalCache)
             {
-                OverridePersonUniqueIdtoUsiCache(builder);
+                OverridePersonUniqueIdToUsiCache(builder);
             }
         }
 
@@ -56,13 +58,13 @@ namespace EdFi.Ods.Features.ExternalCache
 
         public void RegisterProvider(ContainerBuilder builder)
         {
-            builder.RegisterType<ExternalCacheProvider>()
-            .WithParameter(
-                new ResolvedParameter(
-                (p, c) => p.ParameterType == typeof(TimeSpan),
-                (p, c) => GetDefaultExpiration(c)))
-            .As<IExternalCacheProvider>()
-            .SingleInstance();
+            builder.RegisterType<ExternalCacheProvider<string>>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(TimeSpan),
+                        (p, c) => GetDefaultExpiration(c)))
+                .As<IExternalCacheProvider<string>>()
+                .SingleInstance();
         }
 
         private TimeSpan GetDefaultExpiration(IComponentContext componentContext)
@@ -71,39 +73,42 @@ namespace EdFi.Ods.Features.ExternalCache
         }
 
         public abstract void RegisterDistributedCache(ContainerBuilder builder);
-        
+
         public void OverrideApiClientDetailsCache(ContainerBuilder builder)
         {
-            builder.RegisterDecorator<IApiClientDetailsProvider>((context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
+            builder.RegisterDecorator<IApiClientDetailsProvider>(
+                (context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
         }
 
-        private static CachingApiClientDetailsProviderDecorator GetCachingApiClientDetailsProviderDecorator(IComponentContext componentContext, IApiClientDetailsProvider apiClientDetailsProvider)
+        private static CachingApiClientDetailsProviderDecorator GetCachingApiClientDetailsProviderDecorator(
+            IComponentContext componentContext,
+            IApiClientDetailsProvider apiClientDetailsProvider)
         {
-            return new CachingApiClientDetailsProviderDecorator(apiClientDetailsProvider,
-                componentContext.Resolve<IExternalCacheProvider>(),
+            return new CachingApiClientDetailsProviderDecorator(
+                apiClientDetailsProvider,
+                componentContext.Resolve<IExternalCacheProvider<string>>(),
                 componentContext.Resolve<IApiClientDetailsCacheKeyProvider>());
         }
 
         public void OverrideDescriptorsCache(ContainerBuilder builder)
         {
-            builder.RegisterType<DescriptorsCache>()
+            // Override the named interceptor registration to use the external (distributed) cache
+            builder.RegisterType<ContextualCachingInterceptor<OdsInstanceConfiguration>>()
+                .Named<IInterceptor>("cache-descriptors")
                 .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(ICacheProvider<string>),
-                        (p, c) =>
-                        {
-                            int expirationPeriod = ApiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
+                    ctx =>
+                    {
+                        int absoluteExpirationSeconds = ApiSettings.Caching.Descriptors.AbsoluteExpirationSeconds;
 
-                            return new ExternalCacheProvider(
-                              c.Resolve<IDistributedCache>(),
-                              TimeSpan.Zero,
-                              TimeSpan.FromSeconds(expirationPeriod));
-                        }))
-                .As<IDescriptorsCache>()
+                        return (ICacheProvider<ulong>) new ExternalCacheProvider<ulong>(
+                            ctx.Resolve<IDistributedCache>(),
+                            TimeSpan.Zero,
+                            TimeSpan.FromSeconds(absoluteExpirationSeconds));
+                    })
                 .SingleInstance();
         }
 
-        public void OverridePersonUniqueIdtoUsiCache(ContainerBuilder builder)
+        public void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder)
         {
             builder.RegisterType<PersonUniqueIdToUsiCache>()
             .WithParameter(new NamedParameter("synchronousInitialization", false))
@@ -115,14 +120,14 @@ namespace EdFi.Ods.Features.ExternalCache
                       int period = ApiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
                       int expirationPeriod = ApiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
 
-                      return new ExternalCacheProvider(
+                      return new ExternalCacheProvider<string>(
                               c.Resolve<IDistributedCache>(),
                               TimeSpan.FromSeconds(period),
                               TimeSpan.FromSeconds(expirationPeriod));
                   }))
           .WithParameter(
               new ResolvedParameter(
-                  (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                  (p, c) => p.Name.Equals("slidingExpiration", StringComparison.OrdinalIgnoreCase),
                   (p, c) =>
                   {
                       int period = ApiSettings.Caching.PersonUniqueIdToUsi.SlidingExpirationSeconds;
@@ -131,7 +136,7 @@ namespace EdFi.Ods.Features.ExternalCache
                   }))
           .WithParameter(
               new ResolvedParameter(
-                  (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                  (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.OrdinalIgnoreCase),
                   (p, c) =>
                   {
                       int period = ApiSettings.Caching.PersonUniqueIdToUsi.AbsoluteExpirationSeconds;
@@ -140,21 +145,21 @@ namespace EdFi.Ods.Features.ExternalCache
                   }))
           .WithParameter(
               new ResolvedParameter(
-                  (p, c) => p.Name.Equals("suppressStudentCache", StringComparison.InvariantCultureIgnoreCase),
+                  (p, c) => p.Name.Equals("suppressStudentCache", StringComparison.OrdinalIgnoreCase),
                   (p, c) =>
                   {
                       return ApiSettings.Caching.PersonUniqueIdToUsi.SuppressStudentCache;
                   }))
           .WithParameter(
               new ResolvedParameter(
-                  (p, c) => p.Name.Equals("suppressStaffCache", StringComparison.InvariantCultureIgnoreCase),
+                  (p, c) => p.Name.Equals("suppressStaffCache", StringComparison.OrdinalIgnoreCase),
                   (p, c) =>
                   {
                       return ApiSettings.Caching.PersonUniqueIdToUsi.SuppressStaffCache;
                   }))
           .WithParameter(
               new ResolvedParameter(
-                  (p, c) => p.Name.Equals("suppressParentCache", StringComparison.InvariantCultureIgnoreCase),
+                  (p, c) => p.Name.Equals("suppressParentCache", StringComparison.OrdinalIgnoreCase),
                   (p, c) =>
                   {
                       return ApiSettings.Caching.PersonUniqueIdToUsi.SuppressParentCache;

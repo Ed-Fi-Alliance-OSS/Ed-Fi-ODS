@@ -519,7 +519,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             get
             {
                 if (_institutionControlDescriptorId == default(int))
-                    _institutionControlDescriptorId = DescriptorsCache.GetCache().GetId("InstitutionControlDescriptor", _institutionControlDescriptor);
+                    _institutionControlDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("InstitutionControlDescriptor", _institutionControlDescriptor);
 
                 return _institutionControlDescriptorId;
             } 
@@ -538,7 +538,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             get
             {
                 if (_institutionControlDescriptor == null)
-                    _institutionControlDescriptor = DescriptorsCache.GetCache().GetValue("InstitutionControlDescriptor", _institutionControlDescriptorId);
+                    _institutionControlDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("InstitutionControlDescriptor", _institutionControlDescriptorId);
                     
                 return _institutionControlDescriptor;
             }
@@ -554,7 +554,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             get
             {
                 if (_institutionLevelDescriptorId == default(int))
-                    _institutionLevelDescriptorId = DescriptorsCache.GetCache().GetId("InstitutionLevelDescriptor", _institutionLevelDescriptor);
+                    _institutionLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("InstitutionLevelDescriptor", _institutionLevelDescriptor);
 
                 return _institutionLevelDescriptorId;
             } 
@@ -573,7 +573,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             get
             {
                 if (_institutionLevelDescriptor == null)
-                    _institutionLevelDescriptor = DescriptorsCache.GetCache().GetValue("InstitutionLevelDescriptor", _institutionLevelDescriptorId);
+                    _institutionLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("InstitutionLevelDescriptor", _institutionLevelDescriptorId);
                     
                 return _institutionLevelDescriptor;
             }
@@ -940,7 +940,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             get
             {
                 if (_submissionCertificationDescriptorId == default(int?))
-                    _submissionCertificationDescriptorId = string.IsNullOrWhiteSpace(_submissionCertificationDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SubmissionCertificationDescriptor", _submissionCertificationDescriptor);
+                    _submissionCertificationDescriptorId = string.IsNullOrWhiteSpace(_submissionCertificationDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SubmissionCertificationDescriptor", _submissionCertificationDescriptor);
 
                 return _submissionCertificationDescriptorId;
             } 
@@ -959,7 +959,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             get
             {
                 if (_submissionCertificationDescriptor == null)
-                    _submissionCertificationDescriptor = _submissionCertificationDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SubmissionCertificationDescriptor", _submissionCertificationDescriptorId.Value);
+                    _submissionCertificationDescriptor = _submissionCertificationDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SubmissionCertificationDescriptor", _submissionCertificationDescriptorId.Value);
                     
                 return _submissionCertificationDescriptor;
             }
@@ -1155,7 +1155,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             get
             {
                 if (_specialEducationGraduationStatusDescriptorId == default(int))
-                    _specialEducationGraduationStatusDescriptorId = DescriptorsCache.GetCache().GetId("SpecialEducationGraduationStatusDescriptor", _specialEducationGraduationStatusDescriptor);
+                    _specialEducationGraduationStatusDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SpecialEducationGraduationStatusDescriptor", _specialEducationGraduationStatusDescriptor);
 
                 return _specialEducationGraduationStatusDescriptorId;
             } 
@@ -1174,7 +1174,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             get
             {
                 if (_specialEducationGraduationStatusDescriptor == null)
-                    _specialEducationGraduationStatusDescriptor = DescriptorsCache.GetCache().GetValue("SpecialEducationGraduationStatusDescriptor", _specialEducationGraduationStatusDescriptorId);
+                    _specialEducationGraduationStatusDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SpecialEducationGraduationStatusDescriptor", _specialEducationGraduationStatusDescriptorId);
                     
                 return _specialEducationGraduationStatusDescriptor;
             }

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using EdFi.Common.Configuration;
@@ -10,6 +11,7 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
@@ -51,7 +53,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             var apiSettings = new ApiSettings
             {
                 Engine = OneTimeGlobalDatabaseSetup.Instance.DatabaseEngine.Value,
-                Mode = ApiConfigurationConstants.Sandbox
             };
             builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 .SingleInstance();
@@ -71,13 +72,22 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
             builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
             builder.RegisterModule(new PostgresSpecificModule(apiSettings));
-            builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
 
             builder.RegisterType<AuthorizationContextProvider>()
                 .As<IAuthorizationContextProvider>()
                 .SingleInstance();
             
             Container = builder.Build();
+
+            var contextProvider = Container.Resolve<IContextProvider<OdsInstanceConfiguration>>();
+
+            contextProvider.Set(
+                new OdsInstanceConfiguration(
+                    1,
+                    1,
+                    OneTimeGlobalDatabaseSetup.Instance.Configuration.GetSection("ConnectionStrings")["EdFi_Ods"],
+                    new Dictionary<string, string>(),
+                    new Dictionary<DerivativeType, string>()));
         }
     }
 }

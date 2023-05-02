@@ -27,6 +27,7 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
@@ -36,6 +37,7 @@ using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -88,10 +90,17 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
                 RegisterDependencies();
                 
-                Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(_container);
+                var contextProvider = _container.Resolve<IContextProvider<OdsInstanceConfiguration>>();
 
-                IDescriptorsCache cache = null;
-                DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>();
+                contextProvider.Set(
+                    new OdsInstanceConfiguration(
+                        1,
+                        1,
+                        OneTimeGlobalDatabaseSetup.Instance.Configuration.GetSection("ConnectionStrings")["EdFi_Ods"],
+                        new Dictionary<string, string>(),
+                        new Dictionary<DerivativeType, string>()));
+                
+                Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(_container);
 
                 IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
 
@@ -143,7 +152,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 var service = new StudentProgramAssociationService
                 {
-                    ServiceDescriptor = EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
+                    ServiceDescriptor = DescriptorHelper.GetUri(
                         _serviceDescriptor.Namespace,
                         _serviceDescriptor.CodeValue),
                     PrimaryIndicator = true,
@@ -219,7 +228,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 // Add a service to the base class
                 var titleIService = new StudentTitleIPartAProgramAssociationService
                 {
-                    ServiceDescriptor = EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
+                    ServiceDescriptor = DescriptorHelper.GetUri(
                         _serviceDescriptor.Namespace,
                         _serviceDescriptor.CodeValue),
                     PrimaryIndicator = true,
@@ -398,14 +407,12 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 var apiSettings = new ApiSettings
                 {
                     Engine = OneTimeGlobalDatabaseSetup.Instance.DatabaseEngine.Value,
-                    Mode = ApiConfigurationConstants.Sandbox
                 };
 
                 builder.RegisterInstance(apiSettings).As<ApiSettings>();
 
                 builder.Register(c => apiSettings.GetDatabaseEngine()).As<DatabaseEngine>();
 
-                builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
                 builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
                 builder.RegisterModule(new ContextProviderModule());
                 builder.RegisterModule(new ContextStorageModule());
@@ -416,8 +423,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new DomainModelModule());
                 builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
                 builder.RegisterModule(new PostgresSpecificModule(apiSettings));
-                builder.RegisterModule(new DescriptorLookupProviderModule());
-                builder.RegisterModule(new EdFiDescriptorReflectionModule());
+                builder.RegisterModule(new DescriptorsModule());
 
                 builder.RegisterType<AuthorizationContextProvider>()
                     .As<IAuthorizationContextProvider>()
@@ -427,6 +433,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 
                 builder.Register(c => A.Fake<IETagProvider>()).As<IETagProvider>();
 
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => _container.Resolve<IDescriptorResolver>());
+                
                 // Stub out the mapping contract provider to return null every time
                 var mappingContractProvider = A.Fake<IMappingContractProvider>();
                 A.CallTo(() => mappingContractProvider.GetMappingContract(A<FullName>.Ignored)).Returns(null);

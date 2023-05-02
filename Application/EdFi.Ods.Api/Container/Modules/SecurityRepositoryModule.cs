@@ -3,36 +3,44 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using Autofac;
 using Autofac.Core;
-using EdFi.Common.Configuration;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
+using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
-    public class SecurityRepositoryModule : ConditionalModule
+    public class SecurityRepositoryModule : Module
     {
-        public SecurityRepositoryModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(SecurityRepositoryModule)) { }
-
-        // Only if the ApiMode is not InstanceYearSpecific
-        public override bool IsSelected() => !(ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific);
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<CachedSecurityRepository>()
+            builder.RegisterType<SecurityRepository>()
                 .As<ISecurityRepository>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name == "cacheTimeoutInMinutes",
-                        (p, c) =>
-                        {
-                            var apiSettings = c.Resolve<ApiSettings>();
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
 
-                            return apiSettings.Caching.Security.AbsoluteExpirationMinutes;
-                        }))
+            builder.RegisterType<SecurityTableGateway>()
+                .As<ISecurityTableGateway>()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
+            builder.RegisterType<CachingInterceptor>()
+                .Named<IInterceptor>("cache-security")
+                .WithParameter(
+                    ctx =>
+                    {
+                        var apiSettings = ctx.Resolve<ApiSettings>();
+
+                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            "Security",
+                            TimeSpan.FromMinutes(apiSettings.Caching.Security.AbsoluteExpirationMinutes));
+                    })
                 .SingleInstance();
         }
     }

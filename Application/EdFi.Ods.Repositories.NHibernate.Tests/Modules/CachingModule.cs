@@ -5,9 +5,11 @@
 
 using Autofac;
 using Autofac.Core;
+using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Descriptors;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
@@ -20,15 +22,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 
             builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider<string>>();
             builder.RegisterGeneric(typeof(ConcurrentDictionaryCacheProvider<>)).AsSelf().SingleInstance();
-
-            builder.RegisterType<DescriptorsCache>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(IDescriptorsCache),
-                        (p, c) => c.Resolve<ConcurrentDictionaryCacheProvider<string>>()))
-                .WithParameter(new NamedParameter("expirationPeriodSeconds", 3600))
-                .As<IDescriptorsCache>()
-                .SingleInstance();
         }
     }
 }

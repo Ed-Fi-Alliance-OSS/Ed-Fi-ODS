@@ -14,8 +14,19 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'">
+      <ItemGroup>
+        <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.41" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFrameworkTesting.FakeItEasy" Version="1.3.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.1" />

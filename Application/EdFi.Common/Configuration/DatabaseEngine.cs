@@ -10,8 +10,8 @@ namespace EdFi.Common.Configuration
 {
     public class DatabaseEngine : Enumeration<DatabaseEngine, string>
     {
-        public static readonly DatabaseEngine SqlServer = new DatabaseEngine(ApiConfigurationConstants.SqlServer, "SQL Server", "MsSql");
-        public static readonly DatabaseEngine Postgres = new DatabaseEngine(ApiConfigurationConstants.PostgreSQL, "PostgreSQL", "PgSql");
+        public static readonly DatabaseEngine SqlServer = new("sqlServer", "SQL Server", "MsSql");
+        public static readonly DatabaseEngine Postgres = new("postgreSql", "PostgreSQL", "PgSql");
 
         public DatabaseEngine(string value, string displayName, string scriptsFolderName)
             : base(value, displayName)
@@ -29,7 +29,7 @@ namespace EdFi.Common.Configuration
             }
 
             throw new NotSupportedException(
-                $"Not supported DatabaseEngine \"{value}\". Supported engines: {ApiConfigurationConstants.SqlServer}, and {ApiConfigurationConstants.PostgreSQL}.");
+                $"Not supported DatabaseEngine \"{value}\". Supported engines: {SqlServer.Value}, and {Postgres.Value}.");
         }
     }
 }

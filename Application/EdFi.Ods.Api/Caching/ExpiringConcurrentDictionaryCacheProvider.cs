@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Caching
         {
             if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' expired (all entries cleared).");
+                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' expired ({_cacheDictionary.Count} entries cleared).");
             }
 
             _cacheDictionary.Clear();

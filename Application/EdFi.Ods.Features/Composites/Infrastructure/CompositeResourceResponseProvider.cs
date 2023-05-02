@@ -399,7 +399,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         if (descriptorNamespaceByKey.TryGetValue(key, out object namespaceForDescriptor))
                         {
                             value =
-                                EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
+                                DescriptorHelper.GetUri(
                                     namespaceForDescriptor.ToString(),
                                     sourceRow[key]
                                        .ToString());

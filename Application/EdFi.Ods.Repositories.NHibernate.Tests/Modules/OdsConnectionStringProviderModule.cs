@@ -12,9 +12,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<PrototypeTokenReplacementConnectionStringProvider>()
-                .WithParameter(new NamedParameter("prototypeConnectionStringName", "EdFi_Ods"))
-                .WithParameter(new NamedParameter("readOnlyPrototypeConnectionStringName", "EdFi_Ods_ReadOnly"))
+            builder.RegisterType<OdsDatabaseConnectionStringProvider>()
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
         }

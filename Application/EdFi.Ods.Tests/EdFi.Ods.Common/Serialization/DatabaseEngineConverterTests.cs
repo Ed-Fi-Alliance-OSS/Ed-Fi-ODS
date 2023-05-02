@@ -20,7 +20,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
         public void Should_deserialize_valid_database_engine()
         {
             var result = JsonConvert.DeserializeObject<DatabaseEngine>(
-                $"\"{ApiConfigurationConstants.PostgreSQL}\"", new DatabaseEngineConverter());
+                $"\"{DatabaseEngine.Postgres.Value}\"", new DatabaseEngineConverter());
 
             result.ShouldBe(DatabaseEngine.Postgres);
         }

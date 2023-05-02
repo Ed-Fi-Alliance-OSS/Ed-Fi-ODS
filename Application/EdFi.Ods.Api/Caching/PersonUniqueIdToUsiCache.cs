@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.Caching
 {
     public class PersonUniqueIdToUsiCache : IPersonUniqueIdToUsiCache
     {
-        private const string CacheKeyPrefix = "IdentityValueMaps_";
+        public const string CacheKeyPrefix = "IdentityValueMaps_";
 
         /// <summary>
         /// Gets or sets a static delegate to obtain the cache.
@@ -98,13 +98,6 @@ namespace EdFi.Ods.Api.Caching
             _slidingExpiration = slidingExpiration;
             _absoluteExpirationPeriod = absoluteExpirationPeriod;
         }
-
-        /// <summary>
-        /// Gets or sets the optional dependency for when the cache is being used in the scope of an HttpContext and
-        /// specific context values (see <see cref="IHttpContextStorageTransferKeys"/>) must be transferred to CallContext for
-        /// a worker thread to perform background initialization of the cache.
-        /// </summary>
-        public IHttpContextStorageTransfer HttpContextStorageTransfer { get; set; }
 
         /// <summary>
         /// Gets the externally defined UniqueId for the specified type of person and the ODS-specific surrogate identifier.
@@ -279,12 +272,6 @@ namespace EdFi.Ods.Api.Caching
                         "'" + string.Join("','", PersonEntitySpecification.ValidPersonTypes) + "'"));
             }
 
-            // In web application scenarios, copy pertinent context from HttpContext to CallContext
-            if (HttpContextStorageTransfer != null)
-            {
-                HttpContextStorageTransfer.TransferContext();
-            }
-
             var task = InitializePersonTypeValueMapsAsync(entry, personType, context);
 
             if (task.Status == TaskStatus.Created)
@@ -414,16 +401,6 @@ namespace EdFi.Ods.Api.Caching
                 GetUniqueIdByUsiMap(personType, context)
                    .AddOrUpdate(valueMap.Usi, uniqueId, (x, y) => uniqueId);
             }
-
-            //NOTE: This code is here for future use.
-            //// Handle opportunistic cache value assignment of alternate value
-            //if (valueMap.Id != default(Guid))
-            //{
-            //    var extraEntyKey = string.Format("{0}{1}_id_by_uniqueid_{2}", CacheKeyPrefix, personTypeName, uniqueId);
-
-            //    if (!_cacheProvider.TryGetCachedObject(extraEntyKey, out obj))
-            //        _cacheProvider.Insert(extraEntyKey, valueMap.Id, DateTime.MaxValue, _cacheItemPolicy.SlidingExpiration);
-            //}
 
             return valueMap.Usi;
         }

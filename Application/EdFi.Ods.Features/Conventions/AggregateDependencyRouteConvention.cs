@@ -15,13 +15,6 @@ namespace EdFi.Ods.Features.Conventions
 {
     public class AggregateDependencyRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public AggregateDependencyRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var controller =
@@ -45,17 +38,6 @@ namespace EdFi.Ods.Features.Conventions
             string CreateRouteTemplate()
             {
                 string template = $"metadata/{RouteConstants.DataManagementRoutePrefix}/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template;
             }

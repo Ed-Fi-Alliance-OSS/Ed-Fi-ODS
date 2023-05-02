@@ -47,32 +47,6 @@ namespace Test.Common._Stubs
             return new List<ResourceClaimAction>();
         }
 
-        public Action GetActionByHttpVerb(string httpVerb)
-        {
-            var actionName = string.Empty;
-
-            switch (httpVerb)
-            {
-                case "GET":
-                    actionName = "Read";
-                    break;
-
-                case "POST":
-                    actionName = "Upsert";
-                    break;
-
-                case "PUT":
-                    actionName = "Update";
-                    break;
-
-                case "DELETE":
-                    actionName = "Delete";
-                    break;
-            }
-
-            return GetActionByName(actionName);
-        }
-
         public ResourceClaim GetResourceByResourceName(string resourceName)
         {
             return new ResourceClaim {ResourceName = resourceName};

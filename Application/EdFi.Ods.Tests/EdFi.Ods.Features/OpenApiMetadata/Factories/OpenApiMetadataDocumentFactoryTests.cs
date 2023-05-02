@@ -45,7 +45,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             return new ApiSettings
             {
-                Mode = "sandbox",
                 Features = new List<Feature>
                 {
                     new Feature

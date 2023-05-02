@@ -20,13 +20,11 @@ namespace EdFi.Ods.Features.Conventions
 {
     public class CompositesRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
         private readonly ICompositesMetadataProvider _compositesMetadataProvider;
 
-        public CompositesRouteConvention(ICompositesMetadataProvider compositesMetadataProvider, ApiSettings apiSettings)
+        public CompositesRouteConvention(ICompositesMetadataProvider compositesMetadataProvider)
         {
             _compositesMetadataProvider = compositesMetadataProvider;
-            _apiSettings = apiSettings;
         }
 
         public void Apply(ApplicationModel application)
@@ -82,17 +80,6 @@ namespace EdFi.Ods.Features.Conventions
             string CreateRouteTemplate()
             {
                 string template = $"v{ApiVersionConstants.Composite}/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 var compositeCategoryNames = _compositesMetadataProvider
                     .GetAllCategories()

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Models.Domain;
 using NHibernate;
 using NHibernate.Criterion;
@@ -17,8 +18,8 @@ namespace EdFi.Ods.Common.Providers.Criteria
     public class TotalCountCriteriaProvider<TEntity> : AggregateRootCriteriaProviderBase<TEntity>, ITotalCountCriteriaProvider<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        public TotalCountCriteriaProvider(ISessionFactory sessionFactory, IDescriptorsCache descriptorsCache)
-            : base(sessionFactory, descriptorsCache) { }
+        public TotalCountCriteriaProvider(ISessionFactory sessionFactory, IDescriptorResolver descriptorResolver)
+            : base(sessionFactory, descriptorResolver) { }
 
         /// <summary>
         /// Get a <see cref="NHibernate.ICriteria"/> query that retrieves the total count of resource items available to the current caller.

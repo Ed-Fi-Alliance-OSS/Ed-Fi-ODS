@@ -44,7 +44,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                     null,
                     null,
                     null,
-                    null,
+                    new[] { 1 },
                     0));
         }
 

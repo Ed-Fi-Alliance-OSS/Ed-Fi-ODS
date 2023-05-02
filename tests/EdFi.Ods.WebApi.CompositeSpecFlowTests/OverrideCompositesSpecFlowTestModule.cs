@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Database;
 
@@ -13,10 +14,16 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SpecFlowOdsConnectionStringProvider>().As<IOdsDatabaseConnectionStringProvider>()
+            builder.RegisterType<SpecFlowOdsConnectionStringProvider>()
+                .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<FakedOAuthTokenAuthenticator>().As<IOAuthTokenAuthenticator>();
+            builder.RegisterType<FakedOAuthTokenAuthenticator>()
+                .As<IOAuthTokenAuthenticator>();
+
+            builder.RegisterType<FakeOdsInstanceConfigurationProvider>()
+                .As<IOdsInstanceConfigurationProvider>()
+                .SingleInstance();
         }
     }
 }

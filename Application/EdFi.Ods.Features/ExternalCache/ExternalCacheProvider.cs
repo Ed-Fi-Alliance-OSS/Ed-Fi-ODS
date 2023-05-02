@@ -12,10 +12,11 @@ using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Authentication;
 
 namespace EdFi.Ods.Features.ExternalCache
 {
-    public class ExternalCacheProvider : IExternalCacheProvider
+    public class ExternalCacheProvider<TKey> : IExternalCacheProvider<TKey>
     {
         private const string GuidPrefix = "(Guid)";
         private const string IntPrefix = "(int)";
@@ -24,11 +25,14 @@ namespace EdFi.Ods.Features.ExternalCache
         private readonly IDistributedCache _distributedCache;
         private readonly TimeSpan _absoluteExpiration;
         private readonly TimeSpan _slidingExpiration;
-        private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider<TKey>));
 
         // TypeNameHandling.None for https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2326
-        private static readonly JsonSerializerSettings _defaultSerializerSettings =
-            new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.None, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+        private static readonly JsonSerializerSettings _defaultSerializerSettings = new()
+        {
+            TypeNameHandling = TypeNameHandling.None,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        };
 
         public ExternalCacheProvider(IDistributedCache distributedCache, TimeSpan slidingExpiration, TimeSpan absoluteExpiration)
         {
@@ -37,15 +41,33 @@ namespace EdFi.Ods.Features.ExternalCache
             _absoluteExpiration = absoluteExpiration;
         }
         
-        public bool TryGetCachedObject(string key, out object value)
+        public bool TryGetCachedObject(TKey key, out object value)
         {
             try
             {
-                var cachedValue = _distributedCache.GetString(key);
+                var keyAsString = key.ToString();
+                
+                var cachedValue = _distributedCache.GetString(keyAsString);
 
                 if (!string.IsNullOrEmpty(cachedValue))
                 {
-                    if (key.StartsWith("IdentityValueMaps"))
+                    // NOTE: This code doesn't follow SOLID principles. If this logic ever needs to change again, should introduce
+                    // an interface (e.g. IDistributeCacheDeserializationHandler) with a method signature as follows:
+                    //    bool TryHandle(string key, string cachedValue, out object deserializedValue)
+                    // Implementations should return true if it handled the deserialization.
+                    //
+                    // Inject an array of handlers into the constructor and iterate through them and if deserialization is not
+                    // handled, then just deserialize using JsonConvert.DeserializeObject method as is done at the end of the
+                    // Deserialize method below.
+                    //
+                    // Suggested handler implementations: 
+                    //   - PersonIdentityValueMapDistributeCacheDeserializationHandler
+                    //   - ApiClientDetailsDistributeCacheDeserializationHandler
+                    //   - GuidDistributeCacheDeserializationHandler
+                    //   - IntDistributeCacheDeserializationHandler
+                    //
+                    // A similar approach is recommended for serialization, though implementations are only needed for int/guid.
+                    if (keyAsString.StartsWith(PersonUniqueIdToUsiCache.CacheKeyPrefix))
                     {
                         var identityValueMaps = JsonConvert.DeserializeObject<PersonUniqueIdToUsiCache.IdentityValueMaps>(cachedValue); 
                         
@@ -58,9 +80,8 @@ namespace EdFi.Ods.Features.ExternalCache
                         {
                             value = identityValueMaps;
                         }
-
                     }
-                    else if (key.StartsWith("ApiClientDetails"))
+                    else if (keyAsString.StartsWith(ApiClientDetailsCacheKeyProvider.CacheKeyPrefix))
                     {
                         value = JsonConvert.DeserializeObject<ApiClientDetails>(cachedValue);
                     }
@@ -83,11 +104,11 @@ namespace EdFi.Ods.Features.ExternalCache
             }
         }
 
-        public void SetCachedObject(string keyName, object obj)
+        public void SetCachedObject(TKey key, object obj)
         {
             try
             {
-                _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
+                _distributedCache.SetString(key.ToString(), Serialize(obj), new DistributedCacheEntryOptions()
                 {
                     AbsoluteExpirationRelativeToNow = _absoluteExpiration.TotalSeconds > 0 ? _absoluteExpiration : null,
                     SlidingExpiration = _slidingExpiration.TotalSeconds > 0 ? _slidingExpiration : null
@@ -100,11 +121,11 @@ namespace EdFi.Ods.Features.ExternalCache
             }
         }
 
-        public void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+        public void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             try
             {
-                _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+                _distributedCache.SetString(key.ToString(), Serialize(value), new DistributedCacheEntryOptions()
                 {
                     AbsoluteExpiration = absoluteExpiration < DateTime.MaxValue ? absoluteExpiration : null,
                     SlidingExpiration = slidingExpiration.TotalSeconds > 0 ? slidingExpiration : null

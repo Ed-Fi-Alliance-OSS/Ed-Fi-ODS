@@ -13,12 +13,9 @@ using EdFi.Ods.Features.ChangeQueries.Providers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using Microsoft.AspNetCore.Mvc.Filters;
-using EdFi.Ods.Features.ChangeQueries.DatabaseNaming;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.ChangeQueries.Conventions;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
@@ -82,10 +79,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 builder.RegisterType<SnapshotContextActionFilter>()
                     .As<IFilterMetadata>()
                     .SingleInstance();
-
-                builder.RegisterDecorator<
-                    SnapshotSuffixDatabaseReplacementTokenProvider,
-                    IDatabaseReplacementTokenProvider>();
 
                 builder.RegisterType<SnapshotGoneExceptionTranslator>()
                     .As<IExceptionTranslator>()

@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models.Queries;
@@ -42,12 +43,12 @@ namespace EdFi.Ods.Common.Providers.Criteria
             "SortDirection"
         };
 
-        private readonly IDescriptorsCache _descriptorsCache;
+        private readonly IDescriptorResolver _descriptorResolver;
 
-        protected AggregateRootCriteriaProviderBase(ISessionFactory sessionFactory, IDescriptorsCache descriptorsCache)
+        protected AggregateRootCriteriaProviderBase(ISessionFactory sessionFactory, IDescriptorResolver descriptorResolver)
             : base(sessionFactory)
         {
-            _descriptorsCache = Preconditions.ThrowIfNull(descriptorsCache, nameof(descriptorsCache));
+            _descriptorResolver = descriptorResolver ?? throw new ArgumentNullException(nameof(descriptorResolver));
         }
 
         protected void ProcessSpecification(ICriteria queryCriteria, TEntity specification)
@@ -64,7 +65,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
                     if (map.IdPropertyByLookupProperty.TryGetValue(key, out LookupColumnDetails columnDetails))
                     {
                         // Look up the corresponding lookup id value from the cache
-                        var lookupId = _descriptorsCache.GetId(
+                        var lookupId = _descriptorResolver.GetDescriptorId(
                             columnDetails.LookupTypeName,
                             Convert.ToString(propertyValuePairs[key]));
 

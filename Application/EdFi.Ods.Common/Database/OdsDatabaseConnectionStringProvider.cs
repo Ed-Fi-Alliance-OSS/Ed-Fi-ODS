@@ -3,40 +3,22 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using EdFi.Common.Configuration;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Database
 {
     public class OdsDatabaseConnectionStringProvider : IOdsDatabaseConnectionStringProvider
     {
-        private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
+        private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceContextProvider;
 
-        private readonly Lazy<string> _connectionString;
-        private readonly Lazy<string> _readOnlyConnectionString;
-
-        public OdsDatabaseConnectionStringProvider(IConfigConnectionStringsProvider configConnectionStringsProvider)
+        public OdsDatabaseConnectionStringProvider(IContextProvider<OdsInstanceConfiguration> odsInstanceContextProvider)
         {
-            _configConnectionStringsProvider = configConnectionStringsProvider;
-
-            _connectionString = new Lazy<string>(() => _configConnectionStringsProvider.GetConnectionString("EdFi_Ods"));
-
-            _readOnlyConnectionString = new Lazy<string>(
-                () =>
-                {
-                    if (_configConnectionStringsProvider.ConnectionStringProviderByName.TryGetValue(
-                            "EdFi_Ods_ReadOnly",
-                            out var cs))
-                    {
-                        return cs;
-                    }
-
-                    return _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
-                });
+            _odsInstanceContextProvider = odsInstanceContextProvider;
         }
 
-        public string GetConnectionString() => _connectionString.Value;
+        public string GetConnectionString() => _odsInstanceContextProvider.Get().ConnectionString;
 
-        public string GetReadOnlyConnectionString() => _readOnlyConnectionString.Value;
+        public string GetReadReplicaConnectionString() => _odsInstanceContextProvider.Get().ConnectionString;
     }
 }

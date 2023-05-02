@@ -8,7 +8,9 @@ namespace EdFi.Ods.Common.Providers {
     /// Defines an interface for providing a unique identification value to be used to
     /// delineate different ODS instances.
     /// </summary>
-    /// <remarks>This interface and its implementations are used to facilitate caching of
+    /// <remarks>NOTE: This interface is only used by the <b>PersonUniqueIdToUsiCache</b> and may be deprecated in the near future.
+    /// 
+    /// This interface and its implementations are used to facilitate caching of
     /// values that map to specific surrogate Ids that are unique to a particular ODS. For example,
     /// the same StudentUniqueId will be associated with a different surrogate Id (StudentUSI)
     /// in each ODS.</remarks>

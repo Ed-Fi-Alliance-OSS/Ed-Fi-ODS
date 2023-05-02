@@ -15,6 +15,9 @@ namespace EdFi.Ods.Api.Extensions
         public static IApplicationBuilder UseOpenApiMetadata(this IApplicationBuilder builder)
             => builder.UseMiddleware<OpenApiMetadataMiddleware>();
 
+        public static IApplicationBuilder UseOdsInstanceIdentification(this IApplicationBuilder builder)
+            => builder.UseMiddleware<OdsInstanceIdentificationMiddleware>();
+
         /// <summary>
         /// Adds the <see cref="EdFiApiAuthenticationMiddleware"/> to the specified <see cref="IApplicationBuilder"/>, which enables authentication capabilities.
         /// </summary>
@@ -22,12 +25,6 @@ namespace EdFi.Ods.Api.Extensions
         /// <returns>A reference to this instance after the operation has completed.</returns>
         public static IApplicationBuilder UseEdFiApiAuthentication(this IApplicationBuilder builder)
             => builder.UseMiddleware<EdFiApiAuthenticationMiddleware>();
-
-        public static IApplicationBuilder UseSchoolYearRouteContext(this IApplicationBuilder builder)
-            => builder.UseMiddleware<SchoolYearRouteContextMiddleware>();
-
-        public static IApplicationBuilder UseInstanceIdSpecificRouteContext(this IApplicationBuilder builder)
-            => builder.UseMiddleware<InstanceIdSpecificRouteContextMiddleware>();
 
         public static IApplicationBuilder UseXsdMetadata(this IApplicationBuilder builder)
             => builder.UseMiddleware<XsdMetadataFileMiddleware>();

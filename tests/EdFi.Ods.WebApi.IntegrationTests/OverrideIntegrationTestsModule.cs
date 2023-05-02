@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Database;
 
@@ -20,6 +21,10 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             builder.RegisterType<FakedOAuthTokenAuthenticator>()
                 .As<IOAuthTokenAuthenticator>()
                 .InstancePerLifetimeScope();
+            
+            builder.RegisterType<FakeOdsInstanceConfigurationProvider>()
+                .As<IOdsInstanceConfigurationProvider>()
+                .SingleInstance();
         }
     }
 }

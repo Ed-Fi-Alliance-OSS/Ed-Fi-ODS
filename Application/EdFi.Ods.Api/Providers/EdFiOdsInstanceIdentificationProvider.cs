@@ -3,31 +3,28 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Common.Database;
+using System;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Providers;
 
 namespace EdFi.Ods.Api.Providers
 {
     /// <summary>
-    /// Implements an IEdFiOdsInstanceIdentificationProvider that returns a stable unsigned-long value
-    /// using the xxHash3 algorithm on the ODS connection string.
+    /// Implements an IEdFiOdsInstanceIdentificationProvider that returns a stable unsigned-long value based on the
+    /// <see cref="OdsInstanceConfiguration.OdsInstanceHashId" /> property.
     /// </summary>
-    /// <remarks>Unlike the GetHashCode method implementation for strings, the xxHash3 algorithm is stable
-    /// across process runs.</remarks>
     public class EdFiOdsInstanceIdentificationProvider : IEdFiOdsInstanceIdentificationProvider
     {
-        private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
+        private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationContextProvider;
 
-        public EdFiOdsInstanceIdentificationProvider(IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider)
+        public EdFiOdsInstanceIdentificationProvider(
+            IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationContextContextProvider)
         {
-            _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
+            _odsInstanceConfigurationContextProvider = odsInstanceConfigurationContextContextProvider;
         }
 
         /// <inheritdoc cref="IEdFiOdsInstanceIdentificationProvider.GetInstanceIdentification" />
-        public ulong GetInstanceIdentification()
-            => _odsDatabaseConnectionStringProvider
-                .GetConnectionString()
-                .GetXxHash3Code();
+        public ulong GetInstanceIdentification() => _odsInstanceConfigurationContextProvider.Get()?.OdsInstanceHashId ?? throw new InvalidOperationException("No ODS instance configuration has been set in the current context.");
     }
 }

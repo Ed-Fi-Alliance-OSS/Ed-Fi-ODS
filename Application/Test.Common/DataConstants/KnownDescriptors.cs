@@ -78,7 +78,7 @@ namespace Test.Common.DataConstants
 
         protected string GetRef(string codeValue)
         {
-            return EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
+            return DescriptorHelper.GetUri(
                 DescriptorNamespacePrefix,
                 codeValue);
         }

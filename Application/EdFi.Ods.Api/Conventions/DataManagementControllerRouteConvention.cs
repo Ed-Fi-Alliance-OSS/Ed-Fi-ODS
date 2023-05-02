@@ -13,13 +13,6 @@ namespace EdFi.Ods.Api.Conventions
 {
     public class DataManagementControllerRouteConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-
-        public DataManagementControllerRouteConvention(ApiSettings apiSettings)
-        {
-            _apiSettings = apiSettings;
-        }
-
         public void Apply(ApplicationModel application)
         {
             var routePrefix = new AttributeRouteModel {Template = CreateRouteTemplate()};
@@ -46,17 +39,6 @@ namespace EdFi.Ods.Api.Conventions
             string CreateRouteTemplate()
             {
                 string template = $"{RouteConstants.DataManagementRoutePrefix}/";
-
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
-
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-                {
-                    template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
 
                 return template;
             }

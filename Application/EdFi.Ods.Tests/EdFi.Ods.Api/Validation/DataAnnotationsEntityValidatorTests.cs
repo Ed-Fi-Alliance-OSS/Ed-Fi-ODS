@@ -91,9 +91,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             PersonUniqueIdToUsiCache.GetCache =
                 () => A.Fake<IPersonUniqueIdToUsiCache>();
 
-            DescriptorsCache.GetCache =
-                () => A.Fake<IDescriptorsCache>();
-
             validationResults = validator.ValidateObject(
                 new Student
                 {

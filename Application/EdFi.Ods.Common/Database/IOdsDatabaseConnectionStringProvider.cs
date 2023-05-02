@@ -9,6 +9,6 @@ namespace EdFi.Ods.Common.Database
 {
     public interface IOdsDatabaseConnectionStringProvider : IDatabaseConnectionStringProvider
     {
-        string GetReadOnlyConnectionString();
+        string GetReadReplicaConnectionString();
     }
 }

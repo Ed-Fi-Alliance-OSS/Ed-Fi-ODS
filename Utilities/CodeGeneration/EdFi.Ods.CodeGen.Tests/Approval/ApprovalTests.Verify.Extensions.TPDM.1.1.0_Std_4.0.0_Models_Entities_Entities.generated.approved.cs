@@ -527,7 +527,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_birthCountryDescriptorId == default(int?))
-                    _birthCountryDescriptorId = string.IsNullOrWhiteSpace(_birthCountryDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("CountryDescriptor", _birthCountryDescriptor);
+                    _birthCountryDescriptorId = string.IsNullOrWhiteSpace(_birthCountryDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CountryDescriptor", _birthCountryDescriptor);
 
                 return _birthCountryDescriptorId;
             } 
@@ -546,7 +546,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_birthCountryDescriptor == null)
-                    _birthCountryDescriptor = _birthCountryDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("CountryDescriptor", _birthCountryDescriptorId.Value);
+                    _birthCountryDescriptor = _birthCountryDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CountryDescriptor", _birthCountryDescriptorId.Value);
                     
                 return _birthCountryDescriptor;
             }
@@ -573,7 +573,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_birthSexDescriptorId == default(int?))
-                    _birthSexDescriptorId = string.IsNullOrWhiteSpace(_birthSexDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SexDescriptor", _birthSexDescriptor);
+                    _birthSexDescriptorId = string.IsNullOrWhiteSpace(_birthSexDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SexDescriptor", _birthSexDescriptor);
 
                 return _birthSexDescriptorId;
             } 
@@ -592,7 +592,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_birthSexDescriptor == null)
-                    _birthSexDescriptor = _birthSexDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SexDescriptor", _birthSexDescriptorId.Value);
+                    _birthSexDescriptor = _birthSexDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SexDescriptor", _birthSexDescriptorId.Value);
                     
                 return _birthSexDescriptor;
             }
@@ -607,7 +607,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_birthStateAbbreviationDescriptorId == default(int?))
-                    _birthStateAbbreviationDescriptorId = string.IsNullOrWhiteSpace(_birthStateAbbreviationDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("StateAbbreviationDescriptor", _birthStateAbbreviationDescriptor);
+                    _birthStateAbbreviationDescriptorId = string.IsNullOrWhiteSpace(_birthStateAbbreviationDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StateAbbreviationDescriptor", _birthStateAbbreviationDescriptor);
 
                 return _birthStateAbbreviationDescriptorId;
             } 
@@ -626,7 +626,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_birthStateAbbreviationDescriptor == null)
-                    _birthStateAbbreviationDescriptor = _birthStateAbbreviationDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("StateAbbreviationDescriptor", _birthStateAbbreviationDescriptorId.Value);
+                    _birthStateAbbreviationDescriptor = _birthStateAbbreviationDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("StateAbbreviationDescriptor", _birthStateAbbreviationDescriptorId.Value);
                     
                 return _birthStateAbbreviationDescriptor;
             }
@@ -663,7 +663,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_englishLanguageExamDescriptorId == default(int?))
-                    _englishLanguageExamDescriptorId = string.IsNullOrWhiteSpace(_englishLanguageExamDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EnglishLanguageExamDescriptor", _englishLanguageExamDescriptor);
+                    _englishLanguageExamDescriptorId = string.IsNullOrWhiteSpace(_englishLanguageExamDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EnglishLanguageExamDescriptor", _englishLanguageExamDescriptor);
 
                 return _englishLanguageExamDescriptorId;
             } 
@@ -682,7 +682,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_englishLanguageExamDescriptor == null)
-                    _englishLanguageExamDescriptor = _englishLanguageExamDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EnglishLanguageExamDescriptor", _englishLanguageExamDescriptorId.Value);
+                    _englishLanguageExamDescriptor = _englishLanguageExamDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EnglishLanguageExamDescriptor", _englishLanguageExamDescriptorId.Value);
                     
                 return _englishLanguageExamDescriptor;
             }
@@ -700,7 +700,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_genderDescriptorId == default(int?))
-                    _genderDescriptorId = string.IsNullOrWhiteSpace(_genderDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("GenderDescriptor", _genderDescriptor);
+                    _genderDescriptorId = string.IsNullOrWhiteSpace(_genderDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GenderDescriptor", _genderDescriptor);
 
                 return _genderDescriptorId;
             } 
@@ -719,7 +719,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_genderDescriptor == null)
-                    _genderDescriptor = _genderDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("GenderDescriptor", _genderDescriptorId.Value);
+                    _genderDescriptor = _genderDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GenderDescriptor", _genderDescriptorId.Value);
                     
                 return _genderDescriptor;
             }
@@ -739,7 +739,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_limitedEnglishProficiencyDescriptorId == default(int?))
-                    _limitedEnglishProficiencyDescriptorId = string.IsNullOrWhiteSpace(_limitedEnglishProficiencyDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("LimitedEnglishProficiencyDescriptor", _limitedEnglishProficiencyDescriptor);
+                    _limitedEnglishProficiencyDescriptorId = string.IsNullOrWhiteSpace(_limitedEnglishProficiencyDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LimitedEnglishProficiencyDescriptor", _limitedEnglishProficiencyDescriptor);
 
                 return _limitedEnglishProficiencyDescriptorId;
             } 
@@ -758,7 +758,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_limitedEnglishProficiencyDescriptor == null)
-                    _limitedEnglishProficiencyDescriptor = _limitedEnglishProficiencyDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("LimitedEnglishProficiencyDescriptor", _limitedEnglishProficiencyDescriptorId.Value);
+                    _limitedEnglishProficiencyDescriptor = _limitedEnglishProficiencyDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LimitedEnglishProficiencyDescriptor", _limitedEnglishProficiencyDescriptorId.Value);
                     
                 return _limitedEnglishProficiencyDescriptor;
             }
@@ -783,7 +783,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_sexDescriptorId == default(int))
-                    _sexDescriptorId = DescriptorsCache.GetCache().GetId("SexDescriptor", _sexDescriptor);
+                    _sexDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SexDescriptor", _sexDescriptor);
 
                 return _sexDescriptorId;
             } 
@@ -802,7 +802,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_sexDescriptor == null)
-                    _sexDescriptor = DescriptorsCache.GetCache().GetValue("SexDescriptor", _sexDescriptorId);
+                    _sexDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SexDescriptor", _sexDescriptorId);
                     
                 return _sexDescriptor;
             }
@@ -817,7 +817,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int?))
-                    _sourceSystemDescriptorId = string.IsNullOrWhiteSpace(_sourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = string.IsNullOrWhiteSpace(_sourceSystemDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -836,7 +836,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = _sourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId.Value);
+                    _sourceSystemDescriptor = _sourceSystemDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId.Value);
                     
                 return _sourceSystemDescriptor;
             }
@@ -1411,7 +1411,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_addressTypeDescriptorId == default(int))
-                    _addressTypeDescriptorId = DescriptorsCache.GetCache().GetId("AddressTypeDescriptor", _addressTypeDescriptor);
+                    _addressTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AddressTypeDescriptor", _addressTypeDescriptor);
 
                 return _addressTypeDescriptorId;
             } 
@@ -1430,7 +1430,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_addressTypeDescriptor == null)
-                    _addressTypeDescriptor = DescriptorsCache.GetCache().GetValue("AddressTypeDescriptor", _addressTypeDescriptorId);
+                    _addressTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AddressTypeDescriptor", _addressTypeDescriptorId);
                     
                 return _addressTypeDescriptor;
             }
@@ -1450,7 +1450,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_stateAbbreviationDescriptorId == default(int))
-                    _stateAbbreviationDescriptorId = DescriptorsCache.GetCache().GetId("StateAbbreviationDescriptor", _stateAbbreviationDescriptor);
+                    _stateAbbreviationDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("StateAbbreviationDescriptor", _stateAbbreviationDescriptor);
 
                 return _stateAbbreviationDescriptorId;
             } 
@@ -1469,7 +1469,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_stateAbbreviationDescriptor == null)
-                    _stateAbbreviationDescriptor = DescriptorsCache.GetCache().GetValue("StateAbbreviationDescriptor", _stateAbbreviationDescriptorId);
+                    _stateAbbreviationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("StateAbbreviationDescriptor", _stateAbbreviationDescriptorId);
                     
                 return _stateAbbreviationDescriptor;
             }
@@ -1507,7 +1507,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_localeDescriptorId == default(int?))
-                    _localeDescriptorId = string.IsNullOrWhiteSpace(_localeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("LocaleDescriptor", _localeDescriptor);
+                    _localeDescriptorId = string.IsNullOrWhiteSpace(_localeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LocaleDescriptor", _localeDescriptor);
 
                 return _localeDescriptorId;
             } 
@@ -1526,7 +1526,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_localeDescriptor == null)
-                    _localeDescriptor = _localeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("LocaleDescriptor", _localeDescriptorId.Value);
+                    _localeDescriptor = _localeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LocaleDescriptor", _localeDescriptorId.Value);
                     
                 return _localeDescriptor;
             }
@@ -1943,7 +1943,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_disabilityDescriptorId == default(int))
-                    _disabilityDescriptorId = DescriptorsCache.GetCache().GetId("DisabilityDescriptor", _disabilityDescriptor);
+                    _disabilityDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDescriptor", _disabilityDescriptor);
 
                 return _disabilityDescriptorId;
             } 
@@ -1962,7 +1962,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_disabilityDescriptor == null)
-                    _disabilityDescriptor = DescriptorsCache.GetCache().GetValue("DisabilityDescriptor", _disabilityDescriptorId);
+                    _disabilityDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDescriptor", _disabilityDescriptorId);
                     
                 return _disabilityDescriptor;
             }
@@ -1987,7 +1987,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_disabilityDeterminationSourceTypeDescriptorId == default(int?))
-                    _disabilityDeterminationSourceTypeDescriptorId = string.IsNullOrWhiteSpace(_disabilityDeterminationSourceTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("DisabilityDeterminationSourceTypeDescriptor", _disabilityDeterminationSourceTypeDescriptor);
+                    _disabilityDeterminationSourceTypeDescriptorId = string.IsNullOrWhiteSpace(_disabilityDeterminationSourceTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDeterminationSourceTypeDescriptor", _disabilityDeterminationSourceTypeDescriptor);
 
                 return _disabilityDeterminationSourceTypeDescriptorId;
             } 
@@ -2006,7 +2006,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_disabilityDeterminationSourceTypeDescriptor == null)
-                    _disabilityDeterminationSourceTypeDescriptor = _disabilityDeterminationSourceTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("DisabilityDeterminationSourceTypeDescriptor", _disabilityDeterminationSourceTypeDescriptorId.Value);
+                    _disabilityDeterminationSourceTypeDescriptor = _disabilityDeterminationSourceTypeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDeterminationSourceTypeDescriptor", _disabilityDeterminationSourceTypeDescriptorId.Value);
                     
                 return _disabilityDeterminationSourceTypeDescriptor;
             }
@@ -2225,7 +2225,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_disabilityDesignationDescriptorId == default(int))
-                    _disabilityDesignationDescriptorId = DescriptorsCache.GetCache().GetId("DisabilityDesignationDescriptor", _disabilityDesignationDescriptor);
+                    _disabilityDesignationDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("DisabilityDesignationDescriptor", _disabilityDesignationDescriptor);
 
                 return _disabilityDesignationDescriptorId;
             } 
@@ -2244,7 +2244,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_disabilityDesignationDescriptor == null)
-                    _disabilityDesignationDescriptor = DescriptorsCache.GetCache().GetValue("DisabilityDesignationDescriptor", _disabilityDesignationDescriptorId);
+                    _disabilityDesignationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("DisabilityDesignationDescriptor", _disabilityDesignationDescriptorId);
                     
                 return _disabilityDesignationDescriptor;
             }
@@ -2424,7 +2424,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_electronicMailTypeDescriptorId == default(int))
-                    _electronicMailTypeDescriptorId = DescriptorsCache.GetCache().GetId("ElectronicMailTypeDescriptor", _electronicMailTypeDescriptor);
+                    _electronicMailTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ElectronicMailTypeDescriptor", _electronicMailTypeDescriptor);
 
                 return _electronicMailTypeDescriptorId;
             } 
@@ -2443,7 +2443,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_electronicMailTypeDescriptor == null)
-                    _electronicMailTypeDescriptor = DescriptorsCache.GetCache().GetValue("ElectronicMailTypeDescriptor", _electronicMailTypeDescriptorId);
+                    _electronicMailTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ElectronicMailTypeDescriptor", _electronicMailTypeDescriptorId);
                     
                 return _electronicMailTypeDescriptor;
             }
@@ -2624,7 +2624,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_languageDescriptorId == default(int))
-                    _languageDescriptorId = DescriptorsCache.GetCache().GetId("LanguageDescriptor", _languageDescriptor);
+                    _languageDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LanguageDescriptor", _languageDescriptor);
 
                 return _languageDescriptorId;
             } 
@@ -2643,7 +2643,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_languageDescriptor == null)
-                    _languageDescriptor = DescriptorsCache.GetCache().GetValue("LanguageDescriptor", _languageDescriptorId);
+                    _languageDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LanguageDescriptor", _languageDescriptorId);
                     
                 return _languageDescriptor;
             }
@@ -2868,7 +2868,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_languageUseDescriptorId == default(int))
-                    _languageUseDescriptorId = DescriptorsCache.GetCache().GetId("LanguageUseDescriptor", _languageUseDescriptor);
+                    _languageUseDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("LanguageUseDescriptor", _languageUseDescriptor);
 
                 return _languageUseDescriptorId;
             } 
@@ -2887,7 +2887,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_languageUseDescriptor == null)
-                    _languageUseDescriptor = DescriptorsCache.GetCache().GetValue("LanguageUseDescriptor", _languageUseDescriptorId);
+                    _languageUseDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("LanguageUseDescriptor", _languageUseDescriptorId);
                     
                 return _languageUseDescriptor;
             }
@@ -3065,7 +3065,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_otherNameTypeDescriptorId == default(int))
-                    _otherNameTypeDescriptorId = DescriptorsCache.GetCache().GetId("OtherNameTypeDescriptor", _otherNameTypeDescriptor);
+                    _otherNameTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("OtherNameTypeDescriptor", _otherNameTypeDescriptor);
 
                 return _otherNameTypeDescriptorId;
             } 
@@ -3084,7 +3084,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_otherNameTypeDescriptor == null)
-                    _otherNameTypeDescriptor = DescriptorsCache.GetCache().GetValue("OtherNameTypeDescriptor", _otherNameTypeDescriptorId);
+                    _otherNameTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("OtherNameTypeDescriptor", _otherNameTypeDescriptorId);
                     
                 return _otherNameTypeDescriptor;
             }
@@ -3271,7 +3271,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_identificationDocumentUseDescriptorId == default(int))
-                    _identificationDocumentUseDescriptorId = DescriptorsCache.GetCache().GetId("IdentificationDocumentUseDescriptor", _identificationDocumentUseDescriptor);
+                    _identificationDocumentUseDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("IdentificationDocumentUseDescriptor", _identificationDocumentUseDescriptor);
 
                 return _identificationDocumentUseDescriptorId;
             } 
@@ -3290,7 +3290,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_identificationDocumentUseDescriptor == null)
-                    _identificationDocumentUseDescriptor = DescriptorsCache.GetCache().GetValue("IdentificationDocumentUseDescriptor", _identificationDocumentUseDescriptorId);
+                    _identificationDocumentUseDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("IdentificationDocumentUseDescriptor", _identificationDocumentUseDescriptorId);
                     
                 return _identificationDocumentUseDescriptor;
             }
@@ -3306,7 +3306,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_personalInformationVerificationDescriptorId == default(int))
-                    _personalInformationVerificationDescriptorId = DescriptorsCache.GetCache().GetId("PersonalInformationVerificationDescriptor", _personalInformationVerificationDescriptor);
+                    _personalInformationVerificationDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PersonalInformationVerificationDescriptor", _personalInformationVerificationDescriptor);
 
                 return _personalInformationVerificationDescriptorId;
             } 
@@ -3325,7 +3325,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_personalInformationVerificationDescriptor == null)
-                    _personalInformationVerificationDescriptor = DescriptorsCache.GetCache().GetValue("PersonalInformationVerificationDescriptor", _personalInformationVerificationDescriptorId);
+                    _personalInformationVerificationDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PersonalInformationVerificationDescriptor", _personalInformationVerificationDescriptorId);
                     
                 return _personalInformationVerificationDescriptor;
             }
@@ -3371,7 +3371,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_issuerCountryDescriptorId == default(int?))
-                    _issuerCountryDescriptorId = string.IsNullOrWhiteSpace(_issuerCountryDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("CountryDescriptor", _issuerCountryDescriptor);
+                    _issuerCountryDescriptorId = string.IsNullOrWhiteSpace(_issuerCountryDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CountryDescriptor", _issuerCountryDescriptor);
 
                 return _issuerCountryDescriptorId;
             } 
@@ -3390,7 +3390,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_issuerCountryDescriptor == null)
-                    _issuerCountryDescriptor = _issuerCountryDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("CountryDescriptor", _issuerCountryDescriptorId.Value);
+                    _issuerCountryDescriptor = _issuerCountryDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CountryDescriptor", _issuerCountryDescriptorId.Value);
                     
                 return _issuerCountryDescriptor;
             }
@@ -3564,7 +3564,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_raceDescriptorId == default(int))
-                    _raceDescriptorId = DescriptorsCache.GetCache().GetId("RaceDescriptor", _raceDescriptor);
+                    _raceDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("RaceDescriptor", _raceDescriptor);
 
                 return _raceDescriptorId;
             } 
@@ -3583,7 +3583,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_raceDescriptor == null)
-                    _raceDescriptor = DescriptorsCache.GetCache().GetValue("RaceDescriptor", _raceDescriptorId);
+                    _raceDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("RaceDescriptor", _raceDescriptorId);
                     
                 return _raceDescriptor;
             }
@@ -3762,7 +3762,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_telephoneNumberTypeDescriptorId == default(int))
-                    _telephoneNumberTypeDescriptorId = DescriptorsCache.GetCache().GetId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
+                    _telephoneNumberTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptor);
 
                 return _telephoneNumberTypeDescriptorId;
             } 
@@ -3781,7 +3781,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             get
             {
                 if (_telephoneNumberTypeDescriptor == null)
-                    _telephoneNumberTypeDescriptor = DescriptorsCache.GetCache().GetValue("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptorId);
+                    _telephoneNumberTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TelephoneNumberTypeDescriptor", _telephoneNumberTypeDescriptorId);
                     
                 return _telephoneNumberTypeDescriptor;
             }
@@ -4060,7 +4060,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_programTypeDescriptorId == default(int))
-                    _programTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _programTypeDescriptor);
+                    _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
 
                 return _programTypeDescriptorId;
             } 
@@ -4079,7 +4079,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_programTypeDescriptor == null)
-                    _programTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _programTypeDescriptorId);
+                    _programTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _programTypeDescriptorId);
                     
                 return _programTypeDescriptor;
             }
@@ -4123,7 +4123,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_eppProgramPathwayDescriptorId == default(int?))
-                    _eppProgramPathwayDescriptorId = string.IsNullOrWhiteSpace(_eppProgramPathwayDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EPPProgramPathwayDescriptor", _eppProgramPathwayDescriptor);
+                    _eppProgramPathwayDescriptorId = string.IsNullOrWhiteSpace(_eppProgramPathwayDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EPPProgramPathwayDescriptor", _eppProgramPathwayDescriptor);
 
                 return _eppProgramPathwayDescriptorId;
             } 
@@ -4142,7 +4142,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_eppProgramPathwayDescriptor == null)
-                    _eppProgramPathwayDescriptor = _eppProgramPathwayDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EPPProgramPathwayDescriptor", _eppProgramPathwayDescriptorId.Value);
+                    _eppProgramPathwayDescriptor = _eppProgramPathwayDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EPPProgramPathwayDescriptor", _eppProgramPathwayDescriptorId.Value);
                     
                 return _eppProgramPathwayDescriptor;
             }
@@ -4157,7 +4157,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_reasonExitedDescriptorId == default(int?))
-                    _reasonExitedDescriptorId = string.IsNullOrWhiteSpace(_reasonExitedDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ReasonExitedDescriptor", _reasonExitedDescriptor);
+                    _reasonExitedDescriptorId = string.IsNullOrWhiteSpace(_reasonExitedDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ReasonExitedDescriptor", _reasonExitedDescriptor);
 
                 return _reasonExitedDescriptorId;
             } 
@@ -4176,7 +4176,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_reasonExitedDescriptor == null)
-                    _reasonExitedDescriptor = _reasonExitedDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ReasonExitedDescriptor", _reasonExitedDescriptorId.Value);
+                    _reasonExitedDescriptor = _reasonExitedDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ReasonExitedDescriptor", _reasonExitedDescriptorId.Value);
                     
                 return _reasonExitedDescriptor;
             }
@@ -4481,7 +4481,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_cohortYearTypeDescriptorId == default(int))
-                    _cohortYearTypeDescriptorId = DescriptorsCache.GetCache().GetId("CohortYearTypeDescriptor", _cohortYearTypeDescriptor);
+                    _cohortYearTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CohortYearTypeDescriptor", _cohortYearTypeDescriptor);
 
                 return _cohortYearTypeDescriptorId;
             } 
@@ -4500,7 +4500,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_cohortYearTypeDescriptor == null)
-                    _cohortYearTypeDescriptor = DescriptorsCache.GetCache().GetValue("CohortYearTypeDescriptor", _cohortYearTypeDescriptorId);
+                    _cohortYearTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CohortYearTypeDescriptor", _cohortYearTypeDescriptorId);
                     
                 return _cohortYearTypeDescriptor;
             }
@@ -4527,7 +4527,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_termDescriptorId == default(int?))
-                    _termDescriptorId = string.IsNullOrWhiteSpace(_termDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = string.IsNullOrWhiteSpace(_termDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -4546,7 +4546,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = _termDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId.Value);
+                    _termDescriptor = _termDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId.Value);
                     
                 return _termDescriptor;
             }
@@ -5332,7 +5332,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -5351,7 +5351,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -5562,7 +5562,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_certificationRouteDescriptorId == default(int?))
-                    _certificationRouteDescriptorId = string.IsNullOrWhiteSpace(_certificationRouteDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("CertificationRouteDescriptor", _certificationRouteDescriptor);
+                    _certificationRouteDescriptorId = string.IsNullOrWhiteSpace(_certificationRouteDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CertificationRouteDescriptor", _certificationRouteDescriptor);
 
                 return _certificationRouteDescriptorId;
             } 
@@ -5581,7 +5581,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_certificationRouteDescriptor == null)
-                    _certificationRouteDescriptor = _certificationRouteDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("CertificationRouteDescriptor", _certificationRouteDescriptorId.Value);
+                    _certificationRouteDescriptor = _certificationRouteDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CertificationRouteDescriptor", _certificationRouteDescriptorId.Value);
                     
                 return _certificationRouteDescriptor;
             }
@@ -5617,7 +5617,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_credentialStatusDescriptorId == default(int?))
-                    _credentialStatusDescriptorId = string.IsNullOrWhiteSpace(_credentialStatusDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("CredentialStatusDescriptor", _credentialStatusDescriptor);
+                    _credentialStatusDescriptorId = string.IsNullOrWhiteSpace(_credentialStatusDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CredentialStatusDescriptor", _credentialStatusDescriptor);
 
                 return _credentialStatusDescriptorId;
             } 
@@ -5636,7 +5636,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_credentialStatusDescriptor == null)
-                    _credentialStatusDescriptor = _credentialStatusDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("CredentialStatusDescriptor", _credentialStatusDescriptorId.Value);
+                    _credentialStatusDescriptor = _credentialStatusDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CredentialStatusDescriptor", _credentialStatusDescriptorId.Value);
                     
                 return _credentialStatusDescriptor;
             }
@@ -5651,7 +5651,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_educatorRoleDescriptorId == default(int?))
-                    _educatorRoleDescriptorId = string.IsNullOrWhiteSpace(_educatorRoleDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EducatorRoleDescriptor", _educatorRoleDescriptor);
+                    _educatorRoleDescriptorId = string.IsNullOrWhiteSpace(_educatorRoleDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EducatorRoleDescriptor", _educatorRoleDescriptor);
 
                 return _educatorRoleDescriptorId;
             } 
@@ -5670,7 +5670,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_educatorRoleDescriptor == null)
-                    _educatorRoleDescriptor = _educatorRoleDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EducatorRoleDescriptor", _educatorRoleDescriptorId.Value);
+                    _educatorRoleDescriptor = _educatorRoleDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EducatorRoleDescriptor", _educatorRoleDescriptorId.Value);
                     
                 return _educatorRoleDescriptor;
             }
@@ -5687,7 +5687,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int?))
-                    _sourceSystemDescriptorId = string.IsNullOrWhiteSpace(_sourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = string.IsNullOrWhiteSpace(_sourceSystemDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -5706,7 +5706,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = _sourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId.Value);
+                    _sourceSystemDescriptor = _sourceSystemDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId.Value);
                     
                 return _sourceSystemDescriptor;
             }
@@ -6189,7 +6189,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             get
             {
                 if (_programTypeDescriptorId == default(int))
-                    _programTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _programTypeDescriptor);
+                    _programTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ProgramTypeDescriptor", _programTypeDescriptor);
 
                 return _programTypeDescriptorId;
             } 
@@ -6208,7 +6208,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             get
             {
                 if (_programTypeDescriptor == null)
-                    _programTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _programTypeDescriptorId);
+                    _programTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ProgramTypeDescriptor", _programTypeDescriptorId);
                     
                 return _programTypeDescriptor;
             }
@@ -6233,7 +6233,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             get
             {
                 if (_accreditationStatusDescriptorId == default(int?))
-                    _accreditationStatusDescriptorId = string.IsNullOrWhiteSpace(_accreditationStatusDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("AccreditationStatusDescriptor", _accreditationStatusDescriptor);
+                    _accreditationStatusDescriptorId = string.IsNullOrWhiteSpace(_accreditationStatusDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AccreditationStatusDescriptor", _accreditationStatusDescriptor);
 
                 return _accreditationStatusDescriptorId;
             } 
@@ -6252,7 +6252,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             get
             {
                 if (_accreditationStatusDescriptor == null)
-                    _accreditationStatusDescriptor = _accreditationStatusDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("AccreditationStatusDescriptor", _accreditationStatusDescriptorId.Value);
+                    _accreditationStatusDescriptor = _accreditationStatusDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AccreditationStatusDescriptor", _accreditationStatusDescriptorId.Value);
                     
                 return _accreditationStatusDescriptor;
             }
@@ -6488,7 +6488,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             get
             {
                 if (_gradeLevelDescriptorId == default(int))
-                    _gradeLevelDescriptorId = DescriptorsCache.GetCache().GetId("GradeLevelDescriptor", _gradeLevelDescriptor);
+                    _gradeLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GradeLevelDescriptor", _gradeLevelDescriptor);
 
                 return _gradeLevelDescriptorId;
             } 
@@ -6507,7 +6507,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
             get
             {
                 if (_gradeLevelDescriptor == null)
-                    _gradeLevelDescriptor = DescriptorsCache.GetCache().GetValue("GradeLevelDescriptor", _gradeLevelDescriptorId);
+                    _gradeLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GradeLevelDescriptor", _gradeLevelDescriptorId);
                     
                 return _gradeLevelDescriptor;
             }
@@ -7333,7 +7333,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -7352,7 +7352,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -7372,7 +7372,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -7391,7 +7391,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -7409,7 +7409,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -7428,7 +7428,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -7455,7 +7455,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_evaluationTypeDescriptorId == default(int?))
-                    _evaluationTypeDescriptorId = string.IsNullOrWhiteSpace(_evaluationTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationTypeDescriptor", _evaluationTypeDescriptor);
+                    _evaluationTypeDescriptorId = string.IsNullOrWhiteSpace(_evaluationTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationTypeDescriptor", _evaluationTypeDescriptor);
 
                 return _evaluationTypeDescriptorId;
             } 
@@ -7474,7 +7474,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_evaluationTypeDescriptor == null)
-                    _evaluationTypeDescriptor = _evaluationTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationTypeDescriptor", _evaluationTypeDescriptorId.Value);
+                    _evaluationTypeDescriptor = _evaluationTypeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationTypeDescriptor", _evaluationTypeDescriptorId.Value);
                     
                 return _evaluationTypeDescriptor;
             }
@@ -7719,7 +7719,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptorId == default(int))
-                    _evaluationRatingLevelDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
+                    _evaluationRatingLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
 
                 return _evaluationRatingLevelDescriptorId;
             } 
@@ -7738,7 +7738,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptor == null)
-                    _evaluationRatingLevelDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
+                    _evaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
                     
                 return _evaluationRatingLevelDescriptor;
             }
@@ -8017,7 +8017,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -8036,7 +8036,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -8056,7 +8056,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -8075,7 +8075,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -8093,7 +8093,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -8112,7 +8112,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -8137,7 +8137,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_evaluationTypeDescriptorId == default(int?))
-                    _evaluationTypeDescriptorId = string.IsNullOrWhiteSpace(_evaluationTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationTypeDescriptor", _evaluationTypeDescriptor);
+                    _evaluationTypeDescriptorId = string.IsNullOrWhiteSpace(_evaluationTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationTypeDescriptor", _evaluationTypeDescriptor);
 
                 return _evaluationTypeDescriptorId;
             } 
@@ -8156,7 +8156,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_evaluationTypeDescriptor == null)
-                    _evaluationTypeDescriptor = _evaluationTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationTypeDescriptor", _evaluationTypeDescriptorId.Value);
+                    _evaluationTypeDescriptor = _evaluationTypeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationTypeDescriptor", _evaluationTypeDescriptorId.Value);
                     
                 return _evaluationTypeDescriptor;
             }
@@ -8403,7 +8403,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptorId == default(int))
-                    _evaluationRatingLevelDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
+                    _evaluationRatingLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
 
                 return _evaluationRatingLevelDescriptorId;
             } 
@@ -8422,7 +8422,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptor == null)
-                    _evaluationRatingLevelDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
+                    _evaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
                     
                 return _evaluationRatingLevelDescriptor;
             }
@@ -8726,7 +8726,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -8745,7 +8745,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -8765,7 +8765,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -8784,7 +8784,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -8804,7 +8804,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int))
-                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -8823,7 +8823,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    _sourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId);
                     
                 return _sourceSystemDescriptor;
             }
@@ -8839,7 +8839,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -8858,7 +8858,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -8889,7 +8889,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_evaluationElementRatingLevelDescriptorId == default(int?))
-                    _evaluationElementRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_evaluationElementRatingLevelDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationElementRatingLevelDescriptor", _evaluationElementRatingLevelDescriptor);
+                    _evaluationElementRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_evaluationElementRatingLevelDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationElementRatingLevelDescriptor", _evaluationElementRatingLevelDescriptor);
 
                 return _evaluationElementRatingLevelDescriptorId;
             } 
@@ -8908,7 +8908,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_evaluationElementRatingLevelDescriptor == null)
-                    _evaluationElementRatingLevelDescriptor = _evaluationElementRatingLevelDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationElementRatingLevelDescriptor", _evaluationElementRatingLevelDescriptorId.Value);
+                    _evaluationElementRatingLevelDescriptor = _evaluationElementRatingLevelDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationElementRatingLevelDescriptor", _evaluationElementRatingLevelDescriptorId.Value);
                     
                 return _evaluationElementRatingLevelDescriptor;
             }
@@ -9190,7 +9190,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptorId == default(int))
-                    _resultDatatypeTypeDescriptorId = DescriptorsCache.GetCache().GetId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
+                    _resultDatatypeTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
 
                 return _resultDatatypeTypeDescriptorId;
             } 
@@ -9209,7 +9209,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptor == null)
-                    _resultDatatypeTypeDescriptor = DescriptorsCache.GetCache().GetValue("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
+                    _resultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
                     
                 return _resultDatatypeTypeDescriptor;
             }
@@ -9659,7 +9659,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -9678,7 +9678,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -9698,7 +9698,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -9717,7 +9717,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -9735,7 +9735,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -9754,7 +9754,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -9781,7 +9781,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_evaluationTypeDescriptorId == default(int?))
-                    _evaluationTypeDescriptorId = string.IsNullOrWhiteSpace(_evaluationTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationTypeDescriptor", _evaluationTypeDescriptor);
+                    _evaluationTypeDescriptorId = string.IsNullOrWhiteSpace(_evaluationTypeDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationTypeDescriptor", _evaluationTypeDescriptor);
 
                 return _evaluationTypeDescriptorId;
             } 
@@ -9800,7 +9800,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_evaluationTypeDescriptor == null)
-                    _evaluationTypeDescriptor = _evaluationTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationTypeDescriptor", _evaluationTypeDescriptorId.Value);
+                    _evaluationTypeDescriptor = _evaluationTypeDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationTypeDescriptor", _evaluationTypeDescriptorId.Value);
                     
                 return _evaluationTypeDescriptor;
             }
@@ -10046,7 +10046,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptorId == default(int))
-                    _evaluationRatingLevelDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
+                    _evaluationRatingLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
 
                 return _evaluationRatingLevelDescriptorId;
             } 
@@ -10065,7 +10065,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptor == null)
-                    _evaluationRatingLevelDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
+                    _evaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
                     
                 return _evaluationRatingLevelDescriptor;
             }
@@ -10365,7 +10365,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -10384,7 +10384,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -10404,7 +10404,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -10423,7 +10423,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -10443,7 +10443,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int))
-                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -10462,7 +10462,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    _sourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId);
                     
                 return _sourceSystemDescriptor;
             }
@@ -10478,7 +10478,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -10497,7 +10497,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -10524,7 +10524,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_objectiveRatingLevelDescriptorId == default(int?))
-                    _objectiveRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_objectiveRatingLevelDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ObjectiveRatingLevelDescriptor", _objectiveRatingLevelDescriptor);
+                    _objectiveRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_objectiveRatingLevelDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ObjectiveRatingLevelDescriptor", _objectiveRatingLevelDescriptor);
 
                 return _objectiveRatingLevelDescriptorId;
             } 
@@ -10543,7 +10543,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_objectiveRatingLevelDescriptor == null)
-                    _objectiveRatingLevelDescriptor = _objectiveRatingLevelDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ObjectiveRatingLevelDescriptor", _objectiveRatingLevelDescriptorId.Value);
+                    _objectiveRatingLevelDescriptor = _objectiveRatingLevelDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ObjectiveRatingLevelDescriptor", _objectiveRatingLevelDescriptorId.Value);
                     
                 return _objectiveRatingLevelDescriptor;
             }
@@ -10822,7 +10822,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptorId == default(int))
-                    _resultDatatypeTypeDescriptorId = DescriptorsCache.GetCache().GetId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
+                    _resultDatatypeTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
 
                 return _resultDatatypeTypeDescriptorId;
             } 
@@ -10841,7 +10841,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptor == null)
-                    _resultDatatypeTypeDescriptor = DescriptorsCache.GetCache().GetValue("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
+                    _resultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
                     
                 return _resultDatatypeTypeDescriptor;
             }
@@ -11313,7 +11313,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -11332,7 +11332,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -11352,7 +11352,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -11371,7 +11371,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -11391,7 +11391,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int))
-                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -11410,7 +11410,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    _sourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId);
                     
                 return _sourceSystemDescriptor;
             }
@@ -11426,7 +11426,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -11445,7 +11445,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -11470,7 +11470,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptorId == default(int?))
-                    _evaluationRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_evaluationRatingLevelDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
+                    _evaluationRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_evaluationRatingLevelDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
 
                 return _evaluationRatingLevelDescriptorId;
             } 
@@ -11489,7 +11489,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptor == null)
-                    _evaluationRatingLevelDescriptor = _evaluationRatingLevelDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId.Value);
+                    _evaluationRatingLevelDescriptor = _evaluationRatingLevelDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId.Value);
                     
                 return _evaluationRatingLevelDescriptor;
             }
@@ -11504,7 +11504,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationRatingStatusDescriptorId == default(int?))
-                    _evaluationRatingStatusDescriptorId = string.IsNullOrWhiteSpace(_evaluationRatingStatusDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationRatingStatusDescriptor", _evaluationRatingStatusDescriptor);
+                    _evaluationRatingStatusDescriptorId = string.IsNullOrWhiteSpace(_evaluationRatingStatusDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingStatusDescriptor", _evaluationRatingStatusDescriptor);
 
                 return _evaluationRatingStatusDescriptorId;
             } 
@@ -11523,7 +11523,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationRatingStatusDescriptor == null)
-                    _evaluationRatingStatusDescriptor = _evaluationRatingStatusDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationRatingStatusDescriptor", _evaluationRatingStatusDescriptorId.Value);
+                    _evaluationRatingStatusDescriptor = _evaluationRatingStatusDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingStatusDescriptor", _evaluationRatingStatusDescriptorId.Value);
                     
                 return _evaluationRatingStatusDescriptor;
             }
@@ -11877,7 +11877,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptorId == default(int))
-                    _resultDatatypeTypeDescriptorId = DescriptorsCache.GetCache().GetId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
+                    _resultDatatypeTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
 
                 return _resultDatatypeTypeDescriptorId;
             } 
@@ -11896,7 +11896,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptor == null)
-                    _resultDatatypeTypeDescriptor = DescriptorsCache.GetCache().GetValue("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
+                    _resultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
                     
                 return _resultDatatypeTypeDescriptor;
             }
@@ -12084,7 +12084,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_reviewerSourceSystemDescriptorId == default(int?))
-                    _reviewerSourceSystemDescriptorId = string.IsNullOrWhiteSpace(_reviewerSourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
+                    _reviewerSourceSystemDescriptorId = string.IsNullOrWhiteSpace(_reviewerSourceSystemDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
 
                 return _reviewerSourceSystemDescriptorId;
             } 
@@ -12103,7 +12103,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             get
             {
                 if (_reviewerSourceSystemDescriptor == null)
-                    _reviewerSourceSystemDescriptor = _reviewerSourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _reviewerSourceSystemDescriptorId.Value);
+                    _reviewerSourceSystemDescriptor = _reviewerSourceSystemDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _reviewerSourceSystemDescriptorId.Value);
                     
                 return _reviewerSourceSystemDescriptor;
             }
@@ -13174,7 +13174,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
             get
             {
                 if (_aidTypeDescriptorId == default(int))
-                    _aidTypeDescriptorId = DescriptorsCache.GetCache().GetId("AidTypeDescriptor", _aidTypeDescriptor);
+                    _aidTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AidTypeDescriptor", _aidTypeDescriptor);
 
                 return _aidTypeDescriptorId;
             } 
@@ -13193,7 +13193,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
             get
             {
                 if (_aidTypeDescriptor == null)
-                    _aidTypeDescriptor = DescriptorsCache.GetCache().GetValue("AidTypeDescriptor", _aidTypeDescriptorId);
+                    _aidTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AidTypeDescriptor", _aidTypeDescriptorId);
                     
                 return _aidTypeDescriptor;
             }
@@ -13920,7 +13920,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -13939,7 +13939,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -13957,7 +13957,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -13976,7 +13976,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -13994,7 +13994,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -14013,7 +14013,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -14038,7 +14038,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_academicSubjectDescriptorId == default(int?))
-                    _academicSubjectDescriptorId = string.IsNullOrWhiteSpace(_academicSubjectDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("AcademicSubjectDescriptor", _academicSubjectDescriptor);
+                    _academicSubjectDescriptorId = string.IsNullOrWhiteSpace(_academicSubjectDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("AcademicSubjectDescriptor", _academicSubjectDescriptor);
 
                 return _academicSubjectDescriptorId;
             } 
@@ -14057,7 +14057,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_academicSubjectDescriptor == null)
-                    _academicSubjectDescriptor = _academicSubjectDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("AcademicSubjectDescriptor", _academicSubjectDescriptorId.Value);
+                    _academicSubjectDescriptor = _academicSubjectDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("AcademicSubjectDescriptor", _academicSubjectDescriptorId.Value);
                     
                 return _academicSubjectDescriptor;
             }
@@ -14357,7 +14357,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_gradeLevelDescriptorId == default(int))
-                    _gradeLevelDescriptorId = DescriptorsCache.GetCache().GetId("GradeLevelDescriptor", _gradeLevelDescriptor);
+                    _gradeLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("GradeLevelDescriptor", _gradeLevelDescriptor);
 
                 return _gradeLevelDescriptorId;
             } 
@@ -14376,7 +14376,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_gradeLevelDescriptor == null)
-                    _gradeLevelDescriptor = DescriptorsCache.GetCache().GetValue("GradeLevelDescriptor", _gradeLevelDescriptorId);
+                    _gradeLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("GradeLevelDescriptor", _gradeLevelDescriptorId);
                     
                 return _gradeLevelDescriptor;
             }
@@ -14556,7 +14556,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptorId == default(int))
-                    _evaluationRatingLevelDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
+                    _evaluationRatingLevelDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptor);
 
                 return _evaluationRatingLevelDescriptorId;
             } 
@@ -14575,7 +14575,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             get
             {
                 if (_evaluationRatingLevelDescriptor == null)
-                    _evaluationRatingLevelDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
+                    _evaluationRatingLevelDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationRatingLevelDescriptor", _evaluationRatingLevelDescriptorId);
                     
                 return _evaluationRatingLevelDescriptor;
             }
@@ -14849,7 +14849,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -14868,7 +14868,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -14886,7 +14886,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -14905,7 +14905,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -14925,7 +14925,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int))
-                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -14944,7 +14944,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    _sourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId);
                     
                 return _sourceSystemDescriptor;
             }
@@ -14960,7 +14960,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -14979,7 +14979,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -15019,7 +15019,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_coteachingStyleObservedDescriptorId == default(int?))
-                    _coteachingStyleObservedDescriptorId = string.IsNullOrWhiteSpace(_coteachingStyleObservedDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("CoteachingStyleObservedDescriptor", _coteachingStyleObservedDescriptor);
+                    _coteachingStyleObservedDescriptorId = string.IsNullOrWhiteSpace(_coteachingStyleObservedDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("CoteachingStyleObservedDescriptor", _coteachingStyleObservedDescriptor);
 
                 return _coteachingStyleObservedDescriptorId;
             } 
@@ -15038,7 +15038,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_coteachingStyleObservedDescriptor == null)
-                    _coteachingStyleObservedDescriptor = _coteachingStyleObservedDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("CoteachingStyleObservedDescriptor", _coteachingStyleObservedDescriptorId.Value);
+                    _coteachingStyleObservedDescriptor = _coteachingStyleObservedDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("CoteachingStyleObservedDescriptor", _coteachingStyleObservedDescriptorId.Value);
                     
                 return _coteachingStyleObservedDescriptor;
             }
@@ -15053,7 +15053,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationRatingLevelDescriptorId == default(int?))
-                    _performanceEvaluationRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_performanceEvaluationRatingLevelDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("PerformanceEvaluationRatingLevelDescriptor", _performanceEvaluationRatingLevelDescriptor);
+                    _performanceEvaluationRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_performanceEvaluationRatingLevelDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationRatingLevelDescriptor", _performanceEvaluationRatingLevelDescriptor);
 
                 return _performanceEvaluationRatingLevelDescriptorId;
             } 
@@ -15072,7 +15072,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_performanceEvaluationRatingLevelDescriptor == null)
-                    _performanceEvaluationRatingLevelDescriptor = _performanceEvaluationRatingLevelDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("PerformanceEvaluationRatingLevelDescriptor", _performanceEvaluationRatingLevelDescriptorId.Value);
+                    _performanceEvaluationRatingLevelDescriptor = _performanceEvaluationRatingLevelDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationRatingLevelDescriptor", _performanceEvaluationRatingLevelDescriptorId.Value);
                     
                 return _performanceEvaluationRatingLevelDescriptor;
             }
@@ -15416,7 +15416,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptorId == default(int))
-                    _resultDatatypeTypeDescriptorId = DescriptorsCache.GetCache().GetId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
+                    _resultDatatypeTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
 
                 return _resultDatatypeTypeDescriptorId;
             } 
@@ -15435,7 +15435,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_resultDatatypeTypeDescriptor == null)
-                    _resultDatatypeTypeDescriptor = DescriptorsCache.GetCache().GetValue("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
+                    _resultDatatypeTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
                     
                 return _resultDatatypeTypeDescriptor;
             }
@@ -15623,7 +15623,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_reviewerSourceSystemDescriptorId == default(int?))
-                    _reviewerSourceSystemDescriptorId = string.IsNullOrWhiteSpace(_reviewerSourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
+                    _reviewerSourceSystemDescriptorId = string.IsNullOrWhiteSpace(_reviewerSourceSystemDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
 
                 return _reviewerSourceSystemDescriptorId;
             } 
@@ -15642,7 +15642,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             get
             {
                 if (_reviewerSourceSystemDescriptor == null)
-                    _reviewerSourceSystemDescriptor = _reviewerSourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _reviewerSourceSystemDescriptorId.Value);
+                    _reviewerSourceSystemDescriptor = _reviewerSourceSystemDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _reviewerSourceSystemDescriptorId.Value);
                     
                 return _reviewerSourceSystemDescriptor;
             }
@@ -16546,7 +16546,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+                    _evaluationPeriodDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
 
                 return _evaluationPeriodDescriptorId;
             } 
@@ -16565,7 +16565,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    _evaluationPeriodDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
                     
                 return _evaluationPeriodDescriptor;
             }
@@ -16585,7 +16585,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptorId == default(int))
-                    _performanceEvaluationTypeDescriptorId = DescriptorsCache.GetCache().GetId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
+                    _performanceEvaluationTypeDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptor);
 
                 return _performanceEvaluationTypeDescriptorId;
             } 
@@ -16604,7 +16604,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_performanceEvaluationTypeDescriptor == null)
-                    _performanceEvaluationTypeDescriptor = DescriptorsCache.GetCache().GetValue("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
+                    _performanceEvaluationTypeDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("PerformanceEvaluationTypeDescriptor", _performanceEvaluationTypeDescriptorId);
                     
                 return _performanceEvaluationTypeDescriptor;
             }
@@ -16624,7 +16624,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_termDescriptorId == default(int))
-                    _termDescriptorId = DescriptorsCache.GetCache().GetId("TermDescriptor", _termDescriptor);
+                    _termDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("TermDescriptor", _termDescriptor);
 
                 return _termDescriptorId;
             } 
@@ -16643,7 +16643,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_termDescriptor == null)
-                    _termDescriptor = DescriptorsCache.GetCache().GetValue("TermDescriptor", _termDescriptorId);
+                    _termDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("TermDescriptor", _termDescriptorId);
                     
                 return _termDescriptor;
             }
@@ -16671,7 +16671,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_rubricRatingLevelDescriptorId == default(int?))
-                    _rubricRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_rubricRatingLevelDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("RubricRatingLevelDescriptor", _rubricRatingLevelDescriptor);
+                    _rubricRatingLevelDescriptorId = string.IsNullOrWhiteSpace(_rubricRatingLevelDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("RubricRatingLevelDescriptor", _rubricRatingLevelDescriptor);
 
                 return _rubricRatingLevelDescriptorId;
             } 
@@ -16690,7 +16690,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             get
             {
                 if (_rubricRatingLevelDescriptor == null)
-                    _rubricRatingLevelDescriptor = _rubricRatingLevelDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("RubricRatingLevelDescriptor", _rubricRatingLevelDescriptorId.Value);
+                    _rubricRatingLevelDescriptor = _rubricRatingLevelDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("RubricRatingLevelDescriptor", _rubricRatingLevelDescriptorId.Value);
                     
                 return _rubricRatingLevelDescriptor;
             }
@@ -17264,7 +17264,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptorId == default(int?))
-                    _sourceSystemDescriptorId = string.IsNullOrWhiteSpace(_sourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = string.IsNullOrWhiteSpace(_sourceSystemDescriptor) ? default(int?) : GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -17283,7 +17283,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = _sourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId.Value);
+                    _sourceSystemDescriptor = _sourceSystemDescriptorId == null ? null : GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId.Value);
                     
                 return _sourceSystemDescriptor;
             }
@@ -17553,7 +17553,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
             get
             {
                 if (_sourceSystemDescriptorId == default(int))
-                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -17572,7 +17572,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    _sourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId);
                     
                 return _sourceSystemDescriptor;
             }
@@ -17879,7 +17879,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
             get
             {
                 if (_sourceSystemDescriptorId == default(int))
-                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+                    _sourceSystemDescriptorId = GeneratedArtifactStaticDependencies.DescriptorResolver.GetDescriptorId("SourceSystemDescriptor", _sourceSystemDescriptor);
 
                 return _sourceSystemDescriptorId;
             } 
@@ -17898,7 +17898,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
             get
             {
                 if (_sourceSystemDescriptor == null)
-                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    _sourceSystemDescriptor = GeneratedArtifactStaticDependencies.DescriptorResolver.GetUri("SourceSystemDescriptor", _sourceSystemDescriptorId);
                     
                 return _sourceSystemDescriptor;
             }

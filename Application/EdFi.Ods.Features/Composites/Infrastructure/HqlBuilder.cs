@@ -15,6 +15,7 @@ using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Activities;
@@ -45,7 +46,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private static readonly Regex _rangeRegex = new Regex(
             @"(?<PropertyName>\w+):(?<BeginRangeSymbol>[\[\{])((?<BeginValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})(\.\.\.|\.\.|…)(?<EndValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})|(?<BeginValue>[0-9\.]+?)(\.\.\.|\.\.|…)(?<EndValue>[0-9\.]+?))(?<EndRangeSymbol>[\}\]])",
             RegexOptions.Compiled);
-        private readonly IDescriptorsCache _descriptorsCache;
+        private readonly IDescriptorResolver _descriptorResolver;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(HqlBuilder));
         private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
@@ -56,13 +57,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         public HqlBuilder(
             ISessionFactory sessionFactory,
-            IDescriptorsCache descriptorsCache,
+            IDescriptorResolver descriptorResolver,
             IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
             IResourceJoinPathExpressionProcessor resourceJoinPathExpressionProcessor,
             IParameterListSetter parameterListSetter)
         {
             _sessionFactory = Preconditions.ThrowIfNull(sessionFactory, nameof(sessionFactory));
-            _descriptorsCache = Preconditions.ThrowIfNull(descriptorsCache, nameof(descriptorsCache));
+            _descriptorResolver = Preconditions.ThrowIfNull(descriptorResolver, nameof(descriptorResolver));
             _personUniqueIdToUsiCache = Preconditions.ThrowIfNull(personUniqueIdToUsiCache, nameof(personUniqueIdToUsiCache));
 
             _resourceJoinPathExpressionProcessor = Preconditions.ThrowIfNull(
@@ -285,7 +286,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         // Set the parameter values
                         builderContext.CurrentQueryFilterParameterValueByName[parameterName]
                             = valueFilter.Values
-                                .Select(x => _descriptorsCache.GetId(filterProperty.DescriptorName, x))
+                                .Select(x => _descriptorResolver.GetDescriptorId(filterProperty.DescriptorName, x))
                                 .ToArray();
                     }
                     else
@@ -295,7 +296,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             = (parametersAsObject as int[])
                             .Concat(
                                 valueFilter.Values
-                                    .Select(x => _descriptorsCache.GetId(filterProperty.DescriptorName, x))
+                                    .Select(x => _descriptorResolver.GetDescriptorId(filterProperty.DescriptorName, x))
                             )
                             .ToArray();
                     }
@@ -794,7 +795,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle Lookup conversions
                     if (targetProperty.IsDescriptorUsage)
                     {
-                        var id = _descriptorsCache.GetId(
+                        var id = _descriptorResolver.GetDescriptorId(
                             targetProperty.DescriptorName,
                             Convert.ToString(queryStringParameter.Value));
 

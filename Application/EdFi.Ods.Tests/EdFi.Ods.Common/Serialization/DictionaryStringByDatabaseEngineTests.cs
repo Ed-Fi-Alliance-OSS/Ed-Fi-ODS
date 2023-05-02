@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -27,7 +26,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
 
             result.ShouldNotBeEmpty();
             result.ShouldNotBeNull();
-            result.ShouldBe($"{{\"{ApiConfigurationConstants.SqlServer}\":\"column\"}}");
+            result.ShouldBe($"{{\"{DatabaseEngine.SqlServer.Value}\":\"column\"}}");
         }
 
         [Test]
@@ -56,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
         [Test]
         public void Should_deserialize_dictionary_with_values()
         {
-            var dict = new Dictionary<string, string> {{ApiConfigurationConstants.PostgreSQL, "column"}};
+            var dict = new Dictionary<string, string> {{DatabaseEngine.Postgres.Value, "column"}};
             string source = JsonConvert.SerializeObject(dict);
 
             var result = JsonConvert.DeserializeObject<IDictionary<DatabaseEngine, string>>(

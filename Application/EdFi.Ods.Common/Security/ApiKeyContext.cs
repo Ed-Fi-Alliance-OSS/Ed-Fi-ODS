@@ -68,6 +68,6 @@ namespace EdFi.Ods.Common.Security
         /// <summary>
         /// Returns an empty, uninitialized <see cref="ApiKeyContext"/> instance.
         /// </summary>
-        public static ApiKeyContext Empty { get; } = new ApiKeyContext();
+        public static ApiKeyContext Empty { get; } = new();
     }
 }

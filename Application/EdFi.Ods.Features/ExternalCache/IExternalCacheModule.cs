@@ -16,6 +16,6 @@ namespace EdFi.Ods.Features.ExternalCache
         bool IsProviderSelected(string externalCacheProvider);
         void OverrideApiClientDetailsCache(ContainerBuilder builder);
         void OverrideDescriptorsCache(ContainerBuilder builder);
-        void OverridePersonUniqueIdtoUsiCache(ContainerBuilder builder);
+        void OverridePersonUniqueIdToUsiCache(ContainerBuilder builder);
     }
 }
