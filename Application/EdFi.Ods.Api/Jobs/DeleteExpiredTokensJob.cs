@@ -22,9 +22,8 @@ namespace EdFi.Ods.Api.Jobs
         public DeleteExpiredTokensJob(
             IExpiredAccessTokenDeleter expiredAccessTokenDeleter,
             IApiJobScheduler apiJobScheduler,
-            ITenantConfigurationProvider tenantConfigurationProvider,
             IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
-            : base(apiJobScheduler, tenantConfigurationProvider, tenantConfigurationContextProvider)
+            : base(apiJobScheduler, tenantConfigurationContextProvider)
         {
             _expiredAccessTokenDeleter = Preconditions.ThrowIfNull(expiredAccessTokenDeleter, nameof(expiredAccessTokenDeleter));
         }

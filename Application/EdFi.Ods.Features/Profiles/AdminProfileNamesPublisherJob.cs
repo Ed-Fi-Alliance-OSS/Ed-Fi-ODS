@@ -26,9 +26,8 @@ public class AdminProfileNamesPublisherJob : TenantSpecificJobBase
     public AdminProfileNamesPublisherJob(
         IAdminProfileNamesPublisher adminProfileNamesPublisher,
         IApiJobScheduler apiJobScheduler,
-        ITenantConfigurationProvider tenantConfigurationProvider,
         IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
-        : base(apiJobScheduler, tenantConfigurationProvider, tenantConfigurationContextProvider)
+        : base(apiJobScheduler, tenantConfigurationContextProvider)
     {
         _adminProfileNamesPublisher = adminProfileNamesPublisher;
     }

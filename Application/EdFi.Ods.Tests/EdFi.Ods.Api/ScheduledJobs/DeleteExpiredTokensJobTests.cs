@@ -35,8 +35,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
             IJob job = new DeleteExpiredTokensJob(
                 _expiredAccessTokenDeleter,
                 _apiJobScheduler,
-                _tenantConfigurationProvider,
-                _tenantConfigurationContextProvider);
+                _tenantConfigurationContextProvider)
+            {
+                TenantConfigurationProvider = _tenantConfigurationProvider
+            };
 
             var suppliedTenantConfiguration = new TenantConfiguration() { TenantIdentifier = "TestTenant"};
 
@@ -70,9 +72,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
             IJob job = new DeleteExpiredTokensJob(
                 _expiredAccessTokenDeleter,
                 _apiJobScheduler,
-                _tenantConfigurationProvider,
-                _tenantConfigurationContextProvider);
-
+                _tenantConfigurationContextProvider)
+            {
+                TenantConfigurationProvider = _tenantConfigurationProvider
+            };
+            
             var jobDetail = A.Fake<IJobDetail>();
             A.CallTo(() => jobDetail.JobDataMap).Returns(new JobDataMap());
             A.CallTo(() => jobDetail.Key).Returns(new JobKey("TestJob"));
