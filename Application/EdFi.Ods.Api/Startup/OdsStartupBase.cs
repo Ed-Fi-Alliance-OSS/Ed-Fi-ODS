@@ -200,7 +200,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
-            services.AddScheduledJobs(ApiSettings, _logger);
+            services.AddScheduledJobs();
         }
 
         private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
