@@ -102,7 +102,7 @@ namespace GenerateSecurityGraphs
             if (options.User == null || options.Password == null)
             {
                 connectionString = string.Format(
-                    "Server={0};Database={1};trusted_connection=True",
+                    "Server={0};Database={1};Trusted_Connection=True",
                     options.Server,
                     options.Database);
             }
