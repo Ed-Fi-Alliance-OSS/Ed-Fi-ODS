@@ -8,11 +8,11 @@ using log4net;
 using Quartz;
 using Quartz.Impl.Matchers;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Jobs
+namespace EdFi.Ods.Api.Jobs
 {
-    public class SchedulerStatusScheduledJob : IJob
+    public class SchedulerStatusJob : IJob
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerStatusScheduledJob));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerStatusJob));
 
         public async Task Execute(IJobExecutionContext context)
         {

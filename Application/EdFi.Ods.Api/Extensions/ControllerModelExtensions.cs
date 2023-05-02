@@ -16,6 +16,6 @@ namespace EdFi.Ods.Api.Extensions
                && controller.ControllerType.BaseType != typeof(ControllerBase)
                && controller.ControllerType.BaseType.IsGenericType
                && controller.ControllerType.BaseType.Name
-                   .StartsWith("DataManagement", StringComparison.InvariantCultureIgnoreCase);
+                   .StartsWith("DataManagement", StringComparison.OrdinalIgnoreCase);
     }
 }

@@ -9,7 +9,7 @@ using log4net;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Extensions
+namespace EdFi.Ods.Api.Jobs.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -21,6 +21,7 @@ namespace EdFi.Ods.Api.ScheduledJobs.Extensions
 
             if (!enabledScheduledJobs.Any())
             {
+                // TODO: We may want to remove this logic and always start Quartz since now it is being used for all background tasks
                 logger.Debug($"No scheduled jobs configured, not starting background task scheduling service");
                 return;
             }

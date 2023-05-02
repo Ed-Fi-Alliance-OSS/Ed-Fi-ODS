@@ -34,7 +34,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public List<Feature> Features { get; set; } = new();
 
-        public List<ScheduledJobSetting> ScheduledJobs { get; set; } = new();
+        public List<ScheduledJobSettings> ScheduledJobs { get; set; } = new();
 
         public List<string> ExcludedExtensions { get; set; } = new();
 

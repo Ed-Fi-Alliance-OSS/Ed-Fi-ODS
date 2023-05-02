@@ -9,6 +9,7 @@ using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Security.Profiles;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Caching;
@@ -47,6 +48,11 @@ namespace EdFi.Ods.Features.Container.Modules
                     .EnableInterfaceInterceptors()
                     .SingleInstance();
 
+            builder.RegisterType<ProfileResourceNamesProvider>()
+                .AsImplementedInterfaces()
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
+
             builder.RegisterType<CachingInterceptor>()
                 .Named<IInterceptor>("cache-profile-metadata")
                 .WithParameter(
@@ -61,17 +67,24 @@ namespace EdFi.Ods.Features.Container.Modules
                     })
                 .SingleInstance();
 
-            builder.RegisterType<ProfileResourceNamesProvider>()
-                .AsImplementedInterfaces()
-                .SingleInstance();
-
             builder.RegisterType<AdminProfileNamesPublisher>()
+                .As<IAdminProfileNamesPublisher>()
+                .SingleInstance();
+
+            builder.RegisterType<ProfileMetadataCacheExpiredNotificationHandler>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
-            builder.RegisterType<ProfileNamePublisher>()
+            builder.RegisterType<AdminProfileNamesPublisherTask>()
                 .As<IExternalTask>()
                 .SingleInstance();
+
+            builder.RegisterType<ApiJobScheduler>()
+                .As<IApiJobScheduler>()
+                .SingleInstance();
+
+            builder.RegisterType<AdminProfileNamesPublisherJob>()
+                .AsSelf();
 
             builder.RegisterType<AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider>()
                 .As<IProfilesMetadataStreamsProvider>()
@@ -83,6 +96,7 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ProfileResourceModelProvider>()
                 .AsImplementedInterfaces()
+                .EnableInterfaceInterceptors()
                 .SingleInstance();
 
             builder.RegisterType<ProfileValidationReporter>()

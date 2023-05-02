@@ -5,9 +5,9 @@
 
 namespace EdFi.Ods.Common.Configuration
 {
-    public class ScheduledJobSetting
+    public class ScheduledJobSettings
     {
-        public const string DefaultCronExpression = "0 0/30 * 1/1 * ? *"; // Used if the user does not supply CronExpression or the value provided is not a valid cron expression
+        public const string DefaultCronExpression = "0 */30 * ? * *"; // Used if the user does not supply CronExpression or the value provided is not a valid cron expression
 
         public string Name { get; set; }
 

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
@@ -15,7 +16,7 @@ namespace EdFi.Ods.Api.Conventions
     {
         public void Apply(ApplicationModel application)
         {
-            var routePrefix = new AttributeRouteModel {Template = CreateRouteTemplate()};
+            var routePrefix = new AttributeRouteModel { Template = CreateRouteTemplate() };
 
             foreach (ControllerModel controller in application.Controllers)
             {
@@ -29,6 +30,9 @@ namespace EdFi.Ods.Api.Conventions
                 {
                     if (selector.AttributeRouteModel != null)
                     {
+                        // Name it for easier recognition of data management controllers in the action filter
+                        selector.AttributeRouteModel.Name = $"DataManagement-{Guid.NewGuid().ToString()}";
+
                         selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(
                             routePrefix,
                             selector.AttributeRouteModel);

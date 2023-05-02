@@ -17,11 +17,8 @@ using MediatR;
 
 namespace EdFi.Ods.Common.Models;
 
-public class ProfileResourceModelProvider : IProfileResourceModelProvider, INotificationHandler<ProfileMetadataCacheExpired>
+public class ProfileResourceModelProvider : IProfileResourceModelProvider
 {
-    private readonly ConcurrentDictionary<string, ProfileResourceModel> _modelByProfileName 
-        = new (StringComparer.OrdinalIgnoreCase);
-
     private readonly IProfileMetadataProvider _profileMetadataProvider;
     private readonly IProfileValidationReporter _profileValidationReporter;
 
@@ -42,24 +39,9 @@ public class ProfileResourceModelProvider : IProfileResourceModelProvider, INoti
 
     public ProfileResourceModel GetProfileResourceModel(string profileName)
     {
-        return _modelByProfileName.GetOrAdd(
-            profileName,
-            pn =>
-                new ProfileResourceModel(
-                    _resourceModel.Value,
-                    _profileMetadataProvider.ProfileDefinitionsByName.GetValueOrThrow(profileName, "Unable to find profile '{0}'."),
-                    _profileValidationReporter));
-    }
-
-    public Task Handle(ProfileMetadataCacheExpired notification, CancellationToken cancellationToken)
-    {
-        if (_logger.IsDebugEnabled)
-        {
-            _logger.Debug("Resetting ProfileResourceModels due to profile metadata cache expiration...");
-        }
-
-        _modelByProfileName.Clear();
-
-        return Task.CompletedTask;
+        return new ProfileResourceModel(
+            _resourceModel.Value,
+            _profileMetadataProvider.ProfileDefinitionsByName.GetValueOrThrow(profileName, "Unable to find profile '{0}'."),
+            _profileValidationReporter);
     }
 }

@@ -27,7 +27,6 @@ namespace EdFi.Ods.Api.Filters;
 public class DataManagementRequestContextFilter : IAsyncResourceFilter
 {
     private readonly IContextProvider<DataManagementResourceContext> _contextProvider;
-    private readonly ApiSettings _apiSettings;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementRequestContextFilter));
     private readonly IResourceModelProvider _resourceModelProvider;
@@ -35,10 +34,11 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
     private readonly Lazy<string> _templatePrefix;
     private readonly Lazy<string[]> _knownSchemaUriSegments;
     
+    private static readonly char[] _pathDelimiters = { '/' };
+
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
-        IContextProvider<DataManagementResourceContext> contextProvider,
-        ApiSettings apiSettings)
+        IContextProvider<DataManagementResourceContext> contextProvider)
     {
         _resourceModelProvider = resourceModelProvider;
         _contextProvider = contextProvider;
@@ -49,7 +49,6 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 .Select(m => m.UriSegment)
                 .ToArray());
 
-        _apiSettings = apiSettings;
         _templatePrefix = new Lazy<string>(GetTemplatePrefix);
     }
 
@@ -59,16 +58,17 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
 
         if (attributeRouteInfo != null)
         {
-            string template = attributeRouteInfo.Template;
-
-            // e.g. data/v3/ed-fi/gradebookEntries
-
             // Is this a data management route?
-            if (template?.StartsWith(_templatePrefix.Value) ?? false)
+            if (attributeRouteInfo.Name?.StartsWith("DataManagement") ?? false)
             {
+                // e.g. data/v3/ed-fi/courses
+                string template = attributeRouteInfo.Template;
+
                 var templateSegment = new StringSegment(template);
+
+                var parts = templateSegment.Subsegment(template.IndexOf(_templatePrefix.Value) + _templatePrefix.Value.Length)
+                    .Split(_pathDelimiters);
                 
-                var parts = templateSegment.Subsegment(_templatePrefix.Value.Length).Split(new[]{'/'});
                 using var partsEnumerator = parts.GetEnumerator();
                 partsEnumerator.MoveNext();
                 

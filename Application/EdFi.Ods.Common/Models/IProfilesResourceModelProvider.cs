@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Models
@@ -10,6 +11,7 @@ namespace EdFi.Ods.Common.Models
     /// <summary>
     /// Defines a method for obtaining a Profile-based version of the <see cref="ResourceModel"/>.
     /// </summary>
+    [Intercept("cache-profile-metadata")]
     public interface IProfileResourceModelProvider
     {
         /// <summary>

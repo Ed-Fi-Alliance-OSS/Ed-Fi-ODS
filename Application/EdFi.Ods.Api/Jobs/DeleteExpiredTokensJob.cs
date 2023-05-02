@@ -7,33 +7,40 @@ using System;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Common;
+using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Context;
 using log4net;
 using Quartz;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Jobs
+namespace EdFi.Ods.Api.Jobs
 {
-    public class DeleteExpiredTokensScheduledJob : IJob
+    public class DeleteExpiredTokensJob : TenantSpecificJobBase
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(DeleteExpiredTokensScheduledJob));
         private readonly IExpiredAccessTokenDeleter _expiredAccessTokenDeleter;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(DeleteExpiredTokensJob));
 
-        public DeleteExpiredTokensScheduledJob(IExpiredAccessTokenDeleter expiredAccessTokenDeleter)
+        public DeleteExpiredTokensJob(
+            IExpiredAccessTokenDeleter expiredAccessTokenDeleter,
+            IApiJobScheduler apiJobScheduler,
+            ITenantConfigurationProvider tenantConfigurationProvider,
+            IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
+            : base(apiJobScheduler, tenantConfigurationProvider, tenantConfigurationContextProvider)
         {
             _expiredAccessTokenDeleter = Preconditions.ThrowIfNull(expiredAccessTokenDeleter, nameof(expiredAccessTokenDeleter));
         }
 
-        public async Task Execute(IJobExecutionContext context) 
+        protected override async Task Execute(IJobExecutionContext context)
         {
             try
             {
                 _logger.Debug("Removing expired client access tokens...");
-                
+
                 await _expiredAccessTokenDeleter.DeleteExpiredTokensAsync();
             }
             catch (Exception ex)
             {
                 _logger.Error(ex);
             }
-        }    
+        }
     }
 }
