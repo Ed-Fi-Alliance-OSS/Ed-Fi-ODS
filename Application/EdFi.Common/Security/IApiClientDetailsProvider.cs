@@ -4,12 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
+using Autofac.Extras.DynamicProxy;
 
 namespace EdFi.Common.Security
 {
     /// <summary>
     /// Defines a method for obtaining the API client's details from their OAuth bearer access token.
     /// </summary>
+    [Intercept("cache-api-client-details")]
     public interface IApiClientDetailsProvider
     {
         /// <summary>
