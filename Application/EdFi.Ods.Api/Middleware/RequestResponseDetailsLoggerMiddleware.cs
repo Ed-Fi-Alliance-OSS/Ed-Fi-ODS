@@ -143,7 +143,7 @@ namespace EdFi.Ods.Api.Middleware
         {
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
 
-            RequestResponseContentLogger.Error(restError.Message);
+            RequestResponseContentLogger.Error(restError.Message, exception);
         }
 
         private void LogRequestResponseDetailsInfo(HttpContext context)
@@ -163,7 +163,7 @@ namespace EdFi.Ods.Api.Middleware
 
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
 
-            RequestResponseDetailsLogger.Error(restError.Message);
+            RequestResponseDetailsLogger.Error(restError.Message, exception);
         }
 
         protected ILog RequestResponseDetailsLogger
