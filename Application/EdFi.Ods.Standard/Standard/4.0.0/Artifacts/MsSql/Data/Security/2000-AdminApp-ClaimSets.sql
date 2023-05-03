@@ -33,72 +33,85 @@ DECLARE @ResourceClaimId INT
 SET @claimSetName = 'Ed-Fi ODS Admin App'
 
 DECLARE @edFiOdsAdminAppClaimSetId as INT
-SELECT @edFiOdsAdminAppClaimSetId = ClaimsetId
-FROM dbo.ClaimSets c
-WHERE c.ClaimSetName = @claimSetName
 
-DELETE csrcaaso 
-FROM [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides] csrcaaso
-INNER JOIN [dbo].[ClaimSetResourceClaimActions] csrc ON csrcaaso.ClaimSetResourceClaimActionId = csrc.ClaimSetResourceClaimActionId
-WHERE csrc.[ClaimSetId] = @edFiOdsAdminAppClaimSetId
+IF  EXISTS (SELECT 1 FROM dbo.ClaimSets c WHERE c.ClaimSetName = @claimSetName)
+BEGIN
 
-DELETE FROM [dbo].[ClaimSetResourceClaimActions]
-WHERE [ClaimSetId] = @edFiOdsAdminAppClaimSetId
+	SELECT @edFiOdsAdminAppClaimSetId = ClaimsetId
+	FROM dbo.ClaimSets c
+	WHERE c.ClaimSetName = @claimSetName
 
-PRINT 'Creating Temporary Records.'
-INSERT INTO @resourceNames VALUES ('educationOrganizations'),('systemDescriptors'),('managedDescriptors')
-INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
+	DELETE csrcaaso 
+	FROM [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides] csrcaaso
+	INNER JOIN [dbo].[ClaimSetResourceClaimActions] csrc ON csrcaaso.ClaimSetResourceClaimActionId = csrc.ClaimSetResourceClaimActionId
+	WHERE csrc.[ClaimSetId] = @edFiOdsAdminAppClaimSetId
 
-SELECT @authorizationStrategyId = AuthorizationStrategyId
-FROM   dbo.AuthorizationStrategies
-WHERE  AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+	DELETE FROM [dbo].[ClaimSetResourceClaimActions]
+	WHERE [ClaimSetId] = @edFiOdsAdminAppClaimSetId
+
+	PRINT 'Creating Temporary Records.'
+	INSERT INTO @resourceNames VALUES ('educationOrganizations'),('systemDescriptors'),('managedDescriptors')
+	INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
+
+	SELECT @authorizationStrategyId = AuthorizationStrategyId
+	FROM   dbo.AuthorizationStrategies
+	WHERE  AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+END
 
 DECLARE @actionId int
 DECLARE @claimSetId int
 
-SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSetName
+IF  EXISTS (SELECT 1 FROM dbo.ClaimSets  WHERE ClaimSetName = @claimSetName)
+BEGIN
 
-PRINT 'Configuring Claims for Ed-Fi ODS Admin App Claimset...'
-IF NOT EXISTS (SELECT 1
-                  FROM dbo.ClaimSetResourceClaimActions csraa,dbo.Actions a, @resourceClaimIds rc
-				  WHERE csraa.ActionId = a.ActionId AND ClaimSetId = @claimSetId AND csraa.ResourceClaimId = rc.ResourceClaimId)
-BEGIN				  
-	INSERT INTO dbo.ClaimSetResourceClaimActions
-		(ActionId, ClaimSetId, ResourceClaimId)
-	SELECT ActionId, @claimSetId, ResourceClaimId  FROM dbo.Actions a, @resourceClaimIds rc
-	WHERE NOT EXISTS (SELECT 1
-                  FROM dbo.ClaimSetResourceClaimActions
-				  WHERE ActionId = a.ActionId AND ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
+	SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSetName
 
-	INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
-		([AuthorizationStrategyId]
-		,[ClaimSetResourceClaimActionId])
-	SELECT @authorizationStrategyId, ClaimSetResourceClaimActionId
-	FROM [dbo].[ClaimSetResourceClaimActions] csrc
-	INNER JOIN [dbo].[ResourceClaims] r 
-		ON csrc.ResourceClaimId = r.ResourceClaimId AND csrc.ClaimSetId = @claimSetId
-	WHERE r.ResourceName IN  ('educationOrganizations','systemDescriptors','managedDescriptors')
-END 
+	PRINT 'Configuring Claims for Ed-Fi ODS Admin App Claimset...'
+	IF NOT EXISTS (SELECT 1
+					  FROM dbo.ClaimSetResourceClaimActions csraa,dbo.Actions a, @resourceClaimIds rc
+					  WHERE csraa.ActionId = a.ActionId AND ClaimSetId = @claimSetId AND csraa.ResourceClaimId = rc.ResourceClaimId)
+	BEGIN				  
+		INSERT INTO dbo.ClaimSetResourceClaimActions
+			(ActionId, ClaimSetId, ResourceClaimId)
+		SELECT ActionId, @claimSetId, ResourceClaimId  FROM dbo.Actions a, @resourceClaimIds rc
+		WHERE NOT EXISTS (SELECT 1
+					  FROM dbo.ClaimSetResourceClaimActions
+					  WHERE ActionId = a.ActionId AND ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
+
+		INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
+			([AuthorizationStrategyId]
+			,[ClaimSetResourceClaimActionId])
+		SELECT @authorizationStrategyId, ClaimSetResourceClaimActionId
+		FROM [dbo].[ClaimSetResourceClaimActions] csrc
+		INNER JOIN [dbo].[ResourceClaims] r 
+			ON csrc.ResourceClaimId = r.ResourceClaimId AND csrc.ClaimSetId = @claimSetId
+		WHERE r.ResourceName IN  ('educationOrganizations','systemDescriptors','managedDescriptors')
+	END 
+END
 
 SELECT @actionId = ActionId FROM dbo.Actions WHERE ActionName = 'Read'
 SELECT @ResourceClaimId = ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'types'
 
-INSERT INTO dbo.ClaimSetResourceClaimActions
-    (ActionId, ClaimSetId, ResourceClaimId)
-	VALUES (@actionId, @claimSetId, @ResourceClaimId)
+IF NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions csraa,dbo.Actions a, @resourceClaimIds rc
+		   WHERE csraa.ActionId = @actionId AND ClaimSetId = @claimSetId 
+		   AND csraa.ResourceClaimId = @ResourceClaimId)
+BEGIN
+		INSERT INTO dbo.ClaimSetResourceClaimActions
+			(ActionId, ClaimSetId, ResourceClaimId)
+			VALUES (@actionId, @claimSetId, @ResourceClaimId)
 
-INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
-    ([AuthorizationStrategyId]
-    ,[ClaimSetResourceClaimActionId])
-SELECT @authorizationStrategyId, csrc.ClaimSetResourceClaimActionId
-FROM [dbo].[ClaimSetResourceClaimActions] csrc
-INNER JOIN [dbo].[ResourceClaims] r ON 
-	csrc.ResourceClaimId = r.ResourceClaimId
-INNER JOIN [dbo].[Actions] a ON
-	a.actionId =csrc.ActionId
-	AND a.ActionName in ('Read')
-WHERE r.ResourceName IN  ('types') AND csrc.ActionId = @actionId AND csrc.ClaimSetId = @claimSetId;
-
+		INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
+			([AuthorizationStrategyId]
+			,[ClaimSetResourceClaimActionId])
+		SELECT @authorizationStrategyId, csrc.ClaimSetResourceClaimActionId
+		FROM [dbo].[ClaimSetResourceClaimActions] csrc
+		INNER JOIN [dbo].[ResourceClaims] r ON 
+			csrc.ResourceClaimId = r.ResourceClaimId
+		INNER JOIN [dbo].[Actions] a ON
+			a.actionId =csrc.ActionId
+			AND a.ActionName in ('Read')
+		WHERE r.ResourceName IN  ('types') AND csrc.ActionId = @actionId AND csrc.ClaimSetId = @claimSetId;
+END 
 GO
 
 -- Create AB Connect ClaimSet
@@ -128,32 +141,36 @@ DECLARE @resourceClaimIds TABLE (ResourceClaimId int)
 
 SET @claimSetName = 'AB Connect'
 
-DECLARE @abConnectClaimSetId as INT
-SELECT @abConnectClaimSetId = ClaimsetId
-FROM dbo.ClaimSets c
-WHERE c.ClaimSetName = @claimSetName
+IF  EXISTS (SELECT 1 FROM dbo.ClaimSets  WHERE ClaimSetName = @claimSetName)
+BEGIN
 
-DELETE FROM [dbo].[ClaimSetResourceClaimActions]
-WHERE [ClaimSetId] = @abConnectClaimSetId
+	DECLARE @abConnectClaimSetId as INT
+	SELECT @abConnectClaimSetId = ClaimsetId
+	FROM dbo.ClaimSets c
+	WHERE c.ClaimSetName = @claimSetName
 
-PRINT 'Creating Temporary Records.'
-INSERT INTO @resourceNames VALUES ('gradeLevelDescriptor'),('academicSubjectDescriptor'),('publicationStatusDescriptor'),('educationStandards')
-INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
+	DELETE FROM [dbo].[ClaimSetResourceClaimActions]
+	WHERE [ClaimSetId] = @abConnectClaimSetId
 
-DECLARE @claimSetId int
+	PRINT 'Creating Temporary Records.'
+	INSERT INTO @resourceNames VALUES ('gradeLevelDescriptor'),('academicSubjectDescriptor'),('publicationStatusDescriptor'),('educationStandards')
+	INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
 
-SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSetName
+	DECLARE @claimSetId int
 
-PRINT 'Configuring Claims for AB Connect Claimset...'
-INSERT INTO dbo.ClaimSetResourceClaimActions
-    (ActionId, ClaimSetId, ResourceClaimId)
-SELECT ActionId, @claimSetId, ResourceClaimId 
-FROM dbo.Actions a, @resourceClaimIds rc
-WHERE actionname in ('Create','Read','Update','Delete')
-AND NOT EXISTS (SELECT 1
-                  FROM dbo.ClaimSetResourceClaimActions
-				  WHERE ActionId = a.ActionId AND ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
-GO
+	SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSetName
+
+	PRINT 'Configuring Claims for AB Connect Claimset...'
+	INSERT INTO dbo.ClaimSetResourceClaimActions
+		(ActionId, ClaimSetId, ResourceClaimId)
+	SELECT ActionId, @claimSetId, ResourceClaimId 
+	FROM dbo.Actions a, @resourceClaimIds rc
+	WHERE actionname in ('Create','Read','Update','Delete')
+	AND NOT EXISTS (SELECT 1
+					  FROM dbo.ClaimSetResourceClaimActions
+					  WHERE ActionId = a.ActionId AND ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
+END
+	GO
 
 -- Set educationStandards to not require further authorization for READ 
 
