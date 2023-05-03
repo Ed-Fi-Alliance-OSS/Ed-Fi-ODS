@@ -4,20 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Features.Conventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Features.ChangeQueries.Providers;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using Microsoft.AspNetCore.Mvc.Filters;
 using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
-using EdFi.Ods.Features.ChangeQueries.Conventions;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
 using EdFi.Ods.Features.ChangeQueries.Repositories.Authorization;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
@@ -56,10 +53,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             void AddSupportForAvailableChanges()
             {
                 // Available changes support
-                builder.RegisterType<AvailableChangeVersionsRouteConvention>()
-                    .As<IApplicationModelConvention>()
-                    .SingleInstance();
-
                 builder.RegisterType<AvailableChangeVersionProvider>()
                    .As<IAvailableChangeVersionProvider>()
                    .SingleInstance();
@@ -68,10 +61,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             void AddSupportForSnapshots()
             {
                 // Snapshots support
-                builder.RegisterType<SnapshotsControllerRouteConvention>()
-                    .As<IApplicationModelConvention>()
-                    .SingleInstance();
-
                 builder.RegisterType<SnapshotContextProvider>()
                     .As<ISnapshotContextProvider>()
                     .SingleInstance();
@@ -92,10 +81,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             void AddSupportForDeletes()
             {
                 // Deletes support
-                builder.RegisterType<DeletesRouteConvention>()
-                    .As<IApplicationModelConvention>()
-                    .SingleInstance();
-
                 builder.RegisterType<DeletedItemsResourceDataProvider>()
                     .As<IDeletedItemsResourceDataProvider>()
                     .SingleInstance();
@@ -112,10 +97,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             void AddSupportForKeyChanges()
             {
                 // KeyChanges support
-                builder.RegisterType<KeyChangesRouteConvention>()
-                    .As<IApplicationModelConvention>()
-                    .SingleInstance();
-
                 builder.RegisterType<KeyChangesResourceDataProvider>()
                     .As<IKeyChangesResourceDataProvider>()
                     .SingleInstance();

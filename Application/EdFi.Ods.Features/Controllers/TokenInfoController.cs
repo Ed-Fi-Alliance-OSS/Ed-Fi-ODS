@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -23,9 +24,10 @@ namespace EdFi.Ods.Features.Controllers
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
-    [Route("oauth/token_info")]
     [Produces("application/json")]
     [ApiController]
+    [RouteRootContext(RouteContextType.Tenant)]
+    [Route("oauth/token_info")]
     public class TokenInfoController : ControllerBase
     {
         private readonly IApiKeyContextProvider _apiKeyContextProvider;

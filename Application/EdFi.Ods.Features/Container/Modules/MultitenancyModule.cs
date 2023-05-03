@@ -44,10 +44,6 @@ public class MultiTenancyModule : ConditionalModule
             .As<IOdsInstanceHashIdGenerator>()
             .SingleInstance();
 
-        builder.RegisterType<MultiTenantRouteConvention>()
-            .As<IApplicationModelConvention>()
-            .SingleInstance();
-
         builder.RegisterType<MultiTenantSecurityDatabaseConnectionStringProvider>()
             .As<ISecurityDatabaseConnectionStringProvider>()
             .SingleInstance();

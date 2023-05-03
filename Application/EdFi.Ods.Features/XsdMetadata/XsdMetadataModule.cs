@@ -27,10 +27,6 @@ namespace EdFi.Ods.Features.XsdMetadata
                 .As<IXsdFileInformationProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<XsdMetadataRouteConvention>()
-                .As<IApplicationModelConvention>()
-                .SingleInstance();
-
             builder.RegisterType<XsdMetadataFileMiddleware>()
                 .As<IMiddleware>()
                 .AsSelf()

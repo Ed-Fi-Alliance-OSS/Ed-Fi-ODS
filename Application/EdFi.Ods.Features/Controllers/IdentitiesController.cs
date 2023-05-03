@@ -9,7 +9,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -28,8 +30,9 @@ namespace EdFi.Ods.Features.Controllers
     [Description("Retrieve or create Unique Ids for a Identity, and add or update their information")]
     [Authorize(Policy = "IdentityManagement")]
     [ApiController]
-    [Route("identities")]
-    [Produces("application/json")]    
+    [Produces("application/json")]
+    [RouteRootContext(RouteContextType.Ods)]
+    [Route($"{IdentityManagementConstants.IdentityRoutePrefix}/identities")]    
     public class IdentitiesController : ControllerBase
     {
         private const string InvalidServerResponse = "Invalid response from identity service: ";

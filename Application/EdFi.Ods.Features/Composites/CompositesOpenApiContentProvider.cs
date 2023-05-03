@@ -62,7 +62,7 @@ namespace EdFi.Ods.Features.Composites
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
                             new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c)),
-                            $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{ApiVersionConstants.Composite}",
+                            $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{CompositesConstants.FeatureVersion}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }
     }

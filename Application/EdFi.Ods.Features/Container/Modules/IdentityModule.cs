@@ -23,10 +23,6 @@ namespace EdFi.Ods.Features.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<IdentitiesControllerRouteConvention>()
-              .As<IApplicationModelConvention>()
-              .SingleInstance();
-
             builder.RegisterType<UnimplementedIdentityService>()
                .As<IIdentityService>()
                .As<IIdentityServiceAsync>()

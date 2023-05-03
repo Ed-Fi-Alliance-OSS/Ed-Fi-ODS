@@ -82,7 +82,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IConfigureOptions<MvcOptions>>()
                 .SingleInstance();
 
-            builder.RegisterType<DataManagementControllerRouteConvention>()
+            builder.RegisterType<RouteRootContextConvention>()
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 

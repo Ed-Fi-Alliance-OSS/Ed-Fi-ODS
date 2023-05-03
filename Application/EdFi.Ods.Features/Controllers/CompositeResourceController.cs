@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Configuration;
@@ -30,6 +31,7 @@ namespace EdFi.Ods.Features.Controllers
     [Authorize]
     [Produces("application/json")]
     [ApiController]
+    [RouteRootContext(RouteContextType.Ods)]
     [Route("composites/")]
     public class CompositeResourceController : ControllerBase
     {
