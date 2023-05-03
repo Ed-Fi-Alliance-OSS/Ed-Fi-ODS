@@ -81,9 +81,13 @@
       <xs:enumeration value="EducationOrganizationIdentificationSystemDescriptor" />
       <xs:enumeration value="EducationPlanDescriptor" />
       <xs:enumeration value="ElectronicMailTypeDescriptor" />
+      <xs:enumeration value="EligibilityDelayReasonDescriptor" />
+      <xs:enumeration value="EligibilityEvaluationTypeDescriptor" />
       <xs:enumeration value="EmploymentStatusDescriptor" />
+      <xs:enumeration value="EnrollmentTypeDescriptor" />
       <xs:enumeration value="EntryGradeLevelReasonDescriptor" />
       <xs:enumeration value="EntryTypeDescriptor" />
+      <xs:enumeration value="EvaluationDelayReasonDescriptor" />
       <xs:enumeration value="EventCircumstanceDescriptor" />
       <xs:enumeration value="ExitWithdrawTypeDescriptor" />
       <xs:enumeration value="FinancialCollectionDescriptor" />
@@ -96,6 +100,7 @@
       <xs:enumeration value="GunFreeSchoolsActReportingStatusDescriptor" />
       <xs:enumeration value="HomelessPrimaryNighttimeResidenceDescriptor" />
       <xs:enumeration value="HomelessProgramServiceDescriptor" />
+      <xs:enumeration value="IDEAPartDescriptor" />
       <xs:enumeration value="IdentificationDocumentUseDescriptor" />
       <xs:enumeration value="IncidentLocationDescriptor" />
       <xs:enumeration value="IndicatorDescriptor" />
@@ -129,7 +134,6 @@
       <xs:enumeration value="NeglectedOrDelinquentProgramDescriptor" />
       <xs:enumeration value="NeglectedOrDelinquentProgramServiceDescriptor" />
       <xs:enumeration value="NetworkPurposeDescriptor" />
-      <xs:enumeration value="OldEthnicityDescriptor" />
       <xs:enumeration value="OperationalStatusDescriptor" />
       <xs:enumeration value="OtherNameTypeDescriptor" />
       <xs:enumeration value="ParticipationDescriptor" />
@@ -172,6 +176,7 @@
       <xs:enumeration value="ResultDatatypeTypeDescriptor" />
       <xs:enumeration value="RetestIndicatorDescriptor" />
       <xs:enumeration value="SchoolCategoryDescriptor" />
+      <xs:enumeration value="SchoolChoiceBasisDescriptor" />
       <xs:enumeration value="SchoolChoiceImplementStatusDescriptor" />
       <xs:enumeration value="SchoolFoodServiceProgramServiceDescriptor" />
       <xs:enumeration value="SchoolTypeDescriptor" />

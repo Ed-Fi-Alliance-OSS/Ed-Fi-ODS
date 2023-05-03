@@ -199,6 +199,31 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [edfi].[edfi_Contact_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_Contact_TR_UpdateChangeVersion] ON [edfi].[Contact] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[Contact]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[Contact] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+
+    ---- Add key change entry when UniqueId is modified
+    INSERT INTO [tracked_changes_edfi].[Contact] (
+        OldContactUSI, OldContactUniqueId, 
+        NewContactUSI, NewContactUniqueId,
+        Id, ChangeVersion)
+    SELECT
+        old.ContactUSI, old.ContactUniqueId, 
+        new.ContactUSI, new.ContactUniqueId,
+        old.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM deleted old INNER JOIN inserted new ON old.ContactUSI = new.ContactUSI
+    WHERE new.ContactUniqueId <> old.ContactUniqueId;
+END	
+GO
+
 DROP TRIGGER IF EXISTS [edfi].[edfi_Course_TR_UpdateChangeVersion]
 GO
 
@@ -565,19 +590,6 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_LearningObjective_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_LearningObjective_TR_UpdateChangeVersion] ON [edfi].[LearningObjective] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[LearningObjective]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[LearningObjective] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 DROP TRIGGER IF EXISTS [edfi].[edfi_LearningStandard_TR_UpdateChangeVersion]
 GO
 
@@ -758,31 +770,6 @@ BEGIN
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[OperationalUnitDimension] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_Parent_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_Parent_TR_UpdateChangeVersion] ON [edfi].[Parent] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[Parent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[Parent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-
-    ---- Add key change entry when UniqueId is modified
-    INSERT INTO [tracked_changes_edfi].[Parent] (
-        OldParentUSI, OldParentUniqueId, 
-        NewParentUSI, NewParentUniqueId,
-        Id, ChangeVersion)
-    SELECT
-        old.ParentUSI, old.ParentUniqueId, 
-        new.ParentUSI, new.ParentUniqueId,
-        old.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM deleted old INNER JOIN inserted new ON old.ParentUSI = new.ParentUSI
-    WHERE new.ParentUniqueId <> old.ParentUniqueId;
 END	
 GO
 
@@ -1247,15 +1234,15 @@ BEGIN
 END	
 GO
 
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentDisciplineIncidentAssociation_TR_UpdateChangeVersion]
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentContactAssociation_TR_UpdateChangeVersion]
 GO
 
-CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentAssociation] AFTER UPDATE AS
+CREATE TRIGGER [edfi].[edfi_StudentContactAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentContactAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [edfi].[StudentDisciplineIncidentAssociation]
+    UPDATE [edfi].[StudentContactAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[StudentDisciplineIncidentAssociation] u
+    FROM [edfi].[StudentContactAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -1365,32 +1352,6 @@ BEGIN
     UPDATE [edfi].[StudentInterventionAttendanceEvent]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[StudentInterventionAttendanceEvent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentLearningObjective_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StudentLearningObjective_TR_UpdateChangeVersion] ON [edfi].[StudentLearningObjective] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[StudentLearningObjective]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[StudentLearningObjective] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-DROP TRIGGER IF EXISTS [edfi].[edfi_StudentParentAssociation_TR_UpdateChangeVersion]
-GO
-
-CREATE TRIGGER [edfi].[edfi_StudentParentAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentParentAssociation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [edfi].[StudentParentAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [edfi].[StudentParentAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -1537,6 +1498,19 @@ BEGIN
 
     WHERE
         d.AttendanceEventCategoryDescriptorId <> i.AttendanceEventCategoryDescriptorId OR d.EventDate <> i.EventDate OR d.LocalCourseCode <> i.LocalCourseCode OR d.SchoolId <> i.SchoolId OR d.SchoolYear <> i.SchoolYear OR d.SectionIdentifier <> i.SectionIdentifier OR d.SessionName <> i.SessionName OR d.StudentUSI <> i.StudentUSI;
+END	
+GO
+
+DROP TRIGGER IF EXISTS [edfi].[edfi_StudentSpecialEducationProgramEligibilityAssociation_TR_UpdateChangeVersion]
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentSpecialEducationProgramEligibilityAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentSpecialEducationProgramEligibilityAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentSpecialEducationProgramEligibilityAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentSpecialEducationProgramEligibilityAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
 

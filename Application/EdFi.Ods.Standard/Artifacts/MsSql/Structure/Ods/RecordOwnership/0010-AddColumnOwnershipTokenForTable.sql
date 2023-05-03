@@ -31,6 +31,8 @@ ALTER TABLE [edfi].[CommunityProviderLicense] ADD [CreatedByOwnershipTokenId] SM
 
 ALTER TABLE [edfi].[CompetencyObjective] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[Contact] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[Course] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[CourseOffering] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -79,8 +81,6 @@ ALTER TABLE [edfi].[InterventionPrescription] ADD [CreatedByOwnershipTokenId] SM
 
 ALTER TABLE [edfi].[InterventionStudy] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[LearningObjective] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
 ALTER TABLE [edfi].[LearningStandard] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[LearningStandardEquivalenceAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -106,8 +106,6 @@ ALTER TABLE [edfi].[ObjectiveAssessment] ADD [CreatedByOwnershipTokenId] SMALLIN
 ALTER TABLE [edfi].[OpenStaffPosition] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[OperationalUnitDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
-ALTER TABLE [edfi].[Parent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[Person] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -167,7 +165,7 @@ ALTER TABLE [edfi].[StudentCohortAssociation] ADD [CreatedByOwnershipTokenId] SM
 
 ALTER TABLE [edfi].[StudentCompetencyObjective] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [edfi].[StudentContactAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -183,10 +181,6 @@ ALTER TABLE [edfi].[StudentInterventionAssociation] ADD [CreatedByOwnershipToken
 
 ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [edfi].[StudentLearningObjective] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
-ALTER TABLE [edfi].[StudentParentAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
 ALTER TABLE [edfi].[StudentProgramAttendanceEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentSchoolAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -196,6 +190,8 @@ ALTER TABLE [edfi].[StudentSchoolAttendanceEvent] ADD [CreatedByOwnershipTokenId
 ALTER TABLE [edfi].[StudentSectionAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
+ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[Survey] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
