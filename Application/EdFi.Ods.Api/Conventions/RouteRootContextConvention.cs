@@ -4,27 +4,20 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
-using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Constants;
-using log4net;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Api.Conventions
 {
     public class RouteRootContextConvention : IApplicationModelConvention
     {
-        private readonly ApiSettings _apiSettings;
-        
-        private readonly ILog _logger = LogManager.GetLogger(typeof(RouteRootContextConvention));
+        private readonly IRouteRootTemplateProvider _routeRootTemplateProvider;
 
-        public RouteRootContextConvention(ApiSettings apiSettings)
+        public RouteRootContextConvention(IRouteRootTemplateProvider routeRootTemplateProvider)
         {
-            _apiSettings = apiSettings;
+            _routeRootTemplateProvider = routeRootTemplateProvider;
         }
-        
+
         public void Apply(ApplicationModel application)
         {
             foreach (ControllerModel controller in application.Controllers)
@@ -33,7 +26,8 @@ namespace EdFi.Ods.Api.Conventions
 
                 if (routeRootContextAttribute != null)
                 {
-                    string routeRootTemplate = GetRouteRootTemplate(routeRootContextAttribute.ContextType);
+                    string routeRootTemplate =
+                        _routeRootTemplateProvider.GetRouteRootTemplate(routeRootContextAttribute.ContextType);
 
                     if (!string.IsNullOrEmpty(routeRootTemplate))
                     {
@@ -49,38 +43,6 @@ namespace EdFi.Ods.Api.Conventions
                             }
                         }
                     }
-                }
-
-                string GetRouteRootTemplate(RouteContextType context)
-                {
-                    switch (context)
-                    {
-                        case RouteContextType.Tenant:
-                            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
-                            {
-                                return RouteConstants.TenantIdentifierRoutePrefix;
-                            }
-                             
-                            return null;
-                        
-                        case RouteContextType.Ods:
-                            // TODO: ODS-5800
-                            string apiSettingsOdsContextRouteTemplate = string.Empty;
-
-                            if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
-                            {
-                                return $"{RouteConstants.TenantIdentifierRoutePrefix}{apiSettingsOdsContextRouteTemplate?.Trim('/')}".EnsureSuffixApplied("/");
-                            }
-
-                            if (!string.IsNullOrEmpty(apiSettingsOdsContextRouteTemplate))
-                            {
-                                return apiSettingsOdsContextRouteTemplate.EnsureSuffixApplied("/");
-                            }
-
-                            return null;
-                    }
-
-                    return null;
                 }
             }
         }
