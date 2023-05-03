@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/accreditationStatusDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/accreditationStatusDescriptors")]
     public partial class AccreditationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
         Entities.Common.TPDM.IAccreditationStatusDescriptor,
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/aidTypeDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/aidTypeDescriptors")]
     public partial class AidTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor,
         Entities.Common.TPDM.IAidTypeDescriptor,
@@ -83,7 +84,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Candidates
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/candidates")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/candidates")]
     public partial class CandidatesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Candidate.TPDM.Candidate,
         Entities.Common.TPDM.ICandidate,
@@ -138,7 +139,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CandidateEducatorPreparationPro
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/candidateEducatorPreparationProgramAssociations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/candidateEducatorPreparationProgramAssociations")]
     public partial class CandidateEducatorPreparationProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation,
         Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation,
@@ -176,7 +177,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/certificationRouteDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/certificationRouteDescriptors")]
     public partial class CertificationRouteDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
         Entities.Common.TPDM.ICertificationRouteDescriptor,
@@ -206,7 +207,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/coteachingStyleObservedDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/coteachingStyleObservedDescriptors")]
     public partial class CoteachingStyleObservedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor,
         Entities.Common.TPDM.ICoteachingStyleObservedDescriptor,
@@ -236,7 +237,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/credentialStatusDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/credentialStatusDescriptors")]
     public partial class CredentialStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
         Entities.Common.TPDM.ICredentialStatusDescriptor,
@@ -266,7 +267,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorPreparationPrograms
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/educatorPreparationPrograms")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/educatorPreparationPrograms")]
     public partial class EducatorPreparationProgramsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram,
         Entities.Common.TPDM.IEducatorPreparationProgram,
@@ -301,7 +302,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/educatorRoleDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/educatorRoleDescriptors")]
     public partial class EducatorRoleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
         Entities.Common.TPDM.IEducatorRoleDescriptor,
@@ -331,7 +332,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/englishLanguageExamDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/englishLanguageExamDescriptors")]
     public partial class EnglishLanguageExamDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor,
         Entities.Common.TPDM.IEnglishLanguageExamDescriptor,
@@ -361,7 +362,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EPPProgramPathwayDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/eppProgramPathwayDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/eppProgramPathwayDescriptors")]
     public partial class EPPProgramPathwayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor,
         Entities.Common.TPDM.IEPPProgramPathwayDescriptor,
@@ -391,7 +392,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluations")]
     public partial class EvaluationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Evaluation.TPDM.Evaluation,
         Entities.Common.TPDM.IEvaluation,
@@ -433,7 +434,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationElements")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationElements")]
     public partial class EvaluationElementsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElement.TPDM.EvaluationElement,
         Entities.Common.TPDM.IEvaluationElement,
@@ -476,7 +477,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationElementRatings")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationElementRatings")]
     public partial class EvaluationElementRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
         Entities.Common.TPDM.IEvaluationElementRating,
@@ -523,7 +524,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationElementRatingLevelDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationElementRatingLevelDescriptors")]
     public partial class EvaluationElementRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
         Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor,
@@ -553,7 +554,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationObjectives")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationObjectives")]
     public partial class EvaluationObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
         Entities.Common.TPDM.IEvaluationObjective,
@@ -596,7 +597,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationObjectiveRatings")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationObjectiveRatings")]
     public partial class EvaluationObjectiveRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
         Entities.Common.TPDM.IEvaluationObjectiveRating,
@@ -639,7 +640,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationPeriodDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationPeriodDescriptors")]
     public partial class EvaluationPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
         Entities.Common.TPDM.IEvaluationPeriodDescriptor,
@@ -669,7 +670,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationRatings")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationRatings")]
     public partial class EvaluationRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationRating.TPDM.EvaluationRating,
         Entities.Common.TPDM.IEvaluationRating,
@@ -715,7 +716,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationRatingLevelDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationRatingLevelDescriptors")]
     public partial class EvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
         Entities.Common.TPDM.IEvaluationRatingLevelDescriptor,
@@ -745,7 +746,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationRatingStatusDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationRatingStatusDescriptors")]
     public partial class EvaluationRatingStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
         Entities.Common.TPDM.IEvaluationRatingStatusDescriptor,
@@ -775,7 +776,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/evaluationTypeDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/evaluationTypeDescriptors")]
     public partial class EvaluationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
         Entities.Common.TPDM.IEvaluationTypeDescriptor,
@@ -805,7 +806,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FinancialAids
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/financialAids")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/financialAids")]
     public partial class FinancialAidsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FinancialAid.TPDM.FinancialAid,
         Entities.Common.TPDM.IFinancialAid,
@@ -842,7 +843,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/genderDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/genderDescriptors")]
     public partial class GenderDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GenderDescriptor.TPDM.GenderDescriptor,
         Entities.Common.TPDM.IGenderDescriptor,
@@ -872,7 +873,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/objectiveRatingLevelDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/objectiveRatingLevelDescriptors")]
     public partial class ObjectiveRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
         Entities.Common.TPDM.IObjectiveRatingLevelDescriptor,
@@ -902,7 +903,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/performanceEvaluations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/performanceEvaluations")]
     public partial class PerformanceEvaluationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
         Entities.Common.TPDM.IPerformanceEvaluation,
@@ -940,7 +941,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/performanceEvaluationRatings")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/performanceEvaluationRatings")]
     public partial class PerformanceEvaluationRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
         Entities.Common.TPDM.IPerformanceEvaluationRating,
@@ -986,7 +987,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/performanceEvaluationRatingLevelDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/performanceEvaluationRatingLevelDescriptors")]
     public partial class PerformanceEvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
         Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor,
@@ -1016,7 +1017,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/performanceEvaluationTypeDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/performanceEvaluationTypeDescriptors")]
     public partial class PerformanceEvaluationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
         Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor,
@@ -1046,7 +1047,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/rubricDimensions")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/rubricDimensions")]
     public partial class RubricDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RubricDimension.TPDM.RubricDimension,
         Entities.Common.TPDM.IRubricDimension,
@@ -1089,7 +1090,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/rubricRatingLevelDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/rubricRatingLevelDescriptors")]
     public partial class RubricRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
         Entities.Common.TPDM.IRubricRatingLevelDescriptor,
@@ -1119,7 +1120,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponsePersonTargetAssoc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/surveyResponsePersonTargetAssociations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/surveyResponsePersonTargetAssociations")]
     public partial class SurveyResponsePersonTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation,
         Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation,
@@ -1154,7 +1155,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponsePersonTarg
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("tpdm/surveySectionResponsePersonTargetAssociations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/tpdm/surveySectionResponsePersonTargetAssociations")]
     public partial class SurveySectionResponsePersonTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation,
         Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation,
