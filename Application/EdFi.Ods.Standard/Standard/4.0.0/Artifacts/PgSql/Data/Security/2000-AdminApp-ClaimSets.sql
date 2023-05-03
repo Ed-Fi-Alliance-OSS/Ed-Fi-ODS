@@ -30,24 +30,17 @@ BEGIN
     FROM dbo.claimsets
     WHERE claimsetname = claimset_name;
 	
-    IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
-	, dbo.ClaimSetResourceClaimActions csrc
-	WHERE csrcaaso.ClaimSetResourceClaimActionId = csrc.ClaimSetResourceClaimActionId AND csrc.ClaimSetId = claimset_id)
-    THEN
+	DELETE  
+	FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
+	USING dbo.ClaimSetResourceClaimActions csrc
+	WHERE csrcaaso.ClaimSetResourceClaimActionId = csrc.ClaimSetResourceClaimActionId AND csrc.ClaimSetId = claimset_id;
 
-	    DELETE  
-	    FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
-	    USING dbo.ClaimSetResourceClaimActions csrc
-	    WHERE csrcaaso.ClaimSetResourceClaimActionId = csrc.ClaimSetResourceClaimActionId AND csrc.ClaimSetId = claimset_id;
-
-	    DELETE FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claimset_id;
+	DELETE FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claimset_id;
 	
-	    SELECT authorizationstrategyid INTO authorizationStrategy_id
-        FROM dbo.authorizationstrategies
-        WHERE authorizationstrategyname = 'NoFurtherAuthorizationRequired';   
-
-	END IF;	
-
+	SELECT authorizationstrategyid INTO authorizationStrategy_id
+    FROM dbo.authorizationstrategies
+    WHERE authorizationstrategyname = 'NoFurtherAuthorizationRequired';
+	
     IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claimset_id)
     THEN
         RAISE NOTICE 'claims already exist for claim %', claimset_name;
