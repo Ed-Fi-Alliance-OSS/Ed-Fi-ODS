@@ -22,7 +22,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [ApiController]
     [Produces("application/json")]
     [RouteRootContext(RouteContextType.Ods)]
-    [Route($"v{ChangeQueriesConstants.FeatureVersion}/availableChangeVersions/changeQueries")]
+    [Route($"{ChangeQueriesConstants.RoutePrefix}/availableChangeVersions")]
     public class AvailableChangeVersionsController : ControllerBase
     {
         private readonly IAvailableChangeVersionProvider _availableChangeVersionProvider;
