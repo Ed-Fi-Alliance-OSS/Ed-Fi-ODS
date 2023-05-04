@@ -9706,7 +9706,7 @@
   </xs:complexType>
   <xs:complexType name="CommunityOrganizationIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a CommunityOrganization.</xs:documentation>
+      <xs:documentation>Identity of a CommunityOrganization.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -9731,7 +9731,7 @@
         <xs:sequence>
           <xs:element name="CommunityOrganizationIdentity" type="CommunityOrganizationIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a CommunityOrganization.</xs:documentation>
+              <xs:documentation>Identity of a CommunityOrganization.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -9740,7 +9740,7 @@
   </xs:complexType>
   <xs:complexType name="CommunityProviderIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a CommunityProvider.</xs:documentation>
+      <xs:documentation>Identity of a CommunityProvider.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -9809,7 +9809,7 @@
         <xs:sequence>
           <xs:element name="CommunityProviderIdentity" type="CommunityProviderIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a CommunityProvider.</xs:documentation>
+              <xs:documentation>Identity of a CommunityProvider.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -10250,7 +10250,7 @@
   </xs:complexType>
   <xs:complexType name="EducationOrganizationIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducationOrganization.</xs:documentation>
+      <xs:documentation>Identity of an EducationOrganization.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -10309,31 +10309,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="EducationOrganizationId" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The identifier assigned to an education organization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationIdentificationCode" type="EducationOrganizationIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The full, legally accepted name of the institution.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationCategory" type="EducationOrganizationCategoryDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EducationOrganizationCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EducationOrganizationNetworkAssociationIdentityType">
     <xs:annotation>
@@ -10400,24 +10375,6 @@
       <xs:element name="EducationOrganizationNetworkId" type="xs:int" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The identifier assigned to a network of education organizations.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationIdentificationCode" type="EducationOrganizationIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The full, legally accepted name of the institution.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationCategory" type="EducationOrganizationCategoryDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EducationOrganizationCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -10497,7 +10454,7 @@
         <xs:sequence>
           <xs:element name="EducationOrganizationIdentity" type="EducationOrganizationIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducationOrganization.</xs:documentation>
+              <xs:documentation>Identity of an EducationOrganization.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EducationOrganizationLookup" type="EducationOrganizationLookupType" minOccurs="0">
@@ -10535,24 +10492,6 @@
       <xs:element name="EducationServiceCenterId" type="xs:int" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The identifier assigned to an education service center.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationIdentificationCode" type="EducationOrganizationIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The full, legally accepted name of the institution.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationCategory" type="EducationOrganizationCategoryDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EducationOrganizationCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -11400,24 +11339,6 @@
           <xs:documentation>The identifier assigned to a local education agency.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="EducationOrganizationIdentificationCode" type="EducationOrganizationIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The full, legally accepted name of the institution.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationCategory" type="EducationOrganizationCategoryDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EducationOrganizationCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="LocalEducationAgencyReferenceType">
@@ -11724,7 +11645,7 @@
   </xs:complexType>
   <xs:complexType name="OrganizationDepartmentIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an OrganizationDepartment.</xs:documentation>
+      <xs:documentation>Identity of an OrganizationDepartment.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -11749,7 +11670,7 @@
         <xs:sequence>
           <xs:element name="OrganizationDepartmentIdentity" type="OrganizationDepartmentIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an OrganizationDepartment.</xs:documentation>
+              <xs:documentation>Identity of an OrganizationDepartment.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -12156,24 +12077,6 @@
       <xs:element name="SchoolId" type="xs:int" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The identifier assigned to a school.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationIdentificationCode" type="EducationOrganizationIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The full, legally accepted name of the institution.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationCategory" type="EducationOrganizationCategoryDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EducationOrganizationCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -13017,24 +12920,6 @@
       <xs:element name="StateEducationAgencyId" type="xs:int" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The identifier assigned to a state education agency.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationIdentificationCode" type="EducationOrganizationIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to an education organization by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The full, legally accepted name of the institution.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationCategory" type="EducationOrganizationCategoryDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The classification of the education agency within the geographic boundaries of a state according to the level of administrative and operational control granted by the state.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EducationOrganizationCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
