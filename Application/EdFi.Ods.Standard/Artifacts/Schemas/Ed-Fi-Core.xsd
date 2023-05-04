@@ -11772,7 +11772,7 @@
   </xs:complexType>
   <xs:complexType name="ProgramIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Program.</xs:documentation>
+      <xs:documentation>Identity of a Program.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -11805,31 +11805,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Relates the program to an education organization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProgramId" type="ProgramId" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProgramName" type="ProgramName" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The type of program.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="ProgramReferenceType">
     <xs:annotation>
@@ -11843,7 +11818,7 @@
         <xs:sequence>
           <xs:element name="ProgramIdentity" type="ProgramIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Program.</xs:documentation>
+              <xs:documentation>Identity of a Program.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ProgramLookup" type="ProgramLookupType" minOccurs="0">
