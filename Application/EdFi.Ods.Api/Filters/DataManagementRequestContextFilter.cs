@@ -51,7 +51,12 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 .Select(m => m.UriSegment)
                 .ToArray());
 
-        _dataManagementTemplatePrefix = new Lazy<string>(GetTemplatePrefix);
+        _dataManagementTemplatePrefix = new Lazy<string>(
+            () =>
+            {
+                string routeRootTemplate = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
+                return $"{routeRootTemplate}{RouteConstants.DataManagementRoutePrefix}/";
+            });
     }
 
     public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
@@ -127,12 +132,4 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
     }
 
     public void OnActionExecuted(ActionExecutedContext context) { }
-
-    private string GetTemplatePrefix()
-    {
-        string routeRootTemplate = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
-        string template = $"{routeRootTemplate}{RouteConstants.DataManagementRoutePrefix}/";
-
-        return template;
-    }
 }

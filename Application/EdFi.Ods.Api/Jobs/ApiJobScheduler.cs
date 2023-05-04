@@ -14,7 +14,6 @@ namespace EdFi.Ods.Api.Jobs;
 
 public class ApiJobScheduler : IApiJobScheduler
 {
-    private readonly ILog _logger = LogManager.GetLogger(typeof(ApiJobScheduler));
     private readonly ISchedulerFactory _schedulerFactory;
 
     public ApiJobScheduler(ISchedulerFactory schedulerFactory)
@@ -79,28 +78,12 @@ public class ApiJobScheduler : IApiJobScheduler
 
     private ITrigger BuildTrigger(ScheduledJobSettings scheduledJobSettings)
     {
-        string cronSchedule = GetCronExpression(scheduledJobSettings);
+        string cronSchedule = CronHelper.GetValidCronExpressionOrDefault(scheduledJobSettings);
 
         return TriggerBuilder.Create()
             .WithIdentity($"{scheduledJobSettings.Name} Trigger")
             .WithCronSchedule(cronSchedule)
             .WithDescription($"{scheduledJobSettings.Name} Trigger")
             .Build();
-    }
-
-    private string GetCronExpression(ScheduledJobSettings scheduledJobSettings)
-    {
-        bool isCronExpressionValid = scheduledJobSettings?.CronExpression != null
-            && CronExpression.IsValidExpression(scheduledJobSettings.CronExpression);
-
-        if (isCronExpressionValid)
-        {
-            return scheduledJobSettings.CronExpression;
-        }
-
-        _logger.Warn(
-            $"Invalid cron expression provided for scheduled job: {scheduledJobSettings.Name}. Using default value: {ScheduledJobSettings.DefaultCronExpression}");
-
-        return ScheduledJobSettings.DefaultCronExpression;
     }
 }

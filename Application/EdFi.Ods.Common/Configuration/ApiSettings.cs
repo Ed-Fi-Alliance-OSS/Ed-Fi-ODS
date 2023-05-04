@@ -46,6 +46,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public string PathBase { get; set; }
 
+        public string OdsContextRouteTemplate { get; set; }
+        
         public CacheSettings Caching { get; set; } = new();
 
         public ReverseProxySettings GetReverseProxySettings()

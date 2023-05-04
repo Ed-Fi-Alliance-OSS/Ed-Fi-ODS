@@ -73,7 +73,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public class TenantsCacheConfiguration
         {
-            public int AbsoluteExpirationSeconds { get; set; } = (int) TimeSpan.FromDays(365).TotalSeconds;
+            public int AbsoluteExpirationSeconds { get; set; } = 0; // No expiration by default (tenants are defined in static configuration)
         }
     }
 }

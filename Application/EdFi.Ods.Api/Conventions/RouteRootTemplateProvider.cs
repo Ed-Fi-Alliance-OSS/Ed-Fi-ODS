@@ -20,6 +20,7 @@ public class RouteRootTemplateProvider : IRouteRootTemplateProvider
         _apiSettings = apiSettings;
     }
 
+    /// <inheritdoc cref="IRouteRootTemplateProvider.GetRouteRootTemplate" />
     public string GetRouteRootTemplate(RouteContextType context)
     {
         switch (context)
@@ -33,18 +34,17 @@ public class RouteRootTemplateProvider : IRouteRootTemplateProvider
                 return null;
 
             case RouteContextType.Ods:
-                // TODO: ODS-5800
-                string apiSettingsOdsContextRouteTemplate = string.Empty;
+                string odsContextRouteTemplate = _apiSettings.OdsContextRouteTemplate;
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
                 {
-                    return $"{RouteConstants.TenantIdentifierRoutePrefix}{apiSettingsOdsContextRouteTemplate?.Trim('/')}"
+                    return $"{RouteConstants.TenantIdentifierRoutePrefix}{odsContextRouteTemplate?.Trim('/')}"
                         .EnsureSuffixApplied("/");
                 }
 
-                if (!string.IsNullOrEmpty(apiSettingsOdsContextRouteTemplate))
+                if (!string.IsNullOrEmpty(odsContextRouteTemplate))
                 {
-                    return apiSettingsOdsContextRouteTemplate.EnsureSuffixApplied("/");
+                    return odsContextRouteTemplate.EnsureSuffixApplied("/");
                 }
 
                 return null;
