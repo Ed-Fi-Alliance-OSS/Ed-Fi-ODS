@@ -11038,7 +11038,7 @@
   </xs:complexType>
   <xs:complexType name="LearningStandardIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LearningStandard.</xs:documentation>
+      <xs:documentation>Identity of a LearningStandard.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -11058,39 +11058,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="LearningStandardId" type="LearningStandardId" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The identifier for the specific learning standard (e.g., 111.15.3.1.A).</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="LearningStandardIdentificationCode" type="LearningStandardIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a learning standard.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ContentStandard" type="ContentStandard" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The content standard from which the learning standard was derived.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The grade levels for the specific learning standard.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AcademicSubject" type="AcademicSubjectDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Subject area for the learning standard.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="LearningStandardReferenceType">
     <xs:annotation>
@@ -11104,7 +11071,7 @@
         <xs:sequence>
           <xs:element name="LearningStandardIdentity" type="LearningStandardIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LearningStandard.</xs:documentation>
+              <xs:documentation>Identity of a LearningStandard.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="LearningStandardLookup" type="LearningStandardLookupType" minOccurs="0">
