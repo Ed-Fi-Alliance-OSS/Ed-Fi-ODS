@@ -963,6 +963,23 @@ CREATE NONCLUSTERED INDEX [FK_ContactAddressPeriod_ContactAddress]
 ON [edfi].[ContactAddressPeriod] ([AddressTypeDescriptorId] ASC, [City] ASC, [ContactUSI] ASC, [PostalCode] ASC, [StateAbbreviationDescriptorId] ASC, [StreetNumberName] ASC)
 GO
 
+ALTER TABLE [edfi].[ContactEducationOrganization] WITH CHECK ADD CONSTRAINT [FK_ContactEducationOrganization_Contact] FOREIGN KEY ([ContactUSI])
+REFERENCES [edfi].[Contact] ([ContactUSI])
+ON DELETE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_ContactEducationOrganization_Contact]
+ON [edfi].[ContactEducationOrganization] ([ContactUSI] ASC)
+GO
+
+ALTER TABLE [edfi].[ContactEducationOrganization] WITH CHECK ADD CONSTRAINT [FK_ContactEducationOrganization_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
+REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_ContactEducationOrganization_EducationOrganization]
+ON [edfi].[ContactEducationOrganization] ([EducationOrganizationId] ASC)
+GO
+
 ALTER TABLE [edfi].[ContactElectronicMail] WITH CHECK ADD CONSTRAINT [FK_ContactElectronicMail_Contact] FOREIGN KEY ([ContactUSI])
 REFERENCES [edfi].[Contact] ([ContactUSI])
 ON DELETE CASCADE

@@ -921,6 +921,11 @@
               <xs:documentation>The login ID for the user; used for security access control interface.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Provide user information to lookup and link to an existing educational organization record in the receiving system.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="Language" type="Language" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-2 language codes.</xs:documentation>
@@ -9865,7 +9870,7 @@
   </xs:complexType>
   <xs:complexType name="ContactIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Contact.</xs:documentation>
+      <xs:documentation>Identity of a Contact.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -9890,7 +9895,7 @@
         <xs:sequence>
           <xs:element name="ContactIdentity" type="ContactIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Contact.</xs:documentation>
+              <xs:documentation>Identity of a Contact.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>

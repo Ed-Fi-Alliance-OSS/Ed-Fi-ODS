@@ -522,6 +522,11 @@ COMMENT ON COLUMN edfi.ContactAddressPeriod.StateAbbreviationDescriptorId IS 'Th
 COMMENT ON COLUMN edfi.ContactAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
 COMMENT ON COLUMN edfi.ContactAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
 
+-- Extended Properties [edfi].[ContactEducationOrganization] --
+COMMENT ON TABLE edfi.ContactEducationOrganization IS 'Provide user information to lookup and link to an existing educational organization record in the receiving system.';
+COMMENT ON COLUMN edfi.ContactEducationOrganization.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';
+COMMENT ON COLUMN edfi.ContactEducationOrganization.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+
 -- Extended Properties [edfi].[ContactElectronicMail] --
 COMMENT ON TABLE edfi.ContactElectronicMail IS 'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.';
 COMMENT ON COLUMN edfi.ContactElectronicMail.ContactUSI IS 'A unique alphanumeric code assigned to a contact.';

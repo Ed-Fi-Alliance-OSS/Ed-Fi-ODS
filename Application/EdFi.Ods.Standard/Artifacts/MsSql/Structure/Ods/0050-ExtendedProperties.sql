@@ -884,6 +884,14 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the end of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactAddressPeriod', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
 
+-- Extended Properties [edfi].[ContactEducationOrganization] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Provide user information to lookup and link to an existing educational organization record in the receiving system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactEducationOrganization'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a contact.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactEducationOrganization', @level2type=N'COLUMN', @level2name=N'ContactUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactEducationOrganization', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+
 -- Extended Properties [edfi].[ContactElectronicMail] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ContactElectronicMail'
 GO

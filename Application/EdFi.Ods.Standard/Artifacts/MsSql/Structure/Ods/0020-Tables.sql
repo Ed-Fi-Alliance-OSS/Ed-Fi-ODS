@@ -1227,6 +1227,20 @@ GO
 ALTER TABLE [edfi].[ContactAddressPeriod] ADD CONSTRAINT [ContactAddressPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[ContactEducationOrganization] --
+CREATE TABLE [edfi].[ContactEducationOrganization] (
+    [ContactUSI] [INT] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [ContactEducationOrganization_PK] PRIMARY KEY CLUSTERED (
+        [ContactUSI] ASC,
+        [EducationOrganizationId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[ContactEducationOrganization] ADD CONSTRAINT [ContactEducationOrganization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[ContactElectronicMail] --
 CREATE TABLE [edfi].[ContactElectronicMail] (
     [ContactUSI] [INT] NOT NULL,

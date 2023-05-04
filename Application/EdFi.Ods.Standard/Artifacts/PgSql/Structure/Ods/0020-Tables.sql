@@ -827,6 +827,15 @@ CREATE TABLE edfi.ContactAddressPeriod (
 ); 
 ALTER TABLE edfi.ContactAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.ContactEducationOrganization --
+CREATE TABLE edfi.ContactEducationOrganization (
+    ContactUSI INT NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT ContactEducationOrganization_PK PRIMARY KEY (ContactUSI, EducationOrganizationId)
+); 
+ALTER TABLE edfi.ContactEducationOrganization ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.ContactElectronicMail --
 CREATE TABLE edfi.ContactElectronicMail (
     ContactUSI INT NOT NULL,

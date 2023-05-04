@@ -869,6 +869,21 @@ ON DELETE CASCADE
 CREATE INDEX FK_6b884f_ContactAddress
 ON edfi.ContactAddressPeriod (AddressTypeDescriptorId ASC, City ASC, ContactUSI ASC, PostalCode ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC);
 
+ALTER TABLE edfi.ContactEducationOrganization ADD CONSTRAINT FK_c84ca1_Contact FOREIGN KEY (ContactUSI)
+REFERENCES edfi.Contact (ContactUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_c84ca1_Contact
+ON edfi.ContactEducationOrganization (ContactUSI ASC);
+
+ALTER TABLE edfi.ContactEducationOrganization ADD CONSTRAINT FK_c84ca1_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_c84ca1_EducationOrganization
+ON edfi.ContactEducationOrganization (EducationOrganizationId ASC);
+
 ALTER TABLE edfi.ContactElectronicMail ADD CONSTRAINT FK_4007e0_Contact FOREIGN KEY (ContactUSI)
 REFERENCES edfi.Contact (ContactUSI)
 ON DELETE CASCADE
