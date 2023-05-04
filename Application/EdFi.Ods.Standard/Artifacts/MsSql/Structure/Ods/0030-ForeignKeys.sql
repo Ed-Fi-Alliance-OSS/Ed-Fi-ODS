@@ -4427,12 +4427,12 @@ CREATE NONCLUSTERED INDEX [FK_ReportCardStudentCompetencyObjective_ReportCard]
 ON [edfi].[ReportCardStudentCompetencyObjective] ([EducationOrganizationId] ASC, [GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [StudentUSI] ASC)
 GO
 
-ALTER TABLE [edfi].[ReportCardStudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_ReportCardStudentCompetencyObjective_StudentCompetencyObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [Objective], [ObjectiveEducationOrganizationId], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
-REFERENCES [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [Objective], [ObjectiveEducationOrganizationId], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
+ALTER TABLE [edfi].[ReportCardStudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_ReportCardStudentCompetencyObjective_StudentCompetencyObjective] FOREIGN KEY ([CompetencyObjective], [CompetencyObjectiveEducationOrganizationId], [CompetencyObjectiveGradeLevelDescriptorId], [GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [StudentUSI])
+REFERENCES [edfi].[StudentCompetencyObjective] ([CompetencyObjective], [CompetencyObjectiveEducationOrganizationId], [CompetencyObjectiveGradeLevelDescriptorId], [GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [StudentUSI])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_ReportCardStudentCompetencyObjective_StudentCompetencyObjective]
-ON [edfi].[ReportCardStudentCompetencyObjective] ([GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [Objective] ASC, [ObjectiveEducationOrganizationId] ASC, [ObjectiveGradeLevelDescriptorId] ASC, [StudentUSI] ASC)
+ON [edfi].[ReportCardStudentCompetencyObjective] ([CompetencyObjective] ASC, [CompetencyObjectiveEducationOrganizationId] ASC, [CompetencyObjectiveGradeLevelDescriptorId] ASC, [GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [StudentUSI] ASC)
 GO
 
 ALTER TABLE [edfi].[ReporterDescriptionDescriptor] WITH CHECK ADD CONSTRAINT [FK_ReporterDescriptionDescriptor_Descriptor] FOREIGN KEY ([ReporterDescriptionDescriptorId])
@@ -6332,12 +6332,12 @@ CREATE NONCLUSTERED INDEX [FK_StudentCompetencyObjective_CompetencyLevelDescript
 ON [edfi].[StudentCompetencyObjective] ([CompetencyLevelDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjective_CompetencyObjective] FOREIGN KEY ([ObjectiveEducationOrganizationId], [Objective], [ObjectiveGradeLevelDescriptorId])
+ALTER TABLE [edfi].[StudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjective_CompetencyObjective] FOREIGN KEY ([CompetencyObjectiveEducationOrganizationId], [CompetencyObjective], [CompetencyObjectiveGradeLevelDescriptorId])
 REFERENCES [edfi].[CompetencyObjective] ([EducationOrganizationId], [Objective], [ObjectiveGradeLevelDescriptorId])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentCompetencyObjective_CompetencyObjective]
-ON [edfi].[StudentCompetencyObjective] ([ObjectiveEducationOrganizationId] ASC, [Objective] ASC, [ObjectiveGradeLevelDescriptorId] ASC)
+ON [edfi].[StudentCompetencyObjective] ([CompetencyObjectiveEducationOrganizationId] ASC, [CompetencyObjective] ASC, [CompetencyObjectiveGradeLevelDescriptorId] ASC)
 GO
 
 ALTER TABLE [edfi].[StudentCompetencyObjective] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjective_GradingPeriod] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSequence], [GradingPeriodSchoolId], [GradingPeriodSchoolYear])
@@ -6364,22 +6364,22 @@ CREATE NONCLUSTERED INDEX [FK_StudentCompetencyObjectiveGeneralStudentProgramAss
 ON [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] ([BeginDate] ASC, [EducationOrganizationId] ASC, [ProgramEducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC, [StudentUSI] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveGeneralStudentProgramAssociation_StudentCompetencyObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [Objective], [ObjectiveEducationOrganizationId], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
-REFERENCES [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [Objective], [ObjectiveEducationOrganizationId], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
+ALTER TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveGeneralStudentProgramAssociation_StudentCompetencyObjective] FOREIGN KEY ([CompetencyObjective], [CompetencyObjectiveEducationOrganizationId], [CompetencyObjectiveGradeLevelDescriptorId], [GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [StudentUSI])
+REFERENCES [edfi].[StudentCompetencyObjective] ([CompetencyObjective], [CompetencyObjectiveEducationOrganizationId], [CompetencyObjectiveGradeLevelDescriptorId], [GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [StudentUSI])
 ON DELETE CASCADE
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentCompetencyObjectiveGeneralStudentProgramAssociation_StudentCompetencyObjective]
-ON [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] ([GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [Objective] ASC, [ObjectiveEducationOrganizationId] ASC, [ObjectiveGradeLevelDescriptorId] ASC, [StudentUSI] ASC)
+ON [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] ([CompetencyObjective] ASC, [CompetencyObjectiveEducationOrganizationId] ASC, [CompetencyObjectiveGradeLevelDescriptorId] ASC, [GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [StudentUSI] ASC)
 GO
 
-ALTER TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveStudentSectionAssociation_StudentCompetencyObjective] FOREIGN KEY ([GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [Objective], [ObjectiveEducationOrganizationId], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
-REFERENCES [edfi].[StudentCompetencyObjective] ([GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [Objective], [ObjectiveEducationOrganizationId], [ObjectiveGradeLevelDescriptorId], [StudentUSI])
+ALTER TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveStudentSectionAssociation_StudentCompetencyObjective] FOREIGN KEY ([CompetencyObjective], [CompetencyObjectiveEducationOrganizationId], [CompetencyObjectiveGradeLevelDescriptorId], [GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [StudentUSI])
+REFERENCES [edfi].[StudentCompetencyObjective] ([CompetencyObjective], [CompetencyObjectiveEducationOrganizationId], [CompetencyObjectiveGradeLevelDescriptorId], [GradingPeriodDescriptorId], [GradingPeriodSchoolId], [GradingPeriodSchoolYear], [GradingPeriodSequence], [StudentUSI])
 ON DELETE CASCADE
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentCompetencyObjectiveStudentSectionAssociation_StudentCompetencyObjective]
-ON [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] ([GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [Objective] ASC, [ObjectiveEducationOrganizationId] ASC, [ObjectiveGradeLevelDescriptorId] ASC, [StudentUSI] ASC)
+ON [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] ([CompetencyObjective] ASC, [CompetencyObjectiveEducationOrganizationId] ASC, [CompetencyObjectiveGradeLevelDescriptorId] ASC, [GradingPeriodDescriptorId] ASC, [GradingPeriodSchoolId] ASC, [GradingPeriodSchoolYear] ASC, [GradingPeriodSequence] ASC, [StudentUSI] ASC)
 GO
 
 ALTER TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentCompetencyObjectiveStudentSectionAssociation_StudentSectionAssociation] FOREIGN KEY ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])

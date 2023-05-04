@@ -5419,13 +5419,13 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_edfi].[StudentCompetencyObjective](OldGradingPeriodDescriptorId, OldGradingPeriodDescriptorNamespace, OldGradingPeriodDescriptorCodeValue, OldGradingPeriodSchoolId, OldGradingPeriodSchoolYear, OldGradingPeriodSequence, OldObjective, OldObjectiveEducationOrganizationId, OldObjectiveGradeLevelDescriptorId, OldObjectiveGradeLevelDescriptorNamespace, OldObjectiveGradeLevelDescriptorCodeValue, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
-    SELECT d.GradingPeriodDescriptorId, j0.Namespace, j0.CodeValue, d.GradingPeriodSchoolId, d.GradingPeriodSchoolYear, d.GradingPeriodSequence, d.Objective, d.ObjectiveEducationOrganizationId, d.ObjectiveGradeLevelDescriptorId, j1.Namespace, j1.CodeValue, d.StudentUSI, j2.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_changes_edfi].[StudentCompetencyObjective](OldCompetencyObjective, OldCompetencyObjectiveEducationOrganizationId, OldCompetencyObjectiveGradeLevelDescriptorId, OldCompetencyObjectiveGradeLevelDescriptorNamespace, OldCompetencyObjectiveGradeLevelDescriptorCodeValue, OldGradingPeriodDescriptorId, OldGradingPeriodDescriptorNamespace, OldGradingPeriodDescriptorCodeValue, OldGradingPeriodSchoolId, OldGradingPeriodSchoolYear, OldGradingPeriodSequence, OldStudentUSI, OldStudentUniqueId, Id, Discriminator, ChangeVersion)
+    SELECT d.CompetencyObjective, d.CompetencyObjectiveEducationOrganizationId, d.CompetencyObjectiveGradeLevelDescriptorId, j0.Namespace, j0.CodeValue, d.GradingPeriodDescriptorId, j1.Namespace, j1.CodeValue, d.GradingPeriodSchoolId, d.GradingPeriodSchoolYear, d.GradingPeriodSequence, d.StudentUSI, j2.StudentUniqueId, d.Id, d.Discriminator, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
         INNER JOIN edfi.Descriptor j0
-            ON d.GradingPeriodDescriptorId = j0.DescriptorId
+            ON d.CompetencyObjectiveGradeLevelDescriptorId = j0.DescriptorId
         INNER JOIN edfi.Descriptor j1
-            ON d.ObjectiveGradeLevelDescriptorId = j1.DescriptorId
+            ON d.GradingPeriodDescriptorId = j1.DescriptorId
         INNER JOIN edfi.Student j2
             ON d.StudentUSI = j2.StudentUSI
 END

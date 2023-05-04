@@ -4780,17 +4780,17 @@ DECLARE
     dj1 edfi.descriptor%ROWTYPE;
     dj2 edfi.student%ROWTYPE;
 BEGIN
-    SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.gradingperioddescriptorid;
+    SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.competencyobjectivegradeleveldescriptorid;
 
-    SELECT INTO dj1 * FROM edfi.descriptor j1 WHERE descriptorid = old.objectivegradeleveldescriptorid;
+    SELECT INTO dj1 * FROM edfi.descriptor j1 WHERE descriptorid = old.gradingperioddescriptorid;
 
     SELECT INTO dj2 * FROM edfi.student j2 WHERE studentusi = old.studentusi;
 
     INSERT INTO tracked_changes_edfi.studentcompetencyobjective(
-        oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodschoolid, oldgradingperiodschoolyear, oldgradingperiodsequence, oldobjective, oldobjectiveeducationorganizationid, oldobjectivegradeleveldescriptorid, oldobjectivegradeleveldescriptornamespace, oldobjectivegradeleveldescriptorcodevalue, oldstudentusi, oldstudentuniqueid,
+        oldcompetencyobjective, oldcompetencyobjectiveeducationorganizationid, oldcompetencyobjectivegradeleveldescriptorid, oldcompetencyobjectivegradeleveldescriptornamespace, oldcompetencyobjectivegradeleveldescriptorcodevalue, oldgradingperioddescriptorid, oldgradingperioddescriptornamespace, oldgradingperioddescriptorcodevalue, oldgradingperiodschoolid, oldgradingperiodschoolyear, oldgradingperiodsequence, oldstudentusi, oldstudentuniqueid,
         id, discriminator, changeversion)
     VALUES (
-        OLD.gradingperioddescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperiodschoolid, OLD.gradingperiodschoolyear, OLD.gradingperiodsequence, OLD.objective, OLD.objectiveeducationorganizationid, OLD.objectivegradeleveldescriptorid, dj1.namespace, dj1.codevalue, OLD.studentusi, dj2.studentuniqueid, 
+        OLD.competencyobjective, OLD.competencyobjectiveeducationorganizationid, OLD.competencyobjectivegradeleveldescriptorid, dj0.namespace, dj0.codevalue, OLD.gradingperioddescriptorid, dj1.namespace, dj1.codevalue, OLD.gradingperiodschoolid, OLD.gradingperiodschoolyear, OLD.gradingperiodsequence, OLD.studentusi, dj2.studentuniqueid, 
         OLD.id, OLD.discriminator, nextval('changes.changeversionsequence'));
 
     RETURN NULL;

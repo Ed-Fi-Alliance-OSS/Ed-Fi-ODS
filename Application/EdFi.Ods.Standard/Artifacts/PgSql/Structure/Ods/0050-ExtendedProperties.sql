@@ -2320,14 +2320,14 @@ COMMENT ON COLUMN edfi.ReportCardGradePointAverage.MaxGradePointAverageValue IS 
 
 -- Extended Properties [edfi].[ReportCardStudentCompetencyObjective] --
 COMMENT ON TABLE edfi.ReportCardStudentCompetencyObjective IS 'The student competency evaluations associated for this grading period.';
+COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.CompetencyObjective IS 'The designated title of the competency objective.';
+COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.CompetencyObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.CompetencyObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.Objective IS 'The designated title of the competency objective.';
-COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.ReportCardStudentCompetencyObjective.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[ReporterDescriptionDescriptor] --
@@ -3242,13 +3242,13 @@ COMMENT ON COLUMN edfi.StudentCohortAssociationSection.StudentUSI IS 'A unique a
 
 -- Extended Properties [edfi].[StudentCompetencyObjective] --
 COMMENT ON TABLE edfi.StudentCompetencyObjective IS 'This entity represents the competency assessed or evaluated for the student against a specific competency objective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjective.CompetencyObjective IS 'The designated title of the competency objective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjective.CompetencyObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjective.CompetencyObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjective.Objective IS 'The designated title of the competency objective.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjective.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjective.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjective.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
@@ -3256,14 +3256,14 @@ COMMENT ON COLUMN edfi.StudentCompetencyObjective.DiagnosticStatement IS 'A stat
 -- Extended Properties [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] --
 COMMENT ON TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation IS 'Relates the student and program associated with the competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.CompetencyObjective IS 'The designated title of the competency objective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.CompetencyObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.CompetencyObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.Objective IS 'The designated title of the competency objective.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
@@ -3272,14 +3272,14 @@ COMMENT ON COLUMN edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociatio
 -- Extended Properties [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] --
 COMMENT ON TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation IS 'Relates the student and section associated with the competency objective.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.CompetencyObjective IS 'The designated title of the competency objective.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.CompetencyObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.CompetencyObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodSchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodSchoolYear IS 'The identifier for the grading period school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.GradingPeriodSequence IS 'The sequential order of this period relative to other periods.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.Objective IS 'The designated title of the competency objective.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.ObjectiveEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.ObjectiveGradeLevelDescriptorId IS 'The grade level for which the competency objective is targeted.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.StudentCompetencyObjectiveStudentSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';

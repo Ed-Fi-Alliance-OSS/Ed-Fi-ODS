@@ -3932,6 +3932,12 @@ GO
 -- Extended Properties [edfi].[ReportCardStudentCompetencyObjective] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The student competency evaluations associated for this grading period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'CompetencyObjective'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveGradeLevelDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for which grades are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodDescriptorId'
@@ -3941,12 +3947,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the grading period school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodSchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sequential order of this period relative to other periods.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodSequence'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'Objective'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'ObjectiveEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'ObjectiveGradeLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'ReportCardStudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
@@ -5568,6 +5568,12 @@ GO
 -- Extended Properties [edfi].[StudentCompetencyObjective] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents the competency assessed or evaluated for the student against a specific competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'CompetencyObjective'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveGradeLevelDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for which grades are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodSchoolId'
@@ -5575,12 +5581,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the grading period school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodSchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sequential order of this period relative to other periods.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'GradingPeriodSequence'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'Objective'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'ObjectiveEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'ObjectiveGradeLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjective', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
@@ -5594,6 +5594,12 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Relates the st
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'CompetencyObjective'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveGradeLevelDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for which grades are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'GradingPeriodDescriptorId'
@@ -5603,12 +5609,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the grading period school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'GradingPeriodSchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sequential order of this period relative to other periods.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'GradingPeriodSequence'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'Objective'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ObjectiveEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ObjectiveGradeLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
 GO
@@ -5624,6 +5624,12 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Relates the st
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of the student''s entry or assignment to the section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'CompetencyObjective'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'CompetencyObjectiveGradeLevelDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the period for which grades are reported.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'GradingPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'GradingPeriodSchoolId'
@@ -5633,12 +5639,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sequential order of this period relative to other periods.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'GradingPeriodSequence'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The designated title of the competency objective.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'Objective'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'ObjectiveEducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level for which the competency objective is targeted.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'ObjectiveGradeLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentCompetencyObjectiveStudentSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO

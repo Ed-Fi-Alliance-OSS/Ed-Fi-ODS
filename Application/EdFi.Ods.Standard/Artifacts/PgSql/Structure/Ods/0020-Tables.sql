@@ -3683,17 +3683,17 @@ ALTER TABLE edfi.ReportCardGradePointAverage ALTER COLUMN CreateDate SET DEFAULT
 
 -- Table edfi.ReportCardStudentCompetencyObjective --
 CREATE TABLE edfi.ReportCardStudentCompetencyObjective (
+    CompetencyObjective VARCHAR(60) NOT NULL,
+    CompetencyObjectiveEducationOrganizationId INT NOT NULL,
+    CompetencyObjectiveGradeLevelDescriptorId INT NOT NULL,
     EducationOrganizationId INT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
     GradingPeriodSchoolId INT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
-    Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
-    ObjectiveGradeLevelDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT ReportCardStudentCompetencyObjective_PK PRIMARY KEY (EducationOrganizationId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, Objective, ObjectiveEducationOrganizationId, ObjectiveGradeLevelDescriptorId, StudentUSI)
+    CONSTRAINT ReportCardStudentCompetencyObjective_PK PRIMARY KEY (CompetencyObjective, CompetencyObjectiveEducationOrganizationId, CompetencyObjectiveGradeLevelDescriptorId, EducationOrganizationId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, StudentUSI)
 ); 
 ALTER TABLE edfi.ReportCardStudentCompetencyObjective ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
@@ -5070,13 +5070,13 @@ ALTER TABLE edfi.StudentCohortAssociationSection ALTER COLUMN CreateDate SET DEF
 
 -- Table edfi.StudentCompetencyObjective --
 CREATE TABLE edfi.StudentCompetencyObjective (
+    CompetencyObjective VARCHAR(60) NOT NULL,
+    CompetencyObjectiveEducationOrganizationId INT NOT NULL,
+    CompetencyObjectiveGradeLevelDescriptorId INT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
     GradingPeriodSchoolId INT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
-    Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
-    ObjectiveGradeLevelDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CompetencyLevelDescriptorId INT NOT NULL,
     DiagnosticStatement VARCHAR(1024) NULL,
@@ -5084,7 +5084,7 @@ CREATE TABLE edfi.StudentCompetencyObjective (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT StudentCompetencyObjective_PK PRIMARY KEY (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, Objective, ObjectiveEducationOrganizationId, ObjectiveGradeLevelDescriptorId, StudentUSI)
+    CONSTRAINT StudentCompetencyObjective_PK PRIMARY KEY (CompetencyObjective, CompetencyObjectiveEducationOrganizationId, CompetencyObjectiveGradeLevelDescriptorId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, StudentUSI)
 ); 
 ALTER TABLE edfi.StudentCompetencyObjective ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.StudentCompetencyObjective ALTER COLUMN Id SET DEFAULT gen_random_uuid();
@@ -5093,41 +5093,41 @@ ALTER TABLE edfi.StudentCompetencyObjective ALTER COLUMN LastModifiedDate SET DE
 -- Table edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation --
 CREATE TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation (
     BeginDate DATE NOT NULL,
+    CompetencyObjective VARCHAR(60) NOT NULL,
+    CompetencyObjectiveEducationOrganizationId INT NOT NULL,
+    CompetencyObjectiveGradeLevelDescriptorId INT NOT NULL,
     EducationOrganizationId INT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
     GradingPeriodSchoolId INT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
-    Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
-    ObjectiveGradeLevelDescriptorId INT NOT NULL,
     ProgramEducationOrganizationId INT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentCompetencyObjectiveGeneralStudentProgramAssociation_PK PRIMARY KEY (BeginDate, EducationOrganizationId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, Objective, ObjectiveEducationOrganizationId, ObjectiveGradeLevelDescriptorId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+    CONSTRAINT StudentCompetencyObjectiveGeneralStudentProgramAssociation_PK PRIMARY KEY (BeginDate, CompetencyObjective, CompetencyObjectiveEducationOrganizationId, CompetencyObjectiveGradeLevelDescriptorId, EducationOrganizationId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
 ALTER TABLE edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.StudentCompetencyObjectiveStudentSectionAssociation --
 CREATE TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation (
     BeginDate DATE NOT NULL,
+    CompetencyObjective VARCHAR(60) NOT NULL,
+    CompetencyObjectiveEducationOrganizationId INT NOT NULL,
+    CompetencyObjectiveGradeLevelDescriptorId INT NOT NULL,
     GradingPeriodDescriptorId INT NOT NULL,
     GradingPeriodSchoolId INT NOT NULL,
     GradingPeriodSchoolYear SMALLINT NOT NULL,
     GradingPeriodSequence INT NOT NULL,
     LocalCourseCode VARCHAR(60) NOT NULL,
-    Objective VARCHAR(60) NOT NULL,
-    ObjectiveEducationOrganizationId INT NOT NULL,
-    ObjectiveGradeLevelDescriptorId INT NOT NULL,
     SchoolId INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentCompetencyObjectiveStudentSectionAssociation_PK PRIMARY KEY (BeginDate, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LocalCourseCode, Objective, ObjectiveEducationOrganizationId, ObjectiveGradeLevelDescriptorId, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+    CONSTRAINT StudentCompetencyObjectiveStudentSectionAssociation_PK PRIMARY KEY (BeginDate, CompetencyObjective, CompetencyObjectiveEducationOrganizationId, CompetencyObjectiveGradeLevelDescriptorId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
 ); 
 ALTER TABLE edfi.StudentCompetencyObjectiveStudentSectionAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 

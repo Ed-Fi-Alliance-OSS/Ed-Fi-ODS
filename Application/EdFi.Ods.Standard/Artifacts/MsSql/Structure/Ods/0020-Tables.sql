@@ -5518,25 +5518,25 @@ GO
 
 -- Table [edfi].[ReportCardStudentCompetencyObjective] --
 CREATE TABLE [edfi].[ReportCardStudentCompetencyObjective] (
+    [CompetencyObjective] [NVARCHAR](60) NOT NULL,
+    [CompetencyObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [CompetencyObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
     [GradingPeriodSchoolId] [INT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
-    [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
-    [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [ReportCardStudentCompetencyObjective_PK] PRIMARY KEY CLUSTERED (
+        [CompetencyObjective] ASC,
+        [CompetencyObjectiveEducationOrganizationId] ASC,
+        [CompetencyObjectiveGradeLevelDescriptorId] ASC,
         [EducationOrganizationId] ASC,
         [GradingPeriodDescriptorId] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [GradingPeriodSequence] ASC,
-        [Objective] ASC,
-        [ObjectiveEducationOrganizationId] ASC,
-        [ObjectiveGradeLevelDescriptorId] ASC,
         [StudentUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -7573,13 +7573,13 @@ GO
 
 -- Table [edfi].[StudentCompetencyObjective] --
 CREATE TABLE [edfi].[StudentCompetencyObjective] (
+    [CompetencyObjective] [NVARCHAR](60) NOT NULL,
+    [CompetencyObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [CompetencyObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
     [GradingPeriodSchoolId] [INT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
-    [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
-    [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [CompetencyLevelDescriptorId] [INT] NOT NULL,
     [DiagnosticStatement] [NVARCHAR](1024) NULL,
@@ -7588,13 +7588,13 @@ CREATE TABLE [edfi].[StudentCompetencyObjective] (
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [StudentCompetencyObjective_PK] PRIMARY KEY CLUSTERED (
+        [CompetencyObjective] ASC,
+        [CompetencyObjectiveEducationOrganizationId] ASC,
+        [CompetencyObjectiveGradeLevelDescriptorId] ASC,
         [GradingPeriodDescriptorId] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [GradingPeriodSequence] ASC,
-        [Objective] ASC,
-        [ObjectiveEducationOrganizationId] ASC,
-        [ObjectiveGradeLevelDescriptorId] ASC,
         [StudentUSI] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -7609,14 +7609,14 @@ GO
 -- Table [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] --
 CREATE TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
+    [CompetencyObjective] [NVARCHAR](60) NOT NULL,
+    [CompetencyObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [CompetencyObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
     [GradingPeriodSchoolId] [INT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
-    [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
-    [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [ProgramEducationOrganizationId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
@@ -7624,14 +7624,14 @@ CREATE TABLE [edfi].[StudentCompetencyObjectiveGeneralStudentProgramAssociation]
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentCompetencyObjectiveGeneralStudentProgramAssociation_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
+        [CompetencyObjective] ASC,
+        [CompetencyObjectiveEducationOrganizationId] ASC,
+        [CompetencyObjectiveGradeLevelDescriptorId] ASC,
         [EducationOrganizationId] ASC,
         [GradingPeriodDescriptorId] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [GradingPeriodSequence] ASC,
-        [Objective] ASC,
-        [ObjectiveEducationOrganizationId] ASC,
-        [ObjectiveGradeLevelDescriptorId] ASC,
         [ProgramEducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
@@ -7645,14 +7645,14 @@ GO
 -- Table [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] --
 CREATE TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] (
     [BeginDate] [DATE] NOT NULL,
+    [CompetencyObjective] [NVARCHAR](60) NOT NULL,
+    [CompetencyObjectiveEducationOrganizationId] [INT] NOT NULL,
+    [CompetencyObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [GradingPeriodDescriptorId] [INT] NOT NULL,
     [GradingPeriodSchoolId] [INT] NOT NULL,
     [GradingPeriodSchoolYear] [SMALLINT] NOT NULL,
     [GradingPeriodSequence] [INT] NOT NULL,
     [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [Objective] [NVARCHAR](60) NOT NULL,
-    [ObjectiveEducationOrganizationId] [INT] NOT NULL,
-    [ObjectiveGradeLevelDescriptorId] [INT] NOT NULL,
     [SchoolId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [SectionIdentifier] [NVARCHAR](255) NOT NULL,
@@ -7661,14 +7661,14 @@ CREATE TABLE [edfi].[StudentCompetencyObjectiveStudentSectionAssociation] (
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentCompetencyObjectiveStudentSectionAssociation_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
+        [CompetencyObjective] ASC,
+        [CompetencyObjectiveEducationOrganizationId] ASC,
+        [CompetencyObjectiveGradeLevelDescriptorId] ASC,
         [GradingPeriodDescriptorId] ASC,
         [GradingPeriodSchoolId] ASC,
         [GradingPeriodSchoolYear] ASC,
         [GradingPeriodSequence] ASC,
         [LocalCourseCode] ASC,
-        [Objective] ASC,
-        [ObjectiveEducationOrganizationId] ASC,
-        [ObjectiveGradeLevelDescriptorId] ASC,
         [SchoolId] ASC,
         [SchoolYear] ASC,
         [SectionIdentifier] ASC,
