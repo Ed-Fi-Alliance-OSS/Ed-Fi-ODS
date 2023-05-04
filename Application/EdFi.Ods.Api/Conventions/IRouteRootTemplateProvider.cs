@@ -7,7 +7,15 @@ using EdFi.Ods.Api.Attributes;
 
 namespace EdFi.Ods.Api.Conventions;
 
+/// <summary>
+/// Defines a method for obtaining the root route template prefix for controllers using the specified <see cref="RouteContextType" />.
+/// </summary>
 public interface IRouteRootTemplateProvider
 {
+    /// <summary>
+    /// Gets the root route template prefix for controllers using the specified <see cref="RouteContextType"/>.
+    /// </summary>
+    /// <param name="context">The type of route context used by the controller.</param>
+    /// <returns>The route template prefix.</returns>
     string GetRouteRootTemplate(RouteContextType context);
 }

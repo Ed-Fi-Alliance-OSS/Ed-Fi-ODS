@@ -12,6 +12,11 @@ using log4net;
 
 namespace EdFi.Ods.Api.Caching
 {
+    /// <summary>
+    /// Implements a cache provider backed by a <see cref="ConcurrentDictionary{TKey, Object}" /> that expires all entries after
+    /// a specified period of time.
+    /// </summary>
+    /// <typeparam name="TKey">The Type of the key for entries in the cache.</typeparam>
     public class ExpiringConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>
     {
         private readonly string _description;

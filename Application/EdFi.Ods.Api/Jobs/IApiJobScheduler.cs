@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Jobs;
 public interface IApiJobScheduler
 {
     /// <summary>
-    /// Schedules a job for execution once.
+    /// Schedules a job for one-time background execution.
     /// </summary>
     /// <param name="jobName">The unique name for the job, or null to allow Quartz to assign one automatically.</param>
     /// <param name="triggerName">The unique name for the trigger, or null to allow Quartz to assign one automatically.</param>
@@ -27,7 +27,7 @@ public interface IApiJobScheduler
         where TJob : IJob;
 
     /// <summary>
-    /// Schedules a job for execution once.
+    /// Schedules a job for one-time background execution.
     /// </summary>
     /// <param name="jobType">The <see cref="Type" /> of the job class to be executed.</param>
     /// <param name="jobName">The unique name for the job, or null to allow Quartz to assign one automatically.</param>
@@ -36,7 +36,7 @@ public interface IApiJobScheduler
     Task AddSingleExecutionJob(Type jobType, string jobName = null, string triggerName = null, JobDataMap jobDataMap = null);
 
     /// <summary>
-    /// Adds a job to be scheduled for repeating execution.
+    /// Adds a job for repeated execution on a set schedule.
     /// </summary>
     /// <param name="jobType">The <see cref="Type" /> of the job class to be executed.</param>
     /// <param name="scheduledJobSettings">Settings that indicate how to schedule the job for execution.</param>

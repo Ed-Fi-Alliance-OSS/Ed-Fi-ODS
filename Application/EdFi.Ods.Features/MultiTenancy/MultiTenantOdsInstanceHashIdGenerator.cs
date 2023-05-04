@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Context;
 namespace EdFi.Ods.Features.MultiTenancy;
 
 /// <summary>
-/// Implements an IOdsInstanceHashIdGenerator that incorporates the tenant configuration in context.
+/// Implements a hash id generator that incorporates the tenant configuration in context.
 /// </summary>
 public class MultiTenantOdsInstanceHashIdGenerator : IOdsInstanceHashIdGenerator
 {

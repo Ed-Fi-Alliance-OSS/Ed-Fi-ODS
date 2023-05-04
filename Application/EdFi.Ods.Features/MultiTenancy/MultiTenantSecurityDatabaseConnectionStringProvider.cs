@@ -11,8 +11,8 @@ using EdFi.Security.DataAccess.Providers;
 namespace EdFi.Ods.Features.MultiTenancy;
 
 /// <summary>
-/// Implements an <see cref="ISecurityDatabaseConnectionStringProvider" /> that returns the Security database connection
-/// string from the tenant configuration currently in context.
+/// Implements a database connection provider that returns the Security database connection string uisng the tenant
+/// configuration currently in context.
 /// </summary>
 public class MultiTenantSecurityDatabaseConnectionStringProvider : ISecurityDatabaseConnectionStringProvider
 {

@@ -22,6 +22,9 @@ public sealed class RouteRootContextAttribute : Attribute
     public RouteContextType ContextType { get; }
 }
 
+/// <summary>
+/// Defines the types of context that can be added to the base of a controller's route.
+/// </summary>
 public enum RouteContextType
 {
     /// <summary>

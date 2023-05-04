@@ -12,6 +12,10 @@ using Quartz;
 
 namespace EdFi.Ods.Api.Jobs;
 
+/// <summary>
+/// Provides a base class implementation of jobs that are tenant-specific, applying the necessary tenant configuration
+/// into context when the job is executed in an API process running with the MultiTenancy feature enabled. 
+/// </summary>
 public abstract class TenantSpecificJobBase : IJob
 {
     private readonly IApiJobScheduler _apiJobScheduler;
