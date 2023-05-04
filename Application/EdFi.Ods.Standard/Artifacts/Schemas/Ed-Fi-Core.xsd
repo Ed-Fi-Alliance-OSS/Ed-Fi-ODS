@@ -10461,7 +10461,7 @@
   </xs:complexType>
   <xs:complexType name="EducationServiceCenterIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducationServiceCenter.</xs:documentation>
+      <xs:documentation>Identity of an EducationServiceCenter.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -10481,13 +10481,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="EducationServiceCenterId" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The identifier assigned to an education service center.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EducationServiceCenterReferenceType">
     <xs:annotation>
@@ -10501,7 +10494,7 @@
         <xs:sequence>
           <xs:element name="EducationServiceCenterIdentity" type="EducationServiceCenterIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducationServiceCenter.</xs:documentation>
+              <xs:documentation>Identity of an EducationServiceCenter.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EducationServiceCenterLookup" type="EducationServiceCenterLookupType" minOccurs="0">
