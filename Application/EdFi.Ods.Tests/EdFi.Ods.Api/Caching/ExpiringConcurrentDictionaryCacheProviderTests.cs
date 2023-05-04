@@ -15,7 +15,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
     [TestFixture]
     public class ExpiringConcurrentDictionaryCacheProviderTests
     {
-        private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(50);
+        private static readonly TimeSpan _expirationPeriod = TimeSpan.FromMilliseconds(250);
 
         [Test]
         public void TryGetCachedObject_ShouldReturnFalse_WhenCacheDisabled()
