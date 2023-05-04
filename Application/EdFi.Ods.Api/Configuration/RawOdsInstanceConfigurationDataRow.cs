@@ -13,4 +13,12 @@ public class RawOdsInstanceConfigurationDataRow
     public int OdsInstanceId { get; set; }
 
     public string ConnectionString { get; set; }
+
+    public string ContextKey { get; set; }
+
+    public string ContextValue { get; set; }
+
+    public string DerivativeType { get; set; }
+
+    public string ConnectionStringByDerivativeType { get; set; }
 }

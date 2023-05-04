@@ -20,7 +20,7 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
     private readonly DbProviderFactory _dbProviderFactory;
     private readonly IOdsInstanceHashIdGenerator _odsInstanceHashIdGenerator;
 
-    private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
+    private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
     
     public OdsInstanceConfigurationProvider(
         IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
@@ -66,11 +66,29 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
             odsInstanceId: firstRow.OdsInstanceId,
             odsInstanceHashId: _odsInstanceHashIdGenerator.GenerateHashId(firstRow.OdsInstanceId),
             connectionString: firstRow.ConnectionString,
-            contextValueByKey: new Dictionary<string, string>(),
-            connectionStringByDerivativeType: new Dictionary<DerivativeType, string>()
+            contextValueByKey: GetContextValues(),
+            connectionStringByDerivativeType: GetConnectionStringsByDerivativeType()
         );
 
         return configuration;
+
+        IDictionary<string, string> GetContextValues()
+        {
+            return rawDataRows
+                .Where(x => !string.IsNullOrEmpty(x.ContextKey))
+                .Select(x => new KeyValuePair<string, string>(x.ContextKey, x.ContextValue))
+                .DistinctBy(x => x.Key)
+                .ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        IDictionary<DerivativeType, string> GetConnectionStringsByDerivativeType()
+        {
+            return rawDataRows
+                .Where(x => !string.IsNullOrEmpty(x.DerivativeType))
+                .Select(x => new KeyValuePair<DerivativeType, string>(DerivativeType.Parse(x.DerivativeType), x.ConnectionStringByDerivativeType))
+                .DistinctBy(x => x.Key)
+                .ToDictionary(x => x.Key, x => x.Value);
+        }
     }
     
     private DbConnection CreateConnectionAsync()
