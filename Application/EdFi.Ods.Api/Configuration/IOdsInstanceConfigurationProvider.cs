@@ -5,10 +5,15 @@
 
 using System.Threading.Tasks;
 using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Configuration;
 
+/// <summary>
+/// Defines a method for obtaining an ODS instance configuration by id.
+/// </summary>
+/// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-ods-instances".</remarks>
 [Intercept("cache-ods-instances")]
 public interface IOdsInstanceConfigurationProvider
 {

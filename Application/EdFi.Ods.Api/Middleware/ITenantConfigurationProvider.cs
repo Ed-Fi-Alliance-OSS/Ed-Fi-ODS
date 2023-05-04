@@ -5,12 +5,14 @@
 
 using System.Collections.Generic;
 using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 
 namespace EdFi.Ods.Api.Middleware;
 
 /// <summary>
 /// Defines methods for obtaining tenant configurations.
 /// </summary>
+/// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-tenants".</remarks>
 [Intercept("cache-tenants")]
 public interface ITenantConfigurationProvider
 {

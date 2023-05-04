@@ -4,12 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 
 namespace EdFi.Ods.Common.Descriptors;
 
 /// <summary>
 /// Defines a method for getting the dictionaries that map descriptors to and from DescriptorId and Uri values.
 /// </summary>
+/// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-descriptors".</remarks>
 [Intercept("cache-descriptors")]
 public interface IDescriptorMapsProvider
 {

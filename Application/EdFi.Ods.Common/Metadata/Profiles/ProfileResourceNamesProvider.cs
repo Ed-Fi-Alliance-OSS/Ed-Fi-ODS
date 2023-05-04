@@ -21,10 +21,7 @@ namespace EdFi.Ods.Common.Metadata.Profiles
             _profileMetadataProvider = profileMetadataProvider;
         }
 
-        /// <summary>
-        /// Gets a list of tuples containing the names of associated Profiles and Resources.
-        /// </summary>
-        /// <returns>A list of tuples containing associated Profile and Resource names.</returns>
+        /// <inheritdoc cref="IProfileResourceNamesProvider.GetProfileResourceNames" />
         public List<ProfileAndResourceNames> GetProfileResourceNames()
         {
             if (_logger.IsDebugEnabled)

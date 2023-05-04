@@ -5,10 +5,15 @@
 
 using System.Collections.Generic;
 using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 using EdFi.Security.DataAccess.Models;
 
 namespace EdFi.Security.DataAccess.Repositories;
 
+/// <summary>
+/// Defines higher-level methods for obtaining security metadata for making authorization decisions.
+/// </summary>
+/// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-security".</remarks>
 [Intercept("cache-security")]
 public interface ISecurityRepository
 {
