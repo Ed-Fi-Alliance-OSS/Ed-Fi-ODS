@@ -11168,7 +11168,7 @@
   </xs:complexType>
   <xs:complexType name="LocalBudgetIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalBudget.</xs:documentation>
+      <xs:documentation>Identity of a LocalBudget.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -11198,7 +11198,7 @@
         <xs:sequence>
           <xs:element name="LocalBudgetIdentity" type="LocalBudgetIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a LocalBudget.</xs:documentation>
+              <xs:documentation>Identity of a LocalBudget.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
