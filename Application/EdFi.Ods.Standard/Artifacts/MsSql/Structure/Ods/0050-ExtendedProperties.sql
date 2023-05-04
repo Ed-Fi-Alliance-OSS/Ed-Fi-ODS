@@ -4571,11 +4571,11 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, an
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Describes whether the assignment is this the staff member''s primary assignment, secondary assignment, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'OrderOfAssignment'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'EmploymentEducationOrganizationId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'StaffEducationOrganizationEmploymentAssociationEducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects the type of employment or contract.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'EmploymentStatusDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects the type of employment or contract.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'StaffEducationOrganizationEmploymentAssociationEmploymentStatusDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which an individual was hired for a position.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'EmploymentHireDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which an individual was hired for a position.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'StaffEducationOrganizationEmploymentAssociationHireDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the credential.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'CredentialIdentifier'
 GO

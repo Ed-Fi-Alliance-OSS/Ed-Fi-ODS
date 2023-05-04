@@ -5178,12 +5178,12 @@ CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationAssignmentAssociation_St
 ON [edfi].[StaffEducationOrganizationAssignmentAssociation] ([StaffClassificationDescriptorId] ASC)
 GO
 
-ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationAssignmentAssociation_StaffEducationOrganizationEmploymentAssociation] FOREIGN KEY ([EmploymentEducationOrganizationId], [EmploymentStatusDescriptorId], [EmploymentHireDate], [StaffUSI])
+ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationAssignmentAssociation_StaffEducationOrganizationEmploymentAssociation] FOREIGN KEY ([StaffEducationOrganizationEmploymentAssociationEducationOrganizationId], [StaffEducationOrganizationEmploymentAssociationEmploymentStatusDescriptorId], [StaffEducationOrganizationEmploymentAssociationHireDate], [StaffUSI])
 REFERENCES [edfi].[StaffEducationOrganizationEmploymentAssociation] ([EducationOrganizationId], [EmploymentStatusDescriptorId], [HireDate], [StaffUSI])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationAssignmentAssociation_StaffEducationOrganizationEmploymentAssociation]
-ON [edfi].[StaffEducationOrganizationAssignmentAssociation] ([EmploymentEducationOrganizationId] ASC, [EmploymentStatusDescriptorId] ASC, [EmploymentHireDate] ASC, [StaffUSI] ASC)
+ON [edfi].[StaffEducationOrganizationAssignmentAssociation] ([StaffEducationOrganizationEmploymentAssociationEducationOrganizationId] ASC, [StaffEducationOrganizationEmploymentAssociationEmploymentStatusDescriptorId] ASC, [StaffEducationOrganizationEmploymentAssociationHireDate] ASC, [StaffUSI] ASC)
 GO
 
 ALTER TABLE [edfi].[StaffEducationOrganizationContactAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationContactAssociation_ContactTypeDescriptor] FOREIGN KEY ([ContactTypeDescriptorId])

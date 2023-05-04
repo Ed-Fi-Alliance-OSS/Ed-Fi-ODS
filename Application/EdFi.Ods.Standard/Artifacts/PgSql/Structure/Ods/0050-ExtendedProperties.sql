@@ -2691,9 +2691,9 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StaffUSI 
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.PositionTitle IS 'The descriptive name of an individual''s position.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EndDate IS 'Month, day, and year of the end or termination date of a staff member''s employment, contract, or relationship with the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.OrderOfAssignment IS 'Describes whether the assignment is this the staff member''s primary assignment, secondary assignment, etc.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentHireDate IS 'The month, day, and year on which an individual was hired for a position.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StaffEducationOrganizationEmploymentAssociationEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StaffEducationOrganizationEmploymentAssociationEmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StaffEducationOrganizationEmploymentAssociationHireDate IS 'The month, day, and year on which an individual was hired for a position.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.FullTimeEquivalency IS 'The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting.';
