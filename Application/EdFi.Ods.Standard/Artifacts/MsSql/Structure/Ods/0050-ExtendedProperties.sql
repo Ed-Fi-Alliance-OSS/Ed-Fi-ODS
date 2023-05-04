@@ -4562,6 +4562,14 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode', @level2type=N'COLUMN', @level2name=N'StaffUSI'
 GO
 
+-- Extended Properties [edfi].[StaffEducationOrganization] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Provide user information to lookup and link to an existing educational organization record in the receiving system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganization'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganization', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganization', @level2type=N'COLUMN', @level2name=N'StaffUSI'
+GO
+
 -- Extended Properties [edfi].[StaffEducationOrganizationAssignmentAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association indicates the education organization to which a staff member provides services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation'
 GO

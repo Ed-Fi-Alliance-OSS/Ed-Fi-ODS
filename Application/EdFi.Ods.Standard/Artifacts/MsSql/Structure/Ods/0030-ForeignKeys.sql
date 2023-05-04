@@ -5163,6 +5163,23 @@ CREATE NONCLUSTERED INDEX [FK_StaffDisciplineIncidentAssociationDisciplineIncide
 ON [edfi].[StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode] ([IncidentIdentifier] ASC, [SchoolId] ASC, [StaffUSI] ASC)
 GO
 
+ALTER TABLE [edfi].[StaffEducationOrganization] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganization_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
+REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganization_EducationOrganization]
+ON [edfi].[StaffEducationOrganization] ([EducationOrganizationId] ASC)
+GO
+
+ALTER TABLE [edfi].[StaffEducationOrganization] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganization_Staff] FOREIGN KEY ([StaffUSI])
+REFERENCES [edfi].[Staff] ([StaffUSI])
+ON DELETE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganization_Staff]
+ON [edfi].[StaffEducationOrganization] ([StaffUSI] ASC)
+GO
+
 ALTER TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationAssignmentAssociation_Credential] FOREIGN KEY ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
 REFERENCES [edfi].[Credential] ([CredentialIdentifier], [StateOfIssueStateAbbreviationDescriptorId])
 GO

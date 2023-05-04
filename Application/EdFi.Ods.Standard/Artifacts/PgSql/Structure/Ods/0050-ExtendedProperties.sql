@@ -2687,6 +2687,11 @@ COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
+-- Extended Properties [edfi].[StaffEducationOrganization] --
+COMMENT ON TABLE edfi.StaffEducationOrganization IS 'Provide user information to lookup and link to an existing educational organization record in the receiving system.';
+COMMENT ON COLUMN edfi.StaffEducationOrganization.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StaffEducationOrganization.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+
 -- Extended Properties [edfi].[StaffEducationOrganizationAssignmentAssociation] --
 COMMENT ON TABLE edfi.StaffEducationOrganizationAssignmentAssociation IS 'This association indicates the education organization to which a staff member provides services.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.';

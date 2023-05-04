@@ -4655,6 +4655,21 @@ ON DELETE CASCADE
 CREATE INDEX FK_7fa4be_StaffDisciplineIncidentAssociation
 ON edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be (IncidentIdentifier ASC, SchoolId ASC, StaffUSI ASC);
 
+ALTER TABLE edfi.StaffEducationOrganization ADD CONSTRAINT FK_ce5a24_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_ce5a24_EducationOrganization
+ON edfi.StaffEducationOrganization (EducationOrganizationId ASC);
+
+ALTER TABLE edfi.StaffEducationOrganization ADD CONSTRAINT FK_ce5a24_Staff FOREIGN KEY (StaffUSI)
+REFERENCES edfi.Staff (StaffUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_ce5a24_Staff
+ON edfi.StaffEducationOrganization (StaffUSI ASC);
+
 ALTER TABLE edfi.StaffEducationOrganizationAssignmentAssociation ADD CONSTRAINT FK_b9be24_Credential FOREIGN KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 REFERENCES edfi.Credential (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 ;

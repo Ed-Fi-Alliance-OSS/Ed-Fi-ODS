@@ -6398,6 +6398,20 @@ GO
 ALTER TABLE [edfi].[StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode] ADD CONSTRAINT [StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[StaffEducationOrganization] --
+CREATE TABLE [edfi].[StaffEducationOrganization] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StaffEducationOrganization_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StaffEducationOrganization] ADD CONSTRAINT [StaffEducationOrganization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[StaffEducationOrganizationAssignmentAssociation] --
 CREATE TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] (
     [BeginDate] [DATE] NOT NULL,

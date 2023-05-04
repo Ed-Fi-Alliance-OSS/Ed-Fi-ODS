@@ -4261,6 +4261,15 @@ CREATE TABLE edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4b
 ); 
 ALTER TABLE edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.StaffEducationOrganization --
+CREATE TABLE edfi.StaffEducationOrganization (
+    EducationOrganizationId INT NOT NULL,
+    StaffUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StaffEducationOrganization_PK PRIMARY KEY (EducationOrganizationId, StaffUSI)
+); 
+ALTER TABLE edfi.StaffEducationOrganization ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.StaffEducationOrganizationAssignmentAssociation --
 CREATE TABLE edfi.StaffEducationOrganizationAssignmentAssociation (
     BeginDate DATE NOT NULL,
