@@ -10351,7 +10351,7 @@
   </xs:complexType>
   <xs:complexType name="EducationOrganizationNetworkIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducationOrganizationNetwork.</xs:documentation>
+      <xs:documentation>Identity of an EducationOrganizationNetwork.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -10371,13 +10371,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="EducationOrganizationNetworkId" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The identifier assigned to a network of education organizations.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EducationOrganizationNetworkReferenceType">
     <xs:annotation>
@@ -10391,7 +10384,7 @@
         <xs:sequence>
           <xs:element name="EducationOrganizationNetworkIdentity" type="EducationOrganizationNetworkIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducationOrganizationNetwork.</xs:documentation>
+              <xs:documentation>Identity of an EducationOrganizationNetwork.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EducationOrganizationNetworkLookup" type="EducationOrganizationNetworkLookupType" minOccurs="0">
