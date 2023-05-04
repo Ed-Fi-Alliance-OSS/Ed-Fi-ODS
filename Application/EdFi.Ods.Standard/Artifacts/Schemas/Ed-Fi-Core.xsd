@@ -12045,7 +12045,7 @@
   </xs:complexType>
   <xs:complexType name="SectionIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Section.</xs:documentation>
+      <xs:documentation>Identity of a Section.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -12070,18 +12070,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="SectionIdentifier" type="SectionIdentifier" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The local identifier assigned to a section.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="CourseOfferingReference" type="CourseOfferingReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The course offering taught in the section.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="SectionReferenceType">
     <xs:annotation>
@@ -12095,7 +12083,7 @@
         <xs:sequence>
           <xs:element name="SectionIdentity" type="SectionIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Section.</xs:documentation>
+              <xs:documentation>Identity of a Section.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="SectionLookup" type="SectionLookupType" minOccurs="0">
