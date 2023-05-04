@@ -9899,7 +9899,7 @@
   </xs:complexType>
   <xs:complexType name="CourseIdentityType">
     <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Course.</xs:documentation>
+      <xs:documentation>Identity of a Course.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Identity</ann:TypeGroup>
       </xs:appinfo>
@@ -9924,28 +9924,6 @@
         <ann:TypeGroup>Lookup</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element name="CourseCode" type="IdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>A unique alphanumeric code assigned to a course.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="CourseTitle" type="CourseTitle" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The descriptive name given to a course of study offered in a school or other institution or organization. In departmentalized classes at the elementary, secondary, and postsecondary levels (and for staff development activities), this refers to the name by which a course is identified (e.g., American History, English III). For elementary and other non-departmentalized classes, it refers to any portion of the instruction for which a grade or report is assigned (e.g., reading, composition, spelling, and language arts).</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="CourseIdentificationCode" type="CourseIdentificationCode" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The code that identifies the organization of subject matter and related learning experiences provided for the instruction of students.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The education organization that defines the curriculum and courses offered - often the LEA or school.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
   </xs:complexType>
   <xs:complexType name="CourseOfferingIdentityType">
     <xs:annotation>
@@ -10003,7 +9981,7 @@
         <xs:sequence>
           <xs:element name="CourseIdentity" type="CourseIdentityType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a Course.</xs:documentation>
+              <xs:documentation>Identity of a Course.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="CourseLookup" type="CourseLookupType" minOccurs="0">
