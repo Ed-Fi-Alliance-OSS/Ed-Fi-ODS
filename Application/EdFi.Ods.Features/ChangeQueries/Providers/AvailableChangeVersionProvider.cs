@@ -41,10 +41,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
                 $@"SELECT {ChangeQueriesDatabaseConstants.SchemaName}.GetMaxChangeVersion() as NewestChangeVersion";
 
             await using var conn = _dbProviderFactory.CreateConnection();
-            conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetReadReplicaConnectionString();
+
+            conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetReadReplicaConnectionString()
+                ?? _odsDatabaseConnectionStringProvider.GetConnectionString();
+
             await conn.OpenAsync();
 
-            var maxChangeVersion = await conn.ExecuteScalarAsync<long>(cmdSql); // QueryAsync<AvailableChangeVersion>(cmdSql);
+            var maxChangeVersion = await conn.ExecuteScalarAsync<long>(cmdSql);
             
             return new AvailableChangeVersion { NewestChangeVersion = maxChangeVersion };
         }

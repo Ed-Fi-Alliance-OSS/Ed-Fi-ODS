@@ -5,6 +5,7 @@
 
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Context;
+using log4net;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Middleware;
@@ -16,6 +17,8 @@ public class TenantIdentificationMiddleware : IMiddleware
 {
     private readonly ITenantConfigurationProvider _tenantConfigurationProvider;
     private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(TenantIdentificationMiddleware));
 
     public TenantIdentificationMiddleware(
         ITenantConfigurationProvider tenantConfigurationProvider,
@@ -31,6 +34,11 @@ public class TenantIdentificationMiddleware : IMiddleware
         {
             if (_tenantConfigurationProvider.TryGetConfiguration((string) tenantIdentifierAsObject, out var tenantConfiguration))
             {
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Setting tenant '{(string) tenantIdentifierAsObject}' into context...");
+                }
+
                 _tenantConfigurationContextProvider.Set(tenantConfiguration);
             }
             else

@@ -66,7 +66,7 @@ public class MultiTenantApiJobSchedulerDecorator : IApiJobScheduler
             // If tenant configuration already assigned, proceed normally...
             if (jobDataMap.ContainsKey(nameof(TenantConfiguration)))
             {
-                _logger.Debug($"Multi-tenant job already has tenant configuration assigned. Scheduling execution normally...");
+                _logger.Debug($"Tenant-specific job already has tenant configuration assigned. Scheduling execution normally...");
                 await _next.AddSingleExecutionJob(jobType, jobName, triggerName, jobDataMap);
 
                 return;

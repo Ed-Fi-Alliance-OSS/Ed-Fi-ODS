@@ -6,6 +6,7 @@
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using log4net;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Middleware;
@@ -18,6 +19,8 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
 {
     private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceConfigurationProvider;
     private readonly IOdsInstanceSelector _odsInstanceSelector;
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(OdsInstanceIdentificationMiddleware));
 
     public OdsInstanceIdentificationMiddleware(
         IContextProvider<OdsInstanceConfiguration> odsInstanceConfigurationProvider,
@@ -33,6 +36,11 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
 
         if (odsInstanceConfiguration != null)
         {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Setting ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') into context...");
+            }
+
             _odsInstanceConfigurationProvider.Set(odsInstanceConfiguration);
         }
 

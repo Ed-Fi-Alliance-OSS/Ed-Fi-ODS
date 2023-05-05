@@ -90,14 +90,12 @@ namespace EdFi.Ods.Features.Controllers
 
             OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent)
             {
-                var rootUrl = Request.RootUrl(this._reverseProxySettings);
+                var rootUrl = Request.ResourceUri(this._reverseProxySettings);
 
                 // Construct fully qualified metadata url
                 var url =
                     new Uri(
-                        new Uri(
-                            new Uri(rootUrl.EnsureSuffixApplied("/")),
-                            "metadata/"),
+                        new Uri(rootUrl.EnsureSuffixApplied("/")),
                         GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute));
 
                 return new OpenApiMetadataSectionDetails

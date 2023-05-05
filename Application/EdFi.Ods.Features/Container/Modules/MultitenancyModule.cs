@@ -105,6 +105,19 @@ public class MultiTenancyModule : ConditionalModule
                 })
             .SingleInstance();
         
+        builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
+            .Named<IInterceptor>("cache-ods-instances")
+            .WithParameter(
+                ctx =>
+                {
+                    var apiSettings = ctx.Resolve<ApiSettings>();
+
+                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        "ODS Instance Configurations",
+                        TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
+                })
+            .SingleInstance();
+
         builder.RegisterDecorator<MultiTenantApiJobSchedulerDecorator, IApiJobScheduler>();
     }
 }

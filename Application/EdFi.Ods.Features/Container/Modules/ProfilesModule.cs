@@ -84,7 +84,8 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<AdminProfileNamesPublisherJob>()
-                .AsSelf();
+                .AsSelf()
+                .PropertiesAutowired();
 
             builder.RegisterType<AppDomainEmbeddedResourcesProfilesMetadataStreamsProvider>()
                 .As<IProfilesMetadataStreamsProvider>()

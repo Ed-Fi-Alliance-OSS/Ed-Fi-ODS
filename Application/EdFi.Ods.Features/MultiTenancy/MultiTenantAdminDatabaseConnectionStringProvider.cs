@@ -8,6 +8,7 @@ using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Context;
+using log4net;
 
 namespace EdFi.Ods.Features.MultiTenancy;
 
@@ -18,6 +19,8 @@ namespace EdFi.Ods.Features.MultiTenancy;
 public class MultiTenantAdminDatabaseConnectionStringProvider : IAdminDatabaseConnectionStringProvider
 {
     private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
+
+    private readonly ILog _logger = LogManager.GetLogger(typeof(MultiTenantAdminDatabaseConnectionStringProvider));
 
     public MultiTenantAdminDatabaseConnectionStringProvider(
         IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
@@ -33,6 +36,11 @@ public class MultiTenantAdminDatabaseConnectionStringProvider : IAdminDatabaseCo
         if (tenantConfiguration == null)
         {
             throw new InvalidOperationException("The current tenant configuration has not been initialized.");
+        }
+
+        if (_logger.IsDebugEnabled)
+        {
+            _logger.Debug($"Obtaining admin database connection string for tenant '{tenantConfiguration.TenantIdentifier}'...");
         }
 
         return tenantConfiguration.AdminConnectionString;
