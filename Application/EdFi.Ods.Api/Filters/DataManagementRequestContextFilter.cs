@@ -57,7 +57,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 string routeRootTemplate = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
 
                 // Normalize the double braces used by ASP.NET for inline regex constraints
-                if (routeRootTemplate.Contains(":regex"))
+                if (routeRootTemplate?.Contains(":regex") ?? false)
                 {
                     if (routeRootTemplate.Contains("[["))
                     {
