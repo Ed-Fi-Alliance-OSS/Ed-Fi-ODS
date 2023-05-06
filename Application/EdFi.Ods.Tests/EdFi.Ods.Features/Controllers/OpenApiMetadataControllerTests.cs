@@ -59,15 +59,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
 
                 var request = A.Fake<HttpRequest>();
-                request.Method = "Post";
+                request.Method = HttpMethods.Post;
                 request.Scheme = "http";
 
                 A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
                 request.PathBase = "/";
-                request.RouteValues = new RouteValueDictionary { {
-                            "controller", "Token"
-                        } };
+                request.Path = "/metadata";
+                request.RouteValues = new RouteValueDictionary { { "controller", "Token" } };
 
                 var httpContext = A.Fake<HttpContext>();
 
@@ -141,12 +140,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
 
                 var request = A.Fake<HttpRequest>();
-                request.Method = "Post";
+                request.Method = HttpMethods.Post;
                 request.Scheme = "http";
 
                 A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
                 request.PathBase = "/";
+                request.Path = "/metadata";
                 request.RouteValues = new RouteValueDictionary { {
                             "controller", "Token"
                         } };
@@ -235,12 +235,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
 
                 var request = A.Fake<HttpRequest>();
-                request.Method = "Post";
+                request.Method = HttpMethods.Post;
                 request.Scheme = "http";
 
                 A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
                 request.PathBase = "/";
+                request.Path = "/metadata";
                 request.RouteValues = new RouteValueDictionary { {
                             "controller", "Token"
                         } };
