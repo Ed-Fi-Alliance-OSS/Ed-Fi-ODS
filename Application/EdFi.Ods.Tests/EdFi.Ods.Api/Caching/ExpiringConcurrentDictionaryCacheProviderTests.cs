@@ -66,7 +66,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         {
             // Arrange
             var expirationCallback = A.Fake<Action>();
-            var provider = new ExpiringConcurrentDictionaryCacheProvider<string>("TestCache", _expirationPeriod, expirationCallback);
+
+            var provider = new ExpiringConcurrentDictionaryCacheProvider<string>(
+                "TestCache",
+                _expirationPeriod,
+                expirationCallback);
 
             // Act
             provider.SetCachedObject("TestKey1", "TestValue1");
@@ -78,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             provider.TryGetCachedObject("TestKey1", out var value1).ShouldBeFalse();
             provider.TryGetCachedObject("TestKey2", out var value2).ShouldBeFalse();
         }
-        
+
         [Test]
         public async Task CacheExpired_ShouldNotClearDictionary_WhenExpirationIsDisabled()
         {
@@ -93,7 +97,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
 
             // Assert
             A.CallTo(() => expirationCallback.Invoke()).MustNotHaveHappened();
-            
+
             provider.TryGetCachedObject("TestKey1", out var value1).ShouldBeTrue();
             provider.TryGetCachedObject("TestKey2", out var value2).ShouldBeTrue();
             value1.ShouldBe("TestValue1");
@@ -118,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             result.ShouldBeFalse();
             value.ShouldBeNull();
         }
-        
+
         [Test]
         public async Task SetCacheObject_ShouldAddValue_WhenCacheEnabled()
         {

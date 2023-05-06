@@ -3,14 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+using System.Reflection;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Conventions;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using NUnit.Framework;
 using Shouldly;
 
@@ -26,7 +25,7 @@ public class RouteRootContextConventionTests
         var controller = new ControllerModel(
             typeof(TestController).GetTypeInfo(),
             new List<object>() { new RouteRootContextAttribute(RouteContextType.Tenant) });
-        
+
         var application = new ApplicationModel();
         application.Controllers.Add(controller);
 
@@ -57,20 +56,20 @@ public class RouteRootContextConventionTests
 
         var application = new ApplicationModel();
         application.Controllers.Add(controller);
-    
+
         var routeRootTemplateProvider = A.Fake<IRouteRootTemplateProvider>();
-    
+
         var selectorModel = new SelectorModel();
         selectorModel.AttributeRouteModel = new AttributeRouteModel();
         selectorModel.AttributeRouteModel.Template = "template";
-    
+
         controller.Selectors.Add(selectorModel);
-    
+
         var convention = new RouteRootContextConvention(routeRootTemplateProvider);
-    
+
         // Act
         convention.Apply(application);
-    
+
         // Assert
         selectorModel.AttributeRouteModel.Template.ShouldBe("template");
         A.CallTo(() => routeRootTemplateProvider.GetRouteRootTemplate(A<RouteContextType>.Ignored)).MustNotHaveHappened();

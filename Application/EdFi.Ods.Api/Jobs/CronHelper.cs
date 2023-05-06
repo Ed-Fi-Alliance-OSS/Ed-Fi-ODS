@@ -12,7 +12,13 @@ namespace EdFi.Ods.Api.Jobs;
 public static class CronHelper
 {
     private static readonly ILog _logger = LogManager.GetLogger(typeof(CronHelper));
-    
+
+    /// <summary>
+    /// Returns the cron expression in the supplied <see cref="ScheduledJobSettings" /> if valid, otherwise a default expression
+    /// with a repeating schedule of every 30 minutes.
+    /// </summary>
+    /// <param name="scheduledJobSettings">The configuration section for scheduled jobs.</param>
+    /// <returns>The configured cron expression if valid; otherwise a default expression with a repeating schedule of every 30 minutes.</returns>
     public static string GetValidCronExpressionOrDefault(ScheduledJobSettings scheduledJobSettings)
     {
         bool isCronExpressionValid = scheduledJobSettings?.CronExpression != null

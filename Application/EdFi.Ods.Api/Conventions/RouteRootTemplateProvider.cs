@@ -11,6 +11,9 @@ using EdFi.Ods.Common.Constants;
 
 namespace EdFi.Ods.Api.Conventions;
 
+/// <summary>
+/// Obtains the root route template prefix for controllers using the specified <see cref="RouteContextType" />.
+/// </summary>
 public class RouteRootTemplateProvider : IRouteRootTemplateProvider
 {
     private readonly ApiSettings _apiSettings;

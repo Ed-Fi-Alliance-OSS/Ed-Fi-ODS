@@ -7,11 +7,13 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
-using log4net;
 using Quartz;
 
 namespace EdFi.Ods.Api.Jobs;
 
+/// <summary>
+/// Schedules jobs for background execution by Quartz.
+/// </summary>
 public class ApiJobScheduler : IApiJobScheduler
 {
     private readonly ISchedulerFactory _schedulerFactory;
@@ -21,12 +23,14 @@ public class ApiJobScheduler : IApiJobScheduler
         _schedulerFactory = schedulerFactory;
     }
 
+    /// <inheritdoc cref="IApiJobScheduler.AddSingleExecutionJob{TJob}" />
     public Task AddSingleExecutionJob<TJob>(string jobName = null, string triggerName = null, JobDataMap jobDataMap = null)
         where TJob : IJob
-    {
+    {   
         return AddSingleExecutionJob(typeof(TJob), jobName, triggerName, jobDataMap);
     }
 
+    /// <inheritdoc cref="IApiJobScheduler.AddSingleExecutionJob" />
     public async Task AddSingleExecutionJob(
         Type jobType,
         string jobName = null,
@@ -56,6 +60,7 @@ public class ApiJobScheduler : IApiJobScheduler
         await scheduler.ScheduleJob(job, trigger).ConfigureAwait(false);
     }
 
+    /// <inheritdoc cref="IApiJobScheduler.AddScheduledJob" />
     public async Task AddScheduledJob(
         Type jobType,
         ScheduledJobSettings scheduledJobSettings,

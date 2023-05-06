@@ -19,11 +19,13 @@ namespace EdFi.Ods.Features.Profiles
         {
             _apiJobScheduler = apiJobScheduler;
         }
-        
+
         public void Execute()
         {
             _apiJobScheduler.AddSingleExecutionJob<AdminProfileNamesPublisherJob>(nameof(AdminProfileNamesPublisherTask))
-                .ConfigureAwait(false).GetAwaiter().GetResult();
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
     }
 }

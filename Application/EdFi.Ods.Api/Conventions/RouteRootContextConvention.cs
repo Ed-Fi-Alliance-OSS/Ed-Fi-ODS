@@ -9,6 +9,11 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Api.Conventions
 {
+    /// <summary>
+    /// Applies an appropriate root template to the routes of all controllers with the <see cref="RouteRootContextAttribute"/>
+    /// applied. This attribute identifies controllers that are tenant-specific and/or ODS-context-specific and introduces
+    /// an appropriate root template to their routes.
+    /// </summary>
     public class RouteRootContextConvention : IApplicationModelConvention
     {
         private readonly IRouteRootTemplateProvider _routeRootTemplateProvider;

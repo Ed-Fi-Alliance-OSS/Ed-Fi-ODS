@@ -29,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
         }
 
         [Test]
-        public async Task When_invoked_with_TenantConfiguration_in_job_execution_context_sets_to_current_context_and_deletes_expired_access_tokens_()
+        public async Task When_invoked_with_TenantConfiguration_in_job_execution_context_sets_to_current_context_and_deletes_expired_access_tokens()
         {
             // Arrange
             IJob job = new DeleteExpiredTokensJob(

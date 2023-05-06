@@ -16,6 +16,6 @@ public interface IRouteRootTemplateProvider
     /// Gets the root route template prefix for controllers using the specified <see cref="RouteContextType"/>.
     /// </summary>
     /// <param name="context">The type of route context used by the controller.</param>
-    /// <returns>The route template prefix.</returns>
+    /// <returns>The root template prefix to be applied to the route, if applicable; otherwise <b>null</b>.</returns>
     string GetRouteRootTemplate(RouteContextType context);
 }

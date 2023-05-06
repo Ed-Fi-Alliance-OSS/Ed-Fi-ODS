@@ -21,7 +21,7 @@ public interface ITenantConfigurationProvider
     /// </summary>
     /// <returns>A list of tenant configurations.</returns>
     IList<TenantConfiguration> GetAllConfigurations();
-    
+
     /// <summary>
     /// Attempts to load the tenant configuration for the supplied tenant identifier.
     /// </summary>
