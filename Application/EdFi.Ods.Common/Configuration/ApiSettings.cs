@@ -24,7 +24,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public int DefaultPageSizeLimit { get; set; } = 500;
 
-        public int LogRequestResponseContentForSeconds { get; set; } = 0;
+        public int LogRequestResponseContentForMinutes { get; set; } = 0;
 
         public string Engine { get; set; }
 
