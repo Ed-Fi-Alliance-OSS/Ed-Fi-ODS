@@ -33,7 +33,7 @@ namespace EdFi.Ods.Api.Middleware
             _reverseProxySettings = reverseProxySettings;
             _restErrorProvider = restErrorProvider;
             _connectionStringProvider = connectionStringProvider;
-            _logRequestResponseContent = logRequestResponseContentForMinutes > 0 && RequestResponseContentDatabaseAppenderExists();
+            _logRequestResponseContent = logRequestResponseContentForMinutes > 0 && RequestResponseContentDatabaseAppenderConfigured();
 
             if(_logRequestResponseContent)
                 _logRequestResponseContentUntil = DateTime.UtcNow.AddMinutes(logRequestResponseContentForMinutes);
@@ -136,11 +136,17 @@ namespace EdFi.Ods.Api.Middleware
 
         private void LogRequestResponseContentInfo(HttpContext context)
         {
+            if (!RequestResponseContentDatabaseAppenderConfigured())
+                return;
+
             RequestResponseContentLogger.Info(TryGetStatusCodeDescription(context.Response.StatusCode));
         }
 
         private void LogRequestResponseContentOnException(Exception exception)
         {
+            if (!RequestResponseContentDatabaseAppenderConfigured())
+                return;
+
             var restError = _restErrorProvider.GetRestErrorFromException(exception);
 
             RequestResponseContentLogger.Error(restError.Message, exception);
@@ -190,10 +196,18 @@ namespace EdFi.Ods.Api.Middleware
             LogicalThreadContext.Properties["ResponseBody"] = responseBodyContent;
         }
 
-        private bool RequestResponseDetailsFileAppenderExists() => 
-            RequestResponseDetailsLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseDetailsFileAppender");
+        private static bool RequestResponseDetailsFileAppenderExists()
+        {
+            var appenders = ((log4net.Repository.Hierarchy.Logger)LogManager.GetAllRepositories().FirstOrDefault()?.GetLogger("RequestResponseDetailsLogger"))?.Appenders;
 
-        private bool RequestResponseContentDatabaseAppenderExists() =>
-            RequestResponseContentLogger.Logger.Repository.GetAppenders().Any(x => x.Name == "RequestResponseContentAppender");
+            return (appenders?.OfType<FileAppender>() ?? Array.Empty<FileAppender>()).Any();
+        }
+
+        private static bool RequestResponseContentDatabaseAppenderConfigured()
+        {
+           var appenders = ((log4net.Repository.Hierarchy.Logger)LogManager.GetAllRepositories().FirstOrDefault()?.GetLogger("RequestResponseContentLogger"))?.Appenders;
+           
+           return appenders?.Count == 1 && appenders.OfType<AdoNetAppender>().Count() == 1;
+        }
     }
 }
