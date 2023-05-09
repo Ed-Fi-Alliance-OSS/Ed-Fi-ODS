@@ -6,7 +6,7 @@
 using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using NHibernate.Driver;
 using NHibernate.SqlTypes;
 
@@ -16,20 +16,20 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
     /// Overrides the NHibernate SQL client driver's OnBeforePrepare method to modify
     /// the generated SQL to correctly use any table-valued parameters that are present.
     /// </summary>
-    public class EdFiSql2008ClientDriver : Sql2008ClientDriver
+    public class EdFiMicrosoftDataSqlClientDriver : MicrosoftDataSqlClientDriver
     {
         /// <summary>
         /// Search for use of SQL Server table-value parameters in the SqlCommand, and modify
         /// the SQL so that they are used correctly.
         /// </summary>
-        /// <param name="command">The <see cref="System.Data.SqlClient.SqlCommand"/> prepared by NHibernate.</param>
+        /// <param name="command">The <see cref="Microsoft.Data.SqlClient.SqlCommand"/> prepared by NHibernate.</param>
         protected override void OnBeforePrepare(DbCommand command)
         {
             // Defensive check against accidental use of this client driver with a non-SQL Server back end
             if (!(command is SqlCommand))
             {
                 throw new NotSupportedException(
-                    $"The configured client driver ({typeof(EdFiSql2008ClientDriver).Name}) was expecting a '{typeof(SqlCommand).FullName}' but encountered a command of type '{command.GetType().FullName}'.");
+                    $"The configured client driver ({typeof(EdFiMicrosoftDataSqlClientDriver).Name}) was expecting a '{typeof(SqlCommand).FullName}' but encountered a command of type '{command.GetType().FullName}'.");
             }
 
             // Find any usages of SQL Server "structured" parameters in the prepared command

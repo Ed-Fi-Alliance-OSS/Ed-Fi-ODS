@@ -24,7 +24,7 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext()
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
-            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Trusted_Connection=true;");
 
             DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.Postgres));
             new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)

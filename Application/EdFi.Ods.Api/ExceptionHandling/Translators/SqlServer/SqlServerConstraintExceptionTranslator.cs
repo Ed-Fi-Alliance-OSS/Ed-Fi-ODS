@@ -4,9 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Net;
 using System.Text.RegularExpressions;
+using Microsoft.Data.SqlClient;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;

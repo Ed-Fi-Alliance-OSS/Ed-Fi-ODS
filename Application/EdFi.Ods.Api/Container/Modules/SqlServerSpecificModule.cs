@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Database.NamingConventions;

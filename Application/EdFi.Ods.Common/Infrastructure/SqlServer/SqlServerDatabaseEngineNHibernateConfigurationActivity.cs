@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
 
                 if (string.IsNullOrWhiteSpace(configuredDriver))
                 {
-                    c.Driver<EdFiSql2008ClientDriver>();
+                    c.Driver<EdFiMicrosoftDataSqlClientDriver>();
                 }
             });
         }

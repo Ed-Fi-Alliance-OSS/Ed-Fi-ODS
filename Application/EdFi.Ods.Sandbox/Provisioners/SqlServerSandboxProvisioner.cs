@@ -10,7 +10,7 @@ using log4net;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;

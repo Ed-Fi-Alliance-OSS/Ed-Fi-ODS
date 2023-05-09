@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.SqlClient;
 using System.Reflection;
+using Microsoft.Data.SqlClient;
 using NHibernate.Exceptions;
 using Npgsql;
 

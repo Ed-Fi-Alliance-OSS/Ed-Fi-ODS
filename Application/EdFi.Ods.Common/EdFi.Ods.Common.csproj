@@ -22,7 +22,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.41" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.43" />
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -32,6 +32,7 @@
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NHibernate" Version="5.4.0" />
     <PackageReference Include="Npgsql" Version="6.0.8" />
@@ -40,7 +41,6 @@
     <PackageReference Include="Standart.Hash.xxHash" Version="4.0.5" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
