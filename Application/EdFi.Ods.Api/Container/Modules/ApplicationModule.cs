@@ -375,6 +375,14 @@ namespace EdFi.Ods.Api.Container.Modules
             {
                 builder.RegisterType<RequestResponseDetailsLoggerMiddleware>()
                     .As<IMiddleware>()
+                    .WithParameter(
+                        new ResolvedParameter(
+                            (p, c) => p.Name == "logRequestResponseContentForMinutes",
+                            (p, c) => c.Resolve<ApiSettings>().LogRequestResponseContentForMinutes))
+                    .WithParameter(
+                        new ResolvedParameter(
+                        (p, c) => p.ParameterType == typeof(ReverseProxySettings),
+                        (p, c) => c.Resolve<ApiSettings>().GetReverseProxySettings()))
                     .AsSelf()
                     .SingleInstance();
 
