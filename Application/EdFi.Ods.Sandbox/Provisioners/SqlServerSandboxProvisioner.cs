@@ -113,32 +113,43 @@ namespace EdFi.Ods.Sandbox.Provisioners
                             $@"BACKUP DATABASE [{originalDatabaseName}] TO DISK = '{backup}' WITH INIT;",
                             commandTimeout: CommandTimeout).ConfigureAwait(false);
 
-                        string logicalName = null;
+                        string logicalNameForRows = null, logicalNameForLog =null;
 
                         _logger.Debug($"restoring files from {backup}.");
 
                         using (var reader = await conn.ExecuteReaderAsync($@"RESTORE FILELISTONLY FROM DISK = '{backup}';", commandTimeout: CommandTimeout)
                             .ConfigureAwait(false))
                         {
-                            if (await reader.ReadAsync().ConfigureAwait(false))
+                            while (reader.Read())
                             {
-                                logicalName = reader.GetString(0);
-                                _logger.Debug($"logical name = {logicalName}");
+                                string logicalName = reader.GetString(0);  
+                                string PhyiscalName = reader.GetString(1);     
+                                string Type = reader.GetString(2);
+                                if (Type.Equals(LogicalNameType.D.ToString(),StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    logicalNameForRows = logicalName;
+                                }
+                                else if(Type.Equals(LogicalNameType.L.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    logicalNameForLog = logicalName;
+                                }
                             }
+                            _logger.Debug($"logical name for Rows Type = {logicalNameForRows}");
+                            _logger.Debug($"logical name for Log Type = {logicalNameForLog}");
                         }
 
                         _logger.Debug($"Restoring database {newDatabaseName} from {backup}");
 
                         await conn.ExecuteAsync(
-                                $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalName}' TO '{sqlFileInfo.Data}', MOVE '{logicalName}_log' TO '{sqlFileInfo.Log}';", commandTimeout: CommandTimeout)
+                                $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalNameForRows}' TO '{sqlFileInfo.Data}', MOVE '{logicalNameForLog}' TO '{sqlFileInfo.Log}';", commandTimeout: CommandTimeout)
                             .ConfigureAwait(false);
 
 
-                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalName}', NEWNAME='{newDatabaseName}')";
+                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalNameForRows}', NEWNAME='{newDatabaseName}')";
                         await conn.ExecuteAsync(changeLogicalDataName, commandTimeout: CommandTimeout)
                                   .ConfigureAwait(false);
 
-                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalName}_log', NEWNAME='{newDatabaseName}_log')";
+                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalNameForLog}', NEWNAME='{newDatabaseName}_log')";
                         await conn.ExecuteAsync(changeLogicalLogName, commandTimeout: CommandTimeout)
                                   .ConfigureAwait(false);
                     }
@@ -306,6 +317,12 @@ namespace EdFi.Ods.Sandbox.Provisioners
         {
             Data = 0,
             Log = 1
+        }
+
+        private enum LogicalNameType
+        {
+            D ,
+            L 
         }
     }
 }
