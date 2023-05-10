@@ -298,7 +298,11 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<OdsDatabaseConnectionStringProvider>()
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
-            
+
+            builder.RegisterType<OdsDatabaseAccessIntentProvider>()
+                .As<IOdsDatabaseAccessIntentProvider>()
+                .SingleInstance();
+
             builder.RegisterType<CachingInterceptor>()
                 .Named<IInterceptor>("cache-ods-instances")
                 .WithParameter(
