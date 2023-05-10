@@ -63,7 +63,17 @@ public class CachingInterceptorTests
             x => stringIntIntArgsResult1.ShouldBe(stringIntIntArgsResult2),
             x => invocations3.Count.ShouldBe(1),
             // More arguments (not implemented until needed)
-            x => Should.Throw<NotImplementedException>(() => cachedTarget.GetAString("Hello", 123, 345, "World")),
+            x =>
+            {
+                var actualException = Should.Throw<CachingInterceptorCacheKeyGenerationException>(
+                    () => cachedTarget.GetAString("Hello", 123, 345, "World"));
+
+                actualException.Message.ShouldBe(
+                    "Cache key generation failed for invocation of method 'GetAString' of declaring type 'EdFi.Ods.Tests.EdFi.Ods.Common.Caching.CachingInterceptorTests+ITestIntercepted'.");
+
+                actualException.InnerException.ShouldBeOfType<NotImplementedException>();
+                actualException.InnerException.Message.ShouldBe("Support for generating cache keys for more than 3 arguments has not been implemented.");
+            },
             x => invocations4.Count.ShouldBe(0)
                 );
     }

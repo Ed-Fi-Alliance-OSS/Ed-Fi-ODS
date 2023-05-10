@@ -21,7 +21,23 @@ public class CachingInterceptor : IInterceptor
     public void Intercept(IInvocation invocation)
     {
         // Compute the cache for the method invocation
-        var cacheKey = GenerateCacheKey(invocation.Method, invocation.Arguments);
+        ulong cacheKey;
+
+        try
+        {
+            // Defensive check inspired by static code analysis warning around potentially null value
+            if (invocation.Method.DeclaringType == null)
+            {
+                throw new NotSupportedException($"Unable to generate a cache key for method '{invocation.Method.Name}' because it has no DeclaringType.");
+            }
+
+            cacheKey = GenerateCacheKey(invocation.Method, invocation.Arguments);
+        }
+        catch (Exception ex)
+        {
+            throw new CachingInterceptorCacheKeyGenerationException(
+                $"Cache key generation failed for invocation of method '{invocation.Method.Name}' of declaring type '{invocation.Method.DeclaringType?.FullName}'.", ex);
+        }
 
         // Check the cache provider for a known response
         if (_cacheProvider.TryGetCachedObject(cacheKey, out var data))
@@ -43,19 +59,20 @@ public class CachingInterceptor : IInterceptor
         switch (arguments.Length)
         {
             case 0:
-                return XxHash3Code.Combine(method.DeclaringType.FullName, method.Name);
+                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name);
 
             case 1:
-                return XxHash3Code.Combine(method.DeclaringType.FullName, method.Name, arguments[0]);
+                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0]);
 
             case 2:
-                return XxHash3Code.Combine(method.DeclaringType.FullName, method.Name, arguments[0], arguments[1]);
+                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1]);
 
             case 3:
-                return XxHash3Code.Combine(method.DeclaringType.FullName, method.Name, arguments[0], arguments[1], arguments[2]);
-        }
+                return XxHash3Code.Combine(method.DeclaringType!.FullName, method.Name, arguments[0], arguments[1], arguments[2]);
 
-        throw new NotImplementedException(
-            "Support for generating cache keys for more than 3 arguments has not been implemented.");
+            default:
+                throw new NotImplementedException(
+                    "Support for generating cache keys for more than 3 arguments has not been implemented.");
+        }
     }
 }
