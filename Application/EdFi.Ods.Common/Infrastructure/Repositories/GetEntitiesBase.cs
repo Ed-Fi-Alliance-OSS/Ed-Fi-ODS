@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -97,8 +98,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             // Determine if this is a Read or Write request (default to "read" behavior if authorization context isn't available)
             string httpMethod = _dataManagementResourceContextProvider.Get().HttpMethod;
 
-            bool isReadRequest = (httpMethod == "GET");
-            bool isShallow = (httpMethod == "DELETE");
+            bool isReadRequest = (httpMethod == HttpMethods.Get);
+            bool isShallow = (httpMethod == HttpMethods.Delete);
             
             string mainHqlBase = isReadRequest
                 ? _mainHqlStatementBaseForReads.Value

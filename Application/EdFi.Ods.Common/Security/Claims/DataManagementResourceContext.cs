@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Models.Resource;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Common.Security.Claims;
 
@@ -26,7 +27,7 @@ public class DataManagementResourceContext
     public DataManagementResourceContext(Resource resource)
     {
         Resource = resource;
-        HttpMethod = "GET";
+        HttpMethod = HttpMethods.Get;
     }
     
     /// <summary>

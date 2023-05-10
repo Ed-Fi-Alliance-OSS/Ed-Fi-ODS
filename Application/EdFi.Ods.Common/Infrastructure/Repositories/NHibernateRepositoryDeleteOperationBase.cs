@@ -7,6 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Data;
 using System.Data.Common;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,9 +26,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     {
         private readonly IETagProvider _eTagProvider;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        private ConcurrentDictionary<FullName, DbCommand> _deleteCommandByEntityFullName = new();
+        private readonly ConcurrentDictionary<FullName, DbCommand> _deleteCommandByEntityFullName = new();
+        private readonly ConcurrentDictionary<(FullName, string), Func<TEntity, object>> _propertyGetterByPropertyName = new();
 
-        public NHibernateRepositoryDeleteOperationBase(
+        protected NHibernateRepositoryDeleteOperationBase(
             ISessionFactory sessionFactory,
             IETagProvider eTagProvider,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
@@ -96,13 +98,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 if (entity.IsDerived)
                 {
                     int i = 0;
-                    
+
                     foreach (var property in entity.Identifier.Properties)
                     {
-                        // TODO ODS-5832 - Optimize using compiled lambda property access
-                        // Consider use of this library: https://github.com/dadhi/FastExpressionCompiler
-                        deleteCommand.Parameters[i++].Value =
-                            persistedEntity.GetType().GetProperty(property.PropertyName).GetValue(persistedEntity);
+                        var getter = _propertyGetterByPropertyName.GetOrAdd(
+                            (property.Entity.FullName, property.PropertyName),
+                            x => CompilePropertyGetter<TEntity>(x.Item2));
+
+                        deleteCommand.Parameters[i++].Value = getter.Invoke(persistedEntity);
                     }
                 }
                 else
@@ -113,6 +116,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 deleteCommand.Connection = Session.Connection;
                 deleteCommand.Transaction = trans;
                 await deleteCommand.ExecuteNonQueryAsync(cancellationToken);
+
+                static Func<TEntity, object> CompilePropertyGetter<T>(string propertyName)
+                {
+                    var param = Expression.Parameter(typeof(T), "param");
+                    var property = Expression.Property(param, propertyName);
+                    var convert = Expression.Convert(property, typeof(object));
+                    return Expression.Lambda<Func<TEntity, object>>(convert, param).Compile();
+                }
             }
         }
 
