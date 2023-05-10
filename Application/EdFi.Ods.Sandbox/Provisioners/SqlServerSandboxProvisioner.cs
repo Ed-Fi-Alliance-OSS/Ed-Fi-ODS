@@ -120,7 +120,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
                         using (var reader = await conn.ExecuteReaderAsync($@"RESTORE FILELISTONLY FROM DISK = '{backup}';", commandTimeout: CommandTimeout)
                             .ConfigureAwait(false))
                         {
-                            while (reader.Read())
+                            while (await reader.ReadAsync().ConfigureAwait(false))
                             {
                                 string logicalName = reader.GetString(0);  
                                 string PhyiscalName = reader.GetString(1);     
