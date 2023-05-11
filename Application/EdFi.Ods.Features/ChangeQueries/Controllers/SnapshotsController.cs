@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common.Configuration;
@@ -23,7 +24,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("snapshots")]
+    [RouteRootContext(RouteContextType.Ods)]
+    [Route($"{ChangeQueriesConstants.RoutePrefix}/snapshots")]
     public class SnapshotsController : ControllerBase
     {
         private readonly IGetSnapshots _getSnapshots;

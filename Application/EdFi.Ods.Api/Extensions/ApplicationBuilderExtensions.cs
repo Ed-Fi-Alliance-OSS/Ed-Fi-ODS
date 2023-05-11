@@ -18,6 +18,9 @@ namespace EdFi.Ods.Api.Extensions
         public static IApplicationBuilder UseOdsInstanceIdentification(this IApplicationBuilder builder)
             => builder.UseMiddleware<OdsInstanceIdentificationMiddleware>();
 
+        public static IApplicationBuilder UseTenantIdentification(this IApplicationBuilder builder)
+            => builder.UseMiddleware<TenantIdentificationMiddleware>();
+
         /// <summary>
         /// Adds the <see cref="EdFiApiAuthenticationMiddleware"/> to the specified <see cref="IApplicationBuilder"/>, which enables authentication capabilities.
         /// </summary>

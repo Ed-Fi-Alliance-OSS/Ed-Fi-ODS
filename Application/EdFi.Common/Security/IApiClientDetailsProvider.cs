@@ -4,12 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 
 namespace EdFi.Common.Security
 {
     /// <summary>
     /// Defines a method for obtaining the API client's details from their OAuth bearer access token.
     /// </summary>
+    /// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-api-client-details".</remarks>
+    [Intercept("cache-api-client-details")]
     public interface IApiClientDetailsProvider
     {
         /// <summary>

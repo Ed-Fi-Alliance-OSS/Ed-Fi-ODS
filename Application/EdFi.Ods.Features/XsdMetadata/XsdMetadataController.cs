@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
@@ -19,8 +20,9 @@ namespace EdFi.Ods.Features.XsdMetadata
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("xsd")]
     [AllowAnonymous]
+    [RouteRootContext(RouteContextType.Tenant)]
+    [Route("metadata/xsd")]
     public class XsdMetadataController : ControllerBase
     {
         private readonly ApiSettings _apiSettings;

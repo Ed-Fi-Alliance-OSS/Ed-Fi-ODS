@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTransportation.StudentT
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample-student-transportation/studentTransportations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample-student-transportation/studentTransportations")]
     public partial class StudentTransportationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentTransportation.SampleStudentTransportation.StudentTransportation,
         Entities.Common.SampleStudentTransportation.IStudentTransportation,

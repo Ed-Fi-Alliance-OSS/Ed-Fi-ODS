@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
 using log4net;
@@ -18,10 +19,11 @@ namespace EdFi.Ods.Api.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
-    [Route("oauth/token")]
     [Produces("application/json")]
     [AllowAnonymous]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    [RouteRootContext(RouteContextType.Tenant)]
+    [Route("oauth/token")]
     public class TokenController : ControllerBase
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(TokenController));

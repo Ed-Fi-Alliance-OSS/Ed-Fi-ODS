@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http.Json;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
@@ -28,8 +29,9 @@ namespace EdFi.Ods.Features.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("metadata")]
     [AllowAnonymous]
+    [RouteRootContext(RouteContextType.Tenant)]
+    [Route("metadata")]
     public class OpenApiMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
@@ -88,14 +90,12 @@ namespace EdFi.Ods.Features.Controllers
 
             OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent)
             {
-                var rootUrl = Request.RootUrl(this._reverseProxySettings);
+                var rootUrl = Request.ResourceUri(this._reverseProxySettings);
 
                 // Construct fully qualified metadata url
                 var url =
                     new Uri(
-                        new Uri(
-                            new Uri(rootUrl.EnsureSuffixApplied("/")),
-                            "metadata/"),
+                        new Uri(rootUrl.EnsureSuffixApplied("/")),
                         GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute));
 
                 return new OpenApiMetadataSectionDetails

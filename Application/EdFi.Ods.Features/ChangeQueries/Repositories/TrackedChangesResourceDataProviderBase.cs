@@ -53,7 +53,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         {
             await using var conn = _dbProviderFactory.CreateConnection();
 
-            conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetReadReplicaConnectionString();
+            conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetReadReplicaConnectionString()
+                ?? _odsDatabaseConnectionStringProvider.GetConnectionString();
+
             await conn.OpenAsync();
 
             var templates = _trackedChangesQueryTemplatePreparer.PrepareQueryTemplates(queryParameters, resource);

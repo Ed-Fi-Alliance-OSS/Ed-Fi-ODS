@@ -20,6 +20,9 @@ namespace EdFi.Ods.Features.Conventions
 {
     public class CompositesRouteConvention : IApplicationModelConvention
     {
+        private const string CompositesBaseTemplate =
+            $"v{CompositesConstants.FeatureVersion}/{{organizationCode}}/{{compositeCategory}}/";
+
         private readonly ICompositesMetadataProvider _compositesMetadataProvider;
 
         public CompositesRouteConvention(ICompositesMetadataProvider compositesMetadataProvider)
@@ -33,17 +36,14 @@ namespace EdFi.Ods.Features.Conventions
                 application.Controllers.FirstOrDefault(
                     x => x.ControllerType == typeof(CompositeResourceController).GetTypeInfo());
 
-            // composites/v{compositeVersion}/{school year if year specific}/{organizationCode}/{compositeCategoryName (regex constraint}/{compositeName}/{id?}
-            // the composite category is constrained by a regex expression
-            // the id is optional
             // the attribute on the controller is composites
             if (controller != null)
             {
-                var defaultRouteSuffix = new AttributeRouteModel {Template = CreateRouteTemplate() + "{compositeName}/{id?}"};
+                // the id is optional
+                var defaultRouteSuffix = new AttributeRouteModel {Template = $"{CompositesBaseTemplate}{{compositeName}}/{{id?}}" };
 
                 // the composite controller has only one selector and if more are added this should break
-
-                var selector = controller.Selectors.SingleOrDefault();
+                var selector = controller.Selectors.Single();
 
                 if (selector.AttributeRouteModel != null)
                 {
@@ -57,7 +57,7 @@ namespace EdFi.Ods.Features.Conventions
                             string relativeRouteTemplate = routeElt.AttributeValue("relativeRouteTemplate")
                                 .TrimStart('/');
 
-                            var routeSuffix = new AttributeRouteModel {Template = CreateRouteTemplate() + relativeRouteTemplate};
+                            var routeSuffix = new AttributeRouteModel {Template = $"{CompositesBaseTemplate}{relativeRouteTemplate}" };
 
                             var childSelector = new SelectorModel
                             {
@@ -75,24 +75,6 @@ namespace EdFi.Ods.Features.Conventions
                         selector.AttributeRouteModel,
                         defaultRouteSuffix);
                 }
-            }
-
-            string CreateRouteTemplate()
-            {
-                string template = $"v{ApiVersionConstants.Composite}/";
-
-                var compositeCategoryNames = _compositesMetadataProvider
-                    .GetAllCategories()
-                    .Select(x => x.Name)
-                    .ToList<string>();
-
-                string allCompositeCategoriesConstraintExpression = $@"^(?i)({string.Join("|", compositeCategoryNames)})$";
-
-                string categoryName = "{organizationCode}/{compositeCategory}/";
-
-                template += categoryName;
-
-                return template;
             }
         }
     }

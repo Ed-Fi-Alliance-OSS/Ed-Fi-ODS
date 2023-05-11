@@ -6,9 +6,9 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
@@ -26,22 +26,24 @@ namespace EdFi.Ods.Api.Filters;
 /// </summary>
 public class DataManagementRequestContextFilter : IAsyncResourceFilter
 {
+    private static readonly char[] _pathDelimiters = { '/' };
     private readonly IContextProvider<DataManagementResourceContext> _contextProvider;
-    private readonly ApiSettings _apiSettings;
+
+    private readonly Lazy<string> _dataManagementTemplatePrefix;
+    private readonly Lazy<string[]> _knownSchemaUriSegments;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementRequestContextFilter));
     private readonly IResourceModelProvider _resourceModelProvider;
+    private readonly IRouteRootTemplateProvider _routeRootTemplateProvider;
 
-    private readonly Lazy<string> _templatePrefix;
-    private readonly Lazy<string[]> _knownSchemaUriSegments;
-    
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
         IContextProvider<DataManagementResourceContext> contextProvider,
-        ApiSettings apiSettings)
+        IRouteRootTemplateProvider routeRootTemplateProvider)
     {
         _resourceModelProvider = resourceModelProvider;
         _contextProvider = contextProvider;
+        _routeRootTemplateProvider = routeRootTemplateProvider;
 
         _knownSchemaUriSegments = new Lazy<string[]>(
             () => _resourceModelProvider.GetResourceModel()
@@ -49,8 +51,27 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                 .Select(m => m.UriSegment)
                 .ToArray());
 
-        _apiSettings = apiSettings;
-        _templatePrefix = new Lazy<string>(GetTemplatePrefix);
+        _dataManagementTemplatePrefix = new Lazy<string>(
+            () =>
+            {
+                string routeRootTemplate = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
+
+                // Normalize the double braces used by ASP.NET for inline regex constraints
+                if (routeRootTemplate?.Contains(":regex") ?? false)
+                {
+                    if (routeRootTemplate.Contains("[["))
+                    {
+                        routeRootTemplate = routeRootTemplate.Replace("[[", "[");
+                    }
+
+                    if (routeRootTemplate.Contains("]]"))
+                    {
+                        routeRootTemplate = routeRootTemplate.Replace("]]", "]");
+                    }
+                }
+
+                return $"{routeRootTemplate}{RouteConstants.DataManagementRoutePrefix}/";
+            });
     }
 
     public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
@@ -59,19 +80,21 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
 
         if (attributeRouteInfo != null)
         {
-            string template = attributeRouteInfo.Template;
-
-            // e.g. data/v3/ed-fi/gradebookEntries
-
             // Is this a data management route?
-            if (template?.StartsWith(_templatePrefix.Value) ?? false)
+            if (attributeRouteInfo.Template?.StartsWith(_dataManagementTemplatePrefix.Value) ?? false)
             {
+                // e.g. data/v3/ed-fi/courses
+                string template = attributeRouteInfo.Template;
+
                 var templateSegment = new StringSegment(template);
-                
-                var parts = templateSegment.Subsegment(_templatePrefix.Value.Length).Split(new[]{'/'});
+
+                var parts = templateSegment.Subsegment(
+                        template.IndexOf(_dataManagementTemplatePrefix.Value) + _dataManagementTemplatePrefix.Value.Length)
+                    .Split(_pathDelimiters);
+
                 using var partsEnumerator = parts.GetEnumerator();
                 partsEnumerator.MoveNext();
-                
+
                 string schema, resourceCollection;
 
                 // If the schema segment is a templated route value...
@@ -94,7 +117,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                     if (!_knownSchemaUriSegments.Value.Contains(partsEnumerator.Current))
                     {
                         await next();
-                        
+
                         return;
                     }
 
@@ -103,7 +126,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                     partsEnumerator.MoveNext();
                     resourceCollection = partsEnumerator.Current.Value;
                 }
-                
+
                 // Find and capture the associated resource to context
                 try
                 {
@@ -124,11 +147,4 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
     }
 
     public void OnActionExecuted(ActionExecutedContext context) { }
-
-    private string GetTemplatePrefix()
-    {
-        string template = $"{RouteConstants.DataManagementRoutePrefix}/";
-
-        return template;
-    }
 }

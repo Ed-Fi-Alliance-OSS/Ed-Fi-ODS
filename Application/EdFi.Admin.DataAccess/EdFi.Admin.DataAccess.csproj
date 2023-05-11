@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>EdFi.Admin.DataAccess</PackageId>
     <TargetFramework>net6.0</TargetFramework>
@@ -22,7 +22,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.43" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.45" />
       </ItemGroup>
     </Otherwise>
   </Choose>

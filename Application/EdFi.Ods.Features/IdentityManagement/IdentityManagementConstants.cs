@@ -13,9 +13,10 @@ namespace EdFi.Ods.Features.IdentityManagement
         public const string DeprecatedFeatureName = "Identity";
 
         public const string FeatureVersion = "2";
-  
-        public static readonly string IdentityMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(DeprecatedFeatureName);
 
-        public static readonly string IdentityRoutePrefix = $"identity/v{FeatureVersion}";
+        public const string IdentityRoutePrefix = $"identity/v{FeatureVersion}";
+
+        public static readonly string IdentityMetadataRouteName =
+            EdFiConventions.GetOpenApiMetadataRouteName(DeprecatedFeatureName);
     }
 }

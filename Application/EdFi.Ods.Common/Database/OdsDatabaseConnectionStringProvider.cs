@@ -3,8 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using log4net;
 
 namespace EdFi.Ods.Common.Database
 {
@@ -12,13 +14,45 @@ namespace EdFi.Ods.Common.Database
     {
         private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceContextProvider;
 
+        private readonly ILog _logger = LogManager.GetLogger(typeof(OdsDatabaseConnectionStringProvider));
+
         public OdsDatabaseConnectionStringProvider(IContextProvider<OdsInstanceConfiguration> odsInstanceContextProvider)
         {
             _odsInstanceContextProvider = odsInstanceContextProvider;
         }
 
-        public string GetConnectionString() => _odsInstanceContextProvider.Get().ConnectionString;
+        public string GetConnectionString()
+        {
+            var odsInstanceConfiguration = _odsInstanceContextProvider.Get();
 
-        public string GetReadReplicaConnectionString() => _odsInstanceContextProvider.Get().ConnectionString;
+            if (odsInstanceConfiguration == null)
+            {
+                throw new InvalidOperationException("No ODS instance has been identified for the current request.");
+            }
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Getting connection string for ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') from context...");
+            }
+
+            return odsInstanceConfiguration.ConnectionString;
+        }
+
+        public string GetReadReplicaConnectionString()
+        {
+            var odsInstanceConfiguration = _odsInstanceContextProvider.Get();
+
+            if (odsInstanceConfiguration == null)
+            {
+                throw new InvalidOperationException("No ODS instance has been identified for the current request.");
+            }
+
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Getting read-replica connection string for ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') from context...");
+            }
+
+            return odsInstanceConfiguration.ReadReplicaConnectionString;
+        }
     }
 }

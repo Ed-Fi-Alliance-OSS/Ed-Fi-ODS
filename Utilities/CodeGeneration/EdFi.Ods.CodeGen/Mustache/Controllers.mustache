@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -27,7 +28,7 @@ namespace {{ControllersNamespace}}
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("{{RouteTemplate}}")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceModel}},
         {{EntityInterface}},

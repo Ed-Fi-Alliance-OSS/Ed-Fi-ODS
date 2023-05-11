@@ -18,7 +18,6 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
-using EdFi.Ods.Api.ScheduledJobs.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -52,6 +51,7 @@ using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
 using EdFi.Admin.DataAccess.DbConfigurations;
+using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
@@ -200,7 +200,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
-            services.AddScheduledJobs(ApiSettings, _logger);
+            services.AddScheduledJobs();
         }
 
         private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
@@ -271,6 +271,12 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseCors(CorsPolicyName);
 
+            // Identifies the current ODS instance for the request
+            if (apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
+            {
+                app.UseTenantIdentification();
+            }
+
             app.UseEdFiApiAuthentication();
             app.UseAuthorization();
 
@@ -308,8 +314,6 @@ namespace EdFi.Ods.Api.Startup
             SetStaticResolvers();
 
             RunExternalTasks();
-
-            app.ConfigureScheduledJobs(ApiSettings, Container, _logger);
 
             void RunExternalTasks()
             {

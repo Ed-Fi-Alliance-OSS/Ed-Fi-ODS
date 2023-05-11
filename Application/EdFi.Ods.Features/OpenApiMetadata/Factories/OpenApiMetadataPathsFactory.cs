@@ -73,7 +73,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 : null
                         }.ToList();
 
-                        if (_apiSettings.IsFeatureEnabled("ChangeQueries")
+                        if (_apiSettings.IsFeatureEnabled(ChangeQueriesConstants.FeatureName)
                             && !r.Name.Equals(ChangeQueriesConstants.SchoolYearTypesResourceName)
                             && !isCompositeContext)
                         {

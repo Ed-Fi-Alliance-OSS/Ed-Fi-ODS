@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Common.Inflection;
 using log4net;
 
 namespace EdFi.Ods.Api.Security.Authentication
@@ -38,9 +39,9 @@ namespace EdFi.Ods.Api.Security.Authentication
 
             int recordsAffected = await connection.ExecuteAsync(DeleteSql, new { expirationTime = DateTime.UtcNow });
 
-            if (recordsAffected > 0)
+            if (_logger.IsDebugEnabled)
             {
-                _logger.Debug($"{recordsAffected} expired access tokens were deleted.");
+                _logger.Debug($"{recordsAffected} expired access {Inflector.Inflect("token", recordsAffected)} were deleted.");
             }
         }
     }

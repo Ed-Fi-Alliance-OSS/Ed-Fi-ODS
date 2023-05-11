@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models.GraphML;
@@ -24,8 +25,9 @@ using QuickGraph;
 namespace EdFi.Ods.Features.Controllers
 {
     [ApiController]
-    [Route("dependencies")]
     [AllowAnonymous]
+    [RouteRootContext(RouteContextType.Tenant)]
+    [Route($"metadata/{RouteConstants.DataManagementRoutePrefix}/dependencies")]
     public class AggregateDependencyController : ControllerBase
     {
         private readonly IResourceLoadGraphFactory _resourceLoadGraphFactory;

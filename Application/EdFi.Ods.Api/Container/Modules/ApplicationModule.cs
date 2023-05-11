@@ -18,10 +18,12 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Filters;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Security.Authentication;
@@ -80,8 +82,12 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IConfigureOptions<MvcOptions>>()
                 .SingleInstance();
 
-            builder.RegisterType<DataManagementControllerRouteConvention>()
+            builder.RegisterType<RouteRootContextConvention>()
                 .As<IApplicationModelConvention>()
+                .SingleInstance();
+
+            builder.RegisterType<RouteRootTemplateProvider>()
+                .As<IRouteRootTemplateProvider>()
                 .SingleInstance();
 
             builder.RegisterType<ApiKeyContextProvider>()
@@ -151,6 +157,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
+                .EnableInterfaceInterceptors()
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
@@ -179,13 +186,21 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ApiClientDetailsProvider>()
                 .As<IApiClientDetailsProvider>()
+                .EnableInterfaceInterceptors()
                 .SingleInstance();
 
-            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
-                .As<IApiClientDetailsCacheKeyProvider>()
+            builder.RegisterType<CachingInterceptor>()
+                .Named<IInterceptor>("cache-api-client-details")
+                .WithParameter(
+                    ctx =>
+                    {
+                        var apiSettings = ctx.Resolve<ApiSettings>();
+
+                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                            "API Client Details",
+                            TimeSpan.FromSeconds(apiSettings.Caching.ApiClientDetails.AbsoluteExpirationSeconds));
+                    })
                 .SingleInstance();
-            
-            builder.RegisterDecorator<CachingApiClientDetailsProviderDecorator, IApiClientDetailsProvider>();
 
             builder.RegisterType<OAuthTokenAuthenticator>()
                 .As<IOAuthTokenAuthenticator>()
@@ -209,10 +224,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<EdFiAdminRawApiClientDetailsProvider>()
                 .As<IEdFiAdminRawApiClientDetailsProvider>()
-                .SingleInstance();
-            
-            builder.RegisterType<ApiClientDetailsProvider>()
-                .As<IApiClientDetailsProvider>()
                 .SingleInstance();
             
             builder.RegisterType<EdFiAdminAccessTokenFactory>()
@@ -297,11 +308,14 @@ namespace EdFi.Ods.Api.Container.Modules
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
                         return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
-                            "ODS Instance Configuration",
+                            "ODS Instance Configurations",
                             TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
                     })
                 .SingleInstance();
 
+            builder.RegisterType<InitializeScheduledJobs>()
+                .As<IExternalTask>();
+            
             RegisterPipeLineStepProviders();
             RegisterModels();
 

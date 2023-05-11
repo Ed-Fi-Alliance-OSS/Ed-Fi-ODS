@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/artMediumDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/artMediumDescriptors")]
     public partial class ArtMediumDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
         Entities.Common.Sample.IArtMediumDescriptor,
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/buses")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/buses")]
     public partial class BusesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Bus.Sample.Bus,
         Entities.Common.Sample.IBus,
@@ -84,7 +85,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute,
         Entities.Common.Sample.IBusRoute,
@@ -130,7 +131,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/favoriteBookCategoryDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/favoriteBookCategoryDescriptors")]
     public partial class FavoriteBookCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
         Entities.Common.Sample.IFavoriteBookCategoryDescriptor,
@@ -160,7 +161,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/membershipTypeDescriptors")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/membershipTypeDescriptors")]
     public partial class MembershipTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
         Entities.Common.Sample.IMembershipTypeDescriptor,
@@ -190,7 +191,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/studentArtProgramAssociations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/studentArtProgramAssociations")]
     public partial class StudentArtProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
         Entities.Common.Sample.IStudentArtProgramAssociation,
@@ -236,7 +237,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/studentGraduationPlanAssociations")]
+    [RouteRootContext(RouteContextType.Ods), Route($"{RouteConstants.DataManagementRoutePrefix}/sample/studentGraduationPlanAssociations")]
     public partial class StudentGraduationPlanAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
         Entities.Common.Sample.IStudentGraduationPlanAssociation,

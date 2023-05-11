@@ -67,10 +67,6 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<OpenApiMetadataDocumentFactory>()
                 .As<IOpenApiMetadataDocumentFactory>()
                 .SingleInstance();
-
-            builder.RegisterType<OpenApiMetadataRouteConvention>()
-                .As<IApplicationModelConvention>()
-                .SingleInstance();
         }
     }
 }

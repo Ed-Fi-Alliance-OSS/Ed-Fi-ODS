@@ -47,7 +47,7 @@ namespace EdFi.Ods.CodeGen.Generators
             {
                 ControllersNamespace = FormatControllersNamespace(resource),
                 ControllerClass = $"{resource.PluralName}Controller",
-                RouteTemplate = $"{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}",
+                RouteTemplate = $"{{RouteConstants.DataManagementRoutePrefix}}/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}",
                 ResourceModel = FormatResourceModel(resource),
                 EntityInterface = FormatEntityInterface(resource),
                 AggregateRoot = FormatAggregateRoot(resource),

@@ -42,7 +42,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 if (IsReadRequest(_authorizationContextProvider.GetAction()) 
                     && !(_contextStorage.GetValue<bool?>(UseReadWriteConnectionCacheKey) ?? false))
                 {
-                    connection.ConnectionString = _connectionStringProvider.GetReadReplicaConnectionString();
+                    connection.ConnectionString = _connectionStringProvider.GetReadReplicaConnectionString()
+                        ?? _connectionStringProvider.GetConnectionString();
                 }
                 else
                 {
@@ -70,7 +71,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 if (IsReadRequest(_authorizationContextProvider.GetAction()) 
                     && !(_contextStorage.GetValue<bool?>(UseReadWriteConnectionCacheKey) ?? false))
                 {
-                    connection.ConnectionString = _connectionStringProvider.GetReadReplicaConnectionString();
+                    connection.ConnectionString = _connectionStringProvider.GetReadReplicaConnectionString()
+                        ?? _connectionStringProvider.GetConnectionString();
                 }
                 else
                 {

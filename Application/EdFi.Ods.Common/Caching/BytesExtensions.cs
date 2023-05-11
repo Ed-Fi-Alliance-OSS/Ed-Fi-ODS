@@ -8,7 +8,7 @@ using System.Text;
 
 namespace EdFi.Ods.Common.Caching;
 
-internal static class BytesExtensions
+public static class BytesExtensions
 {
     public static byte[] GetBytes<T>(this T value)
     {

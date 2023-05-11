@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using EdFi.Common.Security;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
@@ -55,13 +56,18 @@ namespace EdFi.Ods.Api.Providers
                     return AuthenticateResult.Fail("Invalid token");
                 }
             }
-            catch(DistributedCacheException)
+            catch (DistributedCacheException)
             {
                 throw;
             }
-            catch (Exception e)
+            catch (CachingInterceptorCacheKeyGenerationException ex)
             {
-                _logger.Error(e);
+                _logger.Debug(ex);
+                return AuthenticateResult.Fail("Invalid Authorization Header");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
                 return AuthenticateResult.Fail("Invalid Authorization Header");
             }
 

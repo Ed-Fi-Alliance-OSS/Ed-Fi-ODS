@@ -4,12 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using Autofac.Extras.DynamicProxy;
+using Castle.DynamicProxy;
 
 namespace EdFi.Ods.Common.Metadata.Profiles
 {
     /// <summary>
     /// Defines a method for obtaining tuples of names of associated Profiles and Resources.
     /// </summary>
+    /// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-profile-metadata".</remarks>
+    [Intercept("cache-profile-metadata")]
     public interface IProfileResourceNamesProvider
     {
         /// <summary>

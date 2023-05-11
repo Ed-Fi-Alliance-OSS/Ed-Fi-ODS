@@ -20,11 +20,6 @@ namespace EdFi.Ods.Api.Constants
         public const string Composite = "1";
 
         /// <summary>
-        /// Current version of the profile api.
-        /// </summary>
-        public const string Profile = "1";
-
-        /// <summary>
         /// Informational version of the ods api.
         /// </summary>
         public const string InformationalVersion = "7.0";

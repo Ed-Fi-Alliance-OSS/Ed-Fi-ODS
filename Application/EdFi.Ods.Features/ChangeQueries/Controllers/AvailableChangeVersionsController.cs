@@ -6,6 +6,7 @@
 using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.ChangeQueries.Providers;
@@ -20,7 +21,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("changeQueries")]
+    [RouteRootContext(RouteContextType.Ods)]
+    [Route($"{ChangeQueriesConstants.RoutePrefix}/availableChangeVersions")]
     public class AvailableChangeVersionsController : ControllerBase
     {
         private readonly IAvailableChangeVersionProvider _availableChangeVersionProvider;

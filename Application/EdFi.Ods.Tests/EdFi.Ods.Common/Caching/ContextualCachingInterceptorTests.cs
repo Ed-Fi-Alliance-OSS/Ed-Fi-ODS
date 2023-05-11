@@ -18,32 +18,58 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Caching;
 [TestFixture]
 public class ContextualCachingInterceptorTests
 {
-    [Test]
-    public void Methods_on_cached_target_are_invoked_and_cached_correctly()
+    private ContextProvider<TestContext> _contextProvider;
+    private ITestIntercepted _cachedTarget;
+    
+    private List<string> _invocations0;
+    private List<(string, string)> _invocations1;
+    private List<(string, int, string)> _invocations2;
+    private List<(string, int, int, string)> _invocations3;
+    private List<(string, int, int, string, string)> _invocations4;
+
+    [SetUp]
+    public void Setup()
     {
-        List<string> invocations0 = new();
-        List<(string, string)> invocations1 = new();
-        List<(string, int, string)> invocations2 = new();
-        List<(string, int, int, string)> invocations3 = new();
-        List<(string, int, int, string, string)> invocations4 = new();
+        _invocations0 = new();
+        _invocations1 = new();
+        _invocations2 = new();
+        _invocations3 = new();
+        _invocations4 = new();
 
         var generator = new ProxyGenerator();
-        var target = new TestIntercepted(invocations0, invocations1, invocations2, invocations3, invocations4);
+        var target = new TestIntercepted(_invocations0, _invocations1, _invocations2, _invocations3, _invocations4);
 
         var cacheProvider = new ConcurrentDictionaryCacheProvider<ulong>();
 
-        var contextProvider = new ContextProvider<TestContext>(new HashtableContextStorage());
+        _contextProvider = new ContextProvider<TestContext>(new HashtableContextStorage());
         
-        var cachedTarget = generator.CreateInterfaceProxyWithTarget<ITestIntercepted>(
+        _cachedTarget = generator.CreateInterfaceProxyWithTarget<ITestIntercepted>(
             target,
-            new ContextualCachingInterceptor<TestContext>(cacheProvider, contextProvider));
+            new ContextualCachingInterceptor<TestContext>(cacheProvider, _contextProvider));
+    }
+    
+    [Test]
+    public void Interception_of_cached_target_method_fails_with_correct_exception_when_no_context_is_set()
+    {
+        // No context is set
+        var actualException = Should.Throw<CachingInterceptorCacheKeyGenerationException>(() => _cachedTarget.GetAString());
+        
+        actualException.ShouldSatisfyAllConditions(
+            ex=> ex.Message.ShouldBe($"Cache key generation failed for invocation of method 'GetAString' of declaring type '{GetType().FullName}+ITestIntercepted'."),
+            ex => ex.InnerException.ShouldBeOfType<InvalidOperationException>(),
+            ex => ex.InnerException!.Message.ShouldBe($"No context has been set for value of type '{nameof(TestContext)}'.")
+            );
+    }
 
+    [Test]
+    public void Methods_on_cached_target_are_invoked_and_cached_correctly()
+    {
         // Method invocations should run the first time and then be served from cache
-        contextProvider.Set(new TestContext("ContextOne"));
+        _contextProvider.Set(new TestContext("ContextOne"));
         InvokeAndVerifyCachingBehavior(expectedTargetInvocationCount: 1);
 
         // With new contextual value, additional identical method invocations should again run the first time before being served from cache
-        contextProvider.Set(new TestContext("ContextTwo"));
+        _contextProvider.Set(new TestContext("ContextTwo"));
         InvokeAndVerifyCachingBehavior(expectedTargetInvocationCount: 2);
 
         void InvokeAndVerifyCachingBehavior(int expectedTargetInvocationCount)
@@ -51,45 +77,55 @@ public class ContextualCachingInterceptorTests
             var random = new Random();
             
             // Test caching of no arguments method
-            var noArgsResult1 = cachedTarget.GetAString();
-            var noArgsResult2 = cachedTarget.GetAString();
+            var noArgsResult1 = _cachedTarget.GetAString();
+            var noArgsResult2 = _cachedTarget.GetAString();
 
             // Test caching of one argument method
             string stringArg1 = "Hello" + random.Next(10000); 
-            var stringArgResult1 = cachedTarget.GetAString(stringArg1);
-            var stringArgResult2 = cachedTarget.GetAString(stringArg1);
+            var stringArgResult1 = _cachedTarget.GetAString(stringArg1);
+            var stringArgResult2 = _cachedTarget.GetAString(stringArg1);
 
             // Test caching of two argument method
             int intArg1 = random.Next(); 
-            var stringIntArgsResult1 = cachedTarget.GetAString(stringArg1, intArg1);
-            var stringIntArgsResult2 = cachedTarget.GetAString(stringArg1, intArg1);
+            var stringIntArgsResult1 = _cachedTarget.GetAString(stringArg1, intArg1);
+            var stringIntArgsResult2 = _cachedTarget.GetAString(stringArg1, intArg1);
 
             // Test caching of three argument method
             int intArg2 = random.Next(); 
-            var stringIntIntArgsResult1 = cachedTarget.GetAString(stringArg1, intArg1, intArg2);
-            var stringIntIntArgsResult2 = cachedTarget.GetAString(stringArg1, intArg1, intArg2);
+            var stringIntIntArgsResult1 = _cachedTarget.GetAString(stringArg1, intArg1, intArg2);
+            var stringIntIntArgsResult2 = _cachedTarget.GetAString(stringArg1, intArg1, intArg2);
 
-            cachedTarget.ShouldSatisfyAllConditions(
+            _cachedTarget.ShouldSatisfyAllConditions(
 
                 // No arguments
                 x => noArgsResult1.ShouldBe(noArgsResult2),
-                x => invocations0.Count.ShouldBe(expectedTargetInvocationCount),
+                x => _invocations0.Count.ShouldBe(expectedTargetInvocationCount),
 
                 // 1 argument
                 x => stringArgResult1.ShouldBe(stringArgResult2),
-                x => invocations1.Count.ShouldBe(expectedTargetInvocationCount),
+                x => _invocations1.Count.ShouldBe(expectedTargetInvocationCount),
 
                 // 2 arguments
                 x => stringIntArgsResult1.ShouldBe(stringIntArgsResult2),
-                x => invocations2.Count.ShouldBe(expectedTargetInvocationCount),
+                x => _invocations2.Count.ShouldBe(expectedTargetInvocationCount),
 
                 // 3 arguments
                 x => stringIntIntArgsResult1.ShouldBe(stringIntIntArgsResult2),
-                x => invocations3.Count.ShouldBe(expectedTargetInvocationCount),
+                x => _invocations3.Count.ShouldBe(expectedTargetInvocationCount),
 
                 // More arguments (not implemented until needed)
-                x => Should.Throw<NotImplementedException>(() => cachedTarget.GetAString(stringArg1, intArg1, intArg2, "World")),
-                x => invocations4.Count.ShouldBe(0));
+                x =>
+                {
+                    var actualException = Should.Throw<CachingInterceptorCacheKeyGenerationException>(() => _cachedTarget.GetAString(stringArg1, intArg1, intArg2, "World"));
+
+                    actualException.Message.ShouldBe(
+                        $"Cache key generation failed for invocation of method 'GetAString' of declaring type '{GetType().FullName}+ITestIntercepted'.");
+
+                    actualException.InnerException.ShouldBeOfType<NotImplementedException>();
+                    actualException.InnerException.Message.ShouldBe("Support for generating contextual cache keys with more than 3 arguments has not been implemented.");
+
+                },
+                x => _invocations4.Count.ShouldBe(0));
         }
     }
 

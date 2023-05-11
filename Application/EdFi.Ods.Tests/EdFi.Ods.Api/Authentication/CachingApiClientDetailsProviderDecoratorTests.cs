@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Features.ExternalCache;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
@@ -58,7 +59,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
         public async Task When_requesting_API_client_details_that_are_NOT_already_cached_for_a_token_retrieve_and_cache_the_details()
         {
             // Arrange
-            var suppliedToken = Guid.NewGuid();
             var suppliedTokenString = Guid.NewGuid().ToString("n");
             var suppliedApiClientDetails = new ApiClientDetails { ExpiresUtc = DateTime.UtcNow.AddMinutes(30) };
             

@@ -6,6 +6,8 @@
 using System.Linq;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.Security.Authorization;
@@ -29,7 +31,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("{schema}/{resource}/deletes")]
+    [RouteRootContext(RouteContextType.Ods)]
+    [Route($"{RouteConstants.DataManagementRoutePrefix}/{{schema}}/{{resource}}/deletes")]
     public class DeletesController : ControllerBase
     {
         private readonly IDomainModelProvider _domainModelProvider;
