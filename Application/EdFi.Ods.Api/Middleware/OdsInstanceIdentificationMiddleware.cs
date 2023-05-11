@@ -32,7 +32,7 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
     
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var odsInstanceConfiguration = await _odsInstanceSelector.GetOdsInstanceAsync();
+        var odsInstanceConfiguration = await _odsInstanceSelector.GetOdsInstanceAsync(context.Request.RouteValues);
 
         if (odsInstanceConfiguration != null)
         {

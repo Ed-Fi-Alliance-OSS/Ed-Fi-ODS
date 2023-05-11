@@ -29,7 +29,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
-    public async Task<OdsInstanceConfiguration> GetOdsInstanceAsync()
+    public async Task<OdsInstanceConfiguration> GetOdsInstanceAsync(RouteValueDictionary routeValues)
     {
         var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
 

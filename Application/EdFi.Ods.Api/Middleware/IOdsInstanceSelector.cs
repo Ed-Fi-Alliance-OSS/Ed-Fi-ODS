@@ -5,6 +5,7 @@
 
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
+using Microsoft.AspNetCore.Routing;
 
 namespace EdFi.Ods.Api.Middleware;
 
@@ -17,5 +18,5 @@ public interface IOdsInstanceSelector
     /// Selects the appropriate ODS instance for processing the current request.
     /// </summary>
     /// <returns>The OdsInstanceConfiguration for the selected ODS.</returns>
-    Task<OdsInstanceConfiguration> GetOdsInstanceAsync();
+    Task<OdsInstanceConfiguration> GetOdsInstanceAsync(RouteValueDictionary routeValues);
 }
