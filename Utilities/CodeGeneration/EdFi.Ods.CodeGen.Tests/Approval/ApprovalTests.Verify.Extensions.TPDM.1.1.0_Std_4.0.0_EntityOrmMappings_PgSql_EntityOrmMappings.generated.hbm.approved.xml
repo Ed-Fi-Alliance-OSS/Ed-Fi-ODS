@@ -65,56 +65,56 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="CandidateAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateAddresses" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress" />
     </set>
 
-    <set name="CandidateDisabilities" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateDisabilities" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability" />
     </set>
 
-    <set name="CandidateElectronicMails" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateElectronicMails" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail" />
     </set>
 
-    <set name="CandidateLanguages" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateLanguages" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage" />
     </set>
 
-    <set name="CandidateOtherNames" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateOtherNames" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName" />
     </set>
 
-    <set name="CandidatePersonalIdentificationDocuments" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidatePersonalIdentificationDocuments" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument" />
     </set>
 
-    <set name="CandidateRaces" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateRaces" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace" />
     </set>
 
-    <set name="CandidateTelephones" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateTelephones" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="CandidateIdentifier" />
       </key>
@@ -158,7 +158,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="CandidateAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="AddressTypeDescriptorId" />
         <column name="City" />
@@ -227,7 +227,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="CandidateDisabilityDesignations" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateDisabilityDesignations" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="DisabilityDescriptorId" />
         <column name="CandidateIdentifier" />
@@ -311,7 +311,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="CandidateLanguageUses" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateLanguageUses" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="LanguageDescriptorId" />
         <column name="CandidateIdentifier" />
@@ -516,7 +516,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="CandidateEducatorPreparationProgramAssociationCohortYears" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateEducatorPreparationProgramAssociationCohortYears" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BeginDate" />
         <column name="CandidateIdentifier" />
@@ -527,7 +527,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear" />
     </set>
 
-    <set name="CandidateEducatorPreparationProgramAssociationDegreeSpecializations" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="CandidateEducatorPreparationProgramAssociationDegreeSpecializations" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BeginDate" />
         <column name="CandidateIdentifier" />
@@ -722,7 +722,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EducatorPreparationProgramGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EducatorPreparationProgramGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="ProgramName" />
@@ -824,7 +824,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationPeriodDescriptorId" />
@@ -941,7 +941,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EvaluationElementRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationElementRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationElementTitle" />
@@ -1083,7 +1083,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EvaluationElementRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationElementRatingResults" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationDate" />
@@ -1208,7 +1208,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EvaluationObjectiveRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationObjectiveRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationObjectiveTitle" />
@@ -1341,7 +1341,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EvaluationObjectiveRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationObjectiveRatingResults" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationDate" />
@@ -1486,7 +1486,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="EvaluationRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationRatingResults" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationDate" />
@@ -1502,7 +1502,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult" />
     </set>
 
-    <set name="EvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationDate" />
@@ -1585,7 +1585,7 @@
     <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
-    <set name="EvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="FirstName" />
         <column name="LastSurname" />
@@ -1761,7 +1761,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="PerformanceEvaluationGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="PerformanceEvaluationGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationPeriodDescriptorId" />
@@ -1773,7 +1773,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel" />
     </set>
 
-    <set name="PerformanceEvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="PerformanceEvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationPeriodDescriptorId" />
@@ -1921,7 +1921,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="PerformanceEvaluationRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="PerformanceEvaluationRatingResults" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationPeriodDescriptorId" />
@@ -1935,7 +1935,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult" />
     </set>
 
-    <set name="PerformanceEvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="PerformanceEvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="EvaluationPeriodDescriptorId" />
@@ -2012,7 +2012,7 @@
     <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
-    <set name="PerformanceEvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="PerformanceEvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="FirstName" />
         <column name="LastSurname" />
