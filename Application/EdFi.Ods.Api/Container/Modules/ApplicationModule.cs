@@ -157,7 +157,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<FeatureDisabledProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
-                .EnableInterfaceInterceptors()
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
