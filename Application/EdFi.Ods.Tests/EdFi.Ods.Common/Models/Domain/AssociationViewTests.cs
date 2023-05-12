@@ -1512,50 +1512,50 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             new EP(
                                 "DescriptorId",
-                                new PT(DbType.Int32, 0, 10, 0, false),
+                                new PT(DbType.Int32, 0, 0, 10, 0, false),
                                 "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
                                 true,
                                 true),
                             new EP(
                                 "Namespace",
-                                new PT(DbType.String, 255, 0, 0, false),
+                                new PT(DbType.String, 255,0 , 0, 0, false),
                                 "A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.",
                                 false,
                                 false),
                             new EP(
                                 "CodeValue",
-                                new PT(DbType.String, 50, 0, 0, false),
+                                new PT(DbType.String, 50,0 , 0, 0, false),
                                 "A code or abbreviation that is used to refer to the descriptor.",
                                 false,
                                 false),
                             new EP(
                                 "ShortDescription",
-                                new PT(DbType.String, 75, 0, 0, false),
+                                new PT(DbType.String, 75,0 , 0, 0, false),
                                 "A shortened description for the descriptor.",
                                 false,
                                 false),
-                            new EP("Description", new PT(DbType.String, 1024, 0, 0, true), "The description of the descriptor.", false, false),
+                            new EP("Description", new PT(DbType.String, 1024, 0, 0, 0, true), "The description of the descriptor.", false, false),
                             new EP(
                                 "PriorDescriptorId",
-                                new PT(DbType.Int32, 0, 10, 0, true),
+                                new PT(DbType.Int32,0 , 0, 10, 0, true),
                                 "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
                                 false,
                                 false),
                             new EP(
                                 "EffectiveBeginDate",
-                                new PT(DbType.Date, 0, 0, 0, true),
+                                new PT(DbType.Date, 0, 0, 0, 0, true),
                                 "The beginning date of the period when the descriptor is in effect. If omitted, the default is immediate effectiveness.",
                                 false,
                                 false),
                             new EP(
                                 "EffectiveEndDate",
-                                new PT(DbType.Date, 0, 0, 0, true),
+                                new PT(DbType.Date, 0, 0, 0, 0, true),
                                 "The end date of the period when the descriptor is in effect.",
                                 false,
                                 false),
-                            new EP("Id", new PT(DbType.Guid, 0, 0, 0, false), "", false, false),
-                            new EP("LastModifiedDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false),
-                            new EP("CreateDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false)
+                            new EP("Id", new PT(DbType.Guid, 0,0 , 0, 0, false), "", false, false),
+                            new EP("LastModifiedDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false),
+                            new EP("CreateDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                         },
                         new[]
                         {
@@ -1590,13 +1590,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         "FundingSourceType",
                         new[]
                         {
-                            new EP("FundingSourceTypeId", new PT(DbType.Int32, 0, 10, 0, false), "", true, true),
-                            new EP("CodeValue", new PT(DbType.String, 50, 0, 0, false), "", false, false),
-                            new EP("Description", new PT(DbType.String, 1024, 0, 0, false), "", false, false),
-                            new EP("ShortDescription", new PT(DbType.String, 450, 0, 0, false), "", false, false),
-                            new EP("Id", new PT(DbType.Guid, 0, 0, 0, false), "", false, false),
-                            new EP("LastModifiedDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false),
-                            new EP("CreateDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false)
+                            new EP("FundingSourceTypeId", new PT(DbType.Int32, 0, 0, 10, 0, false), "", true, true),
+                            new EP("CodeValue", new PT(DbType.String, 50,0 , 0, 0, false), "", false, false),
+                            new EP("Description", new PT(DbType.String, 1024,0 , 0, 0, false), "", false, false),
+                            new EP("ShortDescription", new PT(DbType.String, 450,0 , 0, 0, false), "", false, false),
+                            new EP("Id", new PT(DbType.Guid, 0,0 , 0, 0, false), "", false, false),
+                            new EP("LastModifiedDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false),
+                            new EP("CreateDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                         },
                         new[]
                         {
@@ -1619,32 +1619,32 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             new EP(
                                 "EducationOrganizationId",
-                                new PT(DbType.Int32, 0, 10, 0, false),
+                                new PT(DbType.Int32, 0, 0, 10, 0, false),
                                 "Added as local property rather than an association from EdOrg for test simplicity.",
                                 true,
                                 false),
                             new EP(
                                 "RequisitionNumber",
-                                new PT(DbType.String, 20, 0, 0, false),
+                                new PT(DbType.String, 20,0 , 0, 0, false),
                                 "The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.",
                                 true,
                                 false),
-                            new EP("DatePosted", new PT(DbType.Date, 0, 0, 0, false), "Date the OpenStaffPosition was posted.", false, false),
+                            new EP("DatePosted", new PT(DbType.Date, 0,0 , 0, 0, false), "Date the OpenStaffPosition was posted.", false, false),
                             new EP(
                                 "PositionTitle",
-                                new PT(DbType.String, 100, 0, 0, true),
+                                new PT(DbType.String, 100, 0, 0, 0, true),
                                 "The descriptive name of an individual's position.",
                                 false,
                                 false),
                             new EP(
                                 "DatePostingRemoved",
-                                new PT(DbType.Date, 0, 0, 0, true),
+                                new PT(DbType.Date, 0, 0, 0, 0, true),
                                 "The date the posting was removed or filled.",
                                 false,
                                 false),
-                            new EP("Id", new PT(DbType.Guid, 0, 0, 0, false), "", false, false),
-                            new EP("LastModifiedDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false),
-                            new EP("CreateDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false)
+                            new EP("Id", new PT(DbType.Guid, 0,0 , 0, 0, false), "", false, false),
+                            new EP("LastModifiedDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false),
+                            new EP("CreateDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                         },
                         new[]
                         {
@@ -1672,13 +1672,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         "OpenStaffPositionExtension",
                         new[]
                         {
-                            new EP("FullTimeEquivalency", new PT(DbType.Decimal, 0, 3, 2, false), "", false, false),
-                            new EP("IsActive", new PT(DbType.Boolean, 0, 0, 0, true), "", false, false),
-                            new EP("MaxSalary", new PT(DbType.Decimal, 0, 9, 2, true), "", false, false),
-                            new EP("MinSalary", new PT(DbType.Decimal, 0, 9, 2, true), "", false, false),
-                            new EP("HighNeedAcademicSubject", new PT(DbType.Boolean, 0, 0, 0, true), "", false, false),
-                            new EP("PositionControlNumber", new PT(DbType.String, 20, 0, 0, true), "", false, false),
-                            new EP("TotalBudgeted", new PT(DbType.Decimal, 0, 9, 2, true), "", false, false)
+                            new EP("FullTimeEquivalency", new PT(DbType.Decimal, 0, 0, 3, 2, false), "", false, false),
+                            new EP("IsActive", new PT(DbType.Boolean, 0, 0, 0, 0, true), "", false, false),
+                            new EP("MaxSalary", new PT(DbType.Decimal, 0,0, 9, 2, true), "", false, false),
+                            new EP("MinSalary", new PT(DbType.Decimal, 0, 0, 9, 2, true), "", false, false),
+                            new EP("HighNeedAcademicSubject", new PT(DbType.Boolean, 0, 0, 0, 0, true), "", false, false),
+                            new EP("PositionControlNumber", new PT(DbType.String, 20, 0, 0, 0, true), "", false, false),
+                            new EP("TotalBudgeted", new PT(DbType.Decimal, 0, 0, 9, 2, true), "", false, false)
                         },
                         new[]
                         {
@@ -1702,7 +1702,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             new EP(
                                 "DescriptorId",
-                                new PT(DbType.Int32, 0, 10, 0, false),
+                                new PT(DbType.Int32, 0, 0, 10, 0, false),
                                 "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
                                 true,
                                 true)
@@ -1710,7 +1710,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("extension", "FundingSourceDescriptor"),
                         new[]
                         {
-                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 10, 0, false), "", true, true)
+                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, false), "", true, true)
                         },
                         true,
                         true));
@@ -1724,13 +1724,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             new EP(
                                 "EducationOrganizationId",
-                                new PT(DbType.Int32, 0, 10, 0, false),
+                                new PT(DbType.Int32, 0, 0, 10, 0, false),
                                 "EducationOrganization Identity Column",
                                 true,
                                 false),
                             new EP(
                                 "RequisitionNumber",
-                                new PT(DbType.String, 20, 0, 0, false),
+                                new PT(DbType.String, 20,0 , 0, 0, false),
                                 "The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.",
                                 true,
                                 false)
@@ -1738,8 +1738,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("extension", "OpenStaffPositionExtension"),
                         new[]
                         {
-                            new EP("EducationOrganizationId", new PT(DbType.Int32, 0, 10, 0, false), "", true, false),
-                            new EP("RequisitionNumber", new PT(DbType.String, 20, 0, 0, false), "", true, false)
+                            new EP("EducationOrganizationId", new PT(DbType.Int32, 0, 0, 10, 0, false), "", true, false),
+                            new EP("RequisitionNumber", new PT(DbType.String, 20,0 , 0, 0, false), "", true, false)
                         },
                         true,
                         true));
@@ -1751,12 +1751,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("extension", "FundingSourceDescriptor"),
                         new[]
                         {
-                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 10, 0, false), "", false, false)
+                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, false), "", false, false)
                         },
                         new FullName("extension", "OpenStaffPositionExtension"),
                         new[]
                         {
-                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 10, 0, true), "", false, false)
+                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, true), "", false, false)
                         },
                         false,
                         false));
@@ -1768,12 +1768,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("extension", "FundingSourceType"),
                         new[]
                         {
-                            new EP("FundingSourceTypeId", new PT(DbType.Int32, 0, 10, 0, false), "", false, true)
+                            new EP("FundingSourceTypeId", new PT(DbType.Int32, 0, 0, 10, 0, false), "", false, true)
                         },
                         new FullName("extension", "FundingSourceDescriptor"),
                         new[]
                         {
-                            new EP("FundingSourceTypeId", new PT(DbType.Int32, 0, 10, 0, false), "", false, false)
+                            new EP("FundingSourceTypeId", new PT(DbType.Int32, 0, 0, 10, 0, false), "", false, false)
                         },
                         false,
                         true));

@@ -217,7 +217,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                     PropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name),
                                     ColumnName = p.ColumnName(TemplateContext.TemplateSet.DatabaseEngine, p.PropertyName),
                                     NHibernateTypeName = p.PropertyType.ToNHibernateType(),
-                                    MaxLength = GetMaxLength(p)
+                                    MaxLength = GetMaxLength(p),
+                                    MinLength = GetMinLength(p)
                                 })
                             .ToList(),
                         KeyManyToOne = entity.ParentAssociation == null
@@ -260,6 +261,7 @@ namespace EdFi.Ods.CodeGen.Generators
                         NHibernateTypeName = entity.Identifier.Properties.Single()
                             .PropertyType.ToNHibernateType(),
                         MaxLength = GetMaxLength(entity.Identifier.Properties.Single()),
+                        MinLength = GetMinLength(entity.Identifier.Properties.Single()),
                         GeneratorClass =
                             entity.Identifier.Properties.Single()
                                 .IsServerAssigned
@@ -382,7 +384,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                                 p.PropertyName.MakeSafeForCSharpClass(entity.Name),
                                             ColumnName = p.ColumnName(TemplateContext.TemplateSet.DatabaseEngine, p.PropertyName),
                                             NHibernateTypeName = p.PropertyType.ToNHibernateType(),
-                                            MaxLength = GetMaxLength(p)
+                                            MaxLength = GetMaxLength(p),
+                                            MinLength = GetMinLength(p)
                                         })
                                     .ToList(),
                                 Properties = GetOrderedNonIdentifyingProperties(e, derivedEntityClassMappingContext)
@@ -516,6 +519,7 @@ namespace EdFi.Ods.CodeGen.Generators
                             ColumnName = p.ColumnName(TemplateContext.TemplateSet.DatabaseEngine, p.PropertyName),
                             NHibernateTypeName = p.PropertyType.ToNHibernateType(),
                             MaxLength = GetMaxLength(p),
+                            MinLength = GetMinLength(p),
                             IsNullable = p.PropertyType.IsNullable
                         });
             }
@@ -527,6 +531,12 @@ namespace EdFi.Ods.CodeGen.Generators
                     : null;
             }
 
+            string GetMinLength(EntityProperty p)
+            {
+                return p.PropertyType.ToNHibernateType() == "string"
+                    ? p.PropertyType.MinLength.ToString()
+                    : null;
+            }
             bool HasKeyRequiringUseOfCompositeId(Entity m)
             {
                 return

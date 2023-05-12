@@ -191,7 +191,7 @@ namespace {{AggregateNamespace}}
             {{#NonParentProperties}}
                 {{^IsAbstract}}
         {{#DisplayName}}[Display(Name="{{DisplayName}}")]
-        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsString}}, StringLength({{MaxLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]{{RangeAttribute}}
+        {{/DisplayName}}[DomainSignature{{#IsRequiredWithNonDefault}}, RequiredWithNonDefault{{#ValidationReferenceName}}("{{ValidationReferenceName}}"){{/ValidationReferenceName}}{{/IsRequiredWithNonDefault}}{{#IsString}}, StringLength({{MaxLength}}), MinLength({{MinLength}}), MaxLength({{MaxLength}}), NoDangerousText{{/IsString}}{{#NoWhitespaceEnforced}}, NoWhitespace{{/NoWhitespaceEnforced}}]{{RangeAttribute}}
                 {{/IsAbstract}}
         public {{#NeedsOverride}}override{{/NeedsOverride}}{{^NeedsOverride}}virtual{{/NeedsOverride}} {{CSharpDeclaredType}} {{CSharpSafePropertyName}} {{#IsStandardProperty}} { get; set; }{{/IsStandardProperty}}
                 {{#PropertyAccessors}}
