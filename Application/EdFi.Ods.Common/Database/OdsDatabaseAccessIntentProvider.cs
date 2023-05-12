@@ -9,6 +9,9 @@ using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Common.Database;
 
+/// <summary>
+/// Implements an <see cref="IOdsDatabaseAccessIntentProvider"/> that returns the database access intent of the current request
+/// </summary>
 public class OdsDatabaseAccessIntentProvider : IOdsDatabaseAccessIntentProvider
 {
     public const string UseReadWriteConnectionCacheKey = "UseReadWriteConnection";
@@ -22,6 +25,10 @@ public class OdsDatabaseAccessIntentProvider : IOdsDatabaseAccessIntentProvider
         _contextStorage = contextStorage;
     }
 
+    /// <summary>
+    /// Gets the Database Access Intent of the current request based on a convention of the URI name starting with "read" for ReadOnly operations
+    /// </summary>
+    /// <returns>The <see cref="DatabaseAccessIntent"/> database access intent of the current request</returns>
     public DatabaseAccessIntent GetDatabaseAccessIntent()
     {
         if (IsReadRequest(_authorizationContextProvider.GetAction())
