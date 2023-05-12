@@ -127,9 +127,9 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string FirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -364,9 +364,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string ParentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string ParentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -643,7 +643,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             set { Parent = (Parent) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30), MinLength(0), MaxLength(30), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30), Length(0, 30), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -805,11 +805,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             set { Parent = (Parent) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), MinLength(0), MaxLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100), Length(0, 100), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -1066,7 +1066,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), MinLength(0), MaxLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100), Length(0, 100), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
         // -------------------------------------------------------------
 
@@ -1538,7 +1538,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(20), MinLength(0), MaxLength(20), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(20), Length(0, 20), NoDangerousText, NoWhitespace]
         public virtual string SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
@@ -1772,9 +1772,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StaffFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StaffLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2049,7 +2049,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             set { Staff = (Staff) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30), MinLength(0), MaxLength(30), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30), Length(0, 30), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2211,11 +2211,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             set { Staff = (Staff) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), MinLength(0), MaxLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100), Length(0, 100), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2474,9 +2474,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -2725,7 +2725,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             set { Student = (Student) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(30), MinLength(0), MaxLength(30), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30), Length(0, 30), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
         // -------------------------------------------------------------
 
@@ -2963,11 +2963,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), MinLength(0), MaxLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100), Length(0, 100), NoDangerousText, NoWhitespace]
         public virtual string SchoolName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentFirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string StudentLastSurname  { get; set; }
         // -------------------------------------------------------------
 

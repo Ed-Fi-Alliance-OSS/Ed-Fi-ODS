@@ -500,7 +500,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(75), MinLength(0), MaxLength(75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75), Length(0, 75), NoDangerousText, NoWhitespace]
         public virtual string NameOfInstitution  { get; set; }
         // -------------------------------------------------------------
 
