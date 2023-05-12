@@ -94,6 +94,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
+            builder.RegisterType<OdsDatabaseAccessIntentProvider>()
+                .As<IOdsDatabaseAccessIntentProvider>()
+                .SingleInstance();
+
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
                 .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
                 .SingleInstance();
