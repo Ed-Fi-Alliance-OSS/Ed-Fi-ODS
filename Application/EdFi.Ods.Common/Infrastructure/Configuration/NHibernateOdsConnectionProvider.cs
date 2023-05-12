@@ -39,16 +39,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                if (IsReadRequest(_authorizationContextProvider.GetAction()) 
-                    && !(_contextStorage.GetValue<bool?>(UseReadWriteConnectionCacheKey) ?? false))
-                {
-                    connection.ConnectionString = _connectionStringProvider.GetReadReplicaConnectionString()
-                        ?? _connectionStringProvider.GetConnectionString();
-                }
-                else
-                {
-                    connection.ConnectionString = _connectionStringProvider.GetConnectionString();
-                }
+                connection.ConnectionString = _connectionStringProvider.GetConnectionString();
 
                 connection.Open();
             }
@@ -68,16 +59,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                if (IsReadRequest(_authorizationContextProvider.GetAction()) 
-                    && !(_contextStorage.GetValue<bool?>(UseReadWriteConnectionCacheKey) ?? false))
-                {
-                    connection.ConnectionString = _connectionStringProvider.GetReadReplicaConnectionString()
-                        ?? _connectionStringProvider.GetConnectionString();
-                }
-                else
-                {
-                    connection.ConnectionString = _connectionStringProvider.GetConnectionString();
-                }
+                connection.ConnectionString =  _connectionStringProvider.GetConnectionString();
 
                 await connection.OpenAsync(cancellationToken);
             }
@@ -89,19 +71,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             }
 
             return connection;
-        }
-
-        private bool IsReadRequest(string actionUri)
-        {
-            if (actionUri == null)
-            {
-                return false;
-            }
-
-            int lastSlashPos = actionUri.LastIndexOf('/');
-
-            // Use a convention of the action URI name starting with "read" for all read-related operations (e.g. read, readChange, readHistory, etc)
-            return lastSlashPos >= 0 && actionUri.AsSpan(lastSlashPos + 1).StartsWith("read");
         }
     }
 }
