@@ -10,7 +10,6 @@ using EdFi.Ods.Common.Context;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
-using Shouldly;
 
 // NOTE: Initial test fixture generated using ChatGPT
 namespace EdFi.Ods.Api.Middleware.Tests

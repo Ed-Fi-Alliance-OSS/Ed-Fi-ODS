@@ -3,15 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using EdFi.Common.Utils.Extensions;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
-using Microsoft.AspNetCore.Routing;
 
 namespace EdFi.Ods.Api.Middleware;
 
@@ -32,7 +30,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
-    public async Task<OdsInstanceConfiguration> GetOdsInstanceAsync(RouteValueDictionary routeValues)
+    public async Task<OdsInstanceConfiguration> GetOdsInstanceAsync(IReadOnlyDictionary<string, object> routeValues)
     {
         var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
 
@@ -51,13 +49,13 @@ public class OdsInstanceSelector : IOdsInstanceSelector
             return await _odsInstanceConfigurationProvider.GetByIdAsync(apiKeyContext.OdsInstanceIds[0]);
         }
 
-        foreach(int odsInstanceId in apiKeyContext.OdsInstanceIds)
+        foreach (int odsInstanceId in apiKeyContext.OdsInstanceIds)
         {
             var odsInstanceConfiguration = await _odsInstanceConfigurationProvider.GetByIdAsync(odsInstanceId);
 
-            foreach(var contextValue in odsInstanceConfiguration.ContextValueByKey)
+            foreach (var contextValue in odsInstanceConfiguration.ContextValueByKey)
             {
-                if(routeValues.TryGetValue(contextValue.Key, out var routeValue) && contextValue.Value.Equals(routeValue))
+                if (routeValues.TryGetValue(contextValue.Key, out var routeValue) && contextValue.Value.EqualsIgnoreCase(routeValue.ToString()))
                 {
                     return odsInstanceConfiguration;
                 }

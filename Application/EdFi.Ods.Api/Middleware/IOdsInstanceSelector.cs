@@ -3,9 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
-using Microsoft.AspNetCore.Routing;
 
 namespace EdFi.Ods.Api.Middleware;
 
@@ -18,5 +18,5 @@ public interface IOdsInstanceSelector
     /// Selects the appropriate ODS instance configuration for processing the current request.
     /// </summary>
     /// <returns>The <see cref="OdsInstanceConfiguration" /> for the selected ODS if successful; otherwise <b>null</b>.</returns>
-    Task<OdsInstanceConfiguration> GetOdsInstanceAsync(RouteValueDictionary routeValues);
+    Task<OdsInstanceConfiguration> GetOdsInstanceAsync(IReadOnlyDictionary<string, object> routeValues);
 }

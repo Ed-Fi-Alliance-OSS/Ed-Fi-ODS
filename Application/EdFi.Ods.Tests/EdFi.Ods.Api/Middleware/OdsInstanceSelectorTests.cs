@@ -11,7 +11,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Security;
 using FakeItEasy;
-using Microsoft.AspNetCore.Routing;
 using NUnit.Framework;
 using Shouldly;
 
@@ -23,7 +22,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
         private IApiKeyContextProvider _apiKeyContextProvider;
         private IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
         private OdsInstanceSelector _odsInstanceSelector;
-        private RouteValueDictionary _routeValueDictionary;
+        private Dictionary<string, object> _routeValueDictionary;
 
         [SetUp]
         public void SetUp()
@@ -31,7 +30,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
             _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
             _odsInstanceConfigurationProvider = A.Fake<IOdsInstanceConfigurationProvider>();
             _odsInstanceSelector = new OdsInstanceSelector(_apiKeyContextProvider, _odsInstanceConfigurationProvider);
-            _routeValueDictionary = new RouteValueDictionary();
+            _routeValueDictionary = new Dictionary<string, object>();
         }
 
         [Test]
@@ -93,14 +92,14 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
                 1,
-                (ulong)1,
+                1UL,
                 "TheConnectionString",
                 new Dictionary<string, string> { { "schoolYear", "2022" } },
                 new Dictionary<DerivativeType, string>());
 
             var odsInstanceConfiguration_2 = new OdsInstanceConfiguration(
                 2,
-                (ulong)2,
+                2UL,
                 "TheConnectionString",
                 new Dictionary<string, string> { { "schoolYear", "2023"} },
                 new Dictionary<DerivativeType, string>());
@@ -128,14 +127,14 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
                 1,
-                (ulong)1,
+                1UL,
                 "TheConnectionString",
                 new Dictionary<string, string> { { "schoolYear", "2022" } },
                 new Dictionary<DerivativeType, string>());
 
             var odsInstanceConfiguration_2 = new OdsInstanceConfiguration(
                 2,
-                (ulong)2,
+                2UL,
                 "TheConnectionString",
                 new Dictionary<string, string> { { "schoolYear", "2023" } },
                 new Dictionary<DerivativeType, string>());
