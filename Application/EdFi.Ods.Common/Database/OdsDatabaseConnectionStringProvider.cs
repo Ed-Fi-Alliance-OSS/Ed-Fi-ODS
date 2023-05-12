@@ -15,10 +15,12 @@ namespace EdFi.Ods.Common.Database
         private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceContextProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsDatabaseConnectionStringProvider));
+        private readonly IOdsDatabaseAccessIntentProvider _odsDatabaseAccessIntentProvider;
 
-        public OdsDatabaseConnectionStringProvider(IContextProvider<OdsInstanceConfiguration> odsInstanceContextProvider)
+        public OdsDatabaseConnectionStringProvider(IContextProvider<OdsInstanceConfiguration> odsInstanceContextProvider, IOdsDatabaseAccessIntentProvider odsDatabaseAccessIntentProvider)
         {
             _odsInstanceContextProvider = odsInstanceContextProvider;
+            _odsDatabaseAccessIntentProvider = odsDatabaseAccessIntentProvider;
         }
 
         public string GetConnectionString()
@@ -35,7 +37,14 @@ namespace EdFi.Ods.Common.Database
                 _logger.Debug($"Getting connection string for ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') from context...");
             }
 
-            return odsInstanceConfiguration.ConnectionString;
+            if (odsInstanceConfiguration.ReadReplicaConnectionString == null)
+            {
+                return odsInstanceConfiguration.ConnectionString;
+            }
+
+            return _odsDatabaseAccessIntentProvider.GetDatabaseAccessIntent() == DatabaseAccessIntent.ReadOnly
+                ? odsInstanceConfiguration.ReadReplicaConnectionString
+                : odsInstanceConfiguration.ConnectionString;
         }
 
         public string GetReadReplicaConnectionString()

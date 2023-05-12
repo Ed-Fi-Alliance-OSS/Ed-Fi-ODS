@@ -7,10 +7,8 @@ using System;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Security.Claims;
 using NHibernate.Connection;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
@@ -19,18 +17,11 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
     {
         public const string UseReadWriteConnectionCacheKey = "UseReadWriteConnection";
         
-        private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private readonly IContextStorage _contextStorage;
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
-        public NHibernateOdsConnectionProvider(
-            IOdsDatabaseConnectionStringProvider connectionStringProvider,
-            IAuthorizationContextProvider authorizationContextProvider,
-            IContextStorage contextStorage)
+        public NHibernateOdsConnectionProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
             _connectionStringProvider = connectionStringProvider;
-            _authorizationContextProvider = authorizationContextProvider;
-            _contextStorage = contextStorage;
         }
 
         public override DbConnection GetConnection()
