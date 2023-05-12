@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Attributes;
@@ -95,17 +96,15 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             CancellationToken cancellationToken,
             string orderByClause = null)
         {
+            ArgumentNullException.ThrowIfNull(whereClause);
+
             // Determine if this is a Read or Write request (default to "read" behavior if context isn't available)
             string httpMethod = _dataManagementResourceContextProvider.Get()?.HttpMethod ?? HttpMethods.Get;
 
             bool isReadRequest = (httpMethod == HttpMethods.Get);
             bool isShallow = (httpMethod == HttpMethods.Delete);
             
-            string mainHqlBase = isReadRequest
-                ? _mainHqlStatementBaseForReads.Value
-                : _mainHqlStatementBaseForWrites.Value;
-
-            string mainHql = $"{mainHqlBase} {whereClause} {orderByClause}";
+            string mainHql = BuildMainHql();
 
             using (new SessionScope(SessionFactory))
             {
@@ -122,13 +121,27 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
                     foreach (string hql in aggregateStatements)
                     {
-                        var childQuery = Session.CreateQuery(hql + whereClause);
+                        var childQuery = Session.CreateQuery(string.Concat(hql, whereClause));
                         applyParameters(childQuery);
                         childQuery.Future<TEntity>();
                     }
                 }
 
                 return await futureEnumerable.GetEnumerableAsync(cancellationToken);
+            }
+
+            string BuildMainHql()
+            {
+                string mainHqlBase = isReadRequest
+                    ? _mainHqlStatementBaseForReads.Value
+                    : _mainHqlStatementBaseForWrites.Value;
+
+                if (string.IsNullOrEmpty(orderByClause))
+                {
+                    return $"{mainHqlBase} {whereClause}";
+                }
+
+                return $"{mainHqlBase} {whereClause} {orderByClause}";
             }
         }
 
