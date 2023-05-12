@@ -10,7 +10,6 @@ using EdFi.Ods.Common.Context;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
-using Shouldly;
 
 // NOTE: Initial test fixture generated using ChatGPT
 namespace EdFi.Ods.Api.Middleware.Tests
@@ -39,7 +38,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
             var configuration = new OdsInstanceConfiguration(1, 1, "TheConnectionString", 
                 new Dictionary<string, string>(), new Dictionary<DerivativeType, string>());
 
-            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync()).Returns(configuration);
+            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync(context.Request.RouteValues)).Returns(configuration);
 
             // Act
             await _middleware.InvokeAsync(context, next);
@@ -56,7 +55,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
             var context = new DefaultHttpContext();
             var next = A.Fake<RequestDelegate>();
 
-            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync()).Returns(Task.FromResult(null as OdsInstanceConfiguration));
+            A.CallTo(() => _instanceSelector.GetOdsInstanceAsync(context.Request.RouteValues)).Returns(Task.FromResult(null as OdsInstanceConfiguration));
 
             // Act
             await _middleware.InvokeAsync(context, next);

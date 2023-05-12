@@ -17,5 +17,10 @@ namespace EdFi.Ods.Api.Configuration;
 [Intercept("cache-ods-instances")]
 public interface IOdsInstanceConfigurationProvider
 {
+    /// <summary>
+    /// Gets the <see cref="OdsInstanceConfiguration" /> associated with the specified <paramref name="odsInstanceId"/>. 
+    /// </summary>
+    /// <param name="odsInstanceId">The identifier for the ODS instance.</param>
+    /// <returns>The <see cref="OdsInstanceConfiguration" /> associated with the specified <paramref name="odsInstanceId"/> if it exists; otherwise <b>null</b>.</returns>
     Task<OdsInstanceConfiguration> GetByIdAsync(int odsInstanceId);
 }

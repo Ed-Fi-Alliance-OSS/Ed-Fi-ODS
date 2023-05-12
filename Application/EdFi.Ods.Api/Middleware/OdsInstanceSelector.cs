@@ -3,8 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
@@ -29,7 +30,7 @@ public class OdsInstanceSelector : IOdsInstanceSelector
     }
 
     /// <inheritdoc cref="IOdsInstanceSelector.GetOdsInstanceAsync" />
-    public async Task<OdsInstanceConfiguration> GetOdsInstanceAsync()
+    public async Task<OdsInstanceConfiguration> GetOdsInstanceAsync(IReadOnlyDictionary<string, object> routeValues)
     {
         var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
 
@@ -48,7 +49,19 @@ public class OdsInstanceSelector : IOdsInstanceSelector
             return await _odsInstanceConfigurationProvider.GetByIdAsync(apiKeyContext.OdsInstanceIds[0]);
         }
 
-        // TODO: ODS-5800 - Support custom route for context-based ODS database segmentation
-        throw new NotImplementedException("The API client has been associated with more than one ODS instance, but context-based ODS instance resolution hasn't yet been implemented.");
+        foreach (int odsInstanceId in apiKeyContext.OdsInstanceIds)
+        {
+            var odsInstanceConfiguration = await _odsInstanceConfigurationProvider.GetByIdAsync(odsInstanceId);
+
+            foreach (var contextValue in odsInstanceConfiguration.ContextValueByKey)
+            {
+                if (routeValues.TryGetValue(contextValue.Key, out var routeValue) && contextValue.Value.EqualsIgnoreCase(routeValue.ToString()))
+                {
+                    return odsInstanceConfiguration;
+                }
+            }
+        }
+
+        return null;
     }
 }
