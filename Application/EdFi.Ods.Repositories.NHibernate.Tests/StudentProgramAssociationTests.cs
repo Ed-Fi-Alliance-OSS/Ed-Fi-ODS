@@ -41,6 +41,7 @@ using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using Microsoft.AspNetCore.Http;
 using Npgsql;
 using Test.Common.DataConstants;
 using Environment = NHibernate.Cfg.Environment;
@@ -84,12 +85,17 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             private bool _actualServiceDeletedWithSecondDerivedClassUpsert;
             private bool _actualProgramAssociationDeleted;
             private bool _actualTitleIProgramAssociationDeleted;
+            private IContextProvider<DataManagementResourceContext> _dataManagementContextProvider;
+            private IDomainModelProvider _domainModelProvider;
 
             protected override void Arrange()
             {
                 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
                 RegisterDependencies();
-                
+
+                _domainModelProvider = _container.Resolve<IDomainModelProvider>();
+                _dataManagementContextProvider = _container.Resolve<IContextProvider<DataManagementResourceContext>>();
+
                 var contextProvider = _container.Resolve<IContextProvider<OdsInstanceConfiguration>>();
 
                 contextProvider.Set(
@@ -295,6 +301,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     var deleteStudentProgramAssociationByKey =
                         _container.Resolve<IDeleteEntityByKey<StudentProgramAssociation>>();
 
+                    var resource = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", "StudentProgramAssociation"));
+                    _dataManagementContextProvider.Set(new DataManagementResourceContext(resource, HttpMethods.Delete));
+                    
                     deleteStudentProgramAssociationByKey.DeleteByKeyAsync(studentProgramAssociation, null, CancellationToken.None)
                         .WaitSafely();
                 }
@@ -448,7 +457,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 A.CallTo(() => databaseEngineSpecificStringComparisonProvider.GetEqualityComparer()).Returns(apiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal);
 
                 builder.RegisterInstance(databaseEngineSpecificStringComparisonProvider).As<IDatabaseEngineSpecificEqualityComparerProvider<string>>();
-                GeneratedArtifactStaticDependencies.Resolvers.Set(() => databaseEngineSpecificStringComparisonProvider); 
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => databaseEngineSpecificStringComparisonProvider);
 
                 _container = builder.Build();
             }

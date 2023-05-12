@@ -95,8 +95,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
             CancellationToken cancellationToken,
             string orderByClause = null)
         {
-            // Determine if this is a Read or Write request (default to "read" behavior if authorization context isn't available)
-            string httpMethod = _dataManagementResourceContextProvider.Get().HttpMethod;
+            // Determine if this is a Read or Write request (default to "read" behavior if context isn't available)
+            string httpMethod = _dataManagementResourceContextProvider.Get()?.HttpMethod ?? HttpMethods.Get;
 
             bool isReadRequest = (httpMethod == HttpMethods.Get);
             bool isShallow = (httpMethod == HttpMethods.Delete);
