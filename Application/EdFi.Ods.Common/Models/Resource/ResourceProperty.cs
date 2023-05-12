@@ -232,6 +232,7 @@ namespace EdFi.Ods.Common.Models.Resource
             return new PropertyType(
                 propertyType.DbType,
                 propertyType.MaxLength,
+                propertyType.MinLength,
                 propertyType.Precision,
                 propertyType.Scale,
                 propertyType.IsNullable,

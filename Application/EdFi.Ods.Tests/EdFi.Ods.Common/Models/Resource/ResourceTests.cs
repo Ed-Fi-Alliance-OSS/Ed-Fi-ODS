@@ -795,7 +795,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                                 {
                                     new EntityPropertyDefinition(
                                         "EntityId",
-                                        new PropertyType(DbType.Int32, 0, 10, 0, false),
+                                        new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
                                         null,
                                         true,
                                         true)

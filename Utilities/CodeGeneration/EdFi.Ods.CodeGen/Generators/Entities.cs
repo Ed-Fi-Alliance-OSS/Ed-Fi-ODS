@@ -258,6 +258,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                   : _notRendered,
                                                               IsDateTime = IsDateTimeProperty(p), IsString = p.PropertyType.ToCSharp() == "string",
                                                               NoWhitespaceEnforced = p.PropertyType.ToCSharp() == "string", p.PropertyType.MaxLength,
+                                                              p.PropertyType.MinLength,
                                                               IsStandardProperty = !(p.IsDescriptorUsage
                                                                                      || UniqueIdSpecification.IsUSI(p.PropertyName)
                                                                                      || IsUniqueIdPropertyOnPersonEntity(entity, p)

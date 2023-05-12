@@ -78,6 +78,8 @@ namespace EdFi.Ods.CodeGen.Models.Templates
 
         public string MaxLength { get; set; }
 
+        public string MinLength { get; set; }
+
         public bool IsNullable { get; set; }
 
         public bool IsReadOnly { get; set; }
@@ -92,6 +94,8 @@ namespace EdFi.Ods.CodeGen.Models.Templates
         public string NHibernateTypeName { get; set; }
 
         public string MaxLength { get; set; }
+
+        public string MinLength { get; set; }
 
         public string GeneratorClass { get; set; }
 

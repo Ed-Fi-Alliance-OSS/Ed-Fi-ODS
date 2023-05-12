@@ -65,6 +65,9 @@ namespace EdFi.Ods.CodeGen.Generators
                                                         NHibernateTypeName = _databaseTypeTranslator.GetNHType(c.DbDataType),
                                                         MaxLength = c.Length > 0
                                                             ? c.Length.ToString()
+                                                            : NotRendered,
+                                                        MinLength = c.Length > 0
+                                                            ? c.Length.ToString()
                                                             : NotRendered
                                                     })
                                                 .ToList()
@@ -78,6 +81,9 @@ namespace EdFi.Ods.CodeGen.Generators
                                                     ColumnName = c.Name,
                                                     NHibernateTypeName = _databaseTypeTranslator.GetNHType(c.DbDataType),
                                                     MaxLength = c.Length > 0
+                                                        ? c.Length.ToString()
+                                                        : NotRendered,
+                                                    MinLength = c.Length > 0
                                                         ? c.Length.ToString()
                                                         : NotRendered,
                                                     IsNullable = c.Nullable,

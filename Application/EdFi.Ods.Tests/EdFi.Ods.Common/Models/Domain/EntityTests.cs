@@ -609,25 +609,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition(
                             "StudentUSI",
-                            new PropertyType(DbType.Int32, 0, 10, 0, false),
+                            new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
                             "A unique number or alphanumeric code assigned to a student by a state education agency.",
                             true,
                             true),
                         new EntityPropertyDefinition(
                             "FirstName",
-                            new PropertyType(DbType.String, 75, 0, 0, false),
+                            new PropertyType(DbType.String, 75,0 , 0, 0, false),
                             "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
                             false,
                             false),
                         new EntityPropertyDefinition(
                             "MiddleName",
-                            new PropertyType(DbType.String, 75, 0, 0, true),
+                            new PropertyType(DbType.String, 75, 0, 0, 0, true),
                             "A secondary name given to an individual at birth, baptism, or during another naming ceremony.",
                             false,
                             false),
                         new EntityPropertyDefinition(
                             "LastSurname",
-                            new PropertyType(DbType.String, 75, 0, 0, false),
+                            new PropertyType(DbType.String, 75,0 , 0, 0, false),
                             "The name borne in common by members of a family.",
                             false,
                             false)
@@ -651,9 +651,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     "StudentPet",
                     new[]
                     {
-                        new EntityPropertyDefinition("PetName", new PropertyType(DbType.String, 20, 0, 0, false), "", true, false),
-                        new EntityPropertyDefinition("IsFixed", new PropertyType(DbType.Boolean, 0, 0, 0, true), "", false, false),
-                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0, 0, 0, false), "", false, false)
+                        new EntityPropertyDefinition("PetName", new PropertyType(DbType.String, 20,0 , 0, 0, false), "", true, false),
+                        new EntityPropertyDefinition("IsFixed", new PropertyType(DbType.Boolean, 0, 0, 0, 0, true), "", false, false),
+                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                     },
                     new[]
                     {
@@ -676,9 +676,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     "StudentPetPreference",
                     new[]
                     {
-                        new EntityPropertyDefinition("MinimumWeight", new PropertyType(DbType.Int32, 0, 10, 0, false), "", false, false),
-                        new EntityPropertyDefinition("MaximumWeight", new PropertyType(DbType.Int32, 0, 10, 0, false), "", false, false),
-                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0, 0, 0, false), "", false, false)
+                        new EntityPropertyDefinition("MinimumWeight", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", false, false),
+                        new EntityPropertyDefinition("MaximumWeight", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", false, false),
+                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                     },
                     new[]
                     {
@@ -704,7 +704,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition(
                             "StudentUSI",
-                            new PropertyType(DbType.Int32, 0, 10, 0, false),
+                            new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
                             "A unique number or alphanumeric code assigned to a student by a state education agency.",
                             true,
                             true)
@@ -712,7 +712,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("sample", "StudentPet"),
                     new[]
                     {
-                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 10, 0, false), "", true, false)
+                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", true, false)
                     },
                     true,
                     true)
@@ -727,7 +727,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition(
                             "StudentUSI",
-                            new PropertyType(DbType.Int32, 0, 10, 0, false),
+                            new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
                             "A unique number or alphanumeric code assigned to a student by a state education agency.",
                             true,
                             true)
@@ -735,7 +735,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("sample", "StudentPetPreference"),
                     new[]
                     {
-                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 10, 0, false), "", true, true)
+                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", true, true)
                     },
                     true,
                     true)
