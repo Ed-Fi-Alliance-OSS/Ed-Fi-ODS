@@ -15,8 +15,8 @@ namespace EdFi.Ods.Api.Middleware;
 public interface IOdsInstanceSelector
 {
     /// <summary>
-    /// Selects the appropriate ODS instance for processing the current request.
+    /// Selects the appropriate ODS instance configuration for processing the current request.
     /// </summary>
-    /// <returns>The OdsInstanceConfiguration for the selected ODS.</returns>
+    /// <returns>The <see cref="OdsInstanceConfiguration" /> for the selected ODS if successful; otherwise <b>null</b>.</returns>
     Task<OdsInstanceConfiguration> GetOdsInstanceAsync(RouteValueDictionary routeValues);
 }

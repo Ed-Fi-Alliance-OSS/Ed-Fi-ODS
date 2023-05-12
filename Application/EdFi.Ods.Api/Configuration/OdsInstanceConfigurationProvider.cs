@@ -14,6 +14,9 @@ using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Configuration;
 
+/// <summary>
+/// Implements an <see cref="IOdsInstanceConfigurationProvider"/> that obtains ODS instance configurations from the EdFi_Admin database.
+/// </summary>
 public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvider
 {
     private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
@@ -31,7 +34,8 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
         _dbProviderFactory = dbProviderFactory;
         _odsInstanceHashIdGenerator = odsInstanceHashIdGenerator;
     }
-    
+
+    /// <inheritdoc cref="IOdsInstanceConfigurationProvider.GetByIdAsync" />
     public async Task<OdsInstanceConfiguration> GetByIdAsync(int odsInstanceId)
     {
         // Consider refactoring out to follow the pattern used by EdFiAdminRawApiClientDetailsProvider
@@ -48,14 +52,7 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
     private OdsInstanceConfiguration CreateOdsInstanceConfiguration(
         RawOdsInstanceConfigurationDataRow[] rawDataRows)
     {
-        if (!rawDataRows.Any())
-        {
-            rawDataRows = null;
-        }
-
-        ArgumentNullException.ThrowIfNull(rawDataRows);
-
-        var firstRow = rawDataRows.FirstOrDefault();
+        var firstRow = rawDataRows?.FirstOrDefault();
 
         if (firstRow == null)
         {
