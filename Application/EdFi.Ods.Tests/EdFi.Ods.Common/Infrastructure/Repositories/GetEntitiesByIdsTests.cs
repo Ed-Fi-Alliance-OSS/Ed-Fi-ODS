@@ -57,7 +57,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                 _parameterListSetter = Stub<IParameterListSetter>();
 
                 _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
-                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(null, "GET"));
+                
+                var dataManagementResourceContext = new DataManagementResourceContext(
+                    _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", nameof(School))),
+                    "GET");
+
+                A.CallTo(() => _contextProvider.Get())
+                    .Returns(dataManagementResourceContext);
             }
 
             protected override void Act()
@@ -151,7 +157,13 @@ Actual:
                 _parameterListSetter = Stub<IParameterListSetter>();
                 
                 _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
-                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(null, "GET"));
+
+                var dataManagementResourceContext = new DataManagementResourceContext(
+                    _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", nameof(Student))),
+                    "GET");
+
+                A.CallTo(() => _contextProvider.Get())
+                    .Returns(dataManagementResourceContext);
             }
 
             protected override void Act()
@@ -231,8 +243,13 @@ Actual:
 
                 _parameterListSetter = Stub<IParameterListSetter>();
                 
+                var dataManagementResourceContext = new DataManagementResourceContext(
+                    _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", nameof(StudentEducationOrganizationAssociation))),
+                    "GET");
+
                 _contextProvider = A.Fake<IContextProvider<DataManagementResourceContext>>();
-                A.CallTo(() => _contextProvider.Get()).Returns(new DataManagementResourceContext(null, "GET"));
+                A.CallTo(() => _contextProvider.Get())
+                    .Returns(dataManagementResourceContext);
             }
 
             protected override void Act()

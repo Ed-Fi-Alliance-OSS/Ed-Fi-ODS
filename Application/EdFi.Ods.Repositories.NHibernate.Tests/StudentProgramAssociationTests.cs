@@ -301,7 +301,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     var deleteStudentProgramAssociationByKey =
                         _container.Resolve<IDeleteEntityByKey<StudentProgramAssociation>>();
 
-                    var resource = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", "StudentProgramAssociation"));
+                    var resource = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", nameof(StudentProgramAssociation)));
                     _dataManagementContextProvider.Set(new DataManagementResourceContext(resource, HttpMethods.Delete));
                     
                     deleteStudentProgramAssociationByKey.DeleteByKeyAsync(studentProgramAssociation, null, CancellationToken.None)
@@ -513,6 +513,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             private void CreateTestServiceDescriptor()
             {
+                var resource = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByFullName(new FullName("edfi", nameof(ServiceDescriptor)));
+                _dataManagementContextProvider.Set(new DataManagementResourceContext(resource, HttpMethods.Post));
+
                 _upsertService.UpsertAsync(_serviceDescriptor, false, CancellationToken.None)
                     .WaitSafely();
             }
