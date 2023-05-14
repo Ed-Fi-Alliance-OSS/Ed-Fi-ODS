@@ -1537,7 +1537,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                             new EP("Description", new PT(DbType.String, 1024 , 0, 0, false, 0), "The description of the descriptor.", false, false),
                             new EP(
                                 "PriorDescriptorId",
-                                new PT(DbType.Int32,0 , 0, 10, 0, true),
+                                new PT(DbType.Int32, 0 , 10, 0, true, 0),
                                 "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
                                 false,
                                 false),
@@ -1632,7 +1632,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                             new EP("DatePosted", new PT(DbType.Date, 0 , 0, 0, false, 0) , "Date the OpenStaffPosition was posted.", false, false),
                             new EP(
                                 "PositionTitle",
-                                new PT(DbType.String, 100, 0, 0, 0, true, 0),
+                                new PT(DbType.String, 100, 0, 0, true, 0),
                                 "The descriptive name of an individual's position.",
                                 false,
                                 false),
@@ -1756,7 +1756,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("extension", "OpenStaffPositionExtension"),
                         new[]
                         {
-                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, true), "", false, false)
+                            new EP("FundingSourceDescriptorId", new PT(DbType.Int32, 0, 10, 0, true, 0), "", false, false)
                         },
                         false,
                         false));

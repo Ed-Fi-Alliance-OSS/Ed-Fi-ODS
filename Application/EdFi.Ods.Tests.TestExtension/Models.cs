@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             "StaffLeaveExtension",
                             new[]
                             {
-                                new EP("ExtensionDate", new PT(DbType.Date, 0, 0, 0, true, 0), "Sample Extension Documentation", false, false)                                
+                                new EP("ExtensionDate", new PT(DbType.Date, 0, 0, 0, true, 0), "Sample Extension Documentation", false, false)                    
                             },
                             new[]
                             {
@@ -194,7 +194,7 @@ namespace EdFi.Ods.Tests.TestExtension
                                     true),
                                 new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false, 0) , "The begin date of the staff leave.", true, false),
                                 new EP("EndDate", new PT(DbType.Date, 0, 0, 0, true, 0), "The end date of the staff leave.", false, false),
-                                new EP("Reason", new PT(DbType.String, 40, 0, 0, 0, true), "Expanded reason for the staff leave.", false, false),
+                                new EP("Reason", new PT(DbType.String, 40, 0, 0, true, 0), "Expanded reason for the staff leave.", false, false),
                                 new EP(
                                     "SubstituteAssigned",
                                     new PT(DbType.Boolean, 0, 0, 0, true, 0),

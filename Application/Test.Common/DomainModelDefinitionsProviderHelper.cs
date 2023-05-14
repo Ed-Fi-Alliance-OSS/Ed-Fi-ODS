@@ -65,18 +65,18 @@ namespace Test.Common
                             "Applicant",
                             new[]
                             {
-                                new EP("ApplicantIdentifier", new PT(DbType.String, 32,0 , 0, 0, false), "", true, false),
-                                new EP("PersonalTitlePrefix", new PT(DbType.String, 30, 0, 0, 0, true), "", false, false),
+                                new EP("ApplicantIdentifier", new PT(DbType.String, 32, 0, 0, false, 0), "", true, false),
+                                new EP("PersonalTitlePrefix", new PT(DbType.String, 30, 0, 0, true, 0), "", false, false),
                                 new EP("FirstName", new PT(DbType.String, 75 , 0, 0, false, 0), "", false, false),
-                                new EP("MiddleName", new PT(DbType.String, 75, 0, 0, 0, true), "", false, false),
+                                new EP("MiddleName", new PT(DbType.String, 75, 0, 0, true, 0), "", false, false),
                                 new EP("LastSurname", new PT(DbType.String, 75 , 0, 0, false, 0), "", false, false),
-                                new EP("GenerationCodeSuffix", new PT(DbType.String, 10, 0, 0, 0, true), "", false, false),
-                                new EP("MaidenName", new PT(DbType.String, 75, 0, 0, 0, true), "", false, false),
+                                new EP("GenerationCodeSuffix", new PT(DbType.String, 10, 0, 0, true, 0), "", false, false),
+                                new EP("MaidenName", new PT(DbType.String, 75, 0, 0, true, 0), "", false, false),
                                 new EP("BirthDate", new PT(DbType.Date, 0, 0, 0, true, 0), "", false, false),
                                 new EP("HispanicLatinoEthnicity", new PT(DbType.Boolean, 0, 0, 0, true, 0), "", false, false),
-                                new EP("YearsOfPriorProfessionalExperience", new PT(DbType.Decimal, 0, 0, 5, 2, true), "", false, false),
-                                new EP("YearsOfPriorTeachingExperience", new PT(DbType.Decimal, 0, 0, 5, 2, true), "", false, false),
-                                new EP("LoginId", new PT(DbType.String, 60, 0, 0, 0, true), "", false, false),
+                                new EP("YearsOfPriorProfessionalExperience", new PT(DbType.Decimal, 0, 5, 2, true, 0), "", false, false),
+                                new EP("YearsOfPriorTeachingExperience", new PT(DbType.Decimal, 0, 5, 2, true, 0), "", false, false),
+                                new EP("LoginId", new PT(DbType.String, 60, 0, 0, true, 0), "", false, false),
                                 new EP("HighlyQualifiedTeacher", new PT(DbType.Boolean, 0, 0, 0, true, 0), "", false, false),
                                 new EP("Id", new PT(DbType.Guid, 0, 0, 0, false, 0), "", false, false),
                                 new EP("LastModifiedDate", new PT(DbType.DateTime, 0, 0, 0, false, 0), "", false, false),
@@ -100,13 +100,13 @@ namespace Test.Common
                             "ApplicantAddress",
                             new[]
                             {
-                                new EP("StreetNumberName", new PT(DbType.String, 150,0 , 0, 0, false), "", false, false),
-                                new EP("ApartmentRoomSuiteNumber", new PT(DbType.String, 50, 0, 0, 0, true), "", false, false),
+                                new EP("StreetNumberName", new PT(DbType.String, 150, 0, 0, false, 0), "", false, false),
+                                new EP("ApartmentRoomSuiteNumber", new PT(DbType.String, 50, 0, 0, true, 0), "", false, false),
                                 new EP("BuildingSiteNumber", new PT(DbType.String, 20, 0, 0, true, 0), "", false, false),
-                                new EP("City", new PT(DbType.String, 30,0 , 0, 0, false), "", false, false),
-                                new EP("PostalCode", new PT(DbType.String, 17,0 , 0, 0, false), "", false, false),
-                                new EP("NameOfCounty", new PT(DbType.String, 30, 0, 0, 0, true), "", false, false),
-                                new EP("CountyFIPSCode", new PT(DbType.String, 5, 0, 0, 0, true), "", false, false),
+                                new EP("City", new PT(DbType.String, 30, 0, 0, false, 0), "", false, false),
+                                new EP("PostalCode", new PT(DbType.String, 17, 0, 0, false, 0), "", false, false),
+                                new EP("NameOfCounty", new PT(DbType.String, 30, 0, 0, true, 0), "", false, false),
+                                new EP("CountyFIPSCode", new PT(DbType.String, 5, 0, 0, true, 0), "", false, false),
                                 new EP("Latitude", new PT(DbType.String, 20, 0, 0, true, 0), "", false, false),
                                 new EP("Longitude", new PT(DbType.String, 20, 0, 0, true, 0), "", false, false),
                                 new EP("BeginDate", new PT(DbType.Date, 0, 0, 0, true, 0), "", false, false),
@@ -167,7 +167,7 @@ namespace Test.Common
                             new FullName("gb", "Applicant"),
                             new[]
                             {
-                                new EP("HighlyQualifiedAcademicSubjectDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, true), "", false, false)
+                                new EP("HighlyQualifiedAcademicSubjectDescriptorId", new PT(DbType.Int32, 0, 10, 0, true, 0), "", false, false)
                             },
                             false,
                             false),
@@ -207,7 +207,7 @@ namespace Test.Common
                             new FullName("gb", "Applicant"),
                             new[]
                             {
-                                new EP("CitizenshipStatusDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, true), "", false, false)
+                                new EP("CitizenshipStatusDescriptorId", new PT(DbType.Int32, 0, 10, 0, true, 0), "", false, false)
                             },
                             false,
                             false),
@@ -247,7 +247,7 @@ namespace Test.Common
                             new FullName("gb", "Applicant"),
                             new[]
                             {
-                                new EP("HighestCompletedLevelOfEducationDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, true), "", false, false)
+                                new EP("HighestCompletedLevelOfEducationDescriptorId", new PT(DbType.Int32, 0, 10, 0, true, 0), "", false, false)
                             },
                             false,
                             false),
@@ -267,7 +267,7 @@ namespace Test.Common
                             new FullName("gb", "Applicant"),
                             new[]
                             {
-                                new EP("SexDescriptorId", new PT(DbType.Int32, 0, 0, 10, 0, true), "", false, false)
+                                new EP("SexDescriptorId", new PT(DbType.Int32, 0, 10, 0, true, 0), "", false, false)
                             },
                             false,
                             false),
@@ -318,13 +318,13 @@ namespace Test.Common
                             new[]
                             {
                                 new EP("EducationOrganizationId", new PT(DbType.Int32, 0, 10, 0, false, 0), "", true, false),
-                                new EP("ApplicantIdentifier", new PT(DbType.String, 32,0 , 0, 0, false), "", true, false)
+                                new EP("ApplicantIdentifier", new PT(DbType.String, 32, 0, 0, false, 0), "", true, false)
                             },
                             new FullName("gb", "ApplicantAddress"),
                             new[]
                             {
                                 new EP("EducationOrganizationId", new PT(DbType.Int32, 0, 10, 0, false, 0), "", true, false),
-                                new EP("ApplicantIdentifier", new PT(DbType.String, 32,0 , 0, 0, false), "", true, false)
+                                new EP("ApplicantIdentifier", new PT(DbType.String, 32, 0, 0, false, 0), "", true, false)
                             },
                             true,
                             true)
