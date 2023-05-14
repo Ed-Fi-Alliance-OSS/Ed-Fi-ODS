@@ -13,21 +13,21 @@ namespace EdFi.Ods.Common.Models.Domain
 {
     public class PropertyType
     {
-        public PropertyType(DbType dbType, int maxLength = 0, int minLength = 0, int precision = 0, int scale = 0, bool isNullable = false, decimal? minValue = null, decimal? maxValue = null)
+        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false, decimal? minValue = null, decimal? maxValue = null, int minLength = 0)
         {
             if (maxLength != 0 && (precision != 0 || scale != 0))
             {
-                throw new BadRequestException("Either maxLength or precision/scale can have non-zero values, but not both.");
+                throw new ArgumentOutOfRangeException($"Either maxLength or precision/scale can have non-zero values, but not both.");
             }
 
             if (maxLength < 0)
             {
-                throw new BadRequestException("maxLength must be a value greater than 0.");
+                throw new ArgumentOutOfRangeException($"maxLength must be a value greater than 0.");
             }
 
             if (minLength < 0)
             {
-                throw new BadRequestException("minLength must be a value greater than 0.");
+                throw new ArgumentOutOfRangeException($"minLength must be a value greater than 0.");                
             }
             
             MaxLength = maxLength;

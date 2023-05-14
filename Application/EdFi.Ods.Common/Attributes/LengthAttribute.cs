@@ -30,20 +30,17 @@ namespace EdFi.Ods.Common.Attributes
             get { return _maximumlength; }
         }
 
-
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             // Check the lengths for legality
             if (MinimumLength < 0)
             {
-                return new ValidationResult(
-                $"{validationContext.DisplayName} property is minimum length is {MinimumLength} and maximum length is {MaximumLength} .");
+                return new ValidationResult(string.Format("{0} property is minimum length is {1} and maximum length is {2}.", validationContext.DisplayName,MinimumLength,MaximumLength));
             }
 
             if (MaximumLength < MinimumLength)
             {
-                return new ValidationResult(
-                $"{validationContext.DisplayName} property is minimum length is {MinimumLength} and maximum length is {MaximumLength} .");
+                return new ValidationResult(string.Format("{0} property is minimum length is {1} and maximum length is {2}.", validationContext.DisplayName,MinimumLength,MaximumLength)); 
             }
 
             string stringValue = value as string;
@@ -56,12 +53,11 @@ namespace EdFi.Ods.Common.Attributes
             }
             else if ((value.GetType()) != typeof(string))
             {
-                return new ValidationResult($"{validationContext.DisplayName} property is Invalid Value Type of {value.GetType()}.");
+                return new ValidationResult($"{validationContext.DisplayName} property is invalid value type of {value.GetType()}.");
             }
 
             return (uint)(length - MinimumLength) <= (uint)(MaximumLength - MinimumLength) ? ValidationResult.Success
-                : new ValidationResult(
-                    $"{validationContext.DisplayName} property is minimum length is {MinimumLength} and maximum length is {MaximumLength} .");
+                : new ValidationResult(string.Format("{0} property is minimum length is {1} and maximum length is {2}.", validationContext.DisplayName,MinimumLength,MaximumLength));
         }
     }
 }

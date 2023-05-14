@@ -609,7 +609,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition(
                             "StudentUSI",
-                            new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
+                            new PropertyType(DbType.Int32, 0, 10, 0, false, 0),
                             "A unique number or alphanumeric code assigned to a student by a state education agency.",
                             true,
                             true),
@@ -652,7 +652,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new[]
                     {
                         new EntityPropertyDefinition("PetName", new PropertyType(DbType.String, 20,0 , 0, 0, false), "", true, false),
-                        new EntityPropertyDefinition("IsFixed", new PropertyType(DbType.Boolean, 0, 0, 0, 0, true), "", false, false),
+                        new EntityPropertyDefinition("IsFixed", new PropertyType(DbType.Boolean, 0, 0, 0, true, 0), "", false, false),
                         new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                     },
                     new[]
@@ -676,8 +676,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     "StudentPetPreference",
                     new[]
                     {
-                        new EntityPropertyDefinition("MinimumWeight", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", false, false),
-                        new EntityPropertyDefinition("MaximumWeight", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", false, false),
+                        new EntityPropertyDefinition("MinimumWeight", new PropertyType(DbType.Int32, 0, 10, 0, false, 0), "", false, false),
+                        new EntityPropertyDefinition("MaximumWeight", new PropertyType(DbType.Int32, 0, 10, 0, false, 0), "", false, false),
                         new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
                     },
                     new[]
@@ -704,7 +704,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition(
                             "StudentUSI",
-                            new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
+                            new PropertyType(DbType.Int32, 0, 10, 0, false, 0),
                             "A unique number or alphanumeric code assigned to a student by a state education agency.",
                             true,
                             true)
@@ -712,7 +712,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("sample", "StudentPet"),
                     new[]
                     {
-                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", true, false)
+                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 10, 0, false, 0), "", true, false)
                     },
                     true,
                     true)
@@ -727,7 +727,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition(
                             "StudentUSI",
-                            new PropertyType(DbType.Int32, 0, 0, 10, 0, false),
+                            new PropertyType(DbType.Int32, 0, 10, 0, false, 0),
                             "A unique number or alphanumeric code assigned to a student by a state education agency.",
                             true,
                             true)
@@ -735,7 +735,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new FullName("sample", "StudentPetPreference"),
                     new[]
                     {
-                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 0, 10, 0, false), "", true, true)
+                        new EntityPropertyDefinition("StudentUSI", new PropertyType(DbType.Int32, 0, 10, 0, false, 0), "", true, true)
                     },
                     true,
                     true)

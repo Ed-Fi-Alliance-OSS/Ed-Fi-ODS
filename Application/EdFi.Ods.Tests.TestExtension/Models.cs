@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             "StaffLeaveExtension",
                             new[]
                             {
-                                new EP("ExtensionDate", new PT(DbType.Date, 0, 0, 0, 0, true), "Sample Extension Documentation", false, false)
+                                new EP("ExtensionDate", new PT(DbType.Date, 0, 0, 0, true, 0), "Sample Extension Documentation", false, false)                                
                             },
                             new[]
                             {
@@ -50,8 +50,8 @@ namespace EdFi.Ods.Tests.TestExtension
                             "StaffLeaveReason",
                             new[]
                             {
-                                new EP("Reason", new PT(DbType.String, 40,0 , 0, 0, false), "Sample Extension Documentation", true, false),
-                                new EP("CreateDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false)
+                                new EP("Reason", new PT(DbType.String, 40 , 0, 0, false, 0), "Sample Extension Documentation", true, false),
+                                new EP("CreateDate", new PT(DbType.DateTime, 0, 0, 0, false, 0), "", false, false)
                             },
                             new[]
                             {
@@ -75,16 +75,16 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("edfi", "StaffLeave"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0,0 , 0, 0, false), "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false, 0) , "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
                                     "StaffUSI",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     "A unique alphanumeric code assigned to a staff.",
                                     true,
                                     false)
@@ -92,16 +92,16 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("testextension", "StaffLeaveExtension"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0,0 , 0, 0, false), "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false, 0) , "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
                                     "StaffUSI",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     "A unique alphanumeric code assigned to a staff.",
                                     true,
                                     false)
@@ -114,16 +114,16 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("edfi", "StaffLeave"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0,0 , 0, 0, false), "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false, 0) , "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
                                     "StaffUSI",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     "A unique alphanumeric code assigned to a staff.",
                                     true,
                                     false)
@@ -131,16 +131,16 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("testextension", "StaffLeaveReason"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0,0 , 0, 0, false), "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false, 0) , "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
                                     "StaffUSI",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     "A unique alphanumeric code assigned to a staff.",
                                     true,
                                     false)
@@ -185,25 +185,25 @@ namespace EdFi.Ods.Tests.TestExtension
                             "StaffLeave",
                             new[]
                             {
-                                new EP("StaffUSI", new PT(DbType.Int32, 0, 0, 10, 0, false), "Staff Identity Column", true, true),
+                                new EP("StaffUSI", new PT(DbType.Int32, 0, 10, 0, false, 0), "Staff Identity Column", true, true),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
-                                    new PT(DbType.Int32, 0, 0, 10, 0, false),
+                                    new PT(DbType.Int32, 0, 10, 0, false, 0),
                                     "Key for StaffLeaveEventCategory",
                                     true,
                                     true),
-                                new EP("BeginDate", new PT(DbType.Date, 0,0 , 0, 0, false), "The begin date of the staff leave.", true, false),
-                                new EP("EndDate", new PT(DbType.Date, 0, 0, 0, 0, true), "The end date of the staff leave.", false, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false, 0) , "The begin date of the staff leave.", true, false),
+                                new EP("EndDate", new PT(DbType.Date, 0, 0, 0, true, 0), "The end date of the staff leave.", false, false),
                                 new EP("Reason", new PT(DbType.String, 40, 0, 0, 0, true), "Expanded reason for the staff leave.", false, false),
                                 new EP(
                                     "SubstituteAssigned",
-                                    new PT(DbType.Boolean, 0, 0, 0, 0, true),
+                                    new PT(DbType.Boolean, 0, 0, 0, true, 0),
                                     "Indicator of whether a substitute was assigned during the period of staff leave.",
                                     false,
                                     false),
-                                new EP("CreateDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false),
-                                new EP("LastModifiedDate", new PT(DbType.DateTime, 0,0 , 0, 0, false), "", false, false),
-                                new EP("Id", new PT(DbType.Guid, 0,0 , 0, 0, false), "", false, false)
+                                new EP("CreateDate", new PT(DbType.DateTime, 0, 0, 0, false, 0), "", false, false),
+                                new EP("LastModifiedDate", new PT(DbType.DateTime, 0, 0, 0, false, 0), "", false, false),
+                                new EP("Id", new PT(DbType.Guid, 0, 0, 0, false, 0), "", false, false)
                             },
                             new[]
                             {
