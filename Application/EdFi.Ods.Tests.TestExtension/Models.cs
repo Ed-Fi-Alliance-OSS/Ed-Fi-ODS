@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             "StaffLeaveExtension",
                             new[]
                             {
-                                new EP("ExtensionDate", new PT(DbType.Date, 0, 0, 0, true, 0), "Sample Extension Documentation", false, false)   
+                                new EP("ExtensionDate", new PT(DbType.Date, 0, 0, 0, true, 0), "Sample Extension Documentation", false, false)
                             },
                             new[]
                             {
