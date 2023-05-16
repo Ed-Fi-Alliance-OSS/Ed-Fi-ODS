@@ -615,7 +615,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                             true),
                         new EntityPropertyDefinition(
                             "FirstName",
-                            new PropertyType(DbType.String, 75 , 0, 0, false),
+                            new PropertyType(DbType.String, 75, 0, 0, false),
                             "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.",
                             false,
                             false),
@@ -627,7 +627,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                             false),
                         new EntityPropertyDefinition(
                             "LastSurname",
-                            new PropertyType(DbType.String, 75 , 0, 0, false),
+                            new PropertyType(DbType.String, 75, 0, 0, false),
                             "The name borne in common by members of a family.",
                             false,
                             false)
@@ -653,7 +653,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition("PetName", new PropertyType(DbType.String, 20, 0, 0, false), "", true, false),
                         new EntityPropertyDefinition("IsFixed", new PropertyType(DbType.Boolean, 0, 0, 0, true), "", false, false),
-                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0 , 0, 0, false), "", false, false)
+                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0, 0, 0, false), "", false, false)
                     },
                     new[]
                     {
@@ -678,7 +678,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     {
                         new EntityPropertyDefinition("MinimumWeight", new PropertyType(DbType.Int32, 0, 10, 0, false), "", false, false),
                         new EntityPropertyDefinition("MaximumWeight", new PropertyType(DbType.Int32, 0, 10, 0, false), "", false, false),
-                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0 , 0, 0, false), "", false, false)
+                        new EntityPropertyDefinition("CreateDate", new PropertyType(DbType.DateTime, 0, 0, 0, false), "", false, false)
                     },
                     new[]
                     {

@@ -50,7 +50,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             "StaffLeaveReason",
                             new[]
                             {
-                                new EP("Reason", new PT(DbType.String, 40 , 0, 0, false), "Sample Extension Documentation", true, false),
+                                new EP("Reason", new PT(DbType.String, 40, 0, 0, false), "Sample Extension Documentation", true, false),
                                 new EP("CreateDate", new PT(DbType.DateTime, 0, 0, 0, false), "", false, false)
                             },
                             new[]
@@ -75,7 +75,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("edfi", "StaffLeave"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false) , "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0, 0, 0, false), "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("testextension", "StaffLeaveExtension"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false) , "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0, 0, 0, false), "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
@@ -114,7 +114,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("edfi", "StaffLeave"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false) , "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0, 0, 0, false), "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
@@ -131,7 +131,7 @@ namespace EdFi.Ods.Tests.TestExtension
                             new FullName("testextension", "StaffLeaveReason"),
                             new[]
                             {
-                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false) , "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0, 0, 0, false), "The begin date of the staff leave.", true, false),
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
@@ -192,7 +192,7 @@ namespace EdFi.Ods.Tests.TestExtension
                                     "Key for StaffLeaveEventCategory",
                                     true,
                                     true),
-                                new EP("BeginDate", new PT(DbType.Date, 0 , 0, 0, false) , "The begin date of the staff leave.", true, false),
+                                new EP("BeginDate", new PT(DbType.Date, 0, 0, 0, false), "The begin date of the staff leave.", true, false),
                                 new EP("EndDate", new PT(DbType.Date, 0, 0, 0, true), "The end date of the staff leave.", false, false),
                                 new EP("Reason", new PT(DbType.String, 40, 0, 0, true), "Expanded reason for the staff leave.", false, false),
                                 new EP(

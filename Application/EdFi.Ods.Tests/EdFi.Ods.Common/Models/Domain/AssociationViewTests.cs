@@ -1518,7 +1518,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                                 true),
                             new EP(
                                 "Namespace",
-                                new PT(DbType.String, 255 , 0, 0, false),
+                                new PT(DbType.String, 255, 0, 0, false),
                                 "A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.",
                                 false,
                                 false),
@@ -1530,14 +1530,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                                 false),
                             new EP(
                                 "ShortDescription",
-                                new PT(DbType.String, 75 , 0, 0, false),
+                                new PT(DbType.String, 75, 0, 0, false),
                                 "A shortened description for the descriptor.",
                                 false,
                                 false),
-                            new EP("Description", new PT(DbType.String, 1024 , 0, 0, false), "The description of the descriptor.", false, false),
+                            new EP("Description", new PT(DbType.String, 1024, 0, 0, true), "The description of the descriptor.", false, false),
                             new EP(
                                 "PriorDescriptorId",
-                                new PT(DbType.Int32, 0 , 10, 0, true),
+                                new PT(DbType.Int32, 0, 10, 0, true),
                                 "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
                                 false,
                                 false),
@@ -1629,7 +1629,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                                 "The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.",
                                 true,
                                 false),
-                            new EP("DatePosted", new PT(DbType.Date, 0 , 0, 0, false) , "Date the OpenStaffPosition was posted.", false, false),
+                            new EP("DatePosted", new PT(DbType.Date, 0, 0, 0, false), "Date the OpenStaffPosition was posted.", false, false),
                             new EP(
                                 "PositionTitle",
                                 new PT(DbType.String, 100, 0, 0, true),
@@ -1672,13 +1672,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         "OpenStaffPositionExtension",
                         new[]
                         {
-                            new EP("FullTimeEquivalency", new PT(DbType.Decimal, 0, 3, 2, false, 0), "", false, false),
+                            new EP("FullTimeEquivalency", new PT(DbType.Decimal, 0, 3, 2, false), "", false, false),
                             new EP("IsActive", new PT(DbType.Boolean, 0, 0, 0, true), "", false, false),
-                            new EP("MaxSalary", new PT(DbType.Decimal, 0,9, 2, true, 0), "", false, false),
-                            new EP("MinSalary", new PT(DbType.Decimal, 0, 9, 2, true, 0), "", false, false),
+                            new EP("MaxSalary", new PT(DbType.Decimal, 0, 9, 2, true), "", false, false),
+                            new EP("MinSalary", new PT(DbType.Decimal, 0, 9, 2, true), "", false, false),
                             new EP("HighNeedAcademicSubject", new PT(DbType.Boolean, 0, 0, 0, true), "", false, false),
                             new EP("PositionControlNumber", new PT(DbType.String, 20, 0, 0, true), "", false, false),
-                            new EP("TotalBudgeted", new PT(DbType.Decimal, 0, 9, 2, true, 0), "", false, false)
+                            new EP("TotalBudgeted", new PT(DbType.Decimal, 0, 9, 2, true), "", false, false)
                         },
                         new[]
                         {
