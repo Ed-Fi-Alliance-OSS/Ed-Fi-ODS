@@ -33,15 +33,7 @@ namespace EdFi.Ods.Common.Attributes
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             // Check the lengths for legality
-            if (MinimumLength < 0)
-            {
-                return new ValidationResult(string.Format("{0} property is minimum length is {1} and maximum length is {2}.", validationContext.DisplayName,MinimumLength,MaximumLength));
-            }
-
-            if (MaximumLength < MinimumLength)
-            {
-                return new ValidationResult(string.Format("{0} property is minimum length is {1} and maximum length is {2}.", validationContext.DisplayName,MinimumLength,MaximumLength)); 
-            }
+            EnsureLegalLengths();
 
             string stringValue = value as string;
 
@@ -53,11 +45,24 @@ namespace EdFi.Ods.Common.Attributes
             }
             else if ((value.GetType()) != typeof(string))
             {
-                return new ValidationResult($"{validationContext.DisplayName} property is invalid value type of {value.GetType()}.");
+                throw new InvalidCastException(string.Format("The field of type {0} must be a string, array or ICollection type.", value.GetType()));
             }
 
             return (uint)(length - MinimumLength) <= (uint)(MaximumLength - MinimumLength) ? ValidationResult.Success
                 : new ValidationResult(string.Format("{0} property is minimum length is {1} and maximum length is {2}.", validationContext.DisplayName,MinimumLength,MaximumLength));
+        }
+
+        private void EnsureLegalLengths()
+        {
+            if (MinimumLength < 0)
+            {
+                throw new InvalidOperationException("minLength must have a value that is zero or greater.");
+            }
+
+            if (MaximumLength < MinimumLength)
+            {
+                throw new InvalidOperationException("maxLength must have a value that is greater than or equal to minLength.");
+            }
         }
     }
 }

@@ -85,7 +85,7 @@ namespace EdFi.Ods.Features.Composites
                     new ResourceProperty(
                         builderContext.CurrentResource,
                         processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type",
-                        new PropertyType(DbType.AnsiString, 128, 0, 0, true, 0),  
+                        new PropertyType(DbType.AnsiString, 128, 0, 0, true),  
                         new PropertyCharacteristics(
                             false,
                             false,

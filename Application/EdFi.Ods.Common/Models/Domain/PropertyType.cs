@@ -17,17 +17,17 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             if (maxLength != 0 && (precision != 0 || scale != 0))
             {
-                throw new ArgumentOutOfRangeException($"Either maxLength or precision/scale can have non-zero values, but not both.");
-            }
-
-            if (maxLength < 0)
-            {
-                throw new ArgumentOutOfRangeException($"maxLength must be a value greater than 0.");
+                throw new ArgumentOutOfRangeException($"Either {nameof(maxLength)} or {nameof(precision)}/{nameof(scale)} can have non-zero values, but not both.");
             }
 
             if (minLength < 0)
             {
-                throw new ArgumentOutOfRangeException($"minLength must be a value greater than 0.");                
+                throw new ArgumentOutOfRangeException($"{nameof(minLength)} must be a non-negative value.");
+            }
+
+            if (maxLength < minLength)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must have a value that is greater than or equal to {nameof(minLength)}.");
             }
             
             MaxLength = maxLength;
