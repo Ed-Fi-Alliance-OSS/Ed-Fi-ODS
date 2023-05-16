@@ -97,7 +97,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
+      shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS-Implementation
@@ -107,11 +107,11 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
+      shell: powershell
       run: |
         ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS-Implementation"
     - name: Install sql-server-2019, sqlpackage, and postgres13
-      shell: pwsh
+      shell: powershell
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
@@ -120,7 +120,7 @@ jobs:
           (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
           Restart-Service postgresql-x64-13
     - name: Create Admin Database 
-      shell: pwsh
+      shell: powershell
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
@@ -130,7 +130,7 @@ jobs:
       with:
         nuget-version: '5.x'
     - name: Create NuGet package
-      shell: pwsh
+      shell: powershell
       run: |
         [int]$BuildCounter =  "${{ github.run_number }}"
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
@@ -145,7 +145,7 @@ jobs:
         nuget pack $AdminPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
+      shell: powershell
     - name: Publish Nuget package
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/
