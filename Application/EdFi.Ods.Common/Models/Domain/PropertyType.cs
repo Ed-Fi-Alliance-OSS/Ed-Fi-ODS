@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             if (maxLength != 0 && (precision != 0 || scale != 0))
             {
-                throw new ArgumentOutOfRangeException($"Either {nameof(maxLength)} or {nameof(precision)}/{nameof(scale)} can have non-zero values, but not both.");
+                throw new ArgumentException($"Either {nameof(maxLength)} or {nameof(precision)}/{nameof(scale)} can have non-zero values, but not both.");
             }
 
             if (minLength < 0)

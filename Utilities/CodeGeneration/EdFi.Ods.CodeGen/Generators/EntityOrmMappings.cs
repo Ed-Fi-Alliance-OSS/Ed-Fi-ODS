@@ -537,6 +537,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     ? p.PropertyType.MinLength.ToString()
                     : null;
             }
+
             bool HasKeyRequiringUseOfCompositeId(Entity m)
             {
                 return

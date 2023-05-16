@@ -300,21 +300,22 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                 {
                                                                     "RequiredWithNonDefault"
                                                                 }
-                                                              : new string[0])
+                                                              : Array.Empty<string>())
                                                          .Concat(
                                                               p.PropertyType.ToCSharp() == "string"
                                                                   ? new[]
                                                                     {
-                                                                        "StringLength(" + p.PropertyType.MaxLength + ")", "NoDangerousText"
+                                                                        $"StringLength({p.PropertyType.MaxLength}, MinimumLength={p.PropertyType.MinLength})", 
+                                                                        "NoDangerousText"
                                                                     }
-                                                                  : new string[0])
+                                                                  : Array.Empty<string>())
                                                          .Concat(
                                                               IsUniqueIdPropertyOnPersonEntity(entity, p)
                                                                   ? new[]
                                                                     {
                                                                         "NoWhitespace"
                                                                     }
-                                                                  : new string[0]
+                                                                  : Array.Empty<string>()
                                                           )),
                                                   RangeAttribute = p.ToRangeAttributeCSharp(),
                                                   IsStandardProperty =
