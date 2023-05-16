@@ -508,7 +508,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string CandidateIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -520,7 +520,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string BirthCity  { get; set; }
         public virtual int? BirthCountryDescriptorId 
         {
@@ -566,7 +566,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private DateTime _birthDate;
         
-        [StringLength(150), NoDangerousText]
+        [StringLength(150, MinimumLength=0), NoDangerousText]
         public virtual string BirthInternationalProvince  { get; set; }
         public virtual int? BirthSexDescriptorId 
         {
@@ -655,7 +655,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private DateTime? _dateEnteredUS;
         
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string DisplacementStatus  { get; set; }
         public virtual bool? EconomicDisadvantaged  { get; set; }
         public virtual int? EnglishLanguageExamDescriptorId 
@@ -693,7 +693,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             }
         }
         public virtual bool? FirstGenerationStudent  { get; set; }
-        [RequiredWithNonDefault, StringLength(75), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string FirstName  { get; set; }
         public virtual int? GenderDescriptorId 
         {
@@ -729,10 +729,10 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _genderDescriptorId = default(int?);
             }
         }
-        [StringLength(10), NoDangerousText]
+        [StringLength(10, MinimumLength=0), NoDangerousText]
         public virtual string GenerationCodeSuffix  { get; set; }
         public virtual bool? HispanicLatinoEthnicity  { get; set; }
-        [RequiredWithNonDefault, StringLength(75), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string LastSurname  { get; set; }
         public virtual int? LimitedEnglishProficiencyDescriptorId 
         {
@@ -768,14 +768,14 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _limitedEnglishProficiencyDescriptorId = default(int?);
             }
         }
-        [StringLength(75), NoDangerousText]
+        [StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string MaidenName  { get; set; }
-        [StringLength(75), NoDangerousText]
+        [StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string MiddleName  { get; set; }
         public virtual bool? MultipleBirthStatus  { get; set; }
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string PersonalTitlePrefix  { get; set; }
-        [StringLength(32), NoDangerousText]
+        [StringLength(32, MinimumLength=0), NoDangerousText]
         public virtual string PersonId  { get; set; }
         [RequiredWithNonDefault]
         public virtual int SexDescriptorId 
@@ -1440,9 +1440,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _addressTypeDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 30), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string City  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 17), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(17, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PostalCode  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int StateAbbreviationDescriptorId 
@@ -1479,7 +1479,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _stateAbbreviationDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 150), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(150, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string StreetNumberName  { get; set; }
         // -------------------------------------------------------------
 
@@ -1491,16 +1491,16 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(50), NoDangerousText]
+        [StringLength(50, MinimumLength=0), NoDangerousText]
         public virtual string ApartmentRoomSuiteNumber  { get; set; }
-        [StringLength(20), NoDangerousText]
+        [StringLength(20, MinimumLength=0), NoDangerousText]
         public virtual string BuildingSiteNumber  { get; set; }
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string CongressionalDistrict  { get; set; }
-        [StringLength(5), NoDangerousText]
+        [StringLength(5, MinimumLength=0), NoDangerousText]
         public virtual string CountyFIPSCode  { get; set; }
         public virtual bool? DoNotPublishIndicator  { get; set; }
-        [StringLength(20), NoDangerousText]
+        [StringLength(20, MinimumLength=0), NoDangerousText]
         public virtual string Latitude  { get; set; }
         public virtual int? LocaleDescriptorId 
         {
@@ -1536,9 +1536,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _localeDescriptorId = default(int?);
             }
         }
-        [StringLength(20), NoDangerousText]
+        [StringLength(20, MinimumLength=0), NoDangerousText]
         public virtual string Longitude  { get; set; }
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string NameOfCounty  { get; set; }
         // -------------------------------------------------------------
 
@@ -2016,7 +2016,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _disabilityDeterminationSourceTypeDescriptorId = default(int?);
             }
         }
-        [StringLength(80), NoDangerousText]
+        [StringLength(80, MinimumLength=0), NoDangerousText]
         public virtual string DisabilityDiagnosis  { get; set; }
         public virtual int? OrderOfDisability  { get; set; }
         // -------------------------------------------------------------
@@ -2416,7 +2416,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set { Candidate = (Candidate) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 128), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(128, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ElectronicMailAddress  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int ElectronicMailTypeDescriptorId 
@@ -3104,15 +3104,15 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(75), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string FirstName  { get; set; }
-        [StringLength(10), NoDangerousText]
+        [StringLength(10, MinimumLength=0), NoDangerousText]
         public virtual string GenerationCodeSuffix  { get; set; }
-        [RequiredWithNonDefault, StringLength(75), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string LastSurname  { get; set; }
-        [StringLength(75), NoDangerousText]
+        [StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string MiddleName  { get; set; }
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string PersonalTitlePrefix  { get; set; }
         // -------------------------------------------------------------
 
@@ -3364,7 +3364,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
 
         private DateTime? _documentExpirationDate;
         
-        [StringLength(60), NoDangerousText]
+        [StringLength(60, MinimumLength=0), NoDangerousText]
         public virtual string DocumentTitle  { get; set; }
         public virtual int? IssuerCountryDescriptorId 
         {
@@ -3400,9 +3400,9 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
                 _issuerCountryDescriptorId = default(int?);
             }
         }
-        [StringLength(60), NoDangerousText]
+        [StringLength(60, MinimumLength=0), NoDangerousText]
         public virtual string IssuerDocumentIdentificationCode  { get; set; }
-        [StringLength(150), NoDangerousText]
+        [StringLength(150, MinimumLength=0), NoDangerousText]
         public virtual string IssuerName  { get; set; }
         // -------------------------------------------------------------
 
@@ -3754,7 +3754,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM
             set { Candidate = (Candidate) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 24), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(24, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string TelephoneNumber  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TelephoneNumberTypeDescriptorId 
@@ -4048,11 +4048,11 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private DateTime _beginDate;
         
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string CandidateIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int ProgramTypeDescriptorId 
@@ -4721,7 +4721,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
             set { CandidateEducatorPreparationProgramAssociation = (CandidateEducatorPreparationProgramAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string MajorSpecialization  { get; set; }
         // -------------------------------------------------------------
 
@@ -4752,7 +4752,7 @@ namespace EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssoci
 
         private DateTime? _endDate;
         
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string MinorSpecialization  { get; set; }
         // -------------------------------------------------------------
 
@@ -5591,7 +5591,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 _certificationRouteDescriptorId = default(int?);
             }
         }
-        [StringLength(64), NoDangerousText]
+        [StringLength(64, MinimumLength=0), NoDangerousText]
         public virtual string CertificationTitle  { get; set; }
         public virtual DateTime? CredentialStatusDate 
         {
@@ -5680,7 +5680,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                 _educatorRoleDescriptorId = default(int?);
             }
         }
-        [StringLength(32), NoDangerousText]
+        [StringLength(32, MinimumLength=0), NoDangerousText]
         public virtual string PersonId  { get; set; }
         public virtual int? SourceSystemDescriptorId 
         {
@@ -6181,7 +6181,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int ProgramTypeDescriptorId 
@@ -6262,7 +6262,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM
                 _accreditationStatusDescriptorId = default(int?);
             }
         }
-        [StringLength(20), NoDangerousText]
+        [StringLength(20, MinimumLength=0), NoDangerousText]
         public virtual string ProgramId  { get; set; }
         // -------------------------------------------------------------
 
@@ -7362,9 +7362,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -7448,7 +7448,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string EvaluationDescription  { get; set; }
         public virtual int? EvaluationTypeDescriptorId 
         {
@@ -8007,9 +8007,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
@@ -8046,9 +8046,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -8716,9 +8716,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
         private DateTime _evaluationDate;
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
@@ -8755,9 +8755,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -8794,7 +8794,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual short SchoolYear  { get; set; }
@@ -8878,11 +8878,11 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(1024), NoDangerousText]
+        [StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string AreaOfRefinement  { get; set; }
-        [StringLength(1024), NoDangerousText]
+        [StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string AreaOfReinforcement  { get; set; }
-        [StringLength(1024), NoDangerousText]
+        [StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string Comments  { get; set; }
         public virtual int? EvaluationElementRatingLevelDescriptorId 
         {
@@ -8918,7 +8918,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                 _evaluationElementRatingLevelDescriptorId = default(int?);
             }
         }
-        [StringLength(2048), NoDangerousText]
+        [StringLength(2048, MinimumLength=0), NoDangerousText]
         public virtual string Feedback  { get; set; }
         // -------------------------------------------------------------
 
@@ -9172,7 +9172,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
 
         [DomainSignature][Range(typeof(decimal), "-999.999", "999.999")]
         public virtual decimal Rating  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -9651,7 +9651,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
@@ -9688,9 +9688,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -9774,7 +9774,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string EvaluationObjectiveDescription  { get; set; }
         public virtual int? EvaluationTypeDescriptorId 
         {
@@ -10357,7 +10357,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
         private DateTime _evaluationDate;
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
@@ -10394,9 +10394,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -10433,7 +10433,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual short SchoolYear  { get; set; }
@@ -10517,7 +10517,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(1024), NoDangerousText]
+        [StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string Comments  { get; set; }
         public virtual int? ObjectiveRatingLevelDescriptorId 
         {
@@ -10804,7 +10804,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
 
         [DomainSignature][Range(typeof(decimal), "-999.999", "999.999")]
         public virtual decimal Rating  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -11342,9 +11342,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -11381,7 +11381,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual short SchoolYear  { get; set; }
@@ -11533,12 +11533,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 _evaluationRatingStatusDescriptorId = default(int?);
             }
         }
-        [StringLength(60), NoDangerousText]
+        [StringLength(60, MinimumLength=0), NoDangerousText]
         public virtual string LocalCourseCode  { get; set; }
         public virtual int? SchoolId  { get; set; }
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string SectionIdentifier  { get; set; }
-        [StringLength(60), NoDangerousText]
+        [StringLength(60, MinimumLength=0), NoDangerousText]
         public virtual string SessionName  { get; set; }
         // -------------------------------------------------------------
 
@@ -11859,7 +11859,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         [DomainSignature][Range(typeof(decimal), "-999.999", "999.999")]
         public virtual decimal Rating  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -12063,9 +12063,9 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { EvaluationRating = (EvaluationRating) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string FirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -12077,7 +12077,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(32), NoDangerousText]
+        [StringLength(32, MinimumLength=0), NoDangerousText]
         public virtual string ReviewerPersonId  { get; set; }
         public virtual int? ReviewerSourceSystemDescriptorId 
         {
@@ -13263,7 +13263,7 @@ namespace EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM
         // -------------------------------------------------------------
         [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
         public virtual decimal? AidAmount  { get; set; }
-        [StringLength(1024), NoDangerousText]
+        [StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string AidConditionDescription  { get; set; }
         public virtual DateTime? EndDate 
         {
@@ -13949,7 +13949,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -14067,7 +14067,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 _academicSubjectDescriptorId = default(int?);
             }
         }
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string PerformanceEvaluationDescription  { get; set; }
         // -------------------------------------------------------------
 
@@ -14878,7 +14878,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -14915,7 +14915,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual short SchoolYear  { get; set; }
@@ -15012,7 +15012,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         public virtual int? ActualDuration  { get; set; }
         public virtual TimeSpan? ActualTime  { get; set; }
         public virtual bool? Announced  { get; set; }
-        [StringLength(1024), NoDangerousText]
+        [StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string Comments  { get; set; }
         public virtual int? CoteachingStyleObservedDescriptorId 
         {
@@ -15398,7 +15398,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
 
         [DomainSignature][Range(typeof(decimal), "-999.999", "999.999")]
         public virtual decimal Rating  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string RatingResultTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -15602,9 +15602,9 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set { PerformanceEvaluationRating = (PerformanceEvaluationRating) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, Length(0, 75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string FirstName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string LastSurname  { get; set; }
         // -------------------------------------------------------------
 
@@ -15616,7 +15616,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(32), NoDangerousText]
+        [StringLength(32, MinimumLength=0), NoDangerousText]
         public virtual string ReviewerPersonId  { get; set; }
         public virtual int? ReviewerSourceSystemDescriptorId 
         {
@@ -16536,9 +16536,9 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
@@ -16575,9 +16575,9 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                 _evaluationPeriodDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int PerformanceEvaluationTypeDescriptorId 
@@ -16663,7 +16663,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(1024), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(1024, MinimumLength=0), NoDangerousText]
         public virtual string CriterionDescription  { get; set; }
         public virtual int? DimensionOrder  { get; set; }
         public virtual int? RubricRatingLevelDescriptorId 
@@ -17257,7 +17257,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(32), NoDangerousText]
+        [StringLength(32, MinimumLength=0), NoDangerousText]
         public virtual string PersonId  { get; set; }
         public virtual int? SourceSystemDescriptorId 
         {
@@ -17543,9 +17543,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string Namespace  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
@@ -17582,9 +17582,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggr
                 _sourceSystemDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SurveyIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SurveyResponseIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -17869,9 +17869,9 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string Namespace  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 32), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(32, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
@@ -17908,11 +17908,11 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociat
                 _sourceSystemDescriptorId = default(int);
             }
         }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SurveyIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SurveyResponseIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 255), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(255, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SurveySectionTitle  { get; set; }
         // -------------------------------------------------------------
 

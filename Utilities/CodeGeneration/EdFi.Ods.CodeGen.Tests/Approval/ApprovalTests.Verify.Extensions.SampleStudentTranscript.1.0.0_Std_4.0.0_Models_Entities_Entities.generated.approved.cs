@@ -500,7 +500,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, Length(0, 75), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(75, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string NameOfInstitution  { get; set; }
         // -------------------------------------------------------------
 
@@ -933,7 +933,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(75), NoDangerousText]
+        [StringLength(75, MinimumLength=0), NoDangerousText]
         public virtual string NameOfInstitution  { get; set; }
         public virtual int? SubmissionCertificationDescriptorId 
         {

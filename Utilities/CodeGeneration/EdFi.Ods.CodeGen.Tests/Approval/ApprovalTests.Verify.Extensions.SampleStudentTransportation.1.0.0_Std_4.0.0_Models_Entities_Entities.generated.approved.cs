@@ -131,9 +131,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, Length(0, 6), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(6, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string AMBusNumber  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, Length(0, 6), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(6, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string PMBusNumber  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SchoolId  { get; set; }
