@@ -7651,13 +7651,12 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Should indicate that the pet name is too short\", () => {\r",
+											"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
 											"  const message = pm.response.json().message;\r",
 											"\r",
 											"  pm.expect(message).to.contain(\"The field PetName must be a string with a minimum length of 3 and a maximum length of 20.\");\r",
 											"});\r",
-											"\r",
-											"// pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -7701,7 +7700,12 @@
 											"  pm.expect(pm.response.code).to.equal(400);\r",
 											"});\r",
 											"\r",
-											"// pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.test(\"Should indicate that the pet name should have a length between 3 and 20 characters\", () => {\r",
+											"  const message = pm.response.json().message;\r",
+											"\r",
+											"  pm.expect(message).to.contain(\"The field PetName must be a string with a minimum length of 3 and a maximum length of 20.\");\r",
+											"});\r",
+											""
 										],
 										"type": "text/javascript"
 									}
