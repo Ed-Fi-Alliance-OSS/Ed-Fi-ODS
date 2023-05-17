@@ -7633,6 +7633,198 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Data Validation",
+			"item": [
+				{
+					"name": "String Length",
+					"item": [
+						{
+							"name": "Create Staff with Pet with name too short",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should indicate that the pet name is too short\", () => {\r",
+											"  const message = pm.response.json().message;\r",
+											"\r",
+											"  pm.expect(message).to.contain(\"The field PetName must be a string with a minimum length of 3 and a maximum length of 20.\");\r",
+											"});\r",
+											"\r",
+											"// pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"staffUniqueId\": \"TEST-StringLength\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"It\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Staff with Pet with name too long",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"// pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"staffUniqueId\": \"TEST-StringLength\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"John Jacob Jingleheimer Schmidt\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Staff with Pet with name valid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:staff:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"staffUniqueId\": \"TEST-StringLength\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"Gecko of Awesomeness\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the Staff",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "  {\r\n    \"staffUniqueId\": \"207288\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"John Jacob Jingleheimer Schmidt\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:staff:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"staffs",
+										"{{known:staff:id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"auth": {
