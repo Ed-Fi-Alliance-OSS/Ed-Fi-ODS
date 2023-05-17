@@ -5278,6 +5278,67 @@
 							"response": []
 						},
 						{
+							"name": "Change Class Period Key (Invalid key value)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 400\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error indicates the key value failed validation.\", () => {\r",
+											"  const message = pm.response.json().message;\r",
+											"\r",
+											"  pm.expect(message).to.contain(\"Validation of 'ClassPeriod' failed.\");\r",
+											"  pm.expect(message).to.contain(\"ClassPeriodName is required.\")\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"classPeriodName\": \"\",\r\n    \"meetingTimes\": [\r\n        {\r\n            \"endTime\": \"09:25:00\",\r\n            \"startTime\": \"08:35:00\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods/{{known:{{scenarioId}}:classPeriod:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"classPeriods",
+										"{{known:{{scenarioId}}:classPeriod:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Change Class Period Key",
 							"event": [
 								{
