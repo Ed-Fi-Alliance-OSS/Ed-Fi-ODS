@@ -213,7 +213,7 @@ jobs:
               Copy-Item -Path $packageFolder\* -Destination "$env:UserProfile/.nuget/" -Recurse -Force
               Write-Host "Extracted to: $env:UserProfile\.nuget\plugins\" -ForegroundColor Green
           }
-      shell: pwsh
+      shell: powershell
     - name: publish
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/

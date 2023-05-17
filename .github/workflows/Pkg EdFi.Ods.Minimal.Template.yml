@@ -89,7 +89,7 @@ jobs:
         $standardTag = .\build.githubactions.ps1 StandardTag -standardVersion ${{ matrix.StandardVersion }} -ProjectFile "./Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
         echo "EDFI_STANDARD_REFERENCE=$standardTag">> $env:GITHUB_ENV
         Write-host "Ed-Fi-Standard Tag is  $standardTag"
-      shell: pwsh
+      shell: powershell
     - name: Checkout Ed-Fi-ODS-Standard
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
@@ -122,7 +122,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       run: |
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
-      shell: pwsh                
+      shell: powershell                
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -182,7 +182,7 @@ jobs:
               Copy-Item -Path $packageFolder\* -Destination "$env:UserProfile/.nuget/" -Recurse -Force
               Write-Host "Extracted to: $env:UserProfile\.nuget\plugins\" -ForegroundColor Green
           }
-      shell: pwsh
+      shell: powershell
     - name: publish 
       working-directory: ./Ed-Fi-ODS/
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
