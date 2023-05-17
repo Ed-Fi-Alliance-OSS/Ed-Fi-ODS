@@ -313,7 +313,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string BusId  { get; set; }
         // -------------------------------------------------------------
 
@@ -550,7 +550,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string BusId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int BusRouteNumber  { get; set; }
@@ -583,7 +583,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         private DateTime? _beginDate;
         
-        [RequiredWithNonDefault, StringLength(15), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(15, MinimumLength=0), NoDangerousText]
         public virtual string BusRouteDirection  { get; set; }
         public virtual int? BusRouteDuration  { get; set; }
         public virtual bool? Daily  { get; set; }
@@ -622,7 +622,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
         }
         public virtual int? EducationOrganizationId  { get; set; }
-        [RequiredWithNonDefault, StringLength(30), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string ExpectedTransitTime  { get; set; }
         [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal HoursPerWeek  { get; set; }
@@ -1297,7 +1297,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int ProgramTypeDescriptorId 
@@ -1517,7 +1517,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(17), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(17, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ServiceAreaPostalCode  { get; set; }
         // -------------------------------------------------------------
 
@@ -1841,7 +1841,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             set { BusRoute = (BusRoute) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(24), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(24, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string TelephoneNumber  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TelephoneNumberTypeDescriptorId 
@@ -2422,7 +2422,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set { ParentAddress.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(250), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(250, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SchoolDistrict  { get; set; }
         // -------------------------------------------------------------
 
@@ -2784,7 +2784,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set { Parent.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string Author  { get; set; }
         // -------------------------------------------------------------
 
@@ -3153,7 +3153,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                 _careerPathwayDescriptorId = default(int);
             }
         }
-        [StringLength(120), NoDangerousText]
+        [StringLength(120, MinimumLength=0), NoDangerousText]
         public virtual string CIPCode  { get; set; }
         public virtual bool? CTEProgramCompletionIndicator  { get; set; }
         public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
@@ -3307,7 +3307,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set { Parent.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(225), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(225, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ContentIdentifier  { get; set; }
         // -------------------------------------------------------------
 
@@ -3489,7 +3489,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             set { Parent.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string FavoriteBookTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -3665,7 +3665,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         public virtual int EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int ProgramEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int ProgramTypeDescriptorId 
@@ -3927,7 +3927,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(10), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(10, MinimumLength=0), NoDangerousText]
         public virtual string DayOfWeek  { get; set; }
         [RequiredWithNonDefault]
         public virtual TimeSpan EndTime  { get; set; }
@@ -4092,7 +4092,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string AverageCarLineWait  { get; set; }
         public virtual short? BecameParent  { get; set; }
         [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
@@ -4519,7 +4519,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string Complex  { get; set; }
         public virtual bool OnBusRoute  { get; set; }
         // -------------------------------------------------------------
@@ -4773,7 +4773,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                 _careerPathwayDescriptorId = default(int);
             }
         }
-        [StringLength(120), NoDangerousText]
+        [StringLength(120, MinimumLength=0), NoDangerousText]
         public virtual string CIPCode  { get; set; }
         public virtual bool? CTEProgramCompletionIndicator  { get; set; }
         public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
@@ -4927,7 +4927,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
             set { School.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string DirectlyOwnedBusId  { get; set; }
         // -------------------------------------------------------------
 
@@ -5335,7 +5335,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
             set { Staff.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(20), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=3), NoDangerousText, NoWhitespace]
         public virtual string PetName  { get; set; }
         // -------------------------------------------------------------
 
@@ -5905,7 +5905,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
         [DomainSignature]
         public virtual int MimimumTankVolume  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(20), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=3), NoDangerousText, NoWhitespace]
         public virtual string PetName  { get; set; }
         // -------------------------------------------------------------
 
@@ -6115,7 +6115,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(200), NoDangerousText]
+        [StringLength(200, MinimumLength=0), NoDangerousText]
         public virtual string BookTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -6514,7 +6514,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
             set { Student.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(20), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(20, MinimumLength=3), NoDangerousText, NoWhitespace]
         public virtual string PetName  { get; set; }
         // -------------------------------------------------------------
 
@@ -7010,7 +7010,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         public override int EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public override int ProgramEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public override string ProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public override int ProgramTypeDescriptorId 
@@ -7132,10 +7132,10 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         
         [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal? HoursPerDay  { get; set; }
-        [StringLength(60), NoDangerousText]
+        [StringLength(60, MinimumLength=0), NoDangerousText]
         public virtual string IdentificationCode  { get; set; }
         public virtual TimeSpan? KilnReservation  { get; set; }
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string KilnReservationLength  { get; set; }
         [Range(typeof(decimal), "-9.9999", "9.9999")]
         public virtual decimal? MasteredMediums  { get; set; }
@@ -8086,7 +8086,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(50, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string Style  { get; set; }
         // -------------------------------------------------------------
 
@@ -8437,7 +8437,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
             set { StudentEducationOrganizationAssociationAddress.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(250), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(250, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string SchoolDistrict  { get; set; }
         // -------------------------------------------------------------
 
@@ -9000,7 +9000,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [StringLength(255), NoDangerousText]
+        [StringLength(255, MinimumLength=0), NoDangerousText]
         public virtual string Complex  { get; set; }
         public virtual bool OnBusRoute  { get; set; }
         // -------------------------------------------------------------
@@ -9475,7 +9475,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         
         [Range(typeof(decimal), "-922337203685477.5808", "922337203685477.5807")]
         public virtual decimal? GraduationFee  { get; set; }
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string HighSchoolDuration  { get; set; }
         [Range(typeof(decimal), "-999.99", "999.99")]
         public virtual decimal HoursPerWeek  { get; set; }
@@ -10533,7 +10533,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                 _careerPathwayDescriptorId = default(int);
             }
         }
-        [StringLength(120), NoDangerousText]
+        [StringLength(120, MinimumLength=0), NoDangerousText]
         public virtual string CIPCode  { get; set; }
         public virtual bool? CTEProgramCompletionIndicator  { get; set; }
         public virtual bool? PrimaryCTEProgramIndicator  { get; set; }
@@ -10688,7 +10688,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(1024), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(1024, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string Description  { get; set; }
         // -------------------------------------------------------------
 
@@ -10851,7 +10851,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string DesignatedBy  { get; set; }
         // -------------------------------------------------------------
 
@@ -11014,7 +11014,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string IndustryCredential  { get; set; }
         // -------------------------------------------------------------
 
@@ -11760,7 +11760,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             set { StudentParentAssociation.Extensions["Sample"] = value; }
         }
 
-        [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(100, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string FavoriteBookTitle  { get; set; }
         // -------------------------------------------------------------
 
@@ -12527,7 +12527,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         // -------------------------------------------------------------
         public virtual bool? DoNotPublishIndicator  { get; set; }
         public virtual int? OrderOfPriority  { get; set; }
-        [RequiredWithNonDefault, StringLength(24), NoDangerousText]
+        [RequiredWithNonDefault, StringLength(24, MinimumLength=0), NoDangerousText]
         public virtual string TelephoneNumber  { get; set; }
         [RequiredWithNonDefault]
         public virtual int TelephoneNumberTypeDescriptorId 
@@ -12732,12 +12732,12 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         public virtual decimal? BookBudget  { get; set; }
         public virtual int? BooksBorrowed  { get; set; }
         public virtual int? EducationOrganizationId  { get; set; }
-        [StringLength(60), NoDangerousText]
+        [StringLength(60, MinimumLength=0), NoDangerousText]
         public virtual string InterventionStudyIdentificationCode  { get; set; }
         public virtual int? LibraryDuration  { get; set; }
         public virtual TimeSpan? LibraryTime  { get; set; }
         public virtual short? LibraryVisits  { get; set; }
-        [StringLength(250), NoDangerousText]
+        [StringLength(250, MinimumLength=0), NoDangerousText]
         public virtual string PriorContactRestrictions  { get; set; }
         public virtual DateTime? ReadGreenEggsAndHamDate 
         {
@@ -12758,7 +12758,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
         private DateTime? _readGreenEggsAndHamDate;
         
-        [StringLength(30), NoDangerousText]
+        [StringLength(30, MinimumLength=0), NoDangerousText]
         public virtual string ReadingTimeSpent  { get; set; }
         public virtual short? StudentRead  { get; set; }
         // -------------------------------------------------------------
@@ -13314,7 +13314,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
         public virtual int RelatedEducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int RelatedProgramEducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        [DomainSignature, RequiredWithNonDefault, StringLength(60, MinimumLength=0), NoDangerousText, NoWhitespace]
         public virtual string RelatedProgramName  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int RelatedProgramTypeDescriptorId 

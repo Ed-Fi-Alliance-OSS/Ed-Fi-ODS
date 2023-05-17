@@ -13,19 +13,26 @@ namespace EdFi.Ods.Common.Models.Domain
 {
     public class PropertyType
     {
-        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false, decimal? minValue = null, decimal? maxValue = null)
+        public PropertyType(DbType dbType, int maxLength = 0, int precision = 0, int scale = 0, bool isNullable = false, decimal? minValue = null, decimal? maxValue = null, int minLength = 0)
         {
             if (maxLength != 0 && (precision != 0 || scale != 0))
             {
-                throw new BadRequestException("Either maxLength or precision/scale can have non-zero values, but not both.");
+                throw new ArgumentException($"Either {nameof(maxLength)} or {nameof(precision)}/{nameof(scale)} can have non-zero values, but not both.");
             }
 
-            if (maxLength < 0)
+            if (minLength < 0)
             {
-                throw new BadRequestException("maxLength must be a value greater than 0.");
+                throw new ArgumentOutOfRangeException($"{nameof(minLength)} must be a non-negative value.");
             }
 
+            if (maxLength < minLength)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(maxLength)} must have a value that is greater than or equal to {nameof(minLength)}.");
+            }
+            
             MaxLength = maxLength;
+
+            MinLength = minLength;
 
             if (precision != 0 || scale != 0)
             {
@@ -50,6 +57,8 @@ namespace EdFi.Ods.Common.Models.Domain
         public int Scale { get; }
 
         public int MaxLength { get; }
+
+        public int MinLength { get; }
 
         public decimal? MinValue { get; set; }
 
