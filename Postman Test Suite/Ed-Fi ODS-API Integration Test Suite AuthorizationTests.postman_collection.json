@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "80551eba-8e6d-47ac-aca6-12aeb9806ad2",
+		"_postman_id": "c3233f75-c356-4d9b-a12a-55a1eaf196ba",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "2374196"
+		"_exporter_id": "26382147"
 	},
 	"item": [
 		{
@@ -8382,6 +8382,1471 @@
 											]
 										}
 									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Relationships",
+					"item": [
+						{
+							"name": "When Creating At District",
+							"item": [
+								{
+									"name": "Can Read At School",
+									"item": [
+										{
+											"name": "Course",
+											"item": [
+												{
+													"name": "Create Course At District",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseCode',newGuid());\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':courseGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disabledSystemHeaders": {}
+													},
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Course At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Course At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Program",
+											"item": [
+												{
+													"name": "Create Program At District",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':programGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Program At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Program At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "ChartOfAccount",
+											"item": [
+												{
+													"name": "Create ChartOfAccount At District",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':accountIdentifier', newGuid());\r",
+																	"pm.environment.set('supplied:'+scenarioId+':accountTypeDescriptor', \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\");"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':chartOfAccountGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"accountIdentifier\": \"{{supplied:{{scenarioId}}:accountIdentifier}}\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"accountTypeDescriptor\": \"{{supplied:{{scenarioId}}:accountTypeDescriptor}}\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get ChartOfAccount At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete ChartOfAccount At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "When Creating At School",
+							"item": [
+								{
+									"name": "Can Read And Write At District",
+									"item": [
+										{
+											"name": "Course",
+											"item": [
+												{
+													"name": "Create Course At School",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseCode',newGuid());\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':courseGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disabledSystemHeaders": {}
+													},
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Course At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Course At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Program",
+											"item": [
+												{
+													"name": "Create Program At School",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':programGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Program At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Program At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "ChartOfAccount",
+											"item": [
+												{
+													"name": "Create ChartOfAccount At School",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':accountIdentifier', newGuid());\r",
+																	"pm.environment.set('supplied:'+scenarioId+':accountTypeDescriptor', \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\");"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':chartOfAccountGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"accountIdentifier\": \"{{supplied:{{scenarioId}}:accountIdentifier}}\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"accountTypeDescriptor\": \"{{supplied:{{scenarioId}}:accountTypeDescriptor}}\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get ChartOfAccount At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 200\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete ChartOfAccount At District",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Cannot Read At Another School",
+									"item": [
+										{
+											"name": "Course",
+											"item": [
+												{
+													"name": "Create Course At School",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"CSSC course code\");\r",
+																	"pm.environment.set('supplied:'+scenarioId+':courseCode',newGuid());\r",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':courseGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"protocolProfileBehavior": {
+														"disabledSystemHeaders": {}
+													},
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Course At Other School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 403\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(403);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901044}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Course At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Program",
+											"item": [
+												{
+													"name": "Create Program At School",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));\r",
+																	"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':programGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get Program At Other School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 403\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(403);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901044}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Program At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "ChartOfAccount",
+											"item": [
+												{
+													"name": "Create ChartOfAccount At School",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"const uuid = require('uuid');\r",
+																	"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+																	"function createScenarioId() { return newGuid().substring(0,5); }\r",
+																	"pm.environment.set('scenarioId', createScenarioId());\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
+																	"pm.environment.set('supplied:'+scenarioId+':accountIdentifier', newGuid());\r",
+																	"pm.environment.set('supplied:'+scenarioId+':accountTypeDescriptor', \"uri://ed-fi.org/AccountTypeDescriptor#Expenditure\");"
+																],
+																"type": "text/javascript"
+															}
+														},
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 201\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(201);\r",
+																	"});\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"pm.environment.set('known:'+scenarioId+':chartOfAccountGuid', pm.response.headers.one('Location').value.split(\"/\").pop());"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "POST",
+														"header": [
+															{
+																"key": "Content-Type",
+																"value": "application/json",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\r\n  \"accountIdentifier\": \"{{supplied:{{scenarioId}}:accountIdentifier}}\",\r\n  \"fiscalYear\": 2022,\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"accountTypeDescriptor\": \"{{supplied:{{scenarioId}}:accountTypeDescriptor}}\"\r\n}"
+														},
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Get ChartOfAccount At Other School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 403\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(403);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901044}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete ChartOfAccount At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 204\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(204);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
 							]
 						}
