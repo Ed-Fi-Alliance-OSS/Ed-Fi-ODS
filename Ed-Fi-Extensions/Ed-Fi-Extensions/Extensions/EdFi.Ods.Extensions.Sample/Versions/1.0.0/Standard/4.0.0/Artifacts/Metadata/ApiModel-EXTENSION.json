@@ -2338,6 +2338,7 @@
           "propertyName": "PetName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 3,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -2510,6 +2511,7 @@
           "propertyName": "PetName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 3,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
@@ -4951,6 +4953,7 @@
           "propertyName": "PetName",
           "propertyType": {
             "dbType": "String",
+            "minLength": 3,
             "maxLength": 20,
             "precision": 0,
             "scale": 0,
