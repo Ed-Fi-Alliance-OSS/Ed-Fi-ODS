@@ -11,7 +11,6 @@ using System.Reflection;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
@@ -27,7 +26,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private const string AggregateExtensionMemberName = "AggregateExtensions";
 
         private readonly IDictionary<string, HbmBag[]> _aggregateExtensionHbmBagsByEntityName;
-        private readonly IAuthorizationFilterDefinitionsFactory[] _authorizationStrategyConfigurators;
         private readonly INHibernateBeforeBindMappingActivity[] _beforeBindMappingActivities;
         private readonly INHibernateConfigurationActivity[] _configurationActivities;
         private readonly IDictionary<string, HbmBag[]> _entityExtensionHbmBagsByEntityName;
@@ -35,14 +33,16 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IDictionary<string, HbmSubclass[]> _extensionDerivedEntityByEntityName;
         private readonly IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
+        private readonly IEnumerable<IEntityValidator> _entityValidators;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
-            IEnumerable<IAuthorizationFilterDefinitionsFactory> authorizationStrategyConfigurators,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
-            IOdsDatabaseConnectionStringProvider connectionStringProvider)
+            IEnumerable<IEntityValidator> entityValidators)
         {
+            _entityValidators = entityValidators;
+
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
 
@@ -51,9 +51,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             _beforeBindMappingActivities = Preconditions.ThrowIfNull(
                 beforeBindMappingActivities.ToArray(), nameof(beforeBindMappingActivities));
-
-            _authorizationStrategyConfigurators = Preconditions.ThrowIfNull(
-                authorizationStrategyConfigurators.ToArray(), nameof(authorizationStrategyConfigurators));
 
             _configurationActivities = Preconditions.ThrowIfNull(
                 configurationActivities.ToArray(), nameof(configurationActivities));
@@ -117,7 +114,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 configurationActivity.Execute(configuration);
             }
 
-            configuration.AddCreateDateHooks();
+            configuration.AddCreateDateHooks(_entityValidators);
 
             return configuration;
 
