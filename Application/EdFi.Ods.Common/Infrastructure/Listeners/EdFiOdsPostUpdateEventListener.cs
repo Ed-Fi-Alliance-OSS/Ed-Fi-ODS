@@ -4,10 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Validation;
 using NHibernate;
 using NHibernate.Event;
 using NHibernate.Persister.Entity;
@@ -16,6 +21,13 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 {
     public class EdFiOdsPostUpdateEventListener : IPostUpdateEventListener
     {
+        private readonly IEnumerable<IEntityValidator> _entityValidators;
+
+        public EdFiOdsPostUpdateEventListener(IEnumerable<IEntityValidator> entityValidators)
+        {
+            _entityValidators = entityValidators;
+        }
+
         public Task OnPostUpdateAsync(PostUpdateEvent @event, CancellationToken cancellationToken)
         {
             return Task.Run(() => OnPostUpdate(@event), cancellationToken);
@@ -26,7 +38,7 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
             ProcessCascadingKeyValues(@event);
         }
 
-        private static void ProcessCascadingKeyValues(PostUpdateEvent @event)
+        private void ProcessCascadingKeyValues(PostUpdateEvent @event)
         {
             // Quit if this is not an entity that supports cascading updates
             var cascadableEntity = @event.Entity as IHasCascadableKeyValues;
@@ -52,6 +64,10 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
                 throw new NotSupportedException(
                     "Cascading updates are only supported for 'aggregate root' entities that implement IHasIdentifier (i.e. entities that have a GUID-based identifier property).");
             }
+
+            // Apply the new key values to the entity and then perform validation before proceeding
+            ApplyNewKeyValuesToEntity();
+            ValidateEntity();
 
             string tableName;
             string[] updateTargetColumnNames;
@@ -85,6 +101,28 @@ namespace EdFi.Ods.Common.Infrastructure.Listeners
 
             // Execute the update of the primary key
             query.ExecuteUpdate();
+
+            void ApplyNewKeyValuesToEntity()
+            {
+                var typeInfo = @event.Entity.GetType().GetTypeInfo();
+
+                foreach (var keyAsObject in newKeyValues.Keys)
+                {
+                    var property = typeInfo.GetProperty((string) keyAsObject);
+                    property.SetValue(@event.Entity, newKeyValues[keyAsObject]);
+                }
+            }
+
+            void ValidateEntity()
+            {
+                var validationResults = _entityValidators.ValidateObject(@event.Entity);
+
+                if (!validationResults.IsValid())
+                {
+                    throw new ValidationException(
+                        $"Validation of '{@event.Entity.GetType().Name}' failed.{Environment.NewLine}{string.Join(Environment.NewLine, validationResults.GetAllMessages(indentLevel: 1))}");
+                }
+            }
         }
 
         private static IQuery CreateUpdateQuery(
