@@ -8645,7 +8645,7 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:programGuid}}",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
 															"host": [
 																"{{ApiBaseUrl}}"
 															],
@@ -8653,7 +8653,7 @@
 																"data",
 																"v3",
 																"ed-fi",
-																"chartOfAccounts",
+																"programs",
 																"{{known:{{scenarioId}}:programGuid}}"
 															]
 														}
@@ -9120,7 +9120,7 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:programGuid}}",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
 															"host": [
 																"{{ApiBaseUrl}}"
 															],
@@ -9128,7 +9128,7 @@
 																"data",
 																"v3",
 																"ed-fi",
-																"chartOfAccounts",
+																"programs",
 																"{{known:{{scenarioId}}:programGuid}}"
 															]
 														}
@@ -9600,7 +9600,7 @@
 														"method": "GET",
 														"header": [],
 														"url": {
-															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:programGuid}}",
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
 															"host": [
 																"{{ApiBaseUrl}}"
 															],
@@ -9608,7 +9608,7 @@
 																"data",
 																"v3",
 																"ed-fi",
-																"chartOfAccounts",
+																"programs",
 																"{{known:{{scenarioId}}:programGuid}}"
 															]
 														}
