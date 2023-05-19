@@ -9059,6 +9059,598 @@
 			]
 		},
 		{
+			"name": "Profile definitions can include all members of a resource or collection",
+			"item": [
+				{
+					"name": "Setup",
+					"item": [
+						{
+							"name": "Get Primary Key properties",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+											"\r",
+											"function getPrimaryKeys(resource) {\r",
+											"    var resourceProperties = pm.response.json().definitions[resource].properties;\r",
+											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat(\"id\"); \r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"metadata",
+										"data",
+										"v3",
+										"resources",
+										"swagger.json"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											"\r",
+											"// Fetch a copy of the created school payload\r",
+											"pm.sendRequest({\r",
+											"    url: `${pm.environment.get(\"ApiBaseUrl\")}/data/v3/ed-fi/schools/${pm.environment.get(\"known:schoolId\")}`,\r",
+											"    method: \"GET\",\r",
+											"    header: {\r",
+											"        \"Authorization\": 'bearer ' + pm.environment.get(\"AccessToken_255901\"),\r",
+											"        \"Content-Type\": \"application/json\",\r",
+											"    }\r",
+											"    }, function (err, response) {\r",
+											"      pm.environment.set('known:school', response.json());\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create School With International Address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:intlSchoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											"\r",
+											"// Fetch a copy of the created school payload\r",
+											"pm.sendRequest({\r",
+											"    url: `${pm.environment.get(\"ApiBaseUrl\")}/data/v3/ed-fi/schools/${pm.environment.get(\"known:intlSchoolId\")}`,\r",
+											"    method: \"GET\",\r",
+											"    header: {\r",
+											"        \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+											"        \"Content-Type\": \"application/json\",\r",
+											"    }\r",
+											"    }, function (err, response) {\r",
+											"      pm.environment.set('known:intlSchool', response.json());\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:intlSchoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolId\": {{supplied:intlSchoolId}},\r\n  \"nameOfInstitution\": \"Intl School\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ],\r\n  \"internationalAddresses\": [\r\n    {\r\n      \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n      \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#MY\",\r\n      \"addressLine1\": \"address\",\r\n      \"addressLine2\": \"City\",\r\n      \"addressLine3\": \"Postal Code\",\r\n      \"addressLine4\": \"Street\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Read Requests",
+					"item": [
+						{
+							"name": "The Read content type includes all properties of a resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The response model should contain all of the resource model's properties.\",\r",
+											"    () => {\r",
+											"        const originalEntity = pm.environment.get(\"known:school\");\r",
+											"        const profileEntity = pm.response.json();\r",
+											"\r",
+											"        pm.expect(originalEntity).to.deep.equal(profileEntity);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "The Read content type includes all properties of a child collection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The response model should contain all of the resource model's properties.\",\r",
+											"    () => {\r",
+											"        const originalEntity = pm.environment.get(\"known:school\");\r",
+											"        const profileEntity = pm.response.json();\r",
+											"\r",
+											"        // Created entity should contain the profile filtered entity\r",
+											"        pm.expect(originalEntity).to.deep.include(profileEntity);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Write Requests",
+					"item": [
+						{
+							"name": "The Write content type includes all properties of a resource",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"The response should indicate success\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											"\r",
+											"// Made it a function, to avoid async issues\r",
+											"function getKnownSchool (callback) {\r",
+											"    pm.sendRequest({\r",
+											"        url: pm.environment.get(\"ApiBaseUrl\") + `/data/v3/ed-fi/schools/` + pm.environment.get(\"known:intlSchoolId\"),\r",
+											"        method: \"GET\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+											"            \"Content-Type\": \"application/json\",\r",
+											"            \"Accept\": \"application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\"\r",
+											"        }\r",
+											"    }, callback);\r",
+											"}\r",
+											"\r",
+											"getKnownSchool((error, response) => {\r",
+											"    Validate(response.json());\r",
+											"});\r",
+											"\r",
+											"function Validate(jsonResponse) {\r",
+											"    const originalEntity = pm.environment.get(\"known:intlSchool\");\r",
+											"    const updatedEntity = jsonResponse;\r",
+											"    const keys = pm.environment.get(\"known:school:PrimaryKeys\");\r",
+											"\r",
+											"    pm.test(\"The persisted entity model should have unmodified primary key values\",\r",
+											"        () => {\r",
+											"            _.each(keys, (key) => {\r",
+											"                pm.expect(originalEntity[key], key).to.equals(updatedEntity[key]);\r",
+											"            })\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
+											"    () => {\r",
+											"        for (const [key, value] of Object.entries(originalEntity)) {\r",
+											"            if (keys.includes(key)) { \r",
+											"                continue;\r",
+											"            }\r",
+											"            if (originalEntity[key].length !== updatedEntity[key].length) {\r",
+											"                pm.expect(originalEntity[key], key).to.not.deep.equal(updatedEntity[key]);\r",
+											"            }\r",
+											"        }  \r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.school.test-profile-resource-includeall.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Other\",\r\n        \"city\": \"Modified\",\r\n        \"postalCode\": \"78713\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#AA\",\r\n        \"streetNumberName\": \"Modified\",\r\n        \"nameOfCounty\": \"Modified\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Other\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:intlSchoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:intlSchoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "The Write content type includes all properties of a child collection",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"The response should indicate success\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											"\r",
+											"// Made it a function, to avoid async issues\r",
+											"function getKnownSchool (callback) {\r",
+											"    pm.sendRequest({\r",
+											"        url: pm.environment.get(\"ApiBaseUrl\") + `/data/v3/ed-fi/schools/` + pm.environment.get(\"known:intlSchoolId\"),\r",
+											"        method: \"GET\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+											"            \"Content-Type\": \"application/json\",\r",
+											"        }\r",
+											"    }, callback);\r",
+											"}\r",
+											"\r",
+											"getKnownSchool((error, response) => {\r",
+											"    Validate(response.json());\r",
+											"});\r",
+											"\r",
+											"function Validate(jsonResponse) {\r",
+											"    const originalEntity = pm.environment.get(\"known:intlSchool\");\r",
+											"    const updatedEntity = jsonResponse;\r",
+											"\r",
+											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
+											"    () => {\r",
+											"        pm.expect(originalEntity['internationalAddresses']).to.not.deep.equal(updatedEntity['internationalAddresses']);\r",
+											"        for (const [key, value] of Object.entries(originalEntity['internationalAddresses'][0])) {\r",
+											"            pm.expect(originalEntity['internationalAddresses'][0][key]).to.not.equal(updatedEntity['internationalAddresses'][0][key]);\r",
+											"        }        \r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"internationalAddresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"countryDescriptor\": \"uri://ed-fi.org/CountryDescriptor#Mx\",\r\n        \"addressLine1\": \"line 1\",\r\n        \"addressLine2\": \"line 2\",\r\n        \"addressLine3\": \"line 3\",\r\n        \"addressLine4\": \"line 4\"\r\n      }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:intlSchoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:intlSchoolId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Teardown",
+					"item": [
+						{
+							"name": "Delete School",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete School With International Address",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:intlSchoolId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:intlSchoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+											"_.chain(_.keys(pm.environment.toObject()))\r",
+											"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+											"  .each(k => pm.environment.unset(k)).value();"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
 			"name": "Test Suite Teardown",
 			"item": [
 				{
