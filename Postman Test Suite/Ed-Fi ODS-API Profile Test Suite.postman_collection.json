@@ -9076,7 +9076,6 @@
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
 											"    var resourceProperties = pm.response.json().definitions[resource].properties;\r",
-											"    console.log(resourceProperties);\r",
 											"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat(\"id\"); \r",
 											"}"
 										],
