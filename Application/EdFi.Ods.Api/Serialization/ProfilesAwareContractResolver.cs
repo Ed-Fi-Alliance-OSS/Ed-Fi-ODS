@@ -39,6 +39,7 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     private readonly IProfileResourceModelProvider _profileResourceModelProvider;
     private readonly string _resourcesNamespacePrefix = $"{Namespaces.Resources.BaseNamespace}.";
     private readonly ISchemaNameMapProvider _schemaNameMapProvider;
+    private static readonly char[] _decimalAsCharArray = { '.' };
 
     public ProfilesAwareContractResolver(
         IContextProvider<ProfileContentTypeContext> profileContentTypeContextProvider,
@@ -82,7 +83,9 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             _dataManagementResourceContextProvider.Get().Resource.FullName,
             profileContentTypeContext.ContentTypeUsage);
 
-        var contract = _contractByKey.GetOrAdd(mappingContractKey, k => CreateContract(type));
+        var contract = _contractByKey.GetOrAdd(mappingContractKey, 
+            static (k, x) => x.Item2.CreateContract(x.type), 
+            (type, this));
 
         return contract;
     }
@@ -91,43 +94,52 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
     {
         return _fullNameByType.GetOrAdd(
             type,
-            t =>
+            static (t, @this) =>
             {
+                // Ensure the type provided is from the expected namespace
+                if (!(t.FullName?.StartsWith(@this._resourcesNamespacePrefix) ?? false))
+                {
+                    throw new InvalidOperationException(
+                        $"The type '{t.FullName}' does not start with the expected resource namespace of '{@this._resourcesNamespacePrefix}'.");
+                }
+                
                 // Create a string segment for the pertinent part of the full name
                 var resourceTypeNamespace = new StringSegment(
-                    type.FullName,
-                    _resourcesNamespacePrefix.Length,
-                    type.FullName.Length - _resourcesNamespacePrefix.Length);
+                    t.FullName,
+                    @this._resourcesNamespacePrefix.Length,
+                    t.FullName.Length - @this._resourcesNamespacePrefix.Length);
 
-                var namePartsTokenizer = resourceTypeNamespace.Split(new[] { '.' });
+                var namePartsTokenizer = resourceTypeNamespace.Split(_decimalAsCharArray);
 
                 var (schema, name) = GetSchemaAndResourceNameFromTokenizedString(namePartsTokenizer);
 
-                string physicalSchemaName = _schemaNameMapProvider.GetSchemaMapByProperCaseName(schema).PhysicalName;
+                string physicalSchemaName = @this._schemaNameMapProvider.GetSchemaMapByProperCaseName(schema).PhysicalName;
 
                 return new FullName(physicalSchemaName, name);
-            });
+                
+                (string, string) GetSchemaAndResourceNameFromTokenizedString(StringTokenizer tokenizer)
+                {
+                    using var enumerator = tokenizer.GetEnumerator();
 
-        (string, string) GetSchemaAndResourceNameFromTokenizedString(StringTokenizer tokenizer)
-        {
-            using var enumerator = tokenizer.GetEnumerator();
+                    enumerator.MoveNext();
+                    enumerator.MoveNext();
 
-            enumerator.MoveNext();
-            enumerator.MoveNext();
-            string schema = enumerator.Current.Value;
-            enumerator.MoveNext();
+                    string schema = enumerator.Current.Value;
+                    enumerator.MoveNext();
 
-            if (enumerator.Current.Value == "Extensions")
-            {
-                enumerator.MoveNext();
-                schema = enumerator.Current.Value;
-                enumerator.MoveNext();
-            }
+                    if (enumerator.Current.Value == "Extensions")
+                    {
+                        enumerator.MoveNext();
+                        schema = enumerator.Current.Value;
+                        enumerator.MoveNext();
+                    }
 
-            string name = enumerator.Current.Value;
+                    string name = enumerator.Current.Value;
 
-            return (schema, name);
-        }
+                    return (schema, name);
+                }
+            }, 
+            this);
     }
 
     protected override List<MemberInfo> GetSerializableMembers(Type objectType)
