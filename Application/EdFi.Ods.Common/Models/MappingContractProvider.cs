@@ -85,10 +85,10 @@ public class MappingContractProvider : IMappingContractProvider
 
         var mappingContract = _mappingContractByKey.GetOrAdd(
             mappingContractKey,
-            key =>
+            static (key, @this) =>
             {
                 // Get the profile-constrained resource model
-                var profileResourceModel = _profileResourceModelProvider.GetProfileResourceModel(key.ProfileName);
+                var profileResourceModel = @this._profileResourceModelProvider.GetProfileResourceModel(key.ProfileName);
 
                 // If we couldn't find it, throw an error
                 if (profileResourceModel == null)
@@ -117,34 +117,41 @@ public class MappingContractProvider : IMappingContractProvider
 
                 var profileResourceClass =
                     profileResource.AllContainedItemTypesOrSelf.SingleOrDefault(
-                        t => t.FullName == mappingContractKey.ResourceClassName);
+                        t => t.FullName == key.ResourceClassName);
 
                 if (profileResourceClass == null)
                 {
-                    throw new Exception(
-                        $"Unable to find resource class '{mappingContractKey.ResourceClassName}' in the {mappingContractKey.ContentTypeUsage} resource '{mappingContractKey.ProfileResourceName}' defined in Profile '{mappingContractKey.ProfileName}'.");
+                    // If we couldn't find the class as a member, look for the special case of it being the base class we're looking for
+                    if (profileResource.IsDerived && profileResource.Entity.BaseEntity.FullName == key.ResourceClassName)
+                    {
+                        profileResourceClass = profileResource;
+                    }
+                    else
+                    {
+                        throw new Exception(
+                            $"Unable to find resource class '{key.ResourceClassName}' in the {key.ContentTypeUsage} resource '{key.ProfileResourceName}' defined in Profile '{key.ProfileName}'.");
+                    }
                 }
 
-                // Find the mapping contract for the specific class
-                
                 // Need to convert the physical schema name (which is what it should be) to ProperCaseName
-                string properCaseSchemaName = _schemaNameMapProvider
-                    .GetSchemaMapByPhysicalName(profileResourceClass.FullName.Schema)
+                string properCaseSchemaName = @this._schemaNameMapProvider
+                    .GetSchemaMapByPhysicalName(key.ResourceClassName.Schema)
                     .ProperCaseName;
                 
                 string mappingContractTypeName =
-                    $"{Namespaces.Entities.Common.BaseNamespace}.{properCaseSchemaName}.{profileResourceClass.FullName.Name}MappingContract";
+                    $"{Namespaces.Entities.Common.BaseNamespace}.{properCaseSchemaName}.{key.ResourceClassName.Name}MappingContract";
 
                 string assemblyName = key.ResourceClassName.Schema.EqualsIgnoreCase(EdFiConventions.PhysicalSchemaName)
                     ? Namespaces.Standard.BaseNamespace
                     : $"{Namespaces.Extensions.BaseNamespace}.{properCaseSchemaName}";
 
+                // Find the mapping contract type for the specific class
                 var mappingContractType = Type.GetType(
                     $"{mappingContractTypeName}, {assemblyName}",
                     throwOnError: true,
                     ignoreCase: true);
 
-                // Use reflection to get the constructor of the synchronization context
+                // Use reflection to get the constructor of the mapping contract
                 var constructorInfo = mappingContractType.GetConstructors().Single();
 
                 var arguments = constructorInfo.GetParameters()
@@ -197,7 +204,8 @@ public class MappingContractProvider : IMappingContractProvider
 
                 // Create the synchronization context
                 return (IMappingContract)constructorInfo.Invoke(arguments);
-            });
+            }, 
+            this);
 
         return mappingContract;
     }
