@@ -40,6 +40,7 @@ namespace EdFi.Ods.CodeGen.Generators
                         TemplateContext.SchemaProperCaseName),
                 HasExtensionDerivedFromEdFiBaseEntity = resourceClassesToRender
                     .Where(TemplateContext.ShouldRenderResourceClass)
+                    .Where(a => a.Entity != null)
                     .Select(a => a.Entity)
                     .Any(e => !e.IsEdFiStandardEntity && e.IsDerived && e.BaseEntity.IsEdFiStandardEntity),
                 Interfaces = resourceClassesToRender
