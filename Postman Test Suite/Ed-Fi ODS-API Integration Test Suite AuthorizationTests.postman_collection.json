@@ -8477,6 +8477,13 @@
 																"exec": [
 																	"pm.test(\"Status code is 200\", () => {\r",
 																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItem = pm.response.json();\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.test(\"Should return the supplied courseCode\", () => {\r",
+																	"  pm.expect(responseItem.courseCode).to.be.equals(pm.environment.get('supplied:'+scenarioId+':courseCode'));\r",
 																	"});"
 																],
 																"type": "text/javascript"
@@ -8622,6 +8629,13 @@
 																"exec": [
 																	"pm.test(\"Status code is 200\", () => {\r",
 																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItem = pm.response.json();\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.test(\"Should return the supplied programName\", () => {\r",
+																	"  pm.expect(responseItem.programName).to.be.equals(pm.environment.get('supplied:'+scenarioId+':programName'));\r",
 																	"});"
 																],
 																"type": "text/javascript"
@@ -8767,6 +8781,13 @@
 																"exec": [
 																	"pm.test(\"Status code is 200\", () => {\r",
 																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItem = pm.response.json();\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.test(\"Should return the supplied accountIdentifier\", () => {\r",
+																	"  pm.expect(responseItem.accountIdentifier).to.be.equals(pm.environment.get('supplied:'+scenarioId+':accountIdentifier'));\r",
 																	"});"
 																],
 																"type": "text/javascript"
@@ -8959,6 +8980,13 @@
 																"exec": [
 																	"pm.test(\"Status code is 200\", () => {\r",
 																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItem = pm.response.json();\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.test(\"Should return the supplied courseCode\", () => {\r",
+																	"  pm.expect(responseItem.courseCode).to.be.equals(pm.environment.get('supplied:'+scenarioId+':courseCode'));\r",
 																	"});"
 																],
 																"type": "text/javascript"
@@ -9104,6 +9132,13 @@
 																"exec": [
 																	"pm.test(\"Status code is 200\", () => {\r",
 																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItem = pm.response.json();\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.test(\"Should return the supplied programName\", () => {\r",
+																	"  pm.expect(responseItem.programName).to.be.equals(pm.environment.get('supplied:'+scenarioId+':programName'));\r",
 																	"});"
 																],
 																"type": "text/javascript"
@@ -9249,6 +9284,13 @@
 																"exec": [
 																	"pm.test(\"Status code is 200\", () => {\r",
 																	"    pm.expect(pm.response.code).to.equal(200);\r",
+																	"});\r",
+																	"\r",
+																	"const responseItem = pm.response.json();\r",
+																	"const scenarioId = pm.environment.get('scenarioId');\r",
+																	"\r",
+																	"pm.test(\"Should return the supplied accountIdentifier\", () => {\r",
+																	"  pm.expect(responseItem.accountIdentifier).to.be.equals(pm.environment.get('supplied:'+scenarioId+':accountIdentifier'));\r",
 																	"});"
 																],
 																"type": "text/javascript"
