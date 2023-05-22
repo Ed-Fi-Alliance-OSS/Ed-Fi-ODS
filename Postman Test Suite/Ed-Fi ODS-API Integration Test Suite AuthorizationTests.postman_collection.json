@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c3233f75-c356-4d9b-a12a-55a1eaf196ba",
+		"_postman_id": "bdcadf58-03d3-49c9-9d32-a9b12edfc65e",
 		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -8388,7 +8388,7 @@
 					]
 				},
 				{
-					"name": "Relationships",
+					"name": "RelationshipsWithEdOrgsAndPeopleInverted Authorization Strategy Reference data",
 					"item": [
 						{
 							"name": "When Creating At District",
@@ -8413,8 +8413,6 @@
 																	"const scenarioId = pm.environment.get('scenarioId');\r",
 																	"\r",
 																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901);\r",
-																	"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");\r",
-																	"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");\r",
@@ -8453,7 +8451,7 @@
 														],
 														"body": {
 															"mode": "raw",
-															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
 														},
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
@@ -8568,7 +8566,6 @@
 																	"\r",
 																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901);\r",
 																	"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());\r",
-																	"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));\r",
 																	"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
 																],
 																"type": "text/javascript"
@@ -8599,7 +8596,7 @@
 														],
 														"body": {
 															"mode": "raw",
-															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  \r\n}"
 														},
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
@@ -8888,8 +8885,6 @@
 																	"const scenarioId = pm.environment.get('scenarioId');\r",
 																	"\r",
 																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
-																	"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");\r",
-																	"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");\r",
@@ -8938,7 +8933,7 @@
 														],
 														"body": {
 															"mode": "raw",
-															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
 														},
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
@@ -9043,7 +9038,6 @@
 																	"\r",
 																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
 																	"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());\r",
-																	"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));\r",
 																	"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
 																],
 																"type": "text/javascript"
@@ -9084,7 +9078,7 @@
 														],
 														"body": {
 															"mode": "raw",
-															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  \r\n}"
 														},
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
@@ -9338,8 +9332,6 @@
 																	"const scenarioId = pm.environment.get('scenarioId');\r",
 																	"\r",
 																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
-																	"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");\r",
-																	"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");\r",
 																	"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");\r",
@@ -9388,7 +9380,7 @@
 														],
 														"body": {
 															"mode": "raw",
-															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+															"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
 														},
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
@@ -9513,7 +9505,6 @@
 																	"\r",
 																	"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901001);\r",
 																	"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());\r",
-																	"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));\r",
 																	"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");"
 																],
 																"type": "text/javascript"
@@ -9554,7 +9545,7 @@
 														],
 														"body": {
 															"mode": "raw",
-															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+															"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n  \r\n}"
 														},
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
