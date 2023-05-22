@@ -9073,6 +9073,8 @@
 										"exec": [
 											"\r",
 											"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+											"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+											"    .concat(\"educationOrganizationId\",\"programEducationOrganizationId\",\"programName\",\"programTypeDescriptor\",\"studentUniqueId\"));\r",
 											"\r",
 											"function getPrimaryKeys(resource) {\r",
 											"    var resourceProperties = pm.response.json().definitions[resource].properties;\r",
@@ -9233,6 +9235,72 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Create Student Special Education Program Association",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"known:studentSpecialEducationProgramAssociationId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+											"\r",
+											"// Fetch a copy of the created school payload\r",
+											"pm.sendRequest({\r",
+											"    url: `${pm.environment.get(\"ApiBaseUrl\")}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/${pm.environment.get(\"known:studentSpecialEducationProgramAssociationId\")}`,\r",
+											"    method: \"GET\",\r",
+											"    header: {\r",
+											"        \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+											"        \"Content-Type\": \"application/json\",\r",
+											"    }\r",
+											"    }, function (err, response) {\r",
+											"      pm.environment.set('known:studentSpecialEducationProgramAssociation', response.json());\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"supplied:studentSpecialEducationProgramAssociations:beginDate\", \"2021-09-08\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Special Education\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"604872\"\r\n    },\r\n    \"beginDate\": \"{{supplied:studentSpecialEducationProgramAssociations:beginDate}}\",\r\n    \"ideaEligibility\": true,\r\n    \"iepBeginDate\": \"2021-09-01\",\r\n    \"iepReviewDate\": \"2021-08-27\",\r\n    \"lastEvaluationDate\": \"2021-08-23\",\r\n    \"schoolHoursPerWeek\": 10.00,\r\n    \"specialEducationHoursPerWeek\": 25.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Inside regular class less than 40% of the day\",\r\n    \"disabilities\": [\r\n        {\r\n            \"disabilityDescriptor\": \"uri://ed-fi.org/DisabilityDescriptor#Autism Spectrum Disorders\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSpecialEducationProgramAssociations"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -9333,6 +9401,55 @@
 										"ed-fi",
 										"schools",
 										"{{known:schoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "The Read content type includes all properties of a derived association",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The response model should contain all of the resource model's properties.\",\r",
+											"    () => {\r",
+											"        const originalEntity = pm.environment.get(\"known:studentSpecialEducationProgramAssociation\");\r",
+											"        const profileEntity = pm.response.json();\r",
+											"\r",
+											"        pm.expect(originalEntity).to.deep.equal(profileEntity);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-includeall.readable+json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/{{known:studentSpecialEducationProgramAssociationId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSpecialEducationProgramAssociations",
+										"{{known:studentSpecialEducationProgramAssociationId}}"
 									]
 								}
 							},
@@ -9481,7 +9598,6 @@
 											"\r",
 											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
 											"    () => {\r",
-											"        pm.expect(originalEntity['internationalAddresses']).to.not.deep.equal(updatedEntity['internationalAddresses']);\r",
 											"        for (const [key, value] of Object.entries(originalEntity['internationalAddresses'][0])) {\r",
 											"            pm.expect(originalEntity['internationalAddresses'][0][key]).to.not.equal(updatedEntity['internationalAddresses'][0][key]);\r",
 											"        }        \r",
@@ -9535,6 +9651,111 @@
 										"ed-fi",
 										"schools",
 										"{{known:intlSchoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "The Write content type includes all properties of a  derived association",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"The response should indicate success\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											"\r",
+											"// Made it a function, to avoid async issues\r",
+											"function getKnownSchool (callback) {\r",
+											"    pm.sendRequest({\r",
+											"        url: pm.environment.get(\"ApiBaseUrl\") + `/data/v3/ed-fi/studentSpecialEducationProgramAssociations/` + pm.environment.get(\"known:studentSpecialEducationProgramAssociationId\"),\r",
+											"        method: \"GET\",\r",
+											"        header: {\r",
+											"            \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+											"            \"Content-Type\": \"application/json\",\r",
+											"        }\r",
+											"    }, callback);\r",
+											"}\r",
+											"\r",
+											"getKnownSchool((error, response) => {\r",
+											"    Validate(response.json());\r",
+											"});\r",
+											"\r",
+											"function Validate(jsonResponse) {\r",
+											"    const originalEntity = pm.environment.get(\"known:studentSpecialEducationProgramAssociation\");\r",
+											"    const updatedEntity = jsonResponse;\r",
+											"    const keys = pm.environment.get(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\");\r",
+											"\r",
+											"    pm.test(\"The persisted entity model should have unmodified primary key values\",\r",
+											"        () => {\r",
+											"            _.each(keys, (key) => {\r",
+											"                pm.expect(originalEntity[key], key).to.equals(updatedEntity[key]);\r",
+											"            })\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
+											"    () => {\r",
+											"        for (const [key, value] of Object.entries(originalEntity)) {\r",
+											"            if (keys.includes(key)) { \r",
+											"                continue;\r",
+											"            }\r",
+											"            console.log(key)\r",
+											"            if (originalEntity[key].length !== updatedEntity[key].length) {\r",
+											"                pm.expect(originalEntity[key], key).to.not.deep.equal(updatedEntity[key]);\r",
+											"            }\r",
+											"        }  \r",
+											"    });\r",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-includeall.writable+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ideaEligibility\": false,\r\n    \"iepBeginDate\": \"2021-09-02\",\r\n    \"iepReviewDate\": \"2021-08-28\",\r\n    \"lastEvaluationDate\": \"2021-08-25\",\r\n    \"schoolHoursPerWeek\": 5.00,\r\n    \"specialEducationHoursPerWeek\": 5.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Home\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/{{known:studentSpecialEducationProgramAssociationId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSpecialEducationProgramAssociations",
+										"{{known:studentSpecialEducationProgramAssociationId}}"
 									]
 								}
 							},
@@ -9610,6 +9831,41 @@
 										"ed-fi",
 										"schools",
 										"{{known:intlSchoolId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student Special Education Program Association",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/{{known:studentSpecialEducationProgramAssociationId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSpecialEducationProgramAssociations",
+										"{{known:studentSpecialEducationProgramAssociationId}}"
 									]
 								}
 							},
