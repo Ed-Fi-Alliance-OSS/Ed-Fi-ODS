@@ -8394,7 +8394,7 @@
 							"name": "When Creating At District",
 							"item": [
 								{
-									"name": "Can Read At School",
+									"name": "Can Read But Not Write At School",
 									"item": [
 										{
 											"name": "Course",
@@ -8502,6 +8502,50 @@
 															]
 														},
 														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"courses",
+																"{{known:{{scenarioId}}:courseGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete Course At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Status code is 403\", () => {\r",
+																	"    pm.expect(pm.response.code).to.equal(403);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
 														"header": [],
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
@@ -8672,6 +8716,50 @@
 													"response": []
 												},
 												{
+													"name": "Delete Program At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 403\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(403);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"programs",
+																"{{known:{{scenarioId}}:programGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
 													"name": "Delete Program At District",
 													"event": [
 														{
@@ -8806,6 +8894,50 @@
 															]
 														},
 														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
+															"host": [
+																"{{ApiBaseUrl}}"
+															],
+															"path": [
+																"data",
+																"v3",
+																"ed-fi",
+																"chartOfAccounts",
+																"{{known:{{scenarioId}}:chartOfAccountGuid}}"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Delete ChartOfAccount At School",
+													"event": [
+														{
+															"listen": "test",
+															"script": {
+																"exec": [
+																	"pm.test(\"Response is 403\", () => {\r",
+																	"  pm.expect(pm.response.code).equal(403);\r",
+																	"});"
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"auth": {
+															"type": "bearer",
+															"bearer": [
+																{
+																	"key": "token",
+																	"value": "{{AccessToken_255901001}}",
+																	"type": "string"
+																}
+															]
+														},
+														"method": "DELETE",
 														"header": [],
 														"url": {
 															"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/chartOfAccounts/{{known:{{scenarioId}}:chartOfAccountGuid}}",
