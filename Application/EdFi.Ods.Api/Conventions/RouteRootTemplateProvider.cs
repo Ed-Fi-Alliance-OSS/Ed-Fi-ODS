@@ -37,7 +37,7 @@ public class RouteRootTemplateProvider : IRouteRootTemplateProvider
                 return null;
 
             case RouteContextType.Ods:
-                string odsContextRouteTemplate = _apiSettings.OdsContextRouteTemplate;
+                string odsContextRouteTemplate = EnsureOdsContextRouteTemplateIsOptional(_apiSettings.OdsContextRouteTemplate);
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
                 {
@@ -51,6 +51,21 @@ public class RouteRootTemplateProvider : IRouteRootTemplateProvider
                 }
 
                 return null;
+
+                string EnsureOdsContextRouteTemplateIsOptional(string odsContextRouteTemplate)
+                {
+                    if(string.IsNullOrEmpty(odsContextRouteTemplate))
+                    {
+                        return odsContextRouteTemplate;
+                    }
+
+                    if (odsContextRouteTemplate.EndsWith("?}"))
+                    {
+                        return odsContextRouteTemplate;
+                    }
+
+                    return odsContextRouteTemplate.ReplaceSuffix("}", "?}");
+                }
         }
 
         return null;

@@ -8,6 +8,6 @@ namespace EdFi.Ods.Api.Constants
     public static class RouteConstants
     {
         public const string DataManagementRoutePrefix = $"data/v{ApiVersionConstants.Ods}";
-        public const string TenantIdentifierRoutePrefix = @"{tenantIdentifier:regex(^[[A-Za-z0-9-]]+$)}/";
+        public const string TenantIdentifierRoutePrefix = @"{tenantIdentifier:regex(^[[A-Za-z0-9-]]+$)?}/";
     }
 }

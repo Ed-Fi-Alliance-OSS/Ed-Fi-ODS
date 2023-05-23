@@ -72,7 +72,7 @@ public class RouteRootTemplateProviderTests
     [Test]
     public void GetRouteRootTemplate_WithOdsContextDefinedAndMultiTenancyEnabled_ReturnsTenantIdentifierRoutePrefixWithOdsContextRouteTemplate()
     {
-        const string odsContextRouteTemplate = "ods-context-template";
+        const string odsContextRouteTemplate = "{ods-context-template}";
 
         // Arrange
         _apiSettings.Features = new List<Feature>
@@ -90,13 +90,13 @@ public class RouteRootTemplateProviderTests
         var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
 
         // Assert
-        result.ShouldBe($"{RouteConstants.TenantIdentifierRoutePrefix}{odsContextRouteTemplate}/");
+        result.ShouldBe($"{RouteConstants.TenantIdentifierRoutePrefix}{{ods-context-template?}}/");
     }
 
     [Test]
     public void GetRouteRootTemplate_WithOdsContextDefinedAndMultiTenancyDisabled_ReturnsOdsContextRouteTemplate()
     {
-        const string odsContextRouteTemplate = "ods-context-template";
+        const string odsContextRouteTemplate = "{ods-context-template}";
 
         // Arrange
         _apiSettings.Features = new List<Feature>
@@ -114,7 +114,7 @@ public class RouteRootTemplateProviderTests
         var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
 
         // Assert
-        result.ShouldBe($"{odsContextRouteTemplate}/");
+        result.ShouldBe($"{{ods-context-template?}}/");
     }
 
     [TestCase("")]

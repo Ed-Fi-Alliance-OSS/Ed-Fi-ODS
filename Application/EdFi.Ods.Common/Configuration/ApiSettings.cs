@@ -60,6 +60,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 
+        public string GetOdsContextRoutePath() => OdsContextRouteTemplate.TrimPrefix("{").TrimSuffix("}").Split(":")[0];
+
         public bool IsFeatureEnabled(string featureName)
             => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
     }

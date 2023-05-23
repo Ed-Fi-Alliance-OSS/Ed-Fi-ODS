@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
@@ -22,6 +23,7 @@ namespace EdFi.Ods.Api.Controllers
     [Produces("application/json")]
     [Route("")]
     [AllowAnonymous]
+    [RouteRootContext(RouteContextType.Ods)]
     public class VersionController : ControllerBase
     {
         private readonly IApiVersionProvider _apiVersionProvider;
@@ -72,7 +74,28 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
                 {
-                    rootUrl = $"{rootUrl}/{{tenantIdentifier}}";
+                    if (HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifier))
+                    {
+                        rootUrl = $"{rootUrl}/{tenantIdentifier}";
+                    }
+                    else
+                    {
+                        rootUrl = $"{rootUrl}/{{tenantIdentifier}}";
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(_apiSettings.OdsContextRouteTemplate))
+                {
+                    string odsContextRoutePath = _apiSettings.GetOdsContextRoutePath();
+
+                    if (HttpContext.Request.RouteValues.TryGetValue(odsContextRoutePath, out object odsContextRoute))
+                    {
+                        rootUrl = $"{rootUrl}/{odsContextRoute}";
+                    }
+                    else
+                    {
+                        rootUrl = $"{rootUrl}/{{{odsContextRoutePath}}}";
+                    }
                 }
                 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
