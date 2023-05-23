@@ -10,23 +10,15 @@ using Castle.DynamicProxy;
 namespace EdFi.Ods.Api.Middleware;
 
 /// <summary>
-/// Defines methods for obtaining tenant configurations.
+/// Defines a method for obtaining a map of tenant configurations keyed by a case-insensitive match on the tenant's identifier.
 /// </summary>
 /// <remarks>Implementations of this interface must be configured with a named <see cref="IInterceptor" /> registration of "cache-tenants".</remarks>
-[Intercept("cache-tenants")]
-public interface ITenantConfigurationProvider
+// [Intercept("cache-tenants")]
+public interface ITenantConfigurationMapProvider
 {
     /// <summary>
-    /// Gets all tenant configurations.
+    /// Gets a map of tenant configurations by tenant identifier.
     /// </summary>
-    /// <returns>A list of tenant configurations.</returns>
-    IList<TenantConfiguration> GetAllConfigurations();
-
-    /// <summary>
-    /// Attempts to load the tenant configuration for the supplied tenant identifier.
-    /// </summary>
-    /// <param name="tenantIdentifier">The identifier for the tenant.</param>
-    /// <param name="tenantConfiguration">The tenant's configuration, if found.</param>
-    /// <returns><b>true</b> if the tenant was found; otherwise <b>false</b>.</returns>
-    bool TryGetConfiguration(string tenantIdentifier, out TenantConfiguration tenantConfiguration);
+    /// <returns>A map of tenant configurations by tenant identifier.</returns>
+    IDictionary<string, TenantConfiguration> GetMap();
 }

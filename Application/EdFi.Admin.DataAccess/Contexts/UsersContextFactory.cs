@@ -13,7 +13,7 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public class UsersContextFactory : IUsersContextFactory
     {
-        private readonly Dictionary<DatabaseEngine, Type> _usersContextTypeByDatabaseEngine = new Dictionary<DatabaseEngine, Type>
+        private readonly Dictionary<DatabaseEngine, Type> _usersContextTypeByDatabaseEngine = new()
         {
             {DatabaseEngine.SqlServer, typeof(SqlServerUsersContext)},
             {DatabaseEngine.Postgres, typeof(PostgresUsersContext)}

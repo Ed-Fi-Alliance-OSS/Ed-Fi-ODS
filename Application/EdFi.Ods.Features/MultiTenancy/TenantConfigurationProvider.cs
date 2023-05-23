@@ -6,49 +6,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Features.MultiTenancy;
 
 /// <summary>
-/// Supplies <see cref="TenantConfiguration" /> from the application's configuration data.
+/// Provides <see cref="TenantConfiguration" /> from the application's configuration data.
 /// </summary>
-public class TenantConfigurationProvider : ITenantConfigurationProvider
+public class TenantConfigurationMapProvider : ITenantConfigurationMapProvider
 {
-    private readonly Lazy<Dictionary<string, TenantConfiguration>> _tenantConfigurationByIdentifier;
+    private readonly IOptionsMonitor<TenantsSection> _tenantsConfiguration;
 
-    public TenantConfigurationProvider(IConfiguration configuration)
+    private IDictionary<string, TenantConfiguration> _tenantConfigurationByIdentifier;
+    
+    public TenantConfigurationMapProvider(IOptionsMonitor<TenantsSection> tenantsConfiguration)
     {
-        _tenantConfigurationByIdentifier = new Lazy<Dictionary<string, TenantConfiguration>>(
-            () =>
+        _tenantsConfiguration = tenantsConfiguration;
+        _tenantConfigurationByIdentifier = InitializeTenantsConfiguration(_tenantsConfiguration.CurrentValue);
+
+        _tenantsConfiguration.OnChange(config =>
+        {
+            var newMap = InitializeTenantsConfiguration(config);
+            Interlocked.Exchange(ref _tenantConfigurationByIdentifier, newMap);
+        });
+    }
+
+    private static Dictionary<string, TenantConfiguration> InitializeTenantsConfiguration(TenantsSection config)
+    {
+        return config.Tenants.ToDictionary(
+            t => t.TenantIdentifier,
+            t => new TenantConfiguration
             {
-                var tenantsSection = configuration.Get<TenantsSection>();
-
-                var tenantConfigurationByIdentifier = tenantsSection.Tenants.ToDictionary(
-                    t => t.TenantIdentifier,
-                    t => new TenantConfiguration
-                        {
-                            TenantIdentifier = t.TenantIdentifier,
-                            AdminConnectionString = t.ConnectionStrings.EdFi_Admin,
-                            SecurityConnectionString = t.ConnectionStrings.EdFi_Security
-                        },
-                    StringComparer.OrdinalIgnoreCase);
-
-                return tenantConfigurationByIdentifier;
-            });
+                TenantIdentifier = t.TenantIdentifier,
+                AdminConnectionString = t.ConnectionStrings.EdFi_Admin,
+                SecurityConnectionString = t.ConnectionStrings.EdFi_Security
+            },
+            StringComparer.OrdinalIgnoreCase);
     }
 
-    /// <inheritdoc cref="ITenantConfigurationProvider.GetAllConfigurations" />
-    public IList<TenantConfiguration> GetAllConfigurations()
-    {
-        return _tenantConfigurationByIdentifier.Value.Values.ToList();
-    }
-
-    /// <inheritdoc cref="ITenantConfigurationProvider.TryGetConfiguration" />
-    public bool TryGetConfiguration(string tenantIdentifier, out TenantConfiguration tenantConfiguration)
-    {
-        return _tenantConfigurationByIdentifier.Value.TryGetValue(tenantIdentifier, out tenantConfiguration);
-    }
+    /// <inheritdoc cref="ITenantConfigurationMapProvider.GetMap" />
+    public IDictionary<string, TenantConfiguration> GetMap() => _tenantConfigurationByIdentifier;
 }

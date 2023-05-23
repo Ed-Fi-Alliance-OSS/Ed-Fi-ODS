@@ -32,15 +32,15 @@ public abstract class TenantSpecificJobBase : IJob
     }
 
     /// <summary>
-    /// Gets or sets the optional dependency on <see cref="ITenantConfigurationProvider" /> which will be null if the
+    /// Gets or sets the optional dependency on <see cref="ITenantConfigurationMapProvider" /> which will be null if the
     /// API is running in single-tenant mode.
     /// </summary>
-    public ITenantConfigurationProvider TenantConfigurationProvider { get; set; }
+    public ITenantConfigurationMapProvider TenantConfigurationMapProvider { get; set; }
     
     async Task IJob.Execute(IJobExecutionContext context)
     {
         // If there is not tenant configuration provider available, proceed with execution as we are running in single-tenant mode
-        if (TenantConfigurationProvider == null)
+        if (TenantConfigurationMapProvider == null)
         {
             // Proceed with execution
             await Execute(context);
@@ -66,7 +66,7 @@ public abstract class TenantSpecificJobBase : IJob
         _logger.Debug($"Intercepting execution of scheduled job '{context.JobDetail.Key.Name}' to reschedule it as tenant-specific single-executions...");
         
         // Iterate all tenant configurations
-        foreach (var tenantConfiguration in TenantConfigurationProvider.GetAllConfigurations())
+        foreach (var tenantConfiguration in TenantConfigurationMapProvider.GetMap().Values)
         {
             // Add the tenant configuration to the job data
             var jobDataMap = new JobDataMap((IDictionary<string, object>)context.JobDetail.JobDataMap);
