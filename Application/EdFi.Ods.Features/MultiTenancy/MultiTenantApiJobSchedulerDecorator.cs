@@ -24,14 +24,14 @@ namespace EdFi.Ods.Features.MultiTenancy;
 public class MultiTenantApiJobSchedulerDecorator : IApiJobScheduler
 {
     private readonly IApiJobScheduler _next;
-    private readonly ITenantConfigurationProvider _tenantConfigurationProvider;
+    private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(MultiTenantApiJobSchedulerDecorator));
     
-    public MultiTenantApiJobSchedulerDecorator(IApiJobScheduler next, ITenantConfigurationProvider tenantConfigurationProvider)
+    public MultiTenantApiJobSchedulerDecorator(IApiJobScheduler next, ITenantConfigurationMapProvider tenantConfigurationMapProvider)
     {
         _next = next;
-        _tenantConfigurationProvider = tenantConfigurationProvider;
+        _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public class MultiTenantApiJobSchedulerDecorator : IApiJobScheduler
             _logger.Debug($"Intercepting scheduling of single-execution job '{jobName}' for multi-tenant execution...");
             
             // Schedule the job once for each tenant configuration
-            foreach (var tenantConfiguration in _tenantConfigurationProvider.GetAllConfigurations())
+            foreach (var tenantConfiguration in _tenantConfigurationMapProvider.GetMap().Values)
             {
                 var tenantSpecificJobDataMap = new JobDataMap((IDictionary<string, object>) jobDataMap);
                 tenantSpecificJobDataMap[nameof(TenantConfiguration)] = tenantConfiguration;

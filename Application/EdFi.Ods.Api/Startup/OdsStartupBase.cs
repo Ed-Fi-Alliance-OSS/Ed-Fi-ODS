@@ -57,6 +57,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Descriptors;
 using EdFi.Ods.Common.Profiles;
+using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -65,18 +66,19 @@ namespace EdFi.Ods.Api.Startup
         private const string CorsPolicyName = "_development_";
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
+        private ApiSettings _apiSettings;
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
             Configuration = (IConfigurationRoot) configuration;
 
-            ApiSettings = new ApiSettings();
-
-            Plugin = new Plugin();
-
-            Configuration.Bind("ApiSettings", ApiSettings);
-
-            Configuration.Bind("Plugin", Plugin);
+            // ApiSettings = new ApiSettings();
+            //
+            // Plugin = new Plugin();
+            //
+            // Configuration.Bind("ApiSettings", ApiSettings);
+            //
+            // Configuration.Bind("Plugin", Plugin);
 
             GlobalContext.Properties["ApiClientId"] = null;
 
@@ -85,9 +87,9 @@ namespace EdFi.Ods.Api.Startup
             _logger.Debug($"built configuration = {Configuration}");
         }
 
-        public ApiSettings ApiSettings { get; }
-
-        public Plugin Plugin { get; }
+        // public ApiSettings ApiSettings { get; }
+        //
+        // public Plugin Plugin { get; }
 
         public IConfigurationRoot Configuration { get; }
 
@@ -95,12 +97,23 @@ namespace EdFi.Ods.Api.Startup
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Bind services using 
+            services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
+            services.Configure<Plugin>(Configuration.GetSection("Plugin"));
+            services.Configure<TenantsSection>(Configuration.GetSection("Tenants"));
+
+            _apiSettings = new ApiSettings();
+            Configuration.Bind("ApiSettings", _apiSettings);
+            
+            var pluginSettings = new Plugin();
+            Configuration.Bind("Plugin", pluginSettings);
+            
             _logger.Debug("Building services collection");
 
-            var databaseEngine = Configuration["ApiSettings:Engine"];
+            var databaseEngine = _apiSettings.Engine;
 
-            services.AddSingleton(ApiSettings);
-            services.AddSingleton(Configuration);
+            // services.AddSingleton(ApiSettings);
+            // services.AddSingleton(Configuration);
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -114,7 +127,7 @@ namespace EdFi.Ods.Api.Startup
 
             AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
 
-            var pluginInfos = LoadPlugins();
+            var pluginInfos = LoadPlugins(pluginSettings);
 
             services.AddSingleton(pluginInfos);
 
@@ -175,7 +188,7 @@ namespace EdFi.Ods.Api.Startup
             services.AddApplicationInsightsTelemetry(
                 options => { options.ApplicationVersion = ApiVersionConstants.Version; });
 
-            if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
             {
                 services.AddAuthorization(
                     options =>
@@ -188,7 +201,7 @@ namespace EdFi.Ods.Api.Startup
                     });
             }
 
-            if (ApiSettings.UseReverseProxyHeaders.HasValue && ApiSettings.UseReverseProxyHeaders.Value)
+            if (_apiSettings.UseReverseProxyHeaders.HasValue && _apiSettings.UseReverseProxyHeaders.Value)
             {
                 services.Configure<ForwardedHeadersOptions>(
                     options =>
@@ -234,7 +247,7 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule) Activator.CreateInstance(type, _apiSettings));
                     }
                     else
                     {
@@ -245,8 +258,15 @@ namespace EdFi.Ods.Api.Startup
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings, IApplicationConfigurationActivity[] configurationActivities)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            ILoggerFactory loggerFactory,
+            IOptions<ApiSettings> apiSettingsOptions,
+            IApplicationConfigurationActivity[] configurationActivities)
         {
+            var apiSettings = apiSettingsOptions.Value;
+
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
                 var pathBase = apiSettings.PathBase.Trim('/');
@@ -256,7 +276,7 @@ namespace EdFi.Ods.Api.Startup
 
             Container = app.ApplicationServices.GetAutofacRoot();
 
-            if (ApiSettings.UseReverseProxyHeaders.HasValue && ApiSettings.UseReverseProxyHeaders.Value)
+            if (_apiSettings.UseReverseProxyHeaders.HasValue && _apiSettings.UseReverseProxyHeaders.Value)
             {
                 app.UseForwardedHeaders();
             }
@@ -290,12 +310,12 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // Serves Open API Metadata json files when enabled.
-            if (ApiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
             {
                 app.UseOpenApiMetadata();
             }
 
-            if (ApiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
             {
                 app.UseXsdMetadata();
             }
@@ -362,22 +382,22 @@ namespace EdFi.Ods.Api.Startup
             }
         }
         
-        private string GetPluginFolder()
+        private string GetPluginFolder(Plugin pluginSettings)
         {
-            if (string.IsNullOrWhiteSpace(Plugin.Folder))
+            if (string.IsNullOrWhiteSpace(pluginSettings.Folder))
             {
                 return string.Empty;
             }
 
-            if (Path.IsPathRooted(Plugin.Folder))
+            if (Path.IsPathRooted(pluginSettings.Folder))
             {
-                return Plugin.Folder;
+                return pluginSettings.Folder;
             }
 
             // in a developer environment the plugin folder is relative to the WebApi project
             // "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/Debug/net6.0/../../../" => "Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi"
             var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "../../../"));
-            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, Plugin.Folder));
+            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, pluginSettings.Folder));
 
             if (Directory.Exists(relativeToProject))
             {
@@ -386,7 +406,7 @@ namespace EdFi.Ods.Api.Startup
 
             // in a deployment environment the plugin folder is relative to the executable
             // "C:/inetpub/Ed-Fi/WebApi"
-            var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, Plugin.Folder));
+            var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, pluginSettings.Folder));
 
             if (Directory.Exists(relativeToExecutable))
             {
@@ -394,25 +414,25 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // last attempt to get directory relative to the working directory
-            var relativeToWorkingDirectory = Path.GetFullPath(Plugin.Folder);
+            var relativeToWorkingDirectory = Path.GetFullPath(pluginSettings.Folder);
 
             if (Directory.Exists(relativeToWorkingDirectory))
             {
                 return relativeToWorkingDirectory;
             }
 
-            return Plugin.Folder;
+            return pluginSettings.Folder;
         }
 
-        private PluginInfo[] LoadPlugins()
+        private PluginInfo[] LoadPlugins(Plugin pluginSettings)
         {
-            var pluginFolder = GetPluginFolder();
+            var pluginFolder = GetPluginFolder(pluginSettings);
             var pluginFolderSettingsName = $"{nameof(Plugin)}:{nameof(Plugin.Folder)}";
 
             if (string.IsNullOrWhiteSpace(pluginFolder))
             {
                 _logger.Info($"'{pluginFolderSettingsName}' setting not configured. No plugins will be loaded.");
-                return new PluginInfo[0];
+                return Array.Empty<PluginInfo>();
             }
 
             if (!Directory.Exists(pluginFolder))

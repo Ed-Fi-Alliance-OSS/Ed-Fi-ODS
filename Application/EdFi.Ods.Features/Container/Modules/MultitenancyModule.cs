@@ -36,8 +36,8 @@ public class MultiTenancyModule : ConditionalModule
             .AsSelf()
             .SingleInstance();
         
-        builder.RegisterType<TenantConfigurationProvider>()
-            .As<ITenantConfigurationProvider>()
+        builder.RegisterType<TenantConfigurationMapProvider>()
+            .As<ITenantConfigurationMapProvider>()
             .SingleInstance();
         
         builder.RegisterType<MultiTenantOdsInstanceHashIdGenerator>()
