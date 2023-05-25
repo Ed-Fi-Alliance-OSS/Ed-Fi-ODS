@@ -68,39 +68,26 @@ namespace EdFi.Ods.Api.Startup
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
         private ApiSettings _apiSettings;
 
-        public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
+        protected OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
             Configuration = (IConfigurationRoot) configuration;
 
-            // ApiSettings = new ApiSettings();
-            //
-            // Plugin = new Plugin();
-            //
-            // Configuration.Bind("ApiSettings", ApiSettings);
-            //
-            // Configuration.Bind("Plugin", Plugin);
-
             GlobalContext.Properties["ApiClientId"] = null;
-
             GlobalContext.Properties["ProfilesHeader"] = null;
 
             _logger.Debug($"built configuration = {Configuration}");
         }
 
-        // public ApiSettings ApiSettings { get; }
-        //
-        // public Plugin Plugin { get; }
+        private IConfigurationRoot Configuration { get; }
 
-        public IConfigurationRoot Configuration { get; }
-
-        public ILifetimeScope Container { get; private set; }
+        private ILifetimeScope Container { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Bind services using 
+            // Bind configuration objects to sections 
             services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<Plugin>(Configuration.GetSection("Plugin"));
-            services.Configure<TenantsSection>(Configuration.GetSection("Tenants"));
+            services.Configure<TenantsSection>(Configuration);
 
             _apiSettings = new ApiSettings();
             Configuration.Bind("ApiSettings", _apiSettings);
@@ -108,12 +95,9 @@ namespace EdFi.Ods.Api.Startup
             var pluginSettings = new Plugin();
             Configuration.Bind("Plugin", pluginSettings);
             
-            _logger.Debug("Building services collection");
-
-            var databaseEngine = _apiSettings.Engine;
-
-            // services.AddSingleton(ApiSettings);
-            // services.AddSingleton(Configuration);
+            // Legacy configuration support through the container
+            services.AddSingleton(_apiSettings);
+            services.AddSingleton(Configuration);
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -212,7 +196,7 @@ namespace EdFi.Ods.Api.Startup
                     });
             }
 
-            services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
+            services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(_apiSettings.Engine));
             services.AddScheduledJobs();
         }
 

@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Features.MultiTenancy;
@@ -19,16 +18,16 @@ namespace EdFi.Ods.Features.MultiTenancy;
 /// </summary>
 public class TenantConfigurationMapProvider : ITenantConfigurationMapProvider
 {
-    private readonly IOptionsMonitor<TenantsSection> _tenantsConfiguration;
+    private readonly IOptionsMonitor<TenantsSection> _tenantsConfigurationOptions;
 
     private IDictionary<string, TenantConfiguration> _tenantConfigurationByIdentifier;
     
-    public TenantConfigurationMapProvider(IOptionsMonitor<TenantsSection> tenantsConfiguration)
+    public TenantConfigurationMapProvider(IOptionsMonitor<TenantsSection> tenantsConfigurationOptions)
     {
-        _tenantsConfiguration = tenantsConfiguration;
-        _tenantConfigurationByIdentifier = InitializeTenantsConfiguration(_tenantsConfiguration.CurrentValue);
+        _tenantsConfigurationOptions = tenantsConfigurationOptions;
+        _tenantConfigurationByIdentifier = InitializeTenantsConfiguration(_tenantsConfigurationOptions.CurrentValue);
 
-        _tenantsConfiguration.OnChange(config =>
+        _tenantsConfigurationOptions.OnChange(config =>
         {
             var newMap = InitializeTenantsConfiguration(config);
             Interlocked.Exchange(ref _tenantConfigurationByIdentifier, newMap);
