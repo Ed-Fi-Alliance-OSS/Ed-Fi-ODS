@@ -1,4 +1,4 @@
-DECLARE @ClaimSetId INT;
+﻿DECLARE @ClaimSetId INT;
 DECLARE @AuthorizationStrategyId INT;
 DECLARE @applicationId INT;
 

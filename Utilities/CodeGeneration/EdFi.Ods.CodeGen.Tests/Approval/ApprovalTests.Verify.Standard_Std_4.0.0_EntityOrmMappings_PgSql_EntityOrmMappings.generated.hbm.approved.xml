@@ -1,4 +1,4 @@
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Standard" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Standard" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
 
     <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeekReferenceData" table="AcademicWeek" lazy="true" >
