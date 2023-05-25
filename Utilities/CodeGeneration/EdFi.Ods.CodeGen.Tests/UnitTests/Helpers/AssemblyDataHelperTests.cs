@@ -45,7 +45,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
 
                 var standardVersionsPathProvider = A.Fake<IStandardVersionPathProvider>();
                 A.CallTo(() => standardVersionsPathProvider.StandardVersionPath())
-                    .Returns($"Standard{Path.DirectorySeparatorChar}4.0.0"); 
+                    .Returns($"Standard{Path.DirectorySeparatorChar}5.0.0"); 
 
                 _assemblyDataHelper = new AssemblyDataHelper(jsonFileProvider, domainModelDefinitionsProviderProvider,
                     extensionVersionsPathProvider, standardVersionsPathProvider);
@@ -66,7 +66,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                 _assemblyData.ShouldSatisfyAllConditions(
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Standard"),
                     () => _assemblyData.IsExtension.ShouldBe(false),
-                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-ODS", "Application", "EdFi.Ods.Standard", "Standard", "4.0.0")),
+                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-ODS", "Application", "EdFi.Ods.Standard", "Standard", "5.0.0")),
                     () => _assemblyData.SchemaName.ShouldBe("EdFi"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Standard)
                 );
@@ -107,7 +107,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
 
                 var standardVersionsPathProvider = A.Fake<IStandardVersionPathProvider>();
                 A.CallTo(() => standardVersionsPathProvider.StandardVersionPath())
-                    .Returns($"Standard{Path.DirectorySeparatorChar}4.0.0");
+                    .Returns($"Standard{Path.DirectorySeparatorChar}5.0.0");
 
                 _assemblyDataHelper = new AssemblyDataHelper(jsonFileProvider, domainModelDefinitionsProviderProvider,
                     extensionVersionsPathProvider, standardVersionsPathProvider);
@@ -128,7 +128,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                 _assemblyData.ShouldSatisfyAllConditions(
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Extensions.TPDM"),
                     () => _assemblyData.IsExtension.ShouldBe(true),
-                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-Extensions", "Extensions", "EdFi.Ods.Extensions.TPDM", "Versions", "1.0.0", "Standard", "4.0.0")),
+                    () => _assemblyData.Path.ShouldBe(Path.Combine("Drive:", "Ed-Fi-Extensions", "Extensions", "EdFi.Ods.Extensions.TPDM", "Versions", "1.0.0", "Standard", "5.0.0")),
                     () => _assemblyData.SchemaName.ShouldBe("TPDM"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Extension)
                 );

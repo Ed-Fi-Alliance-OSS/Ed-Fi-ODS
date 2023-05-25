@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter), typeof(PowerShellClipboardReporter))]
     public class ApprovalTests
     {
-        private const string StandardVersion = "4.0.0";
+        private const string StandardVersion = "5.0.0";
         private const string GeneratedCs = "*.generated.cs";
         private const string GeneratedHbm = "*.generated.hbm.xml";
         private const string GeneratedSql = "*_generated.sql";

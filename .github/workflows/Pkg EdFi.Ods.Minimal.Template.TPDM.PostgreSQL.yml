@@ -145,6 +145,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-TPDM-Artifacts
           path: Ed-Fi-TPDM-Artifacts/
+          ref: ${{ env.EDFI_TPDM_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-TPDM-Artifacts
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
