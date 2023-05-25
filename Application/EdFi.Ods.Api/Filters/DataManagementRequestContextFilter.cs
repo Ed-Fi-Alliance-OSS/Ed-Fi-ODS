@@ -133,7 +133,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
                     var resource = _resourceModelProvider.GetResourceModel()
                         .GetResourceByApiCollectionName(schema, resourceCollection);
 
-                    _contextProvider.Set(new DataManagementResourceContext(resource));
+                    _contextProvider.Set(new DataManagementResourceContext(resource, context.HttpContext.Request.Method));
                 }
                 catch (Exception)
                 {

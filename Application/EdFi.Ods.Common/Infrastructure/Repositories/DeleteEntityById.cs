@@ -6,8 +6,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -18,8 +20,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     {
         private readonly IGetEntityById<TEntity> _getEntityById;
 
-        public DeleteEntityById(ISessionFactory sessionFactory, IGetEntityById<TEntity> getEntityById, IETagProvider eTagProvider)
-            : base(sessionFactory, eTagProvider)
+        public DeleteEntityById(
+            ISessionFactory sessionFactory,
+            IGetEntityById<TEntity> getEntityById,
+            IETagProvider eTagProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            : base(sessionFactory, eTagProvider, dataManagementResourceContextProvider)
         {
             _getEntityById = getEntityById;
         }

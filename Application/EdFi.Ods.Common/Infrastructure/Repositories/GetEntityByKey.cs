@@ -7,11 +7,13 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -19,8 +21,11 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     public class GetEntityByKey<TEntity> : GetEntitiesBase<TEntity>, IGetEntityByKey<TEntity>
         where TEntity : DomainObjectBase, IDateVersionedEntity, IHasIdentifier
     {
-        public GetEntityByKey(ISessionFactory sessionFactory, IDomainModelProvider domainModelProvider)
-            : base(sessionFactory, domainModelProvider) { }
+        public GetEntityByKey(
+            ISessionFactory sessionFactory,
+            IDomainModelProvider domainModelProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider) { }
 
         /// <summary>
         /// Gets a single entity by its composite primary key values.

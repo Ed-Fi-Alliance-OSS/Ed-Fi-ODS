@@ -9,10 +9,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -25,8 +27,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         public GetEntitiesByIds(
             ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
-            IParameterListSetter parameterListSetter)
-            : base(sessionFactory, domainModelProvider)
+            IParameterListSetter parameterListSetter,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            : base(sessionFactory, domainModelProvider, dataManagementResourceContextProvider)
         {
             _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
         }

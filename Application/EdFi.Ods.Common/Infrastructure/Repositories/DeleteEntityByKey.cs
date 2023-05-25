@@ -5,8 +5,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
@@ -19,8 +21,9 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         public DeleteEntityByKey(
             ISessionFactory sessionFactory,
             IGetEntityByKey<TEntity> getEntityByKey,
-            IETagProvider eTagProvider)
-            : base(sessionFactory, eTagProvider)
+            IETagProvider eTagProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            : base(sessionFactory, eTagProvider, dataManagementResourceContextProvider)
         {
             _getEntityByKey = getEntityByKey;
         }

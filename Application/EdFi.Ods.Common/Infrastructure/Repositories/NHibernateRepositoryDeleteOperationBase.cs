@@ -4,12 +4,19 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
+using System.Data;
+using System.Data.Common;
+using System.Linq.Expressions;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
-using NHibernate.Persister.Entity;
 
 namespace EdFi.Ods.Common.Infrastructure.Repositories
 {
@@ -18,11 +25,18 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         where TEntity : DomainObjectBase, IHasIdentifier, IDateVersionedEntity
     {
         private readonly IETagProvider _eTagProvider;
+        private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        private readonly ConcurrentDictionary<FullName, DbCommand> _deleteCommandByEntityFullName = new();
+        private readonly ConcurrentDictionary<(FullName, string), Func<TEntity, object>> _propertyGetterByPropertyName = new();
 
-        public NHibernateRepositoryDeleteOperationBase(ISessionFactory sessionFactory, IETagProvider eTagProvider)
+        protected NHibernateRepositoryDeleteOperationBase(
+            ISessionFactory sessionFactory,
+            IETagProvider eTagProvider,
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(sessionFactory)
         {
             _eTagProvider = eTagProvider;
+            _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
         }
 
         protected async Task DeleteAsync(TEntity persistedEntity, string etag, CancellationToken cancellationToken)
@@ -45,19 +59,18 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     }
                 }
 
-                using (var trans = Session.BeginTransaction())
+                using (var trans = await Session.Connection.BeginTransactionAsync(cancellationToken))
                 {
                     try
                     {
-                        var classMetadata = (AbstractEntityPersister) Session.SessionFactory.GetClassMetadata(typeof(TEntity));
+                        Entity entity = _dataManagementResourceContextProvider.Get().Resource.Entity;
 
-                        string entityName = classMetadata.IsInherited
-                            ? classMetadata.MappedSuperclass
-                            : classMetadata.Name;
+                        await DeleteRecordForEntity(trans, entity);
 
-                        await Session.CreateQuery($"delete from {entityName} where Id = :id")
-                            .SetParameter("id", persistedEntity.Id)
-                            .ExecuteUpdateAsync(cancellationToken);
+                        if (entity.IsDerived)
+                        {
+                            await DeleteRecordForEntity(trans, entity.BaseEntity);
+                        }
 
                         await trans.CommitAsync(cancellationToken);
                     }
@@ -68,6 +81,92 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     }
                 }
             }
+
+            async Task DeleteRecordForEntity(DbTransaction trans, Entity entity)
+            {
+                var templateCommand = _deleteCommandByEntityFullName.GetOrAdd(entity.FullName,
+                    (fn, args) => CreateDeleteCommand(args, fn),
+                    (Session.Connection, entity));
+
+                var deleteCommand = (templateCommand as ICloneable)?.Clone() as DbCommand;
+
+                if (deleteCommand == null)
+                {
+                    throw new Exception("Clone of the delete command was not successful.");
+                }
+
+                if (entity.IsDerived)
+                {
+                    int i = 0;
+
+                    foreach (var property in entity.Identifier.Properties)
+                    {
+                        var getter = _propertyGetterByPropertyName.GetOrAdd(
+                            (property.Entity.FullName, property.PropertyName),
+                            x => CompilePropertyGetter<TEntity>(x.Item2));
+
+                        deleteCommand.Parameters[i++].Value = getter.Invoke(persistedEntity);
+                    }
+                }
+                else
+                {
+                    deleteCommand.Parameters[0].Value = persistedEntity.Id;
+                }
+
+                deleteCommand.Connection = Session.Connection;
+                deleteCommand.Transaction = trans;
+                await deleteCommand.ExecuteNonQueryAsync(cancellationToken);
+
+                static Func<TEntity, object> CompilePropertyGetter<T>(string propertyName)
+                {
+                    var param = Expression.Parameter(typeof(T), "param");
+                    var property = Expression.Property(param, propertyName);
+                    var convert = Expression.Convert(property, typeof(object));
+                    return Expression.Lambda<Func<TEntity, object>>(convert, param).Compile();
+                }
+            }
+        }
+
+        private static DbCommand CreateDeleteCommand((DbConnection connection, Entity entity) args, FullName fn)
+        {
+            var cmd = args.connection.CreateCommand();
+            var e = args.entity;
+
+            if (e.IsDerived)
+            {
+                var builder = new StringBuilder($"DELETE FROM {e.FullName} WHERE ");
+
+                e.Identifier.Properties.ForEach(
+                    (property, i, args) =>
+                    {
+                        var (c, sb) = args;
+                        
+                        if (i > 0)
+                        {
+                            sb.Append(" AND ");
+                        }
+
+                        sb.Append($"{property.PropertyName} = @pk{i}");
+
+                        var idParm = c.CreateParameter();
+                        idParm.ParameterName = $"pk{i}";
+                        idParm.DbType = property.PropertyType.DbType;
+                        c.Parameters.Add(idParm);
+                    }, (cmd, builder));
+
+                cmd.CommandText = builder.ToString();
+            }
+            else
+            {
+                cmd.CommandText = $"DELETE FROM {fn} WHERE Id = @id";
+
+                var idParm = cmd.CreateParameter();
+                idParm.ParameterName = "id";
+                idParm.DbType = DbType.Guid;
+                cmd.Parameters.Add(idParm);
+            }
+
+            return cmd;
         }
     }
 }
