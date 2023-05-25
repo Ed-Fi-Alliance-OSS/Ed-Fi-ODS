@@ -6,304 +6,11 @@
 	},
 	"item": [
 		{
-			"name": "Get All Snapshots",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2d2e4391-f976-4a5e-a1e5-9c3d076a2dad",
-						"exec": [
-							"// Should return the known snapshots.\r",
-							"pm.test(\"Status code is 200\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(200);\r",
-							"});\r",
-							"\r",
-							"const responseItems = pm.response.json();\r",
-							"\r",
-							"pm.test(\"Should return 1 item\", () => {\r",
-							"    pm.expect(responseItems.length).to.equal(1);\r",
-							"});\r",
-							"\r",
-							"const id = responseItems[0].id;\r",
-							"pm.environment.set('known:snapshot:id', id);\r",
-							"\r",
-							"//pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"value": "IsIgnoredOnSnapshotRequests",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots",
-					"host": [
-						"{{ApiBaseUrl}}"
-					],
-					"path": [
-						"changeQueries",
-						"v1",
-						"snapshots"
-					]
-				},
-				"description": "Retrieves resources based with paging capabilities (using the \"Get All\" pattern)."
-			},
-			"response": []
-		},
-		{
-			"name": "Get All Snapshot By Id",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5e31ede0-2d2b-4bf2-af13-33cd5070914c",
-						"exec": [
-							"// Should return the known snapshots.\r",
-							"pm.test(\"Status code is 200\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(200);\r",
-							"});\r",
-							"\r",
-							"const responseItem = pm.response.json();\r",
-							"\r",
-							"pm.test(\"Should return the requested item\", () => {\r",
-							"    pm.expect(responseItem.id).to.equal(pm.variables.get('id'));\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "6dffdc73-3614-4590-b457-60e6de79d47d",
-						"exec": [
-							"pm.variables.set('id', pm.environment.get('known:snapshot:id'));"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"type": "text",
-						"value": "IsIgnoredOnSnapshotRequests"
-					}
-				],
-				"url": {
-					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots/{{id}}",
-					"host": [
-						"{{ApiBaseUrl}}"
-					],
-					"path": [
-						"changeQueries",
-						"v1",
-						"snapshots",
-						"{{id}}"
-					]
-				},
-				"description": "Retrieves resources based with paging capabilities (using the \"Get All\" pattern)."
-			},
-			"response": []
-		},
-		{
-			"name": "Create a new Snapshot",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "4b5dec97-2b06-4810-97a7-c768e3681260",
-						"exec": [
-							"// Should return 405 Method Not Allowed\r",
-							"pm.test(\"Status code is 405 Method Not Allowed\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(405);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response body should be empty\", () =>  {\r",
-							"    pm.expect(pm.response.text().length).to.equal(0);\r",
-							"});\r",
-							"\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"type": "text",
-						"value": "ABC",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"snapshotIdentifier\": \"NEW\",\r\n    \"snapshotDateTime\": \"2020-10-26T02:51:41.8833333Z\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots",
-					"host": [
-						"{{ApiBaseUrl}}"
-					],
-					"path": [
-						"changeQueries",
-						"v1",
-						"snapshots"
-					]
-				},
-				"description": "Retrieves resources based with paging capabilities (using the \"Get All\" pattern)."
-			},
-			"response": []
-		},
-		{
-			"name": "Update a Snapshot",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5abdcb3c-c9e2-410b-9a03-f678175d49e4",
-						"exec": [
-							"pm.test(\"Status code is 405 Not Found\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(405);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response body should be empty\", () =>  {\r",
-							"    pm.expect(pm.response.text().length).to.equal(0);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "cad801c2-70ca-407f-a4d6-22445d548bf8",
-						"exec": [
-							"pm.variables.set('id', pm.environment.get('known:snapshot:id'));"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"type": "text",
-						"value": "ABC",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"snapshotIdentifier\": \"NEW\",\r\n    \"snapshotDateTime\": \"2020-10-26T02:51:41.8833333Z\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots/{{id}}",
-					"host": [
-						"{{ApiBaseUrl}}"
-					],
-					"path": [
-						"changeQueries",
-						"v1",
-						"snapshots",
-						"{{id}}"
-					]
-				},
-				"description": "Retrieves resources based with paging capabilities (using the \"Get All\" pattern)."
-			},
-			"response": []
-		},
-		{
-			"name": "Delete a Snapshot",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7fbfa602-9711-4fc7-9849-789990471745",
-						"exec": [
-							"pm.test(\"Status code is 405 Method Not Allowed\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(405);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response body should be empty\", () =>  {\r",
-							"    pm.expect(pm.response.text().length).to.equal(0);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "6681e0f4-53e5-497f-bf05-e4ee3caad560",
-						"exec": [
-							"pm.variables.set('id', pm.environment.get('known:snapshot:id'));"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"type": "text",
-						"value": "ABC",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots/{{id}}",
-					"host": [
-						"{{ApiBaseUrl}}"
-					],
-					"path": [
-						"changeQueries",
-						"v1",
-						"snapshots",
-						"{{id}}"
-					]
-				},
-				"description": "Retrieves resources based with paging capabilities (using the \"Get All\" pattern)."
-			},
-			"response": []
-		},
-		{
 			"name": "Get All Students (Live)",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "b91761de-1064-4f68-821e-edcb8ebc4f56",
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
@@ -312,7 +19,7 @@
 							"const responseItems = pm.response.json();\r",
 							"\r",
 							"pm.environment.set('known:student', responseItems[0]);\r",
-							"pm.environment.set('known:studentsJson', pm.response.text());"
+							"pm.environment.set('known:studentsJson', pm.response.json());"
 						],
 						"type": "text/javascript"
 					}
@@ -362,14 +69,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "aa5f615c-f5c5-4e23-890f-7c84011bfa7d",
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Response should be identical to non-snapshot request\", () => {\r",
-							"    pm.expect(pm.environment.get('known:studentsJson')).to.be.equal(pm.response.text());\r",
+							"    pm.expect(pm.environment.get('known:studentsJson')).to.be.deep.equal(pm.response.json());\r",
 							"    pm.environment.unset('known:studentsJson');\r",
 							"})\r",
 							""
@@ -382,9 +88,9 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Snapshot-Identifier",
+						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "ABC"
+						"value": "On"
 					}
 				],
 				"url": {
@@ -409,7 +115,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ed400d9a-f316-47bc-bcd5-101158f0b42c",
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
@@ -425,7 +130,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "bae86f4f-1f66-4de2-bf44-f81384f6e6b1",
 						"exec": [
 							"pm.variables.set('studentUniqueId', pm.environment.get('known:student').studentUniqueId);\r",
 							"pm.variables.set('birthDate', pm.environment.get('known:student').birthDate);\r",
@@ -475,7 +179,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "b52953e1-9792-4602-9e46-5deec3302e5d",
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
@@ -495,7 +198,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "976c5114-234c-4afe-9040-b161906511d1",
 						"exec": [
 							"pm.variables.set('studentUniqueId', pm.environment.get('known:student').studentUniqueId);\r",
 							"pm.variables.set('originalLastSurname', pm.environment.get('known:student').lastSurname);\r",
@@ -536,7 +238,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "01df353c-46a4-488a-96ea-3845923f7c78",
 						"exec": [
 							"pm.test(\"Status code is 200\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
@@ -556,7 +257,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "772d1cea-e898-407a-895d-cadc5e69eeef",
 						"exec": [
 							"pm.variables.set('studentUniqueId', pm.environment.get('known:student').studentUniqueId);\r",
 							"pm.variables.set('originalLastSurname', pm.environment.get('known:student').lastSurname);\r",
@@ -570,9 +270,9 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Snapshot-Identifier",
+						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "ABC"
+						"value": "On"
 					}
 				],
 				"url": {
@@ -603,7 +303,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d8fd98a4-f7c4-4eee-b065-48da56e03db1",
 						"exec": [
 							"pm.test(\"Status code is 405 Method Not Allowed\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(405);\r",
@@ -620,7 +319,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b17103ae-b0f4-4ebc-b48f-c35acc3db00b",
 						"exec": [
 							"pm.variables.set('studentUniqueId', pm.environment.get('known:student').studentUniqueId);\r",
 							"pm.variables.set('birthDate', pm.environment.get('known:student').birthDate);\r",
@@ -638,9 +336,9 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "Snapshot-Identifier",
+						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "ABC"
+						"value": "On"
 					},
 					{
 						"key": "Content-Type",
@@ -675,7 +373,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "98684daa-c961-4c51-ae63-54b03a4fbe5b",
 						"exec": [
 							"pm.test(\"Status code is 405 Method Not Allowed\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(405);\r",
@@ -692,7 +389,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "97746600-07f7-4917-bc91-5674111edbf1",
 						"exec": [
 							"pm.variables.set('id', pm.environment.get('known:student').id);\r",
 							"pm.variables.set('studentUniqueId', pm.environment.get('known:student').studentUniqueId);\r",
@@ -711,9 +407,9 @@
 				"method": "PUT",
 				"header": [
 					{
-						"key": "Snapshot-Identifier",
+						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "ABC"
+						"value": "On"
 					},
 					{
 						"key": "Content-Type",
@@ -749,7 +445,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "efaabe8e-19cc-4a69-a697-4327a067461b",
 						"exec": [
 							"pm.test(\"Status code is 405 Method Not Allowed\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(405);\r",
@@ -766,7 +461,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "02716ff5-b977-421f-9e5e-f6c7374b173f",
 						"exec": [
 							"pm.variables.set('id', pm.environment.get('known:student').id);\r",
 							""
@@ -779,9 +473,9 @@
 				"method": "DELETE",
 				"header": [
 					{
-						"key": "Snapshot-Identifier",
+						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "ABC"
+						"value": "On"
 					}
 				],
 				"body": {
@@ -811,7 +505,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "11916c7c-eed4-497f-9090-8645a9afc481",
 						"exec": [
 							"pm.test(\"Status code is 410 Gone\", () => {\r",
 							"    pm.expect(pm.response.code).to.equal(410);\r",
@@ -830,55 +523,9 @@
 				"method": "GET",
 				"header": [
 					{
-						"key": "Snapshot-Identifier",
+						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "XYZ"
-					}
-				],
-				"url": {
-					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
-					"host": [
-						"{{ApiBaseUrl}}"
-					],
-					"path": [
-						"data",
-						"v3",
-						"ed-fi",
-						"students"
-					]
-				},
-				"description": "Retrieves resources based with paging capabilities (using the \"Get All\" pattern)."
-			},
-			"response": []
-		},
-		{
-			"name": "Get All Students (Invalid Snapshot Identifier)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d0daf285-eccc-4a52-b9f5-b9dcf959b669",
-						"exec": [
-							"pm.test(\"Status code is 400 Bad Request\", () => {\r",
-							"    pm.expect(pm.response.code).to.equal(400);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Should return message indicating that snapshot identifier value was invalid\", () => {\r",
-							"    pm.expect(pm.response.json().message).to.be.equal(\"Invalid value for snapshot identifier.\");\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"type": "text",
-						"value": "Non-Alph@numeric"
+						"value": "On"
 					}
 				],
 				"url": {
@@ -903,12 +550,12 @@
 		"oauth2": [
 			{
 				"key": "clientSecret",
-				"value": "Zd6aGiFU7KvVBWQ13Xh5H",
+				"value": "a2LC4io7yjRgMxwpSBNs6",
 				"type": "string"
 			},
 			{
 				"key": "clientId",
-				"value": "62pwv98OUlJX3yVTGfrQB",
+				"value": "rxEtpL5yT9vnUClwQ6fdj",
 				"type": "string"
 			},
 			{
@@ -922,16 +569,6 @@
 				"type": "string"
 			},
 			{
-				"key": "accessToken",
-				"value": "890da90c501645e894ee63e32900d4b0",
-				"type": "string"
-			},
-			{
-				"key": "tokenType",
-				"value": "bearer",
-				"type": "string"
-			},
-			{
 				"key": "addTokenTo",
 				"value": "header",
 				"type": "string"
@@ -942,7 +579,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "24bfe499-981f-4b5c-b32c-38025f483864",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -952,13 +588,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "77054140-741f-4c7c-8f37-84445385cbfe",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

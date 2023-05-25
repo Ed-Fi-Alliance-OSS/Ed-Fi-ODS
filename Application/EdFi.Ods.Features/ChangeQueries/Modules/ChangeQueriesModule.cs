@@ -4,22 +4,22 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Features.ChangeQueries.Providers;
-using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
-using Microsoft.AspNetCore.Mvc.Filters;
-using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
+using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
+using EdFi.Ods.Features.ChangeQueries.Providers;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.ChangeQueries.Repositories.Authorization;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
-using EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots;
+using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EdFi.Ods.Features.ChangeQueries.Modules
 {
@@ -38,18 +38,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .SingleInstance();
 
             builder.RegisterType<QueryBuilder>();
-            
+
             AddSupportForAvailableChanges();
             AddSupportForSnapshots();
             AddSupportForDeletes();
             AddSupportForKeyChanges();
             AddSupportForAuthorization();
-            
+
             // General Tracked Changes query support
             builder.RegisterType<TrackedChangesIdentifierProjectionsProvider>()
                 .As<ITrackedChangesIdentifierProjectionsProvider>()
                 .SingleInstance();
-            
+
             void AddSupportForAvailableChanges()
             {
                 // Available changes support
@@ -61,9 +61,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             void AddSupportForSnapshots()
             {
                 // Snapshots support
-                builder.RegisterType<SnapshotContextProvider>()
-                    .As<ISnapshotContextProvider>()
-                    .SingleInstance();
+                builder.RegisterDecorator<SnapshotOdsDatabaseConnectionStringProviderDecorator, IOdsDatabaseConnectionStringProvider>();
 
                 builder.RegisterType<SnapshotContextActionFilter>()
                     .As<IFilterMetadata>()
@@ -80,11 +78,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 builder.RegisterType<DeletedItemsResourceDataProvider>()
                     .As<IDeletedItemsResourceDataProvider>()
                     .SingleInstance();
-            
+
                 builder.RegisterType<DeletedItemsQueryBuilderFactory>()
                     .As<IDeletedItemsQueryBuilderFactory>()
                     .SingleInstance();
-                
+
                 builder.RegisterType<DeletedItemsQueryTemplatePreparer>()
                     .As<IDeletedItemsQueryTemplatePreparer>()
                     .SingleInstance();
@@ -96,23 +94,23 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 builder.RegisterType<KeyChangesResourceDataProvider>()
                     .As<IKeyChangesResourceDataProvider>()
                     .SingleInstance();
-            
+
                 builder.RegisterType<KeyChangesQueryBuilderFactory>()
                     .As<IKeyChangesQueryBuilderFactory>()
                     .SingleInstance();
-                
+
                 builder.RegisterType<KeyChangesQueryTemplatePreparer>()
                     .As<IKeyChangesQueryTemplatePreparer>()
                     .SingleInstance();
             }
-            
+
             void AddSupportForAuthorization()
             {
                 // General authorization support
                 builder.RegisterType<NHibernateEntityTypeDomainModelEnhancer>()
                     .As<IDomainModelEnhancer>()
                     .SingleInstance();
-            
+
                 builder.RegisterDecorator<KeyChangesQueryBuilderFactoryAuthorizationDecorator, IKeyChangesQueryBuilderFactory>();
                 builder.RegisterDecorator<DeletedItemsQueryBuilderFactoryAuthorizationDecorator, IDeletedItemsQueryBuilderFactory>();
             }
