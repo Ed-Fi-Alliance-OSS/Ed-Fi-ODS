@@ -7,6 +7,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
+using log4net;
 
 namespace EdFi.Ods.Features.ChangeQueries.Providers
 {
@@ -15,6 +16,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
         private readonly IOdsDatabaseConnectionStringProvider _next;
         private readonly IContextProvider<SnapshotUsage> _snapshotContextProvider;
         private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceContextProvider;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(OdsDatabaseConnectionStringProvider));
 
         public SnapshotOdsDatabaseConnectionStringProviderDecorator(IOdsDatabaseConnectionStringProvider next,
             IContextProvider<SnapshotUsage> snapshotContextProvider,
@@ -51,6 +53,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
 
         private string GetSnapshotConnectionString()
         {
+            var odsInstanceConfiguration = _odsInstanceContextProvider.Get();
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"Getting Snapshot connection string for ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') from context...");
+            }
+
             return _odsInstanceContextProvider.Get().ConnectionStringByDerivativeType[DerivativeType.Snapshot];
         }
     }
