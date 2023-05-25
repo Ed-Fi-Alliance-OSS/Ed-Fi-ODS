@@ -10187,7 +10187,7 @@
 													"const profileIncludeKeys = [\r",
 													"    \"nameOfInstitution\",\r",
 													"    \"operationalStatusDescriptor\",\r",
-													"    //\"charterApprovalSchoolYearTypeReference\",\r",
+													"    \"charterApprovalSchoolYearTypeReference\",\r",
 													"    \"schoolTypeDescriptor\",\r",
 													"    \"administrativeFundingControlDescriptor\",\r",
 													"    \"addresses\",\r",
