@@ -14,10 +14,6 @@
     {
       "name": "availableChangeVersions",
       "description": "Gets the change versions for the earliest (oldest) and most recent (newest) changes available."
-    },
-    {
-      "name": "snapshots",
-      "description": "Gets the available static snapshots for enabling client-side processing that is isolated from changing data."
     }
   ],
   "parameters": {
@@ -81,86 +77,7 @@
           "500": {
             "description": "An unhandled error occurred on the server. See the response body for details."
           }
-        }
-      }
-    },
-    "/snapshots": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "tags": [
-          "snapshots"
-        ],
-        "operationId": "getSnapshots",
-        "summary": "Gets the available static snapshots for enabling client-side processing that is isolated from changing data.",
-        "parameters": [
-          {
-            "$ref": "#/parameters/offset"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "$ref": "#/parameters/totalCount"
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "The resource was successfully retrieved.",
-            "schema": {
-              "items": {
-                "$ref": "#/definitions/changeQueries_snapshot"
-              },
-              "type": "array"
-            }
-          },
-          "401": {
-            "$ref": "#/responses/Unauthorized"
-          },
-          "500": {
-            "$ref": "#/responses/Error"
-          }
-        }
-      }
-    },
-    "/snapshots/{id}": {
-      "get": {
-        "description": "This GET operation retrieves a resource by the specified resource identifier.",
-        "operationId": "getSnapshotsById",
-        "parameters": [
-          {
-            "description": "A resource identifier that uniquely identifies the resource.",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "The requested resource was successfully retrieved.",
-            "schema": {
-              "$ref": "#/definitions/changeQueries_snapshot"
-            }
-          },
-          "401": {
-            "$ref": "#/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/responses/NotFound"
-          },
-          "500": {
-            "$ref": "#/responses/Error"
-          }
-        },
-        "summary": "Retrieves a specific resource using the resource's identifier (using the \"Get By Id\" pattern).",
-        "tags": [
-          "snapshots"
-        ]
       }
     }
   },
@@ -180,30 +97,6 @@
           "format": "int64"
         }
       }
-    },
-    "changeQueries_snapshot": {
-      "properties": {
-        "id": {
-          "description": "A resource identifier that uniquely identifies the resource.",
-          "type": "string"
-        },
-        "snapshotIdentifier": {
-          "description": "The unique identifier of the snapshot to be passed in the 'Snapshot-Identifier' custom header by the API client on subsequent GET requests.",
-          "x-Ed-Fi-isIdentity": true,
-          "maxLength": 32,
-          "type": "string"
-        },
-        "snapshotDateTime": {
-          "description": "The date and time the snapshot was created.",
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "required": [
-        "snapshotIdentifier",
-        "snapshotDateTime"
-      ],
-      "type": "object"
     }
   },
   "responses": {

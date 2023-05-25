@@ -72,10 +72,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 builder.RegisterType<SnapshotGoneExceptionTranslator>()
                     .As<IExceptionTranslator>()
                     .SingleInstance();
-
-                builder.RegisterType<GetSnapshots>()
-                    .As<IGetSnapshots>()
-                    .SingleInstance();
             }
 
             void AddSupportForDeletes()
