@@ -72,12 +72,12 @@
             "description": "Forbidden.  The request cannot be completed in the current authorization context.  Contact your administrator if you believe this operation should be allowed."
           },
           "410": {
-            "description": "Gone.  An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+            "description": "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
           },
           "500": {
             "description": "An unhandled error occurred on the server. See the response body for details."
           }
-          }
+        }
       }
     }
   },

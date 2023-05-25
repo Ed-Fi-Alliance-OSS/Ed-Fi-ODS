@@ -21,7 +21,7 @@ namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
     /// </summary>
     public class SnapshotContextActionFilter : IAsyncActionFilter
     {
-        private const string SnapshotIdentifierHeaderName = "Snapshot-Identifier";
+        private const string UseSnapshotHeaderName = "Use-Snapshot";
         
         private readonly ISnapshotContextProvider _snapshotContextProvider;
 

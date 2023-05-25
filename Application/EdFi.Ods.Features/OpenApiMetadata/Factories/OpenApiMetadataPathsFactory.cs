@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
@@ -179,11 +180,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 parameters.Add(new Parameter
                 {
-                    name = "Snapshot-Identifier",
+                    name = "Use-Snapshot",
                     @in = "header",
-                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    description = "Indicates if the configured Snapshot should be used.",
                     type = "string",
-                    required = false
+                    required = false,
+                    @enum = System.Enum.GetNames<SnapshotUsage>(),
+                    @default = SnapshotUsage.Off.ToString()
+
                 });
             }
 
@@ -219,8 +223,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "410",
                     new Response
                     {
-                        description = 
-                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+                        description =
+                            "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
                     });
             }
 
@@ -287,11 +291,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 parameterList.Add(new Parameter
                 {
-                    name = "Snapshot-Identifier",
+                    name = "Use-Snapshot",
                     @in = "header",
-                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    description = "Indicates if the configured Snapshot should be used.",
                     type = "string",
-                    required = false
+                    required = false,
+                    @enum = System.Enum.GetNames<SnapshotUsage>(),
+                    @default = SnapshotUsage.Off.ToString()
                 });
             }
 
@@ -309,7 +315,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                            "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
                     });
             }
 
@@ -368,7 +374,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                            "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
                     });
             }
 
@@ -419,15 +425,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+                            "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
                     });
 
                 parameters.Add(new Parameter {
-                    name = "Snapshot-Identifier",
+                    name = "Use-Snapshot",
                     @in = "header",
-                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    description = "Indicates if the configured Snapshot should be used.",
                     type = "string",
-                    required = false
+                    required = false,
+                    @enum = System.Enum.GetNames<SnapshotUsage>(),
+                    @default = SnapshotUsage.Off.ToString()
                 });
             }
 
@@ -473,16 +481,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+                            "Gone.  An attempt to connect to the database for the configured snapshot, enabled by the Use-Snapshot header, was unsuccessful (indicating the snapshot may have been removed)."
                     });
 
                 parameters.Add(new Parameter
                 {
-                    name = "Snapshot-Identifier",
+                    name = "Use-Snapshot",
                     @in = "header",
-                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    description = "Indicates if the configured Snapshot should be used.",
                     type = "string",
-                    required = false
+                    required = false,
+                    @enum = System.Enum.GetNames<SnapshotUsage>(),
+                    @default = SnapshotUsage.Off.ToString()
                 });
             }
 
@@ -517,7 +527,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                            "Method Is Not Allowed. When the Use-Snapshot header is set to true, the method is not allowed."
                     });
             }
 
