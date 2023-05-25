@@ -9,6 +9,7 @@ using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using NHibernate.Exceptions;
@@ -22,14 +23,14 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
     /// </summary>
     public class SnapshotGoneExceptionTranslator : IExceptionTranslator
     {
-        private readonly ISnapshotContextProvider _snapshotContextProvider;
+        private readonly IContextProvider<SnapshotContext.SnapshotUsage> _snapshotContextProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SnapshotGoneExceptionTranslator" /> class using the
         /// supplied snapshot context provider.
         /// </summary>
         /// <param name="snapshotContextProvider">Provides access to the snapshot context for the current request.</param>
-        public SnapshotGoneExceptionTranslator(ISnapshotContextProvider snapshotContextProvider)
+        public SnapshotGoneExceptionTranslator(IContextProvider<SnapshotContext.SnapshotUsage> snapshotContextProvider)
         {
             _snapshotContextProvider = snapshotContextProvider;
         }
@@ -46,7 +47,7 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
                 : ex;
 
             if (exception is DatabaseConnectionException
-                && _snapshotContextProvider.GetSnapshotContext() != null)
+                && _snapshotContextProvider.Get() != SnapshotUsage.Off)
             {
                 webServiceError = new RESTError
                 {
