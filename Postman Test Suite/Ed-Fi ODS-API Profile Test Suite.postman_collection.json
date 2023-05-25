@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9338b6c3-b2ca-49c4-9a6e-9ce16f74712d",
+		"_postman_id": "f2e932ed-deb7-4f76-84e8-8e2d36b60377",
 		"name": "Ed-Fi ODS/API Profile Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26382147"
@@ -10187,7 +10187,7 @@
 													"const profileIncludeKeys = [\r",
 													"    \"nameOfInstitution\",\r",
 													"    \"operationalStatusDescriptor\",\r",
-													"    \"charterApprovalSchoolYearTypeReference\",\r",
+													"    //\"charterApprovalSchoolYearTypeReference\",\r",
 													"    \"schoolTypeDescriptor\",\r",
 													"    \"administrativeFundingControlDescriptor\",\r",
 													"    \"addresses\",\r",
