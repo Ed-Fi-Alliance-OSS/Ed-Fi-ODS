@@ -98,9 +98,9 @@ jobs:
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-Standard
       working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
+      shell: powershell
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"          
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS/
       shell: powershell

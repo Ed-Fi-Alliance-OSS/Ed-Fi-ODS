@@ -132,7 +132,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"          
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"
     - name: Set EdFi-Tpdm Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
