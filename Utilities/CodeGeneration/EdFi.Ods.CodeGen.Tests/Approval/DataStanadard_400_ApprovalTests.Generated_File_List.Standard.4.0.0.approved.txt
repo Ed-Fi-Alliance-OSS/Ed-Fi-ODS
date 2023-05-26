@@ -128,7 +128,6 @@ Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Requests/Requests.generat
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Resources/Resources.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/4.0.0/Security/Authorization/EntityAuthorizationContextProviders.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/5.0.0/Artifacts/MsSql/Data/Security/0002-ResourceClaimMetadata_generated.sql
-Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/5.0.0/Artifacts/PgSql/Data/Security/0001-ResourceClaimMetadata_generated.sql
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/5.0.0/Artifacts/PgSql/Data/Security/0002-ResourceClaimMetadata_generated.sql
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/5.0.0/Controllers/Controllers.generated.cs
 Ed-Fi-ODS/Application/EdFi.Ods.Standard/Standard/5.0.0/EntityOrmMappings/MsSql/EntityOrmMappings.generated.hbm.xml

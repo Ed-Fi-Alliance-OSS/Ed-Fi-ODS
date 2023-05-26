@@ -72,11 +72,6 @@
       <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
       <DependentUpon>DataStanadard_5.0.0_ApprovalTests.cs</DependentUpon>
     </None>
-    <None Update="Approval\DataStanadard_5.0.0_ApprovalTests.Generated_File_List.Standard.5.0.0.approved.txt">
-      <ParentFile>$([System.String]::Copy('%(FileName)').Split('.')[0])</ParentFile>
-      <ParentExtension>$(ProjectExt.Replace('proj', ''))</ParentExtension>
-      <DependentUpon>DataStanadard_5.0.0_ApprovalTests.cs</DependentUpon>
-    </None>
   </ItemGroup>
 
 </Project>
