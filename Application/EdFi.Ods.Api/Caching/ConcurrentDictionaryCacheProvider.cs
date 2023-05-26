@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Caching;
 namespace EdFi.Ods.Api.Caching
 {
     [Serializable]
-    public class ConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>
+    public class ConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>, IClearable
     {
         private readonly IDictionary<TKey, object> _cacheDictionary = new ConcurrentDictionary<TKey, object>();
 
@@ -28,6 +28,11 @@ namespace EdFi.Ods.Api.Caching
         public void Insert(TKey key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             _cacheDictionary[key] = value;
+        }
+
+        public void Clear()
+        {
+            _cacheDictionary.Clear();
         }
     }
 }
