@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Caching
     /// a specified period of time.
     /// </summary>
     /// <typeparam name="TKey">The Type of the key for entries in the cache.</typeparam>
-    public class ExpiringConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>
+    public class ExpiringConcurrentDictionaryCacheProvider<TKey> : ICacheProvider<TKey>, IClearable
     {
         private readonly string _description;
         private readonly Action _expirationCallback;
@@ -27,6 +27,7 @@ namespace EdFi.Ods.Api.Caching
 
         private Timer _timer;
         private readonly bool _cacheEnabled = true;
+        private readonly TimeSpan _expirationPeriod;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider{TKey}" /> class using the
@@ -47,7 +48,8 @@ namespace EdFi.Ods.Api.Caching
         public ExpiringConcurrentDictionaryCacheProvider(string description, TimeSpan expirationPeriod, Action expirationCallback)
         {
             _description = description;
-
+            _expirationPeriod = expirationPeriod;
+            
             // If expiration period is less than 0 disable caching behavior.
             if (expirationPeriod.TotalSeconds < 0)
             {
@@ -87,6 +89,21 @@ namespace EdFi.Ods.Api.Caching
             {
                 _cacheDictionary[key] = value;
             }
+        }
+
+        public void Clear()
+        {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider<TKey>)} cache '{_description}' cleared (of {_cacheDictionary.Count} entries).");
+            }
+
+            // Clear the entries of the dictionary
+            _cacheDictionary.Clear();
+            
+            // Recreate the timer
+            _timer.Dispose();
+            _timer = new Timer(CacheExpired, null, _expirationPeriod, _expirationPeriod);
         }
 
         private void CacheExpired(object state)
