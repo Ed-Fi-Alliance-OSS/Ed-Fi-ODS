@@ -183,10 +183,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     name = "Use-Snapshot",
                     @in = "header",
                     description = "Indicates if the configured Snapshot should be used.",
-                    type = "string",
+                    type = "boolean",
                     required = false,
-                    @enum = System.Enum.GetNames<SnapshotUsage>(),
-                    @default = SnapshotUsage.Off.ToString()
+                    @default = false
 
                 });
             }
@@ -294,10 +293,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     name = "Use-Snapshot",
                     @in = "header",
                     description = "Indicates if the configured Snapshot should be used.",
-                    type = "string",
+                    type = "boolean",
                     required = false,
-                    @enum = System.Enum.GetNames<SnapshotUsage>(),
-                    @default = SnapshotUsage.Off.ToString()
+                    @default = false
                 });
             }
 
@@ -432,10 +430,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     name = "Use-Snapshot",
                     @in = "header",
                     description = "Indicates if the configured Snapshot should be used.",
-                    type = "string",
+                    type = "boolean",
                     required = false,
-                    @enum = System.Enum.GetNames<SnapshotUsage>(),
-                    @default = SnapshotUsage.Off.ToString()
+                    @default = false
                 });
             }
 
@@ -489,10 +486,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     name = "Use-Snapshot",
                     @in = "header",
                     description = "Indicates if the configured Snapshot should be used.",
-                    type = "string",
+                    type = "boolean",
                     required = false,
-                    @enum = System.Enum.GetNames<SnapshotUsage>(),
-                    @default = SnapshotUsage.Off.ToString()
+                    @default = false
                 });
             }
 

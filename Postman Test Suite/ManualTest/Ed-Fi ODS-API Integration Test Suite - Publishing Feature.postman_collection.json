@@ -27,14 +27,7 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Snapshot-Identifier",
-						"value": "ABC",
-						"type": "text",
-						"disabled": true
-					}
-				],
+				"header": [],
 				"url": {
 					"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
 					"host": [
@@ -90,7 +83,7 @@
 					{
 						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "On"
+						"value": "true"
 					}
 				],
 				"url": {
@@ -272,7 +265,7 @@
 					{
 						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "On"
+						"value": "true"
 					}
 				],
 				"url": {
@@ -338,7 +331,7 @@
 					{
 						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "On"
+						"value": "true"
 					},
 					{
 						"key": "Content-Type",
@@ -409,7 +402,7 @@
 					{
 						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "On"
+						"value": "true"
 					},
 					{
 						"key": "Content-Type",
@@ -475,7 +468,7 @@
 					{
 						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "On"
+						"value": "true"
 					}
 				],
 				"body": {
@@ -525,7 +518,7 @@
 					{
 						"key": "Use-Snapshot",
 						"type": "text",
-						"value": "On"
+						"value": "true"
 					}
 				],
 				"url": {
@@ -550,12 +543,12 @@
 		"oauth2": [
 			{
 				"key": "clientSecret",
-				"value": "a2LC4io7yjRgMxwpSBNs6",
+				"value": "{{ApiSecret}}",
 				"type": "string"
 			},
 			{
 				"key": "clientId",
-				"value": "rxEtpL5yT9vnUClwQ6fdj",
+				"value": "{{ApiKey}}",
 				"type": "string"
 			},
 			{

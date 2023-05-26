@@ -23,14 +23,14 @@ namespace EdFi.Ods.Features.ChangeQueries.ExceptionHandling
     /// </summary>
     public class SnapshotGoneExceptionTranslator : IExceptionTranslator
     {
-        private readonly IContextProvider<SnapshotContext.SnapshotUsage> _snapshotContextProvider;
+        private readonly IContextProvider<SnapshotUsage> _snapshotContextProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SnapshotGoneExceptionTranslator" /> class using the
         /// supplied snapshot context provider.
         /// </summary>
         /// <param name="snapshotContextProvider">Provides access to the snapshot context for the current request.</param>
-        public SnapshotGoneExceptionTranslator(IContextProvider<SnapshotContext.SnapshotUsage> snapshotContextProvider)
+        public SnapshotGoneExceptionTranslator(IContextProvider<SnapshotUsage> snapshotContextProvider)
         {
             _snapshotContextProvider = snapshotContextProvider;
         }

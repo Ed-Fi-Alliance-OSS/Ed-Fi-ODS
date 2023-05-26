@@ -42,7 +42,13 @@ namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
                     return Task.CompletedTask;
                 }
 
-                var snapshotContext = Enum.Parse<SnapshotUsage>(values.FirstOrDefault());
+                var snapshotContext = SnapshotUsage.Off;
+                if (bool.TryParse(values.FirstOrDefault(), out var useSnapshot)
+                    && useSnapshot)
+                {
+                    snapshotContext = SnapshotUsage.On;
+                }
+
                 _snapshotContextProvider.Set(snapshotContext);
             }
 

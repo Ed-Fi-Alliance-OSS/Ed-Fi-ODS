@@ -18,7 +18,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
         private readonly IContextProvider<OdsInstanceConfiguration> _odsInstanceContextProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsDatabaseConnectionStringProvider));
 
-        public SnapshotOdsDatabaseConnectionStringProviderDecorator(IOdsDatabaseConnectionStringProvider next,
+        public SnapshotOdsDatabaseConnectionStringProviderDecorator(
+            IOdsDatabaseConnectionStringProvider next,
             IContextProvider<SnapshotUsage> snapshotContextProvider,
             IContextProvider<OdsInstanceConfiguration> odsInstanceContextProvider)
         {
