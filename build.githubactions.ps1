@@ -261,7 +261,7 @@ function StandardVersions {
 
     $standardProjectDirectory = Split-Path $Solution  -Resolve
     $standardProjectPath = Join-Path $standardProjectDirectory "/Standard/"
-    $versions = (Get-ChildItem -Path $standardProjectPath -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name | %{ "'" + $_ + "'" }) -Join ','
+    $versions = Get-ChildItem -Path $standardProjectPath -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name | ForEach-Object { "'" + $_ + "'" } | Sort-Object -Descending
     $standardVersions = "[$versions]"
     return $standardVersions
 }
