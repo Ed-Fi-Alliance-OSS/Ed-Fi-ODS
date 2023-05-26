@@ -53,6 +53,7 @@ using System.Security.Claims;
 using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Ods.Api.Jobs.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Descriptors;
@@ -87,7 +88,10 @@ namespace EdFi.Ods.Api.Startup
             // Bind configuration objects to sections 
             services.Configure<ApiSettings>(Configuration.GetSection("ApiSettings"));
             services.Configure<Plugin>(Configuration.GetSection("Plugin"));
+            
+            // Register sections related to external connection strings configuration
             services.Configure<TenantsSection>(Configuration);
+            services.Configure<OdsInstancesSection>(Configuration);
 
             _apiSettings = new ApiSettings();
             Configuration.Bind("ApiSettings", _apiSettings);

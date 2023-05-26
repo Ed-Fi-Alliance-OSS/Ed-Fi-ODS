@@ -291,6 +291,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
+            builder.RegisterType<ConnectionStringOverridesApplicator>()
+                .As<IConnectionStringOverridesApplicator>()
+                .SingleInstance();
+            
+            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider >()
+                .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider >()
+                .SingleInstance();
+
             builder.RegisterType<OdsInstanceHashIdGenerator>()
                 .As<IOdsInstanceHashIdGenerator>()
                 .SingleInstance();

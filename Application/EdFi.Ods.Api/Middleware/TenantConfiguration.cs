@@ -15,33 +15,45 @@ namespace EdFi.Ods.Api.Middleware;
 /// </summary>
 public class TenantConfiguration : IContextHashBytesSource
 {
-    private readonly Lazy<ulong> _tenantHashId;
-    private readonly Lazy<byte[]> _hashBytes;
+    private string _tenantIdentifier;
+    private Lazy<ulong> _tenantHashId;
+    private Lazy<byte[]> _hashBytes;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TenantConfiguration"/> class.
     /// </summary>
     public TenantConfiguration()
     {
-        _tenantHashId = new Lazy<ulong>(
-            () =>
-            {
-                var hashResult = new HashResult();
+        _tenantHashId = new Lazy<ulong>(ComputeHashId);
+        _hashBytes = new Lazy<byte[]>(GetHashIdBytes);
+    }
 
-                TenantIdentifier.ApplyReadOnlySpanInvariant(
-                    (byteSpan, arg) => arg.Value = xxHash3.ComputeHash(byteSpan, byteSpan.Length),
-                    hashResult);
+    private byte[] GetHashIdBytes() => _tenantHashId.Value.GetBytes();
 
-                return hashResult.Value;
-            });
+    private ulong ComputeHashId()
+    {
+        var hashResult = new HashResult();
 
-        _hashBytes = new Lazy<byte[]>(() => _tenantHashId.Value.GetBytes());
+        TenantIdentifier.ApplyReadOnlySpanInvariant(
+            (byteSpan, arg) => arg.Value = xxHash3.ComputeHash(byteSpan, byteSpan.Length),
+            hashResult);
+
+        return hashResult.Value;
     }
 
     /// <summary>
-    /// The identifier used to uniquely identify the tenant.
+    /// Gets or sets the identifier used to uniquely identify the tenant.
     /// </summary>
-    public string TenantIdentifier { get; set; }
+    public string TenantIdentifier
+    { 
+        get => _tenantIdentifier;
+        set
+        {
+            _tenantIdentifier = value;
+            _tenantHashId = new Lazy<ulong>(ComputeHashId);
+            _hashBytes = new Lazy<byte[]>(GetHashIdBytes);
+        } 
+    }
 
     /// <summary>
     /// An unsigned-long value used to globally uniquely identify the tenant that can be used in hash calculations without
@@ -76,3 +88,4 @@ public class TenantConfiguration : IContextHashBytesSource
         get => _hashBytes.Value;
     }
 }
+
