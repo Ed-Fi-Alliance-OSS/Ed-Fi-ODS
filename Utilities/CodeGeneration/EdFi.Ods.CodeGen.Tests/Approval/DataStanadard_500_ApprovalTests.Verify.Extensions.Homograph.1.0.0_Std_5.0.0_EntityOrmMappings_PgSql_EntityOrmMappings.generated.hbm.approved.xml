@@ -89,7 +89,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="ParentAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="ParentAddresses" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="ParentFirstName" />
         <column name="ParentLastSurname" />
@@ -97,7 +97,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.ParentAddress" />
     </set>
 
-    <set name="ParentStudentSchoolAssociations" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="ParentStudentSchoolAssociations" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="ParentFirstName" />
         <column name="ParentLastSurname" />
@@ -199,7 +199,7 @@
     <property name="SchoolYear" column="SchoolYear" type="string" length="20" />
 
     <!-- One-to-one child mappings -->
-    <set name="SchoolAddress" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="SchoolAddress" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="SchoolName" />
       </key>
@@ -326,7 +326,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="StaffAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StaffAddresses" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="StaffFirstName" />
         <column name="StaffLastSurname" />
@@ -334,7 +334,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.StaffAddress" />
     </set>
 
-    <set name="StaffStudentSchoolAssociations" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StaffStudentSchoolAssociations" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="StaffFirstName" />
         <column name="StaffLastSurname" />
@@ -440,7 +440,7 @@
     <property name="SchoolYear" column="SchoolYear" type="string" length="20" not-null="true" />
 
     <!-- One-to-one child mappings -->
-    <set name="StudentAddress" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentAddress" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="StudentFirstName" />
         <column name="StudentLastSurname" />

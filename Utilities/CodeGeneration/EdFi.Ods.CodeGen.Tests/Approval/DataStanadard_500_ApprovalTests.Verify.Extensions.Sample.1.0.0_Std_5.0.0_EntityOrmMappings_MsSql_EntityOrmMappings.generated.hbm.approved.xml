@@ -101,7 +101,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="BusRouteBusYears" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="BusRouteBusYears" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BusId" />
         <column name="BusRouteNumber" />
@@ -109,7 +109,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRouteBusYear" />
     </set>
 
-    <set name="BusRoutePrograms" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="BusRoutePrograms" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BusId" />
         <column name="BusRouteNumber" />
@@ -117,7 +117,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRouteProgram" />
     </set>
 
-    <set name="BusRouteServiceAreaPostalCodes" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="BusRouteServiceAreaPostalCodes" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BusId" />
         <column name="BusRouteNumber" />
@@ -125,7 +125,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRouteServiceAreaPostalCode" />
     </set>
 
-    <set name="BusRouteStartTimes" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="BusRouteStartTimes" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BusId" />
         <column name="BusRouteNumber" />
@@ -133,7 +133,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample.BusRouteStartTime" />
     </set>
 
-    <set name="BusRouteTelephones" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="BusRouteTelephones" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="BusId" />
         <column name="BusRouteNumber" />
@@ -791,7 +791,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="StudentFavoriteBookArtMedia" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentFavoriteBookArtMedia" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="FavoriteBookCategoryDescriptorId" />
         <column name="StudentUSI" />
@@ -1196,7 +1196,7 @@
     <property name="TargetGPA" column="TargetGPA" type="decimal" not-null="true" />
 
     <!-- One-to-one child mappings -->
-    <set name="StudentGraduationPlanAssociationCTEProgram" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationCTEProgram" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1222,7 +1222,7 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="StudentGraduationPlanAssociationAcademicSubjects" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationAcademicSubjects" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1232,7 +1232,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationAcademicSubject" />
     </set>
 
-    <set name="StudentGraduationPlanAssociationCareerPathwayCodes" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationCareerPathwayCodes" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1242,7 +1242,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCareerPathwayCode" />
     </set>
 
-    <set name="StudentGraduationPlanAssociationDescriptions" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationDescriptions" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1252,7 +1252,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDescription" />
     </set>
 
-    <set name="StudentGraduationPlanAssociationDesignatedBies" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationDesignatedBies" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1262,7 +1262,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationDesignatedBy" />
     </set>
 
-    <set name="StudentGraduationPlanAssociationIndustryCredentials" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationIndustryCredentials" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1272,7 +1272,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationIndustryCredential" />
     </set>
 
-    <set name="StudentGraduationPlanAssociationStudentParentAssociations" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationStudentParentAssociations" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
@@ -1282,7 +1282,7 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationStudentParentAssociation" />
     </set>
 
-    <set name="StudentGraduationPlanAssociationYearsAttendeds" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="StudentGraduationPlanAssociationYearsAttendeds" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
         <column name="GraduationPlanTypeDescriptorId" />
