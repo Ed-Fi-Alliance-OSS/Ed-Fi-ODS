@@ -3,13 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
-using EdFi.Admin.DataAccess.Providers;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Configuration;
@@ -19,80 +15,70 @@ namespace EdFi.Ods.Api.Configuration;
 /// </summary>
 public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvider
 {
-    private readonly IAdminDatabaseConnectionStringProvider _adminDatabaseConnectionStringProvider;
-    private readonly DbProviderFactory _dbProviderFactory;
+    private readonly IEdFiAdminRawOdsInstanceConfigurationDataProvider _edFiAdminRawOdsInstanceConfigurationDataProvider;
     private readonly IOdsInstanceHashIdGenerator _odsInstanceHashIdGenerator;
+    private readonly IConnectionStringOverridesApplicator _connectionStringOverridesApplicator;
 
-    private const string GetOdsConfigurationByIdSql = "SELECT OdsInstanceId, ConnectionString, ContextKey, ContextValue, DerivativeType, ConnectionStringByDerivativeType FROM dbo.GetOdsInstanceConfigurationById(@OdsInstanceId);";
-    
     public OdsInstanceConfigurationProvider(
-        IAdminDatabaseConnectionStringProvider adminDatabaseConnectionStringProvider,
-        DbProviderFactory dbProviderFactory,
-        IOdsInstanceHashIdGenerator odsInstanceHashIdGenerator)
+        IEdFiAdminRawOdsInstanceConfigurationDataProvider edFiAdminRawOdsInstanceConfigurationDataProvider,
+        IOdsInstanceHashIdGenerator odsInstanceHashIdGenerator,
+        IConnectionStringOverridesApplicator connectionStringOverridesApplicator)
     {
-        _adminDatabaseConnectionStringProvider = adminDatabaseConnectionStringProvider;
-        _dbProviderFactory = dbProviderFactory;
+        _edFiAdminRawOdsInstanceConfigurationDataProvider = edFiAdminRawOdsInstanceConfigurationDataProvider;
         _odsInstanceHashIdGenerator = odsInstanceHashIdGenerator;
+        _connectionStringOverridesApplicator = connectionStringOverridesApplicator;
     }
 
     /// <inheritdoc cref="IOdsInstanceConfigurationProvider.GetByIdAsync" />
     public async Task<OdsInstanceConfiguration> GetByIdAsync(int odsInstanceId)
     {
-        // Consider refactoring out to follow the pattern used by EdFiAdminRawApiClientDetailsProvider
-        await using var connection = CreateConnectionAsync();
+        var rawDataRows = await _edFiAdminRawOdsInstanceConfigurationDataProvider.GetByIdAsync(odsInstanceId);
+        
+        // Build the base configuration
+        var baseOdsInstanceConfiguration = CreateOdsInstanceConfiguration();
+        
+        // Apply overrides (from configuration)
+        _connectionStringOverridesApplicator.ApplyOverrides(baseOdsInstanceConfiguration);
+        
+        // Return the final configuration
+        return baseOdsInstanceConfiguration;
 
-        var rawDataRows = (await connection.QueryAsync<RawOdsInstanceConfigurationDataRow>(
-                GetOdsConfigurationByIdSql, 
-                new { OdsInstanceId = odsInstanceId }))
-            .ToArray();
-
-        return CreateOdsInstanceConfiguration(rawDataRows);
-    }
-
-    private OdsInstanceConfiguration CreateOdsInstanceConfiguration(
-        RawOdsInstanceConfigurationDataRow[] rawDataRows)
-    {
-        var firstRow = rawDataRows?.FirstOrDefault();
-
-        if (firstRow == null)
+        OdsInstanceConfiguration CreateOdsInstanceConfiguration()
         {
-            return null;
+            var firstRow = rawDataRows?.FirstOrDefault();
+
+            if (firstRow == null)
+            {
+                return null;
+            }
+
+            var configuration = new OdsInstanceConfiguration(
+                odsInstanceId: firstRow.OdsInstanceId,
+                odsInstanceHashId: _odsInstanceHashIdGenerator.GenerateHashId(firstRow.OdsInstanceId),
+                connectionString: firstRow.ConnectionString,
+                contextValueByKey: GetContextValues(),
+                connectionStringByDerivativeType: GetConnectionStringsByDerivativeType()
+            );
+
+            return configuration;
+
+            IDictionary<string, string> GetContextValues()
+            {
+                return rawDataRows
+                    .Where(x => !string.IsNullOrEmpty(x.ContextKey))
+                    .Select(x => new KeyValuePair<string, string>(x.ContextKey, x.ContextValue))
+                    .DistinctBy(x => x.Key)
+                    .ToDictionary(x => x.Key, x => x.Value);
+            }
+
+            IDictionary<DerivativeType, string> GetConnectionStringsByDerivativeType()
+            {
+                return rawDataRows
+                    .Where(x => !string.IsNullOrEmpty(x.DerivativeType))
+                    .Select(x => new KeyValuePair<DerivativeType, string>(DerivativeType.Parse(x.DerivativeType), x.ConnectionStringByDerivativeType))
+                    .DistinctBy(x => x.Key)
+                    .ToDictionary(x => x.Key, x => x.Value);
+            }
         }
-
-        var configuration = new OdsInstanceConfiguration(
-            odsInstanceId: firstRow.OdsInstanceId,
-            odsInstanceHashId: _odsInstanceHashIdGenerator.GenerateHashId(firstRow.OdsInstanceId),
-            connectionString: firstRow.ConnectionString,
-            contextValueByKey: GetContextValues(),
-            connectionStringByDerivativeType: GetConnectionStringsByDerivativeType()
-        );
-
-        return configuration;
-
-        IDictionary<string, string> GetContextValues()
-        {
-            return rawDataRows
-                .Where(x => !string.IsNullOrEmpty(x.ContextKey))
-                .Select(x => new KeyValuePair<string, string>(x.ContextKey, x.ContextValue))
-                .DistinctBy(x => x.Key)
-                .ToDictionary(x => x.Key, x => x.Value);
-        }
-
-        IDictionary<DerivativeType, string> GetConnectionStringsByDerivativeType()
-        {
-            return rawDataRows
-                .Where(x => !string.IsNullOrEmpty(x.DerivativeType))
-                .Select(x => new KeyValuePair<DerivativeType, string>(DerivativeType.Parse(x.DerivativeType), x.ConnectionStringByDerivativeType))
-                .DistinctBy(x => x.Key)
-                .ToDictionary(x => x.Key, x => x.Value);
-        }
-    }
-    
-    private DbConnection CreateConnectionAsync()
-    {
-        var connection = _dbProviderFactory.CreateConnection();
-        connection.ConnectionString = _adminDatabaseConnectionStringProvider.GetConnectionString();
-            
-        return connection;
     }
 }

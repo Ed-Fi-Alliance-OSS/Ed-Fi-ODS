@@ -3,16 +3,15 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Configuration;
 
 public class OdsInstanceConfiguration : IContextHashBytesSource
 {
     private readonly byte[] _hashBytes;
-    private readonly Lazy<string> _readReplicaConnectionString;
 
     public OdsInstanceConfiguration(
         int odsInstanceId,
@@ -29,30 +28,17 @@ public class OdsInstanceConfiguration : IContextHashBytesSource
         ConnectionString = connectionString;
         ContextValueByKey = contextValueByKey;
         ConnectionStringByDerivativeType = connectionStringByDerivativeType;
-
-        _readReplicaConnectionString = new Lazy<string>(
-            () =>
-            {
-                if (ConnectionStringByDerivativeType.TryGetValue(
-                        DerivativeType.ReadReplica,
-                        out string derivativeConnectionString))
-                {
-                    return derivativeConnectionString;
-                }
-
-                return null;
-            });
     }
 
     public int OdsInstanceId { get; }
 
     public ulong OdsInstanceHashId { get; }
 
-    public string ConnectionString { get; }
+    public string ConnectionString { get; set; }
 
     public string ReadReplicaConnectionString
     {
-        get => _readReplicaConnectionString.Value;
+        get => ConnectionStringByDerivativeType.GetValueOrDefault(DerivativeType.ReadReplica);
     }
 
     public IDictionary<string, string> ContextValueByKey { get; }

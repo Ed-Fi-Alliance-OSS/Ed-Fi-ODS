@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using EdFi.Ods.Api.Middleware;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Configuration.Sections;
 using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Features.MultiTenancy;
@@ -21,7 +21,7 @@ public class TenantConfigurationMapProvider : ITenantConfigurationMapProvider
     private readonly IOptionsMonitor<TenantsSection> _tenantsConfigurationOptions;
 
     private IDictionary<string, TenantConfiguration> _tenantConfigurationByIdentifier;
-    
+
     public TenantConfigurationMapProvider(IOptionsMonitor<TenantsSection> tenantsConfigurationOptions)
     {
         _tenantsConfigurationOptions = tenantsConfigurationOptions;
@@ -37,12 +37,12 @@ public class TenantConfigurationMapProvider : ITenantConfigurationMapProvider
     private static Dictionary<string, TenantConfiguration> InitializeTenantsConfiguration(TenantsSection config)
     {
         return config.Tenants.ToDictionary(
-            t => t.TenantIdentifier,
+            t => t.Key,
             t => new TenantConfiguration
             {
-                TenantIdentifier = t.TenantIdentifier,
-                AdminConnectionString = t.ConnectionStrings.EdFi_Admin,
-                SecurityConnectionString = t.ConnectionStrings.EdFi_Security
+                TenantIdentifier = t.Key,
+                AdminConnectionString = t.Value.ConnectionStrings.GetValueOrDefault("EdFi_Admin"),
+                SecurityConnectionString = t.Value.ConnectionStrings.GetValueOrDefault("EdFi_Security"),
             },
             StringComparer.OrdinalIgnoreCase);
     }
