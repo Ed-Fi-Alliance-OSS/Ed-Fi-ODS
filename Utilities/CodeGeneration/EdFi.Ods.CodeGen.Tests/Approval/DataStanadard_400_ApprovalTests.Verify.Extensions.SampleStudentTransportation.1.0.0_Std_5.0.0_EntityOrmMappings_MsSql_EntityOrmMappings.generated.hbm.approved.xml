@@ -1,0 +1,59 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Extensions.SampleStudentTransportation" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStudentTransportation.StudentTransportationReferenceData" table="StudentTransportation" lazy="true"  schema="samplestudenttransportation" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AMBusNumber" column="AMBusNumber" type="string"  length="6"  />
+            <key-property name="PMBusNumber" column="PMBusNumber" type="string"  length="6"  />
+            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStudentTransportation.StudentTransportation" table="StudentTransportation" lazy="false" schema="samplestudenttransportation" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AMBusNumber" column="AMBusNumber" type="string" length="6" />
+      <key-property name="PMBusNumber" column="PMBusNumber" type="string" length="6" />
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EstimatedMilesFromSchool" column="EstimatedMilesFromSchool" type="decimal" not-null="true" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolId" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+</hibernate-mapping>
+

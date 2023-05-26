@@ -1,0 +1,2331 @@
+﻿<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Extensions.TPDM" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateReferenceData" table="Candidate" lazy="true"  schema="tpdm" >
+        <id name="CandidateIdentifier" column="CandidateIdentifier" type="string"  length="32" >
+            <generator class="assigned" />
+        </id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.Candidate" table="Candidate" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <id name="CandidateIdentifier" column="CandidateIdentifier" type="string" length="32">
+      <generator class="assigned" />
+    </id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="BirthCity" column="BirthCity" type="string" length="30" />
+    <property name="BirthCountryDescriptorId" column="BirthCountryDescriptorId" type="int" />
+    <property name="BirthDate" column="BirthDate" type="date" not-null="true" />
+    <property name="BirthInternationalProvince" column="BirthInternationalProvince" type="string" length="150" />
+    <property name="BirthSexDescriptorId" column="BirthSexDescriptorId" type="int" />
+    <property name="BirthStateAbbreviationDescriptorId" column="BirthStateAbbreviationDescriptorId" type="int" />
+    <property name="DateEnteredUS" column="DateEnteredUS" type="date" />
+    <property name="DisplacementStatus" column="DisplacementStatus" type="string" length="30" />
+    <property name="EconomicDisadvantaged" column="EconomicDisadvantaged" type="bool" />
+    <property name="EnglishLanguageExamDescriptorId" column="EnglishLanguageExamDescriptorId" type="int" />
+    <property name="FirstGenerationStudent" column="FirstGenerationStudent" type="bool" />
+    <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
+    <property name="GenderDescriptorId" column="GenderDescriptorId" type="int" />
+    <property name="GenerationCodeSuffix" column="GenerationCodeSuffix" type="string" length="10" />
+    <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
+    <property name="LastSurname" column="LastSurname" type="string" length="75" not-null="true" />
+    <property name="LimitedEnglishProficiencyDescriptorId" column="LimitedEnglishProficiencyDescriptorId" type="int" />
+    <property name="MaidenName" column="MaidenName" type="string" length="75" />
+    <property name="MiddleName" column="MiddleName" type="string" length="75" />
+    <property name="MultipleBirthStatus" column="MultipleBirthStatus" type="bool" />
+    <property name="PersonalTitlePrefix" column="PersonalTitlePrefix" type="string" length="30" />
+    <property name="PersonId" column="PersonId" type="string" length="32" />
+    <property name="SexDescriptorId" column="SexDescriptorId" type="int" not-null="true" />
+    <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="CandidateAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress" />
+    </set>
+
+    <set name="CandidateDisabilities" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability" />
+    </set>
+
+    <set name="CandidateElectronicMails" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail" />
+    </set>
+
+    <set name="CandidateLanguages" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage" />
+    </set>
+
+    <set name="CandidateOtherNames" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName" />
+    </set>
+
+    <set name="CandidatePersonalIdentificationDocuments" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument" />
+    </set>
+
+    <set name="CandidateRaces" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace" />
+    </set>
+
+    <set name="CandidateTelephones" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddress" table="CandidateAddress" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AddressTypeDescriptorId" column="AddressTypeDescriptorId" type="int" />
+      <key-property name="City" column="City" type="string" length="30" />
+      <key-property name="PostalCode" column="PostalCode" type="string" length="17" />
+      <key-property name="StateAbbreviationDescriptorId" column="StateAbbreviationDescriptorId" type="int" />
+      <key-property name="StreetNumberName" column="StreetNumberName" type="string" length="150" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ApartmentRoomSuiteNumber" column="ApartmentRoomSuiteNumber" type="string" length="50" />
+    <property name="BuildingSiteNumber" column="BuildingSiteNumber" type="string" length="20" />
+    <property name="CongressionalDistrict" column="CongressionalDistrict" type="string" length="30" />
+    <property name="CountyFIPSCode" column="CountyFIPSCode" type="string" length="5" />
+    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
+    <property name="Latitude" column="Latitude" type="string" length="20" />
+    <property name="LocaleDescriptorId" column="LocaleDescriptorId" type="int" />
+    <property name="Longitude" column="Longitude" type="string" length="20" />
+    <property name="NameOfCounty" column="NameOfCounty" type="string" length="30" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="CandidateAddressPeriods" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateAddressPeriod" table="CandidateAddressPeriod" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-many-to-one name="CandidateAddress">
+        <column name="AddressTypeDescriptorId" />
+        <column name="City" />
+        <column name="PostalCode" />
+        <column name="StateAbbreviationDescriptorId" />
+        <column name="StreetNumberName" />
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisability" table="CandidateDisability" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="DisabilityDescriptorId" column="DisabilityDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DisabilityDeterminationSourceTypeDescriptorId" column="DisabilityDeterminationSourceTypeDescriptorId" type="int" />
+    <property name="DisabilityDiagnosis" column="DisabilityDiagnosis" type="string" length="80" />
+    <property name="OrderOfDisability" column="OrderOfDisability" type="int" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="CandidateDisabilityDesignations" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="DisabilityDescriptorId" />
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateDisabilityDesignation" table="CandidateDisabilityDesignation" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="DisabilityDesignationDescriptorId" column="DisabilityDesignationDescriptorId" type="int" />
+      <key-many-to-one name="CandidateDisability">
+        <column name="DisabilityDescriptorId" />
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateElectronicMail" table="CandidateElectronicMail" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ElectronicMailAddress" column="ElectronicMailAddress" type="string" length="128" />
+      <key-property name="ElectronicMailTypeDescriptorId" column="ElectronicMailTypeDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
+    <property name="PrimaryEmailAddressIndicator" column="PrimaryEmailAddressIndicator" type="bool" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguage" table="CandidateLanguage" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="LanguageDescriptorId" column="LanguageDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="CandidateLanguageUses" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="LanguageDescriptorId" />
+        <column name="CandidateIdentifier" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateLanguageUse" table="CandidateLanguageUse" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="LanguageUseDescriptorId" column="LanguageUseDescriptorId" type="int" />
+      <key-many-to-one name="CandidateLanguage">
+        <column name="LanguageDescriptorId" />
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateOtherName" table="CandidateOtherName" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="OtherNameTypeDescriptorId" column="OtherNameTypeDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
+    <property name="GenerationCodeSuffix" column="GenerationCodeSuffix" type="string" length="10" />
+    <property name="LastSurname" column="LastSurname" type="string" length="75" not-null="true" />
+    <property name="MiddleName" column="MiddleName" type="string" length="75" />
+    <property name="PersonalTitlePrefix" column="PersonalTitlePrefix" type="string" length="30" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidatePersonalIdentificationDocument" table="CandidatePersonalIdentificationDocument" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IdentificationDocumentUseDescriptorId" column="IdentificationDocumentUseDescriptorId" type="int" />
+      <key-property name="PersonalInformationVerificationDescriptorId" column="PersonalInformationVerificationDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DocumentExpirationDate" column="DocumentExpirationDate" type="date" />
+    <property name="DocumentTitle" column="DocumentTitle" type="string" length="60" />
+    <property name="IssuerCountryDescriptorId" column="IssuerCountryDescriptorId" type="int" />
+    <property name="IssuerDocumentIdentificationCode" column="IssuerDocumentIdentificationCode" type="string" length="60" />
+    <property name="IssuerName" column="IssuerName" type="string" length="150" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateRace" table="CandidateRace" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="RaceDescriptorId" column="RaceDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateTelephone" table="CandidateTelephone" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="TelephoneNumber" column="TelephoneNumber" type="string" length="24" />
+      <key-property name="TelephoneNumberTypeDescriptorId" column="TelephoneNumberTypeDescriptorId" type="int" />
+      <key-many-to-one name="Candidate">
+        <column name="CandidateIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DoNotPublishIndicator" column="DoNotPublishIndicator" type="bool" />
+    <property name="OrderOfPriority" column="OrderOfPriority" type="int" />
+    <property name="TextMessageCapabilityIndicator" column="TextMessageCapabilityIndicator" type="bool" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationReferenceData" table="CandidateEducatorPreparationProgramAssociation" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="BeginDate" column="BeginDate" type="date"  />
+            <key-property name="CandidateIdentifier" column="CandidateIdentifier" type="string"  length="32"  />
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="ProgramName" column="ProgramName" type="string"  length="255"  />
+            <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociation" table="CandidateEducatorPreparationProgramAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-property name="CandidateIdentifier" column="CandidateIdentifier" type="string" length="32" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="ProgramName" column="ProgramName" type="string" length="255" />
+      <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="EPPProgramPathwayDescriptorId" column="EPPProgramPathwayDescriptorId" type="int" />
+    <property name="ReasonExitedDescriptorId" column="ReasonExitedDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="CandidateReferenceData" class="EdFi.Ods.Entities.NHibernate.CandidateAggregate.TPDM.CandidateReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="CandidateIdentifier" />
+    </many-to-one>
+    <many-to-one name="EducatorPreparationProgramReferenceData" class="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="ProgramName" />
+      <column name="ProgramTypeDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="CandidateEducatorPreparationProgramAssociationCohortYears" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="BeginDate" />
+        <column name="CandidateIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear" />
+    </set>
+
+    <set name="CandidateEducatorPreparationProgramAssociationDegreeSpecializations" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="BeginDate" />
+        <column name="CandidateIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationCohortYear" table="CandidateEducatorPreparationProgramAssociationCohortYear" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="CohortYearTypeDescriptorId" column="CohortYearTypeDescriptorId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-many-to-one name="CandidateEducatorPreparationProgramAssociation">
+        <column name="BeginDate" />
+        <column name="CandidateIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociationDegreeSpecialization" table="CandidateEducatorPreparationProgramAssociationDegreeSpec_2501c4" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="MajorSpecialization" column="MajorSpecialization" type="string" length="255" />
+      <key-many-to-one name="CandidateEducatorPreparationProgramAssociation">
+        <column name="BeginDate" />
+        <column name="CandidateIdentifier" />
+        <column name="EducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="MinorSpecialization" column="MinorSpecialization" type="string" length="255" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM.CredentialStudentAcademicRecord" table="CredentialStudentAcademicRecord" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+      <key-many-to-one name="Credential">
+        <column name="CredentialIdentifier" />
+        <column name="StateOfIssueStateAbbreviationDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentAcademicRecordReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="SchoolYear" />
+      <column name="StudentUSI" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM.CredentialExtension" table="CredentialExtension" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="Credential">
+        <column name="CredentialIdentifier" />
+        <column name="StateOfIssueStateAbbreviationDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="BoardCertificationIndicator" column="BoardCertificationIndicator" type="bool" />
+    <property name="CertificationRouteDescriptorId" column="CertificationRouteDescriptorId" type="int" />
+    <property name="CertificationTitle" column="CertificationTitle" type="string" length="64" />
+    <property name="CredentialStatusDate" column="CredentialStatusDate" type="date" />
+    <property name="CredentialStatusDescriptorId" column="CredentialStatusDescriptorId" type="int" />
+    <property name="EducatorRoleDescriptorId" column="EducatorRoleDescriptorId" type="int" />
+    <property name="PersonId" column="PersonId" type="string" length="32" />
+    <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramReferenceData" table="EducatorPreparationProgram" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="ProgramName" column="ProgramName" type="string"  length="255"  />
+            <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgram" table="EducatorPreparationProgram" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="ProgramName" column="ProgramName" type="string" length="255" />
+      <key-property name="ProgramTypeDescriptorId" column="ProgramTypeDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AccreditationStatusDescriptorId" column="AccreditationStatusDescriptorId" type="int" />
+    <property name="ProgramId" column="ProgramId" type="string" length="20" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EducatorPreparationProgramGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgramGradeLevel" table="EducatorPreparationProgramGradeLevel" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="GradeLevelDescriptorId" column="GradeLevelDescriptorId" type="int" />
+      <key-many-to-one name="EducatorPreparationProgram">
+        <column name="EducationOrganizationId" />
+        <column name="ProgramName" />
+        <column name="ProgramTypeDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" table="Evaluation" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation" table="Evaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EvaluationDescription" column="EvaluationDescription" type="string" length="255" />
+    <property name="EvaluationTypeDescriptorId" column="EvaluationTypeDescriptorId" type="int" />
+    <property name="InterRaterReliabilityScore" column="InterRaterReliabilityScore" type="int" />
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PerformanceEvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationRatingLevel" table="EvaluationRatingLevel" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
+      <key-many-to-one name="Evaluation">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" table="EvaluationElement" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
+            <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement" table="EvaluationElement" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
+      <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EvaluationTypeDescriptorId" column="EvaluationTypeDescriptorId" type="int" />
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+    <property name="SortOrder" column="SortOrder" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EvaluationObjectiveReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationObjectiveTitle" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EvaluationElementRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationElementTitle" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementRatingLevel" table="EvaluationElementRatingLevel" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
+      <key-many-to-one name="EvaluationElement">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationElementTitle" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingReferenceData" table="EvaluationElementRating" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
+            <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
+            <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating" table="EvaluationElementRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
+      <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
+      <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AreaOfRefinement" column="AreaOfRefinement" type="string" length="1024" />
+    <property name="AreaOfReinforcement" column="AreaOfReinforcement" type="string" length="1024" />
+    <property name="Comments" column="Comments" type="string" length="1024" />
+    <property name="EvaluationElementRatingLevelDescriptorId" column="EvaluationElementRatingLevelDescriptorId" type="int" />
+    <property name="Feedback" column="Feedback" type="string" length="2048" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EvaluationElementReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationElementTitle" />
+      <column name="EvaluationObjectiveTitle" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+    <many-to-one name="EvaluationObjectiveRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationDate" />
+      <column name="EvaluationObjectiveTitle" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="PersonId" />
+      <column name="SchoolYear" />
+      <column name="SourceSystemDescriptorId" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EvaluationElementRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationElementTitle" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRatingResult" table="EvaluationElementRatingResult" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Rating" column="Rating" type="decimal" />
+      <key-property name="RatingResultTitle" column="RatingResultTitle" type="string" length="50" />
+      <key-many-to-one name="EvaluationElementRating">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationElementTitle" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ResultDatatypeTypeDescriptorId" column="ResultDatatypeTypeDescriptorId" type="int" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" table="EvaluationObjective" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective" table="EvaluationObjective" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EvaluationObjectiveDescription" column="EvaluationObjectiveDescription" type="string" length="255" />
+    <property name="EvaluationTypeDescriptorId" column="EvaluationTypeDescriptorId" type="int" />
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+    <property name="SortOrder" column="SortOrder" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EvaluationObjectiveRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveRatingLevel" table="EvaluationObjectiveRatingLevel" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
+      <key-many-to-one name="EvaluationObjective">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingReferenceData" table="EvaluationObjectiveRating" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
+            <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating" table="EvaluationObjectiveRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
+      <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="Comments" column="Comments" type="string" length="1024" />
+    <property name="ObjectiveRatingLevelDescriptorId" column="ObjectiveRatingLevelDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EvaluationObjectiveReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjectiveReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationObjectiveTitle" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+    <many-to-one name="EvaluationRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationDate" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="PersonId" />
+      <column name="SchoolYear" />
+      <column name="SourceSystemDescriptorId" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EvaluationObjectiveRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRatingResult" table="EvaluationObjectiveRatingResult" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Rating" column="Rating" type="decimal" />
+      <key-property name="RatingResultTitle" column="RatingResultTitle" type="string" length="50" />
+      <key-many-to-one name="EvaluationObjectiveRating">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationObjectiveTitle" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ResultDatatypeTypeDescriptorId" column="ResultDatatypeTypeDescriptorId" type="int" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReferenceData" table="EvaluationRating" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating" table="EvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
+    <property name="EvaluationRatingStatusDescriptorId" column="EvaluationRatingStatusDescriptorId" type="int" />
+    <property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
+    <property name="SchoolId" column="SchoolId" type="int" />
+    <property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
+    <property name="SessionName" column="SessionName" type="string" length="60" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM.EvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+    <many-to-one name="PerformanceEvaluationRatingReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="PersonId" />
+      <column name="SchoolYear" />
+      <column name="SourceSystemDescriptorId" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+    <many-to-one name="SectionReferenceData" class="EdFi.Ods.Entities.NHibernate.SectionAggregate.EdFi.SectionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="LocalCourseCode" />
+      <column name="SchoolId" />
+      <column name="SchoolYear" />
+      <column name="SectionIdentifier" />
+      <column name="SessionName" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="EvaluationRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult" />
+    </set>
+
+    <set name="EvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingResult" table="EvaluationRatingResult" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Rating" column="Rating" type="decimal" />
+      <key-property name="RatingResultTitle" column="RatingResultTitle" type="string" length="50" />
+      <key-many-to-one name="EvaluationRating">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ResultDatatypeTypeDescriptorId" column="ResultDatatypeTypeDescriptorId" type="int" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewer" table="EvaluationRatingReviewer" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="FirstName" column="FirstName" type="string" length="75" />
+      <key-property name="LastSurname" column="LastSurname" type="string" length="75" />
+      <key-many-to-one name="EvaluationRating">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ReviewerPersonId" column="ReviewerPersonId" type="string" length="32" />
+    <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
+
+    <!-- One-to-one child mappings -->
+    <set name="EvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="FirstName" />
+        <column name="LastSurname" />
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining" />
+    </set>
+
+    <!-- Aggregate references -->
+    <many-to-one name="ReviewerPersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ReviewerPersonId" />
+      <column name="ReviewerSourceSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRatingReviewerReceivedTraining" table="EvaluationRatingReviewerReceivedTraining" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="EvaluationRatingReviewer">
+        <column name="FirstName" />
+        <column name="LastSurname" />
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationDate" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="EvaluationTitle" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="InterRaterReliabilityScore" column="InterRaterReliabilityScore" type="int" />
+    <property name="ReceivedTrainingDate" column="ReceivedTrainingDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM.FinancialAidReferenceData" table="FinancialAid" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="AidTypeDescriptorId" column="AidTypeDescriptorId" type="int"  />
+            <key-property name="BeginDate" column="BeginDate" type="date"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FinancialAidAggregate.TPDM.FinancialAid" table="FinancialAid" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AidTypeDescriptorId" column="AidTypeDescriptorId" type="int" />
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AidAmount" column="AidAmount" type="decimal" />
+    <property name="AidConditionDescription" column="AidConditionDescription" type="string" length="1024" />
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="PellGrantRecipient" column="PellGrantRecipient" type="bool" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" table="PerformanceEvaluation" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation" table="PerformanceEvaluation" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" />
+    <property name="PerformanceEvaluationDescription" column="PerformanceEvaluationDescription" type="string" length="255" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="PerformanceEvaluationGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel" />
+    </set>
+
+    <set name="PerformanceEvaluationRatingLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationGradeLevel" table="PerformanceEvaluationGradeLevel" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="GradeLevelDescriptorId" column="GradeLevelDescriptorId" type="int" />
+      <key-many-to-one name="PerformanceEvaluation">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationRatingLevel" table="PerformanceEvaluationRatingLevel" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
+      <key-many-to-one name="PerformanceEvaluation">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="SchoolYear" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="MaxRating" column="MaxRating" type="decimal" />
+    <property name="MinRating" column="MinRating" type="decimal" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReferenceData" table="PerformanceEvaluationRating" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating" table="PerformanceEvaluationRating" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="ActualDate" column="ActualDate" type="date" not-null="true" />
+    <property name="ActualDuration" column="ActualDuration" type="int" />
+    <property name="ActualTime" column="ActualTime" type="TimeAsTimeSpan" />
+    <property name="Announced" column="Announced" type="bool" />
+    <property name="Comments" column="Comments" type="string" length="1024" />
+    <property name="CoteachingStyleObservedDescriptorId" column="CoteachingStyleObservedDescriptorId" type="int" />
+    <property name="PerformanceEvaluationRatingLevelDescriptorId" column="PerformanceEvaluationRatingLevelDescriptorId" type="int" />
+    <property name="ScheduleDate" column="ScheduleDate" type="date" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PerformanceEvaluationReferenceData" class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="PerformanceEvaluationRatingResults" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult" />
+    </set>
+
+    <set name="PerformanceEvaluationRatingReviewers" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingResult" table="PerformanceEvaluationRatingResult" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Rating" column="Rating" type="decimal" />
+      <key-property name="RatingResultTitle" column="RatingResultTitle" type="string" length="50" />
+      <key-many-to-one name="PerformanceEvaluationRating">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ResultDatatypeTypeDescriptorId" column="ResultDatatypeTypeDescriptorId" type="int" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewer" table="PerformanceEvaluationRatingReviewer" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="FirstName" column="FirstName" type="string" length="75" />
+      <key-property name="LastSurname" column="LastSurname" type="string" length="75" />
+      <key-many-to-one name="PerformanceEvaluationRating">
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="ReviewerPersonId" column="ReviewerPersonId" type="string" length="32" />
+    <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
+
+    <!-- One-to-one child mappings -->
+    <set name="PerformanceEvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="FirstName" />
+        <column name="LastSurname" />
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining" />
+    </set>
+
+    <!-- Aggregate references -->
+    <many-to-one name="ReviewerPersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ReviewerPersonId" />
+      <column name="ReviewerSourceSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRatingReviewerReceivedTraining" table="PerformanceEvaluationRatingReviewerReceivedTraining" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="PerformanceEvaluationRatingReviewer">
+        <column name="FirstName" />
+        <column name="LastSurname" />
+        <column name="EducationOrganizationId" />
+        <column name="EvaluationPeriodDescriptorId" />
+        <column name="PerformanceEvaluationTitle" />
+        <column name="PerformanceEvaluationTypeDescriptorId" />
+        <column name="PersonId" />
+        <column name="SchoolYear" />
+        <column name="SourceSystemDescriptorId" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="InterRaterReliabilityScore" column="InterRaterReliabilityScore" type="int" />
+    <property name="ReceivedTrainingDate" column="ReceivedTrainingDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimensionReferenceData" table="RubricDimension" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
+            <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
+            <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
+            <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
+            <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
+            <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int"  />
+            <key-property name="RubricRating" column="RubricRating" type="int"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="TermDescriptorId" column="TermDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension" table="RubricDimension" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
+      <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
+      <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
+      <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
+      <key-property name="PerformanceEvaluationTypeDescriptorId" column="PerformanceEvaluationTypeDescriptorId" type="int" />
+      <key-property name="RubricRating" column="RubricRating" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="TermDescriptorId" column="TermDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="CriterionDescription" column="CriterionDescription" type="string" length="1024" not-null="true" />
+    <property name="DimensionOrder" column="DimensionOrder" type="int" />
+    <property name="RubricRatingLevelDescriptorId" column="RubricRatingLevelDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="EvaluationElementReferenceData" class="EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElementReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="EducationOrganizationId" />
+      <column name="EvaluationElementTitle" />
+      <column name="EvaluationObjectiveTitle" />
+      <column name="EvaluationPeriodDescriptorId" />
+      <column name="EvaluationTitle" />
+      <column name="PerformanceEvaluationTitle" />
+      <column name="PerformanceEvaluationTypeDescriptorId" />
+      <column name="SchoolYear" />
+      <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM.SchoolExtension" table="SchoolExtension" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="School">
+        <column name="SchoolId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PostSecondaryInstitutionReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PostSecondaryInstitutionId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM.SurveyResponseExtension" table="SurveyResponseExtension" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="SurveyResponse">
+        <column name="Namespace" />
+        <column name="SurveyIdentifier" />
+        <column name="SurveyResponseIdentifier" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="PersonId" column="PersonId" type="string" length="32" />
+    <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociationReferenceData" table="SurveyResponsePersonTargetAssociation" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+            <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string"  length="60"  />
+            <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string"  length="60"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociation" table="SurveyResponsePersonTargetAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+      <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string" length="60" />
+      <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string" length="60" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
+    <many-to-one name="SurveyResponseReferenceData" class="EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.EdFi.SurveyResponseReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="Namespace" />
+      <column name="SurveyIdentifier" />
+      <column name="SurveyResponseIdentifier" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociationReferenceData" table="SurveySectionResponsePersonTargetAssociation" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+            <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string"  length="60"  />
+            <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string"  length="60"  />
+            <key-property name="SurveySectionTitle" column="SurveySectionTitle" type="string"  length="255"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociation" table="SurveySectionResponsePersonTargetAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+      <key-property name="SurveyIdentifier" column="SurveyIdentifier" type="string" length="60" />
+      <key-property name="SurveyResponseIdentifier" column="SurveyResponseIdentifier" type="string" length="60" />
+      <key-property name="SurveySectionTitle" column="SurveySectionTitle" type="string" length="255" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
+    <many-to-one name="SurveySectionResponseReferenceData" class="EdFi.Ods.Entities.NHibernate.SurveySectionResponseAggregate.EdFi.SurveySectionResponseReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="Namespace" />
+      <column name="SurveyIdentifier" />
+      <column name="SurveyResponseIdentifier" />
+      <column name="SurveySectionTitle" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+</hibernate-mapping>
+
