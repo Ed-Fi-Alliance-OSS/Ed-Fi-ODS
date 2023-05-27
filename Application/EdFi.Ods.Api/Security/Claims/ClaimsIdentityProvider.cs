@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.Security.Claims
         }
 
         // Clear pre-built claims every 30 minutes (but if underlying security metadata changes more frequently, new claims will be built and reused)
-        private readonly ExpiringConcurrentDictionaryCacheProvider<IReadOnlyList<ClaimSetResourceClaimAction>> _claimsByResourceClaimActions
+        private readonly ExpiringConcurrentDictionaryCacheProvider<IList<ClaimSetResourceClaimAction>> _claimsByResourceClaimActions
             = new("Claims", TimeSpan.FromMinutes(30));
 
         public ClaimsIdentity GetClaimsIdentity(string claimSetName)

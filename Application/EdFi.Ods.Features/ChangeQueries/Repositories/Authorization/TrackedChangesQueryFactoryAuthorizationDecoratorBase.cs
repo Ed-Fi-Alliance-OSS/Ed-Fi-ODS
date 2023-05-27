@@ -72,16 +72,21 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
             var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
 
+            string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
+            string requestActionUri = _authorizationContextProvider.GetAction();
+
             var authorizationContext = new EdFiAuthorizationContext(
                 apiKeyContext,
                 _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
                 _dataManagementResourceContextProvider.Get().Resource,
-                _authorizationContextProvider.GetResourceUris(),
-                _authorizationContextProvider.GetAction(),
+                resourceClaimUris,
+                requestActionUri,
                 entityType);
 
-            var authorizationBasisMetadata =
-                _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
+            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                apiKeyContext.ClaimSetName,
+                resourceClaimUris,
+                requestActionUri);
 
             var authorizationFiltering =
                 _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);

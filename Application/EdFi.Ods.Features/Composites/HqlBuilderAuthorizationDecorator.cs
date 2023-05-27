@@ -82,12 +82,13 @@ namespace EdFi.Ods.Features.Composites
             var entityType = GetEntityType(resource);
 
             var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
 
             var authorizationContext = new EdFiAuthorizationContext(
                 apiKeyContext,
                 _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
                 resource,
-                _resourceClaimUriProvider.GetResourceClaimUris(resource),
+                resourceClaimUris,
                 RequestActions.ReadActionUri,
                 entityType);
 
@@ -96,10 +97,13 @@ namespace EdFi.Ods.Features.Composites
 
             try
             {
-                var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
+                var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                    apiKeyContext.ClaimSetName, resourceClaimUris, RequestActions.ReadActionUri);
                 
                 // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
-                authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
+                authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(
+                    authorizationContext,
+                    authorizationBasisMetadata);
             }
             catch (EdFiSecurityException ex)
             {

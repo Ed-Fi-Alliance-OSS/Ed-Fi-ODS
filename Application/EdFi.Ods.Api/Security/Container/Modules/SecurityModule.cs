@@ -44,7 +44,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
 
             builder.RegisterType<ResourceAuthorizationMetadataProvider>()
                 .As<IResourceAuthorizationMetadataProvider>()
-                .InstancePerLifetimeScope();
+                .EnableInterfaceInterceptors()
+                .SingleInstance();
 
             var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
 

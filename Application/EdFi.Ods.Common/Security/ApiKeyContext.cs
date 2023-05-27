@@ -16,7 +16,14 @@ namespace EdFi.Ods.Common.Security
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ApiKeyContext"/> class as default constructor.
         /// </summary>
-        public ApiKeyContext() { }
+        public ApiKeyContext()
+        {
+            EducationOrganizationIds = Array.Empty<int>();
+            NamespacePrefixes = Array.Empty<string>();
+            Profiles = Array.Empty<string>();
+            OwnershipTokenIds = Array.Empty<short>();
+            OdsInstanceIds = Array.Empty<int>();
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:ApiKeyContext"/> class.

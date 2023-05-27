@@ -22,6 +22,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -37,6 +38,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// </summary>
     /// <typeparam name="TEntity">The <see cref="Type"/> of the entity/request.</typeparam>
     public abstract class RepositoryOperationAuthorizationDecoratorBase<TEntity>
+        where TEntity : class
     {
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
@@ -121,18 +123,22 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             // Build the AuthorizationContext
             var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
+            var claimSetClaims = _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName);
+            var resource = _dataManagementResourceContextProvider.Get().Resource;
 
             var authorizationContext = new EdFiAuthorizationContext(
                 apiKeyContext,
-                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
-                _dataManagementResourceContextProvider.Get().Resource,
-                _authorizationContextProvider.GetResourceUris(),
+                claimSetClaims,
+                resource,
+                resourceClaimUris,
                 actionUri,
                 entity);
 
-            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
+            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                apiKeyContext.ClaimSetName, resourceClaimUris, actionUri);
 
-            ExecuteAuthorizationValidationRules(authorizationContext, authorizationBasisMetadata);
+            ExecuteAuthorizationValidationRules(authorizationBasisMetadata, authorizationContext.Action, authorizationContext.Data);
 
             // Get the authorization filtering information
             var authorizationFiltering =
@@ -203,22 +209,23 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             
             await PerformViewBasedAuthorizationAsync(allPendingExistenceChecks, authorizationContext, cancellationToken);
 
-            bool IsCreateUpdateOrDelete(EdFiAuthorizationContext authorizationContext)
+            bool IsCreateUpdateOrDelete(string requestAction)
             {
-                return (_bitValuesByAction.Value[authorizationContext.Action] 
+                return (_bitValuesByAction.Value[requestAction] 
                     & (Actions.Create | Actions.Update | Actions.Delete)) != 0;
             }
 
             void ExecuteAuthorizationValidationRules(
-                EdFiAuthorizationContext edFiAuthorizationContext,
-                AuthorizationBasisMetadata authorizationBasisMetadata1)
+                AuthorizationBasisMetadata authorizationBasisMetadata1,
+                string requestAction,
+                object requestData)
             {
                 // If there are explicit object validators, and we're modifying data
-                if (_explicitObjectValidators.Any() && IsCreateUpdateOrDelete(edFiAuthorizationContext))
+                if (_explicitObjectValidators.Any() && IsCreateUpdateOrDelete(requestAction))
                 {
                     // Validate the object using explicit validation
                     var validationResults = _explicitObjectValidators.ValidateObject(
-                        edFiAuthorizationContext.Data,
+                        requestData,
                         authorizationBasisMetadata1.ValidationRuleSetName);
 
                     if (!validationResults.IsValid())
@@ -226,7 +233,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         throw new ValidationException(
                             string.Format(
                                 "Validation of '{0}' failed.\n{1}",
-                                edFiAuthorizationContext.Data.GetType().Name,
+                                requestData.GetType().Name,
                                 string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))));
                     }
                 }
@@ -427,17 +434,24 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             // Build the AuthorizationContext
             var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            var claimSetClaims = _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName);
+            var resource = _dataManagementResourceContextProvider.Get().Resource;
+            string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
+            string requestActionUri = _authorizationContextProvider.GetAction();
 
             var authorizationContext = new EdFiAuthorizationContext(
                 apiKeyContext,
-                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
-                _dataManagementResourceContextProvider.Get().Resource,
-                _authorizationContextProvider.GetResourceUris(),
-                _authorizationContextProvider.GetAction(),
+                claimSetClaims,
+                resource,
+                resourceClaimUris,
+                requestActionUri,
                 typeof(TEntity));
 
             // Get authorization filters
-            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
+            var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
+                apiKeyContext.ClaimSetName,
+                resourceClaimUris,
+                requestActionUri);
 
             return _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
         }

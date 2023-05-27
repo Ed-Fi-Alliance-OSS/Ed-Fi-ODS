@@ -5,18 +5,22 @@
 
 using System.Collections.Generic;
 using System.Security.Claims;
+using Autofac.Extras.DynamicProxy;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.Authorization;
 
+[Intercept("cache-security")]
 public interface IAuthorizationBasisMetadataSelector
 {
     /// <summary>
     /// Finds the authorization metadata appropriate for the current request based on the claims, resource, action and context data (if available) in the <see cref="EdFiAuthorizationContext.Data"/>.
     /// </summary>
-    /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-    AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(EdFiAuthorizationContext authorizationContext);
+    AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(
+        string claimSetName,
+        IList<string> requestResourceClaimUris,
+        string requestAction);
 }
 
 public class AuthorizationBasisMetadata
