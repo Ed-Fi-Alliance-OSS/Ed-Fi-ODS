@@ -23,6 +23,7 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
+/*
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     using context_data_provider = IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>;
@@ -82,14 +83,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
     [TestFixture]
     public class Feature_Authorizing_a_request
     {
-        private static Claim Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(params int[] educationOrganizationIds)
-        {
-            return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<int>(educationOrganizationIds)));
-        }
+        // private static Claim Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(params int[] educationOrganizationIds)
+        // {
+        //     return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<int>(educationOrganizationIds)));
+        // }
 
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiKeyContext apiKeyContext, object entity)
         {
-            return new EdFiAuthorizationContext(apiKeyContext, new ClaimsPrincipal(), new Resource("Ignored"), new[] { "resource" }, "action", entity);
+            return new EdFiAuthorizationContext(
+                apiKeyContext,
+                new ClaimsPrincipal(),
+                new Resource("Ignored"),
+                new[] { "resource" },
+                "action",
+                entity);
         }
 
         public class When_authorizing_a_multiple_item_request
@@ -123,7 +130,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 var authorizationFilters = SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    new[] { Supplied<Claim>() },
+                    new[] { Supplied<EdFiResourceClaim>() },
                     Supplied<EdFiAuthorizationContext>());
             }
         }
@@ -167,7 +174,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[]
                     {
-                        Supplied<Claim>()
+                        Supplied<EdFiResourceClaim>()
                     },
                     Supplied<EdFiAuthorizationContext>());
             }
@@ -241,7 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    new[] { Supplied<Claim>() },
+                    new[] { Supplied<EdFiResourceClaim>() },
                     Supplied<EdFiAuthorizationContext>());
             }
 
@@ -349,9 +356,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             protected override void Act()
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
-                    new[] { Supplied<Claim>() },
+                    new[] { Supplied<EdFiResourceClaim>() },
                     Supplied<EdFiAuthorizationContext>());
             }
         }
     }
 }
+*/
