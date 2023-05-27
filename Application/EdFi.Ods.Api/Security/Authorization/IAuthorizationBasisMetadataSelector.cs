@@ -24,7 +24,10 @@ public class AuthorizationBasisMetadata
     /// <summary>
     /// Initializes a new instance of the <see cref="AuthorizationBasisMetadata"/> class.
     /// </summary>
-    public AuthorizationBasisMetadata(IReadOnlyList<IAuthorizationStrategy> authorizationStrategies, Claim relevantClaim, string validationRuleSetName)
+    public AuthorizationBasisMetadata(
+        IReadOnlyList<IAuthorizationStrategy> authorizationStrategies,
+        EdFiResourceClaim relevantClaim,
+        string validationRuleSetName)
     {
         AuthorizationStrategies = authorizationStrategies;
         RelevantClaim = relevantClaim;
@@ -33,7 +36,7 @@ public class AuthorizationBasisMetadata
 
     public IReadOnlyList<IAuthorizationStrategy> AuthorizationStrategies { get; }
 
-    public Claim RelevantClaim { get; }
+    public EdFiResourceClaim RelevantClaim { get; }
 
     public string ValidationRuleSetName { get; }
 }

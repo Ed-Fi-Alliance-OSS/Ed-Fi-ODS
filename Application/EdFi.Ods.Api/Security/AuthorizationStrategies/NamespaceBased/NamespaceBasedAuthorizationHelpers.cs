@@ -12,12 +12,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 
 public static class NamespaceBasedAuthorizationHelpers
 {
-    public static IReadOnlyList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
+    public static IList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
     {
-        var namespacePrefixes = authorizationContext.Principal.Claims
-            .Where(c => c.Type == EdFiOdsApiClaimTypes.NamespacePrefix)
-            .Select(c => c.Value)
-            .ToList();
+        var namespacePrefixes = authorizationContext.ApiKeyContext.NamespacePrefixes;
 
         if (!namespacePrefixes.Any() || namespacePrefixes.All(string.IsNullOrEmpty))
         {

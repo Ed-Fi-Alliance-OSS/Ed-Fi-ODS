@@ -23,12 +23,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
         AuthorizationStrategyFiltering IAuthorizationStrategy.GetAuthorizationStrategyFiltering(
-            IEnumerable<Claim> relevantClaims,
+            EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var ownershipTokens = authorizationContext.Principal.Claims
-                .Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId)
-                .Select(x => (object) x.Value)
+            var ownershipTokens = authorizationContext.ClaimSetClaims
+                .Where(c => c.ClaimName == EdFiOdsApiClaimTypes.OwnershipTokenId)
+                .Select(x => (object) x.ClaimValue)
                 .ToArray();
 
             return new AuthorizationStrategyFiltering()

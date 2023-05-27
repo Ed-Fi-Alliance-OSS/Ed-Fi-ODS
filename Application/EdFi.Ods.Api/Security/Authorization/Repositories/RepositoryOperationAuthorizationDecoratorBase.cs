@@ -16,6 +16,7 @@ using EdFi.Common.Inflection;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
@@ -46,6 +47,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
 
         private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
 
@@ -68,7 +70,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IClaimSetClaimsProvider claimSetClaimsProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
@@ -79,6 +82,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _apiKeyContextProvider = apiKeyContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _claimSetClaimsProvider = claimSetClaimsProvider;
 
             // Lazy initialization
             _bitValuesByAction = new Lazy<Dictionary<string, Actions>>(
@@ -116,9 +120,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
             // Build the AuthorizationContext
+            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+
             var authorizationContext = new EdFiAuthorizationContext(
-                _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current,
+                apiKeyContext,
+                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
                 _dataManagementResourceContextProvider.Get().Resource,
                 _authorizationContextProvider.GetResourceUris(),
                 actionUri,
@@ -199,7 +205,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             bool IsCreateUpdateOrDelete(EdFiAuthorizationContext authorizationContext)
             {
-                return (_bitValuesByAction.Value[authorizationContext.Action.Single().Value] 
+                return (_bitValuesByAction.Value[authorizationContext.Action] 
                     & (Actions.Create | Actions.Update | Actions.Delete)) != 0;
             }
 
@@ -420,9 +426,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
             // Build the AuthorizationContext
+            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+
             var authorizationContext = new EdFiAuthorizationContext(
-                _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current,
+                apiKeyContext,
+                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
                 _dataManagementResourceContextProvider.Get().Resource,
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),

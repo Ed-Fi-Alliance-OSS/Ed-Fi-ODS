@@ -81,12 +81,7 @@ namespace EdFi.Ods.Api.Providers
                 return AuthenticateResult.Fail(message);
             }
 
-            var identity = _claimsIdentityProvider.GetClaimsIdentity(
-                apiClientDetails.EducationOrganizationIds,
-                apiClientDetails.ClaimSetName,
-                apiClientDetails.NamespacePrefixes,
-                apiClientDetails.Profiles,
-                apiClientDetails.OwnershipTokenIds.ToArray());
+            var identity = _claimsIdentityProvider.GetClaimsIdentity(apiClientDetails.ClaimSetName);
 
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authorizationScheme);
@@ -101,7 +96,7 @@ namespace EdFi.Ods.Api.Providers
                         new ApiKeyContext(
                             apiClientDetails.ApiKey,
                             apiClientDetails.ClaimSetName,
-                            apiClientDetails.EducationOrganizationIds.ToArray(),
+                            apiClientDetails.EducationOrganizationIds,
                             apiClientDetails.NamespacePrefixes,
                             apiClientDetails.Profiles,
                             apiClientDetails.StudentIdentificationSystemDescriptor,

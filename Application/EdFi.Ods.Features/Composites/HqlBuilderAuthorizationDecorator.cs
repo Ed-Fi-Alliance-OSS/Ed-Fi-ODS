@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using log4net;
 
@@ -29,6 +30,7 @@ namespace EdFi.Ods.Features.Composites
     {
         private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
         private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
@@ -44,7 +46,8 @@ namespace EdFi.Ods.Features.Composites
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IResourceClaimUriProvider resourceClaimUriProvider,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiKeyContextProvider apiKeyContextProvider)
+            IApiKeyContextProvider apiKeyContextProvider,
+            IClaimSetClaimsProvider claimSetClaimsProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationFilteringProvider = Preconditions.ThrowIfNull(authorizationFilteringProvider, nameof(authorizationFilteringProvider));
@@ -52,6 +55,7 @@ namespace EdFi.Ods.Features.Composites
             _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
             _apiKeyContextProvider = apiKeyContextProvider;
+            _claimSetClaimsProvider = claimSetClaimsProvider;
         }
 
         /// <summary>
@@ -77,9 +81,11 @@ namespace EdFi.Ods.Features.Composites
             // --------------------------
             var entityType = GetEntityType(resource);
 
+            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+
             var authorizationContext = new EdFiAuthorizationContext(
-                _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current,
+                apiKeyContext,
+                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
                 resource,
                 _resourceClaimUriProvider.GetResourceClaimUris(resource),
                 RequestActions.ReadActionUri,

@@ -38,7 +38,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
         public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
-            IEnumerable<Claim> relevantClaims,
+            EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
             // Note: all claim checks are done in the implementation of the IEdFiAuthorizationProvider.

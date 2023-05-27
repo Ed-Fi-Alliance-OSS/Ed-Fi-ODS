@@ -113,13 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     OwnershipTokenIds = new short[] { 1 }
                 };
 
-                var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(
-                    apiClientDetails.EducationOrganizationIds,
-                    apiClientDetails.ClaimSetName,
-                    apiClientDetails.NamespacePrefixes,
-                    apiClientDetails.Profiles.ToList(), 
-                    apiClientDetails.OwnershipTokenIds.ToList());
-
+                var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(apiClientDetails.ClaimSetName);
                 ClaimsPrincipal.ClaimsPrincipalSelector = () => new ClaimsPrincipal(claimsIdentity);
             }
 
@@ -148,11 +142,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
             private bool CompareContexts(EdFiAuthorizationContext context)
             {
-                context.ResourceClaims.Single()
-                    .Value.ShouldBe("Resource");
+                context.ResourceClaimUris.Single()
+                    .ShouldBe("Resource");
 
-                context.Action.Single()
-                    .Value.ShouldBe("Action");
+                context.Action.ShouldBe("Action");
 
                 context.Data.ShouldBeSameAs(Supplied<Student>());
                 context.Type.ShouldBeSameAs(typeof(Student));

@@ -36,12 +36,13 @@ namespace EdFi.Security.DataAccess.Repositories
                 a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.OrdinalIgnoreCase));
         }
 
-        public virtual IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
+        public virtual IList<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
             int applicationId = GetApplicationId();
 
             return _securityTableGateway.GetClaimSetResourceClaimActions(applicationId)
-                .Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.OrdinalIgnoreCase));
+                .Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
 
         /// <summary>
@@ -49,10 +50,11 @@ namespace EdFi.Security.DataAccess.Repositories
         /// </summary>
         /// <param name="resourceClaimUri">The resource claim URI representing the resource.</param>
         /// <returns>The lineage of resource claim URIs.</returns>
-        public virtual IEnumerable<string> GetResourceClaimLineage(string resourceClaimUri)
+        public virtual IList<string> GetResourceClaimLineage(string resourceClaimUri)
         {
             return GetResourceClaimLineageForResourceClaim(resourceClaimUri)
-                .Select(c => c.ClaimName);
+                .Select(c => c.ClaimName)
+                .ToList();
         }
 
         private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri)
@@ -95,7 +97,7 @@ namespace EdFi.Security.DataAccess.Repositories
         /// </summary>
         /// <param name="resourceClaimUri">The resource claim URI for which metadata is to be retrieved.</param>
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
-        public virtual IEnumerable<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        public virtual IList<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
             var strategies = new List<ResourceClaimAction>();
 

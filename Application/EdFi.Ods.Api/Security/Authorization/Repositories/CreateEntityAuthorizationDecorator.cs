@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Repositories;
@@ -55,7 +56,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IClaimSetClaimsProvider claimSetClaimsProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -66,7 +68,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 sessionFactory,
                 apiKeyContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                claimSetClaimsProvider)
         {
             _next = next;
             _securityRepository = securityRepository;

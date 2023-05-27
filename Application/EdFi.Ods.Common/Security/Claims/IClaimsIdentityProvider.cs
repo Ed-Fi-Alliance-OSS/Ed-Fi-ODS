@@ -22,17 +22,9 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <summary>
         /// Gets a <see cref="ClaimsIdentity"/> instance for building a <see cref="ClaimsPrincipal"/>.
         /// </summary>
-        /// <param name="localEducationAgencyIds">The EducationOrganizationIds with which the caller is associated.</param>
         /// <param name="claimSetName">The name of the claimset (i.e. role) assigned to the caller.</param>
-        /// <param name="vendorNamespacePrefixes">The namespace prefix(es) assigned to the caller by the API host.</param>
-        /// <param name="assignedProfileNames">The list of API Profiles assigned to the caller.</param>
         /// <returns>The <see cref="ClaimsIdentity"/>.</returns>
-        ClaimsIdentity GetClaimsIdentity(
-            IEnumerable<int> localEducationAgencyIds,
-            string claimSetName,
-            IList<string> vendorNamespacePrefixes,
-            IList<string> assignedProfileNames,
-            IList<short> ownershipTokenIds);
+        ClaimsIdentity GetClaimsIdentity(string claimSetName);
     }
 
     /// <summary>

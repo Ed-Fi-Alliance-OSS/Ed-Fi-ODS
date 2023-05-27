@@ -32,17 +32,17 @@ namespace Test.Common._Stubs
             };
         }
 
-        public IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
+        public IList<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
             return new List<ClaimSetResourceClaimAction>();
         }
 
-        public IEnumerable<string> GetResourceClaimLineage(string resourceUri)
+        public IList<string> GetResourceClaimLineage(string resourceUri)
         {
             return new List<string>();
         }
 
-        public IEnumerable<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        public IList<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
             return new List<ResourceClaimAction>();
         }

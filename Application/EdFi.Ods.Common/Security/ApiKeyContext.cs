@@ -36,9 +36,9 @@ namespace EdFi.Ods.Common.Security
             ApiKey = apiKey;
             ClaimSetName = claimSetName;
             EducationOrganizationIds = educationOrganizationIds ?? Array.Empty<int>();
-            NamespacePrefixes = namespacePrefixes;
+            NamespacePrefixes = namespacePrefixes ?? Array.Empty<string>();
             StudentIdentificationSystemDescriptor = studentIdentificationSystemDescriptor;
-            Profiles = profiles ?? new List<string>();
+            Profiles = profiles ?? Array.Empty<string>();
             CreatorOwnershipTokenId = creatorOwnershipTokenId;
             OwnershipTokenIds = ownershipTokenIds ?? Array.Empty<short>();
             OdsInstanceIds = odsInstanceIds ?? Array.Empty<int>();

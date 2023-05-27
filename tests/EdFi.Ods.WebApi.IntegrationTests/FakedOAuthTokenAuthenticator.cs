@@ -30,9 +30,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             _educationOrganizationIds = new Lazy<int[]>(() => new [] { 255901 });
 
             _identity = new Lazy<ClaimsIdentity>(
-                () => claimsIdentityProvider
-                    .GetClaimsIdentity(
-                        _educationOrganizationIds.Value, ClaimSetName, _namespacePrefixes.Value, new List<string>(), new List<short>()));
+                () => claimsIdentityProvider.GetClaimsIdentity(ClaimSetName));
 
             _apiKeyContext = new Lazy<ApiKeyContext>(
                 () => new ApiKeyContext(

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -31,6 +32,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
+        private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
 
         protected TrackedChangesQueryFactoryAuthorizationDecoratorBase(
@@ -41,7 +43,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             IAuthorizationFilteringProvider authorizationFilteringProvider,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IClaimSetClaimsProvider claimSetClaimsProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _apiKeyContextProvider = apiKeyContextProvider;
@@ -49,6 +52,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
+            _claimSetClaimsProvider = claimSetClaimsProvider;
 
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
@@ -66,9 +70,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             // Make sure Authorization context is present before proceeding
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
+            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+
             var authorizationContext = new EdFiAuthorizationContext(
-                _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current,
+                apiKeyContext,
+                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
                 _dataManagementResourceContextProvider.Get().Resource,
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),

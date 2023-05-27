@@ -66,6 +66,8 @@ namespace EdFi.Ods.Api.Startup
     {
         private const string CorsPolicyName = "_development_";
 
+        private static readonly string _identityManagementClaimType = $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/services/identity";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
         private ApiSettings _apiSettings;
 
@@ -185,7 +187,7 @@ namespace EdFi.Ods.Api.Startup
                             "IdentityManagement",
                             policy => policy.RequireAssertion(
                                 context => context.User
-                                    .HasClaim(c => c.Type == $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/domains/identity")));
+                                    .HasClaim(c => c.Type == _identityManagementClaimType)));
                     });
             }
 
@@ -204,7 +206,7 @@ namespace EdFi.Ods.Api.Startup
             services.AddScheduledJobs();
         }
 
-        private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
+        private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.OrdinalIgnoreCase);
 
         // This method gets called by the runtime. Use this method to add services to the container.
 
