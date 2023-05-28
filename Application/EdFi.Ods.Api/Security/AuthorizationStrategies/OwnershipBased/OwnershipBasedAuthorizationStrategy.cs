@@ -14,8 +14,15 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 {
     public class OwnershipBasedAuthorizationStrategy : IAuthorizationStrategy
     {
+        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        
         private const string AuthorizationStrategyName = "OwnershipBased";
 
+        public OwnershipBasedAuthorizationStrategy(IApiKeyContextProvider apiKeyContextProvider)
+        {
+            _apiKeyContextProvider = apiKeyContextProvider;
+        }
+        
         /// <summary>
         /// Get authorization filtering context for a multiple-item request.
         /// </summary>
@@ -26,10 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var ownershipTokens = authorizationContext.ClaimSetClaims
-                .Where(c => c.ClaimName == EdFiOdsApiClaimTypes.OwnershipTokenId)
-                .Select(x => (object) x.ClaimValue)
-                .ToArray();
+            var ownershipTokens = authorizationContext.ApiKeyContext.OwnershipTokenIds;
 
             return new AuthorizationStrategyFiltering()
             {
@@ -39,7 +43,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                     new AuthorizationFilterContext
                     {
                         FilterName = "CreatedByOwnershipTokenId",
-                        ClaimEndpointValues = ownershipTokens,
+                        ClaimEndpointValues = ownershipTokens.Cast<object>().ToArray(),
                         SubjectEndpointName = "CreatedByOwnershipTokenId",
                         ClaimParameterName = "CreatedByOwnershipTokenId",
                     }
