@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "61c666ad-5db2-44a7-9be3-17b0a150ac80",
+		"_postman_id": "7cb234f7-8ee4-4d00-b45b-35a6cf653730",
 		"name": "Ed-Fi ODS/API Profile Test Suite",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26382147"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -10202,7 +10201,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"The response model should contain the explicitly included properties\",\r",
-													"    () => {        \r",
+													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys\r",
 													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) \r",
 													"        {     \r",
@@ -10222,6 +10221,11 @@
 													"                }\r",
 													"            }\r",
 													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.entries(profileEntity).length).to.equal(profileIncludeKeys.length + keys.length);\r",
 													"});\r",
 													""
 												],
@@ -10271,7 +10275,6 @@
 													"const profileIncludeKeys = [\r",
 													"    \"specialEducationSettingDescriptor\",\r",
 													"    \"specialEducationHoursPerWeek\",\r",
-													"    \"endDate\",\r",
 													"    \"reasonExitedDescriptor\"\r",
 													"];\r",
 													"\r",
@@ -10303,6 +10306,11 @@
 													"                }\r",
 													"            }\r",
 													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.entries(profileEntity).length).to.equal(profileIncludeKeys.length + keys.length);\r",
 													"});\r",
 													""
 												],
@@ -10958,7 +10966,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Special Education\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"604872\"\r\n    },\r\n    \"beginDate\": \"{{supplied:studentSpecialEducationProgramAssociations:beginDate}}\",\r\n    \"ideaEligibility\": true,\r\n    \"iepBeginDate\": \"2021-09-01\",\r\n    \"iepReviewDate\": \"2021-08-27\",\r\n    \"lastEvaluationDate\": \"2021-08-23\",\r\n    \"schoolHoursPerWeek\": 10.00,\r\n    \"specialEducationHoursPerWeek\": 25.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Inside regular class less than 40% of the day\",\r\n    \"disabilities\": [\r\n        {\r\n            \"disabilityDescriptor\": \"uri://ed-fi.org/DisabilityDescriptor#Autism Spectrum Disorders\"\r\n        }\r\n    ]\r\n}",
+											"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Special Education\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"604872\"\r\n    },\r\n    \"beginDate\": \"{{supplied:studentSpecialEducationProgramAssociations:beginDate}}\",\r\n    \"ideaEligibility\": true,\r\n    \"iepBeginDate\": \"2021-09-01\",\r\n    \"iepReviewDate\": \"2021-08-27\",\r\n    \"lastEvaluationDate\": \"2021-08-23\",\r\n    \"schoolHoursPerWeek\": 10.00,\r\n    \"specialEducationHoursPerWeek\": 25.00,\r\n    \"specialEducationSettingDescriptor\": \"uri://ed-fi.org/SpecialEducationSettingDescriptor#Inside regular class less than 40% of the day\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Reached maximum age\",\r\n    \"disabilities\": [\r\n        {\r\n            \"disabilityDescriptor\": \"uri://ed-fi.org/DisabilityDescriptor#Autism Spectrum Disorders\"\r\n        }\r\n    ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11001,7 +11009,6 @@
 													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
 													"const profileExcludeKeys = [\r",
 													"    \"nameOfInstitution\",\r",
-													"    \"operationalStatusType\",\r",
 													"    \"operationalStatusDescriptor\",\r",
 													"    \"charterApprovalSchoolYearTypeReference\",\r",
 													"    \"schoolTypeDescriptor\",\r",
@@ -11038,6 +11045,11 @@
 													"                }\r",
 													"            }\r",
 													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of properties on the full School resource model less the explicitly excluded ones\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.keys(profileEntity).length).to.equal(Object.keys(originalEntity).length - profileExcludeKeys.length);\r",
 													"});\r",
 													""
 												],
@@ -11087,7 +11099,6 @@
 													"const profileExcludeKeys = [\r",
 													"    \"specialEducationSettingDescriptor\",\r",
 													"    \"specialEducationHoursPerWeek\",\r",
-													"    \"endDate\",\r",
 													"    \"reasonExitedDescriptor\"\r",
 													"];\r",
 													"\r",
@@ -11119,6 +11130,11 @@
 													"                }\r",
 													"            }\r",
 													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of properties on the full School resource model less the explicitly excluded ones\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.keys(profileEntity).length).to.equal(Object.keys(originalEntity).length - profileExcludeKeys.length);\r",
 													"});\r",
 													""
 												],
