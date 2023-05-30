@@ -43,42 +43,37 @@ namespace EdFi.Ods.Api.Security.Claims
 
         // Clear pre-built claims every 30 minutes (but if underlying security metadata changes more frequently, new claims will be built and reused)
         private readonly ExpiringConcurrentDictionaryCacheProvider<IList<ClaimSetResourceClaimAction>> _claimsByResourceClaimActions
-            = new("Claims", TimeSpan.FromMinutes(30));
+            = new("Claim Set Resource Claims", TimeSpan.FromMinutes(30));
 
         public ClaimsIdentity GetClaimsIdentity(string claimSetName)
         {
-            var resourceClaims = _securityRepository.GetClaimsForClaimSet(claimSetName);
+            var resourceClaimsActions = _securityRepository.GetClaimsForClaimSet(claimSetName);
 
-            if (!_claimsByResourceClaimActions.TryGetCachedObject(resourceClaims, out object value))
+            if (!_claimsByResourceClaimActions.TryGetCachedObject(resourceClaimsActions, out object value))
             {
                 // Group the resource claims by name to combine actions (and by claim set name if multiple claim sets are supported in the future)
-                var servicesResourceClaimsByClaimName = resourceClaims
+                var servicesResourceClaimsByClaimName = resourceClaimsActions
                     .Where(rc => rc.ResourceClaim.ClaimName.StartsWith(ServicesClaimNamePrefix))
                     .GroupBy(c => c.ResourceClaim.ClaimName);
 
                 // Create a list of service claims to be issued.
-                var claims = servicesResourceClaimsByClaimName.Select(
+                var serviceClaims = servicesResourceClaimsByClaimName.Select(
                         g => new EdFiResourceClaim(g.Key,
                             new EdFiResourceClaimValue
                             {
-                                Actions = g.Select(
-                                        x => new ResourceAction(
-                                            x.Action.ActionUri,
-                                            x.AuthorizationStrategyOverrides
-                                                ?.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName)
-                                                .ToArray(),
-                                            x.ValidationRuleSetNameOverride))
+                                Actions = g
+                                    .Select(x => new ResourceAction(x.Action.ActionUri))
                                     .ToArray()
                             }))
                     .Select(x => new Claim(x.ClaimName, string.Join(",", x.ClaimValue.Actions.Select(a => a.Name))))
                     .ToList();
                 
-                _claimsByResourceClaimActions.SetCachedObject(resourceClaims, claims);
+                _claimsByResourceClaimActions.SetCachedObject(resourceClaimsActions, serviceClaims);
 
-                return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
+                return new ClaimsIdentity(serviceClaims, EdFiAuthenticationTypes.OAuth);
             }
 
-            return new ClaimsIdentity(value as IReadOnlyList<Claim>, EdFiAuthenticationTypes.OAuth);
+            return new ClaimsIdentity(value as IEnumerable<Claim>, EdFiAuthenticationTypes.OAuth);
         }
     }
 }
