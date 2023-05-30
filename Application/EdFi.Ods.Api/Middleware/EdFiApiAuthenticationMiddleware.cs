@@ -15,16 +15,16 @@ namespace EdFi.Ods.Api.Middleware
 {
     public class EdFiApiAuthenticationMiddleware
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly RequestDelegate _next;
 
         public EdFiApiAuthenticationMiddleware(RequestDelegate next, IAuthenticationSchemeProvider schemes,
-            IApiKeyContextProvider apiKeyContextProvider)
+            IApiClientContextProvider apiClientContextProvider)
         {
             if (schemes != null)
             {
                 _next = next ?? throw new ArgumentNullException(nameof(next));
-                _apiKeyContextProvider = apiKeyContextProvider;
+                _apiClientContextProvider = apiClientContextProvider;
 
                 Schemes = schemes;
             }
@@ -71,9 +71,9 @@ namespace EdFi.Ods.Api.Middleware
                     // NOTE: For our use case we set the api key context into the call context storage. The rest of this code
                     // is the default implementation and may need to be update on version updates.
                     // see https://github.com/dotnet/aspnetcore/blob/v3.1.9/src/Security/Authentication/Core/src/AuthenticationMiddleware.cs
-                    var apiKeyContext = (ApiKeyContext)result.Ticket.Properties.Parameters["ApiKeyContext"];
-                    _apiKeyContextProvider.SetApiKeyContext(apiKeyContext);
-                    LogicalThreadContext.Properties["ApiClientId"] = apiKeyContext.ApiClientId;
+                    var apiClientContext = (ApiClientContext)result.Ticket.Properties.Parameters["ApiClientContext"];
+                    _apiClientContextProvider.SetApiClientContext(apiClientContext);
+                    LogicalThreadContext.Properties["ApiClientId"] = apiClientContext.ApiClientId;
                 }
             }
 

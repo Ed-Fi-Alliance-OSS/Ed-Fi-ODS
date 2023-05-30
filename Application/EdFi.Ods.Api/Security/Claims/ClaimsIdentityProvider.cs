@@ -17,28 +17,28 @@ namespace EdFi.Ods.Api.Security.Claims
 {
     public class ClaimsIdentityProvider : IClaimsIdentityProvider
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly ISecurityRepository _securityRepository;
 
         private const string ServicesClaimNamePrefix = "http://ed-fi.org/ods/identity/claims/services/";
 
-        public ClaimsIdentityProvider(IApiKeyContextProvider apiKeyContextProvider, ISecurityRepository securityRepository)
+        public ClaimsIdentityProvider(IApiClientContextProvider apiClientContextProvider, ISecurityRepository securityRepository)
         {
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
             _securityRepository = securityRepository;
         }
 
         public ClaimsIdentity GetClaimsIdentity()
         {
             // Get the Education Organization Ids for the current context
-            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
 
-            if (apiKeyContext == null || apiKeyContext == ApiKeyContext.Empty)
+            if (apiClientContext == null || apiClientContext == ApiClientContext.Empty)
             {
                 throw new EdFiSecurityException("No API key information was available for authorization.");
             }
 
-            return GetClaimsIdentity(apiKeyContext.ClaimSetName);
+            return GetClaimsIdentity(apiClientContext.ClaimSetName);
         }
 
         // Clear pre-built claims every 30 minutes (but if underlying security metadata changes more frequently, new claims will be built and reused)

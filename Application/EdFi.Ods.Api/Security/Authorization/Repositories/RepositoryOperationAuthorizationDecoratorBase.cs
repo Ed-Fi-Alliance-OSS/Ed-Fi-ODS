@@ -46,10 +46,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IExplicitObjectValidator[] _explicitObjectValidators;
         private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
         private readonly ISessionFactory _sessionFactory;
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IContextProvider<DataManagementResourceContext> _dataManagementResourceContextProvider;
-        private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
 
         private readonly Lazy<Dictionary<string, Actions>> _bitValuesByAction;
 
@@ -70,10 +69,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
             ISessionFactory sessionFactory,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IClaimSetClaimsProvider claimSetClaimsProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _authorizationFilteringProvider = authorizationFilteringProvider;
@@ -81,10 +79,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _explicitObjectValidators = explicitObjectValidators;
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
             _sessionFactory = sessionFactory;
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _dataManagementResourceContextProvider = dataManagementResourceContextProvider;
-            _claimSetClaimsProvider = claimSetClaimsProvider;
 
             // Lazy initialization
             _bitValuesByAction = new Lazy<Dictionary<string, Actions>>(
@@ -122,21 +119,19 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
             // Build the AuthorizationContext
-            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
             string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
-            var claimSetClaims = _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName);
             var resource = _dataManagementResourceContextProvider.Get().Resource;
 
             var authorizationContext = new EdFiAuthorizationContext(
-                apiKeyContext,
-                claimSetClaims,
+                apiClientContext,
                 resource,
                 resourceClaimUris,
                 actionUri,
                 entity);
 
             var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                apiKeyContext.ClaimSetName, resourceClaimUris, actionUri);
+                apiClientContext.ClaimSetName, resourceClaimUris, actionUri);
 
             ExecuteAuthorizationValidationRules(authorizationBasisMetadata, authorizationContext.Action, authorizationContext.Data);
 
@@ -433,15 +428,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
             // Build the AuthorizationContext
-            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
-            var claimSetClaims = _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName);
+            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
             var resource = _dataManagementResourceContextProvider.Get().Resource;
             string[] resourceClaimUris = _authorizationContextProvider.GetResourceUris();
             string requestActionUri = _authorizationContextProvider.GetAction();
 
             var authorizationContext = new EdFiAuthorizationContext(
-                apiKeyContext,
-                claimSetClaims,
+                apiClientContext,
                 resource,
                 resourceClaimUris,
                 requestActionUri,
@@ -449,7 +442,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             // Get authorization filters
             var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                apiKeyContext.ClaimSetName,
+                apiClientContext.ClaimSetName,
                 resourceClaimUris,
                 requestActionUri);
 

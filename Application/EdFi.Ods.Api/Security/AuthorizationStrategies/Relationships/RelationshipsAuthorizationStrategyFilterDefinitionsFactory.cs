@@ -25,18 +25,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     public class RelationshipsAuthorizationStrategyFilterDefinitionsFactory : IAuthorizationFilterDefinitionsFactory
     {
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IPersonTypesProvider _personTypesProvider;
 
         public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
             IPersonTypesProvider personTypesProvider)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
             _personTypesProvider = personTypesProvider;
         }
@@ -123,7 +123,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 // NOTE: Could consider caching the EdOrgToEdOrgId tuple table.
                 // If the EdOrgId values match, then we can report the filter as successfully authorized
-                if (_apiKeyContextProvider.GetApiKeyContext()
+                if (_apiClientContextProvider.GetApiClientContext()
                     .EducationOrganizationIds.Contains((int) filterContext.SubjectEndpointValue))
                 {
                     return InstanceAuthorizationResult.Success();

@@ -14,13 +14,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 {
     public class OwnershipBasedAuthorizationStrategy : IAuthorizationStrategy
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         
         private const string AuthorizationStrategyName = "OwnershipBased";
 
-        public OwnershipBasedAuthorizationStrategy(IApiKeyContextProvider apiKeyContextProvider)
+        public OwnershipBasedAuthorizationStrategy(IApiClientContextProvider apiClientContextProvider)
         {
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
         }
         
         /// <summary>
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             EdFiResourceClaim[] relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var ownershipTokens = authorizationContext.ApiKeyContext.OwnershipTokenIds;
+            var ownershipTokens = authorizationContext.ApiClientContext.OwnershipTokenIds;
 
             return new AuthorizationStrategyFiltering()
             {

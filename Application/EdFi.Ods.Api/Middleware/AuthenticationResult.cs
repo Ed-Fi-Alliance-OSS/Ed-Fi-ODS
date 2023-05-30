@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.Middleware {
 
         public ClaimsIdentity ClaimsIdentity { get; set; }
 
-        public ApiKeyContext ApiKeyContext { get; set; }
+        public ApiClientContext ApiClientContext { get; set; }
 
         public DateTime? ExpiresUtc { get; set; }
     }

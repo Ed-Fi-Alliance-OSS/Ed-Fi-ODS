@@ -19,7 +19,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
     public class FakedOAuthTokenAuthenticator : IOAuthTokenAuthenticator
     {
         private const string ClaimSetName = "Ed-Fi Sandbox";
-        private readonly Lazy<ApiKeyContext> _apiKeyContext;
+        private readonly Lazy<ApiClientContext> _apiClientContext;
         private readonly Lazy<int[]> _educationOrganizationIds;
         private readonly Lazy<ClaimsIdentity> _identity;
         private readonly Lazy<List<string>> _namespacePrefixes;
@@ -32,8 +32,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             _identity = new Lazy<ClaimsIdentity>(
                 () => claimsIdentityProvider.GetClaimsIdentity(ClaimSetName));
 
-            _apiKeyContext = new Lazy<ApiKeyContext>(
-                () => new ApiKeyContext(
+            _apiClientContext = new Lazy<ApiClientContext>(
+                () => new ApiClientContext(
                     Guid.NewGuid().ToString("n"),
                     ClaimSetName,
                     _educationOrganizationIds.Value,
@@ -57,7 +57,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 var parameters = new Dictionary<string, object>()
                 {
                     {
-                        "ApiKeyContext", _apiKeyContext.Value
+                        "ApiClientContext", _apiClientContext.Value
                     }
                 };
 

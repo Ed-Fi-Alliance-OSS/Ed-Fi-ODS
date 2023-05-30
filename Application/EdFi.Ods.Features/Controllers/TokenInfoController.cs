@@ -30,7 +30,7 @@ namespace EdFi.Ods.Features.Controllers
     [Route("oauth/token_info")]
     public class TokenInfoController : ControllerBase
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly ITokenInfoProvider _tokenInfoProvider;
         private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
         private readonly bool _isEnabled;
@@ -38,12 +38,12 @@ namespace EdFi.Ods.Features.Controllers
         public TokenInfoController(
             ITokenInfoProvider tokenInfoProvider,
             IApiClientDetailsProvider apiClientDetailsProvider,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             ApiSettings apiSettings)
         {
             _tokenInfoProvider = tokenInfoProvider;
             _apiClientDetailsProvider = apiClientDetailsProvider;
-            _apiKeyContextProvider = apiKeyContextProvider;
+            _apiClientContextProvider = apiClientContextProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.TokenInfo.GetConfigKeyName());
         }
 
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Features.Controllers
                 return NotFound();
             }
 
-            ApiKeyContext apiContext = _apiKeyContextProvider.GetApiKeyContext();
+            ApiClientContext apiContext = _apiClientContextProvider.GetApiClientContext();
 
             // must be able to see my specific items ie vendor a cannot look at vendor b
             if (oAuthTokenClientDetails.ApiKey != apiContext.ApiKey)

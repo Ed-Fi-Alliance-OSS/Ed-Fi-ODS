@@ -88,10 +88,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         //     return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<int>(educationOrganizationIds)));
         // }
 
-        private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiKeyContext apiKeyContext, object entity)
+        private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiClientContext apiClientContext, object entity)
         {
             return new EdFiAuthorizationContext(
-                apiKeyContext,
+                apiClientContext,
                 new ClaimsPrincipal(),
                 new Resource("Ignored"),
                 new[] { "resource" },
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied("entity", new object());
 
                 Supplied(Given_an_authorization_context_with_entity_data(
-                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(Supplied<int>("LocalEducationAgencyId")),
+                    ApiClientContextHelper.GetApiClientContextWithEdOrgIds(Supplied<int>("LocalEducationAgencyId")),
                     Supplied("entity")));
 
                 Supplied(
@@ -158,7 +158,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Supplied("entity", new object());
 
                 Supplied(Given_an_authorization_context_with_entity_data(
-                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(
+                    ApiClientContextHelper.GetApiClientContextWithEdOrgIds(
                         Supplied<int>("LocalEducationAgencyId"),
                         Supplied<int>("SchoolId")),
                     Supplied("entity")));
@@ -230,7 +230,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
                 Supplied(Given_an_authorization_context_with_entity_data(
-                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(
+                    ApiClientContextHelper.GetApiClientContextWithEdOrgIds(
                         Supplied<int>("LocalEducationAgencyId")),
                     Supplied("entity")));
                 
@@ -341,7 +341,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
                 Supplied(Given_an_authorization_context_with_entity_data(
-                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(
+                    ApiClientContextHelper.GetApiClientContextWithEdOrgIds(
                         Supplied<int>("LocalEducationAgencyId")),
                     Supplied("entity")));
                 

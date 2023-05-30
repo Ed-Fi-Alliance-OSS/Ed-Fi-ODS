@@ -18,12 +18,12 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStra
 {
     public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsFactory(
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
-        IApiKeyContextProvider apiKeyContextProvider,
+        IApiClientContextProvider apiClientContextProvider,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
         IPersonTypesProvider personTypesProvider)
         : base(
             educationOrganizationIdNamesProvider,
-            apiKeyContextProvider,
+            apiClientContextProvider,
             viewBasedSingleItemAuthorizationQuerySupport,
             personTypesProvider) { }
 

@@ -91,7 +91,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
         if (contextData.CreatedByOwnershipTokenId != null)
         {
-            var hasOwnershipToken = authorizationContext.ApiKeyContext.OwnershipTokenIds.Any(t => t == contextData.CreatedByOwnershipTokenId);
+            var hasOwnershipToken = authorizationContext.ApiClientContext.OwnershipTokenIds.Any(t => t == contextData.CreatedByOwnershipTokenId);
 
             if (!hasOwnershipToken)
             {

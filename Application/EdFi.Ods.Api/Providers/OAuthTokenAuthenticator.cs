@@ -92,8 +92,8 @@ namespace EdFi.Ods.Api.Providers
                 var parameters = new Dictionary<string, object>()
                 {
                     {
-                        "ApiKeyContext", 
-                        new ApiKeyContext(
+                        "ApiClientContext", 
+                        new ApiClientContext(
                             apiClientDetails.ApiKey,
                             apiClientDetails.ClaimSetName,
                             apiClientDetails.EducationOrganizationIds,

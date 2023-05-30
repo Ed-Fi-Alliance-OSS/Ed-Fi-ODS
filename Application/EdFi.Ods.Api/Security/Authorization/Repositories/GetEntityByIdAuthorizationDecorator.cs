@@ -43,7 +43,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="authorizationBasisMetadataSelector"></param>
         /// <param name="securityRepository"></param>
         /// <param name="sessionFactory"></param>
-        /// <param name="apiKeyContextProvider"></param>
+        /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
         public GetEntityByIdAuthorizationDecorator(
@@ -55,10 +55,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
             ISessionFactory sessionFactory,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IClaimSetClaimsProvider claimSetClaimsProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -67,10 +66,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 authorizationBasisMetadataSelector,
                 securityRepository,
                 sessionFactory,
-                apiKeyContextProvider,
+                apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider,
-                claimSetClaimsProvider)
+                dataManagementResourceContextProvider)
         {
             _next = next;
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;

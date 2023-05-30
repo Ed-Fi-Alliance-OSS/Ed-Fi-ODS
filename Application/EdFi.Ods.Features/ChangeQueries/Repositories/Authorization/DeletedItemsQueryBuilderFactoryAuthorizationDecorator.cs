@@ -26,24 +26,22 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
         public DeletedItemsQueryBuilderFactoryAuthorizationDecorator(
             IDeletedItemsQueryBuilderFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IClaimSetClaimsProvider claimSetClaimsProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
-                apiKeyContextProvider,
+                apiClientContextProvider,
                 domainModelProvider,
                 domainModelEnhancer,
                 authorizationFilteringProvider,
                 authorizationBasisMetadataSelector,
                 authorizationFilterDefinitionProvider,
-                dataManagementResourceContextProvider,
-                claimSetClaimsProvider)
+                dataManagementResourceContextProvider)
         {
             _next = next;
         }

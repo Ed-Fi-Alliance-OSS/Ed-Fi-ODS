@@ -14,7 +14,7 @@ public static class NamespaceBasedAuthorizationHelpers
 {
     public static IList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
     {
-        var namespacePrefixes = authorizationContext.ApiKeyContext.NamespacePrefixes;
+        var namespacePrefixes = authorizationContext.ApiClientContext.NamespacePrefixes;
 
         if (!namespacePrefixes.Any() || namespacePrefixes.All(string.IsNullOrEmpty))
         {

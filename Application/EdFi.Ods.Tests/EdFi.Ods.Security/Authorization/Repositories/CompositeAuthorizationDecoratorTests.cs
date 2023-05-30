@@ -145,7 +145,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     .Returns(new[] {Supplied<string>("ResourceUriValue")});
 
                 var claimsIdentityProvider = new ClaimsIdentityProvider(
-                    new ApiKeyContextProvider(new CallContextStorage()),
+                    new ApiClientContextProvider(new CallContextStorage()),
                     new StubSecurityRepository());
 
                 var apiClientDetails = new ApiClientDetails

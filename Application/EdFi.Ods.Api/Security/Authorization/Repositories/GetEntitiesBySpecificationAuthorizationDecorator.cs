@@ -46,7 +46,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="explicitObjectValidators"></param>
         /// <param name="authorizationBasisMetadataSelector"></param>
         /// <param name="securityRepository"></param>
-        /// <param name="apiKeyContextProvider"></param>
+        /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
@@ -59,10 +59,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IClaimSetClaimsProvider claimSetClaimsProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -71,10 +70,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 authorizationBasisMetadataSelector,
                 securityRepository,
                 sessionFactory,
-                apiKeyContextProvider,
+                apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider,
-                claimSetClaimsProvider)
+                dataManagementResourceContextProvider)
         {
             _next = next;
             _sessionFactory = sessionFactory;

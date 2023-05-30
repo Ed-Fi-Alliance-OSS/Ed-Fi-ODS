@@ -36,13 +36,13 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
     public void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext)
     {
         // No parameters needed if less than 2,000 EdOrgIds present
-        if (authorizationContext.ApiKeyContext.EducationOrganizationIds.Count < SqlServerParameterCountThreshold)
+        if (authorizationContext.ApiClientContext.EducationOrganizationIds.Count < SqlServerParameterCountThreshold)
         {
             return;
         }
         
         // Assign EdOrgId claims
-        var claimEdOrgIds = authorizationContext.ApiKeyContext.EducationOrganizationIds;
+        var claimEdOrgIds = authorizationContext.ApiClientContext.EducationOrganizationIds;
 
         var sqlParameter = cmd.CreateParameter() as SqlParameter;
 

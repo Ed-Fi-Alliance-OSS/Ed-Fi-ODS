@@ -13,8 +13,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ApiKeyContextProvider>()
-                .As<IApiKeyContextProvider>()
+            builder.RegisterType<ApiClientContextProvider>()
+                .As<IApiClientContextProvider>()
                 .SingleInstance();
         }
     }

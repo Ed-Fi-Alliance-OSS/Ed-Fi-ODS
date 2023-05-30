@@ -54,8 +54,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var result = filterDefinition.AuthorizeInstance(
                     new EdFiAuthorizationContext(
-                        CreateApiKeyContext(namespacePrefixes),
-                        Array.Empty<EdFiResourceClaim>(),
+                        CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
                         action,
@@ -93,8 +92,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 var result = filterDefinition.AuthorizeInstance(
                     new EdFiAuthorizationContext(
-                        CreateApiKeyContext(namespacePrefixes),
-                        Array.Empty<EdFiResourceClaim>(),
+                        CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
                         action,
@@ -133,8 +131,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
                         new EdFiAuthorizationContext(
-                            CreateApiKeyContext(namespacePrefixes),
-                            Array.Empty<EdFiResourceClaim>(),
+                            CreateApiClientContext(namespacePrefixes),
                             resource,
                             new[] { resourceUri },
                             action,
@@ -174,8 +171,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 strategy.GetAuthorizationStrategyFiltering(
                     Array.Empty<EdFiResourceClaim>(),
                     new EdFiAuthorizationContext(
-                        CreateApiKeyContext(namespacePrefixes),
-                        Array.Empty<EdFiResourceClaim>(),
+                        CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
                         action,
@@ -213,8 +209,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 strategy.GetAuthorizationStrategyFiltering(
                     Array.Empty<EdFiResourceClaim>(),
                     new EdFiAuthorizationContext(
-                        CreateApiKeyContext(namespacePrefixes),
-                        null,
+                        CreateApiClientContext(namespacePrefixes),
                         resource,
                         new[] { resourceUri },
                         action,
@@ -254,8 +249,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         () => strategy.GetAuthorizationStrategyFiltering(
                             Array.Empty<EdFiResourceClaim>(),
                             new EdFiAuthorizationContext(
-                                CreateApiKeyContext(namespacePrefixes),
-                                Array.Empty<EdFiResourceClaim>(),
+                                CreateApiClientContext(namespacePrefixes),
                                 resource,
                                 new[] { resourceUri },
                                 action,
@@ -288,8 +282,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     () => strategy.GetAuthorizationStrategyFiltering(
                         Array.Empty<EdFiResourceClaim>(),
                         new EdFiAuthorizationContext(
-                            new ApiKeyContext(),
-                            Array.Empty<EdFiResourceClaim>(),
+                            new ApiClientContext(),
                             resource,
                             new[] { resourceUri },
                             action,
@@ -302,7 +295,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             }
         }
         
-        private static ApiKeyContext CreateApiKeyContext(string[] namespacePrefixes) => new(
+        private static ApiClientContext CreateApiClientContext(string[] namespacePrefixes) => new(
             null, 
             null,
             null,

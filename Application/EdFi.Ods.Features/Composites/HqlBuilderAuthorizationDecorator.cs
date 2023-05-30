@@ -29,8 +29,7 @@ namespace EdFi.Ods.Features.Composites
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
         private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
-        private readonly IClaimSetClaimsProvider _claimSetClaimsProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
@@ -46,16 +45,14 @@ namespace EdFi.Ods.Features.Composites
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IResourceClaimUriProvider resourceClaimUriProvider,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            IApiKeyContextProvider apiKeyContextProvider,
-            IClaimSetClaimsProvider claimSetClaimsProvider)
+            IApiClientContextProvider apiClientContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationFilteringProvider = Preconditions.ThrowIfNull(authorizationFilteringProvider, nameof(authorizationFilteringProvider));
             _authorizationFilterDefinitionProvider = Preconditions.ThrowIfNull(authorizationFilterDefinitionProvider, nameof(authorizationFilterDefinitionProvider));
             _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
-            _apiKeyContextProvider = apiKeyContextProvider;
-            _claimSetClaimsProvider = claimSetClaimsProvider;
+            _apiClientContextProvider = apiClientContextProvider;
         }
 
         /// <summary>
@@ -81,12 +78,11 @@ namespace EdFi.Ods.Features.Composites
             // --------------------------
             var entityType = GetEntityType(resource);
 
-            var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
+            var apiClientContext = _apiClientContextProvider.GetApiClientContext();
             string[] resourceClaimUris = _resourceClaimUriProvider.GetResourceClaimUris(resource);
 
             var authorizationContext = new EdFiAuthorizationContext(
-                apiKeyContext,
-                _claimSetClaimsProvider.GetClaims(apiKeyContext.ClaimSetName),
+                apiClientContext,
                 resource,
                 resourceClaimUris,
                 RequestActions.ReadActionUri,
@@ -98,7 +94,7 @@ namespace EdFi.Ods.Features.Composites
             try
             {
                 var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(
-                    apiKeyContext.ClaimSetName, resourceClaimUris, RequestActions.ReadActionUri);
+                    apiClientContext.ClaimSetName, resourceClaimUris, RequestActions.ReadActionUri);
                 
                 // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
                 authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(

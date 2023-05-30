@@ -19,7 +19,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
     // NOTE: Initial test fixture generated using ChatGPT
     public class OdsInstanceSelectorTests
     {
-        private IApiKeyContextProvider _apiKeyContextProvider;
+        private IApiClientContextProvider _apiClientContextProvider;
         private IOdsInstanceConfigurationProvider _odsInstanceConfigurationProvider;
         private OdsInstanceSelector _odsInstanceSelector;
         private Dictionary<string, object> _routeValueDictionary;
@@ -27,17 +27,17 @@ namespace EdFi.Ods.Api.Middleware.Tests
         [SetUp]
         public void SetUp()
         {
-            _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
+            _apiClientContextProvider = A.Fake<IApiClientContextProvider>();
             _odsInstanceConfigurationProvider = A.Fake<IOdsInstanceConfigurationProvider>();
-            _odsInstanceSelector = new OdsInstanceSelector(_apiKeyContextProvider, _odsInstanceConfigurationProvider);
+            _odsInstanceSelector = new OdsInstanceSelector(_apiClientContextProvider, _odsInstanceConfigurationProvider);
             _routeValueDictionary = new Dictionary<string, object>();
         }
 
         [Test]
-        public async Task GetOdsInstanceAsync_ReturnsNull_WhenApiKeyContextIsNull()
+        public async Task GetOdsInstanceAsync_ReturnsNull_WhenApiClientContextIsNull()
         {
             // Arrange
-            A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(null);
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(null);
 
             // Act
             var result = await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary);
@@ -47,23 +47,23 @@ namespace EdFi.Ods.Api.Middleware.Tests
         }
 
         [Test]
-        public void GetOdsInstanceAsync_ThrowsException_WhenApiKeyContextHasNoOdsInstanceIds()
+        public void GetOdsInstanceAsync_ThrowsException_WhenApiClientContextHasNoOdsInstanceIds()
         {
             // Arrange
-            var apiKeyContext = CreateApiKeyContext();
-            A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
+            var apiClientContext = CreateApiClientContext();
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
 
             // Act + Assert
             Assert.ThrowsAsync<ApiSecurityConfigurationException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
         }
 
         [Test]
-        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiKeyContextHasOneOdsInstanceId()
+        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiClientContextHasOneOdsInstanceId()
         {
             // Arrange
             var odsInstanceId = 1;
             
-            var apiKeyContext = CreateApiKeyContext(odsInstanceId);
+            var apiClientContext = CreateApiClientContext(odsInstanceId);
 
             var odsInstanceConfiguration = new OdsInstanceConfiguration(
                 odsInstanceId,
@@ -72,7 +72,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
                 new Dictionary<string, string>(),
                 new Dictionary<DerivativeType, string>());
             
-            A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(odsInstanceId)).Returns(odsInstanceConfiguration);
 
             // Act
@@ -83,12 +83,12 @@ namespace EdFi.Ods.Api.Middleware.Tests
         }
 
         [Test]
-        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiKeyContextHasMoreThanOneOdsInstanceId_AndOneMatchingAllContextValues()
+        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiClientContextHasMoreThanOneOdsInstanceId_AndOneMatchingAllContextValues()
         {
             // Arrange
             var odsInstanceIds = new[] { 1, 2, 3 };
 
-            var apiKeyContext = CreateApiKeyContext(odsInstanceIds);
+            var apiClientContext = CreateApiClientContext(odsInstanceIds);
 
             var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
                 1,
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
                 new Dictionary<string, string> { { "schoolYear", "2023"}, { "secondKey", "Abc" } },
                 new Dictionary<DerivativeType, string>());
 
-            A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(3)).Returns(odsInstanceConfiguration_3);
@@ -128,13 +128,13 @@ namespace EdFi.Ods.Api.Middleware.Tests
         
         [TestCase("2022", "NoMatch")]
         [TestCase("2024", "Abc")]
-        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiKeyContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
+        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiClientContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
             string schoolYearRouteValue, string secondKeyRouteValue)
         {
             // Arrange
             var odsInstanceIds = new[] { 1, 2, 3 };
 
-            var apiKeyContext = CreateApiKeyContext(odsInstanceIds);
+            var apiClientContext = CreateApiClientContext(odsInstanceIds);
 
             var odsInstanceConfiguration_1 = new OdsInstanceConfiguration(
                 1,
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
                 new Dictionary<string, string> { { "schoolYear", "2023"}, { "secondKey", "Abc" } },
                 new Dictionary<DerivativeType, string>());
 
-            A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
+            A.CallTo(() => _apiClientContextProvider.GetApiClientContext()).Returns(apiClientContext);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(3)).Returns(odsInstanceConfiguration_3);
@@ -169,9 +169,9 @@ namespace EdFi.Ods.Api.Middleware.Tests
              Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
         }
 
-        private static ApiKeyContext CreateApiKeyContext(params int[] odsInstanceIds)
+        private static ApiClientContext CreateApiClientContext(params int[] odsInstanceIds)
         {
-            return new ApiKeyContext(
+            return new ApiClientContext(
                 odsInstanceIds: odsInstanceIds,
                 apiKey: "abc",
                 claimSetName: "TestClaimSet",
