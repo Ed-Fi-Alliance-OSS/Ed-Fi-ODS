@@ -10259,6 +10259,115 @@
 									"response": []
 								},
 								{
+									"name": "The Read content type only includes certain reference properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const originalEntity = pm.environment.get(\"known:school\");\r",
+													"const profileEntity = pm.response.json();\r",
+													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const profileRegularReferenceIncludeKeys = [\r",
+													"    \"localEducationAgencyReference\"\r",
+													"];\r",
+													"const profileRoleNamedReferenceIncludeKeys = [\r",
+													"    \"charterApprovalSchoolYearTypeReference\"\r",
+													"];\r",
+													"\r",
+													"pm.test(\"The response model should contain the id and the primary key properties\",\r",
+													"    () => {\r",
+													"        _.each(keys, (key) => {\r",
+													"            pm.expect(originalEntity[key], key).to.deep.equals(profileEntity[key]);\r",
+													"        })\r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should contain the explicitly included regular reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRoleNamedReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"                else {\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRoleNamedReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should contain the explicitly included role-named reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRoleNamedReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"                else {\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRoleNamedReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.keys(profileEntity).length).to.equal(profileRegularReferenceIncludeKeys.length + profileRoleNamedReferenceIncludeKeys.length + keys.length);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.ed-fi.school.Test-Profile-Resource-References-IncludeOnly.readable+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "The Read content only includes certain properties from derived association",
 									"event": [
 										{
