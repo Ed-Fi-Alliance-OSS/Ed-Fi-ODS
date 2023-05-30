@@ -1,7 +1,7 @@
 {
   "Ed-Fi-Standard": {
     "4.0.0": "v4.0.0",
-    "5.0.0": "main"
+    "5.0.0": "pre-contact-updates"
   },
   "Ed-Fi-TPDM-Artifacts": {
     "4.0.0": "Data-Standard-v4.0.0",
