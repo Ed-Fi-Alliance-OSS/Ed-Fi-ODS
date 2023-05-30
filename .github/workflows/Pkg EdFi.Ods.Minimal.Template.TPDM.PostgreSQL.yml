@@ -128,11 +128,6 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
           ref: ${{ env.EDFI_STANDARD_REFERENCE }}
-    - name: Is pull request branch exists in Ed-Fi-Standard
-      working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
-      run: |
-        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Standard"
     - name: Set EdFi-Tpdm Reference
       working-directory: ./Ed-Fi-ODS/
       run: |
