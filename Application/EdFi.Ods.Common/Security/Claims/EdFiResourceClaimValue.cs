@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using System.Linq;
 
 namespace EdFi.Ods.Common.Security.Claims
 {
@@ -17,31 +16,6 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Gets or sets the actions that can be performed by the claim on the resource.
         /// </summary>
         public ResourceAction[] Actions { get; set; }
-
-        /// <summary>
-        /// Gets the names of authorization strategy overrides for the specified action, if present.
-        /// </summary>
-        /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <returns>The authorization strategy override for the specified action; otherwise <b>null</b>.</returns>
-        public IReadOnlyList<string> GetAuthorizationStrategyNameOverrides(string action)
-        {
-            return
-                Actions.FirstOrDefault(x => x.Name == action)
-                       ?.AuthorizationStrategyNameOverrides;
-        }
-
-        /// <summary>
-        /// Gets the names of the authorization strategy overrides for the specified action, if present.
-        /// </summary>
-        /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <returns>The authorization validation rule set name override for the specified action; otherwise <b>null</b>.</returns>
-        public string GetAuthorizationValidationRuleSetNameOverride(string action)
-        {
-            return
-                Actions.Where(x => x.Name == action)
-                       .Select(x => x.ValidationRuleSetNameOverride)
-                       .FirstOrDefault();
-        }
     }
 
     /// <summary>
