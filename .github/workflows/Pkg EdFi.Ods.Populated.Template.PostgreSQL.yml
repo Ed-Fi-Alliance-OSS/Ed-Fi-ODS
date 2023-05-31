@@ -47,6 +47,7 @@ jobs:
        working-directory: ./Ed-Fi-ODS/
        run: |
          $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+          $output = ['5.0.0']
          echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
          Write-host "StandardVersions is  $output"
        shell: pwsh
