@@ -175,7 +175,9 @@ public class MappingContractProvider : IMappingContractProvider
                                     2,
                                     parameterInfo.Name.Length - "Supported".Length - 2);
 
-                                return profileResourceClass.AllPropertyByName.ContainsKey(memberName);
+                                return profileResourceClass.AllPropertyByName.ContainsKey(memberName) ||
+                                       profileResourceClass.EmbeddedObjectByName.ContainsKey(memberName) ||
+                                       profileResourceClass.CollectionByName.ContainsKey(memberName);
                             }
 
                             if (parameterInfo.Name.EndsWith("Included"))
