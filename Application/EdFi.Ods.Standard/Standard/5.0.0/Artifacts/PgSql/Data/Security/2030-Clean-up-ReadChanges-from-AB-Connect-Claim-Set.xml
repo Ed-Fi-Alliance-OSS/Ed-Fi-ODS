@@ -1,0 +1,58 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+      <Claims>
+        <Claim claimId="14" name="http://ed-fi.org/ods/identity/claims/academicSubjectDescriptor">
+          <ClaimSets>
+            <!-- Remove ReadChanges Action -->
+            <ClaimSet name="AB Connect">
+              <Actions>
+                <Action name="Create" />
+                <Action name="Read" />
+                <Action name="Update" />
+                <Action name="Delete" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim claimId="116" name="http://ed-fi.org/ods/identity/claims/gradeLevelDescriptor">
+          <ClaimSets>
+            <ClaimSet name="AB Connect">
+              <Actions>
+                <Action name="Create" />
+                <Action name="Read" />
+                <Action name="Update" />
+                <Action name="Delete" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim claimId="201" name="http://ed-fi.org/ods/identity/claims/publicationStatusDescriptor">
+          <ClaimSets>
+            <ClaimSet name="AB Connect">
+              <Actions>
+                <Action name="Create" />
+                <Action name="Read" />
+                <Action name="Update" />
+                <Action name="Delete" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationStandards">
+      <ClaimSets>
+        <ClaimSet name="AB Connect">
+          <!-- Remove ReadChanges permissions -->
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
