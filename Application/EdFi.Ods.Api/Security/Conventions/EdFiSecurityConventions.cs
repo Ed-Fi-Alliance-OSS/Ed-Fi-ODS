@@ -12,8 +12,6 @@ namespace EdFi.Ods.Api.Security.Conventions
 {
     public static class EdFiSecurityConventions
     {
-        private static readonly string[] _profileSuffixes = {"_Readable", "_Writable"};
-        
         /// <summary>
         /// Parses the proper-case schema name from the namespace of the resource <see cref="Type" />. 
         /// </summary>
@@ -44,17 +42,6 @@ namespace EdFi.Ods.Api.Security.Conventions
             int startPos = Namespaces.Resources.BaseNamespace.Length + 1;
             int[] indices = IndicesOf(resourceTypeNamespace.Substring(startPos), ".");
 
-            // Detect Profile-based resource
-            string schema;
-	
-            foreach (string profileSuffix in _profileSuffixes)
-            {
-                if (TryParseSchemaFromProfileNamespace(resourceTypeNamespace, indices, profileSuffix, out schema))
-                {
-                    return schema;
-                }
-            }
-	
             if (indices.Length != 1)
             {
                 throw new Exception($"Unexpected number of namespace segments while extracting schema name from namespace '{resourceTypeNamespace}'.");
