@@ -442,9 +442,9 @@
       </ReadContentType>
       <WriteContentType memberSelection="IncludeOnly">
         <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
-          <Property name="City" />
-          <Property name="StateAbbreviationDescriptor" />
-          <Property name="PostalCode" />
+          <Property name="ApartmentRoomSuiteNumber" />
+          <Property name="NameOfCounty" />
+          <Property name="DoNotPublishIndicator" />
         </Collection>
       </WriteContentType>
     </Resource>
@@ -474,6 +474,7 @@
       </ReadContentType>
       <WriteContentType memberSelection="IncludeOnly">
         <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="DoNotPublishIndicator" />
         </Collection>
       </WriteContentType>
     </Resource>
