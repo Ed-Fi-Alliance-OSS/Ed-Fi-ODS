@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
@@ -17,9 +18,19 @@ namespace EdFi.Ods.Common.Specifications
 
         public static string GetUniqueIdPersonType(string propertyName)
         {
-            string personType = PersonEntitySpecification
-                               .ValidPersonTypes
-                               .FirstOrDefault(pt => propertyName.EndsWith(pt + UniqueId));
+            string personType = PersonEntitySpecification.ValidPersonTypes.FirstOrDefault(
+                pt =>
+                {
+                    int personTypePos = propertyName.IndexOf(pt, StringComparison.Ordinal);
+
+                    if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
+                    {
+                        return false;
+                    }
+
+                    return propertyName.AsSpan(personTypePos + pt.Length)
+                        .Equals(UniqueId.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                });
 
             return personType;
         }
@@ -39,9 +50,19 @@ namespace EdFi.Ods.Common.Specifications
 
         public static string GetUSIPersonType(string propertyName)
         {
-            string personType = PersonEntitySpecification
-                               .ValidPersonTypes
-                               .FirstOrDefault(pt => propertyName.EndsWithIgnoreCase(pt + USI));
+            string personType = PersonEntitySpecification.ValidPersonTypes.FirstOrDefault(
+                pt =>
+                {
+                    int personTypePos = propertyName.IndexOf(pt, StringComparison.Ordinal);
+
+                    if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
+                    {
+                        return false;
+                    }
+
+                    return propertyName.AsSpan(personTypePos + pt.Length)
+                        .Equals(USI.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                });
 
             return personType;
         }
@@ -57,10 +78,8 @@ namespace EdFi.Ods.Common.Specifications
         {
             roleName = null;
 
-            personType = PersonEntitySpecification
-                        .ValidPersonTypes
-                        .FirstOrDefault(pt => propertyName.EndsWithIgnoreCase(pt + USI));
-
+            personType = GetUSIPersonType(propertyName);
+            
             if (personType == null)
             {
                 return false;
@@ -90,22 +109,6 @@ namespace EdFi.Ods.Common.Specifications
         public static string GetUsiPropertyName(string uniqueIdColumnName)
         {
             return uniqueIdColumnName.ReplaceSuffix(UniqueId, USI);
-        }
-
-        /// <summary>
-        /// Indicates whether the property name is an USI for a known Ed-Fi core
-        /// person entity type (i.e. Student, Staff, or Parent).
-        /// </summary>
-        /// <param name="propertyName">The name of the property to evaluate.</param>
-        /// <returns><b>true</b> if the USI is a known core person entity; otherwise <b>false</b>.</returns>
-        /// <remarks>This method was added to accommodate logic that was explicitly checking for specific
-        /// person entity types.  The logic in this regard may need to be revisisted, but is left intact
-        /// due to the impact of the code generation process in the event USIs are used on an Ed-Fi extension.</remarks>
-        public static bool IsCoreUSI(string propertyName)
-        {
-            return propertyName.EndsWithIgnoreCase("StudentUSI")
-                   || propertyName.EndsWithIgnoreCase("StaffUSI")
-                   || propertyName.EndsWithIgnoreCase("ParentUSI");
         }
 
         public static bool IsUniqueId(string propertyName)

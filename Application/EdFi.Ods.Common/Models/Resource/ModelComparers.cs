@@ -151,9 +151,9 @@ namespace EdFi.Ods.Common.Models.Resource
                     return false;
                 }
 
-                return string.Equals(x.PropertyName, y.PropertyName, StringComparison.InvariantCultureIgnoreCase)
+                return string.Equals(x.PropertyName, y.PropertyName, StringComparison.OrdinalIgnoreCase)
                        && string.Equals(
-                           x.ParentFullName.Name, y.ParentFullName.Name, StringComparison.InvariantCultureIgnoreCase);
+                           x.ParentFullName.Name, y.ParentFullName.Name, StringComparison.OrdinalIgnoreCase);
             }
 
             /// <summary>
@@ -191,7 +191,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     return false;
                 }
 
-                return string.Equals(x.PropertyName, y.PropertyName, StringComparison.InvariantCultureIgnoreCase);
+                return string.Equals(x.PropertyName, y.PropertyName, StringComparison.OrdinalIgnoreCase);
             }
 
             /// <summary>
@@ -228,7 +228,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     return false;
                 }
 
-                return string.Equals(x.PropertyName, y.PropertyName, StringComparison.InvariantCultureIgnoreCase);
+                return string.Equals(x.PropertyName, y.PropertyName, StringComparison.OrdinalIgnoreCase);
             }
 
             /// <summary>
@@ -266,7 +266,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     return false;
                 }
 
-                return string.Equals(x.ReferenceTypeName, y.ReferenceTypeName, StringComparison.InvariantCultureIgnoreCase);
+                return string.Equals(x.ReferenceTypeName, y.ReferenceTypeName, StringComparison.OrdinalIgnoreCase);
             }
 
             /// <summary>

@@ -14,7 +14,7 @@ namespace EdFi.Ods.Standard.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // Establish authorization context for OrganizationDepartments using the Parent
+            // Establish authorization context for OrganizationDepartments using the ParentEducationOrganization
             // rather than default behavior (EducationOrganizationId)
             builder.RegisterType<OrganizationDepartmentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>>()
                 .As<IRelationshipsAuthorizationContextDataProvider<IOrganizationDepartment, RelationshipsAuthorizationContextData>>()

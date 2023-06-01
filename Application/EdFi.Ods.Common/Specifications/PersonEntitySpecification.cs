@@ -6,21 +6,30 @@
 using System;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Specifications
 {
     public static class PersonEntitySpecification
     {
-        public const string Staff = "Staff";
+        /// <summary>
+        /// Provides the well-known person type representing students.
+        /// </summary>
         public const string Student = "Student";
-        public const string Parent = "Parent";
-        
-        public static string[] ValidPersonTypes { get; } =
-            {
-                Staff, Student, Parent
-            };
 
+        private static readonly Lazy<string[]> _validPersonTypes = new(
+            () => GeneratedArtifactStaticDependencies.DomainModelProvider.GetDomainModel()
+                .Aggregates.Select(a => a.AggregateRoot)
+                .Where(e => e.Identifier.Properties.Count == 1 && e.Identifier.Properties[0].PropertyName.EndsWith("USI"))
+                .Select(e => e.Name)
+                .ToArray());
+
+        public static string[] ValidPersonTypes
+        {
+            get => _validPersonTypes.Value;
+        }
+        
         /// <summary>
         /// Indicates whether the specified <see cref="Type"/> represents a type of person.
         /// </summary>
@@ -38,7 +47,7 @@ namespace EdFi.Ods.Common.Specifications
         /// <returns><b>true</b> if the entity represents a type of person; otherwise <b>false</b>.</returns>
         public static bool IsPersonEntity(string typeName)
         {
-            return ValidPersonTypes.Contains(typeName, StringComparer.CurrentCultureIgnoreCase);
+            return ValidPersonTypes.Contains(typeName, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -61,13 +70,11 @@ namespace EdFi.Ods.Common.Specifications
         {
             if (personType != null && !ValidPersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
             {
-                throw new ArgumentException("'{0}' is not a supported person type.");
+                throw new ArgumentException($"'{personType}' is not a supported person type.");
             }
 
-            string entityName;
-
             // TODO: Embedded convention (Person identifiers can end with "USI" or "UniqueId")
-            if (propertyName.TryTrimSuffix("UniqueId", out entityName)
+            if (propertyName.TryTrimSuffix("UniqueId", out string entityName)
                 || propertyName.TryTrimSuffix("USI", out entityName))
             {
                 return IsPersonEntity(entityName)

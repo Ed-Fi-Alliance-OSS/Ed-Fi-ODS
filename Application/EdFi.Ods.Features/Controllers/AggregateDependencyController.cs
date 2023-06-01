@@ -129,42 +129,42 @@ namespace EdFi.Ods.Features.Controllers
         {
             ApplyStudentTransformation(resources);
             ApplyStaffTransformation(resources);
-            ApplyParentTransformation(resources);
+            ApplyContactTransformation(resources);
         }
 
-        private static void ApplyParentTransformation(IList<ResourceLoadOrder> resources)
+        private static void ApplyContactTransformation(IList<ResourceLoadOrder> resources)
         {
-            // StudentParentAssociation must be created before Parents can be updated.
-            // StudentSchoolAssociation must be created before Parents can be updated.
-            // StudentSchoolAssociation must be created before ParentAssociations can be updated.
-            var parentCreate = resources
-                .SingleOrDefault(r => r.Resource == "/ed-fi/parents");
+            // StudentContactAssociation must be created before Contacts can be updated.
+            // StudentSchoolAssociation must be created before Contacts can be updated.
+            // StudentSchoolAssociation must be created before StudentContactAssociations can be updated.
+            var contactCreate = resources
+                .SingleOrDefault(r => r.Resource is "/ed-fi/parents" or "/ed-fi/contacts");
 
-            if (parentCreate == null)
+            if (contactCreate == null)
             {
                 return;
             }
 
-            var studentParentAssociation = resources
-                .Single(r => r.Resource == "/ed-fi/studentParentAssociations");
+            var studentContactAssociation = resources
+                .Single(r => r.Resource is "/ed-fi/studentParentAssociations" or "/ed-fi/studentContactAssociations");
 
             var studentSchoolAssociation = resources
                 .Single(r => r.Resource == "/ed-fi/studentSchoolAssociations");
 
-            var higherOrder = Math.Max(studentParentAssociation.Order, studentSchoolAssociation.Order);
+            var higherOrder = Math.Max(studentContactAssociation.Order, studentSchoolAssociation.Order);
 
-            var parentUpdate = new ResourceLoadOrder
+            var contactUpdate = new ResourceLoadOrder
             {
-                Resource = parentCreate.Resource,
+                Resource = contactCreate.Resource,
                 Order = higherOrder + 1,
                 Operations = new List<string> { "Update" }
             };
 
-            parentCreate.Operations.Remove("Update");
+            contactCreate.Operations.Remove("Update");
 
             resources.Insert(
-                resources.IndexOf(resources.FirstOrDefault(r => r.Order == parentUpdate.Order) ?? resources[^1])
-                , parentUpdate
+                resources.IndexOf(resources.FirstOrDefault(r => r.Order == contactUpdate.Order) ?? resources[^1])
+                , contactUpdate
             );
         }
 

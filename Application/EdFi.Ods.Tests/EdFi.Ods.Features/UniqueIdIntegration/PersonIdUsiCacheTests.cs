@@ -117,9 +117,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -246,9 +249,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     TimeSpan.Zero,
                     TimeSpan.Zero,
                     synchronousInitialization: true,
-                    suppressStudentCache: false,
-                    suppressStaffCache: false,
-                    suppressParentCache: false);
+                    cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "Student", false },
+                        { "Staff", false },
+                        { "Contact", false }
+                    });
             }
 
             protected override void Act()
@@ -404,9 +410,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _memoryCacheProvider, _edfiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                         TimeSpan.Zero, TimeSpan.Zero,
                         synchronousInitialization: false,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -518,9 +527,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                     TimeSpan.Zero, TimeSpan.Zero,
                     synchronousInitialization: true,
-                    suppressStudentCache: false,
-                    suppressStaffCache: false,
-                    suppressParentCache: false);
+                    cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "Student", false },
+                        { "Staff", false },
+                        { "Contact", false }
+                    });
             }
 
             protected override void Act()
@@ -586,9 +598,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                         TimeSpan.Zero, TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -663,9 +678,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -758,9 +776,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -870,9 +891,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -971,9 +995,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -1078,9 +1105,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true,
-                        suppressStudentCache: false,
-                        suppressStaffCache: false,
-                        suppressParentCache: false);
+                        cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                        {
+                            { "Student", false },
+                            { "Staff", false },
+                            { "Contact", false }
+                        });
                 }
             }
 
@@ -1254,9 +1284,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                     TimeSpan.Zero, TimeSpan.Zero,
                     synchronousInitialization: false,
-                    suppressStudentCache: PersonType == "Student",
-                    suppressStaffCache: PersonType == "Staff",
-                    suppressParentCache: PersonType == "Parent");
+                    cacheSuppression: new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase)
+                    {
+                        { "Student", false },
+                        { "Staff", false },
+                        { "Contact", false }
+                    });
             }
 
             protected override void Act()
