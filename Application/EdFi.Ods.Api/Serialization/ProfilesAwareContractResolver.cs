@@ -84,7 +84,11 @@ public class ProfilesAwareContractResolver : DefaultContractResolver
             profileContentTypeContext.ContentTypeUsage);
 
         var contract = _contractByKey.GetOrAdd(mappingContractKey, 
-            static (k, x) => x.Item2.CreateContract(x.type), 
+            static (k, args) =>
+            {
+                var (type, contractResolver) = args;
+                return contractResolver.CreateContract(type);
+            }, 
             (type, this));
 
         return contract;
