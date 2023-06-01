@@ -13,6 +13,7 @@ using log4net;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,9 +39,7 @@ namespace EdFi.Ods.Api.Caching
         private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
         private readonly IUniqueIdToUsiValueMapper _uniqueIdToUsiValueMapper;
         private readonly bool _synchronousInitialization;
-        private readonly bool _suppressStudentCache;
-        private readonly bool _suppressStaffCache;
-        private readonly bool _suppressParentCache;
+        private readonly Dictionary<string, bool> _cacheSuppression;
 
         private readonly TimeSpan _slidingExpiration;
         private readonly TimeSpan _absoluteExpirationPeriod;
@@ -55,9 +54,7 @@ namespace EdFi.Ods.Api.Caching
         /// <param name="slidingExpiration">Indicates how long the cache values will remain in memory after being used before all the cached values are removed.</param>
         /// <param name="absoluteExpirationPeriod">Indicates the maximum time that the cache values will remain in memory before being refreshed.</param>
         /// <param name="synchronousInitialization">Indicates whether the cache should wait until all the Person identifiers are loaded before responding, or if using the value mappers initially to avoid an initial delay is preferable.</param>
-        /// <param name="suppressStudentCache">Indicates whether student UniqueId/USI mappings should be cached, or retrieved on demand with each request (caching is suppressed).</param>
-        /// <param name="suppressStaffCache">Indicates whether staff UniqueId/USI mappings should be cached, or retrieved on demand with each request (caching is suppressed).</param>
-        /// <param name="suppressParentCache">Indicates whether parent UniqueId/USI mappings should be cached, or retrieved on demand with each request (caching is suppressed).</param>
+        /// <param name="cacheSuppression">Indicates whether caching of any of the person types should be suppressed (retrieved on-demand with each request).</param>
         public PersonUniqueIdToUsiCache(
             ICacheProvider<string> cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
@@ -66,18 +63,23 @@ namespace EdFi.Ods.Api.Caching
             TimeSpan slidingExpiration,
             TimeSpan absoluteExpirationPeriod,
             bool synchronousInitialization,
-            bool suppressStudentCache,
-            bool suppressStaffCache,
-            bool suppressParentCache)
+            Dictionary<string, bool> cacheSuppression)
         {
             _cacheProvider = cacheProvider;
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
             _uniqueIdToUsiValueMapper = uniqueIdToUsiValueMapper;
             _personIdentifiersProvider = personIdentifiersProvider;
             _synchronousInitialization = synchronousInitialization;
-            _suppressStudentCache = suppressStudentCache;
-            _suppressStaffCache = suppressStaffCache;
-            _suppressParentCache = suppressParentCache;
+
+            // Ensure that the string comparer is using case-insensitive matching, or re-create it.
+            if (Equals(cacheSuppression.Comparer, StringComparer.OrdinalIgnoreCase))
+            {
+                _cacheSuppression = cacheSuppression;
+            }
+            else
+            {
+                _cacheSuppression = new Dictionary<string, bool>(cacheSuppression, StringComparer.OrdinalIgnoreCase);
+            }
 
             if (slidingExpiration < TimeSpan.Zero)
             {
@@ -108,30 +110,26 @@ namespace EdFi.Ods.Api.Caching
         /// <returns>The UniqueId value assigned to the person if found; otherwise <b>null</b>.</returns>
         public string GetUniqueId(string personType, int usi)
         {
-            if (usi == default(int))
+            if (usi == default)
             {
-                return default(string);
+                return default;
             }
 
-            if ((_suppressStudentCache && personType == PersonEntitySpecification.Student)
-                || (_suppressStaffCache && personType == PersonEntitySpecification.Staff)
-                || (_suppressParentCache && personType == PersonEntitySpecification.Parent))
+            if (_cacheSuppression.TryGetValue(personType, out bool isSuppressed) && isSuppressed)
             {
                 // Call the value mapper for the individual value
-                var valueMapForParent = GetUniqueIdValueMap(personType, usi);
+                var uncachedValueMap = GetUniqueIdValueMap(personType, usi);
 
-                return valueMapForParent.UniqueId;
+                return uncachedValueMap.UniqueId;
             }
 
             string context = GetUsiKeyTokenContext();
-
-            string uniqueId;
 
             // Get the cache first, initializing it if necessary
             var uniqueIdByUsi = GetUniqueIdByUsiMap(personType, context);
 
             // Check the cache for the value
-            if (uniqueIdByUsi != null && uniqueIdByUsi.TryGetValue(usi, out uniqueId))
+            if (uniqueIdByUsi != null && uniqueIdByUsi.TryGetValue(usi, out string uniqueId))
             {
                 return uniqueId;
             }
@@ -175,16 +173,12 @@ namespace EdFi.Ods.Api.Caching
         {
             var usi = GetUsi(personTypeName, uniqueId, true);
 
-            return usi.HasValue && usi.Value == default(int)
-                ? null
-                : usi;
+            return usi is default(int) ? null : usi;
         }
 
         private ConcurrentDictionary<int, string> GetUniqueIdByUsiMap(string personType, string context)
         {
-            IdentityValueMaps identityValueMaps;
-
-            if (!TryGetIdentityValueMaps(personType, context, out identityValueMaps))
+            if (!TryGetIdentityValueMaps(personType, context, out IdentityValueMaps identityValueMaps))
             {
                 return null;
             }
@@ -194,9 +188,7 @@ namespace EdFi.Ods.Api.Caching
 
         private ConcurrentDictionary<string, int> GetUsiByUniqueIdMap(string personType, string context)
         {
-            IdentityValueMaps identityValueMaps;
-
-            if (!TryGetIdentityValueMaps(personType, context, out identityValueMaps))
+            if (!TryGetIdentityValueMaps(personType, context, out IdentityValueMaps identityValueMaps))
             {
                 return null;
             }
@@ -206,11 +198,9 @@ namespace EdFi.Ods.Api.Caching
 
         private bool TryGetIdentityValueMaps(string personType, string context, out IdentityValueMaps identityValueMaps)
         {
-            object personCacheAsObject;
-
             string cacheKey = GetPersonTypeIdentifiersCacheKey(personType, context);
 
-            if (!_cacheProvider.TryGetCachedObject(cacheKey, out personCacheAsObject))
+            if (!_cacheProvider.TryGetCachedObject(cacheKey, out object personCacheAsObject))
             {
                 // Make sure there is only one cache set being initialized at a time
                 lock (_identityValueMapsLock)
@@ -359,18 +349,14 @@ namespace EdFi.Ods.Api.Caching
                     : default(int);
             }
 
-            if ((_suppressStudentCache && personType == PersonEntitySpecification.Student)
-                || (_suppressStaffCache && personType == PersonEntitySpecification.Staff)
-                || (_suppressParentCache && personType == PersonEntitySpecification.Parent))
+            if (_cacheSuppression.TryGetValue(personType, out bool isSuppressed) && isSuppressed)
             {
-                var valueMapForParent = GetUsiValueMap(personType, uniqueId);
+                var uncachedValueMap = GetUsiValueMap(personType, uniqueId);
 
-                return valueMapForParent.Usi;
+                return uncachedValueMap.Usi;
             }
 
             string context = GetUsiKeyTokenContext();
-
-            int usi;
 
             // Get the cache first, initializing it if necessary
             var usiByUniqueId = GetUsiByUniqueIdMap(personType, context);
@@ -378,12 +364,10 @@ namespace EdFi.Ods.Api.Caching
             _logger.DebugFormat(
                 "For person type: {0}, there are {1} records cached.",
                 personType,
-                usiByUniqueId != null
-                    ? usiByUniqueId.Count
-                    : 0);
+                usiByUniqueId?.Count ?? 0);
 
             // Check the cache for the value
-            if (usiByUniqueId != null && usiByUniqueId.TryGetValue(uniqueId, out usi))
+            if (usiByUniqueId != null && usiByUniqueId.TryGetValue(uniqueId, out int usi))
             {
                 if (usi != default(int))
                 {
@@ -412,7 +396,7 @@ namespace EdFi.Ods.Api.Caching
 
         public class IdentityValueMaps
         {
-            private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
+            private readonly ReaderWriterLockSlim _mapLock = new();
 
             [JsonProperty]
             private ConcurrentDictionary<int, string> _uniqueIdByUsi;

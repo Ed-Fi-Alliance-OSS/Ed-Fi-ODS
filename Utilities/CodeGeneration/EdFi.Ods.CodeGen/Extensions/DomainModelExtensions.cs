@@ -346,7 +346,8 @@ namespace EdFi.Ods.CodeGen.Extensions
                 return entityProperty.PropertyName.TrimSuffix("Id");
             }
 
-            if (UniqueIdSpecification.IsCoreUSI(entityProperty.PropertyName))
+            if (UniqueIdSpecification.IsUSI(entityProperty.PropertyName)
+                && UniqueIdSpecification.GetUSIPersonType(entityProperty.PropertyName) != null)
             {
                 return UniqueIdSpecification.GetUniqueIdPropertyName(entityProperty.PropertyName);
             }

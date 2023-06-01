@@ -25,24 +25,6 @@ namespace EdFi.Ods.Common.Providers.Criteria
     /// <typeparam name="TEntity">The <see cref="System.Type" /> of the entity being queried.</typeparam>
     public abstract class AggregateRootCriteriaProviderBase<TEntity> : NHibernateRepositoryOperationBase
     {
-        // NOTE: Embedded convention - Known person roles
-        private static readonly string[] _uniqueIdProperties =
-        {
-            "StudentUniqueId",
-            "StaffUniqueId",
-            "ParentUniqueId"
-        };
-
-        private static readonly string[] _propertiesToIgnore =
-        {
-            "Offset",
-            "Limit",
-            "TotalCount",
-            "Q",
-            "SortBy",
-            "SortDirection"
-        };
-
         private readonly IDescriptorResolver _descriptorResolver;
 
         protected AggregateRootCriteriaProviderBase(ISessionFactory sessionFactory, IDescriptorResolver descriptorResolver)
@@ -144,11 +126,11 @@ namespace EdFi.Ods.Common.Providers.Criteria
                     && GetPropertyValue(entity, UniqueIdSpecification.GetUniqueIdPropertyName(property.Name)) != null);
 
             // Don't include properties that are explicitly to be ignored
-            result = result && !_propertiesToIgnore.Contains(property.Name);
+            result = result && !AggregateRootCriteriaProviderHelpers.PropertiesToIgnore.Contains(property.Name);
 
             // Don't include UniqueId properties when they appear on a Person entity
             result = result
-                && (!_uniqueIdProperties.Contains(property.Name) || PersonEntitySpecification.IsPersonEntity(entity.GetType()));
+                && (!AggregateRootCriteriaProviderHelpers.UniqueIdProperties.Contains(property.Name) || PersonEntitySpecification.IsPersonEntity(entity.GetType()));
 
             return result;
         }

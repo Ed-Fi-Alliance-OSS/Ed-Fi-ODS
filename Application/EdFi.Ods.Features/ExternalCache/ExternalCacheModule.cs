@@ -145,25 +145,8 @@ namespace EdFi.Ods.Features.ExternalCache
                   }))
           .WithParameter(
               new ResolvedParameter(
-                  (p, c) => p.Name.Equals("suppressStudentCache", StringComparison.OrdinalIgnoreCase),
-                  (p, c) =>
-                  {
-                      return ApiSettings.Caching.PersonUniqueIdToUsi.SuppressStudentCache;
-                  }))
-          .WithParameter(
-              new ResolvedParameter(
-                  (p, c) => p.Name.Equals("suppressStaffCache", StringComparison.OrdinalIgnoreCase),
-                  (p, c) =>
-                  {
-                      return ApiSettings.Caching.PersonUniqueIdToUsi.SuppressStaffCache;
-                  }))
-          .WithParameter(
-              new ResolvedParameter(
-                  (p, c) => p.Name.Equals("suppressParentCache", StringComparison.OrdinalIgnoreCase),
-                  (p, c) =>
-                  {
-                      return ApiSettings.Caching.PersonUniqueIdToUsi.SuppressParentCache;
-                  }))
+                  (p, c) => p.Name.Equals("cacheSuppression", StringComparison.OrdinalIgnoreCase),
+                  (p, c) => ApiSettings.Caching.PersonUniqueIdToUsi.CacheSuppression))
           .As<IPersonUniqueIdToUsiCache>()
           .SingleInstance();
         }

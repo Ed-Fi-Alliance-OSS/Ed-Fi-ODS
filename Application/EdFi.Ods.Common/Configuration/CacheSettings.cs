@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Configuration
 {
@@ -32,9 +33,8 @@ namespace EdFi.Ods.Common.Configuration
             public bool UseExternalCache { get; set; }
             public int AbsoluteExpirationSeconds { get; set; } = 0; //Will be set to 0 during instantiation of PersonUniqueIdToUsiCache if SlidingExpirationSeconds > 0
             public int SlidingExpirationSeconds { get; set; } = 14400;
-            public bool SuppressStudentCache { get; set; }
-            public bool SuppressStaffCache { get; set; }
-            public bool SuppressParentCache { get; set; }
+
+            public Dictionary<string, bool> CacheSuppression { get; set; } = new(StringComparer.OrdinalIgnoreCase);
         }
 
         public class ApiClientDetailsConfiguration

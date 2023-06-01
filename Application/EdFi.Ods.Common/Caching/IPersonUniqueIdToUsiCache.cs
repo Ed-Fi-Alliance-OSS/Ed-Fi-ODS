@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Caching
         /// <summary>
         /// Gets the externally defined UniqueId for the specified type of person and the ODS-specific surrogate identifier.
         /// </summary>
-        /// <param name="personType">The type of the person (e.g. Staff, Student, Parent).</param>
+        /// <param name="personType">The type of the person (e.g. Staff, Student, Contact).</param>
         /// <param name="usi">The integer-based identifier for the specified representation of the person, 
         /// specific to a particular ODS database instance.</param>
         /// <returns>The UniqueId value assigned to the person if found; otherwise <b>null</b>.</returns>
@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Caching
         /// <summary>
         /// Gets the ODS-specific integer identifier for the specified type of person and their UniqueId value.
         /// </summary>
-        /// <param name="personType">The type of the person (e.g. Staff, Student, Parent).</param>
+        /// <param name="personType">The type of the person (e.g. Staff, Student, Contact).</param>
         /// <param name="uniqueId">The UniqueId value associated with the person.</param>
         /// <returns>The ODS-specific integer identifier for the specified type of representation of 
         /// the person if found; otherwise 0.</returns>
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Caching
         /// <summary>
         /// Gets the ODS-specific integer identifier for the specified type of person and their UniqueId value.
         /// </summary>
-        /// <param name="personTypeName">The type of the person (e.g. Staff, Student, Parent).</param>
+        /// <param name="personTypeName">The type of the person (e.g. Staff, Student, Contact).</param>
         /// <param name="uniqueId">The UniqueId value associated with the person.</param>
         /// <returns>The ODS-specific integer identifier for the specified type of representation of 
         /// the person if found; otherwise <b>null</b>.</returns>

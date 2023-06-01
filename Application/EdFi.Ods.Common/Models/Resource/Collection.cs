@@ -80,7 +80,7 @@ namespace EdFi.Ods.Common.Models.Resource
             Association = association;
         }
 
-        public CollectionItemValueFilter[] ValueFilters { get; } = new CollectionItemValueFilter[0];
+        public CollectionItemValueFilter[] ValueFilters { get; } = Array.Empty<CollectionItemValueFilter>();
 
         public AssociationView Association { get; }
 
