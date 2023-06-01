@@ -10937,7 +10937,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11166,6 +11166,109 @@
 											{
 												"key": "Accept",
 												"value": "application/vnd.ed-fi.school.test-profile-resource-excludeonly.readable+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "The Read content type only excludes certain reference properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const originalEntity = pm.environment.get(\"known:school\");\r",
+													"const profileEntity = pm.response.json();\r",
+													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const profileRegularReferenceExcludeKeys = [\r",
+													"    \"localEducationAgencyReference\"\r",
+													"];\r",
+													"const profileRoleNamedReferenceExcludeeKeys = [\r",
+													"    \"charterApprovalSchoolYearTypeReference\"\r",
+													"];\r",
+													"\r",
+													"pm.test(\"The response model should contain the id and the primary key properties\",\r",
+													"    () => {\r",
+													"        _.each(keys, (key) => {\r",
+													"            pm.expect(originalEntity[key], key).to.deep.equals(profileEntity[key]);\r",
+													"        })\r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should not contain the explicitly excluded reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRegularReferenceExcludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRegularReferenceExcludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should not contain the explicitly excluded reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRoleNamedReferenceExcludeeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRoleNamedReferenceExcludeeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.keys(profileEntity).length).to.equal(Object.keys(originalEntity).length - (profileRegularReferenceExcludeKeys.length + profileRoleNamedReferenceExcludeeKeys.length));\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.ed-fi.school.Test-Profile-Resource-References-ExcludeOnly.readable+json",
 												"type": "text"
 											}
 										],
