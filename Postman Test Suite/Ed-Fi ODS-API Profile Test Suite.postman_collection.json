@@ -9605,7 +9605,7 @@
 											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
 											"    () => {\r",
 											"        // Profile only allos writing the internationalAddresses element, so that is what will be validated only\r",
-											"        for (const key of Object.keys(originalEntity['internationalAddresses'])) {\r",
+											"        for (const key of Object.keys(originalEntity['internationalAddresses'][0])) {\r",
 											"            pm.expect(originalEntity['internationalAddresses'][0][key]).to.not.equal(updatedEntity['internationalAddresses'][0][key]);\r",
 											"        }        \r",
 											"    });\r",
