@@ -6,6 +6,7 @@
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Exceptions;
 using log4net;
 using Microsoft.AspNetCore.Http;
 
@@ -32,18 +33,26 @@ public class OdsInstanceIdentificationMiddleware : IMiddleware
     
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        var odsInstanceConfiguration = await _odsInstanceSelector.GetOdsInstanceAsync(context.Request.RouteValues);
-
-        if (odsInstanceConfiguration != null)
+        try
         {
-            if (_logger.IsDebugEnabled)
+            var odsInstanceConfiguration = await _odsInstanceSelector.GetOdsInstanceAsync(context.Request.RouteValues);
+
+            if (odsInstanceConfiguration != null)
             {
-                _logger.Debug($"Setting ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') into context...");
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Setting ODS instance '{odsInstanceConfiguration.OdsInstanceId}' (with hash id '{odsInstanceConfiguration.OdsInstanceHashId}') into context...");
+                }
+
+                _odsInstanceConfigurationProvider.Set(odsInstanceConfiguration);
             }
 
-            _odsInstanceConfigurationProvider.Set(odsInstanceConfiguration);
+            await next.Invoke(context);
         }
-
-        await next.Invoke(context);
+        catch (NotFoundException)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            context.Response.ContentType = "application/json";
+        }
     }
 }
