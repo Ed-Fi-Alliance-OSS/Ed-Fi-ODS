@@ -129,7 +129,7 @@ function Restore {
 function Compile {
     Invoke-Execute {
         dotnet --info
-        dotnet build $Solution -c $Configuration --version-suffix $version --no-restore
+        dotnet build $Solution -c $Configuration --version-suffix $version --no-restore -p:StandardVersion=$StandardVersion
     }
 }
 
