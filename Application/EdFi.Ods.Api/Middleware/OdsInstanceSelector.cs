@@ -55,13 +55,14 @@ public class OdsInstanceSelector : IOdsInstanceSelector
 
             foreach (var contextValue in odsInstanceConfiguration.ContextValueByKey)
             {
-                if (routeValues.TryGetValue(contextValue.Key, out var routeValue) && contextValue.Value.EqualsIgnoreCase(routeValue.ToString()))
+                if (routeValues.TryGetValue(contextValue.Key, out var routeValue) &&
+                    contextValue.Value.EqualsIgnoreCase(routeValue.ToString()))
                 {
                     return odsInstanceConfiguration;
                 }
             }
         }
 
-        return null;
+        throw new NotFoundException("No ODS instance matching route value found.");
     }
 }
