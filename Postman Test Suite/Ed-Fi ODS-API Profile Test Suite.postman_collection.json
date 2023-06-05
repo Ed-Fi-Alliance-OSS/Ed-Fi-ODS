@@ -9505,7 +9505,7 @@
 											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
 											"    () => {\r",
 											"        // Traverse all properties that are not pripary keys\r",
-											"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) {\r",
+											"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) {\r",
 											"            \r",
 											"            // If property is not an array, make a deep comparison\r",
 											"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -9605,7 +9605,7 @@
 											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
 											"    () => {\r",
 											"        // Profile only allos writing the internationalAddresses element, so that is what will be validated only\r",
-											"        for (const [key, value] of Object.entries(originalEntity['internationalAddresses'][0])) {\r",
+											"        for (const key of Object.keys(originalEntity['internationalAddresses'][0])) {\r",
 											"            pm.expect(originalEntity['internationalAddresses'][0][key]).to.not.equal(updatedEntity['internationalAddresses'][0][key]);\r",
 											"        }        \r",
 											"    });\r",
@@ -9706,7 +9706,7 @@
 											"    pm.test(\"Every non-primary key value on the entity should be changed\",\r",
 											"    () => {\r",
 											"        // Traverse all properties that are not pripary keys\r",
-											"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) {\r",
+											"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) {\r",
 											"            \r",
 											"            // If property is not an array, make a deep comparison\r",
 											"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -10010,7 +10010,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -10203,7 +10203,7 @@
 													"pm.test(\"The response model should contain the explicitly included properties\",\r",
 													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys\r",
-													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) \r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
 													"        {     \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -10288,7 +10288,7 @@
 													"pm.test(\"The response model should contain the explicitly included properties\",\r",
 													"    () => {        \r",
 													"        // Traverse all properties that are not pripary keys\r",
-													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) \r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
 													"        {     \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -10402,7 +10402,7 @@
 													"    pm.test(\"the only values changed should be the explicitly included values\",\r",
 													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys\r",
-													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys)) {\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) {\r",
 													"     \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -10524,7 +10524,7 @@
 													"    pm.test(\"the only values changed should be the explicitly included values\",\r",
 													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys or audit fields\r",
-													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {            \r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {            \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
 													"                if(profileIncludeKeys.indexOf(key) > -1){\r",
@@ -10834,7 +10834,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -11224,7 +11224,7 @@
 													"    pm.test(\"the persisted entity model should not have the new values assigned to the explicitly excluded properties\",\r",
 													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys or audit fields\r",
-													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {   \r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {   \r",
 													"            \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -11360,7 +11360,7 @@
 													"   pm.test(\"the persisted entity model should not have the new values assigned to the explicitly excluded properties\",\r",
 													"    () => {\r",
 													"        // Traverse all properties that are not pripary keys or audit fields\r",
-													"        for (const [key, value] of Object.entries(originalEntity).filter(function (e) { return this.indexOf(e[0]) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {   \r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {   \r",
 													"            \r",
 													"            // If property is not an array, make a deep comparison\r",
 													"            if (!Array.isArray(originalEntity[key])) {\r",
@@ -11555,6 +11555,853 @@
 												"ed-fi",
 												"studentSpecialEducationProgramAssociations",
 												"{{known:studentSpecialEducationProgramAssociationId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Profile definitions can include and exclude certain references on resources",
+			"item": [
+				{
+					"name": "Include",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Get Primary Key properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"\r",
+													"function getPrimaryKeys(resource) {\r",
+													"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"metadata",
+												"data",
+												"v3",
+												"resources",
+												"swagger.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"known:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+													"\r",
+													"// Fetch a copy of the created school payload\r",
+													"pm.sendRequest({\r",
+													"    url: `${pm.environment.get(\"ApiBaseUrl\")}/data/v3/ed-fi/schools/${pm.environment.get(\"known:schoolId\")}`,\r",
+													"    method: \"GET\",\r",
+													"    header: {\r",
+													"        \"Authorization\": 'bearer ' + pm.environment.get(\"AccessToken_255901\"),\r",
+													"        \"Content-Type\": \"application/json\",\r",
+													"    }\r",
+													"    }, function (err, response) {\r",
+													"      pm.environment.set('known:school', response.json());\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Read Requests",
+							"item": [
+								{
+									"name": "The Read content type only includes certain reference properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const originalEntity = pm.environment.get(\"known:school\");\r",
+													"const profileEntity = pm.response.json();\r",
+													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const profileRegularReferenceIncludeKeys = [\r",
+													"    \"localEducationAgencyReference\"\r",
+													"];\r",
+													"const profileRoleNamedReferenceIncludeKeys = [\r",
+													"    \"charterApprovalSchoolYearTypeReference\"\r",
+													"];\r",
+													"\r",
+													"pm.test(\"The response model should contain the id and the primary key properties\",\r",
+													"    () => {\r",
+													"        _.each(keys, (key) => {\r",
+													"            pm.expect(originalEntity[key], key).to.deep.equals(profileEntity[key]);\r",
+													"        })\r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should contain the explicitly included regular reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRegularReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRegularReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should contain the explicitly included role-named reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRoleNamedReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRoleNamedReferenceIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.keys(profileEntity).length).to.equal(profileRegularReferenceIncludeKeys.length + profileRoleNamedReferenceIncludeKeys.length + keys.length);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.ed-fi.school.Test-Profile-Resource-References-IncludeOnly.readable+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Write Requests",
+							"item": [
+								{
+									"name": "The Write content type only includes certain reference properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"The response should indicate success\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													"\r",
+													"// Made it a function, to avoid async issues\r",
+													"function getKnownSchool (callback) {\r",
+													"    pm.sendRequest({\r",
+													"        url: pm.environment.get(\"ApiBaseUrl\") + `/data/v3/ed-fi/schools/` + pm.environment.get(\"known:schoolId\"),\r",
+													"        method: \"GET\",\r",
+													"        header: {\r",
+													"            \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+													"            \"Content-Type\": \"application/json\",\r",
+													"            \"Accept\": \"application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\"\r",
+													"        }\r",
+													"    }, callback);\r",
+													"}\r",
+													"\r",
+													"getKnownSchool((error, response) => {\r",
+													"    Validate(response.json());\r",
+													"});\r",
+													"\r",
+													"function Validate(jsonResponse) {\r",
+													"    const originalEntity = pm.environment.get(\"known:school\");\r",
+													"    const updatedEntity = jsonResponse;\r",
+													"    const keys = pm.environment.get(\"known:school:PrimaryKeys\");\r",
+													"    const profileIncludeKeys = [\r",
+													"        \"charterApprovalSchoolYearTypeReference\",\r",
+													"        \"localEducationAgencyReference\",\r",
+													"        \"_lastModifiedDate\",\r",
+													"        \"_etag\"\r",
+													"    ]\r",
+													"\r",
+													"    pm.test(\"The persisted entity model should have unmodified primary key values\",\r",
+													"        () => {\r",
+													"            _.each(keys, (key) => {\r",
+													"                pm.expect(originalEntity[key], key).to.deep.equals(updatedEntity[key]);\r",
+													"            })\r",
+													"    });\r",
+													"\r",
+													"    pm.test(\"the only values changed should be the explicitly included regular and role-named references' properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) {\r",
+													"     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(originalEntity[key], key).to.not.deep.equal(updatedEntity[key]);\r",
+													"                }\r",
+													"                else {0\r",
+													"                    pm.expect(originalEntity[key], key).to.deep.equal(updatedEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0 && updatedEntity[key].length !== 0){\r",
+													"                if(profileIncludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(originalEntity[key], key).to.not.deep.equal(updatedEntity[key]);\r",
+													"                }\r",
+													"                else {\r",
+													"                    pm.expect(originalEntity[key], key).to.deep.equal(updatedEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"    });\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.ed-fi.school.Test-Profile-Resource-References-IncludeOnly.writable+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"localEducationAgencyReference\": null,\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2023\r\n  },\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"// Remove all environment variables that start with \"known:\" or \"supplied:\"\r",
+													"_.chain(_.keys(pm.environment.toObject()))\r",
+													"  .filter(x => _.startsWith(x, 'known:') || _.startsWith(x, 'supplied:'))\r",
+													"  .each(k => pm.environment.unset(k)).value();"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Exclude",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Get Primary Key propertiess",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"\r",
+													"pm.environment.set(\"known:school:PrimaryKeys\", getPrimaryKeys(\"edFi_school\"));\r",
+													"pm.environment.set(\"known:studentSpecialEducationProgramAssociations:PrimaryKeys\", getPrimaryKeys(\"edFi_studentSpecialEducationProgramAssociation\")\r",
+													"    .concat(\"educationOrganizationReference\",\"programReference\",\"studentReference\"));\r",
+													"\r",
+													"function getPrimaryKeys(resource) {\r",
+													"    const resourceProperties = pm.response.json().definitions[resource].properties;\r",
+													"    return Object.keys(resourceProperties).filter(v => resourceProperties[v]['x-Ed-Fi-isIdentity'] === true).concat('id');\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/metadata/data/v3/resources/swagger.json",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"metadata",
+												"data",
+												"v3",
+												"resources",
+												"swagger.json"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"known:schoolId\", pm.response.headers.one(\"Location\").value.split(\"/\").pop());\r",
+													"\r",
+													"// Fetch a copy of the created school payload\r",
+													"pm.sendRequest({\r",
+													"    url: `${pm.environment.get(\"ApiBaseUrl\")}/data/v3/ed-fi/schools/${pm.environment.get(\"known:schoolId\")}`,\r",
+													"    method: \"GET\",\r",
+													"    header: {\r",
+													"        \"Authorization\": 'bearer ' + pm.environment.get(\"AccessToken_255901\"),\r",
+													"        \"Content-Type\": \"application/json\",\r",
+													"    }\r",
+													"    }, function (err, response) {\r",
+													"      pm.environment.set('known:school', response.json());\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"pm.environment.set(\"supplied:schoolId\", pm.variables.replaceIn(\"{{$randomInt}}{{$randomInt}}{{$randomInt}}\"));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolId\": {{supplied:schoolId}},\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": 255901,\r\n  },\r\n  \"nameOfInstitution\": \"School 1\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Other\",\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2022\r\n  },\r\n  \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Austin\",\r\n        \"postalCode\": \"78712\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"1912 Speedway Stop D5000\",\r\n        \"nameOfCounty\": \"Travis\"\r\n      }\r\n    ],\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://tpdm.ed-fi.org/EducationOrganizationCategoryDescriptor#University\"\r\n    }\r\n  ],\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Postsecondary\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Read Requests",
+							"item": [
+								{
+									"name": "The Read content type only excludes certain reference properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const originalEntity = pm.environment.get(\"known:school\");\r",
+													"const profileEntity = pm.response.json();\r",
+													"const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_etag\", \"_lastModifiedDate\");\r",
+													"const profileRegularReferenceExcludeKeys = [\r",
+													"    \"localEducationAgencyReference\"\r",
+													"];\r",
+													"const profileRoleNamedReferenceExcludeeKeys = [\r",
+													"    \"charterApprovalSchoolYearTypeReference\"\r",
+													"];\r",
+													"\r",
+													"pm.test(\"The response model should contain the id and the primary key properties\",\r",
+													"    () => {\r",
+													"        _.each(keys, (key) => {\r",
+													"            pm.expect(originalEntity[key], key).to.deep.equals(profileEntity[key]);\r",
+													"        })\r",
+													"});\r",
+													"\r",
+													"pm.test(\"the response model should not contain the explicitly excluded reference properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys)) \r",
+													"        {     \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileRegularReferenceExcludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0){\r",
+													"                if(profileRegularReferenceExcludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(profileEntity[key], key).to.be.undefined;\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"});\r",
+													"\r",
+													"pm.test(\"the number of properties on the response model should reflect the number of included properties plus the primary key properties\",\r",
+													"    () => {\r",
+													"        pm.expect(Object.keys(profileEntity).length).to.equal(Object.keys(originalEntity).length - (profileRegularReferenceExcludeKeys.length + profileRoleNamedReferenceExcludeeKeys.length));\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.ed-fi.school.Test-Profile-Resource-References-ExcludeOnly.readable+json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Write Requests",
+							"item": [
+								{
+									"name": "The Write content type only excludes certain reference properties",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"The response should indicate success\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													"\r",
+													"// Made it a function, to avoid async issues\r",
+													"function getKnownSchool (callback) {\r",
+													"    pm.sendRequest({\r",
+													"        url: pm.environment.get(\"ApiBaseUrl\") + `/data/v3/ed-fi/schools/` + pm.environment.get(\"known:schoolId\"),\r",
+													"        method: \"GET\",\r",
+													"        header: {\r",
+													"            \"Authorization\": \"bearer \" + pm.environment.get(\"AccessToken_255901\"),\r",
+													"            \"Content-Type\": \"application/json\",\r",
+													"            \"Accept\": \"application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json\"\r",
+													"        }\r",
+													"    }, callback);\r",
+													"}\r",
+													"\r",
+													"getKnownSchool((error, response) => {\r",
+													"    Validate(response.json());\r",
+													"});\r",
+													"\r",
+													"function Validate(jsonResponse) {\r",
+													"    const originalEntity = pm.environment.get(\"known:school\");\r",
+													"    const updatedEntity = jsonResponse;\r",
+													"    const keys = pm.environment.get(\"known:school:PrimaryKeys\").concat(\"_ext\");\r",
+													"    const profileExcludeKeys = [\r",
+													"        \"charterApprovalSchoolYearTypeReference\",\r",
+													"        \"localEducationAgencyReference\"\r",
+													"    ]\r",
+													"\r",
+													"    pm.test(\"The persisted entity model should have unmodified primary key values\",\r",
+													"        () => {\r",
+													"            _.each(keys, (key) => {\r",
+													"                pm.expect(originalEntity[key], key).to.deep.equals(updatedEntity[key]);\r",
+													"            })\r",
+													"    });\r",
+													"    \r",
+													"    pm.test(\"the persisted entity model should not have the new values assigned to the explicitly excluded references' properties\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys or audit fields\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {   \r",
+													"            \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                // excluded properties should be modified from the original\r",
+													"                if(profileExcludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(updatedEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0 && updatedEntity[key].length !== 0){\r",
+													"                if(profileExcludeKeys.indexOf(key) > -1){\r",
+													"                    pm.expect(updatedEntity[key], key).to.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"    });\r",
+													"\r",
+													"    pm.test(\"the only values not changed should be the explicitly excluded values, the id, and the primary key values\",\r",
+													"    () => {\r",
+													"        // Traverse all properties that are not pripary keys or audit fields\r",
+													"        for (const key of Object.keys(originalEntity).filter(function (e) { return this.indexOf(e) < 0; }, keys.concat(\"_lastModifiedDate\", \"_etag\"))) {                   \r",
+													"            // If property is not an array, make a deep comparison\r",
+													"            if (!Array.isArray(originalEntity[key])) {\r",
+													"                if(profileExcludeKeys.indexOf(key) === -1){\r",
+													"                    pm.expect(updatedEntity[key], key).to.not.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"            // if property is an array, exclude empty arrays\r",
+													"            else if (originalEntity[key].length !== 0 && updatedEntity[key].length !== 0){\r",
+													"                if(profileExcludeKeys.indexOf(key) === -1){\r",
+													"                    pm.expect(updatedEntity[key], key).to.not.deep.equal(originalEntity[key]);\r",
+													"                }\r",
+													"            }\r",
+													"        }  \r",
+													"    });\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {
+											"content-type": true
+										}
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.ed-fi.school.Test-Profile-Resource-References-ExcludeOnly.writable+json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"nameOfInstitution\": \"Modified\",\r\n  \"shortNameOfInstitution\": \"Modified\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Changed\",\r\n  \"website\": \"Modified\",\r\n  \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#School Charter\",\r\n  \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Private School\",\r\n  \"localEducationAgencyReference\": null,\r\n  \"charterApprovalSchoolYearTypeReference\": {\r\n      \"schoolYear\": 2023\r\n  },\r\n  \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Other\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Kindergarten\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:schoolId}}"
 											]
 										}
 									},
