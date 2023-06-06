@@ -61,19 +61,6 @@ public class MultiTenancyModule : ConditionalModule
             .SingleInstance();
         
         // Override interceptors to include tenant context
-        builder.RegisterType<CachingInterceptor>()
-            .Named<IInterceptor>("cache-tenants")
-            .WithParameter(
-                ctx =>
-                {
-                    var apiSettings = ctx.Resolve<ApiSettings>();
-
-                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
-                        "Tenant Configurations",
-                        TimeSpan.FromSeconds(apiSettings.Caching.Tenants.AbsoluteExpirationSeconds));
-                })
-            .SingleInstance();
-
         builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
             .Named<IInterceptor>("cache-security")
             .WithParameter(

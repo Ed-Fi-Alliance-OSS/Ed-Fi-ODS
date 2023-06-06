@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Configuration.Sections;
 
+/// <summary>
+/// Represents the "Tenants" section of the application configuration.
+/// </summary>
 public class TenantsSection
 {
     public Dictionary<string, Tenant> Tenants { get; set; } = new(StringComparer.OrdinalIgnoreCase);

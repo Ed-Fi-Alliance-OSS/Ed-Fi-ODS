@@ -9,6 +9,10 @@ using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Api.Configuration;
 
+/// <summary>
+/// Implements a connection string override applicator that applies the latest connection strings defined in the
+/// "OdsInstances" configuration section.
+/// </summary>
 public class ConnectionStringOverridesApplicator : IConnectionStringOverridesApplicator
 {
     private readonly IOptionsMonitor<OdsInstancesSection> _odsInstancesConfigurationOptions;
@@ -17,7 +21,8 @@ public class ConnectionStringOverridesApplicator : IConnectionStringOverridesApp
     {
         _odsInstancesConfigurationOptions = odsInstancesConfigurationOptions;
     }
-    
+
+    /// <inheritdoc cref="IConnectionStringOverridesApplicator.ApplyOverrides" />
     public void ApplyOverrides(OdsInstanceConfiguration odsInstanceConfiguration)
     {
         var odsInstances = _odsInstancesConfigurationOptions.CurrentValue.OdsInstances;

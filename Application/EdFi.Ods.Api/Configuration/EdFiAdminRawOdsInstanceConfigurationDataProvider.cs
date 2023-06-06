@@ -11,6 +11,9 @@ using EdFi.Admin.DataAccess.Providers;
 
 namespace EdFi.Ods.Api.Configuration;
 
+/// <summary>
+/// Implements a configuration data provider that reads ODS instance configuration data from the EdFi_Admin database.
+/// </summary>
 public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOdsInstanceConfigurationDataProvider
 {
     private readonly DbProviderFactory _dbProviderFactory;
@@ -26,6 +29,7 @@ public class EdFiAdminRawOdsInstanceConfigurationDataProvider : IEdFiAdminRawOds
         _dbProviderFactory = dbProviderFactory;
     }
 
+    /// <inheritdoc cref="IEdFiAdminRawOdsInstanceConfigurationDataProvider.GetByIdAsync" />
     public async Task<RawOdsInstanceConfigurationDataRow[]> GetByIdAsync(int odsInstanceId)
     {
         await using var connection = CreateConnectionAsync();

@@ -296,7 +296,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
             
             builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider >()
-                .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider >()
+                .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider>()
                 .SingleInstance();
 
             builder.RegisterType<OdsInstanceHashIdGenerator>()

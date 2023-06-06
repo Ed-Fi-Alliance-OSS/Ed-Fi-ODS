@@ -8,6 +8,9 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.Configuration.Sections;
 
+/// <summary>
+/// Represents the "OdsInstances" section of the application configuration.
+/// </summary>
 public class OdsInstancesSection
 {
     public Dictionary<string, OdsInstance> OdsInstances { get; set; } = new(StringComparer.OrdinalIgnoreCase);

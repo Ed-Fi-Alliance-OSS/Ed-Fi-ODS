@@ -7,7 +7,15 @@ using System.Threading.Tasks;
 
 namespace EdFi.Ods.Api.Configuration;
 
+/// <summary>
+/// Defines a method for obtaining raw ODS instance configuration data for an ODS instance.
+/// </summary>
 public interface IEdFiAdminRawOdsInstanceConfigurationDataProvider
 {
+    /// <summary>
+    /// Gets raw ODS instance configuration data for an ODS instance.
+    /// </summary>
+    /// <param name="odsInstanceId">The tenant-specific ODS identifier.</param>
+    /// <returns>The raw data containing the ODS instance configuration details.</returns>
     Task<RawOdsInstanceConfigurationDataRow[]> GetByIdAsync(int odsInstanceId);
 }

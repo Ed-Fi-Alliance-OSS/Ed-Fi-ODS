@@ -49,7 +49,7 @@ namespace EdFi.Ods.Api.Caching
         {
             _description = description;
             _expirationPeriod = expirationPeriod;
-            
+
             // If expiration period is less than 0 disable caching behavior.
             if (expirationPeriod.TotalSeconds < 0)
             {

@@ -7,6 +7,10 @@ using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Features.MultiTenancy;
 
+/// <summary>
+/// Implements a multi-tenant connection string override applicator that applies the latest connection strings defined in the
+/// "Tenants" configuration section for the tenant currently in context.
+/// </summary>
 public class MultiTenantConnectionStringOverridesApplicator : IConnectionStringOverridesApplicator
 {
     private readonly IOptionsMonitor<TenantsSection> _tenantsConfigurationOptions;
@@ -20,6 +24,7 @@ public class MultiTenantConnectionStringOverridesApplicator : IConnectionStringO
         _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
     }
 
+    /// <inheritdoc cref="IConnectionStringOverridesApplicator.ApplyOverrides" />
     public void ApplyOverrides(OdsInstanceConfiguration odsInstanceConfiguration)
     {
         // Apply configuration data-based overrides

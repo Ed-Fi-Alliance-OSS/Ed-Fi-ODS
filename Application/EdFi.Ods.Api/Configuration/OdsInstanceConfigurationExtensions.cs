@@ -11,11 +11,17 @@ namespace EdFi.Ods.Api.Configuration;
 
 public static class OdsInstanceConfigurationExtensions
 {
+    /// <summary>
+    /// Applies configuration-based connection string overrides defined in the supplied dictionary (keyed by ODS instance id)
+    /// to the subject <see cref="OdsInstanceConfiguration" />. 
+    /// </summary>
+    /// <param name="baseOdsInstanceConfiguration">The ODS instance configuration to be updated.</param>
+    /// <param name="odsInstances">The ODS instance map loaded from configuration that contains the connection string overrides.</param>
     public static void ApplyOdsConnectionStringOverrides(
         this OdsInstanceConfiguration baseOdsInstanceConfiguration,
         Dictionary<string, OdsInstance> odsInstances)
     {
-        if (odsInstances.TryGetValue(baseOdsInstanceConfiguration.OdsInstanceId.ToString(), out var odsInstance))
+        if (odsInstances.TryGetValue(baseOdsInstanceConfiguration.OdsInstanceIdAsString, out var odsInstance))
         {
             if (!string.IsNullOrEmpty(odsInstance.ConnectionString))
             {

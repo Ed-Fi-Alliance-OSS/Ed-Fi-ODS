@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace EdFi.Ods.Features.MultiTenancy;
 
 /// <summary>
-/// Provides <see cref="TenantConfiguration" /> from the application's configuration data.
+/// Provides access to the map of <see cref="TenantConfiguration" /> data derived from the application's configuration data.
 /// </summary>
 public class TenantConfigurationMapProvider : ITenantConfigurationMapProvider
 {
