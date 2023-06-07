@@ -4046,6 +4046,7 @@
 											"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"CSSC course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':courseCode',newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':NumberOfParts',1);",
 											"",
 											" "
 										],
@@ -4065,7 +4066,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+									"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"NumberOfParts\":\"{{supplied:{{scenarioId}}:NumberOfParts}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
@@ -4174,7 +4175,8 @@
 											"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#SCED course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"SCED course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"SCED course code\");",
-											"pm.environment.set('supplied:'+scenarioId+':courseCode',\"SCED course code\");"
+											"pm.environment.set('supplied:'+scenarioId+':courseCode',\"SCED course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':NumberOfParts',2);"
 										],
 										"type": "text/javascript"
 									}
@@ -4192,7 +4194,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"courseCode\": \"{{supplied:{{scenarioId}}:courseCode}}\"\r\n}"
+									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"courseCode\": \"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"NumberOfParts\":\"{{supplied:{{scenarioId}}:NumberOfParts}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",

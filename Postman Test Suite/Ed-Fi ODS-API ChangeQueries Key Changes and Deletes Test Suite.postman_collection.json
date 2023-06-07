@@ -191,7 +191,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"contextSchoolYearTypeReference\": {\r\n    \"schoolYear\": 2021\r\n  },\r\n  \"weekIdentifier\": \"WK1\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"beginDate\": \"2021-07-21\",\r\n  \"endDate\": \"2021-07-21\",\r\n  \"totalInstructionalDays\": 5\r\n}",
+									"raw": "{\r\n  \"contextSchoolYearTypeReference\": {\r\n    \"schoolYear\": 2021\r\n  },\r\n  \"weekIdentifier\": \"WEEK1\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"beginDate\": \"2021-07-21\",\r\n  \"endDate\": \"2021-07-21\",\r\n  \"totalInstructionalDays\": 5\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -283,7 +283,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"WeekIdentifer value is correctly reflected in key values\", () => {\r",
-											"    pm.expect(item.keyValues.weekIdentifier).equal(\"WK1\");\r",
+											"    pm.expect(item.keyValues.weekIdentifier).equal(\"WEEK1\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"SchoolId value is correctly reflected in key values\", () => {\r",

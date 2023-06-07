@@ -2840,6 +2840,8 @@
 											"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"CSSC course code\");",
 											"pm.environment.set('supplied:'+scenarioId+':courseCode',newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':numberOfParts',1);",
+											"",
 											"",
 											" "
 										],
@@ -2869,7 +2871,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{known:schoolId11}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+									"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{known:schoolId11}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\",\r\n  \"numberOfParts\": \"{{supplied:{{scenarioId}}:numberOfParts}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
