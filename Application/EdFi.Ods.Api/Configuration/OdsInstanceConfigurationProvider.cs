@@ -33,13 +33,13 @@ public class OdsInstanceConfigurationProvider : IOdsInstanceConfigurationProvide
     public async Task<OdsInstanceConfiguration> GetByIdAsync(int odsInstanceId)
     {
         var rawDataRows = await _edFiAdminRawOdsInstanceConfigurationDataProvider.GetByIdAsync(odsInstanceId);
-        
+
         // Build the base configuration
         var baseOdsInstanceConfiguration = CreateOdsInstanceConfiguration();
-        
+
         // Apply overrides (from configuration)
         _connectionStringOverridesApplicator.ApplyOverrides(baseOdsInstanceConfiguration);
-        
+
         // Return the final configuration
         return baseOdsInstanceConfiguration;
 
