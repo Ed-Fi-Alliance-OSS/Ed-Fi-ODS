@@ -97,6 +97,7 @@
 <node id="/ed-fi/educationServiceCenters"/>
 <node id="/ed-fi/electronicMailTypeDescriptors"/>
 <node id="/ed-fi/employmentStatusDescriptors"/>
+<node id="/ed-fi/enrollmentTypeDescriptors"/>
 <node id="/ed-fi/entryGradeLevelReasonDescriptors"/>
 <node id="/ed-fi/entryTypeDescriptors"/>
 <node id="/ed-fi/eventCircumstanceDescriptors"/>
@@ -222,6 +223,7 @@
 <node id="/ed-fi/resultDatatypeTypeDescriptors"/>
 <node id="/ed-fi/retestIndicatorDescriptors"/>
 <node id="/ed-fi/schoolCategoryDescriptors"/>
+<node id="/ed-fi/schoolChoiceBasisDescriptors"/>
 <node id="/ed-fi/schoolChoiceImplementStatusDescriptors"/>
 <node id="/ed-fi/schoolFoodServiceProgramServiceDescriptors"/>
 <node id="/ed-fi/schools"/>
@@ -681,6 +683,7 @@
 <edge source="/ed-fi/electronicMailTypeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/employmentStatusDescriptors" target="/ed-fi/openStaffPositions"/>
 <edge source="/ed-fi/employmentStatusDescriptors" target="/ed-fi/staffEducationOrganizationEmploymentAssociations"/>
+<edge source="/ed-fi/enrollmentTypeDescriptors" target="/ed-fi/studentSchoolAssociations"/>
 <edge source="/ed-fi/entryGradeLevelReasonDescriptors" target="/ed-fi/studentSchoolAssociations"/>
 <edge source="/ed-fi/entryTypeDescriptors" target="/ed-fi/studentSchoolAssociations"/>
 <edge source="/ed-fi/eventCircumstanceDescriptors" target="/ed-fi/studentAssessments"/>
@@ -1098,6 +1101,7 @@
 <edge source="/ed-fi/resultDatatypeTypeDescriptors" target="/ed-fi/studentAssessments"/>
 <edge source="/ed-fi/retestIndicatorDescriptors" target="/ed-fi/studentAssessments"/>
 <edge source="/ed-fi/schoolCategoryDescriptors" target="/ed-fi/schools"/>
+<edge source="/ed-fi/schoolChoiceBasisDescriptors" target="/ed-fi/studentSchoolAssociations"/>
 <edge source="/ed-fi/schoolChoiceImplementStatusDescriptors" target="/ed-fi/localEducationAgencies"/>
 <edge source="/ed-fi/schoolFoodServiceProgramServiceDescriptors" target="/ed-fi/studentSchoolFoodServiceProgramAssociations"/>
 <edge source="/ed-fi/schools" target="/ed-fi/academicWeeks"/>
