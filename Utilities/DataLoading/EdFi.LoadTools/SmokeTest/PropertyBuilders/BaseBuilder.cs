@@ -20,7 +20,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         protected virtual ILog Log => LogManager.GetLogger(GetType().Name);
 
-        protected virtual string RandomTestString => BuildRandomString(6);
+        protected virtual string RandomTestString => BuildRandomString(7);
 
         protected BaseBuilder(IPropertyInfoMetadataLookup metadataLookup)
         {
