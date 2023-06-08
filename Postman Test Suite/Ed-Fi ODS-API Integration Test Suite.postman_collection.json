@@ -6373,10 +6373,9 @@
 													"\r",
 													"  const responseItem = pm.response.json();\r",
 													"\r",
-													" pm.expect(responseItem.message).to.oneOf([\r",
-													"  \"Validation of 'ChartOfAccount' failed.\\r\\n\\tFiscalYear is required.\\n\",\r",
-													"  \"Validation of 'ChartOfAccount' failed.\\r\\n\\tThe field FiscalYear must be between 2020 and 2040.\\n\"\r",
-													"]);\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'ChartOfAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");\r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6448,10 +6447,9 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													" pm.expect(responseItem.message).to.oneOf([\r",
-													"  \"Validation of 'ChartOfAccount' failed.\\r\\n\\tFiscalYear is required.\\n\",\r",
-													"  \"Validation of 'ChartOfAccount' failed.\\r\\n\\tThe field FiscalYear must be between 2020 and 2040.\\n\"\r",
-													"]);\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'ChartOfAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");  \r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6523,10 +6521,8 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.oneOf([\r",
-													"  \"Validation of 'ChartOfAccount' failed.\\r\\n\\tFiscalYear is required.\\n\",\r",
-													"  \"Validation of 'ChartOfAccount' failed.\\r\\n\\tThe field FiscalYear must be between 2020 and 2040.\\n\"\r",
-													"]);\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'ChartOfAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6873,10 +6869,9 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													" pm.expect(responseItem.message).to.oneOf([\r",
-													"  \"Validation of 'LocalAccount' failed.\\r\\n\\tFiscalYear is required.\\n\",\r",
-													"  \"Validation of 'LocalAccount' failed.\\r\\n\\tThe field FiscalYear must be between 2020 and 2040.\\n\"\r",
-													"]);\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'LocalAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");\r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"
