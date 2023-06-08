@@ -118,7 +118,7 @@ namespace EdFi.Ods.Api.Middleware.Tests
         }
 
         [Test]
-        public async Task GetOdsInstanceAsync_ReturnsNull_WhenApiKeyContextHasMultipleOdsInstanceIds_AndNoMatchingRouteKeyAndValue()
+        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiKeyContextHasMultipleOdsInstanceIds_AndNoMatchingRouteKeyAndValue()
         {
             // Arrange
             var odsInstanceIds = new[] { 1, 2 };
@@ -145,8 +145,9 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             _routeValueDictionary.Add("schoolYear", "2024");
 
-            // Act + Assert
-            Assert.ThrowsAsync<NotFoundException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+            // Act & Assert
+             Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
+
         }
 
         private static ApiKeyContext CreateApiKeyContext(params int[] odsInstanceIds)
