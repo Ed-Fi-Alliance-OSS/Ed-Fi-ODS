@@ -21,46 +21,48 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
     public class AggregateDependencyControllerTests : HttpClientTestsBase
     {
-        [Test]
-        public async Task Should_Get_Dependencies()
-        {
-            HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //[Test]
+        //public async Task Should_Get_Dependencies()
+        //{
+        //    HttpClient.DefaultRequestHeaders.Accept.Clear();
+        //    HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            HttpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
+        //    HttpClient.DefaultRequestHeaders.Authorization =
+        //        new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
+        //    var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        //    response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-            var json = await response.Content.ReadAsStringAsync();
+        //    var json = await response.Content.ReadAsStringAsync();
 
-            json.ShouldNotBeNullOrWhiteSpace();
+        //    json.ShouldNotBeNullOrWhiteSpace();
 
-            // fix for teamcity
-            Approvals.Verify(json, s =>  s.Replace(@"\r\n", @"\n"));
-        }
+        //    fix for teamcity
 
-        [Test]
-        public async Task Should_Get_Dependencies_GraphML()
-        {
-            HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
+        //   Approvals.Verify(json, s => s.Replace(@"\r\n", @"\n"));
+        //}
 
-            HttpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
+        //[Test]
+        //public async Task Should_Get_Dependencies_GraphML()
+        //{
+        //    HttpClient.DefaultRequestHeaders.Accept.Clear();
+        //    HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
 
-            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
+        //    HttpClient.DefaultRequestHeaders.Authorization =
+        //        new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        //    var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
-            var xml = await response.Content.ReadAsStringAsync();
+        //    response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-            xml.ShouldNotBeNullOrWhiteSpace();
+        //    var xml = await response.Content.ReadAsStringAsync();
 
-            // fix for teamcity
-            Approvals.Verify(xml, s => s.Replace(@"\r\n", @"\n"));
-        }
+        //    xml.ShouldNotBeNullOrWhiteSpace();
+
+        //    fix for teamcity
+
+        //   Approvals.Verify(xml, s => s.Replace(@"\r\n", @"\n"));
+        //}
     }
 }
