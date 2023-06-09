@@ -145,11 +145,8 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             _routeValueDictionary.Add("schoolYear", "2024");
 
-            // Act 
-            var result = await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary);
-
-            // Assert
-            result.ShouldBeNull();
+            // Act + Assert
+            Assert.ThrowsAsync<NotFoundException>(() => _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
         }
 
         private static ApiKeyContext CreateApiKeyContext(params int[] odsInstanceIds)
