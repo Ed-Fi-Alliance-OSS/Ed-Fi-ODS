@@ -52,6 +52,7 @@ namespace EdFi.Ods.Common.Configuration
         {
             public string Configuration { get; set; }
             public string Password { get; set; }
+            public bool EnableSsl { get; set; }
 
         }
         public class SqlServerCacheSettings

@@ -33,6 +33,7 @@ namespace EdFi.Ods.Features.Redis
             }
             
             configurationOptions.Password = ApiSettings.Caching.Redis.Password;
+            configurationOptions.Ssl = ApiSettings.Caching.Redis.EnableSsl;
 
             builder.Register<IDistributedCache>((c, d) => new RedisCache(new RedisCacheOptions()
             {
