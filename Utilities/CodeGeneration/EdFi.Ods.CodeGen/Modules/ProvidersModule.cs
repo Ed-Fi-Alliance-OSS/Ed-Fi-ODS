@@ -38,9 +38,6 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterType<LegacyDatabaseSpecificAssemblyDataProvider>()
                 .As<IAssemblyDataProvider>();
 
-            builder.RegisterType<LegacyExtensionAssemblyDataProvider>()
-                .As<IAssemblyDataProvider>();
-
             builder.RegisterType<DeveloperCodeRepositoryProvider>()
                 .As<ICodeRepositoryProvider>()
                 .PreserveExistingDefaults();
