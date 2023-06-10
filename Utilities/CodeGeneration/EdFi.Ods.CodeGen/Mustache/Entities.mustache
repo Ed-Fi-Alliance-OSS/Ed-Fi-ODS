@@ -233,7 +233,7 @@ namespace {{AggregateNamespace}}
         //                     One-to-one relationships
         // -------------------------------------------------------------
             {{#OneToOnes}}
-        [ValidateObject]
+        {{#IsRequired}}[Required]{{/IsRequired}}[ValidateObject]
         public virtual {{AggregateNamespacePrefix}}{{OtherClassName}} {{OtherClassName}}
         {
             get

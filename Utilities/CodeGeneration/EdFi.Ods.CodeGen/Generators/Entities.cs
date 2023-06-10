@@ -349,6 +349,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                         ClassName = entity.Name, NamespacePrefix = GetCommonRelativeNamespacePrefix(entity),
                                                         OtherClassName = a.OtherEntity.Name,
                                                         OtherNamespacePrefix = GetCommonRelativeNamespacePrefix(a.OtherEntity),
+                                                        IsRequired = a.IsRequired,
                                                }),
                         RelocatedExtensionOneToOnes = entity.EdFiStandardEntityAssociation?.OtherEntity.NavigableOneToOnes
                                                             .Where(a => a.OtherEntity.Schema == entity.Schema)
