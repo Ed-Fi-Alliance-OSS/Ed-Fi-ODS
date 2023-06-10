@@ -1070,7 +1070,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [ValidateObject]
+        [Required][ValidateObject]
         public virtual Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress SchoolAddress
         {
             get
