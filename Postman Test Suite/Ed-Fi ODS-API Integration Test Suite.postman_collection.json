@@ -8429,6 +8429,157 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Embedded Objects",
+					"item": [
+						{
+							"name": "Required",
+							"item": [
+								{
+									"name": "Create LearningStandard without ContentStandard",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Should indicate that the LearningStandard is required\", () => {\r",
+													"  const message = pm.response.json().message;\r",
+													"\r",
+													"  pm.expect(message).to.contain(\"The LearningStandardContentStandard field is required.\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"learningStandards"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create LearningStandard with ContentStandard",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:learningStandard:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"learningStandardId\": \"REQUIRED-TEST\",\r\n  \"contentStandard\": {\r\n    \"title\": \"State Standard\",\r\n    \"authors\": []\r\n  },\r\n  \"description\": \"Reading/Beginning Reading Skills/Print Awareness. Students understand how English is written and printed.\",\r\n  \"namespace\": \"uri://ed-fi.org/LearningStandard/LearningStandard.xml\",\r\n  \"academicSubjects\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English Language Arts\"\r\n    }\r\n  ],\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Second grade\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"learningStandards"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete the LearningStandard",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "  {\r\n    \"staffUniqueId\": \"207288\",\r\n    \"birthDate\": \"1976-08-19\",\r\n    \"firstName\": \"Barry\",\r\n    \"highestCompletedLevelOfEducationDescriptor\": \"uri://ed-fi.org/LevelOfEducationDescriptor#Master's\",\r\n    \"hispanicLatinoEthnicity\": false,\r\n    \"lastSurname\": \"Tanner\",\r\n    \"loginId\": \"btanner\",\r\n    \"personalTitlePrefix\": \"Mr\",\r\n    \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\",\r\n    \"yearsOfPriorProfessionalExperience\": 30.00,\r\n    \"_ext\": {\r\n      \"Sample\": {\r\n        \"pets\": [\r\n          {\r\n            \"petName\": \"John Jacob Jingleheimer Schmidt\",\r\n            \"isFixed\": true\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    \"addresses\": [],\r\n    \"ancestryEthnicOrigins\": [],\r\n    \"credentials\": [],\r\n    \"electronicMails\": [\r\n      {\r\n        \"electronicMailAddress\": \"BarryTanner@edfi.org\",\r\n        \"electronicMailTypeDescriptor\": \"uri://ed-fi.org/ElectronicMailTypeDescriptor#Work\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"staffIdentificationSystemDescriptor\": \"uri://ed-fi.org/StaffIdentificationSystemDescriptor#State\",\r\n        \"identificationCode\": \"207288\"\r\n      }\r\n    ],\r\n    \"identificationDocuments\": [],\r\n    \"internationalAddresses\": [],\r\n    \"languages\": [],\r\n    \"otherNames\": [],\r\n    \"personalIdentificationDocuments\": [\r\n      {\r\n        \"identificationDocumentUseDescriptor\": \"uri://ed-fi.org/IdentificationDocumentUseDescriptor#Personal Information Verification\",\r\n        \"personalInformationVerificationDescriptor\": \"uri://ed-fi.org/PersonalInformationVerificationDescriptor#State-issued ID\"\r\n      }\r\n    ],\r\n    \"races\": [\r\n      {\r\n        \"raceDescriptor\": \"uri://ed-fi.org/RaceDescriptor#American Indian - Alaska Native\"\r\n      }\r\n    ],\r\n    \"recognitions\": [],\r\n    \"telephones\": [],\r\n    \"tribalAffiliations\": [],\r\n    \"visas\": []\r\n  }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/learningStandards/{{known:learningStandard:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"learningStandards",
+												"{{known:learningStandard:id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Optional",
+							"item": []
+						}
+					]
 				}
 			]
 		},
