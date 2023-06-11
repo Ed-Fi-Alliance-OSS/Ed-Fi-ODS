@@ -28,7 +28,8 @@ namespace EdFi.Ods.CodeGen.Generators
             bool AssociationInSchema(Association a) => TemplateContext.SchemaPhysicalName.Equals(a.FullName.Schema);
 
             bool AssociationIsNotOneToOne(Association a)
-                => a.Cardinality != Cardinality.OneToOne
+                => a.Cardinality != Cardinality.OneToOne 
+                   && a.Cardinality != Cardinality.OneToZeroOrOne
                    && a.Cardinality != Cardinality.OneToOneInheritance
                    && a.Cardinality != Cardinality.OneToOneExtension;
 
@@ -80,7 +81,7 @@ namespace EdFi.Ods.CodeGen.Generators
             return new
             {
                 NamespaceName =  EdFiConventions.BuildNamespace(BaseNamespaceName, TemplateContext.SchemaProperCaseName),
-                IndexMetaData = databaseMetadata.OrderBy(x => x.TableName).ThenBy(x => x.Name)
+                IndexMetadata = databaseMetadata.OrderBy(x => x.TableName).ThenBy(x => x.Name)
             };
         }
     }
