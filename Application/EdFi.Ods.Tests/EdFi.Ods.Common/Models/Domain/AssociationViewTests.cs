@@ -2522,25 +2522,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .ToList();
 
                 _nonNavigableOptionalManyToOneAssociations = allAssociations.Where(a =>
-                        !a.IsNavigable && !a.IsSelfReferencing && !a.IsRequired
+                        !a.IsNavigable && !a.IsSelfReferencing && !a.Association.IsRequired
                         && a.AssociationType == AssociationViewType.ManyToOne)
                     .ToList();
 
                 _nonNavigableOptionalOneToOneIncomingAssociations = allAssociations.Where(a =>
-                        a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.IsRequired)
+                        a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.Association.IsRequired)
                     .ToList();
 
                 _topLevelRequiredManyToOneAssociations = allAssociations.Where(
                         a => a.AssociationType == AssociationViewType.ManyToOne
                              && !a.IsNavigable
-                             && a.IsRequired
+                             && a.Association.IsRequired
                              && a.ThisEntity.IsAggregateRoot)
                     .ToList();
 
                 var childRequiredManyToOneAssociations = allAssociations.Where(
                         a => a.AssociationType == AssociationViewType.ManyToOne
                              && !a.IsNavigable
-                             && a.IsRequired
+                             && a.Association.IsRequired
                              && !a.ThisEntity.IsAggregateRoot)
                     .ToList();
 
@@ -2564,37 +2564,37 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 _requiredEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
                     .Where(a =>
-                        a.ThisEntity.ParentAssociation.Inverse.IsRequired
+                        a.ThisEntity.ParentAssociation.Inverse.Association.IsRequired
 
                         // Check one level up for required child items (if it's in the there)
                         && (a.ThisEntity.Parent.Parent == null
                             || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne
                                 && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                             || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
-                                && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired))
+                                && a.ThisEntity.Parent.ParentAssociation.Inverse.Association.IsRequired))
 
                         // Check two levels up for required child items (if it's in the there)
                         && (a.ThisEntity.Parent.Parent?.Parent == null
                             || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne
                                 && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                             || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
-                                && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired)))
+                                && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.Association.IsRequired)))
                     .ToList();
 
                 _optionalEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
                     .Where(a =>
-                        !a.ThisEntity.ParentAssociation.Inverse.IsRequired
+                        !a.ThisEntity.ParentAssociation.Inverse.Association.IsRequired
 
                         // Check one level up for optional child items (if it's in the there)
                         || (a.ThisEntity.Parent.Parent != null
                             && ((a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
-                                || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired)))
+                                || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.ParentAssociation.Inverse.Association.IsRequired)))
 
                         // Check two levels up for optional child items (if it's in the there)
                         || (a.ThisEntity.Parent.Parent?.Parent != null
                             && ((a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
-                                || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired))))
+                                || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.Association.IsRequired))))
                     .ToList();
 
                 _untestedAssociations = allAssociations
@@ -2884,7 +2884,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 var association = _resourceModel.GetAllResources()
                     .SelectMany(res => res.EmbeddedObjects)
-                    .Where(eo => eo.Association.IsRequired)
+                    .Where(eo => eo.Association.Association.IsRequired)
                     .SelectMany(eo => eo.ObjectType.References.Where(r => r.IsRequired))
                     .Select(r => r.Association)
                     .FirstOrDefault();
