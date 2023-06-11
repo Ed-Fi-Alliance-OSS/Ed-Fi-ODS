@@ -80,7 +80,6 @@ namespace EdFi.Ods.Common.Models.Domain
 
             IsIdentifying = associationDefinition.IsIdentifying;
             IsRequired = associationDefinition.IsRequired;
-            IsRequiredCollection = associationDefinition.Cardinality == Cardinality.OneToOneOrMore;
             ConstraintByDatabaseEngine = associationDefinition.ConstraintNames;
             PotentiallyLogical = associationDefinition.PotentiallyLogical;
         }
@@ -99,8 +98,6 @@ namespace EdFi.Ods.Common.Models.Domain
         public Cardinality Cardinality { get; }
 
         public bool IsIdentifying { get; }
-
-        public bool IsRequiredCollection { get; }
 
         /// <summary>
         /// Indicates whether or not the association should be enforced (this allows a reference to be un-resolvable).
@@ -146,6 +143,9 @@ namespace EdFi.Ods.Common.Models.Domain
             => PrimaryEntityFullName.Name.EqualsIgnoreCase(SecondaryEntityFullName.Name)
                && PrimaryEntityFullName.Schema.Equals(SecondaryEntityFullName.Schema);
 
+        /// <summary>
+        /// Indicates that the values of the association are required on the receiving entity.
+        /// </summary>
         public bool IsRequired { get; }
 
         /// <summary>
