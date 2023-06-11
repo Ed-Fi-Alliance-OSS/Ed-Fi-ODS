@@ -9396,7 +9396,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         // =============================================================
         //                     One-to-one relationships
         // -------------------------------------------------------------
-        [Required][ValidateObject]
+        [ValidateObject]
         public virtual Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociationCTEProgram StudentGraduationPlanAssociationCTEProgram
         {
             get
