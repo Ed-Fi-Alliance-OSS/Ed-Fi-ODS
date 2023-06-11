@@ -15,24 +15,24 @@ namespace EdFi.Ods.Api.Middleware;
 /// </summary>
 public class TenantIdentificationMiddleware : IMiddleware
 {
-    private readonly ITenantConfigurationProvider _tenantConfigurationProvider;
+    private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
     private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(TenantIdentificationMiddleware));
 
     public TenantIdentificationMiddleware(
-        ITenantConfigurationProvider tenantConfigurationProvider,
+        ITenantConfigurationMapProvider tenantConfigurationMapProvider,
         IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
     {
-        _tenantConfigurationProvider = tenantConfigurationProvider;
+        _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
         _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
     }
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        if (context.Request.RouteValues.TryGetValue("tenantIdentifier", out var tenantIdentifierAsObject))
+        if (context.Request.RouteValues.TryGetValue("tenantIdentifier", out var tenantIdentifierAsObject) && tenantIdentifierAsObject != null)
         {
-            if (_tenantConfigurationProvider.TryGetConfiguration((string) tenantIdentifierAsObject, out var tenantConfiguration))
+            if (_tenantConfigurationMapProvider.GetMap().TryGetValue((string) tenantIdentifierAsObject, out var tenantConfiguration))
             {
                 if (_logger.IsDebugEnabled)
                 {

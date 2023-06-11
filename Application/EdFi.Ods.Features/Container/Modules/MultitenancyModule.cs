@@ -13,17 +13,21 @@ using EdFi.Ods.Api.Jobs;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.MultiTenancy;
 using EdFi.Security.DataAccess.Providers;
+using log4net;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.Features.Container.Modules;
 
 public class MultiTenancyModule : ConditionalModule
 {
+    private readonly ILog _logger = LogManager.GetLogger(typeof(MultiTenancyModule));
+    
     public MultiTenancyModule(ApiSettings apiSettings)
         : base(apiSettings, nameof(MultiTenancyModule)) { }
 
@@ -36,8 +40,8 @@ public class MultiTenancyModule : ConditionalModule
             .AsSelf()
             .SingleInstance();
         
-        builder.RegisterType<TenantConfigurationProvider>()
-            .As<ITenantConfigurationProvider>()
+        builder.RegisterType<TenantConfigurationMapProvider>()
+            .As<ITenantConfigurationMapProvider>()
             .SingleInstance();
         
         builder.RegisterType<MultiTenantOdsInstanceHashIdGenerator>()
@@ -52,20 +56,11 @@ public class MultiTenancyModule : ConditionalModule
             .As<IAdminDatabaseConnectionStringProvider>()
             .SingleInstance();
 
-        // Override interceptors to include tenant context
-        builder.RegisterType<CachingInterceptor>()
-            .Named<IInterceptor>("cache-tenants")
-            .WithParameter(
-                ctx =>
-                {
-                    var apiSettings = ctx.Resolve<ApiSettings>();
-
-                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
-                        "Tenant Configurations",
-                        TimeSpan.FromSeconds(apiSettings.Caching.Tenants.AbsoluteExpirationSeconds));
-                })
+        builder.RegisterType<MultiTenantConnectionStringOverridesApplicator>()
+            .As<IConnectionStringOverridesApplicator>()
             .SingleInstance();
-
+        
+        // Override interceptors to include tenant context
         builder.RegisterType<ContextualCachingInterceptor<TenantConfiguration>>()
             .Named<IInterceptor>("cache-security")
             .WithParameter(
@@ -111,10 +106,24 @@ public class MultiTenancyModule : ConditionalModule
                 ctx =>
                 {
                     var apiSettings = ctx.Resolve<ApiSettings>();
-
-                    return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                    
+                    var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                         "ODS Instance Configurations",
                         TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
+
+                    // Subscribe to any changes related to the Tenants section of the configuration, and clear it explicitly
+                    var options = ctx.Resolve<IOptionsMonitor<TenantsSection>>();
+                    options.OnChange(config =>
+                    {
+                        if (_logger.IsDebugEnabled)
+                        {
+                            _logger.Debug($"Tenants configuration change detected. Clearing interceptor cache provider...");
+                        }
+                        
+                        cacheProvider.Clear();
+                    });
+
+                    return (ICacheProvider<ulong>) cacheProvider;
                 })
             .SingleInstance();
 

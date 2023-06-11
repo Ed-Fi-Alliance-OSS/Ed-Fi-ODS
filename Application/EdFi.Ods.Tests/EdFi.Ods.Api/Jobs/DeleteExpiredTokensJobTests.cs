@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Authentication;
 using EdFi.Ods.Api.Jobs;
@@ -16,7 +17,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
     {
         private IExpiredAccessTokenDeleter _expiredAccessTokenDeleter;
         private IApiJobScheduler _apiJobScheduler;
-        private ITenantConfigurationProvider _tenantConfigurationProvider;
+        private ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
         private IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
 
         [SetUp]
@@ -24,7 +25,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
         {
             _expiredAccessTokenDeleter = A.Fake<IExpiredAccessTokenDeleter>();
             _apiJobScheduler = A.Fake<IApiJobScheduler>();
-            _tenantConfigurationProvider = A.Fake<ITenantConfigurationProvider>();
+            _tenantConfigurationMapProvider = A.Fake<ITenantConfigurationMapProvider>();
             _tenantConfigurationContextProvider = A.Fake<IContextProvider<TenantConfiguration>>();
         }
 
@@ -37,7 +38,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
                 _apiJobScheduler,
                 _tenantConfigurationContextProvider)
             {
-                TenantConfigurationProvider = _tenantConfigurationProvider
+                TenantConfigurationMapProvider = _tenantConfigurationMapProvider
             };
 
             var suppliedTenantConfiguration = new TenantConfiguration() { TenantIdentifier = "TestTenant"};
@@ -74,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
                 _apiJobScheduler,
                 _tenantConfigurationContextProvider)
             {
-                TenantConfigurationProvider = _tenantConfigurationProvider
+                TenantConfigurationMapProvider = _tenantConfigurationMapProvider
             };
             
             var jobDetail = A.Fake<IJobDetail>();
@@ -94,9 +95,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
                 new() { TenantIdentifier = "TenantTwo" },
             };
 
-            A.CallTo(() => _tenantConfigurationProvider.GetAllConfigurations())
-                .Returns(suppliedTenantConfigurations);
-            
+            A.CallTo(() => _tenantConfigurationMapProvider.GetMap())
+                .Returns(suppliedTenantConfigurations.ToDictionary(
+                    c => c.TenantIdentifier, 
+                    c => c, 
+                    StringComparer.OrdinalIgnoreCase));
+
             // Act
             await job.Execute(jobExecutionContext);
 

@@ -13,7 +13,6 @@ using Castle.DynamicProxy;
 using EdFi.Admin.DataAccess.Security;
 using EdFi.Common.Configuration;
 using EdFi.Common.Security;
-using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Conventions;
@@ -31,6 +30,7 @@ using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Configuration.Sections;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
@@ -52,12 +52,14 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Descriptors;
+using log4net;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
     public class ApplicationModule : Module
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ApplicationModule));
+        
         protected override void Load(ContainerBuilder builder)
         {
             RegisterMiddleware();
@@ -291,6 +293,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 .EnableInterfaceInterceptors()
                 .SingleInstance();
 
+            builder.RegisterType<ConnectionStringOverridesApplicator>()
+                .As<IConnectionStringOverridesApplicator>()
+                .SingleInstance();
+            
+            builder.RegisterType<EdFiAdminRawOdsInstanceConfigurationDataProvider >()
+                .As<IEdFiAdminRawOdsInstanceConfigurationDataProvider>()
+                .SingleInstance();
+
             builder.RegisterType<OdsInstanceHashIdGenerator>()
                 .As<IOdsInstanceHashIdGenerator>()
                 .SingleInstance();
@@ -310,9 +320,23 @@ namespace EdFi.Ods.Api.Container.Modules
                     {
                         var apiSettings = ctx.Resolve<ApiSettings>();
 
-                        return (ICacheProvider<ulong>) new ExpiringConcurrentDictionaryCacheProvider<ulong>(
+                        var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider<ulong>(
                             "ODS Instance Configurations",
                             TimeSpan.FromSeconds(apiSettings.Caching.OdsInstances.AbsoluteExpirationSeconds));
+
+                        // Subscribe to any changes related to the ODS instances section of the configuration, and clear interceptor's cache provider explicitly
+                        var options = ctx.Resolve<IOptionsMonitor<OdsInstancesSection>>();
+                        options.OnChange(config =>
+                        {
+                            if (_logger.IsDebugEnabled)
+                            {
+                                _logger.Debug($"ODS instances connection string configuration changes detected. Clearing interceptor cache provider...");
+                            }
+
+                            cacheProvider.Clear();
+                        });
+
+                        return (ICacheProvider<ulong>) cacheProvider;
                     })
                 .SingleInstance();
 
