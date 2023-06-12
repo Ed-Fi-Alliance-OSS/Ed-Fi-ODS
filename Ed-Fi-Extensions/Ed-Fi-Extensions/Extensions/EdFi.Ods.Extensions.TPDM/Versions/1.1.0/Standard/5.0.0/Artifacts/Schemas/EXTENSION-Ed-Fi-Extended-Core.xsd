@@ -1,0 +1,2296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/5.0.0" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/5.0.0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="Ed-Fi-Core.xsd" />
+  <xs:annotation>
+    <xs:documentation>===== Ed-Fi 5.0.0 Extensions =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Domain Entities =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-Candidate">
+    <xs:annotation>
+      <xs:documentation>A candidate is both a person enrolled in a educator preparation program and a candidate to become an educator.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="CandidateIdentifier" type="EXTENSION-CandidateIdentifier">
+            <xs:annotation>
+              <xs:documentation>A unique alphanumeric code assigned to a candidate.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Name" type="Name">
+            <xs:annotation>
+              <xs:documentation>Full legal name of the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OtherName" type="OtherName" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Other names (e.g., alias, nickname, previous legal name) associated with a person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Sex" type="SexDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The sex of the candidate.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>SexDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BirthData" type="BirthData">
+            <xs:annotation>
+              <xs:documentation>The set of elements that capture relevant data regarding a person's birth, including birth date and place of birth.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Address" type="Address" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The set of elements that describes an address, including the street address, city, state, and ZIP code.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Telephone" type="Telephone" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The 10-digit telephone number, including the area code, for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ElectronicMail" type="ElectronicMail" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HispanicLatinoEthnicity" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Race" type="RaceDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies. The data model allows for multiple entries so that each individual can specify all appropriate races.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>RaceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EconomicDisadvantaged" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LimitedEnglishProficiency" type="LimitedEnglishProficiencyDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LimitedEnglishProficiencyDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Language" type="Language" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The language(s) the individual uses to communicate.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Disability" type="Disability" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The disability condition(s) that best describes an individual's impairment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DisplacementStatus" type="EXTENSION-DisplacementStatus" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates a state health or weather related event that displaces a group of students, and may require additional funding, educational, or social services.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Gender" type="EXTENSION-GenderDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The gender of the candidate.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-GenderDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EnglishLanguageExam" type="EXTENSION-EnglishLanguageExamDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates that a person passed, failed, or did not take an English Language assessment (e.g., TOEFFL).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EnglishLanguageExamDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FirstGenerationStudent" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicator of whether individual is a first generation college student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Relates the candidate to a generic person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CredentialExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Credential">
+        <xs:sequence>
+          <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The person who obtained and is holding the credential.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CertificationTitle" type="EXTENSION-CertificationTitle" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The title of the certification obtained by the educator.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CertificationRoute" type="EXTENSION-CertificationRouteDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The process, program, or pathway used to obtain certification.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-CertificationRouteDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BoardCertificationIndicator" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicator that the credential was granted under the authority of a national Board Certification.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CredentialStatus" type="EXTENSION-CredentialStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The current status of the credential (e.g., active, suspended, etc.).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-CredentialStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CredentialStatusDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the credential status was effective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentAcademicRecordReference" type="StudentAcademicRecordReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Reference to the person's Student Academic Records for the school(s) with which the Credential is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducatorRole" type="EXTENSION-EducatorRoleDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EducatorRoleDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgram">
+    <xs:annotation>
+      <xs:documentation>The Educator Preparation Program is designed to prepare students to become licensed educators.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>Relates the program to an EducationOrganization.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramId" type="ProgramId" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramName" type="EXTENSION-EducatorPreparationProgramName">
+            <xs:annotation>
+              <xs:documentation>The name of the Educator Preparation Program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The type of program.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The grade levels served at the EPP Program.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccreditationStatus" type="EXTENSION-AccreditationStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The current accreditation status of the Educator Preparation Program.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-AccreditationStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-Evaluation">
+    <xs:annotation>
+      <xs:documentation>An evaluation instrument appled to evaluate an educator.  The evaluation could be internally developed, or could be an industry recognized instrument such as TTESS or Marzano.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="PerformanceEvaluationReference" type="EXTENSION-PerformanceEvaluationReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the person's Performance Evalution.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationTitle" type="EXTENSION-EvaluationTitle">
+            <xs:annotation>
+              <xs:documentation>The name or title of the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationDescription" type="EXTENSION-EvaluationDescription" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The long description of the Evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MinRating" type="EXTENSION-Rating" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The minimum summary numerical rating or score for the evaluation. If omitted, assumed to be 0.0.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MaxRating" type="EXTENSION-Rating" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The maximum summary numerical rating or score for the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationType" type="EXTENSION-EvaluationTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationRatingLevel" type="EXTENSION-RatingLevel" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The descriptive level(s) of ratings (cut scores) for the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InterRaterReliabilityScore" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A score indicating how much homogeneity, or consensus, there is in the ratings given by judges. Most commonly a percentage scale (1-100)</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElement">
+    <xs:annotation>
+      <xs:documentation>The lowest-level Elements or criterion of performance being evaluated by rubric, quantitative measure, or aggregate survey response.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EvaluationObjectiveReference" type="EXTENSION-EvaluationObjectiveReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Evaluation Objective applied for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationElementTitle" type="EXTENSION-EvaluationElementTitle">
+            <xs:annotation>
+              <xs:documentation>The name or title of the evaluation element.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SortOrder" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The sort order of this Evaluation Element.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MinRating" type="EXTENSION-Rating" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The minimum summary numerical rating or score for the evaluation element. If omitted, assumed to be 0.0.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MaxRating" type="EXTENSION-Rating" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The maximum summary numerical rating or score for the evaluation element.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationType" type="EXTENSION-EvaluationTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ElementRatingLevel" type="EXTENSION-RatingLevel" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The descriptive level(s) of ratings (cut scores) for evaluation element.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElementRating">
+    <xs:annotation>
+      <xs:documentation>The lowest-level rating for an Evaluation Element for an individual educator.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EvaluationObjectiveRatingReference" type="EXTENSION-EvaluationObjectiveRatingReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the person's Evalution Objective Rating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationElementReference" type="EXTENSION-EvaluationElementReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Evaluation Element applied for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ElementRatingResult" type="EXTENSION-RatingResult" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numerical summary rating or score for the evaluation element.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationElementRatingLevel" type="EXTENSION-EvaluationElementRatingLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationElementRatingLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AreaOfRefinement" type="EXTENSION-Comments" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Area identified for person to refine or improve as part of the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AreaOfReinforcement" type="EXTENSION-Comments" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Area identified for reinforcement or positive feedback as part of the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Comments" type="EXTENSION-Comments" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Any comments about the performance evaluation to be captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Feedback" type="EXTENSION-Feedback" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Feedback provided to the evaluated person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationObjective">
+    <xs:annotation>
+      <xs:documentation>A subcomponent of an Evaluation, a specific educator Objective or domain of performance that is being evaluated.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EvaluationReference" type="EXTENSION-EvaluationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Evaluation applied for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationObjectiveTitle" type="EXTENSION-EvaluationObjectiveTitle">
+            <xs:annotation>
+              <xs:documentation>The name or title of the evaluation Objective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationObjectiveDescription" type="EXTENSION-EvaluationDescription" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The long description of the Evaluation Objective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SortOrder" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The sort order of this Evaluation Objective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MinRating" type="EXTENSION-Rating" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The minimum summary numerical rating or score for the evaluation Objective. If omitted, assumed to be 0.0.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MaxRating" type="EXTENSION-Rating" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The maximum summary numerical rating or score for the evaluation Objective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationType" type="EXTENSION-EvaluationTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of the evaluation Objective (e.g., observation, principal, peer, student survey, student growth).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ObjectiveRatingLevel" type="EXTENSION-RatingLevel" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The descriptive level(s) of ratings (cut scores) for evaluation Objective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationObjectiveRating">
+    <xs:annotation>
+      <xs:documentation>The rating for the component Evaluation Objective for an individual educator.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EvaluationRatingReference" type="EXTENSION-EvaluationRatingReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the person's Evalution Rating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationObjectiveReference" type="EXTENSION-EvaluationObjectiveReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Evaluation Domain applied for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ObjectiveRatingResult" type="EXTENSION-RatingResult" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numerical summary rating or score for the evaluation Objective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ObjectiveRatingLevel" type="EXTENSION-ObjectiveRatingLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ObjectiveRatingLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Comments" type="EXTENSION-Comments" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Any comments about the performance evaluation to be captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationRating">
+    <xs:annotation>
+      <xs:documentation>The summary weighting for the Evaluation instrument for an individual educator.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="PerformanceEvaluationRatingReference" type="EXTENSION-PerformanceEvaluationRatingReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the person's Performance Evalution Rating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationReference" type="EXTENSION-EvaluationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Evaluation applied for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationDate" type="xs:dateTime">
+            <xs:annotation>
+              <xs:documentation>The date for the person's evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Reviewer" type="EXTENSION-Reviewer" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The person(s) that conducted the performance evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationRatingResult" type="EXTENSION-RatingResult" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numerical summary rating or score for the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationRatingLevel" type="EXTENSION-EvaluationRatingLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationRatingLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SectionReference" type="SectionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The section associated with a classroom evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationRatingStatus" type="EXTENSION-EvaluationRatingStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The Status of the poerformance evaluation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationRatingStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FinancialAid">
+    <xs:annotation>
+      <xs:documentation>This entity represents the financial aid a person is awarded.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>The student receiving aid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BeginDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date the award was designated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The date the award was removed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AidConditionDescription" type="Description" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The description of the condition (e.g., placement in a high need school) under which the aid was given.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AidType" type="EXTENSION-AidTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The classification of financial aid awarded to a person for the academic term/year.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-AidTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AidAmount" type="EXTENSION-AidAmount" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The amount of financial aid awarded to a person for the term/year.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PellGrantRecipient" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates a person who receives Pell Grant aid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluation">
+    <xs:annotation>
+      <xs:documentation>A performance evaluation of an educator, typically regularly scheduled and uniformly applied, composed of one or more Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="PerformanceEvaluationTitle" type="EXTENSION-EvaluationTitle">
+            <xs:annotation>
+              <xs:documentation>An assigned unique identifier for the performance evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PerformanceEvaluationDescription" type="EXTENSION-EvaluationDescription" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The long description of the Performance Evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Term" type="TermDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The term for the session during the school year.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>TermDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PerformanceEvaluationType" type="EXTENSION-PerformanceEvaluationTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The type of performance evaluation conducted.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-PerformanceEvaluationTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PerformanceEvaluationRatingLevel" type="EXTENSION-RatingLevel" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The descriptive level(s) of ratings (cut scores) for the evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SchoolYear" type="SchoolYearType">
+            <xs:annotation>
+              <xs:documentation>The identifier for the school year.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationPeriod" type="EXTENSION-EvaluationPeriodDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The period for the evaluation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationPeriodDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The EducationOrganization for which the evaluation was developed and in which it was employed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AcademicSubject" type="AcademicSubjectDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The description of the content or subject area of a performance evaluation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The grade levels involved with the performance evaluation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationRating">
+    <xs:annotation>
+      <xs:documentation>The summary rating for a Performance Evaluation across all Evaluation instruments for an individual educator.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="PersonReference" type="PersonReferenceType">
+            <xs:annotation>
+              <xs:documentation>The person whose performance is being evaluated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PerformanceEvaluationReference" type="EXTENSION-PerformanceEvaluationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The performance evaluation definition being applied.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ActualDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the performance evaluation was conducted.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Announced" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indicator of whether the performance evaluation was announced or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Comments" type="EXTENSION-Comments" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Any comments about the performance evaluation to be captured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CoteachingStyleObserved" type="EXTENSION-CoteachingStyleObservedDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A type of co-teaching observed as part of the performance evaluation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-CoteachingStyleObservedDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ActualDuration" type="Duration" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The actual or estimated number of clock minutes during which the performance evaluation was conducted.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PerformanceEvaluationRatingResult" type="EXTENSION-RatingResult" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numerical summary rating or score for the performance evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PerformanceEvaluationRatingLevel" type="EXTENSION-PerformanceEvaluationRatingLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-PerformanceEvaluationRatingLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Reviewer" type="EXTENSION-Reviewer" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The person(s) that conducted the performance evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ScheduleDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the performance evaluation was scheduled.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ActualTime" type="xs:time" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of the the time at which the performance evaluation was conducted.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RubricDimension">
+    <xs:annotation>
+      <xs:documentation>The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric rating and rating level.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EvaluationElementReference" type="EXTENSION-EvaluationElementReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Evaluation Element associated with the rubric dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RubricRating" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The rating achieved for the rubric dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RubricRatingLevel" type="EXTENSION-RubricRatingLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The rating level achieved for the rubric dimension.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-RubricRatingLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CriterionDescription" type="Description">
+            <xs:annotation>
+              <xs:documentation>The criterion description for the rubric dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DimensionOrder" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The order for the rubric dimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SchoolExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="School">
+        <xs:sequence>
+          <xs:element name="PostSecondaryInstitutionReference" type="PostSecondaryInstitutionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The postsecondary institution or university associated as an organization component for the School, if applicable</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveyResponseExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SurveyResponse">
+        <xs:sequence>
+          <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Relates the survey response to a generic person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Descriptors =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-AccreditationStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>Accreditation Status for a Teacher Preparation Provider.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-AidTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor defines the classification of financial aid awarded to a person for the academic term/year.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CertificationRouteDescriptor">
+    <xs:annotation>
+      <xs:documentation>The process, program, or pathway used to obtain a certification.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CoteachingStyleObservedDescriptor">
+    <xs:annotation>
+      <xs:documentation>A type of co-teaching observed as part of the performance evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CredentialStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>The current status of the credential.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorRoleDescriptor">
+    <xs:annotation>
+      <xs:documentation>The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EnglishLanguageExamDescriptor">
+    <xs:annotation>
+      <xs:documentation>Indicates that a person passed, failed, or did not take an English Language assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EPPProgramPathwayDescriptor">
+    <xs:annotation>
+      <xs:documentation>The description of the program pathway, for example: Residency, Internship, Traditional</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElementRatingLevelDescriptor">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Evaluation Elements.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationPeriodDescriptor">
+    <xs:annotation>
+      <xs:documentation>The period for the evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationRatingLevelDescriptor">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationRatingStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>Represents the status of a Evaluation Rating.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-GenderDescriptor">
+    <xs:annotation>
+      <xs:documentation>A person's gender.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ObjectiveRatingLevelDescriptor">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Evaluation Objectives.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationRatingLevelDescriptor">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Performance Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The type of performance evaluation conducted (e.g., walkthrough, summative).</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RubricRatingLevelDescriptor">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Rubric Dimensions.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Associations =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-CandidateEducatorPreparationProgramAssociation">
+    <xs:annotation>
+      <xs:documentation>Information about the association between the Teacher Candidate and the EducatorPreparationProgram</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="CandidateReference" type="EXTENSION-CandidateReferenceType">
+            <xs:annotation>
+              <xs:documentation>Candidate for the association.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducatorPreparationProgramReference" type="EXTENSION-EducatorPreparationProgramReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Program associated to the Candidate.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BeginDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The begin date for the association.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The end date for the association.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReasonExited" type="ReasonExitedDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Reason exited for the association.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReasonExitedDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EPPProgramPathway" type="EXTENSION-EPPProgramPathwayDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The program pathway the candidate is following; for example: Residency, Internship, Traditional</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EPPProgramPathwayDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DegreeSpecialization" type="EXTENSION-DegreeSpecialization" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Information around the area(s) of specialization for an individual.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CohortYear" type="CohortYear" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The type and year of a cohort the student belongs to as determined by the year that student entered a specific grade.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveyResponsePersonTargetAssociation">
+    <xs:annotation>
+      <xs:documentation>The association provides information about the survey being taken and who the survey is about.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="SurveyResponseReference" type="SurveyResponseReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the survey response.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PersonReference" type="PersonReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the target of the survey.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveySectionResponsePersonTargetAssociation">
+    <xs:annotation>
+      <xs:documentation>This association provides information about the survey section and the person the survey section is about.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="SurveySectionResponseReference" type="SurveySectionResponseReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to the survey section response.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PersonReference" type="PersonReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to target of the Survey.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Extended Reference Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-CandidateEducatorPreparationProgramAssociationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a CandidateEducatorPreparationProgramAssociation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CandidateReference" type="EXTENSION-CandidateReferenceType">
+        <xs:annotation>
+          <xs:documentation>Candidate for the association.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducatorPreparationProgramReference" type="EXTENSION-EducatorPreparationProgramReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Program associated to the Candidate.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BeginDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The begin date for the association.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CandidateEducatorPreparationProgramAssociationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a CandidateEducatorPreparationProgramAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="CandidateEducatorPreparationProgramAssociationIdentity" type="EXTENSION-CandidateEducatorPreparationProgramAssociationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a CandidateEducatorPreparationProgramAssociation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CandidateIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a Candidate.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="CandidateIdentifier" type="EXTENSION-CandidateIdentifier">
+        <xs:annotation>
+          <xs:documentation>A unique alphanumeric code assigned to a candidate.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-CandidateReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a Candidate. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="CandidateIdentity" type="EXTENSION-CandidateIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a Candidate.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgramIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an EducatorPreparationProgram.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>Relates the program to an EducationOrganization.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProgramName" type="EXTENSION-EducatorPreparationProgramName">
+        <xs:annotation>
+          <xs:documentation>The name of the Educator Preparation Program.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The type of program.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgramReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EducatorPreparationProgram. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EducatorPreparationProgramIdentity" type="EXTENSION-EducatorPreparationProgramIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an EducatorPreparationProgram.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElementIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an EvaluationElement.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvaluationObjectiveReference" type="EXTENSION-EvaluationObjectiveReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Evaluation Objective applied for the person.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationElementTitle" type="EXTENSION-EvaluationElementTitle">
+        <xs:annotation>
+          <xs:documentation>The name or title of the evaluation element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElementRatingIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an EvaluationElementRating.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvaluationObjectiveRatingReference" type="EXTENSION-EvaluationObjectiveRatingReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the person's Evalution Objective Rating.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationElementReference" type="EXTENSION-EvaluationElementReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Evaluation Element applied for the person.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElementRatingReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EvaluationElementRating. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EvaluationElementRatingIdentity" type="EXTENSION-EvaluationElementRatingIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an EvaluationElementRating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationElementReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EvaluationElement. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EvaluationElementIdentity" type="EXTENSION-EvaluationElementIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an EvaluationElement.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an Evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PerformanceEvaluationReference" type="EXTENSION-PerformanceEvaluationReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the person's Performance Evalution.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationTitle" type="EXTENSION-EvaluationTitle">
+        <xs:annotation>
+          <xs:documentation>The name or title of the evaluation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationObjectiveIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an EvaluationObjective.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvaluationReference" type="EXTENSION-EvaluationReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Evaluation applied for the person.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationObjectiveTitle" type="EXTENSION-EvaluationObjectiveTitle">
+        <xs:annotation>
+          <xs:documentation>The name or title of the evaluation Objective.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationObjectiveRatingIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an EvaluationObjectiveRating.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvaluationRatingReference" type="EXTENSION-EvaluationRatingReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the person's Evalution Rating.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationObjectiveReference" type="EXTENSION-EvaluationObjectiveReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Evaluation Domain applied for the person.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationObjectiveRatingReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EvaluationObjectiveRating. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EvaluationObjectiveRatingIdentity" type="EXTENSION-EvaluationObjectiveRatingIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an EvaluationObjectiveRating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationObjectiveReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EvaluationObjective. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EvaluationObjectiveIdentity" type="EXTENSION-EvaluationObjectiveIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an EvaluationObjective.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationRatingIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of an EvaluationRating.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PerformanceEvaluationRatingReference" type="EXTENSION-PerformanceEvaluationRatingReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the person's Performance Evalution Rating.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationReference" type="EXTENSION-EvaluationReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Evaluation applied for the person.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationDate" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The date for the person's evaluation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationRatingReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EvaluationRating. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EvaluationRatingIdentity" type="EXTENSION-EvaluationRatingIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an EvaluationRating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an Evaluation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EvaluationIdentity" type="EXTENSION-EvaluationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of an Evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FinancialAidIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a FinancialAid.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StudentReference" type="StudentReferenceType">
+        <xs:annotation>
+          <xs:documentation>The student receiving aid.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BeginDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date the award was designated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AidType" type="EXTENSION-AidTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The classification of financial aid awarded to a person for the academic term/year.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-AidTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FinancialAidReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a FinancialAid. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="FinancialAidIdentity" type="EXTENSION-FinancialAidIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a FinancialAid.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a PerformanceEvaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PerformanceEvaluationTitle" type="EXTENSION-EvaluationTitle">
+        <xs:annotation>
+          <xs:documentation>An assigned unique identifier for the performance evaluation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Term" type="TermDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The term for the session during the school year.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>TermDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PerformanceEvaluationType" type="EXTENSION-PerformanceEvaluationTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The type of performance evaluation conducted.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-PerformanceEvaluationTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SchoolYear" type="SchoolYearType">
+        <xs:annotation>
+          <xs:documentation>The identifier for the school year.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationPeriod" type="EXTENSION-EvaluationPeriodDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The period for the evaluation.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-EvaluationPeriodDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>The EducationOrganization for which the evaluation was developed and in which it was employed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationRatingIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a PerformanceEvaluationRating.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PersonReference" type="PersonReferenceType">
+        <xs:annotation>
+          <xs:documentation>The person whose performance is being evaluated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PerformanceEvaluationReference" type="EXTENSION-PerformanceEvaluationReferenceType">
+        <xs:annotation>
+          <xs:documentation>The performance evaluation definition being applied.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationRatingReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a PerformanceEvaluationRating. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="PerformanceEvaluationRatingIdentity" type="EXTENSION-PerformanceEvaluationRatingIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a PerformanceEvaluationRating.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PerformanceEvaluationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a PerformanceEvaluation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="PerformanceEvaluationIdentity" type="EXTENSION-PerformanceEvaluationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a PerformanceEvaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RubricDimensionIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a RubricDimension.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvaluationElementReference" type="EXTENSION-EvaluationElementReferenceType">
+        <xs:annotation>
+          <xs:documentation>The Evaluation Element associated with the rubric dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RubricRating" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The rating achieved for the rubric dimension.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RubricDimensionReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a RubricDimension. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="RubricDimensionIdentity" type="EXTENSION-RubricDimensionIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a RubricDimension.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveyResponsePersonTargetAssociationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a SurveyResponsePersonTargetAssociation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SurveyResponseReference" type="SurveyResponseReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the survey response.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PersonReference" type="PersonReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the target of the survey.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveyResponsePersonTargetAssociationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a SurveyResponsePersonTargetAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="SurveyResponsePersonTargetAssociationIdentity" type="EXTENSION-SurveyResponsePersonTargetAssociationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a SurveyResponsePersonTargetAssociation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveySectionResponsePersonTargetAssociationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a SurveySectionResponsePersonTargetAssociation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SurveySectionResponseReference" type="SurveySectionResponseReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to the survey section response.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PersonReference" type="PersonReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to target of the Survey.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveySectionResponsePersonTargetAssociationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a SurveySectionResponsePersonTargetAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="SurveySectionResponsePersonTargetAssociationIdentity" type="EXTENSION-SurveySectionResponsePersonTargetAssociationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a SurveySectionResponsePersonTargetAssociation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-AccreditationStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Accreditation Status for a Teacher Preparation Provider.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-AidTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor defines the classification of financial aid awarded to a person for the academic term/year.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-CertificationRouteDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The process, program, or pathway used to obtain a certification.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-CoteachingStyleObservedDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>A type of co-teaching observed as part of the performance evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-CredentialStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The current status of the credential.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EducatorRoleDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EnglishLanguageExamDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Indicates that a person passed, failed, or did not take an English Language assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EPPProgramPathwayDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The description of the program pathway, for example: Residency, Internship, Traditional</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationElementRatingLevelDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Evaluation Elements.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationPeriodDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The period for the evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationRatingLevelDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationRatingStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Represents the status of a Evaluation Rating.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-GenderDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>A person's gender.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ObjectiveRatingLevelDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Evaluation Objectives.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-PerformanceEvaluationRatingLevelDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Performance Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-PerformanceEvaluationTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The type of performance evaluation conducted (e.g., walkthrough, summative).</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RubricRatingLevelDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Rating levels for Rubric Dimensions.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:annotation>
+    <xs:documentation>===== Common Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-DegreeSpecialization">
+    <xs:annotation>
+      <xs:documentation>Information around the area(s) of specialization for an individual.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="MajorSpecialization" type="EXTENSION-Specialization">
+        <xs:annotation>
+          <xs:documentation>The major area for a degree or area of specialization for a certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MinorSpecialization" type="EXTENSION-Specialization" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minor area for a degree or area of specialization for a certificate.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BeginDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The month, day, and year on which the Teacher Candidate first declared specialization.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EndDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The month, day, and year on which the Teacher Candidate exited the declared specialization.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RatingLevel">
+    <xs:annotation>
+      <xs:documentation>The descriptive level(s) of ratings (cut scores) for evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EvaluationRatingLevel" type="EXTENSION-EvaluationRatingLevelDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-EvaluationRatingLevelDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MinRating" type="EXTENSION-Rating" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The minimum numerical rating or score to achieve the evaluation rating level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MaxRating" type="EXTENSION-Rating" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The maximum numerical rating or score to achieve the evaluation rating level.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RatingResult">
+    <xs:annotation>
+      <xs:documentation>A rating or score for a level or topic of an evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RatingResultTitle" type="EXTENSION-RatingResultTitle">
+        <xs:annotation>
+          <xs:documentation>The title of Rating Result.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Rating" type="EXTENSION-Rating">
+        <xs:annotation>
+          <xs:documentation>The numerical summary rating or score for the evaluation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ResultDatatypeType" type="ResultDatatypeTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The datatype of the result.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>ResultDatatypeTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ReceivedTraining">
+    <xs:annotation>
+      <xs:documentation>An indication that the person administering the performance measure has or has not received training on conducting performance measures.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ReceivedTrainingDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The date on which the person administering the performance meausre received training on how to conduct performance measures.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="InterRaterReliabilityScore" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A score indicating how much homogeneity, or consensus, there is in the ratings given by judges. Most commonly a percentage scale (1-100)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-Reviewer">
+    <xs:annotation>
+      <xs:documentation>The person who conducted the performance measure.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FirstName" type="FirstName">
+        <xs:annotation>
+          <xs:documentation>A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LastSurname" type="LastSurname">
+        <xs:annotation>
+          <xs:documentation>The name borne in common by members of a family.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReceivedTraining" type="EXTENSION-ReceivedTraining" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>An indication that the person administering the performance evauation has or has not received training on conducting performance measures.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReviewerPersonReference" type="PersonReferenceType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The person associated with the performance measure.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Enumerations and Enumerated Collections =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== String Simple Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-CandidateIdentifier">
+    <xs:annotation>
+      <xs:documentation>A unique alphanumeric code assigned to a teacher candidate.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="32" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-CertificationTitle">
+    <xs:annotation>
+      <xs:documentation>The title of a Certification.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="64" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-Comments">
+    <xs:annotation>
+      <xs:documentation>Any comments to be captured.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1024" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-DisplacementStatus">
+    <xs:annotation>
+      <xs:documentation>Indicates a state health or weather related event that displaces a group of students, and may require additional funding, educational, or social services.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EducatorPreparationProgramName">
+    <xs:annotation>
+      <xs:documentation>The name of the Educator Preparation Program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationDescription">
+    <xs:annotation>
+      <xs:documentation>The long description of the Evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationElementTitle">
+    <xs:annotation>
+      <xs:documentation>The name or title of the evaluation element.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationObjectiveTitle">
+    <xs:annotation>
+      <xs:documentation>The name or title of the Evaluation Objective.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationTitle">
+    <xs:annotation>
+      <xs:documentation>The name or title of the evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-Feedback">
+    <xs:annotation>
+      <xs:documentation>Any feedback to be captured.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="2048" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RatingResultTitle">
+    <xs:annotation>
+      <xs:documentation>The title of a Rating Result.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-Specialization">
+    <xs:annotation>
+      <xs:documentation>An area of specialization.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:annotation>
+    <xs:documentation>===== Numeric Simple Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-AidAmount">
+    <xs:annotation>
+      <xs:documentation>The amount of financial aid awarded to a person for the term/year.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="19" />
+      <xs:fractionDigits value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-Rating">
+    <xs:annotation>
+      <xs:documentation>The numerical summary rating or score for an evaluation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="6" />
+      <xs:fractionDigits value="3" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,1259 @@
+{
+  "odsApiVersion": "7.0",
+  "schemaDefinition": {
+    "logicalName": "SampleStudentTranscript",
+    "physicalName": "samplestudenttranscript",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "aggregateDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "samplestudenttranscript",
+        "name": "InstitutionControlDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "samplestudenttranscript",
+          "name": "InstitutionControlDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "samplestudenttranscript",
+        "name": "InstitutionLevelDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "samplestudenttranscript",
+          "name": "InstitutionLevelDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "samplestudenttranscript",
+        "name": "PostSecondaryOrganization"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "samplestudenttranscript",
+          "name": "PostSecondaryOrganization"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "samplestudenttranscript",
+        "name": "SpecialEducationGraduationStatusDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "samplestudenttranscript",
+          "name": "SpecialEducationGraduationStatusDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "samplestudenttranscript",
+        "name": "SubmissionCertificationDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "samplestudenttranscript",
+          "name": "SubmissionCertificationDescriptor"
+        }
+      ]
+    }
+  ],
+  "aggregateExtensionDefinitions": [],
+  "entityDefinitions": [
+    {
+      "schema": "samplestudenttranscript",
+      "name": "InstitutionControlDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "InstitutionControlDescriptor_PK",
+          "identifyingPropertyNames": [
+            "InstitutionControlDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "InstitutionControlDescriptor_PK",
+            "postgreSql": "InstitutionControlDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The type of control for an institution (e.g., public or private).",
+      "tableNames": {
+        "sqlServer": "InstitutionControlDescriptor",
+        "postgreSql": "InstitutionControlDescriptor"
+      }
+    },
+    {
+      "schema": "samplestudenttranscript",
+      "name": "InstitutionLevelDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "InstitutionLevelDescriptor_PK",
+          "identifyingPropertyNames": [
+            "InstitutionLevelDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "InstitutionLevelDescriptor_PK",
+            "postgreSql": "InstitutionLevelDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The typical level of postsecondary degree offered by the institute.",
+      "tableNames": {
+        "sqlServer": "InstitutionLevelDescriptor",
+        "postgreSql": "InstitutionLevelDescriptor"
+      }
+    },
+    {
+      "schema": "samplestudenttranscript",
+      "name": "PostSecondaryOrganization",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "AcceptanceIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "minLength": 0,
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication of acceptance.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AcceptanceIndicator",
+            "postgreSql": "AcceptanceIndicator"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "NameOfInstitution",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the institution.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NameOfInstitution",
+            "postgreSql": "NameOfInstitution"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PostSecondaryOrganization_PK",
+          "identifyingPropertyNames": [
+            "NameOfInstitution"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "PostSecondaryOrganization_PK",
+            "postgreSql": "PostSecondaryOrganization_PK"
+          }
+        },
+        {
+          "identifierName": "UX_PostSecondaryOrganization_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_PostSecondaryOrganization_Id",
+            "postgreSql": "UX_aa7b2a_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "PostSecondaryOrganization",
+      "tableNames": {
+        "sqlServer": "PostSecondaryOrganization",
+        "postgreSql": "PostSecondaryOrganization"
+      }
+    },
+    {
+      "schema": "samplestudenttranscript",
+      "name": "SpecialEducationGraduationStatusDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "SpecialEducationGraduationStatusDescriptor_PK",
+          "identifyingPropertyNames": [
+            "SpecialEducationGraduationStatusDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SpecialEducationGraduationStatusDescriptor_PK",
+            "postgreSql": "SpecialEducationGraduationStatusDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The graduation status for special education.",
+      "tableNames": {
+        "sqlServer": "SpecialEducationGraduationStatusDescriptor",
+        "postgreSql": "SpecialEducationGraduationStatusDescriptor"
+      }
+    },
+    {
+      "schema": "samplestudenttranscript",
+      "name": "StudentAcademicRecordClassRankingExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentAcademicRecordClassRankingExtension_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "SchoolYear",
+            "StudentUSI",
+            "TermDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAcademicRecordClassRankingExtension_PK",
+            "postgreSql": "StudentAcademicRecordClassRankingExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Class Ranking Extension",
+      "tableNames": {
+        "sqlServer": "StudentAcademicRecordClassRankingExtension",
+        "postgreSql": "StudentAcademicRecordClassRankingExtension"
+      }
+    },
+    {
+      "schema": "samplestudenttranscript",
+      "name": "StudentAcademicRecordExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentAcademicRecordExtension_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "SchoolYear",
+            "StudentUSI",
+            "TermDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAcademicRecordExtension_PK",
+            "postgreSql": "StudentAcademicRecordExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "StudentAcademicRecordExtension",
+        "postgreSql": "StudentAcademicRecordExtension"
+      }
+    },
+    {
+      "schema": "samplestudenttranscript",
+      "name": "SubmissionCertificationDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "SubmissionCertificationDescriptor_PK",
+          "identifyingPropertyNames": [
+            "SubmissionCertificationDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SubmissionCertificationDescriptor_PK",
+            "postgreSql": "SubmissionCertificationDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The type of submission certification.",
+      "tableNames": {
+        "sqlServer": "SubmissionCertificationDescriptor",
+        "postgreSql": "SubmissionCertificationDescriptor"
+      }
+    }
+  ],
+  "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_InstitutionControlDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "InstitutionControlDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "InstitutionControlDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "InstitutionControlDescriptorId",
+            "postgreSql": "InstitutionControlDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_InstitutionControlDescriptor_Descriptor",
+        "postgreSql": "FK_f8fa08_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_InstitutionLevelDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "InstitutionLevelDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "InstitutionLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "InstitutionLevelDescriptorId",
+            "postgreSql": "InstitutionLevelDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_InstitutionLevelDescriptor_Descriptor",
+        "postgreSql": "FK_3d8765_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_PostSecondaryOrganization_InstitutionControlDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "InstitutionControlDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "InstitutionControlDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InstitutionControlDescriptorId",
+            "postgreSql": "InstitutionControlDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "PostSecondaryOrganization"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "InstitutionControlDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of control of the institution (i.e., public or private).",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InstitutionControlDescriptorId",
+            "postgreSql": "InstitutionControlDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_PostSecondaryOrganization_InstitutionControlDescriptor",
+        "postgreSql": "FK_aa7b2a_InstitutionControlDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_PostSecondaryOrganization_InstitutionLevelDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "InstitutionLevelDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "InstitutionLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InstitutionLevelDescriptorId",
+            "postgreSql": "InstitutionLevelDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "PostSecondaryOrganization"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "InstitutionLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The level of the institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InstitutionLevelDescriptorId",
+            "postgreSql": "InstitutionLevelDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_PostSecondaryOrganization_InstitutionLevelDescriptor",
+        "postgreSql": "FK_aa7b2a_InstitutionLevelDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_SpecialEducationGraduationStatusDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "SpecialEducationGraduationStatusDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationGraduationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "SpecialEducationGraduationStatusDescriptorId",
+            "postgreSql": "SpecialEducationGraduationStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SpecialEducationGraduationStatusDescriptor_Descriptor",
+        "postgreSql": "FK_a7b9e2_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_StudentAcademicRecordClassRankingExtension_SpecialEducationGraduationStatusDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "SpecialEducationGraduationStatusDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationGraduationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationGraduationStatusDescriptorId",
+            "postgreSql": "SpecialEducationGraduationStatusDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "StudentAcademicRecordClassRankingExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationGraduationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The graduation status for special education.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationGraduationStatusDescriptorId",
+            "postgreSql": "SpecialEducationGraduationStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordClassRankingExtension_SpecialEducationGraduationStatusDescriptor",
+        "postgreSql": "FK_072d36_SpecialEducationGraduationStatusDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_StudentAcademicRecordClassRankingExtension_StudentAcademicRecordClassRanking"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentAcademicRecordClassRanking"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "StudentAcademicRecordClassRankingExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordClassRankingExtension_StudentAcademicRecordClassRanking",
+        "postgreSql": "FK_072d36_StudentAcademicRecordClassRanking"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_StudentAcademicRecordExtension_PostSecondaryOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "PostSecondaryOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "NameOfInstitution",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NameOfInstitution",
+            "postgreSql": "NameOfInstitution"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "StudentAcademicRecordExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "NameOfInstitution",
+          "propertyType": {
+            "dbType": "String",
+            "minLength": 1,
+            "maxLength": 75,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The name of the institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NameOfInstitution",
+            "postgreSql": "NameOfInstitution"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordExtension_PostSecondaryOrganization",
+        "postgreSql": "FK_ee832f_PostSecondaryOrganization"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_StudentAcademicRecordExtension_StudentAcademicRecord"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentAcademicRecord"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "StudentAcademicRecordExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        },
+        {
+          "propertyName": "TermDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The term for the session during the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TermDescriptorId",
+            "postgreSql": "TermDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordExtension_StudentAcademicRecord",
+        "postgreSql": "FK_ee832f_StudentAcademicRecord"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_StudentAcademicRecordExtension_SubmissionCertificationDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "SubmissionCertificationDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SubmissionCertificationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SubmissionCertificationDescriptorId",
+            "postgreSql": "SubmissionCertificationDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "StudentAcademicRecordExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SubmissionCertificationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The type of submission certification.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SubmissionCertificationDescriptorId",
+            "postgreSql": "SubmissionCertificationDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAcademicRecordExtension_SubmissionCertificationDescriptor",
+        "postgreSql": "FK_ee832f_SubmissionCertificationDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "samplestudenttranscript",
+        "name": "FK_SubmissionCertificationDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "samplestudenttranscript",
+        "name": "SubmissionCertificationDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SubmissionCertificationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "SubmissionCertificationDescriptorId",
+            "postgreSql": "SubmissionCertificationDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SubmissionCertificationDescriptor_Descriptor",
+        "postgreSql": "FK_caf4be_Descriptor"
+      },
+      "potentiallyLogical": false
+    }
+  ],
+  "edFiVersion": "5.0.0"
+}
