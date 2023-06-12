@@ -536,6 +536,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/enrollmentTypeDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/entryGradeLevelReasonDescriptors",
     "order": 1,
     "operations": [
@@ -1249,6 +1257,14 @@
   },
   {
     "resource": "/ed-fi/schoolCategoryDescriptors",
+    "order": 1,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/schoolChoiceBasisDescriptors",
     "order": 1,
     "operations": [
       "Create",

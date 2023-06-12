@@ -119,7 +119,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var builder = new StringPropertyBuilder(lookup);
             Assert.IsTrue(builder.BuildProperty(obj, propInfo));
             Assert.IsFalse(string.IsNullOrEmpty(obj.stringProperty1));
-            Assert.AreEqual(6, obj.stringProperty1.Length);
+            Assert.AreEqual(7, obj.stringProperty1.Length);
         }
 
 #endregion

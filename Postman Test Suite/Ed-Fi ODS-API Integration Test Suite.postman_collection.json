@@ -5913,7 +5913,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"code\": \"Test 2019\",\r\n  \"fiscalYear\": 2019\r\n}",
+									"raw": "{\r\n  \"code\": \"Test 2019\",\r\n  \"fiscalYear\": 2020\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6372,7 +6372,10 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+													"\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'ChartOfAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");\r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6444,7 +6447,9 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'ChartOfAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");  \r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6516,7 +6521,8 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'ChartOfAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -6863,7 +6869,9 @@
 													"pm.test(\"Should return a message indicating that FiscalYear is required\", () => {\r",
 													"\r",
 													"  const responseItem = pm.response.json();\r",
-													"  pm.expect(responseItem.message).to.include(\"FiscalYear is required\");\r",
+													"  pm.expect(responseItem.message).to.include(\"Validation of 'LocalAccount' failed\");\r",
+													"  pm.expect(responseItem.message).to.include(\"FiscalYear\");\r",
+													"\r",
 													"});"
 												],
 												"type": "text/javascript"

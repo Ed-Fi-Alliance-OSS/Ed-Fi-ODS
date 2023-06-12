@@ -21,7 +21,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 
         protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options
         {
-            StandardVersion = "4.0.0",
+            StandardVersion = "5.0.0",
             ExtensionVersion = "1.1.0"
         });
 

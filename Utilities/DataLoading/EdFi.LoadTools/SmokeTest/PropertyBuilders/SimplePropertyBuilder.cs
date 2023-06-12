@@ -17,6 +17,9 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     public class SimplePropertyBuilder : BaseBuilder
     {
         private int _counter = 50; // Start from 50 to not collide with existing EdOrgIds if running over the populated template
+        private int _fiscalYearCounter = 2020;
+        private int _numberOfPartsCounter = 1;
+        
         private readonly Dictionary<string, object> _unifiedKeyValue;
 
         public SimplePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup, IDestructiveTestConfiguration configuration)
@@ -37,7 +40,17 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
             if (IsTypeMatch<int>(propertyInfo) || IsTypeMatch<long>(propertyInfo) || IsTypeMatch<double>(propertyInfo))
             {
-                if (IsRequired(propertyInfo))
+                if (propertyInfo.Name.Equals("FiscalYear") && IsRequired(propertyInfo))
+                {
+                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, _fiscalYearCounter));
+                    
+                }
+                else if (propertyInfo.Name.Equals("NumberOfParts") && IsRequired(propertyInfo))
+                {
+                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, _numberOfPartsCounter));
+
+                }
+                else if (IsRequired(propertyInfo))
                 {
                     propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, _counter++));
                 }
