@@ -152,7 +152,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private IEnumerable<AuthorizationContextProperty> UniqueIdProperties(Resource resource)
         {
-            return resource.Entity.Properties.Where(p => UniqueIdSpecification.IsUSI(p.PropertyName))
+            return resource.Entity.Properties.Where(p => UniqueIdConventions.IsUSI(p.PropertyName))
                 .Select(
                     p => new AuthorizationContextProperty
                     {
