@@ -7,8 +7,15 @@ using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Models
 {
+    /// <summary>
+    /// Defines a method to obtain the domain model.
+    /// </summary>
     public interface IDomainModelProvider
     {
+        /// <summary>
+        /// Gets the domain model.
+        /// </summary>
+        /// <returns>The domain model instance.</returns>
         DomainModel GetDomainModel();
     }
 }

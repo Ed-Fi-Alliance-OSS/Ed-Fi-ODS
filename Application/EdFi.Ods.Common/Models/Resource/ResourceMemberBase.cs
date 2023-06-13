@@ -31,8 +31,8 @@ namespace EdFi.Ods.Common.Models.Resource
                             ? PropertyName.ToCamelCase()
                             : JsonNamingConvention.ProposeJsonPropertyName(ParentFullName.Name, PropertyName);
 
-                    return UniqueIdSpecification.IsUSI(jsonPropertyName)
-                        ? UniqueIdSpecification.GetUniqueIdPropertyName(jsonPropertyName)
+                    return UniqueIdConventions.IsUSI(jsonPropertyName)
+                        ? UniqueIdConventions.GetUniqueIdPropertyName(jsonPropertyName)
                         : jsonPropertyName;
                 });
         }
