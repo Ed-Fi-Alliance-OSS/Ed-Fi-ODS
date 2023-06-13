@@ -75,11 +75,12 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var files = new List<string>();
 
-            files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories));
-            files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedHbm, SearchOption.AllDirectories));
-            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedSql, SearchOption.AllDirectories));
-            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedCs, SearchOption.AllDirectories));
-            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedHbm, SearchOption.AllDirectories));
+            var filesList = Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion));
+            files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
+            files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
+            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedSql, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
+            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedCs, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
+            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedHbm, SearchOption.AllDirectories).Where(filePath => filePath.Contains(StandardVersion)));
 
             files.Sort();
 
