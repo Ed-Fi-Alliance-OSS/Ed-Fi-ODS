@@ -38,8 +38,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
     {
         protected static IResourceModelProvider
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
-        protected static ISchemaNameMapProvider
-            SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
 
         private static ApiSettings CreateApiSettings()
         {
@@ -61,7 +59,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             private IDictionary<string, Schema> _actualDefinitions;
             private IList<Resource> _resources;
-            private IList<Schema> _actualEdfiResourceDefinitions;
             private IDictionary<string, List<string>> _actualPropertyNamesByDefinitionName;
             private IDictionary<string, List<string>> _expectedPropertyNamesByDefinitionName;
             private List<string> _expectedDefinitionNames;
@@ -88,11 +85,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         }, new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
                         CreateApiSettings()).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
 
-                _actualEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource).Select(r => r.Name.ToCamelCase())
-                    .Where(_actualDefinitions.ContainsKey).Select(r => _actualDefinitions[r]).ToList();
-
                 // link definitions are excluded here and tested in a separate assertion.
-                _actualExtendableEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource && !r.Entity.IsLookup)
+                _actualExtendableEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource && !r.Entity.IsDescriptorEntity)
                     .Select(r => r.Name.ToCamelCase()).Where(_actualDefinitions.ContainsKey).Select(r => _actualDefinitions[r])
                     .ToList();
 
@@ -308,7 +302,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         DefinitionName = namingStrategy.GetContainedItemTypeName(
                             new OpenApiMetadataResource(new Resource("TestResource")), i).ToCamelCase(),
                         Properties = i.Properties
-                            .Select(p => UniqueIdSpecification.GetUniqueIdPropertyName(p.JsonPropertyName))
+                            .Select(p => UniqueIdConventions.GetUniqueIdPropertyName(p.JsonPropertyName))
                             .Concat(i.Collections.Select(c => c.JsonPropertyName))
                             .Concat(i.EmbeddedObjects.Select(e => e.JsonPropertyName))
                             .Concat(i.References.Select(r => r.PropertyName.ToCamelCase()))
@@ -318,7 +312,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     {
                         DefinitionName = namingStrategy.GetReferenceName(new Resource("TestResource"), reference),
                         Properties = reference.ReferenceTypeProperties.Where(p => p.IsIdentifying).Select(
-                            p => UniqueIdSpecification.GetUniqueIdPropertyName(p.JsonPropertyName))
+                            p => UniqueIdConventions.GetUniqueIdPropertyName(p.JsonPropertyName))
                     })).ToList();
 
             return definitions.GroupBy(x => x.DefinitionName).Select(x => x.First()).ToDictionary(

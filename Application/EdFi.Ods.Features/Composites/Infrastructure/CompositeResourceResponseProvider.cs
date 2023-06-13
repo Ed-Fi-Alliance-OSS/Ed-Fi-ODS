@@ -47,8 +47,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
               };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceResponseProvider));
+        
         private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
         private readonly IProfileResourceModelProvider _profileResourceModelProvider;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly ISessionFactory _sessionFactory;
 
@@ -58,7 +60,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IResourceModelProvider resourceModelProvider,
             IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
             IFieldsExpressionParser fieldsExpressionParser,
-            IProfileResourceModelProvider profileResourceModelProvider)
+            IProfileResourceModelProvider profileResourceModelProvider,
+            IPersonEntitySpecification personEntitySpecification)
         {
             _sessionFactory = sessionFactory;
             _compositeDefinitionProcessor = compositeDefinitionProcessor;
@@ -66,6 +69,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             _personUniqueIdToUsiCache = personUniqueIdToUsiCache;
             _fieldsExpressionParser = fieldsExpressionParser;
             _profileResourceModelProvider = profileResourceModelProvider;
+            _personEntitySpecification = personEntitySpecification;
         }
 
         public object Get(
@@ -407,8 +411,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         else
                         {
                             // See if we need to convert an USI to a UniqueId
-                            if (UniqueIdSpecification.IsUSI(key)
-                                && UniqueIdSpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
+                            if (UniqueIdConventions.IsUSI(key)
+                                && _personEntitySpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
                             {
                                 // Translate to UniqueId
                                 string uniqueId = _personUniqueIdToUsiCache.GetUniqueId(personType, (int) sourceRow[key]);

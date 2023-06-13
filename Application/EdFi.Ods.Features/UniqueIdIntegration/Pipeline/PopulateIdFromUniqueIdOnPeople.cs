@@ -22,15 +22,19 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
         where TResult : PipelineResultBase
     {
         private readonly IPersonUniqueIdToIdCache _personUniqueIdToIdCache;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
 
-        public PopulateIdFromUniqueIdOnPeople(IPersonUniqueIdToIdCache personUniqueIdToIdCache)
+        public PopulateIdFromUniqueIdOnPeople(
+            IPersonUniqueIdToIdCache personUniqueIdToIdCache,
+            IPersonEntitySpecification personEntitySpecification)
         {
             _personUniqueIdToIdCache = personUniqueIdToIdCache;
+            _personEntitySpecification = personEntitySpecification;
         }
 
         public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
-            if (!PersonEntitySpecification.IsPersonEntity(typeof(TResourceModel)))
+            if (!_personEntitySpecification.IsPersonEntity(typeof(TResourceModel)))
             {
                 return Task.CompletedTask;
             }

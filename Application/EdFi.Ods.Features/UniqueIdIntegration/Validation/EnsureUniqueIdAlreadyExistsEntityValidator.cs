@@ -21,13 +21,20 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
     /// </summary>
     public class EnsureUniqueIdAlreadyExistsEntityValidator : ObjectValidatorBase, IEntityValidator
     {
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+
+        public EnsureUniqueIdAlreadyExistsEntityValidator(IPersonEntitySpecification personEntitySpecification)
+        {
+            _personEntitySpecification = personEntitySpecification;
+        }
+
         public ICollection<ValidationResult> ValidateObject(object @object)
         {
             var validationResults = new List<ValidationResult>();
 
             var objType = @object.GetType();
 
-            if (!PersonEntitySpecification.IsPersonEntity(objType))
+            if (!_personEntitySpecification.IsPersonEntity(objType))
             {
                 SetValid();
                 return new List<ValidationResult>();

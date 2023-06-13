@@ -16,10 +16,14 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
     public class UniqueIdNotChangedEntityValidator : ObjectValidatorBase, IEntityValidator
     {
         private readonly IPersonUniqueIdToIdCache _personIdentifiersCache;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
 
-        public UniqueIdNotChangedEntityValidator(IPersonUniqueIdToIdCache personIdentifiersCache)
+        public UniqueIdNotChangedEntityValidator(
+            IPersonUniqueIdToIdCache personIdentifiersCache,
+            IPersonEntitySpecification personEntitySpecification)
         {
             _personIdentifiersCache = personIdentifiersCache;
+            _personEntitySpecification = personEntitySpecification;
         }
 
         public virtual ICollection<ValidationResult> ValidateObject(object @object)
@@ -27,7 +31,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Validation
             var validationResults = new List<ValidationResult>();
             var objType = @object.GetType();
 
-            if (PersonEntitySpecification.IsPersonEntity(objType))
+            if (_personEntitySpecification.IsPersonEntity(objType))
             {
                 var objectWithIdentifier = (IHasIdentifier) @object;
 
