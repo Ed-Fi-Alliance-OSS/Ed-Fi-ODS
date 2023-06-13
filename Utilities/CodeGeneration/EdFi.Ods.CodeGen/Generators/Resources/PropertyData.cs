@@ -90,7 +90,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var desc = this[ResourceRenderer.DescriptionOverride] != null
                 ? this[ResourceRenderer.DescriptionOverride]
                     .ScrubForXmlDocumentation()
-                : UniqueIdSpecification.IsUniqueId(Property.PropertyName)
+                : UniqueIdConventions.IsUniqueId(Property.PropertyName)
                     ? string.Format(
                         "A unique alphanumeric code assigned to a {0}.",
                         Property.RemoveUniqueIdOrUsiFromPropertyName()
@@ -287,10 +287,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             string parentPropertyName = parent != null
                 ? property.IsDescriptorUsage
                     ? parent.PropertyName.TrimSuffix("Id")
-                    : UniqueIdSpecification.GetUniqueIdPropertyName(parent.PropertyName)
+                    : UniqueIdConventions.GetUniqueIdPropertyName(parent.PropertyName)
                 : property.ParentFullName.Name;
 
-            propertyData[ResourceRenderer.ParentPropertyName] = UniqueIdSpecification.GetUniqueIdPropertyName(parentPropertyName);
+            propertyData[ResourceRenderer.ParentPropertyName] = UniqueIdConventions.GetUniqueIdPropertyName(parentPropertyName);
 
             if (className != null)
             {

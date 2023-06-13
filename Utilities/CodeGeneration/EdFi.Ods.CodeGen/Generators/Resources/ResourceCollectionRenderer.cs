@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.CodeGen.Generators.Resources
 {
@@ -248,7 +249,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                             // Deal with the special case of the re-pointing of the identifying property from USI to UniqueId in Person entities
                                             ?? x.Reference.ReferenceTypeProperties
                                                 .Single(rtp => rtp.EntityProperty.PropertyName ==
-                                                    EdFi.Ods.Common.Specifications.UniqueIdSpecification.GetUniqueIdPropertyName(x.OtherEntityPropertyName)))
+                                                    UniqueIdConventions.GetUniqueIdPropertyName(x.OtherEntityPropertyName)))
                                 })
                                 .Select(x => new UnifiedReferenceProperty
                                 {

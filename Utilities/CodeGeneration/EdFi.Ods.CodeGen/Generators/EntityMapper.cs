@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
@@ -10,6 +11,7 @@ using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
@@ -18,8 +20,17 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class EntityMapper : GeneratorBase
     {
+        private IPersonEntitySpecification _personEntitySpecification;
+
         protected override object Build()
         {
+            var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
+
+            _personEntitySpecification = 
+                new PersonEntitySpecification(
+                    new PersonTypesProvider(
+                        new SuppliedDomainModelProvider(domainModel)));
+
             var resources = ResourceModelProvider.GetResourceModel()
                                                  .GetAllResources();
 
@@ -82,7 +93,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 BackSynchedPrimaryKeyList =
                     resourceClass.IdentifyingProperties
                         .Where(
-                            p => !UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
+                            p => !_personEntitySpecification.IsDefiningUniqueId(resourceClass, p))
                         .OrderBy(
                             x => x.PropertyName)
                         .Select(
@@ -96,7 +107,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     .Where(p => !p.IsInherited && p.IsSynchronizedProperty())
 
                     // Add mappings for UniqueId values defined on Person resources
-                    .Concat(resourceClass.IdentifyingProperties.Where(p => UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p)))
+                    .Concat(resourceClass.IdentifyingProperties.Where(p => _personEntitySpecification.IsDefiningUniqueId(resourceClass, p)))
                     .OrderBy(p => p.PropertyName)
                     .Select(
                         p => new
@@ -135,7 +146,6 @@ namespace EdFi.Ods.CodeGen.Generators
 
                 // Only Ed-Fi Standard entities that are non-lookups can have extensions
                 IsExtendable = resourceClass.IsEdFiStandardResource
-                    && !resourceClass.IsLookup()
                     && !resourceClass.IsDescriptorEntity()
                     && !resourceClass.IsAbstract(),
                 IsBaseClassConcrete = IsBaseClassConcrete(resourceClass),
@@ -231,7 +241,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 .Where(p => p.IsSynchronizedProperty())
 
                 // Don't include identifying properties, with the exception of where UniqueIds are defined
-                .Where(p => !p.IsIdentifying || UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
+                .Where(p => !p.IsIdentifying || _personEntitySpecification.IsDefiningUniqueId(resourceClass, p))
                 .Select(p => p.PropertyName)
 
                 // Add embedded object properties

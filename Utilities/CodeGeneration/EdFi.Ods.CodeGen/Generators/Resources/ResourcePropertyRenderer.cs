@@ -346,7 +346,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                 return PropertyData.CreateReferencedProperty(
                     baseProperty.ToResourceProperty(property.Parent),
-                    UniqueIdSpecification.IsUniqueId(property.PropertyName)
+                    UniqueIdConventions.IsUniqueId(property.PropertyName)
                         ? string.Format(
                             "A unique alphanumeric code assigned to a {0}.",
                             property.RemoveUniqueIdOrUsiFromPropertyName()

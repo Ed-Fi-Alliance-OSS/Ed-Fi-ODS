@@ -11,6 +11,7 @@ using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
@@ -19,8 +20,17 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class EntityInterfaces : GeneratorBase
     {
+        private IPersonEntitySpecification _personEntitySpecification;
+
         protected override object Build()
         {
+            var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
+
+            _personEntitySpecification = 
+                new PersonEntitySpecification(
+                    new PersonTypesProvider(
+                        new SuppliedDomainModelProvider(domainModel)));
+
             var resourceClassesToRender = ResourceModelProvider.GetResourceModel()
                 .GetAllResources()
                 .SelectMany(
@@ -74,8 +84,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                     p => new
                                     {
                                         IsServerAssigned = p.IsServerAssigned,
-                                        IsUniqueId = UniqueIdSpecification.IsUniqueId(p.PropertyName)
-                                            && PersonEntitySpecification.IsPersonEntity(r.Name),
+                                        IsUniqueId = UniqueIdConventions.IsUniqueId(p.PropertyName)
+                                            && _personEntitySpecification.IsPersonEntity(r.Name),
                                         IsLookup = p.IsDescriptorUsage,
                                         CSharpType = p.PropertyType.ToCSharp(false),
                                         PropertyName = p.PropertyName,
@@ -226,7 +236,7 @@ namespace EdFi.Ods.CodeGen.Generators
             }
 
             if (resourceClass.Properties.Where(p => p.IsIdentifying)
-                .Any(p => UniqueIdSpecification.IsUniqueId(p.PropertyName) && p.IsLocallyDefined))
+                .Any(p => UniqueIdConventions.IsUniqueId(p.PropertyName) && p.IsLocallyDefined))
             {
                 AddInterface("IIdentifiablePerson", interfaceStringBuilder);
             }
@@ -266,7 +276,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 .Where(p => p.IsSynchronizedProperty())
         
                 // Don't include identifying properties, with the exception of where UniqueIds are defined
-                .Where(p => !p.IsIdentifying || UniqueIdSpecification.IsDefiningUniqueId(resourceClass, p))
+                .Where(p => !p.IsIdentifying || _personEntitySpecification.IsDefiningUniqueId(resourceClass, p))
                 .Select(p => p.PropertyName)
         
                 // Add embedded object properties
