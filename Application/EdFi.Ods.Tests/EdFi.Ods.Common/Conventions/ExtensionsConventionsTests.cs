@@ -277,7 +277,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
                         },
-                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
+                        Array.Empty<IDomainModelDefinitionsTransformer>()).GetDomainModel();
 
                 _actualResult = ExtensionsConventions.GetAggregateExtensionMemberName(
                     domainModel.Entities.FirstOrDefault(e => e.Name == "StaffLeaveReason"));
@@ -356,7 +356,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
                         },
-                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
+                        Array.Empty<IDomainModelDefinitionsTransformer>()).GetDomainModel();
 
                 _staffLeaveEntity = domainModel.Entities.First(e => e.Name == "StaffLeave");
 
@@ -394,7 +394,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
                         },
-                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
+                        Array.Empty<IDomainModelDefinitionsTransformer>()).GetDomainModel();
 
                 _entity = domainModel.Entities.First(e => e.Name == _entityName);
 
