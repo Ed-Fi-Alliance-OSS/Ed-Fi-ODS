@@ -198,7 +198,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                 new EntityDefinition(
                     "schema1",
                     "School",
-                    new EntityPropertyDefinition[0],
+                    Array.Empty<EntityPropertyDefinition>(),
                     new[]
                     {
                         new EntityIdentifierDefinition(
@@ -214,7 +214,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                 new EntityDefinition(
                     "schema1",
                     "SchoolCategory",
-                    new EntityPropertyDefinition[0],
+                    Array.Empty<EntityPropertyDefinition>(),
                     new[]
                     {
                         new EntityIdentifierDefinition(
@@ -315,7 +315,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                 new EntityDefinition(
                     "schema1",
                     "StudentCTEProgramAssociation",
-                    new EntityPropertyDefinition[0],
+                    Array.Empty<EntityPropertyDefinition>(),
                     new[]
                     {
                         new EntityIdentifierDefinition(

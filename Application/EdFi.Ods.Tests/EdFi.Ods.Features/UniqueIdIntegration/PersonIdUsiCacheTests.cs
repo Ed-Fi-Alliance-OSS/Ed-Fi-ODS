@@ -507,7 +507,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
 
@@ -573,7 +573,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
 
@@ -659,7 +659,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 SetupCaching();
 
@@ -757,7 +757,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 SetupCaching();
 
@@ -853,7 +853,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 // USI value mapper gets call twice during Act step, with first value on ODS instance 1, and second on ODS instance 2
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
@@ -1050,7 +1050,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
-                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
+                    .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) Array.Empty<PersonIdentifiersValueMap>()));
 
                 _suppliedIdForUniqueIdABC123 = Guid.NewGuid();
 

@@ -117,7 +117,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
                     if (!DomainModel.AssociationViewsByEntityFullName.TryGetValue(FullName, out associations))
                     {
-                        return new Entity[0];
+                        return Array.Empty<Entity>();
                     }
 
                     return associations
@@ -162,7 +162,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
                     if (!DomainModel.AssociationViewsByEntityFullName.TryGetValue(FullName, out associations))
                     {
-                        return new Entity[0];
+                        return Array.Empty<Entity>();
                     }
 
                     return associations
@@ -178,7 +178,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
                     if (!DomainModel.AssociationViewsByEntityFullName.TryGetValue(FullName, out associations))
                     {
-                        return new AssociationView[0];
+                        return Array.Empty<AssociationView>();
                     }
 
                     return associations
@@ -410,7 +410,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new EntityIdentifier[0];
+                    return Array.Empty<EntityIdentifier>();
                 }
 
                 return BaseEntity.InheritedAlternateIdentifiers
@@ -428,7 +428,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new EntityProperty[0];
+                    return Array.Empty<EntityProperty>();
                 }
 
                 var inheritedProperties =
@@ -480,7 +480,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new EntityProperty[0];
+                    return Array.Empty<EntityProperty>();
                 }
 
                 return BaseEntity
@@ -504,7 +504,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new AssociationView[0];
+                    return Array.Empty<AssociationView>();
                 }
 
                 return BaseEntity
@@ -532,7 +532,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new AssociationView[0];
+                    return Array.Empty<AssociationView>();
                 }
 
                 return BaseEntity
@@ -557,7 +557,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new AssociationView[0];
+                    return Array.Empty<AssociationView>();
                 }
 
                 return BaseEntity
@@ -613,7 +613,7 @@ namespace EdFi.Ods.Common.Models.Domain
             AssociationViewType.OneToOneIncoming);
 
         public IReadOnlyList<AssociationView> InheritedNavigableChildren => BaseEntity == null
-            ? new AssociationView[0]
+            ? Array.Empty<AssociationView>()
             : BaseEntity
              .InheritedNavigableChildren
              .Concat(BaseEntity.NavigableChildren)
@@ -628,7 +628,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// For derived entities, gets all associations to child entities inherited from the <see cref="BaseEntity"/> that are not within the current aggregate.
         /// </summary>
         public IReadOnlyList<AssociationView> InheritedNonNavigableChildren => BaseEntity == null
-            ? new AssociationView[0]
+            ? Array.Empty<AssociationView>()
             : BaseEntity
              .InheritedNonNavigableChildren
              .Concat(BaseEntity.NonNavigableChildren)
@@ -643,7 +643,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// For derived entities, gets all "one-to-one" associations inherited from the base entity with entities within the current aggregate.
         /// </summary>
         public IReadOnlyList<AssociationView> InheritedNavigableOneToOnes => BaseEntity == null
-            ? new AssociationView[0]
+            ? Array.Empty<AssociationView>()
             : BaseEntity
              .InheritedNavigableOneToOnes
              .Concat(BaseEntity.NavigableOneToOnes)
@@ -663,7 +663,7 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 if (BaseEntity == null)
                 {
-                    return new AssociationView[0];
+                    return Array.Empty<AssociationView>();
                 }
 
                 return BaseEntity
@@ -703,7 +703,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// Gets a list of inherited self-referencing associations (filtered from <see cref="OutgoingAssociations"/>).
         /// </summary>
         public IReadOnlyList<AssociationView> InheritedSelfReferencingAssociations => BaseEntity == null
-            ? new AssociationView[0]
+            ? Array.Empty<AssociationView>()
             : BaseEntity
              .InheritedSelfReferencingAssociations
              .Concat(BaseEntity.SelfReferencingAssociations)

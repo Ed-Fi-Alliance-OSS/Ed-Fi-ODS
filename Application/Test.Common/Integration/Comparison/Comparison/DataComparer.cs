@@ -113,7 +113,7 @@ namespace Test.Common.Integration.Comparison.Comparison
             string[] additionalFieldsToIgnore)
         {
             //Initialize an empty array if the parameter is null.
-            additionalFieldsToIgnore = additionalFieldsToIgnore ?? new string[0];
+            additionalFieldsToIgnore = additionalFieldsToIgnore ?? Array.Empty<string>();
 
             var dataComparerResults = new DataComparerResults {TableName = tableName};
 

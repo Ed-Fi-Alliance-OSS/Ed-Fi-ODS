@@ -86,7 +86,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     security =
                         new List<IDictionary<string, IEnumerable<string>>>
                         {
-                            new Dictionary<string, IEnumerable<string>> {{"oauth2_client_credentials", new string[0]}}
+                            new Dictionary<string, IEnumerable<string>> {{"oauth2_client_credentials", Array.Empty<string>()}}
                         },
                     consumes = documentContext.IsCompositeContext
                         ? null

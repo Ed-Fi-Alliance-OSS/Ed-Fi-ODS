@@ -43,7 +43,7 @@ namespace EdFi.Ods.Common.Models.Resource
                 }
                 else
                 {
-                    ValueFilters = new CollectionItemValueFilter[0];
+                    ValueFilters = Array.Empty<CollectionItemValueFilter>();
                 }
             }
         }

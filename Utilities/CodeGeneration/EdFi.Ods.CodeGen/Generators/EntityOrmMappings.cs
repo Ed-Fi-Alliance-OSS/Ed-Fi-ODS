@@ -180,7 +180,7 @@ namespace EdFi.Ods.CodeGen.Generators
                             .Concat(
                                 classMappingContext.IsQueryModel
                                     ? entity.NonNavigableChildren
-                                    : new AssociationView[0])
+                                    : Array.Empty<AssociationView>())
                             .Where(
                                 ch => !(classMappingContext.IsQueryModel && ch.IsSelfReferencing) &&
                                       _shouldRenderEntityForSchema(ch.OtherEntity))
@@ -443,7 +443,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                 Collections = e.NavigableChildren.Concat(
                                         derivedEntityClassMappingContext.IsQueryModel
                                             ? e.NonNavigableChildren
-                                            : new AssociationView[0])
+                                            : Array.Empty<AssociationView>())
                                     .Where(
                                         ch => !(derivedEntityClassMappingContext.IsQueryModel &&
                                                 ch.IsSelfReferencing) &&
@@ -603,7 +603,7 @@ namespace EdFi.Ods.CodeGen.Generators
             public ClassMappingContext()
             {
                 // Initialize array of view properties to an empty list
-                ViewProperties = new EntityProperty[0];
+                ViewProperties = Array.Empty<EntityProperty>();
             }
 
             /// <summary>

@@ -615,7 +615,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         {
             if (!entityExtension.IsEntityExtension)
             {
-                return new AssociationView[0];
+                return Array.Empty<AssociationView>();
             }
 
             return entityExtension.EdFiStandardEntity.NavigableChildren
@@ -632,7 +632,7 @@ namespace EdFi.Ods.CodeGen.Extensions
         {
             if (!entityExtension.IsEntityExtension)
             {
-                return new AssociationView[0];
+                return Array.Empty<AssociationView>();
             }
 
             return entityExtension.EdFiStandardEntity.NavigableOneToOnes

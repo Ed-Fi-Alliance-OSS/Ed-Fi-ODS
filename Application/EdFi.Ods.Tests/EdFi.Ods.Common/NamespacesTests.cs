@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common;
@@ -49,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                             isPrimary: true)
                     }));
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(fullName, new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(fullName, Array.Empty<FullName>()));
 
             domainModelBuilder.AddEntity(
                 new EntityDefinition(

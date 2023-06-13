@@ -57,14 +57,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
             var entityName = new FullName(schema, "Student");
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(entityName, new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(entityName, Array.Empty<FullName>()));
 
             domainModelBuilder.AddEntity(
                 new EntityDefinition(
                     schema,
                     "Student",
-                    new EntityPropertyDefinition[0],
-                    new EntityIdentifierDefinition[0]));
+                    Array.Empty<EntityPropertyDefinition>(),
+                    Array.Empty<EntityIdentifierDefinition>()));
 
             domainModelBuilder.AddSchema(new SchemaDefinition(EdFiConventions.LogicalName, schema));
 

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -76,7 +77,7 @@ namespace EdFi.Ods.Features.Composites
         public List<EntityProperty> NonIncomingIdentifyingProperties()
         {
             var joinProperties = JoinAssociation == null
-                ? new EntityProperty[0]
+                ? Array.Empty<EntityProperty>()
                 : JoinAssociation.OtherProperties;
 
             return CurrentResourceClass.Entity.Identifier.Properties

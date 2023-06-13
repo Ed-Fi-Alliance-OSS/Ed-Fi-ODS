@@ -19,8 +19,8 @@ namespace EdFi.Ods.Common.Models.Domain
 {
     public class AssociationView : IHasNameContext
     {
-        private static readonly IReadOnlyList<PropertyMapping> EmptyPropertyMappingList
-            = new PropertyMapping[0];
+        private static readonly IReadOnlyList<PropertyMapping> EmptyPropertyMappingList = Array.Empty<PropertyMapping>();
+
         private readonly DomainModel _domainModel;
         private readonly Lazy<ForeignKeyNameParts> _foreignKeyNameParts;
         private readonly bool _isPrimaryEntity;

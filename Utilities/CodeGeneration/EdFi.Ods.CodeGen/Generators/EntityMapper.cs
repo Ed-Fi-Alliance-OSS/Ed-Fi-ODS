@@ -35,7 +35,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                     {
                                                         r
                                                     }
-                                                  : new ResourceClassBase[0])
+                                                  : Array.Empty<ResourceClassBase>())
 
                                               // Add in non-inherited child items
                                              .Concat(
@@ -179,7 +179,7 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             if (resourceClass.Entity == null)
             {
-                return new object[0];
+                return Array.Empty<object>();
             }
 
             return resourceClass.Entity.DerivedEntities

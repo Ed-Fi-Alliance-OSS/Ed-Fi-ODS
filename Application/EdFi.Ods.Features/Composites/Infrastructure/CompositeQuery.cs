@@ -134,7 +134,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             var hashMap = enumerator?.Current as Hashtable;
 
             return hashMap == null
-                ? new string[0]
+                ? Array.Empty<string>()
                 : hashMap
                  .Keys.Cast<string>()
                  .Where(x => !x.StartsWith("PK"))
@@ -146,7 +146,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             var hashMap = enumerator?.Current as Hashtable;
 
             return hashMap == null
-                ? new string[0]
+                ? Array.Empty<string>()
                 : hashMap.Keys
                          .Cast<string>()
                          .Where(x => x.StartsWith("PK"))

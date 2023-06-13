@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         {
             var domainModelBuilder = new DomainModelBuilder();
 
-            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "Student"), new FullName[0]));
+            domainModelBuilder.AddAggregate(new AggregateDefinition(new FullName("schema", "Student"), Array.Empty<FullName>()));
 
             // Execute code under test
             domainModelBuilder.AddEntity(
@@ -258,7 +259,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "SchoolCategory")
                     }));
 
-            builder.AddAggregate(new AggregateDefinition(new FullName("schema", "SpecializedSchool"), new FullName[0]));
+            builder.AddAggregate(new AggregateDefinition(new FullName("schema", "SpecializedSchool"), Array.Empty<FullName>()));
 
             // Top-level
             builder.AddEntity(
