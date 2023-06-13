@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Conventions;
@@ -37,15 +38,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "TheAggregate",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
                         "schema",
                         "Entity1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 var model = builder.Build();
             }
@@ -106,22 +107,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "Aggregate1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
                         "schema",
                         "Entity1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
                         "schema",
                         "Entity2",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 var model = builder.Build();
             }
@@ -153,8 +154,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "Aggregate1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
@@ -164,7 +165,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             CreateInt32Property()
                         },
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddAssociation(
                     new AssociationDefinition(
@@ -221,8 +222,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "Aggregate1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
@@ -232,7 +233,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         {
                             CreateInt32Property()
                         },
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddAssociation(
                     new AssociationDefinition(
@@ -289,15 +290,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "Aggregate1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
                         SystemConventions.AuthSchema,
                         "Entity1",
-                        new EntityPropertyDefinition[0],
-                        new EntityIdentifierDefinition[0]));
+                        Array.Empty<EntityPropertyDefinition>(),
+                        Array.Empty<EntityIdentifierDefinition>()));
 
                 var model = builder.Build();
             }

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Extensions;
@@ -72,7 +73,7 @@ namespace EdFi.Ods.Tests.EdFi.Security
             protected override void Arrange()
             {
                 var contextStorage = new HashtableContextStorage();
-                contextStorage.SetValue(AuthorizationContextKeys.Resource, new string[0]);
+                contextStorage.SetValue(AuthorizationContextKeys.Resource, Array.Empty<string>());
                 contextStorage.SetValue(AuthorizationContextKeys.Action, "Some Action");
 
                 Given<IContextStorage>(contextStorage);

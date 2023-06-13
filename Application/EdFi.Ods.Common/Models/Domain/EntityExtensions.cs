@@ -293,7 +293,7 @@ namespace EdFi.Ods.Common.Models.Domain
                 if (alternateIdentifier == null)
                 {
                     // No alternate identifier defined, return an empty array
-                    return new EntityProperty[0];
+                    return Array.Empty<EntityProperty>();
                 }
 
                 return alternateIdentifier.Properties;

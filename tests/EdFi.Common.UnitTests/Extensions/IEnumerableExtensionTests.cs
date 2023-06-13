@@ -260,7 +260,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
 
             protected override void Act()
             {
-                int[] values = new int[0];
+                int[] values = Array.Empty<int>();
 
                 _actualResult = values.AllEqual();
             }

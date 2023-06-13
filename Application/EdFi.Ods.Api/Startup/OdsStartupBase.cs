@@ -430,7 +430,7 @@ namespace EdFi.Ods.Api.Startup
                 _logger.Warn(
                     $"To configure plugins update the '{pluginFolderSettingsName}' setting with either an absolute path, a path relative to the 'Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/', or a path relative to the deployed EdFi.Ods.WebApi executable.");
 
-                return new PluginInfo[0];
+                return Array.Empty<PluginInfo>();
             }
 
             try

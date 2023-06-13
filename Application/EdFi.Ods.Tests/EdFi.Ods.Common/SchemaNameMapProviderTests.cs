@@ -28,9 +28,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                 .Returns(
                     new DomainModelDefinitions(
                         new SchemaDefinition(logicalSchemaName, physicalSchemaName),
-                        new AggregateDefinition[0],
-                        new EntityDefinition[0],
-                        new AssociationDefinition[0]));
+                        Array.Empty<AggregateDefinition>(),
+                        Array.Empty<EntityDefinition>(),
+                        Array.Empty<AssociationDefinition>()));
 
             // Add a second schema to demonstrate correct matching with multiple schema entries
             var domainModelDefinitionsProvider2 = A.Fake<IDomainModelDefinitionsProvider>();
@@ -38,9 +38,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                 .Returns(
                     new DomainModelDefinitions(
                         new SchemaDefinition("AnotherSchema", "another"),
-                        new AggregateDefinition[0],
-                        new EntityDefinition[0],
-                        new AssociationDefinition[0]));
+                        Array.Empty<AggregateDefinition>(),
+                        Array.Empty<EntityDefinition>(),
+                        Array.Empty<AssociationDefinition>()));
 
             var schemaDefinitions =
                 new DomainModelProvider(
@@ -48,7 +48,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                         {
                             domainModelDefinitionsProvider, domainModelDefinitionsProvider2
                         },
-                        new IDomainModelDefinitionsTransformer[0])
+                        Array.Empty<IDomainModelDefinitionsTransformer>())
                     .GetDomainModel()
                     .Schemas;
 

@@ -41,7 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 builder.AddSchema(new SchemaDefinition("schema", "schema"));
 
-                builder.AddAggregate(new AggregateDefinition(new FullName("schema", "Thing"), new FullName[0]));
+                builder.AddAggregate(new AggregateDefinition(new FullName("schema", "Thing"), Array.Empty<FullName>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
@@ -202,7 +202,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "RelatedThing",
-                        new EntityPropertyDefinition[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EntityIdentifierDefinition(
@@ -344,7 +344,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "RelatedThing",
-                        new EntityPropertyDefinition[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EntityIdentifierDefinition(
@@ -505,7 +505,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "RelatedThing",
-                        new EntityPropertyDefinition[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EntityIdentifierDefinition(
@@ -646,7 +646,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "RelatedThing",
-                        new EntityPropertyDefinition[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EntityIdentifierDefinition(
@@ -930,7 +930,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "RelatedThing",
-                        new EntityPropertyDefinition[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EntityIdentifierDefinition(
@@ -1175,8 +1175,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 builder.AddSchema(new SchemaDefinition("schema", "schema"));
 
-                builder.AddAggregate(new AggregateDefinition(new FullName("schema", "Thing"), new FullName[0]));
-                builder.AddAggregate(new AggregateDefinition(new FullName("schema", "RelatedThing"), new FullName[0]));
+                builder.AddAggregate(new AggregateDefinition(new FullName("schema", "Thing"), Array.Empty<FullName>()));
+                builder.AddAggregate(new AggregateDefinition(new FullName("schema", "RelatedThing"), Array.Empty<FullName>()));
 
                 builder.AddEntity(
                     new EntityDefinition(
@@ -1201,7 +1201,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "schema",
                         "RelatedThing",
-                        new EntityPropertyDefinition[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EntityIdentifierDefinition(
@@ -1490,7 +1490,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     new EntityDefinition(
                         "extension",
                         "FundingSourceDescriptor",
-                        new EP[0],
+                        Array.Empty<EntityPropertyDefinition>(),
                         new[]
                         {
                             new EId(
@@ -1827,7 +1827,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 domainModelBuilder.AddAggregate(
                     new AggregateDefinition(
                         new FullName("schema", "ADerived"),
-                        new FullName[0]));
+                        Array.Empty<FullName>()));
 
                 domainModelBuilder.AddEntity(
                     new EntityDefinition(

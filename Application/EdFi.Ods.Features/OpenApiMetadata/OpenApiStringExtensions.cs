@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Text.RegularExpressions;
 
 namespace EdFi.Ods.Features.OpenApiMetadata
@@ -18,7 +19,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata
                 return enhancedDescription;
             }
 
-            string deprecationSegment = $"{string.Join(" ", deprecationReasons ?? new string[0])} {enhancedDescription}".Trim();
+            string deprecationSegment = $"{string.Join(" ", deprecationReasons ?? Array.Empty<string>())} {enhancedDescription}".Trim();
 
             enhancedDescription = "Deprecated";
 

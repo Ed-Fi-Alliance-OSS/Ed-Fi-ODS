@@ -83,7 +83,7 @@ namespace EdFi.Ods.Features.XsdMetadata
 
             if (schemaInformation == default)
             {
-                return Ok(new Uri[0]);
+                return Ok(Array.Empty<Uri>());
             }
 
             var results = schemaInformation.SchemaFiles

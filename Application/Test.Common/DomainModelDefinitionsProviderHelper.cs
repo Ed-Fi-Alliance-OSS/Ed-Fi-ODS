@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Data;
 using EdFi.Ods.Common;
@@ -28,7 +29,7 @@ namespace Test.Common
             };
 
         public static IDomainModelProvider DomainModelProvider =
-            new DomainModelProvider(DefinitionProviders, new IDomainModelDefinitionsTransformer[0]);
+            new DomainModelProvider(DefinitionProviders, Array.Empty<IDomainModelDefinitionsTransformer>());
 
         public static IResourceModelProvider ResourceModelProvider =
             new ResourceModelProvider(DomainModelProvider);
@@ -329,7 +330,7 @@ namespace Test.Common
                             true,
                             true)
                     },
-                    new AggregateExtensionDefinition[0]
+                    Array.Empty<AggregateExtensionDefinition>()
                 );
         }
     }
