@@ -11,6 +11,7 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
@@ -155,6 +156,16 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <returns><b>true</b> if the type has a EducationOrganization Derived Entity; otherwise <b>false</b>.</returns>
         public static bool IsEducationOrganizationDerivedEntity(this Entity entity)
             => entity.BaseEntity?.FullName.Equals(EdFiConventions.EducationOrganizationFullName) ?? false;
+
+        /// <summary>
+        /// Indicates whether the supplied entity is a person type entity.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns><b>true</b> if the type has is a person type entity; otherwise <b>false</b>.</returns>
+        public static bool IsPersonEntity(this Entity entity)
+        {
+            return entity.DomainModel.GetPersonEntities().Contains(entity, ModelComparers.Entity);
+        }
 
         /// <summary>
         /// Indicates whether the supplied <see cref="Entity"/> has a discriminator.

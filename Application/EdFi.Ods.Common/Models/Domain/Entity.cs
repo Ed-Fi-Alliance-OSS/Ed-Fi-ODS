@@ -690,11 +690,6 @@ namespace EdFi.Ods.Common.Models.Domain
         public bool IsAggregateRoot => DomainModel.AggregateFullNameByEntityFullName[FullName] == FullName;
 
         /// <summary>
-        /// Indicates whether the entity represents a descriptor.
-        /// </summary>
-        public bool IsLookup => this.IsLookupEntity();
-
-        /// <summary>
         /// Indicates whether the entity has any self-referencing associations, representing a hierarchical data structure.
         /// </summary>
         public bool HasSelfReferencingAssociations => IncomingAssociations.Any(a => a.IsSelfReferencing);

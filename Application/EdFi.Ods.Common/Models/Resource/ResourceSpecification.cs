@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Models.Resource
             // Exclude boilerplate dates from resources
             return !(entityPropertyName.EqualsIgnoreCase("LastModifiedDate")
                      || entityPropertyName.EqualsIgnoreCase("CreateDate")
-                     || UniqueIdSpecification.IsUSI(entityPropertyName));
+                     || UniqueIdConventions.IsUSI(entityPropertyName));
         }
     }
 }

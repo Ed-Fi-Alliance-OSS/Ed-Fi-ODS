@@ -69,8 +69,9 @@ namespace EdFi.Ods.Common.Models.Resource
             IsDirectDescriptorUsage = entityProperty.IsDirectDescriptorUsage;
 
             IsIdentifying = entityProperty.IsIdentifying
-                            || UniqueIdSpecification.TryGetUniqueIdPersonType(entityProperty.PropertyName, out string personType)
-                            && personType == resourceClass.Name;
+                || (UniqueIdConventions.IsUniqueId(entityProperty.PropertyName)
+                    && entityProperty.Entity.IsPersonEntity()
+                    && UniqueIdConventions.IsUniqueId(entityProperty.PropertyName, entityProperty.Entity.Name));
 
             IsLocallyDefined = entityProperty.IsLocallyDefined;
             IsServerAssigned = entityProperty.IsServerAssigned;
@@ -225,6 +226,11 @@ namespace EdFi.Ods.Common.Models.Resource
                     isNullable: property.PropertyType.IsNullable);
             }
 
+            if (property.PropertyName.EndsWith("USI"))
+            {
+                System.Diagnostics.Debugger.Break();
+            }
+            
             var propertyType = IsUsiWithTransformedResourcePropertyName(property)
                 ? GetBasePersonUniqueIdPropertyType(property)
                 : property.PropertyType;
@@ -243,9 +249,7 @@ namespace EdFi.Ods.Common.Models.Resource
         private static PropertyType GetBasePersonUniqueIdPropertyType(EntityProperty property)
         {
             return property.DefiningProperty.Entity.Properties
-                .Where(
-                    x => !UniqueIdSpecification.IsUSI(x.PropertyName)
-                        && PersonEntitySpecification.IsPersonIdentifier(x.PropertyName))
+                .Where(x => UniqueIdConventions.IsUniqueId(x.PropertyName))
                 .Select(x => x.PropertyType)
                 .Single();
         }
@@ -259,8 +263,9 @@ namespace EdFi.Ods.Common.Models.Resource
             }
 
             // Convert USIs to UniqueIds everywhere but on the people
-            if (UniqueIdSpecification.IsUSI(property.PropertyName)
-                && !PersonEntitySpecification.IsPersonEntity(property.Entity.Name))
+            if (UniqueIdConventions.IsUSI(property.PropertyName)
+                && !UniqueIdConventions.IsUSI(property.PropertyName, property.Entity.Name)
+                && !property.Entity.IsPersonEntity())
             {
                 return property.PropertyName.Replace("USI", "UniqueId");
             }
@@ -270,12 +275,10 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private bool IsUsiWithTransformedResourcePropertyName(EntityProperty property)
         {
-            //Not: Use C# 7 '_' wildcard instead when available.
-            string notUsed;
-
-            //If the resource property name was flipped to a UniqueId for this USI property
-            return UniqueIdSpecification.IsUSI(property.PropertyName)
-                   && UniqueIdSpecification.TryGetUniqueIdPersonType(PropertyName, out notUsed);
+            // If the resource property name was flipped to a UniqueId for this USI property
+            return UniqueIdConventions.IsUSI(property.PropertyName)
+                    && UniqueIdConventions.IsUniqueId(PropertyName)
+                    && property.DefiningProperty.Entity.IsPersonEntity();
         }
 
         /// <inheritdoc cref="ResourceMemberBase.JsonPath" />
