@@ -10,9 +10,12 @@ namespace EdFi.Ods.Common.Providers.Criteria;
 
 internal static class AggregateRootCriteriaProviderHelpers
 {
-    public static readonly string[] UniqueIdProperties = PersonEntitySpecification.ValidPersonTypes
-        .Select(pt => $"{pt}UniqueId")
-        .ToArray();
+    private static string[] _uniqueIds;
+
+    public static string[] GetUniqueIdProperties(IPersonTypesProvider personTypesProvider)
+    {
+        return _uniqueIds ??= personTypesProvider.PersonTypes.Select(pt => $"{pt}UniqueId").ToArray();
+    }
 
     public static readonly string[] PropertiesToIgnore =
     {

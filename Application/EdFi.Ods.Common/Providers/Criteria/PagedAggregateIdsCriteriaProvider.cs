@@ -7,6 +7,7 @@ using System;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Descriptors;
+using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Persister.Entity;
@@ -23,8 +24,10 @@ namespace EdFi.Ods.Common.Providers.Criteria
         public PagedAggregateIdsCriteriaProvider(
             ISessionFactory sessionFactory, 
             IDescriptorResolver descriptorResolver, 
-            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(sessionFactory, descriptorResolver)
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            IPersonEntitySpecification personEntitySpecification,
+            IPersonTypesProvider personTypesProvider)
+            : base(sessionFactory, descriptorResolver, personEntitySpecification, personTypesProvider)
         {
             _identifierColumnNames = new Lazy<string[]>(
                 () =>

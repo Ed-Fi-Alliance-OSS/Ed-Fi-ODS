@@ -30,7 +30,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
         public IDictionary<string, Schema> GetEdFiExtensionBridgeDefinitions(IEnumerable<OpenApiMetadataResource> swaggerResources)
         {
-            return swaggerResources.Where(r => r.Resource.Entity != null && r.Resource.IsEdFiStandardResource && !r.Resource.Entity.IsLookup)
+            return swaggerResources.Where(r => r.Resource.Entity != null && r.Resource.IsEdFiStandardResource && !r.Resource.Entity.IsDescriptorEntity)
                                    .Select(
                                         r =>
                                         {

@@ -19,13 +19,18 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStra
     public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsFactory(
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
         IApiKeyContextProvider apiKeyContextProvider,
-        IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
-        : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport) { }
+        IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+        IPersonTypesProvider personTypesProvider)
+        : base(
+            educationOrganizationIdNamesProvider,
+            apiKeyContextProvider,
+            viewBasedSingleItemAuthorizationQuerySupport,
+            personTypesProvider) { }
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {
         return CreateAllEducationOrganizationToPersonFilters(
-                shouldIncludePersonType: pt => pt == PersonEntitySpecification.Student,
+                shouldIncludePersonType: pt => pt == WellKnownPersonTypes.Student,
                 authorizationPathModifier: "ThroughResponsibility")
             .ToArray();
     }

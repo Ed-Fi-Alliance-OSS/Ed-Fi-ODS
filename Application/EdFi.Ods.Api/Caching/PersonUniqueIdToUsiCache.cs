@@ -37,6 +37,8 @@ namespace EdFi.Ods.Api.Caching
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(PersonUniqueIdToUsiCache));
         private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+        private readonly IPersonTypesProvider _personTypesProvider;
         private readonly IUniqueIdToUsiValueMapper _uniqueIdToUsiValueMapper;
         private readonly bool _synchronousInitialization;
         private readonly Dictionary<string, bool> _cacheSuppression;
@@ -51,6 +53,8 @@ namespace EdFi.Ods.Api.Caching
         /// <param name="edFiOdsInstanceIdentificationProvider">Identifies the ODS instance for the current call.</param>
         /// <param name="uniqueIdToUsiValueMapper">A component that maps between USI and UniqueId values.</param>
         /// <param name="personIdentifiersProvider">A component that retrieves all Person identifiers.</param>
+        /// <param name="personEntitySpecification"></param>
+        /// <param name="personTypesProvider"></param>
         /// <param name="slidingExpiration">Indicates how long the cache values will remain in memory after being used before all the cached values are removed.</param>
         /// <param name="absoluteExpirationPeriod">Indicates the maximum time that the cache values will remain in memory before being refreshed.</param>
         /// <param name="synchronousInitialization">Indicates whether the cache should wait until all the Person identifiers are loaded before responding, or if using the value mappers initially to avoid an initial delay is preferable.</param>
@@ -60,6 +64,8 @@ namespace EdFi.Ods.Api.Caching
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
             IUniqueIdToUsiValueMapper uniqueIdToUsiValueMapper,
             IPersonIdentifiersProvider personIdentifiersProvider,
+            IPersonEntitySpecification personEntitySpecification,
+            IPersonTypesProvider personTypesProvider,
             TimeSpan slidingExpiration,
             TimeSpan absoluteExpirationPeriod,
             bool synchronousInitialization,
@@ -69,6 +75,8 @@ namespace EdFi.Ods.Api.Caching
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
             _uniqueIdToUsiValueMapper = uniqueIdToUsiValueMapper;
             _personIdentifiersProvider = personIdentifiersProvider;
+            _personEntitySpecification = personEntitySpecification;
+            _personTypesProvider = personTypesProvider;
             _synchronousInitialization = synchronousInitialization;
 
             // Ensure that the string comparer is using case-insensitive matching, or re-create it.
@@ -253,13 +261,13 @@ namespace EdFi.Ods.Api.Caching
         private Task InitializePersonTypeValueMaps(IdentityValueMaps entry, string personType, string context)
         {
             // Validate Person type
-            if (!PersonEntitySpecification.IsPersonEntity(personType))
+            if (!_personEntitySpecification.IsPersonEntity(personType))
             {
                 throw new ArgumentException(
                     string.Format(
-                        "Invalid person type '{0}'. Valid person types are: {1}",
+                        "Invalid person type '{0}'. Valid person types are: '{1}'",
                         personType,
-                        "'" + string.Join("','", PersonEntitySpecification.ValidPersonTypes) + "'"));
+                        string.Join("','", _personTypesProvider.PersonTypes)));
             }
 
             var task = InitializePersonTypeValueMapsAsync(entry, personType, context);

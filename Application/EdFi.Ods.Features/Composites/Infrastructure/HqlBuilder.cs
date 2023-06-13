@@ -52,6 +52,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
         private readonly IResourceJoinPathExpressionProcessor _resourceJoinPathExpressionProcessor;
         private readonly IParameterListSetter _parameterListSetter;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
 
         private readonly ISessionFactory _sessionFactory;
 
@@ -60,8 +61,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             IDescriptorResolver descriptorResolver,
             IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
             IResourceJoinPathExpressionProcessor resourceJoinPathExpressionProcessor,
-            IParameterListSetter parameterListSetter)
+            IParameterListSetter parameterListSetter,
+            IPersonEntitySpecification personEntitySpecification)
         {
+            _personEntitySpecification = personEntitySpecification;
             _sessionFactory = Preconditions.ThrowIfNull(sessionFactory, nameof(sessionFactory));
             _descriptorResolver = Preconditions.ThrowIfNull(descriptorResolver, nameof(descriptorResolver));
             _personUniqueIdToUsiCache = Preconditions.ThrowIfNull(personUniqueIdToUsiCache, nameof(personUniqueIdToUsiCache));
@@ -804,13 +807,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     }
 
                     // Handle UniqueId conversions
-                    else if (UniqueIdSpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
+                    else if (_personEntitySpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
                     {
                         int usi = _personUniqueIdToUsiCache.GetUsi(personType, Convert.ToString(queryStringParameter.Value));
 
                         // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
                         // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
-                        if (PersonEntitySpecification.IsPersonEntity(targetProperty.ParentFullName.Name))
+                        if (_personEntitySpecification.IsPersonEntity(targetProperty.ParentFullName.Name))
                         {
                             criteriaPropertyName = targetProperty.EntityProperty.PropertyName.Replace("UniqueId", "USI");
                         }

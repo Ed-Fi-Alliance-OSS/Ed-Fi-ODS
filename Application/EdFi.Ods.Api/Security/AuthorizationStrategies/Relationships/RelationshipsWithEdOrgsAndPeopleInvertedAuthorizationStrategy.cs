@@ -14,8 +14,15 @@ public class RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy<TCont
     : RelationshipsAuthorizationStrategyBase<TContextData>
     where TContextData : RelationshipsAuthorizationContextData, new()
 {
-    public RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy(IDomainModelProvider domainModelProvider)
-        : base(domainModelProvider) { }
+    private readonly IPersonEntitySpecification _personEntitySpecification;
+
+    public RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy(
+        IDomainModelProvider domainModelProvider,
+        IPersonEntitySpecification personEntitySpecification)
+        : base(domainModelProvider)
+    {
+        _personEntitySpecification = personEntitySpecification;
+    }
 
     protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
         IEnumerable<(string name, object value)> authorizationContextTuples)
@@ -23,7 +30,7 @@ public class RelationshipsWithEdOrgsAndPeopleInvertedAuthorizationStrategy<TCont
         return authorizationContextTuples
             .Select(nv =>
             {
-                if (PersonEntitySpecification.IsPersonIdentifier(nv.name))
+                if (_personEntitySpecification.IsPersonIdentifier(nv.name))
                 {
                     return new SubjectEndpoint(nv);
                 }

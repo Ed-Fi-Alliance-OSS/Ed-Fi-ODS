@@ -11,7 +11,9 @@ using EdFi.Ods.Entities.NHibernate.ParentAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Common.Specifications
@@ -26,39 +28,46 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
             [Assert]
             public void Should_return_true_for_staff_entity()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
-                            typeof(Staff)), Is.True),
+                        personEntitySpecification.IsPersonEntity(typeof(Staff)), Is.True),
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
-                            nameof(Staff)), Is.True)
-                );
+                        personEntitySpecification.IsPersonEntity(nameof(Staff)), Is.True));
             }
 
             [Assert]
             public void Should_return_true_for_staff_resource()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             typeof(Api.Common.Models.Resources.Staff.EdFi.Staff)), Is.True),
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             nameof(Api.Common.Models.Resources.Staff.EdFi.Staff)), Is.True)
                 );
             }
 
             //Student
+
             [Assert]
             public void Should_return_true_for_student_entity()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             typeof(Student)), Is.True),
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             nameof(Student)), Is.True)
                 );
             }
@@ -66,12 +75,15 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
             [Assert]
             public void Should_return_true_for_student_resource()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             typeof(Api.Common.Models.Resources.Student.EdFi.Student)), Is.True),
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             nameof(Api.Common.Models.Resources.Student.EdFi.Student)), Is.True)
                 );
             }
@@ -79,12 +91,15 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
             [Assert]
             public void Should_return_true_for_parent_entity()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             typeof(Parent)), Is.True),
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             nameof(Parent)), Is.True)
                 );
             }
@@ -92,12 +107,15 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
             [Assert]
             public void Should_return_true_for_parent_resource()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             typeof(Api.Common.Models.Resources.Parent.EdFi.Parent)), Is.True),
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonEntity(
+                        personEntitySpecification.IsPersonEntity(
                             nameof(Api.Common.Models.Resources.Parent.EdFi.Parent)), Is.True)
                 );
             }
@@ -105,16 +123,36 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
             [Assert]
             public void Should_return_true_for_parent_Identifier_property()
             {
+                var personTypesProvider = GetPersonTypesProvider();
+                var personEntitySpecification = new PersonEntitySpecification(personTypesProvider);
+
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonIdentifier(
+                        personEntitySpecification.IsPersonIdentifier(
                             nameof(Parent.ParentUniqueId)), Is.True)
                 );
                 AssertHelper.All(
                     () => Assert.That(
-                        PersonEntitySpecification.IsPersonIdentifier(
+                        personEntitySpecification.IsPersonIdentifier(
                             nameof(Parent.ParentUSI)), Is.True)
                 );
+            }
+
+            private static IPersonTypesProvider GetPersonTypesProvider()
+            {
+                var personTypesProvider = A.Fake<IPersonTypesProvider>();
+
+                A.CallTo(() => personTypesProvider.PersonTypes)
+                    .Returns(
+                        new[]
+                        {
+                            "PersonType1",
+                            "Staff",
+                            "Student",
+                            "PersonType3"
+                        });
+
+                return personTypesProvider;
             }
         }
     }

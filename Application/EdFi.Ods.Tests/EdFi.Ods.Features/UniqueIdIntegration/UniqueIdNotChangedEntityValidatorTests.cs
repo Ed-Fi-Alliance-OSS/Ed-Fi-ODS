@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi;
 using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Features.UniqueIdIntegration.Validation;
 using EdFi.TestFixture;
@@ -38,7 +39,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -70,7 +72,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -102,7 +105,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -134,7 +138,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -166,7 +171,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -198,7 +204,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -230,7 +237,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -257,7 +265,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -284,7 +293,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -311,7 +321,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -338,7 +349,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);
@@ -365,7 +377,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 };
 
                 var personUniqueIdToIdCache = Stub<IPersonUniqueIdToIdCache>();
-                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache);
+                var personEntitySpecification = Stub<IPersonEntitySpecification>();
+                var validator = new UniqueIdNotChangedEntityValidator(personUniqueIdToIdCache, personEntitySpecification);
 
                 A.CallTo(() => personUniqueIdToIdCache.GetUniqueId(A<string>._, A<Guid>._))
                     .Returns(uniqueId);

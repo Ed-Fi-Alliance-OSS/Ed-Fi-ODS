@@ -147,7 +147,6 @@ namespace EdFi.Ods.Api.Middleware.Tests
 
             // Act & Assert
              Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
-
         }
 
         private static ApiKeyContext CreateApiKeyContext(params int[] odsInstanceIds)

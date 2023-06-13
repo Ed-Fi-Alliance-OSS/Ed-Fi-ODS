@@ -6,69 +6,41 @@
 using System;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Dependencies;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Specifications
 {
-    public static class PersonEntitySpecification
+    public class PersonEntitySpecification : IPersonEntitySpecification
     {
-        /// <summary>
-        /// Provides the well-known person type representing students.
-        /// </summary>
-        public const string Student = "Student";
-
-        private static readonly Lazy<string[]> _validPersonTypes = new(
-            () => GeneratedArtifactStaticDependencies.DomainModelProvider.GetDomainModel()
-                .Aggregates.Select(a => a.AggregateRoot)
-                .Where(e => e.Identifier.Properties.Count == 1 && e.Identifier.Properties[0].PropertyName.EndsWith("USI"))
-                .Select(e => e.Name)
-                .ToArray());
-
-        public static string[] ValidPersonTypes
+        private readonly IPersonTypesProvider _personTypesProvider;
+        
+        public PersonEntitySpecification(IPersonTypesProvider personTypesProvider)
         {
-            get => _validPersonTypes.Value;
+            _personTypesProvider = personTypesProvider;
         }
         
-        /// <summary>
-        /// Indicates whether the specified <see cref="Type"/> represents a type of person.
-        /// </summary>
-        /// <param name="type">The <see cref="Type"/> to be evaluated.</param>
-        /// <returns><b>true</b> if the entity type represents a type of person; otherwise <b>false</b>.</returns>
-        public static bool IsPersonEntity(Type type)
+        /// <inheritdoc cref="IPersonEntitySpecification.IsPersonEntity(System.Type)" />
+        public bool IsPersonEntity(Type type)
         {
             return IsPersonEntity(type.Name);
         }
 
-        /// <summary>
-        /// Indicates whether the specified type name represents a type of person.
-        /// </summary>
-        /// <param name="typeName">The <see cref="Type.Name"/> value to be evaluated.</param>
-        /// <returns><b>true</b> if the entity represents a type of person; otherwise <b>false</b>.</returns>
-        public static bool IsPersonEntity(string typeName)
+        /// <inheritdoc cref="IPersonEntitySpecification.IsPersonEntity(string)" />
+        public bool IsPersonEntity(string typeName)
         {
-            return ValidPersonTypes.Contains(typeName, StringComparer.OrdinalIgnoreCase);
+            return _personTypesProvider.PersonTypes.Contains(typeName, StringComparer.OrdinalIgnoreCase);
         }
 
-        /// <summary>
-        /// Indicates whether the specified property name is an identifier for a person.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to be evaluated.</param>
-        /// <returns><b>true</b> if the property is an identifier for a type of person; otherwise <b>false</b>.</returns>
-        public static bool IsPersonIdentifier(string propertyName)
+        /// <inheritdoc cref="IPersonEntitySpecification.IsPersonIdentifier(string)" />
+        public bool IsPersonIdentifier(string propertyName)
         {
             return IsPersonIdentifier(propertyName, null);
         }
 
-        /// <summary>
-        /// Indicates whether the specified property name is an identifier for the specified person type.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to be evaluated.</param>
-        /// <param name="personType">A specific type of person.</param>
-        /// <returns><b>true</b> if the property is an identifier for the specified type of person; otherwise <b>false</b>.</returns>
-        public static bool IsPersonIdentifier(string propertyName, string personType)
+        /// <inheritdoc cref="IPersonEntitySpecification.IsPersonIdentifier(string,string)" />
+        public bool IsPersonIdentifier(string propertyName, string personType)
         {
-            if (personType != null && !ValidPersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
+            if (personType != null && !_personTypesProvider.PersonTypes.Any(pt => pt.EqualsIgnoreCase(personType)))
             {
                 throw new ArgumentException($"'{personType}' is not a supported person type.");
             }
@@ -77,11 +49,91 @@ namespace EdFi.Ods.Common.Specifications
             if (propertyName.TryTrimSuffix("UniqueId", out string entityName)
                 || propertyName.TryTrimSuffix("USI", out entityName))
             {
-                return IsPersonEntity(entityName)
-                       && (personType == null || entityName.EqualsIgnoreCase(personType));
+                return IsPersonEntity(entityName) && (personType == null || entityName.EqualsIgnoreCase(personType));
             }
 
             return false;
+        }
+        
+        public string GetUniqueIdPersonType(string propertyName)
+        {
+            string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
+                pt =>
+                {
+                    int personTypePos = propertyName.IndexOf(pt, StringComparison.Ordinal);
+
+                    if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
+                    {
+                        return false;
+                    }
+
+                    return propertyName.AsSpan(personTypePos + pt.Length)
+                        .Equals(UniqueIdConventions.UniqueId.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                });
+
+            return personType;
+        }
+
+        /// <inheritdoc cref="IUniqueIdSpecification.TryGetUniqueIdPersonType" />
+        public bool TryGetUniqueIdPersonType(string propertyName, out string personType)
+        {
+            personType = GetUniqueIdPersonType(propertyName);
+
+            return personType != null;
+        }
+
+        public string GetUSIPersonType(string propertyName)
+        {
+            string personType = _personTypesProvider.PersonTypes.FirstOrDefault(
+                pt =>
+                {
+                    int personTypePos = propertyName.IndexOf(pt, StringComparison.Ordinal);
+
+                    if (personTypePos < 0 || personTypePos + pt.Length > propertyName.Length)
+                    {
+                        return false;
+                    }
+
+                    return propertyName.AsSpan(personTypePos + pt.Length)
+                        .Equals(UniqueIdConventions.USI.AsSpan(), StringComparison.OrdinalIgnoreCase);
+                });
+
+            return personType;
+        }
+
+        public bool TryGetUSIPersonType(string propertyName, out string personType)
+        {
+            personType = GetUSIPersonType(propertyName);
+
+            return personType != null;
+        }
+
+        public bool TryGetUSIPersonTypeAndRoleName(string propertyName, out string personType, out string roleName)
+        {
+            roleName = null;
+
+            personType = GetUSIPersonType(propertyName);
+            
+            if (personType == null)
+            {
+                return false;
+            }
+
+            int personStartPos;
+
+            // Extract role name applied as a prefix
+            if ((personStartPos = propertyName.IndexOf(personType)) >= 0)
+            {
+                roleName = propertyName.Substring(0, personStartPos);
+            }
+
+            return true;
+        }
+
+        public bool IsDefiningUniqueId(ResourceClassBase resourceClass, ResourceProperty property)
+        {
+            return UniqueIdConventions.IsUniqueId(property.PropertyName)
+                && IsPersonEntity(resourceClass.Name);
         }
     }
 }

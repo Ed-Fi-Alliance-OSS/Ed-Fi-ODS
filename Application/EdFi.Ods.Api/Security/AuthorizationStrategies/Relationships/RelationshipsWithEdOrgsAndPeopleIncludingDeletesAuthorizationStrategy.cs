@@ -14,8 +14,15 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         : RelationshipsAuthorizationStrategyBase<TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        public RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategy(IDomainModelProvider domainModelProvider)
-            : base(domainModelProvider) { }
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+
+        public RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategy(
+            IDomainModelProvider domainModelProvider,
+            IPersonEntitySpecification personEntitySpecification)
+            : base(domainModelProvider)
+        {
+            _personEntitySpecification = personEntitySpecification;
+        }
 
         protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
             IEnumerable<(string name, object value)> authorizationContextTuples)
@@ -24,7 +31,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 .Select(
                     nv =>
                     {
-                        if (PersonEntitySpecification.IsPersonIdentifier(nv.name))
+                        if (_personEntitySpecification.IsPersonIdentifier(nv.name))
                         {
                             return new SubjectEndpoint(nv, "IncludingDeletes");
                         }

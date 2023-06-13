@@ -28,11 +28,19 @@ namespace EdFi.Ods.Api.IdentityValueMappers
     public class UniqueIdToUsiValueMapper : IUniqueIdToUsiValueMapper
     {
         private readonly IContextStorage _contextStorage;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
+        private readonly IPersonTypesProvider _personTypesProvider;
         private readonly Func<IStatelessSession> _openStatelessSession;
 
-        public UniqueIdToUsiValueMapper(Func<IStatelessSession> openStatelessSession, IContextStorage contextStorage)
+        public UniqueIdToUsiValueMapper(
+            Func<IStatelessSession> openStatelessSession,
+            IContextStorage contextStorage,
+            IPersonEntitySpecification personEntitySpecification,
+            IPersonTypesProvider personTypesProvider)
         {
             _contextStorage = contextStorage;
+            _personEntitySpecification = personEntitySpecification;
+            _personTypesProvider = personTypesProvider;
             _openStatelessSession = Preconditions.ThrowIfNull(openStatelessSession, nameof(openStatelessSession));
         }
 
@@ -58,9 +66,9 @@ namespace EdFi.Ods.Api.IdentityValueMappers
             object searchValue)
         {
             // Validate Person type
-            if (!PersonEntitySpecification.IsPersonEntity(personType))
+            if (!_personEntitySpecification.IsPersonEntity(personType))
             {
-                string validPersonTypes = string.Join("','", PersonEntitySpecification.ValidPersonTypes)
+                string validPersonTypes = string.Join("','", _personTypesProvider.PersonTypes)
                     .SingleQuoted();
 
                 throw new ArgumentException($"Invalid person type '{personType}'. Valid person types are: {validPersonTypes}");

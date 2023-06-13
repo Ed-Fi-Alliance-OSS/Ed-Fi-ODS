@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
@@ -20,22 +21,25 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
     {
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly IPersonEntitySpecification _personEntitySpecification;
 
         public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IKeyChangesQueryTemplatePreparer keyChangesQueryTemplatePreparer,
             IDatabaseNamingConvention namingConvention,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
+            IPersonEntitySpecification personEntitySpecification)
             : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueryTemplatePreparer, namingConvention)
         {
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _personEntitySpecification = personEntitySpecification;
         }
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
             // If key changes aren't supported, return an empty array.
-            if (!resource.Entity.Identifier.IsUpdatable && !resource.Entity.IsPersonEntity())
+            if (!resource.Entity.Identifier.IsUpdatable && !_personEntitySpecification.IsPersonEntity(resource.Entity.Name))
             {
                 return new ResourceData<KeyChange>()
                 {
