@@ -52,9 +52,9 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 { securityRepository.GetActionByName("Read").ActionUri, 0x2 },
                 { securityRepository.GetActionByName("Update").ActionUri, 0x4 },
                 { securityRepository.GetActionByName("Delete").ActionUri, 0x8 },
-                { securityRepository.GetActionByName("ReadChanges").ActionUri, 0x16 },
+                { securityRepository.GetActionByName("ReadChanges").ActionUri, 0x10 },
             });
-            
+
         _authorizationStrategyByName = CreateAuthorizationStrategyByNameDictionary();
 
         Dictionary<string, IAuthorizationStrategy> CreateAuthorizationStrategyByNameDictionary()
