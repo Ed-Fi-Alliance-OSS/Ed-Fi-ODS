@@ -38,7 +38,6 @@ namespace EdFi.Ods.Features.Controllers
         private readonly bool _isEnabled;
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataController));
         private readonly bool _multitenancyEnabled;
-
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly ReverseProxySettings _reverseProxySettings;
 
