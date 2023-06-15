@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+		<StandardVersion Condition="'$(StandardVersion)' == '' ">5.0.0</StandardVersion>
+		<ExtensionVersion Condition="'$(ExtensionVersion)' == '' ">1.0.0</ExtensionVersion>
+  </PropertyGroup>	
+  <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>$safeprojectname$</AssemblyName>
     <RootNamespace>$safeprojectname$</RootNamespace>
@@ -13,25 +17,25 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Artifacts\**\Metadata\*.xml">
+	<ItemGroup>
+    <Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Metadata\*.xml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="Artifacts\**\MsSql\*.sql">
+    <Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\MsSql\**\*.sql">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-	<Content Include="Artifacts\**\PgSql\*.sql">
+	<Content Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\PgSql\**\*.sql">
 	  <AutoGen>True</AutoGen>
 	  <DesignTime>True</DesignTime>
 	</Content>
-    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Schemas\*.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Designer</SubType>
+      <SubType>Designer</SubType>      
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -45,12 +49,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Artifacts\Metadata\**\ApiModel-EXTENSION.json">
+      <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\Artifacts\Metadata\ApiModel-EXTENSION.json">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <SubType>Designer</SubType>
+      <SubType>Designer</SubType>      
     </EmbeddedResource>
-    <EmbeddedResource Include="**\*.generated.hbm.xml">
+    <EmbeddedResource Include="Versions\$(ExtensionVersion)\Standard\$(StandardVersion)\**\*.generated.hbm.xml">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>

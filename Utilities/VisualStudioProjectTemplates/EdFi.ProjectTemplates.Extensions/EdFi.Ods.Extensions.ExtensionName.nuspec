@@ -5,14 +5,15 @@
     <version>1.0.0</version>
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
+	  <copyright>$copyright$</copyright>	  
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$safeprojectname$</description>
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
-    <file src="Artifacts/**/*.sql" target="."/>
-    <file src="Artifacts/**/*.json" target="."/>
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="."/>
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="."/>
     <file src="assemblyMetadata.json" target="."/>
     <file src="bin\$configuration$\net6.0\$safeprojectname$.dll" target="."/>
   </files>
