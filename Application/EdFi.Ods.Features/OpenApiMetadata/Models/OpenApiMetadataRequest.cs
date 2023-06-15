@@ -22,6 +22,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public string InstanceIdFromRoute { get; set; }
 
+        public string TenantIdentifierFromRoute { get; set; }
+
         public string OtherName { get; set; }
 
         public string GetFeedName()

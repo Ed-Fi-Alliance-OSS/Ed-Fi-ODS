@@ -32,10 +32,12 @@ namespace EdFi.Ods.Features.Controllers
     [AllowAnonymous]
     [ApplyOdsRouteRootTemplate]
     [Route("metadata")]
+    [Route("{tenantId}/metadata")]
     public class OpenApiMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataController));
+        private readonly bool _multitenancyEnabled;
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly ReverseProxySettings _reverseProxySettings;
@@ -47,6 +49,7 @@ namespace EdFi.Ods.Features.Controllers
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _reverseProxySettings = apiSettings.GetReverseProxySettings();
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName());
+            _multitenancyEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName());
         }
 
         [HttpGet]
@@ -92,11 +95,19 @@ namespace EdFi.Ods.Features.Controllers
             {
                 var rootUrl = Request.ResourceUri(this._reverseProxySettings);
 
+                var tenantIdentifier = string.Empty;
+
+                if (_multitenancyEnabled)
+                {
+                    HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifierOut);
+                    tenantIdentifier = tenantIdentifierOut?.ToString();
+                }
+
                 // Construct fully qualified metadata url
                 var url =
                     new Uri(
                         new Uri(rootUrl.EnsureSuffixApplied("/")),
-                        GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute));
+                        GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute, tenantIdentifier));
 
                 return new OpenApiMetadataSectionDetails
                 {
@@ -110,7 +121,7 @@ namespace EdFi.Ods.Features.Controllers
                 };
             }
 
-            string GetMetadataUrlSegmentForCacheItem(OpenApiContent apiContent, int? schoolYear, string instanceId)
+            string GetMetadataUrlSegmentForCacheItem(OpenApiContent apiContent, int? schoolYear, string instanceId, string tenantIdentifier)
             {
                 // 'Other' sections (Identity) do not live under 'ods' as other metadata endpoints do.
                 // eg identity/v1/2017/swagger.json,
@@ -118,7 +129,7 @@ namespace EdFi.Ods.Features.Controllers
                 // SDKgen All
                 // eg data/v3/2017/swagger.json,
                 // eg data/v3/swagger.json,
-                var basePath = GetBasePath(apiContent, schoolYear, instanceId);
+                var basePath = GetBasePath(apiContent, schoolYear, instanceId, tenantIdentifier);
 
                 // Profiles and composites endpoints have an extra url segment (profiles or composites).
                 // eg data/v3/2017/profiles/assessment/swagger.json
@@ -132,7 +143,7 @@ namespace EdFi.Ods.Features.Controllers
                 return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.Json}".ToLowerInvariant();
             }
 
-            string GetBasePath(OpenApiContent apiContent, int? schoolYear, string instanceId)
+            string GetBasePath(OpenApiContent apiContent, int? schoolYear, string instanceId, string tenantIdentifier)
             {
                 string basePath = $"{apiContent.BasePath}";
 

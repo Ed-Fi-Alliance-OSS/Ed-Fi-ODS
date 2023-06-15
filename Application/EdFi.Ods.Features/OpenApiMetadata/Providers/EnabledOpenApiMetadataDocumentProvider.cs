@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
@@ -29,6 +30,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly ReverseProxySettings _reverseProxySettings;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
+        private readonly bool _multitenancyEnabled;
 
         public EnabledOpenApiMetadataDocumentProvider(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -39,7 +41,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _routeInformations = routeInformations;
             this._reverseProxySettings = apiSettings.GetReverseProxySettings();
-
+            _multitenancyEnabled = apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName());
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
 
         }
@@ -58,20 +60,21 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute, openApiMetadataRequest.InstanceIdFromRoute);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute, openApiMetadataRequest.InstanceIdFromRoute, openApiMetadataRequest.TenantIdentifierFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute, string instanceIdFromRoute)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute, string instanceIdFromRoute, string tenantIdentifierFromRoute)
         {
             var year = schoolYearFromRoute.HasValue
                 ? schoolYearFromRoute.Value.ToString()
                 : string.Empty;
 
             var instanceId = string.IsNullOrEmpty(instanceIdFromRoute) ? string.Empty : $"{instanceIdFromRoute}/";
+            var tenantIdentifier = string.IsNullOrEmpty(tenantIdentifierFromRoute) ? string.Empty : $"{tenantIdentifierFromRoute}/";
 
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + instanceId + year;
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + tenantIdentifier + content.BasePath.EnsureSuffixApplied("/") + instanceId + year;
  
             return content.Metadata
                 .Replace("%HOST%", Host())
@@ -81,7 +84,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
             string TokenUrl() {
                 var rootUrl = request.RootUrl(this._reverseProxySettings);
-                return $"{rootUrl}/{instanceId}oauth/token";
+                return $"{rootUrl}/" + tenantIdentifier + $"{instanceId}oauth/token";
             }
 
             string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
@@ -99,6 +102,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             {
                 string routeTemplate = routeInformation.GetRouteInformation()
                     .Template;
+
+                if (_multitenancyEnabled)
+                    routeTemplate = $"{{tenantId}}/{routeTemplate}";
 
                 if (matcher.TryMatch(routeTemplate, path, out RouteValueDictionary values))
                 {
@@ -163,6 +169,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     if (values.ContainsKey("other"))
                     {
                         openApiMetadataRequest.OtherName = values["other"]
+                            .ToString();
+                    }
+
+                    if(values.ContainsKey("tenantId"))
+                    {
+                        openApiMetadataRequest.TenantIdentifierFromRoute = values["tenantId"]                            
                             .ToString();
                     }
                 }
