@@ -131,11 +131,21 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         }
         public static dynamic GetMinimum(ResourceProperty resourceProperty)
         {
-            return resourceProperty.PropertyType.MinValue;
+            if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("int"))
+                return (int?)resourceProperty.PropertyType.MinValue;
+            else if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("decimal"))
+                return (resourceProperty.PropertyType.MinValue);
+
+            return null;
         }
         public static dynamic GetMaximum(ResourceProperty resourceProperty)
         {
-            return resourceProperty.PropertyType.MaxValue;
+            if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("int"))
+                return (int?)resourceProperty.PropertyType.MaxValue;
+            else if (resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("decimal"))
+                return (resourceProperty.PropertyType.MaxValue);
+
+            return null;
         }
 
         public static string GetEdFiExtensionBridgeName(ResourceClassBase resource, IOpenApiMetadataResourceContext resourceContext = null)
