@@ -74,6 +74,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = PropertyDescription(resourceProperty),
                 isIdentity = GetIsIdentity(resourceProperty),
                 maxLength = GetMaxLength(resourceProperty),
+                minLength = GetMinLength(resourceProperty),
+                minimum = GetMinimum(resourceProperty),
+                maximum = GetMaximum(resourceProperty),
                 isDeprecated = GetIsDeprecated(resourceProperty),
                 deprecatedReasons = GetDeprecatedReasons(resourceProperty)
             };
@@ -114,9 +117,25 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 return 32;
             }
 
-            return resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("string") && resourceProperty.PropertyType.MaxLength > 0
+            return resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("string") && 
+                resourceProperty.PropertyType.MaxLength > 0
                 ? resourceProperty.PropertyType.MaxLength
                 : (int?)null;
+        }
+        public static int? GetMinLength(ResourceProperty resourceProperty)
+        {
+            return resourceProperty.PropertyType.ToCSharp().EqualsIgnoreCase("string") && 
+                resourceProperty.PropertyType.MinLength > 0
+                ? resourceProperty.PropertyType.MinLength
+                : (int?)null;
+        }
+        public static dynamic GetMinimum(ResourceProperty resourceProperty)
+        {
+            return resourceProperty.PropertyType.MinValue;
+        }
+        public static dynamic GetMaximum(ResourceProperty resourceProperty)
+        {
+            return resourceProperty.PropertyType.MaxValue;
         }
 
         public static string GetEdFiExtensionBridgeName(ResourceClassBase resource, IOpenApiMetadataResourceContext resourceContext = null)
