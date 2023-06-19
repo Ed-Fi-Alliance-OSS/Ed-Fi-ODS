@@ -20,13 +20,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Conventions;
 public class RouteRootTemplateProviderTests
 {
     private ApiSettings _apiSettings;
-    private RouteRootTemplateProvider _routeRootTemplateProvider;
+    private OdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
 
     [SetUp]
     public void SetUp()
     {
         _apiSettings = new ApiSettings();
-        _routeRootTemplateProvider = new RouteRootTemplateProvider(_apiSettings);
+        _odsRouteRootTemplateProvider = new OdsRouteRootTemplateProvider(_apiSettings);
     }
 
     [Test]
@@ -43,7 +43,7 @@ public class RouteRootTemplateProviderTests
         };
 
         // Act
-        var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Tenant);
+        var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
         result.ShouldBe(RouteConstants.TenantIdentifierRoutePrefix);
@@ -63,7 +63,7 @@ public class RouteRootTemplateProviderTests
         };
 
         // Act
-        var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Tenant);
+        var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
         result.ShouldBeNull();
@@ -87,7 +87,7 @@ public class RouteRootTemplateProviderTests
         _apiSettings.OdsContextRouteTemplate = odsContextRouteTemplate; 
 
         // Act
-        var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
+        var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
         result.ShouldBe($"{RouteConstants.TenantIdentifierRoutePrefix}{{ods-context-template?}}/");
@@ -111,7 +111,7 @@ public class RouteRootTemplateProviderTests
         _apiSettings.OdsContextRouteTemplate = odsContextRouteTemplate;
 
         // Act
-        var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
+        var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
         result.ShouldBe($"{{ods-context-template?}}/");
@@ -136,7 +136,7 @@ public class RouteRootTemplateProviderTests
         _apiSettings.OdsContextRouteTemplate = odsContextRouteTemplate;
 
         // Act
-        var result = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
+        var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
         result.ShouldBe(null);
@@ -146,7 +146,7 @@ public class RouteRootTemplateProviderTests
     public void GetRouteRootTemplate_WithUnknownContext_ReturnsNull()
     {
         // Act
-        var result = _routeRootTemplateProvider.GetRouteRootTemplate((RouteContextType) 42);
+        var result = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
         // Assert
         result.ShouldBeNull();

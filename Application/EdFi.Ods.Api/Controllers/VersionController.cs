@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+// ReSharper disable InconsistentNaming
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -23,7 +24,6 @@ namespace EdFi.Ods.Api.Controllers
     [Produces("application/json")]
     [Route("")]
     [AllowAnonymous]
-    [RouteRootContext(RouteContextType.Ods)]
     public class VersionController : ControllerBase
     {
         private readonly IApiVersionProvider _apiVersionProvider;
@@ -44,25 +44,15 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            var content = new
-            {
-                version = _apiVersionProvider.Version,
-                informationalVersion = _apiVersionProvider.InformationalVersion,
-                suite = _apiVersionProvider.Suite,
-                build = _apiVersionProvider.Build,
-                dataModels = _domainModelProvider
-                    .GetDomainModel()
-                    .Schemas
-                    .Select(
-                        s => new
-                        {
-                            name = s.LogicalName,
-                            version = s.Version,
-                            informationalVersion = s.InformationalVersion
-                        })
+            var content = new VersionResponse(
+                _apiVersionProvider.Version,
+                _apiVersionProvider.InformationalVersion,
+                _apiVersionProvider.Suite,
+                _apiVersionProvider.Build,
+                _domainModelProvider.GetDomainModel()
+                    .Schemas.Select(s => new DataModelVersion(s.LogicalName, s.Version, s.InformationalVersion))
                     .ToArray(),
-                urls = GetUrlsByName()
-            };
+                GetUrlsByName());
 
             return Ok(content);
 
@@ -72,7 +62,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 var rootUrl = Request.RootUrl(_apiSettings.GetReverseProxySettings());
 
-                if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.Value))
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.MultiTenancy.GetConfigKeyName()))
                 {
                     if (HttpContext.Request.RouteValues.TryGetValue("tenantIdentifier", out object tenantIdentifier))
                     {
@@ -135,5 +125,15 @@ namespace EdFi.Ods.Api.Controllers
                 return urlsByName;
             }
         }
+
+        public record VersionResponse(
+            string version,
+            string informationalVersion,
+            string suite,
+            string build,
+            DataModelVersion[] dataModels,
+            Dictionary<string, string> urls);
+
+        public record DataModelVersion(string name, string version, string informationalVersion);
     }
 }

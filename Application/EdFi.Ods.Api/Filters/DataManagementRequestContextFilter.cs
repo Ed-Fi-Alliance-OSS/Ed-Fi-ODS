@@ -34,16 +34,16 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementRequestContextFilter));
     private readonly IResourceModelProvider _resourceModelProvider;
-    private readonly IRouteRootTemplateProvider _routeRootTemplateProvider;
+    private readonly IOdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
 
     public DataManagementRequestContextFilter(
         IResourceModelProvider resourceModelProvider,
         IContextProvider<DataManagementResourceContext> contextProvider,
-        IRouteRootTemplateProvider routeRootTemplateProvider)
+        IOdsRouteRootTemplateProvider odsRouteRootTemplateProvider)
     {
         _resourceModelProvider = resourceModelProvider;
         _contextProvider = contextProvider;
-        _routeRootTemplateProvider = routeRootTemplateProvider;
+        _odsRouteRootTemplateProvider = odsRouteRootTemplateProvider;
 
         _knownSchemaUriSegments = new Lazy<string[]>(
             () => _resourceModelProvider.GetResourceModel()
@@ -54,7 +54,7 @@ public class DataManagementRequestContextFilter : IAsyncResourceFilter
         _dataManagementTemplatePrefix = new Lazy<string>(
             () =>
             {
-                string routeRootTemplate = _routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods);
+                string routeRootTemplate = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
                 // Normalize the double braces used by ASP.NET for inline regex constraints
                 if (routeRootTemplate?.Contains(":regex") ?? false)

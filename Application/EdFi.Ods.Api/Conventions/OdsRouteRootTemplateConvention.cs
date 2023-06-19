@@ -10,29 +10,28 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 namespace EdFi.Ods.Api.Conventions
 {
     /// <summary>
-    /// Applies an appropriate root template to the routes of all controllers with the <see cref="RouteRootContextAttribute"/>
+    /// Applies an appropriate root template to the routes of all controllers with the <see cref="ApplyOdsRouteRootTemplateAttribute"/>
     /// applied. This attribute identifies controllers that are tenant-specific and/or ODS-context-specific and introduces
     /// an appropriate root template to their routes.
     /// </summary>
-    public class RouteRootContextConvention : IApplicationModelConvention
+    public class OdsRouteRootTemplateConvention : IApplicationModelConvention
     {
-        private readonly IRouteRootTemplateProvider _routeRootTemplateProvider;
+        private readonly IOdsRouteRootTemplateProvider _odsRouteRootTemplateProvider;
 
-        public RouteRootContextConvention(IRouteRootTemplateProvider routeRootTemplateProvider)
+        public OdsRouteRootTemplateConvention(IOdsRouteRootTemplateProvider odsRouteRootTemplateProvider)
         {
-            _routeRootTemplateProvider = routeRootTemplateProvider;
+            _odsRouteRootTemplateProvider = odsRouteRootTemplateProvider;
         }
 
         public void Apply(ApplicationModel application)
         {
             foreach (ControllerModel controller in application.Controllers)
             {
-                var routeRootContextAttribute = controller.Attributes.OfType<RouteRootContextAttribute>().SingleOrDefault();
+                var routeRootContextAttribute = controller.Attributes.OfType<ApplyOdsRouteRootTemplateAttribute>().SingleOrDefault();
 
                 if (routeRootContextAttribute != null)
                 {
-                    string routeRootTemplate =
-                        _routeRootTemplateProvider.GetRouteRootTemplate(routeRootContextAttribute.ContextType);
+                    string routeRootTemplate = _odsRouteRootTemplateProvider.GetOdsRouteRootTemplate();
 
                     if (!string.IsNullOrEmpty(routeRootTemplate))
                     {

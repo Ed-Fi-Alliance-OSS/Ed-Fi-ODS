@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.Controllers
     [Authorize(Policy = "IdentityManagement")]
     [ApiController]
     [Produces("application/json")]
-    [RouteRootContext(RouteContextType.Ods)]
+    [ApplyOdsRouteRootTemplate]
     [Route($"{IdentityManagementConstants.IdentityRoutePrefix}/identities")]    
     public class IdentitiesController : ControllerBase
     {

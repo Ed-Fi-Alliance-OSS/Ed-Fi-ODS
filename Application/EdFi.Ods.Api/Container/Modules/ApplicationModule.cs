@@ -84,12 +84,16 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IConfigureOptions<MvcOptions>>()
                 .SingleInstance();
 
-            builder.RegisterType<RouteRootContextConvention>()
+            builder.RegisterType<VersionRouteConvention>()
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 
-            builder.RegisterType<RouteRootTemplateProvider>()
-                .As<IRouteRootTemplateProvider>()
+            builder.RegisterType<OdsRouteRootTemplateConvention>()
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
+
+            builder.RegisterType<OdsRouteRootTemplateProvider>()
+                .As<IOdsRouteRootTemplateProvider>()
                 .SingleInstance();
 
             builder.RegisterType<ApiKeyContextProvider>()

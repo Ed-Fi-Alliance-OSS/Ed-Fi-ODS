@@ -26,7 +26,7 @@ namespace EdFi.Ods.Features.Controllers
 {
     [ApiController]
     [AllowAnonymous]
-    [RouteRootContext(RouteContextType.Tenant)]
+    [ApplyOdsRouteRootTemplate]
     [Route($"metadata/{RouteConstants.DataManagementRoutePrefix}/dependencies")]
     public class AggregateDependencyController : ControllerBase
     {

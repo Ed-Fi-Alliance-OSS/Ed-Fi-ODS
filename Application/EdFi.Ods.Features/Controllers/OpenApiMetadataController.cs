@@ -30,7 +30,7 @@ namespace EdFi.Ods.Features.Controllers
     [ApiController]
     [Produces("application/json")]
     [AllowAnonymous]
-    [RouteRootContext(RouteContextType.Tenant)]
+    [ApplyOdsRouteRootTemplate]
     [Route("metadata")]
     public class OpenApiMetadataController : ControllerBase
     {

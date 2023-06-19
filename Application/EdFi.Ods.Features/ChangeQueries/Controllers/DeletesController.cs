@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [RouteRootContext(RouteContextType.Ods)]
+    [ApplyOdsRouteRootTemplate]
     [Route($"{RouteConstants.DataManagementRoutePrefix}/{{schema}}/{{resource}}/deletes")]
     public class DeletesController : ControllerBase
     {

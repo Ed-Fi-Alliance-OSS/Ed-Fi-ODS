@@ -24,26 +24,25 @@ public class RouteRootContextConventionTests
         // Arrange
         var controller = new ControllerModel(
             typeof(TestController).GetTypeInfo(),
-            new List<object>() { new RouteRootContextAttribute(RouteContextType.Tenant) });
+            new List<object>() { new ApplyOdsRouteRootTemplateAttribute() });
 
         var application = new ApplicationModel();
         application.Controllers.Add(controller);
 
-        var routeRootTemplateProvider = A.Fake<IRouteRootTemplateProvider>();
-        A.CallTo(() => routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Ods)).Returns("ods/");
-        A.CallTo(() => routeRootTemplateProvider.GetRouteRootTemplate(RouteContextType.Tenant)).Returns("tenants/");
+        var routeRootTemplateProvider = A.Fake<IOdsRouteRootTemplateProvider>();
+        A.CallTo(() => routeRootTemplateProvider.GetOdsRouteRootTemplate()).Returns("ods/");
 
         var selectorModel = new SelectorModel();
         selectorModel.AttributeRouteModel = new AttributeRouteModel { Template = "template" };
         controller.Selectors.Add(selectorModel);
 
-        var convention = new RouteRootContextConvention(routeRootTemplateProvider);
+        var convention = new OdsRouteRootTemplateConvention(routeRootTemplateProvider);
 
         // Act
         convention.Apply(application);
 
         // Assert
-        selectorModel.AttributeRouteModel.Template.ShouldBe("tenants/template");
+        selectorModel.AttributeRouteModel.Template.ShouldBe("ods/template");
     }
 
     [Test]
@@ -52,12 +51,12 @@ public class RouteRootContextConventionTests
         // Arrange
         var controller = new ControllerModel(
             typeof(TestController).GetTypeInfo(),
-            new List<object>()); // No RouteContextAttribute defined
+            new List<object>()); // No ApplyOdsRootRouteTemplateAttribute defined
 
         var application = new ApplicationModel();
         application.Controllers.Add(controller);
 
-        var routeRootTemplateProvider = A.Fake<IRouteRootTemplateProvider>();
+        var routeRootTemplateProvider = A.Fake<IOdsRouteRootTemplateProvider>();
 
         var selectorModel = new SelectorModel();
         selectorModel.AttributeRouteModel = new AttributeRouteModel();
@@ -65,14 +64,14 @@ public class RouteRootContextConventionTests
 
         controller.Selectors.Add(selectorModel);
 
-        var convention = new RouteRootContextConvention(routeRootTemplateProvider);
+        var convention = new OdsRouteRootTemplateConvention(routeRootTemplateProvider);
 
         // Act
         convention.Apply(application);
 
         // Assert
         selectorModel.AttributeRouteModel.Template.ShouldBe("template");
-        A.CallTo(() => routeRootTemplateProvider.GetRouteRootTemplate(A<RouteContextType>.Ignored)).MustNotHaveHappened();
+        A.CallTo(() => routeRootTemplateProvider.GetOdsRouteRootTemplate()).MustNotHaveHappened();
     }
 
     public class TestController : ControllerBase { }

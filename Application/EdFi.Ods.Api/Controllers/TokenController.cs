@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Controllers
     [Produces("application/json")]
     [AllowAnonymous]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [RouteRootContext(RouteContextType.Tenant)]
+    [ApplyOdsRouteRootTemplate]
     [Route("oauth/token")]
     public class TokenController : ControllerBase
     {
