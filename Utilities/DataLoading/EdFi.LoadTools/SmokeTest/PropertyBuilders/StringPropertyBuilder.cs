@@ -24,7 +24,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
             if (IsRequired(propertyInfo))
             {
-                propertyInfo.SetValue(obj, RandomTestString);
+                propertyInfo.SetValue(obj, BuildRandomString(propertyInfo));
             }
 
             return true;

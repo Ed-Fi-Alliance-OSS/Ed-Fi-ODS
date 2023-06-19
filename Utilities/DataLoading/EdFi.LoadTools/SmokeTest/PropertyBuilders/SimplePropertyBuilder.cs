@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.LoadTools.Engine;
+using EdFi.LoadTools.Mapping;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
@@ -16,10 +17,6 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
     /// </summary>
     public class SimplePropertyBuilder : BaseBuilder
     {
-        private int _counter = 50; // Start from 50 to not collide with existing EdOrgIds if running over the populated template
-        private int _fiscalYearCounter = 2020;
-        private int _numberOfPartsCounter = 1;
-        
         private readonly Dictionary<string, object> _unifiedKeyValue;
 
         public SimplePropertyBuilder(IPropertyInfoMetadataLookup metadataLookup, IDestructiveTestConfiguration configuration)
@@ -40,19 +37,9 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
             if (IsTypeMatch<int>(propertyInfo) || IsTypeMatch<long>(propertyInfo) || IsTypeMatch<double>(propertyInfo))
             {
-                if (propertyInfo.Name.Equals("FiscalYear") && IsRequired(propertyInfo))
+                if (IsRequired(propertyInfo))
                 {
-                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, _fiscalYearCounter));
-                    
-                }
-                else if (propertyInfo.Name.Equals("NumberOfParts") && IsRequired(propertyInfo))
-                {
-                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, _numberOfPartsCounter));
-
-                }
-                else if (IsRequired(propertyInfo))
-                {
-                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, _counter++));
+                    propertyInfo.SetValue(obj, GetOrAdd(propertyInfo.Name, BuildRandomNumber(propertyInfo)));
                 }
 
                 return true;

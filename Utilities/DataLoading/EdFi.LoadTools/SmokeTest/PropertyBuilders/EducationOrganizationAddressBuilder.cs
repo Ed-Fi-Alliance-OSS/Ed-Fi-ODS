@@ -30,7 +30,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
             if (obj.GetType().Name.Contains("EducationOrganizationAddress") &&  _requiredProperties.Any(x => x.Equals(propertyInfo.Name, StringComparison.InvariantCultureIgnoreCase)))
             {
-                propertyInfo.SetValue(obj, RandomTestString);
+                propertyInfo.SetValue(obj, BuildRandomString(propertyInfo));
                 return true;
             }
 

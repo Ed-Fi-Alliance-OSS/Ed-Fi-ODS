@@ -201,7 +201,7 @@ namespace Swashbuckle.Swagger
 
         public Schema items;
 
-        public int? maximum;
+        public decimal? maximum;
 
         public int? maxItems;
 
@@ -209,7 +209,7 @@ namespace Swashbuckle.Swagger
 
         public int? maxProperties;
 
-        public int? minimum;
+        public decimal? minimum;
 
         public int? minItems;
 
@@ -255,13 +255,13 @@ namespace Swashbuckle.Swagger
 
         public PartialSchema items;
 
-        public int? maximum;
+        public decimal? maximum;
 
         public int? maxItems;
 
         public int? maxLength;
 
-        public int? minimum;
+        public decimal? minimum;
 
         public int? minItems;
 
