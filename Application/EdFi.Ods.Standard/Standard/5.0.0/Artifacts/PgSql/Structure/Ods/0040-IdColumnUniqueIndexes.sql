@@ -79,8 +79,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_e93bc3_Id ON edfi.InterventionPrescription(
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_d92986_Id ON edfi.InterventionStudy(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_588d15_Id ON edfi.LearningObjective(Id);
-
 CREATE UNIQUE INDEX IF NOT EXISTS UX_8ceb4c_Id ON edfi.LearningStandard(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_17c02a_Id ON edfi.LearningStandardEquivalenceAssociation(Id);
@@ -167,8 +165,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_369ddc_Id ON edfi.StudentCohortAssociation(
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_395c07_Id ON edfi.StudentCompetencyObjective(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_679174_Id ON edfi.StudentDisciplineIncidentAssociation(Id);
-
 CREATE UNIQUE INDEX IF NOT EXISTS UX_f4934f_Id ON edfi.StudentDisciplineIncidentBehaviorAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_4b43da_Id ON edfi.StudentDisciplineIncidentNonOffenderAssociation(Id);
@@ -183,8 +179,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_25cb9c_Id ON edfi.StudentInterventionAssoci
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_631023_Id ON edfi.StudentInterventionAttendanceEvent(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_baaa9d_Id ON edfi.StudentLearningObjective(Id);
-
 CREATE UNIQUE INDEX IF NOT EXISTS UX_bf9d92_Id ON edfi.StudentParentAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_317aeb_Id ON edfi.StudentProgramAttendanceEvent(Id);
@@ -196,6 +190,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_78fd7f_Id ON edfi.StudentSchoolAttendanceEv
 CREATE UNIQUE INDEX IF NOT EXISTS UX_39aa3c_Id ON edfi.StudentSectionAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_61b087_Id ON edfi.StudentSectionAttendanceEvent(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_fcb699_Id ON edfi.StudentSpecialEducationProgramEligibilityAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_211bb3_Id ON edfi.Survey(Id);
 

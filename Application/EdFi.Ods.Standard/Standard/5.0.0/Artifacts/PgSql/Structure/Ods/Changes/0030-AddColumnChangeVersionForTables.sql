@@ -196,11 +196,6 @@ ALTER TABLE edfi.InterventionStudy ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL
 ALTER TABLE edfi.InterventionStudy ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='learningobjective' AND column_name='changeversion') THEN
-ALTER TABLE edfi.LearningObjective ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
-ALTER TABLE edfi.LearningObjective ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
-END IF;
-
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='learningstandard' AND column_name='changeversion') THEN
 ALTER TABLE edfi.LearningStandard ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.LearningStandard ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
@@ -416,11 +411,6 @@ ALTER TABLE edfi.StudentCompetencyObjective ADD ChangeVersion BIGINT DEFAULT (0)
 ALTER TABLE edfi.StudentCompetencyObjective ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentdisciplineincidentassociation' AND column_name='changeversion') THEN
-ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
-ALTER TABLE edfi.StudentDisciplineIncidentAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
-END IF;
-
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentdisciplineincidentbehaviorassociation' AND column_name='changeversion') THEN
 ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
@@ -456,11 +446,6 @@ ALTER TABLE edfi.StudentInterventionAttendanceEvent ADD ChangeVersion BIGINT DEF
 ALTER TABLE edfi.StudentInterventionAttendanceEvent ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentlearningobjective' AND column_name='changeversion') THEN
-ALTER TABLE edfi.StudentLearningObjective ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
-ALTER TABLE edfi.StudentLearningObjective ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
-END IF;
-
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentparentassociation' AND column_name='changeversion') THEN
 ALTER TABLE edfi.StudentParentAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.StudentParentAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
@@ -489,6 +474,11 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentsectionattendanceevent' AND column_name='changeversion') THEN
 ALTER TABLE edfi.StudentSectionAttendanceEvent ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
 ALTER TABLE edfi.StudentSectionAttendanceEvent ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='studentspecialeducationprogrameligibilityassociation' AND column_name='changeversion') THEN
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD ChangeVersion BIGINT DEFAULT (0) NOT NULL;
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ALTER ChangeVersion SET DEFAULT nextval('changes.ChangeVersionSequence');
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='edfi' AND table_name='survey' AND column_name='changeversion') THEN

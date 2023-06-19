@@ -79,8 +79,6 @@ ALTER TABLE edfi.InterventionPrescription ADD CreatedByOwnershipTokenId SMALLINT
 
 ALTER TABLE edfi.InterventionStudy ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
-ALTER TABLE edfi.LearningObjective ADD CreatedByOwnershipTokenId SMALLINT NULL;
-
 ALTER TABLE edfi.LearningStandard ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.LearningStandardEquivalenceAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -167,8 +165,6 @@ ALTER TABLE edfi.StudentCohortAssociation ADD CreatedByOwnershipTokenId SMALLINT
 
 ALTER TABLE edfi.StudentCompetencyObjective ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
-ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
-
 ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -183,8 +179,6 @@ ALTER TABLE edfi.StudentInterventionAssociation ADD CreatedByOwnershipTokenId SM
 
 ALTER TABLE edfi.StudentInterventionAttendanceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
-ALTER TABLE edfi.StudentLearningObjective ADD CreatedByOwnershipTokenId SMALLINT NULL;
-
 ALTER TABLE edfi.StudentParentAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentProgramAttendanceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -196,6 +190,8 @@ ALTER TABLE edfi.StudentSchoolAttendanceEvent ADD CreatedByOwnershipTokenId SMAL
 ALTER TABLE edfi.StudentSectionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentSectionAttendanceEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Survey ADD CreatedByOwnershipTokenId SMALLINT NULL;
 

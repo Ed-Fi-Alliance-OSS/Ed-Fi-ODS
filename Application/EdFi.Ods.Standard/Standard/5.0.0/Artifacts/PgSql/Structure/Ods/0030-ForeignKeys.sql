@@ -935,21 +935,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.CourseLearningObjective ADD CONSTRAINT FK_c0da6b_Course FOREIGN KEY (CourseCode, EducationOrganizationId)
-REFERENCES edfi.Course (CourseCode, EducationOrganizationId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_c0da6b_Course
-ON edfi.CourseLearningObjective (CourseCode ASC, EducationOrganizationId ASC);
-
-ALTER TABLE edfi.CourseLearningObjective ADD CONSTRAINT FK_c0da6b_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-;
-
-CREATE INDEX FK_c0da6b_LearningObjective
-ON edfi.CourseLearningObjective (LearningObjectiveId ASC, Namespace ASC);
-
 ALTER TABLE edfi.CourseLearningStandard ADD CONSTRAINT FK_644654_Course FOREIGN KEY (CourseCode, EducationOrganizationId)
 REFERENCES edfi.Course (CourseCode, EducationOrganizationId)
 ON DELETE CASCADE
@@ -1429,21 +1414,6 @@ REFERENCES edfi.Staff (StaffUSI)
 CREATE INDEX FK_30e866_Staff
 ON edfi.DisciplineActionStaff (StaffUSI ASC);
 
-ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentAssociation ADD CONSTRAINT FK_ef0ece_DisciplineAction FOREIGN KEY (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
-REFERENCES edfi.DisciplineAction (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_ef0ece_DisciplineAction
-ON edfi.DisciplineActionStudentDisciplineIncidentAssociation (DisciplineActionIdentifier ASC, DisciplineDate ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentAssociation ADD CONSTRAINT FK_ef0ece_StudentDisciplineIncidentAssociation FOREIGN KEY (IncidentIdentifier, SchoolId, StudentUSI)
-REFERENCES edfi.StudentDisciplineIncidentAssociation (IncidentIdentifier, SchoolId, StudentUSI)
-;
-
-CREATE INDEX FK_ef0ece_StudentDisciplineIncidentAssociation
-ON edfi.DisciplineActionStudentDisciplineIncidentAssociation (IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
-
 ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_2c4cdb_DisciplineAction FOREIGN KEY (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
 REFERENCES edfi.DisciplineAction (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
 ON DELETE CASCADE
@@ -1484,13 +1454,6 @@ REFERENCES edfi.School (SchoolId)
 
 CREATE INDEX FK_e45c0b_School
 ON edfi.DisciplineIncident (SchoolId ASC);
-
-ALTER TABLE edfi.DisciplineIncident ADD CONSTRAINT FK_e45c0b_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
-;
-
-CREATE INDEX FK_e45c0b_Staff
-ON edfi.DisciplineIncident (StaffUSI ASC);
 
 ALTER TABLE edfi.DisciplineIncidentBehavior ADD CONSTRAINT FK_cabdcb_BehaviorDescriptor FOREIGN KEY (BehaviorDescriptorId)
 REFERENCES edfi.BehaviorDescriptor (BehaviorDescriptorId)
@@ -1898,6 +1861,16 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.EligibilityDelayReasonDescriptor ADD CONSTRAINT FK_be0937_Descriptor FOREIGN KEY (EligibilityDelayReasonDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.EligibilityEvaluationTypeDescriptor ADD CONSTRAINT FK_445555_Descriptor FOREIGN KEY (EligibilityEvaluationTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.EmploymentStatusDescriptor ADD CONSTRAINT FK_5ccb7e_Descriptor FOREIGN KEY (EmploymentStatusDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -1914,6 +1887,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.EntryTypeDescriptor ADD CONSTRAINT FK_497112_Descriptor FOREIGN KEY (EntryTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.EvaluationDelayReasonDescriptor ADD CONSTRAINT FK_db2c46_Descriptor FOREIGN KEY (EvaluationDelayReasonDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -2004,18 +1982,6 @@ REFERENCES edfi.Student (StudentUSI)
 
 CREATE INDEX FK_0516f9_Student
 ON edfi.GeneralStudentProgramAssociation (StudentUSI ASC);
-
-ALTER TABLE edfi.GeneralStudentProgramAssociationParticipationStatus ADD CONSTRAINT FK_b3fd05_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.GeneralStudentProgramAssociationParticipationStatus ADD CONSTRAINT FK_b3fd05_ParticipationStatusDescriptor FOREIGN KEY (ParticipationStatusDescriptorId)
-REFERENCES edfi.ParticipationStatusDescriptor (ParticipationStatusDescriptorId)
-;
-
-CREATE INDEX FK_b3fd05_ParticipationStatusDescriptor
-ON edfi.GeneralStudentProgramAssociationParticipationStatus (ParticipationStatusDescriptorId ASC);
 
 ALTER TABLE edfi.GeneralStudentProgramAssociationProgramParticipationStatus ADD CONSTRAINT FK_0855d2_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
@@ -2356,6 +2322,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.HomelessProgramServiceDescriptor ADD CONSTRAINT FK_56c464_Descriptor FOREIGN KEY (HomelessProgramServiceDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.IDEAPartDescriptor ADD CONSTRAINT FK_8e5a99_Descriptor FOREIGN KEY (IDEAPartDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -2852,85 +2823,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE edfi.LearningObjective ADD CONSTRAINT FK_588d15_LearningObjective FOREIGN KEY (ParentLearningObjectiveId, ParentNamespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-;
-
-CREATE INDEX FK_588d15_LearningObjective
-ON edfi.LearningObjective (ParentLearningObjectiveId ASC, ParentNamespace ASC);
-
-ALTER TABLE edfi.LearningObjectiveAcademicSubject ADD CONSTRAINT FK_23fa0f_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
-REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
-;
-
-CREATE INDEX FK_23fa0f_AcademicSubjectDescriptor
-ON edfi.LearningObjectiveAcademicSubject (AcademicSubjectDescriptorId ASC);
-
-ALTER TABLE edfi.LearningObjectiveAcademicSubject ADD CONSTRAINT FK_23fa0f_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_23fa0f_LearningObjective
-ON edfi.LearningObjectiveAcademicSubject (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.LearningObjectiveContentStandard ADD CONSTRAINT FK_f99184_EducationOrganization FOREIGN KEY (MandatingEducationOrganizationId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-;
-
-CREATE INDEX FK_f99184_EducationOrganization
-ON edfi.LearningObjectiveContentStandard (MandatingEducationOrganizationId ASC);
-
-ALTER TABLE edfi.LearningObjectiveContentStandard ADD CONSTRAINT FK_f99184_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-ON DELETE CASCADE
-;
-
-ALTER TABLE edfi.LearningObjectiveContentStandard ADD CONSTRAINT FK_f99184_PublicationStatusDescriptor FOREIGN KEY (PublicationStatusDescriptorId)
-REFERENCES edfi.PublicationStatusDescriptor (PublicationStatusDescriptorId)
-;
-
-CREATE INDEX FK_f99184_PublicationStatusDescriptor
-ON edfi.LearningObjectiveContentStandard (PublicationStatusDescriptorId ASC);
-
-ALTER TABLE edfi.LearningObjectiveContentStandardAuthor ADD CONSTRAINT FK_a165fa_LearningObjectiveContentStandard FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjectiveContentStandard (LearningObjectiveId, Namespace)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_a165fa_LearningObjectiveContentStandard
-ON edfi.LearningObjectiveContentStandardAuthor (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.LearningObjectiveGradeLevel ADD CONSTRAINT FK_a92ef0_GradeLevelDescriptor FOREIGN KEY (GradeLevelDescriptorId)
-REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
-;
-
-CREATE INDEX FK_a92ef0_GradeLevelDescriptor
-ON edfi.LearningObjectiveGradeLevel (GradeLevelDescriptorId ASC);
-
-ALTER TABLE edfi.LearningObjectiveGradeLevel ADD CONSTRAINT FK_a92ef0_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_a92ef0_LearningObjective
-ON edfi.LearningObjectiveGradeLevel (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.LearningObjectiveLearningStandard ADD CONSTRAINT FK_c99b99_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_c99b99_LearningObjective
-ON edfi.LearningObjectiveLearningStandard (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.LearningObjectiveLearningStandard ADD CONSTRAINT FK_c99b99_LearningStandard FOREIGN KEY (LearningStandardId)
-REFERENCES edfi.LearningStandard (LearningStandardId)
-;
-
-CREATE INDEX FK_c99b99_LearningStandard
-ON edfi.LearningObjectiveLearningStandard (LearningStandardId ASC);
-
 ALTER TABLE edfi.LearningStandard ADD CONSTRAINT FK_8ceb4c_LearningStandard FOREIGN KEY (ParentLearningStandardId)
 REFERENCES edfi.LearningStandard (LearningStandardId)
 ;
@@ -3047,21 +2939,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_92327a_LearningStandard
 ON edfi.LearningStandardIdentificationCode (LearningStandardId ASC);
-
-ALTER TABLE edfi.LearningStandardPrerequisiteLearningStandard ADD CONSTRAINT FK_81b800_LearningStandard FOREIGN KEY (LearningStandardId)
-REFERENCES edfi.LearningStandard (LearningStandardId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_81b800_LearningStandard
-ON edfi.LearningStandardPrerequisiteLearningStandard (LearningStandardId ASC);
-
-ALTER TABLE edfi.LearningStandardPrerequisiteLearningStandard ADD CONSTRAINT FK_81b800_LearningStandard1 FOREIGN KEY (PrerequisiteLearningStandardId)
-REFERENCES edfi.LearningStandard (LearningStandardId)
-;
-
-CREATE INDEX FK_81b800_LearningStandard1
-ON edfi.LearningStandardPrerequisiteLearningStandard (PrerequisiteLearningStandardId ASC);
 
 ALTER TABLE edfi.LearningStandardScopeDescriptor ADD CONSTRAINT FK_af50dc_Descriptor FOREIGN KEY (LearningStandardScopeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -3456,11 +3333,6 @@ REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
 
 CREATE INDEX FK_2c91e8_ResultDatatypeTypeDescriptor
 ON edfi.ObjectiveAssessmentScore (ResultDatatypeTypeDescriptorId ASC);
-
-ALTER TABLE edfi.OldEthnicityDescriptor ADD CONSTRAINT FK_821652_Descriptor FOREIGN KEY (OldEthnicityDescriptorId)
-REFERENCES edfi.Descriptor (DescriptorId)
-ON DELETE CASCADE
-;
 
 ALTER TABLE edfi.OpenStaffPosition ADD CONSTRAINT FK_3cc1d4_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
@@ -3941,21 +3813,6 @@ REFERENCES edfi.ReportingTagDescriptor (ReportingTagDescriptorId)
 CREATE INDEX FK_3e04ae_ReportingTagDescriptor
 ON edfi.ProgramDimensionReportingTag (ReportingTagDescriptorId ASC);
 
-ALTER TABLE edfi.ProgramLearningObjective ADD CONSTRAINT FK_f5911f_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-;
-
-CREATE INDEX FK_f5911f_LearningObjective
-ON edfi.ProgramLearningObjective (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.ProgramLearningObjective ADD CONSTRAINT FK_f5911f_Program FOREIGN KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
-REFERENCES edfi.Program (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_f5911f_Program
-ON edfi.ProgramLearningObjective (EducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC);
-
 ALTER TABLE edfi.ProgramLearningStandard ADD CONSTRAINT FK_44f909_LearningStandard FOREIGN KEY (LearningStandardId)
 REFERENCES edfi.LearningStandard (LearningStandardId)
 ;
@@ -3970,21 +3827,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_44f909_Program
 ON edfi.ProgramLearningStandard (EducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC);
-
-ALTER TABLE edfi.ProgramService ADD CONSTRAINT FK_e943d3_Program FOREIGN KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
-REFERENCES edfi.Program (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_e943d3_Program
-ON edfi.ProgramService (EducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC);
-
-ALTER TABLE edfi.ProgramService ADD CONSTRAINT FK_e943d3_ServiceDescriptor FOREIGN KEY (ServiceDescriptorId)
-REFERENCES edfi.ServiceDescriptor (ServiceDescriptorId)
-;
-
-CREATE INDEX FK_e943d3_ServiceDescriptor
-ON edfi.ProgramService (ServiceDescriptorId ASC);
 
 ALTER TABLE edfi.ProgramSponsor ADD CONSTRAINT FK_4c38bb_Program FOREIGN KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
 REFERENCES edfi.Program (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
@@ -4157,21 +3999,6 @@ REFERENCES edfi.StudentCompetencyObjective (GradingPeriodDescriptorId, GradingPe
 
 CREATE INDEX FK_c16d6c_StudentCompetencyObjective
 ON edfi.ReportCardStudentCompetencyObjective (GradingPeriodDescriptorId ASC, GradingPeriodSchoolId ASC, GradingPeriodSchoolYear ASC, GradingPeriodSequence ASC, Objective ASC, ObjectiveEducationOrganizationId ASC, ObjectiveGradeLevelDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.ReportCardStudentLearningObjective ADD CONSTRAINT FK_c098ce_ReportCard FOREIGN KEY (EducationOrganizationId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, StudentUSI)
-REFERENCES edfi.ReportCard (EducationOrganizationId, GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_c098ce_ReportCard
-ON edfi.ReportCardStudentLearningObjective (EducationOrganizationId ASC, GradingPeriodDescriptorId ASC, GradingPeriodSchoolId ASC, GradingPeriodSchoolYear ASC, GradingPeriodSequence ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.ReportCardStudentLearningObjective ADD CONSTRAINT FK_c098ce_StudentLearningObjective FOREIGN KEY (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LearningObjectiveId, Namespace, StudentUSI)
-REFERENCES edfi.StudentLearningObjective (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LearningObjectiveId, Namespace, StudentUSI)
-;
-
-CREATE INDEX FK_c098ce_StudentLearningObjective
-ON edfi.ReportCardStudentLearningObjective (GradingPeriodDescriptorId ASC, GradingPeriodSchoolId ASC, GradingPeriodSchoolYear ASC, GradingPeriodSequence ASC, LearningObjectiveId ASC, Namespace ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.ReporterDescriptionDescriptor ADD CONSTRAINT FK_62c0d2_Descriptor FOREIGN KEY (ReporterDescriptionDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -4669,13 +4496,6 @@ REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
 
 CREATE INDEX FK_681927_LevelOfEducationDescriptor
 ON edfi.Staff (HighestCompletedLevelOfEducationDescriptorId ASC);
-
-ALTER TABLE edfi.Staff ADD CONSTRAINT FK_681927_OldEthnicityDescriptor FOREIGN KEY (OldEthnicityDescriptorId)
-REFERENCES edfi.OldEthnicityDescriptor (OldEthnicityDescriptorId)
-;
-
-CREATE INDEX FK_681927_OldEthnicityDescriptor
-ON edfi.Staff (OldEthnicityDescriptorId ASC);
 
 ALTER TABLE edfi.Staff ADD CONSTRAINT FK_681927_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
@@ -5931,21 +5751,6 @@ REFERENCES edfi.TechnicalSkillsAssessmentDescriptor (TechnicalSkillsAssessmentDe
 CREATE INDEX FK_000ac5_TechnicalSkillsAssessmentDescriptor
 ON edfi.StudentCTEProgramAssociation (TechnicalSkillsAssessmentDescriptorId ASC);
 
-ALTER TABLE edfi.StudentCTEProgramAssociationCTEProgram ADD CONSTRAINT FK_ee50f2_CareerPathwayDescriptor FOREIGN KEY (CareerPathwayDescriptorId)
-REFERENCES edfi.CareerPathwayDescriptor (CareerPathwayDescriptorId)
-;
-
-CREATE INDEX FK_ee50f2_CareerPathwayDescriptor
-ON edfi.StudentCTEProgramAssociationCTEProgram (CareerPathwayDescriptorId ASC);
-
-ALTER TABLE edfi.StudentCTEProgramAssociationCTEProgram ADD CONSTRAINT FK_ee50f2_StudentCTEProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-REFERENCES edfi.StudentCTEProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_ee50f2_StudentCTEProgramAssociation
-ON edfi.StudentCTEProgramAssociationCTEProgram (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
-
 ALTER TABLE edfi.StudentCTEProgramAssociationCTEProgramService ADD CONSTRAINT FK_1bab8a_CTEProgramServiceDescriptor FOREIGN KEY (CTEProgramServiceDescriptorId)
 REFERENCES edfi.CTEProgramServiceDescriptor (CTEProgramServiceDescriptorId)
 ;
@@ -5960,57 +5765,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_1bab8a_StudentCTEProgramAssociation
 ON edfi.StudentCTEProgramAssociationCTEProgramService (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentCTEProgramAssociationService ADD CONSTRAINT FK_eb5c90_ServiceDescriptor FOREIGN KEY (ServiceDescriptorId)
-REFERENCES edfi.ServiceDescriptor (ServiceDescriptorId)
-;
-
-CREATE INDEX FK_eb5c90_ServiceDescriptor
-ON edfi.StudentCTEProgramAssociationService (ServiceDescriptorId ASC);
-
-ALTER TABLE edfi.StudentCTEProgramAssociationService ADD CONSTRAINT FK_eb5c90_StudentCTEProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-REFERENCES edfi.StudentCTEProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_eb5c90_StudentCTEProgramAssociation
-ON edfi.StudentCTEProgramAssociationService (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD CONSTRAINT FK_679174_DisciplineIncident FOREIGN KEY (IncidentIdentifier, SchoolId)
-REFERENCES edfi.DisciplineIncident (IncidentIdentifier, SchoolId)
-;
-
-CREATE INDEX FK_679174_DisciplineIncident
-ON edfi.StudentDisciplineIncidentAssociation (IncidentIdentifier ASC, SchoolId ASC);
-
-ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD CONSTRAINT FK_679174_Student FOREIGN KEY (StudentUSI)
-REFERENCES edfi.Student (StudentUSI)
-;
-
-CREATE INDEX FK_679174_Student
-ON edfi.StudentDisciplineIncidentAssociation (StudentUSI ASC);
-
-ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD CONSTRAINT FK_679174_StudentParticipationCodeDescriptor FOREIGN KEY (StudentParticipationCodeDescriptorId)
-REFERENCES edfi.StudentParticipationCodeDescriptor (StudentParticipationCodeDescriptorId)
-;
-
-CREATE INDEX FK_679174_StudentParticipationCodeDescriptor
-ON edfi.StudentDisciplineIncidentAssociation (StudentParticipationCodeDescriptorId ASC);
-
-ALTER TABLE edfi.StudentDisciplineIncidentAssociationBehavior ADD CONSTRAINT FK_b43eed_BehaviorDescriptor FOREIGN KEY (BehaviorDescriptorId)
-REFERENCES edfi.BehaviorDescriptor (BehaviorDescriptorId)
-;
-
-CREATE INDEX FK_b43eed_BehaviorDescriptor
-ON edfi.StudentDisciplineIncidentAssociationBehavior (BehaviorDescriptorId ASC);
-
-ALTER TABLE edfi.StudentDisciplineIncidentAssociationBehavior ADD CONSTRAINT FK_b43eed_StudentDisciplineIncidentAssociation FOREIGN KEY (IncidentIdentifier, SchoolId, StudentUSI)
-REFERENCES edfi.StudentDisciplineIncidentAssociation (IncidentIdentifier, SchoolId, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_b43eed_StudentDisciplineIncidentAssociation
-ON edfi.StudentDisciplineIncidentAssociationBehavior (IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_f4934f_BehaviorDescriptor FOREIGN KEY (BehaviorDescriptorId)
 REFERENCES edfi.BehaviorDescriptor (BehaviorDescriptorId)
@@ -6111,13 +5865,6 @@ REFERENCES edfi.LimitedEnglishProficiencyDescriptor (LimitedEnglishProficiencyDe
 
 CREATE INDEX FK_8e1257_LimitedEnglishProficiencyDescriptor
 ON edfi.StudentEducationOrganizationAssociation (LimitedEnglishProficiencyDescriptorId ASC);
-
-ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_OldEthnicityDescriptor FOREIGN KEY (OldEthnicityDescriptorId)
-REFERENCES edfi.OldEthnicityDescriptor (OldEthnicityDescriptorId)
-;
-
-CREATE INDEX FK_8e1257_OldEthnicityDescriptor
-ON edfi.StudentEducationOrganizationAssociation (OldEthnicityDescriptorId ASC);
 
 ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_PrimaryLearningDeviceAccessDescriptor FOREIGN KEY (PrimaryLearningDeviceAccessDescriptorId)
 REFERENCES edfi.PrimaryLearningDeviceAccessDescriptor (PrimaryLearningDeviceAccessDescriptorId)
@@ -6338,36 +6085,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_2e333a_StudentEducationOrganizationAssociationLanguage
 ON edfi.StudentEducationOrganizationAssociationLanguageUse (EducationOrganizationId ASC, LanguageDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentEducationOrganizationAssociationProgramParticipat_810575 ADD CONSTRAINT FK_810575_ProgramCharacteristicDescriptor FOREIGN KEY (ProgramCharacteristicDescriptorId)
-REFERENCES edfi.ProgramCharacteristicDescriptor (ProgramCharacteristicDescriptorId)
-;
-
-CREATE INDEX FK_810575_ProgramCharacteristicDescriptor
-ON edfi.StudentEducationOrganizationAssociationProgramParticipat_810575 (ProgramCharacteristicDescriptorId ASC);
-
-ALTER TABLE edfi.StudentEducationOrganizationAssociationProgramParticipat_810575 ADD CONSTRAINT FK_810575_StudentEducationOrganizationAssociationProgramParticipation FOREIGN KEY (EducationOrganizationId, ProgramTypeDescriptorId, StudentUSI)
-REFERENCES edfi.StudentEducationOrganizationAssociationProgramParticipation (EducationOrganizationId, ProgramTypeDescriptorId, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_810575_StudentEducationOrganizationAssociationProgramParticipation
-ON edfi.StudentEducationOrganizationAssociationProgramParticipat_810575 (EducationOrganizationId ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentEducationOrganizationAssociationProgramParticipation ADD CONSTRAINT FK_5c2c98_ProgramTypeDescriptor FOREIGN KEY (ProgramTypeDescriptorId)
-REFERENCES edfi.ProgramTypeDescriptor (ProgramTypeDescriptorId)
-;
-
-CREATE INDEX FK_5c2c98_ProgramTypeDescriptor
-ON edfi.StudentEducationOrganizationAssociationProgramParticipation (ProgramTypeDescriptorId ASC);
-
-ALTER TABLE edfi.StudentEducationOrganizationAssociationProgramParticipation ADD CONSTRAINT FK_5c2c98_StudentEducationOrganizationAssociation FOREIGN KEY (EducationOrganizationId, StudentUSI)
-REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_5c2c98_StudentEducationOrganizationAssociation
-ON edfi.StudentEducationOrganizationAssociationProgramParticipation (EducationOrganizationId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentEducationOrganizationAssociationRace ADD CONSTRAINT FK_a6a1f0_RaceDescriptor FOREIGN KEY (RaceDescriptorId)
 REFERENCES edfi.RaceDescriptor (RaceDescriptorId)
@@ -6733,65 +6450,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_268e07_StudentLanguageInstructionProgramAssociation
 ON edfi.StudentLanguageInstructionProgramAssociationLanguageInst_268e07 (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentLearningObjective ADD CONSTRAINT FK_baaa9d_CompetencyLevelDescriptor FOREIGN KEY (CompetencyLevelDescriptorId)
-REFERENCES edfi.CompetencyLevelDescriptor (CompetencyLevelDescriptorId)
-;
-
-CREATE INDEX FK_baaa9d_CompetencyLevelDescriptor
-ON edfi.StudentLearningObjective (CompetencyLevelDescriptorId ASC);
-
-ALTER TABLE edfi.StudentLearningObjective ADD CONSTRAINT FK_baaa9d_GradingPeriod FOREIGN KEY (GradingPeriodDescriptorId, GradingPeriodSequence, GradingPeriodSchoolId, GradingPeriodSchoolYear)
-REFERENCES edfi.GradingPeriod (GradingPeriodDescriptorId, PeriodSequence, SchoolId, SchoolYear)
-;
-
-CREATE INDEX FK_baaa9d_GradingPeriod
-ON edfi.StudentLearningObjective (GradingPeriodDescriptorId ASC, GradingPeriodSequence ASC, GradingPeriodSchoolId ASC, GradingPeriodSchoolYear ASC);
-
-ALTER TABLE edfi.StudentLearningObjective ADD CONSTRAINT FK_baaa9d_LearningObjective FOREIGN KEY (LearningObjectiveId, Namespace)
-REFERENCES edfi.LearningObjective (LearningObjectiveId, Namespace)
-;
-
-CREATE INDEX FK_baaa9d_LearningObjective
-ON edfi.StudentLearningObjective (LearningObjectiveId ASC, Namespace ASC);
-
-ALTER TABLE edfi.StudentLearningObjective ADD CONSTRAINT FK_baaa9d_Student FOREIGN KEY (StudentUSI)
-REFERENCES edfi.Student (StudentUSI)
-;
-
-CREATE INDEX FK_baaa9d_Student
-ON edfi.StudentLearningObjective (StudentUSI ASC);
-
-ALTER TABLE edfi.StudentLearningObjectiveGeneralStudentProgramAssociation ADD CONSTRAINT FK_1c30e0_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-;
-
-CREATE INDEX FK_1c30e0_GeneralStudentProgramAssociation
-ON edfi.StudentLearningObjectiveGeneralStudentProgramAssociation (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentLearningObjectiveGeneralStudentProgramAssociation ADD CONSTRAINT FK_1c30e0_StudentLearningObjective FOREIGN KEY (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LearningObjectiveId, Namespace, StudentUSI)
-REFERENCES edfi.StudentLearningObjective (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LearningObjectiveId, Namespace, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_1c30e0_StudentLearningObjective
-ON edfi.StudentLearningObjectiveGeneralStudentProgramAssociation (GradingPeriodDescriptorId ASC, GradingPeriodSchoolId ASC, GradingPeriodSchoolYear ASC, GradingPeriodSequence ASC, LearningObjectiveId ASC, Namespace ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentLearningObjectiveStudentSectionAssociation ADD CONSTRAINT FK_d2c8a9_StudentLearningObjective FOREIGN KEY (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LearningObjectiveId, Namespace, StudentUSI)
-REFERENCES edfi.StudentLearningObjective (GradingPeriodDescriptorId, GradingPeriodSchoolId, GradingPeriodSchoolYear, GradingPeriodSequence, LearningObjectiveId, Namespace, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_d2c8a9_StudentLearningObjective
-ON edfi.StudentLearningObjectiveStudentSectionAssociation (GradingPeriodDescriptorId ASC, GradingPeriodSchoolId ASC, GradingPeriodSchoolYear ASC, GradingPeriodSequence ASC, LearningObjectiveId ASC, Namespace ASC, StudentUSI ASC);
-
-ALTER TABLE edfi.StudentLearningObjectiveStudentSectionAssociation ADD CONSTRAINT FK_d2c8a9_StudentSectionAssociation FOREIGN KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
-REFERENCES edfi.StudentSectionAssociation (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
-ON UPDATE CASCADE
-;
-
-CREATE INDEX FK_d2c8a9_StudentSectionAssociation
-ON edfi.StudentLearningObjectiveStudentSectionAssociation (BeginDate ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentMigrantEducationProgramAssociation ADD CONSTRAINT FK_85e741_ContinuationOfServicesReasonDescriptor FOREIGN KEY (ContinuationOfServicesReasonDescriptorId)
 REFERENCES edfi.ContinuationOfServicesReasonDescriptor (ContinuationOfServicesReasonDescriptorId)
@@ -7348,6 +7006,55 @@ ON DELETE CASCADE
 CREATE INDEX FK_bcba5c_StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9
 ON edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_bcba5c (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, SpecialEducationProgramServiceDescriptorId ASC, StudentUSI ASC);
 
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_fcb699_EducationOrganization
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (EducationOrganizationId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_EligibilityDelayReasonDescriptor FOREIGN KEY (EligibilityDelayReasonDescriptorId)
+REFERENCES edfi.EligibilityDelayReasonDescriptor (EligibilityDelayReasonDescriptorId)
+;
+
+CREATE INDEX FK_fcb699_EligibilityDelayReasonDescriptor
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (EligibilityDelayReasonDescriptorId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_EligibilityEvaluationTypeDescriptor FOREIGN KEY (EligibilityEvaluationTypeDescriptorId)
+REFERENCES edfi.EligibilityEvaluationTypeDescriptor (EligibilityEvaluationTypeDescriptorId)
+;
+
+CREATE INDEX FK_fcb699_EligibilityEvaluationTypeDescriptor
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (EligibilityEvaluationTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_EvaluationDelayReasonDescriptor FOREIGN KEY (EvaluationDelayReasonDescriptorId)
+REFERENCES edfi.EvaluationDelayReasonDescriptor (EvaluationDelayReasonDescriptorId)
+;
+
+CREATE INDEX FK_fcb699_EvaluationDelayReasonDescriptor
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (EvaluationDelayReasonDescriptorId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_IDEAPartDescriptor FOREIGN KEY (IDEAPartDescriptorId)
+REFERENCES edfi.IDEAPartDescriptor (IDEAPartDescriptorId)
+;
+
+CREATE INDEX FK_fcb699_IDEAPartDescriptor
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (IDEAPartDescriptorId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_Program FOREIGN KEY (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
+REFERENCES edfi.Program (EducationOrganizationId, ProgramName, ProgramTypeDescriptorId)
+;
+
+CREATE INDEX FK_fcb699_Program
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (EducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentSpecialEducationProgramEligibilityAssociation ADD CONSTRAINT FK_fcb699_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_fcb699_Student
+ON edfi.StudentSpecialEducationProgramEligibilityAssociation (StudentUSI ASC);
+
 ALTER TABLE edfi.StudentTitleIPartAProgramAssociation ADD CONSTRAINT FK_27d914_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE
@@ -7359,21 +7066,6 @@ REFERENCES edfi.TitleIPartAParticipantDescriptor (TitleIPartAParticipantDescript
 
 CREATE INDEX FK_27d914_TitleIPartAParticipantDescriptor
 ON edfi.StudentTitleIPartAProgramAssociation (TitleIPartAParticipantDescriptorId ASC);
-
-ALTER TABLE edfi.StudentTitleIPartAProgramAssociationService ADD CONSTRAINT FK_7d2fb4_ServiceDescriptor FOREIGN KEY (ServiceDescriptorId)
-REFERENCES edfi.ServiceDescriptor (ServiceDescriptorId)
-;
-
-CREATE INDEX FK_7d2fb4_ServiceDescriptor
-ON edfi.StudentTitleIPartAProgramAssociationService (ServiceDescriptorId ASC);
-
-ALTER TABLE edfi.StudentTitleIPartAProgramAssociationService ADD CONSTRAINT FK_7d2fb4_StudentTitleIPartAProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-REFERENCES edfi.StudentTitleIPartAProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_7d2fb4_StudentTitleIPartAProgramAssociation
-ON edfi.StudentTitleIPartAProgramAssociationService (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService ADD CONSTRAINT FK_8adb29_StudentTitleIPartAProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.StudentTitleIPartAProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)

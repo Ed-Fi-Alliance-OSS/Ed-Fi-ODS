@@ -309,14 +309,6 @@ ALTER TABLE [edfi].[InterventionStudy] ADD CONSTRAINT InterventionStudy_DF_Chang
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LearningObjective]') AND name = 'ChangeVersion')
-BEGIN
-ALTER TABLE [edfi].[LearningObjective] ADD [ChangeVersion] [BIGINT] CONSTRAINT LearningObjective_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[LearningObjective] DROP CONSTRAINT LearningObjective_DF_ChangeVersion;
-ALTER TABLE [edfi].[LearningObjective] ADD CONSTRAINT LearningObjective_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
-END
-
-
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[LearningStandard]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[LearningStandard] ADD [ChangeVersion] [BIGINT] CONSTRAINT LearningStandard_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -661,14 +653,6 @@ ALTER TABLE [edfi].[StudentCompetencyObjective] ADD CONSTRAINT StudentCompetency
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentDisciplineIncidentAssociation]') AND name = 'ChangeVersion')
-BEGIN
-ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentDisciplineIncidentAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] DROP CONSTRAINT StudentDisciplineIncidentAssociation_DF_ChangeVersion;
-ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] ADD CONSTRAINT StudentDisciplineIncidentAssociation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
-END
-
-
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentDisciplineIncidentBehaviorAssociation]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentDisciplineIncidentBehaviorAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -725,14 +709,6 @@ ALTER TABLE [edfi].[StudentInterventionAttendanceEvent] ADD CONSTRAINT StudentIn
 END
 
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentLearningObjective]') AND name = 'ChangeVersion')
-BEGIN
-ALTER TABLE [edfi].[StudentLearningObjective] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentLearningObjective_DF_ChangeVersion DEFAULT (0) NOT NULL;
-ALTER TABLE [edfi].[StudentLearningObjective] DROP CONSTRAINT StudentLearningObjective_DF_ChangeVersion;
-ALTER TABLE [edfi].[StudentLearningObjective] ADD CONSTRAINT StudentLearningObjective_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
-END
-
-
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentParentAssociation]') AND name = 'ChangeVersion')
 BEGIN
 ALTER TABLE [edfi].[StudentParentAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentParentAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
@@ -778,6 +754,14 @@ BEGIN
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentSectionAttendanceEvent_DF_ChangeVersion DEFAULT (0) NOT NULL;
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] DROP CONSTRAINT StudentSectionAttendanceEvent_DF_ChangeVersion;
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] ADD CONSTRAINT StudentSectionAttendanceEvent_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
+END
+
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[StudentSpecialEducationProgramEligibilityAssociation]') AND name = 'ChangeVersion')
+BEGIN
+ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ADD [ChangeVersion] [BIGINT] CONSTRAINT StudentSpecialEducationProgramEligibilityAssociation_DF_ChangeVersion DEFAULT (0) NOT NULL;
+ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] DROP CONSTRAINT StudentSpecialEducationProgramEligibilityAssociation_DF_ChangeVersion;
+ALTER TABLE [edfi].[StudentSpecialEducationProgramEligibilityAssociation] ADD CONSTRAINT StudentSpecialEducationProgramEligibilityAssociation_DF_ChangeVersion DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) For [ChangeVersion];
 END
 
 

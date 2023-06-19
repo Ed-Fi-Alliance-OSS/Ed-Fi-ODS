@@ -620,19 +620,6 @@ CREATE TABLE [tracked_changes_edfi].[InterventionStudy]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_InterventionStudy PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[LearningObjective]'))
-CREATE TABLE [tracked_changes_edfi].[LearningObjective]
-(
-       OldLearningObjectiveId [NVARCHAR](60) NOT NULL,
-       OldNamespace [NVARCHAR](255) NOT NULL,
-       NewLearningObjectiveId [NVARCHAR](60) NULL,
-       NewNamespace [NVARCHAR](255) NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       Discriminator [NVARCHAR](128) NULL,
-       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_LearningObjective PRIMARY KEY CLUSTERED (ChangeVersion)
-)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[LearningStandard]'))
 CREATE TABLE [tracked_changes_edfi].[LearningStandard]
 (
@@ -1414,23 +1401,6 @@ CREATE TABLE [tracked_changes_edfi].[StudentCompetencyObjective]
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentCompetencyObjective PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentDisciplineIncidentAssociation]'))
-CREATE TABLE [tracked_changes_edfi].[StudentDisciplineIncidentAssociation]
-(
-       OldIncidentIdentifier [NVARCHAR](36) NOT NULL,
-       OldSchoolId [INT] NOT NULL,
-       OldStudentUSI [INT] NOT NULL,
-       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
-       NewIncidentIdentifier [NVARCHAR](36) NULL,
-       NewSchoolId [INT] NULL,
-       NewStudentUSI [INT] NULL,
-       NewStudentUniqueId [NVARCHAR](32) NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       Discriminator [NVARCHAR](128) NULL,
-       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_StudentDisciplineIncidentAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentDisciplineIncidentBehaviorAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentDisciplineIncidentBehaviorAssociation]
 (
@@ -1567,35 +1537,6 @@ CREATE TABLE [tracked_changes_edfi].[StudentInterventionAttendanceEvent]
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentInterventionAttendanceEvent PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentLearningObjective]'))
-CREATE TABLE [tracked_changes_edfi].[StudentLearningObjective]
-(
-       OldGradingPeriodDescriptorId [INT] NOT NULL,
-       OldGradingPeriodDescriptorNamespace [NVARCHAR](255) NOT NULL,
-       OldGradingPeriodDescriptorCodeValue [NVARCHAR](50) NOT NULL,
-       OldGradingPeriodSchoolId [INT] NOT NULL,
-       OldGradingPeriodSchoolYear [SMALLINT] NOT NULL,
-       OldGradingPeriodSequence [INT] NOT NULL,
-       OldLearningObjectiveId [NVARCHAR](60) NOT NULL,
-       OldNamespace [NVARCHAR](255) NOT NULL,
-       OldStudentUSI [INT] NOT NULL,
-       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
-       NewGradingPeriodDescriptorId [INT] NULL,
-       NewGradingPeriodDescriptorNamespace [NVARCHAR](255) NULL,
-       NewGradingPeriodDescriptorCodeValue [NVARCHAR](50) NULL,
-       NewGradingPeriodSchoolId [INT] NULL,
-       NewGradingPeriodSchoolYear [SMALLINT] NULL,
-       NewGradingPeriodSequence [INT] NULL,
-       NewLearningObjectiveId [NVARCHAR](60) NULL,
-       NewNamespace [NVARCHAR](255) NULL,
-       NewStudentUSI [INT] NULL,
-       NewStudentUniqueId [NVARCHAR](32) NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       Discriminator [NVARCHAR](128) NULL,
-       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT PK_StudentLearningObjective PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentParentAssociation]'))
 CREATE TABLE [tracked_changes_edfi].[StudentParentAssociation]
@@ -1746,6 +1687,31 @@ CREATE TABLE [tracked_changes_edfi].[StudentSectionAttendanceEvent]
        Discriminator [NVARCHAR](128) NULL,
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
        CONSTRAINT PK_StudentSectionAttendanceEvent PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentSpecialEducationProgramEligibilityAssociation]'))
+CREATE TABLE [tracked_changes_edfi].[StudentSpecialEducationProgramEligibilityAssociation]
+(
+       OldConsentToEvaluationReceivedDate [DATE] NOT NULL,
+       OldEducationOrganizationId [INT] NOT NULL,
+       OldProgramName [NVARCHAR](60) NOT NULL,
+       OldProgramTypeDescriptorId [INT] NOT NULL,
+       OldProgramTypeDescriptorNamespace [NVARCHAR](255) NOT NULL,
+       OldProgramTypeDescriptorCodeValue [NVARCHAR](50) NOT NULL,
+       OldStudentUSI [INT] NOT NULL,
+       OldStudentUniqueId [NVARCHAR](32) NOT NULL,
+       NewConsentToEvaluationReceivedDate [DATE] NULL,
+       NewEducationOrganizationId [INT] NULL,
+       NewProgramName [NVARCHAR](60) NULL,
+       NewProgramTypeDescriptorId [INT] NULL,
+       NewProgramTypeDescriptorNamespace [NVARCHAR](255) NULL,
+       NewProgramTypeDescriptorCodeValue [NVARCHAR](50) NULL,
+       NewStudentUSI [INT] NULL,
+       NewStudentUniqueId [NVARCHAR](32) NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       Discriminator [NVARCHAR](128) NULL,
+       CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
+       CONSTRAINT PK_StudentSpecialEducationProgramEligibilityAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[Survey]'))
 CREATE TABLE [tracked_changes_edfi].[Survey]
