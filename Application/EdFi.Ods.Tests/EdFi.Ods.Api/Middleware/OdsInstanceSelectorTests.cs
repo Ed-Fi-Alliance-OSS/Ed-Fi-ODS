@@ -83,10 +83,10 @@ namespace EdFi.Ods.Api.Middleware.Tests
         }
 
         [Test]
-        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiKeyContextHasMoreThanOneOdsInstanceId_AndOneMatchingRouteKeyAndValue()
+        public async Task GetOdsInstanceAsync_ReturnsOdsInstanceConfiguration_WhenApiKeyContextHasMoreThanOneOdsInstanceId_AndOneMatchingAllContextValues()
         {
             // Arrange
-            var odsInstanceIds = new[] { 1, 2 };
+            var odsInstanceIds = new[] { 1, 2, 3 };
 
             var apiKeyContext = CreateApiKeyContext(odsInstanceIds);
 
@@ -94,21 +94,30 @@ namespace EdFi.Ods.Api.Middleware.Tests
                 1,
                 1UL,
                 "TheConnectionString",
-                new Dictionary<string, string> { { "schoolYear", "2022" } },
+                new Dictionary<string, string> { { "schoolYear", "2022" }, { "secondKey", "Abc" } },
                 new Dictionary<DerivativeType, string>());
 
             var odsInstanceConfiguration_2 = new OdsInstanceConfiguration(
                 2,
                 2UL,
                 "TheConnectionString",
-                new Dictionary<string, string> { { "schoolYear", "2023"} },
+                new Dictionary<string, string> { { "schoolYear", "2022"}, { "secondKey", "Xyz" } },
+                new Dictionary<DerivativeType, string>());
+
+            var odsInstanceConfiguration_3 = new OdsInstanceConfiguration(
+                3,
+                3UL,
+                "TheConnectionString",
+                new Dictionary<string, string> { { "schoolYear", "2023"}, { "secondKey", "Abc" } },
                 new Dictionary<DerivativeType, string>());
 
             A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(3)).Returns(odsInstanceConfiguration_3);
 
-            _routeValueDictionary.Add("schoolYear", "2023");
+            _routeValueDictionary.Add("schoolYear", "2022");
+            _routeValueDictionary.Add("secondKey", "Xyz");
 
             // Act
             var result = await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary);
@@ -116,12 +125,14 @@ namespace EdFi.Ods.Api.Middleware.Tests
             // Assert
             result.ShouldBe(odsInstanceConfiguration_2);
         }
-
-        [Test]
-        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiKeyContextHasMultipleOdsInstanceIds_AndNoMatchingRouteKeyAndValue()
+        
+        [TestCase("2022", "NoMatch")]
+        [TestCase("2024", "Abc")]
+        public async Task GetOdsInstanceAsync_ReturnsNotFoundException_WhenApiKeyContextHasMultipleOdsInstanceIds_AndNoneMatchingAllContextValues(
+            string schoolYearRouteValue, string secondKeyRouteValue)
         {
             // Arrange
-            var odsInstanceIds = new[] { 1, 2 };
+            var odsInstanceIds = new[] { 1, 2, 3 };
 
             var apiKeyContext = CreateApiKeyContext(odsInstanceIds);
 
@@ -129,25 +140,33 @@ namespace EdFi.Ods.Api.Middleware.Tests
                 1,
                 1UL,
                 "TheConnectionString",
-                new Dictionary<string, string> { { "schoolYear", "2022" } },
+                new Dictionary<string, string> { { "schoolYear", "2022" }, { "secondKey", "Abc" } },
                 new Dictionary<DerivativeType, string>());
 
             var odsInstanceConfiguration_2 = new OdsInstanceConfiguration(
                 2,
                 2UL,
                 "TheConnectionString",
-                new Dictionary<string, string> { { "schoolYear", "2023" } },
+                new Dictionary<string, string> { { "schoolYear", "2022"}, { "secondKey", "Xyz" } },
+                new Dictionary<DerivativeType, string>());
+
+            var odsInstanceConfiguration_3 = new OdsInstanceConfiguration(
+                3,
+                3UL,
+                "TheConnectionString",
+                new Dictionary<string, string> { { "schoolYear", "2023"}, { "secondKey", "Abc" } },
                 new Dictionary<DerivativeType, string>());
 
             A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(1)).Returns(odsInstanceConfiguration_1);
             A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(2)).Returns(odsInstanceConfiguration_2);
+            A.CallTo(() => _odsInstanceConfigurationProvider.GetByIdAsync(3)).Returns(odsInstanceConfiguration_3);
 
-            _routeValueDictionary.Add("schoolYear", "2024");
+            _routeValueDictionary.Add("schoolYear", schoolYearRouteValue);
+            _routeValueDictionary.Add("secondKey", secondKeyRouteValue);
 
             // Act & Assert
              Assert.ThrowsAsync<NotFoundException>(async () => await _odsInstanceSelector.GetOdsInstanceAsync(_routeValueDictionary));
-
         }
 
         private static ApiKeyContext CreateApiKeyContext(params int[] odsInstanceIds)
